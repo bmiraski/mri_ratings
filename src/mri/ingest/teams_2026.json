@@ -1,0 +1,93 @@
+{
+  "season": 2026,
+  "note": "138 FBS teams: 10 conferences plus 2 independents. Conference assignments reflect the 2026 realignment (Pac-12 rebuild, UTEP/NIU/North Dakota State to the Mountain West, Sacramento State to the MAC, Louisiana Tech to the Sun Belt). Aliases map historical MRI workbook spellings onto the current canonical name so the 2003-2019 archive joins cleanly.",
+  "conferences": {
+    "ACC": {
+      "display": "ACC",
+      "tier": "power",
+      "teams": ["Boston College", "California", "Clemson", "Duke", "Florida State", "Georgia Tech", "Louisville", "Miami (FL)", "North Carolina", "NC State", "Pittsburgh", "SMU", "Stanford", "Syracuse", "Virginia", "Virginia Tech", "Wake Forest"]
+    },
+    "Big Ten": {
+      "display": "Big Ten",
+      "tier": "power",
+      "teams": ["Illinois", "Indiana", "Iowa", "Maryland", "Michigan", "Michigan State", "Minnesota", "Nebraska", "Northwestern", "Ohio State", "Oregon", "Penn State", "Purdue", "Rutgers", "UCLA", "USC", "Washington", "Wisconsin"]
+    },
+    "Big 12": {
+      "display": "Big 12",
+      "tier": "power",
+      "teams": ["Arizona", "Arizona State", "Baylor", "BYU", "Cincinnati", "Colorado", "Houston", "Iowa State", "Kansas", "Kansas State", "Oklahoma State", "TCU", "Texas Tech", "UCF", "Utah", "West Virginia"]
+    },
+    "SEC": {
+      "display": "SEC",
+      "tier": "power",
+      "teams": ["Alabama", "Arkansas", "Auburn", "Florida", "Georgia", "Kentucky", "LSU", "Mississippi State", "Missouri", "Oklahoma", "Ole Miss", "South Carolina", "Tennessee", "Texas", "Texas A&M", "Vanderbilt"]
+    },
+    "American": {
+      "display": "American",
+      "tier": "group",
+      "teams": ["Army", "Charlotte", "East Carolina", "Florida Atlantic", "Memphis", "Navy", "North Texas", "Rice", "Temple", "Tulane", "Tulsa", "UAB", "USF", "UTSA"]
+    },
+    "Conference USA": {
+      "display": "Conference USA",
+      "tier": "group",
+      "teams": ["Delaware", "FIU", "Jacksonville State", "Kennesaw State", "Liberty", "Middle Tennessee", "Missouri State", "New Mexico State", "Sam Houston", "Western Kentucky"]
+    },
+    "MAC": {
+      "display": "MAC",
+      "tier": "group",
+      "teams": ["Akron", "Ball State", "Bowling Green", "Buffalo", "Central Michigan", "Eastern Michigan", "Kent State", "Miami (OH)", "Ohio", "Sacramento State", "Toledo", "UMass", "Western Michigan"]
+    },
+    "Mountain West": {
+      "display": "Mountain West",
+      "tier": "group",
+      "teams": ["Air Force", "Hawaii", "Nevada", "New Mexico", "North Dakota State", "Northern Illinois", "San Jose State", "UNLV", "UTEP", "Wyoming"]
+    },
+    "Pac-12": {
+      "display": "Pac-12",
+      "tier": "group",
+      "teams": ["Boise State", "Colorado State", "Fresno State", "Oregon State", "San Diego State", "Texas State", "Utah State", "Washington State"]
+    },
+    "Sun Belt": {
+      "display": "Sun Belt",
+      "tier": "group",
+      "teams": ["Appalachian State", "Arkansas State", "Coastal Carolina", "Georgia Southern", "Georgia State", "James Madison", "Louisiana", "Louisiana-Monroe", "Louisiana Tech", "Marshall", "Old Dominion", "South Alabama", "Southern Miss", "Troy"]
+    },
+    "Independent": {
+      "display": "FBS Independent",
+      "tier": "independent",
+      "teams": ["Notre Dame", "UConn"]
+    }
+  },
+  "aliases": {
+    "Cal": "California",
+    "Central Florida": "UCF",
+    "Connecticut": "UConn",
+    "Florida International": "FIU",
+    "Louisiana-Lafayette": "Louisiana",
+    "Middle Tenn. St": "Middle Tennessee",
+    "Miami": "Miami (FL)",
+    "Miami (Ohio)": "Miami (OH)",
+    "Mississippi": "Ole Miss",
+    "North Carolina State": "NC State",
+    "South Florida": "USF",
+    "Southern Mississippi": "Southern Miss",
+    "Troy State": "Troy",
+    "Massachusetts": "UMass",
+    "Louisiana Monroe": "Louisiana-Monroe",
+    "ULM": "Louisiana-Monroe",
+    "Miami FL": "Miami (FL)",
+    "Miami OH": "Miami (OH)",
+    "Ole Miss": "Ole Miss",
+    "San Jose St": "San Jose State",
+    "Texas-San Antonio": "UTSA",
+    "Texas-El Paso": "UTEP",
+    "Alabama-Birmingham": "UAB",
+    "Nevada-Las Vegas": "UNLV",
+    "Brigham Young": "BYU",
+    "Southern California": "USC"
+  },
+  "departed_fbs": {
+    "Idaho": "returned to FCS after 2017",
+    "Non D1A": "the pooled non-FBS opponent used by MRI Classic; MRI 2.0 rates FCS opponents individually"
+  }
+}
