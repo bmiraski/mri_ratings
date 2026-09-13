@@ -13,7 +13,8 @@ Excel workbook from 2000 through 2019; this is the Python version.
 | **CFBD ingest** | Done. 2020-2026 bridged from the API, cached on disk. |
 | **Rankings site** | Done. 157 pages in `docs/`, served by GitHub Pages at mri.mira.ski. |
 | **Weekly refresh** | Done. GitHub Action rebuilds and commits three times a week. |
-| **Betting module** | Not started. |
+| **Betting module** | Done. Verdict: it does not beat closing lines. See `docs/betting.html`. |
+| **Excel export** | Done. `exports/` carries a live workbook per season, 2020-2026. |
 
 ## The two ratings
 
@@ -139,3 +140,23 @@ repository secret:
     CFBD_API_KEY = your key from collegefootballdata.com/key
 
 Locally, put the same key in `.env` at the repo root (gitignored).
+
+
+## Excel export
+
+`scripts/export_workbooks.py` writes one workbook per season into `exports/`,
+laid out like the 2003-2019 originals so an old file and a new one sit side by
+side without translation. 2020-2025 are the seasons that were never run.
+
+The Classic sheets are **live**: Games holds the results, Team Data aggregates
+them with the original SUMIF web and named ranges, and the MRI column is a
+formula over those aggregates. Correct a score and the season re-rates.
+
+The MRI 2.0 sheet is a **snapshot**. That rating solves every game in the season
+at once as a regularized least-squares system, which a spreadsheet cannot
+express, so it is written as values and the About sheet says so.
+
+Every export is recalculated with LibreOffice and then checked against the
+Python implementation - the sheet's own formulas must reproduce `classic.compute`
+to within 1e-9. A clean recalculation only proves the formulas evaluate; that
+check proves they compute the right thing.
