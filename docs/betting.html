@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Betting — MRI 2026</title>
+<meta name="description" content="What the model says about the market, and how badly it has done.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="mark" href="index.html">The <em>MRI</em></a>
+    <nav>
+      <a href="index.html">Rankings</a>
+      <a href="conferences.html">Conferences</a>
+
+      <a href="betting.html">Betting</a>
+      <a href="archive.html">Archive</a>
+      <a href="method.html">Method</a>
+    </nav>
+    <div class="stamp">2026 &middot; Week 2</div>
+  </div>
+</header>
+<main class="wrap">
+  <article class="prose">
+  <h1>Betting</h1>
+
+  <div class="verdict">
+    <p class="vlead">This model does not beat closing lines.</p>
+    <p>Across <strong>8,248 walk-forward bets</strong> from
+    2014&ndash;2025, it went
+    <strong>50.5%</strong> against the market's number. Break-even at
+    &minus;110 is 52.38%. That is <strong>-324 units</strong>
+    &mdash; not a near miss, a verdict.</p>
+  </div>
+
+  <p>That is the expected result and worth stating first. A closing spread is the
+  sharpest number in sports, and a rating built from final scores is not going to
+  out-argue thousands of people with money at stake. Anyone whose model beats closing
+  lines by a point and a half is either wrong about their backtest or should not be
+  publishing it.</p>
+
+  <h2>Against the number the market opens at</h2>
+  <p>Openers are a different question, because they are posted before the market has
+  digested anything. Here the picture is better but not conclusive:
+  <strong>53.1%</strong> over 1,936 bets
+  (+31 units) across 2023&ndash;2025,
+  the only seasons for which opening lines exist.</p>
+  <p>That carries <strong>p = 0.2559</strong>. It is not significant, and the
+  best individual bucket does not survive correction for the number of buckets examined.
+  Treat it as a hint.</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Disagreement</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody><tr>
+              <td>0-1</td>
+              <td class="num">263</td>
+              <td class="num over">56.7%</td>
+              <td class="num over">+23.6</td>
+              <td class="num">-0.21</td>
+            </tr><tr>
+              <td>1-2</td>
+              <td class="num">290</td>
+              <td class="num over">53.4%</td>
+              <td class="num over">+6.5</td>
+              <td class="num">+0.16</td>
+            </tr><tr>
+              <td>2-3</td>
+              <td class="num">249</td>
+              <td class="num under">50.6%</td>
+              <td class="num under">-9.3</td>
+              <td class="num">-0.03</td>
+            </tr><tr>
+              <td>3-5</td>
+              <td class="num">440</td>
+              <td class="num over">52.7%</td>
+              <td class="num over">+3.2</td>
+              <td class="num">+0.43</td>
+            </tr><tr>
+              <td>5-7</td>
+              <td class="num">308</td>
+              <td class="num under">47.4%</td>
+              <td class="num under">-32.2</td>
+              <td class="num">+0.55</td>
+            </tr><tr>
+              <td>7-10</td>
+              <td class="num">217</td>
+              <td class="num over">58.1%</td>
+              <td class="num over">+25.9</td>
+              <td class="num">+1.33</td>
+            </tr><tr>
+              <td>10+</td>
+              <td class="num">169</td>
+              <td class="num over">56.2%</td>
+              <td class="num over">+13.6</td>
+              <td class="num">+2.72</td>
+            </tr><tr class="total">
+              <td>ALL</td>
+              <td class="num">1936</td>
+              <td class="num over">53.2%</td>
+              <td class="num over">+31.3</td>
+              <td class="num">+0.57</td>
+            </tr></tbody>
+  </table>
+
+  <h2>The one clean signal</h2>
+  <p>Closing line value &mdash; whether the market moves toward your side after you bet
+  &mdash; is the honest early indicator, because it converges in hundreds of bets where
+  win-loss records need thousands. It rises steadily with the size of the disagreement:</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Disagreement</th><th class="num">Bets</th><th class="num">Mean CLV</th>
+    <th class="num">ATS</th></tr></thead>
+    <tbody><tr>
+        <td>0-2 pts</td><td class="num">553</td>
+        <td class="num under">-0.02</td>
+        <td class="num">55.0%</td></tr><tr>
+        <td>2-4 pts</td><td class="num">487</td>
+        <td class="num over">+0.18</td>
+        <td class="num">50.9%</td></tr><tr>
+        <td>4-6 pts</td><td class="num">357</td>
+        <td class="num over">+0.46</td>
+        <td class="num">51.5%</td></tr><tr>
+        <td>6-9 pts</td><td class="num">329</td>
+        <td class="num over">+0.98</td>
+        <td class="num">52.9%</td></tr><tr>
+        <td>9+ pts</td><td class="num">210</td>
+        <td class="num over">+2.51</td>
+        <td class="num">56.7%</td></tr></tbody>
+  </table>
+
+  <p>A dose-response pattern across ordered bins is much harder to produce by chance than
+  one good bucket, and it is positive in all three seasons. It says the market tends to
+  drift toward this model's side after the opener &mdash; which is what genuine information
+  looks like, and is the reason to keep measuring rather than to start betting.</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Season</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody><tr><td>2023</td><td class="num">659</td>
+        <td class="num">54.0%</td>
+        <td class="num over">+22.7</td>
+        <td class="num over">+0.30</td></tr><tr><td>2024</td><td class="num">654</td>
+        <td class="num">51.5%</td>
+        <td class="num under">-11.7</td>
+        <td class="num over">+0.73</td></tr><tr><td>2025</td><td class="num">623</td>
+        <td class="num">53.9%</td>
+        <td class="num over">+20.3</td>
+        <td class="num over">+0.67</td></tr></tbody>
+  </table>
+
+  <h2>How much more would it take to know</h2>
+  <p>To confirm a true 53.5% edge at conventional power would take roughly
+  <strong>12,000 bets</strong> &mdash; about seventeen seasons of betting every game. Even a
+  56% edge would need close to two full seasons. The honest conclusion is that this
+  question cannot be settled from history. It can only be settled forward, which is what
+  the card below is for.</p>
+
+  <h2>This week</h2>
+  <p class="note"><strong>Tracked, not recommended.</strong> These are the largest
+  disagreements with the opening number. They are published so the record accumulates in
+  public, including the losing weeks.</p>
+  <p class="note">1 game(s) set aside because the model has no prior season for one side: North Dakota State. An early-season "edge" against a team the model has never rated is ignorance, not an opinion.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wk</th><th>Game</th><th class="num">Model</th><th class="num">Open</th>
+    <th class="num">Edge</th><th>Side</th></tr></thead>
+    <tbody><tr>
+        <td class="wk">3</td>
+        <td class="opp">North Texas at Texas State</td>
+        <td class="num">-12.8</td>
+        <td class="num">+3.0</td>
+        <td class="num perf under">-15.8</td>
+        <td>North Texas</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Stanford at Duke</td>
+        <td class="num">+25.2</td>
+        <td class="num">+10.0</td>
+        <td class="num perf over">+15.2</td>
+        <td>Duke</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Temple at Toledo</td>
+        <td class="num">+18.7</td>
+        <td class="num">+4.0</td>
+        <td class="num perf over">+14.7</td>
+        <td>Toledo</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Bowling Green at Iowa State</td>
+        <td class="num">+36.7</td>
+        <td class="num">+22.5</td>
+        <td class="num perf over">+14.2</td>
+        <td>Iowa State</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Kentucky at Texas A&amp;M</td>
+        <td class="num">+29.3</td>
+        <td class="num">+15.5</td>
+        <td class="num perf over">+13.8</td>
+        <td>Texas A&amp;M</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Syracuse at Pittsburgh</td>
+        <td class="num">+22.9</td>
+        <td class="num">+10.5</td>
+        <td class="num perf over">+12.4</td>
+        <td>Pittsburgh</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Utah State at Utah</td>
+        <td class="num">+38.7</td>
+        <td class="num">+27.5</td>
+        <td class="num perf over">+11.2</td>
+        <td>Utah</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Florida State at Alabama</td>
+        <td class="num">+26.4</td>
+        <td class="num">+15.5</td>
+        <td class="num perf over">+10.9</td>
+        <td>Alabama</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Virginia Tech at Maryland</td>
+        <td class="num">+8.3</td>
+        <td class="num">-1.5</td>
+        <td class="num perf over">+9.8</td>
+        <td>Maryland</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Western Kentucky at Indiana</td>
+        <td class="num">+54.3</td>
+        <td class="num">+44.5</td>
+        <td class="num perf over">+9.8</td>
+        <td>Indiana</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">Kent State at Ohio State</td>
+        <td class="num">+61.7</td>
+        <td class="num">+52.5</td>
+        <td class="num perf over">+9.2</td>
+        <td>Ohio State</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">NC State at Vanderbilt</td>
+        <td class="num">+12.7</td>
+        <td class="num">+4.0</td>
+        <td class="num perf over">+8.7</td>
+        <td>Vanderbilt</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">James Madison at San Diego State</td>
+        <td class="num">-6.6</td>
+        <td class="num">+1.5</td>
+        <td class="num perf under">-8.1</td>
+        <td>James Madison</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">FIU at Florida Atlantic</td>
+        <td class="num">-0.5</td>
+        <td class="num">+7.5</td>
+        <td class="num perf under">-8.0</td>
+        <td>FIU</td></tr><tr>
+        <td class="wk">3</td>
+        <td class="opp">West Virginia vs Virginia</td>
+        <td class="num">+15.5</td>
+        <td class="num">+8.5</td>
+        <td class="num perf over">+7.0</td>
+        <td>Virginia</td></tr></tbody>
+  </table></div>
+  </article></main>
+<footer class="site">
+  <div class="wrap">
+    <p>MRI &mdash; a computer rating system for college football, run 2000&ndash;2019
+    and rebuilt for 2026. Game data from
+    <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
+    <p class="muted">Ratings last changed 2026-09-13 21:04 UTC
+    &middot; 185 games rated &middot; home field 4.2 pts</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -19,6 +19,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+import json  # noqa: E402
+
+from mri.betting import board  # noqa: E402
 from mri.export import logos, site, sitedata  # noqa: E402
 
 SEASON = 2026
@@ -30,6 +33,14 @@ def main() -> None:
 
     print(f"building {SEASON}...")
     payload = sitedata.build_full(SEASON, data_dir)
+
+    # The betting page only appears once there is a backtest to be honest about.
+    betting_path = data_dir / "betting.json"
+    if betting_path.exists():
+        payload["betting"] = json.loads(betting_path.read_text())
+        payload["board"] = board.build_board(SEASON)
+        print(f"  board: week {payload['board']['week']}, "
+              f"{len(payload['board']['flagged'])} flagged")
     print(f"  week {payload['week']}, {payload['gamesRated']} games, {len(payload['teams'])} teams")
 
     summary = logos.cache_logos(payload, public)

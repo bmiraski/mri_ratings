@@ -108,6 +108,13 @@ def identity_mark(team: dict, size: int = 20, depth: int = 0) -> str:
 
 def page(title: str, body: str, payload: dict, *, depth: int = 0, description: str = "") -> str:
     up = "../" * depth
+    # The betting page exists only once a backtest has been run, so the nav must
+    # not promise it unconditionally - a dead link in the header on every page
+    # is a worse failure than a missing section.
+    betting_link = (
+        f'\n      <a href="{up}betting.html">Betting</a>'
+        if payload.get("betting") and payload.get("board") else ""
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,6 +131,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     <nav>
       <a href="{up}index.html">Rankings</a>
       <a href="{up}conferences.html">Conferences</a>
+{betting_link}
       <a href="{up}archive.html">Archive</a>
       <a href="{up}method.html">Method</a>
     </nav>
@@ -484,6 +492,137 @@ def archive_page(payload: dict) -> str:
     return page(f"Archive — MRI {payload['season']}", body, payload)
 
 
+def betting_page(payload: dict, betting: dict, board: dict) -> str:
+    """The betting page, led by the verdict rather than the card.
+
+    A betting page that opens with picks and hides its record is a tout sheet.
+    This one opens with the finding that the model loses against closing lines,
+    because that is the most important true thing about it.
+    """
+    closing, opening = betting["closing"], betting["opening"]
+
+    def bucket_rows(rows, clv=False):
+        out = []
+        for r in rows:
+            highlight = ' class="total"' if r["edge"] == "ALL" else ""
+            beat = float(r["ats"]) >= betting["breakEven"]
+            out.append(f"""<tr{highlight}>
+              <td>{esc(r['edge'])}</td>
+              <td class="num">{int(r['bets'])}</td>
+              <td class="num {'over' if beat else 'under'}">{float(r['ats']):.1%}</td>
+              <td class="num {'over' if float(r['units']) > 0 else 'under'}">{float(r['units']):+.1f}</td>
+              {f'<td class="num">{float(r["clv"]):+.2f}</td>' if clv and r.get('clv') == r.get('clv') else ('<td class="num muted">&ndash;</td>' if clv else '')}
+            </tr>""")
+        return "".join(out)
+
+    gradient = "".join(f"""<tr>
+        <td>{esc(r['edge'])} pts</td><td class="num">{r['bets']}</td>
+        <td class="num {'over' if r['clv'] > 0 else 'under'}">{r['clv']:+.2f}</td>
+        <td class="num">{r['ats']:.1%}</td></tr>""" for r in opening["clvGradient"])
+
+    seasons = "".join(f"""<tr><td>{r['season']}</td><td class="num">{r['bets']}</td>
+        <td class="num">{r['ats']:.1%}</td>
+        <td class="num {'over' if r['units'] > 0 else 'under'}">{r['units']:+.1f}</td>
+        <td class="num {'over' if r['clv'] > 0 else 'under'}">{r['clv']:+.2f}</td></tr>"""
+        for r in opening["bySeason"])
+
+    flagged = board.get("flagged", [])
+    card = "".join(f"""<tr>
+        <td class="wk">{g['week']}</td>
+        <td class="opp">{esc(g['away'])} {'vs' if g['neutral'] else 'at'} {esc(g['home'])}</td>
+        <td class="num">{g['predicted']:+.1f}</td>
+        <td class="num">{(g['marketOpen'] if g['marketOpen'] is not None else g['market']):+.1f}</td>
+        <td class="num perf {'over' if g['edge'] > 0 else 'under'}">{g['edge']:+.1f}</td>
+        <td>{esc(g['side'])}</td></tr>""" for g in flagged[:15]) or \
+        '<tr><td colspan="6" class="empty">No games on the current card.</td></tr>'
+
+    set_aside = [g for g in board.get("games", []) if not g.get("confident")]
+    aside_note = ""
+    if set_aside:
+        names = ", ".join(sorted({t for g in set_aside for t in g["unknownTeams"]}))
+        aside_note = (f'<p class="note">{len(set_aside)} game(s) set aside because the model has '
+                      f'no prior season for one side: {esc(names)}. An early-season "edge" against '
+                      f'a team the model has never rated is ignorance, not an opinion.</p>')
+
+    body = f"""
+  <article class="prose">
+  <h1>Betting</h1>
+
+  <div class="verdict">
+    <p class="vlead">This model does not beat closing lines.</p>
+    <p>Across <strong>{closing['bets']:,} walk-forward bets</strong> from
+    {betting['seasons'][0]}&ndash;{betting['seasons'][1]}, it went
+    <strong>{closing['ats']:.1%}</strong> against the market's number. Break-even at
+    &minus;110 is {betting['breakEven']:.2%}. That is <strong>{closing['units']:+.0f} units</strong>
+    &mdash; not a near miss, a verdict.</p>
+  </div>
+
+  <p>That is the expected result and worth stating first. A closing spread is the
+  sharpest number in sports, and a rating built from final scores is not going to
+  out-argue thousands of people with money at stake. Anyone whose model beats closing
+  lines by a point and a half is either wrong about their backtest or should not be
+  publishing it.</p>
+
+  <h2>Against the number the market opens at</h2>
+  <p>Openers are a different question, because they are posted before the market has
+  digested anything. Here the picture is better but not conclusive:
+  <strong>{opening['ats']:.1%}</strong> over {opening['bets']:,} bets
+  ({opening['units']:+.0f} units) across {opening['seasons'][0]}&ndash;{opening['seasons'][-1]},
+  the only seasons for which opening lines exist.</p>
+  <p>That carries <strong>p = {opening['pValue']}</strong>. It is not significant, and the
+  best individual bucket does not survive correction for the number of buckets examined.
+  Treat it as a hint.</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Disagreement</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody>{bucket_rows(opening['buckets'], clv=True)}</tbody>
+  </table>
+
+  <h2>The one clean signal</h2>
+  <p>Closing line value &mdash; whether the market moves toward your side after you bet
+  &mdash; is the honest early indicator, because it converges in hundreds of bets where
+  win-loss records need thousands. It rises steadily with the size of the disagreement:</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Disagreement</th><th class="num">Bets</th><th class="num">Mean CLV</th>
+    <th class="num">ATS</th></tr></thead>
+    <tbody>{gradient}</tbody>
+  </table>
+
+  <p>A dose-response pattern across ordered bins is much harder to produce by chance than
+  one good bucket, and it is positive in all three seasons. It says the market tends to
+  drift toward this model's side after the opener &mdash; which is what genuine information
+  looks like, and is the reason to keep measuring rather than to start betting.</p>
+
+  <table class="compare wide">
+    <thead><tr><th>Season</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody>{seasons}</tbody>
+  </table>
+
+  <h2>How much more would it take to know</h2>
+  <p>To confirm a true 53.5% edge at conventional power would take roughly
+  <strong>12,000 bets</strong> &mdash; about seventeen seasons of betting every game. Even a
+  56% edge would need close to two full seasons. The honest conclusion is that this
+  question cannot be settled from history. It can only be settled forward, which is what
+  the card below is for.</p>
+
+  <h2>This week</h2>
+  <p class="note"><strong>Tracked, not recommended.</strong> These are the largest
+  disagreements with the opening number. They are published so the record accumulates in
+  public, including the losing weeks.</p>
+  {aside_note}
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wk</th><th>Game</th><th class="num">Model</th><th class="num">Open</th>
+    <th class="num">Edge</th><th>Side</th></tr></thead>
+    <tbody>{card}</tbody>
+  </table></div>
+  </article>"""
+    return page(f"Betting — MRI {payload['season']}", body, payload,
+                description="What the model says about the market, and how badly it has done.")
+
+
 def method_page(payload: dict) -> str:
     body = f"""
   <article class="prose">
@@ -617,6 +756,8 @@ def build(payload: dict, out_dir: Path) -> list[Path]:
     write(out_dir / "conferences.html", conferences_index(payload))
     write(out_dir / "archive.html", archive_page(payload))
     write(out_dir / "method.html", method_page(payload))
+    if payload.get("betting") and payload.get("board"):
+        write(out_dir / "betting.html", betting_page(payload, payload["betting"], payload["board"]))
     write(out_dir / "site.json", json.dumps(payload, indent=2))
 
     for team in payload["teams"]:
@@ -774,8 +915,20 @@ th.num { text-align:right; }
 .prose strong { color:var(--primary); }
 .prose pre { background:var(--surface); border:1px solid var(--grid); border-radius:9px;
   padding:12px 14px; overflow-x:auto; font-size:12.5px; color:var(--primary); }
-.compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px; margin:14px 0; }
+.compare.wide thead, .compare.wide tbody { min-width:430px; }
+.compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px;
+  margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
+.compare thead, .compare tbody { display:table; width:100%; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
+.compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
+.verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
+  padding:14px 16px; margin:18px 0; }
+.vlead { font-size:18px; font-weight:700; color:var(--primary); margin:0 0 8px; }
+/* Specific enough to beat `.compare td`. Colour is supplementary here - every
+   value carries its own sign and the break-even figure is stated in the text -
+   so this is emphasis, not the encoding. */
+.over, td.over, .compare td.over { color:var(--up); }
+.under, td.under, .compare td.under { color:var(--down); }
 
 footer.site { border-top:1px solid var(--grid); background:var(--surface);
   padding-block:20px; font-size:12px; color:var(--secondary); }

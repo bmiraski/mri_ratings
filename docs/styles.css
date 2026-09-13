@@ -144,8 +144,20 @@ th.num { text-align:right; }
 .prose strong { color:var(--primary); }
 .prose pre { background:var(--surface); border:1px solid var(--grid); border-radius:9px;
   padding:12px 14px; overflow-x:auto; font-size:12.5px; color:var(--primary); }
-.compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px; margin:14px 0; }
+.compare.wide thead, .compare.wide tbody { min-width:430px; }
+.compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px;
+  margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
+.compare thead, .compare tbody { display:table; width:100%; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
+.compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
+.verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
+  padding:14px 16px; margin:18px 0; }
+.vlead { font-size:18px; font-weight:700; color:var(--primary); margin:0 0 8px; }
+/* Specific enough to beat `.compare td`. Colour is supplementary here - every
+   value carries its own sign and the break-even figure is stated in the text -
+   so this is emphasis, not the encoding. */
+.over, td.over, .compare td.over { color:var(--up); }
+.under, td.under, .compare td.under { color:var(--down); }
 
 footer.site { border-top:1px solid var(--grid); background:var(--surface);
   padding-block:20px; font-size:12px; color:var(--secondary); }
