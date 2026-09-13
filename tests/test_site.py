@@ -277,3 +277,22 @@ def test_basketball_build_is_idempotent(bb_payload, tmp_path) -> None:
     site.build(bb_payload, tmp_path, publish_details=False)
     second = {p: p.read_bytes() for p in sorted(tmp_path.rglob("*")) if p.is_file()}
     assert first == second
+
+
+def test_hidden_actually_hides(built) -> None:
+    """The conference filter sets el.hidden on the rows it wants gone.
+
+    The browser's own stylesheet hides [hidden] with display:none, but that is a
+    UA rule and any author rule setting display beats it. .row is display:flex,
+    so for as long as this rule was missing the filter marked 122 of 138 rows
+    hidden and every one of them stayed on screen - the dropdown did nothing at
+    all, silently, in production.
+
+    Anything the site hides with the attribute depends on this one rule, so it
+    is asserted rather than trusted.
+    """
+    css = (built / "styles.css").read_text()
+    assert re.search(r"\[hidden\]\s*\{[^}]*display:\s*none\s*!important", css), (
+        "the stylesheet must force [hidden] to display:none, or every "
+        "display-setting class silently defeats it"
+    )

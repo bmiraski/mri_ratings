@@ -14,6 +14,11 @@
   }
 }
 * { box-sizing: border-box; }
+/* The browser hides [hidden] with display:none from its own stylesheet, which
+   any author rule setting display beats. .row is display:flex, so every row the
+   conference filter hid stayed on screen and the filter did nothing at all.
+   This is the rule that makes the attribute mean what it says. */
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin:0; background:var(--plane); color:var(--primary);
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif; line-height:1.5; }
