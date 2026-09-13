@@ -17,6 +17,7 @@ beside the name.
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -135,7 +136,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     <p>MRI &mdash; a computer rating system for college football, run 2000&ndash;2019
     and rebuilt for {payload['season']}. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
-    <p class="muted">Ratings generated {esc(payload['generated'][:16].replace('T', ' '))} UTC
+    <p class="muted">Ratings last changed {esc(payload['generated'][:16].replace('T', ' '))} UTC
     &middot; {payload['gamesRated']} games rated &middot; home field {payload['homeField']:.1f} pts</p>
   </div>
 </footer>
@@ -565,8 +566,38 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
 # build
 # --------------------------------------------------------------------------
 
+def content_digest(payload: dict) -> str:
+    """Fingerprint everything about the payload except when it was built."""
+    material = {k: v for k, v in payload.items() if k not in {"generated", "digest"}}
+    return hashlib.sha256(
+        json.dumps(material, sort_keys=True, default=str).encode()
+    ).hexdigest()[:16]
+
+
+def _settle_timestamp(payload: dict, out_dir: Path) -> None:
+    """Keep the previous timestamp when nothing but the clock has moved.
+
+    The footer stamp is rendered into all 157 pages, so a build that changed
+    nothing else still produced a 157-file diff and a commit every time the
+    scheduled job ran. Carrying the old timestamp forward when the fingerprint
+    matches makes the build idempotent - and makes the stamp mean "when these
+    ratings last changed", which is the more useful claim anyway.
+    """
+    payload["digest"] = content_digest(payload)
+    existing = out_dir / "site.json"
+    if not existing.exists():
+        return
+    try:
+        previous = json.loads(existing.read_text())
+    except (OSError, json.JSONDecodeError):
+        return
+    if previous.get("digest") == payload["digest"] and previous.get("generated"):
+        payload["generated"] = previous["generated"]
+
+
 def build(payload: dict, out_dir: Path) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
+    _settle_timestamp(payload, out_dir)
     (out_dir / "team").mkdir(exist_ok=True)
     (out_dir / "conference").mkdir(exist_ok=True)
 

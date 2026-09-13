@@ -118,3 +118,52 @@ def test_cached_logo_files_exist(payload, built) -> None:
         if not str(t.get("logo", "")).startswith("http") and not (built / t["logo"]).exists()
     ]
     assert not missing, f"missing logo files for {missing[:5]}"
+
+
+def test_build_is_idempotent(payload, tmp_path) -> None:
+    """Two builds of unchanged data must produce byte-identical output.
+
+    The footer timestamp is rendered into every page, so without this the
+    scheduled job commits 157 files every run whether or not a game was
+    played - which buries real changes in noise.
+    """
+    import copy
+
+    first = copy.deepcopy(payload)
+    site.build(first, tmp_path)
+    before = {p.name: p.read_bytes() for p in tmp_path.glob("*.html")}
+
+    second = copy.deepcopy(payload)
+    second["generated"] = "2099-01-01T00:00:00"
+    site.build(second, tmp_path)
+    after = {p.name: p.read_bytes() for p in tmp_path.glob("*.html")}
+
+    assert before == after, "a clock tick should not change the output"
+
+
+def test_new_data_does_change_the_output(payload, tmp_path) -> None:
+    """The flip side: a real change must not be suppressed."""
+    import copy
+
+    first = copy.deepcopy(payload)
+    site.build(first, tmp_path)
+    before = (tmp_path / "index.html").read_bytes()
+
+    second = copy.deepcopy(payload)
+    second["generated"] = "2099-01-01T00:00:00"
+    second["teams"][0]["power"] += 5.0
+    site.build(second, tmp_path)
+
+    assert (tmp_path / "index.html").read_bytes() != before
+
+
+def test_digest_ignores_only_the_timestamp(payload) -> None:
+    import copy
+
+    a = copy.deepcopy(payload)
+    b = copy.deepcopy(payload)
+    b["generated"] = "2099-01-01T00:00:00"
+    assert site.content_digest(a) == site.content_digest(b)
+
+    b["week"] = 99
+    assert site.content_digest(a) != site.content_digest(b)
