@@ -25,69 +25,88 @@
 </header>
 <main class="wrap">
   <h1>Conferences</h1>
-  <p class="hint">Ranked by the mean power rating of member teams.</p>
+  <p class="hint">Ranked by a top-weighted average of member ratings: each next-best
+  team in a conference counts 10% less than the one above it. That measures quality
+  at the top while still counting depth, and unlike a plain mean it does not punish
+  an eighteen-team league for its tail. The plain mean is shown beside it.</p>
   <div class="confgrid">
     <a class="confcard" href="conference/sec.html">
       <span class="ccname">SEC</span>
-      <span class="ccmean">+15.7</span>
-      <span class="ccmeta">16 teams &middot; best +27.5</span>
-    </a>
-    <a class="confcard" href="conference/fbs-independent.html">
-      <span class="ccname">FBS Independent</span>
-      <span class="ccmean">+12.4</span>
-      <span class="ccmeta">2 teams &middot; best +32.3</span>
+      <span class="ccmean">+19.2</span>
+      <span class="ccmeta">16 teams &middot; best +27.5
+      &middot; mean +15.7</span>
     </a>
     <a class="confcard" href="conference/big-ten.html">
       <span class="ccname">Big Ten</span>
-      <span class="ccmean">+10.4</span>
-      <span class="ccmeta">18 teams &middot; best +34.6</span>
+      <span class="ccmean">+16.6</span>
+      <span class="ccmeta">18 teams &middot; best +34.6
+      &middot; mean +10.4</span>
     </a>
     <a class="confcard" href="conference/big-12.html">
       <span class="ccname">Big 12</span>
-      <span class="ccmean">+8.0</span>
-      <span class="ccmeta">16 teams &middot; best +26.4</span>
+      <span class="ccmean">+12.0</span>
+      <span class="ccmeta">16 teams &middot; best +26.4
+      &middot; mean +8.0</span>
     </a>
     <a class="confcard" href="conference/acc.html">
       <span class="ccname">ACC</span>
-      <span class="ccmean">+5.1</span>
-      <span class="ccmeta">17 teams &middot; best +28.2</span>
-    </a>
-    <a class="confcard" href="conference/pac-12.html">
-      <span class="ccname">Pac-12</span>
-      <span class="ccmean">-3.1</span>
-      <span class="ccmeta">8 teams &middot; best +10.9</span>
+      <span class="ccmean">+9.8</span>
+      <span class="ccmeta">17 teams &middot; best +28.2
+      &middot; mean +5.1</span>
     </a>
     <a class="confcard" href="conference/american.html">
       <span class="ccname">American</span>
-      <span class="ccmean">-5.3</span>
-      <span class="ccmeta">14 teams &middot; best +11.8</span>
+      <span class="ccmean">-0.8</span>
+      <span class="ccmeta">14 teams &middot; best +11.8
+      &middot; mean -5.3</span>
+    </a>
+    <a class="confcard" href="conference/pac-12.html">
+      <span class="ccname">Pac-12</span>
+      <span class="ccmean">-1.5</span>
+      <span class="ccmeta">8 teams &middot; best +10.9
+      &middot; mean -3.1</span>
     </a>
     <a class="confcard" href="conference/sun-belt.html">
       <span class="ccname">Sun Belt</span>
-      <span class="ccmean">-8.7</span>
-      <span class="ccmeta">14 teams &middot; best +9.3</span>
+      <span class="ccmean">-6.2</span>
+      <span class="ccmeta">14 teams &middot; best +9.3
+      &middot; mean -8.7</span>
     </a>
     <a class="confcard" href="conference/mountain-west.html">
       <span class="ccname">Mountain West</span>
-      <span class="ccmean">-12.3</span>
-      <span class="ccmeta">10 teams &middot; best +1.4</span>
+      <span class="ccmean">-10.2</span>
+      <span class="ccmeta">10 teams &middot; best +1.4
+      &middot; mean -12.3</span>
     </a>
     <a class="confcard" href="conference/mac.html">
       <span class="ccname">MAC</span>
-      <span class="ccmean">-14.5</span>
-      <span class="ccmeta">13 teams &middot; best +3.4</span>
+      <span class="ccmean">-11.1</span>
+      <span class="ccmeta">13 teams &middot; best +3.4
+      &middot; mean -14.5</span>
     </a>
     <a class="confcard" href="conference/conference-usa.html">
       <span class="ccname">Conference USA</span>
-      <span class="ccmean">-14.5</span>
-      <span class="ccmeta">10 teams &middot; best -10.5</span>
+      <span class="ccmean">-13.4</span>
+      <span class="ccmeta">10 teams &middot; best -10.5
+      &middot; mean -14.5</span>
+    </a></div>
+  <h2>Not conferences</h2>
+  <p class="hint">Fewer than 4 teams, so these are listed rather than
+  ranked. Independents are the absence of a conference, and a two-team average of them
+  is not a statement about any league.</p>
+  <div class="confgrid">
+    <a class="confcard" href="conference/fbs-independent.html">
+      <span class="ccname">FBS Independent</span>
+      <span class="ccmean">+13.4</span>
+      <span class="ccmeta">2 teams &middot; best +32.3
+      &middot; mean +12.4</span>
     </a></div></main>
 <footer class="site">
   <div class="wrap">
     <p>MRI &mdash; a computer rating system for college football,
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-13 22:23 UTC
+    <p class="muted">Ratings last changed 2026-09-13 22:46 UTC
     &middot; 185 games rated &middot; home field 4.2 pts</p>
   </div>
 </footer>

@@ -24,6 +24,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from . import common
+
 SERIES = "#3987e5"
 SERIES_LIGHT = "#2a78d6"
 
@@ -318,7 +320,8 @@ def rankings_page(payload: dict) -> str:
       </section>
 """
 
-    conferences = "".join(_conference_bar(c, payload) for c in payload["conferences"])
+    ranked = [c for c in payload["conferences"] if c.get("ranked", True)]
+    conferences = "".join(_conference_bar(c, ranked) for c in ranked)
     options = "".join(
         f'<option value="{esc(c["conference"])}">{esc(c["conference"])}</option>'
         for c in payload["conferences"]
@@ -360,7 +363,10 @@ def rankings_page(payload: dict) -> str:
       <section class="panel">
         <p class="ptitle">Conference strength</p>
         <ul class="conf">{conferences}</ul>
-        <p class="note">Mean power rating of member teams.</p>
+        <p class="note">A top-weighted average of member ratings &mdash; each
+        next-best team counts 10% less than the one above it, so the measure is
+        about quality at the top without ignoring what is underneath, and does
+        not reward a conference merely for being small.</p>
       </section>
     </aside>
   </div>
@@ -432,16 +438,17 @@ def _resume_gap_panel(teams: list[dict]) -> str:
 """
 
 
-def _conference_bar(conference: dict, payload: dict) -> str:
-    widest = max(abs(c["mean"]) for c in payload["conferences"]) or 1
-    width = abs(conference["mean"]) / widest * 100
-    negative = conference["mean"] < 0
+def _conference_bar(conference: dict, among: list[dict]) -> str:
+    value = conference.get("strength", conference["mean"])
+    widest = max(abs(c.get("strength", c["mean"])) for c in among) or 1
+    width = abs(value) / widest * 100
+    negative = value < 0
     return (
         f'<li><a class="confnm" href="conference/{slug(conference["conference"])}.html">'
         f'{esc(conference["conference"])}</a>'
         f'<span class="track"><span class="confbar{" neg" if negative else ""}" '
         f'style="width:{width:.0f}%"></span></span>'
-        f'<span class="confv">{conference["mean"]:+.1f}</span></li>'
+        f'<span class="confv">{value:+.1f}</span></li>'
     )
 
 
@@ -585,10 +592,17 @@ def conference_page(name: str, payload: dict) -> str:
         <td class="num">{t['resume']:+.2f}</td>{classic_cell(t)}
       </tr>""" for t in members)
 
+    entry = next((c for c in payload["conferences"] if c["conference"] == name), {})
     mean = sum(t["power"] for t in members) / len(members) if members else 0
+    strength = entry.get("strength", mean)
+    rank = next(
+        (i + 1 for i, c in enumerate(payload["conferences"]) if c["conference"] == name), None
+    )
     body = f"""
   <h1>{esc(name)}</h1>
-  <p class="teamsub">{len(members)} teams &middot; mean power {mean:+.1f}</p>
+  <p class="teamsub">{len(members)} teams &middot; strength {strength:+.1f}
+  {f"&middot; #{rank} of {len(payload['conferences'])}" if rank else ""}
+  &middot; mean power {mean:+.1f}</p>
   <div class="tablewrap"><table class="conftable">
     <thead><tr><th>#</th><th>Team</th><th>Rec</th><th class="num">Power</th>
     <th class="num">R&eacute;sum&eacute;</th>{classic_head}</tr></thead>
@@ -599,16 +613,31 @@ def conference_page(name: str, payload: dict) -> str:
 
 
 def conferences_index(payload: dict) -> str:
-    cards = "".join(f"""
+    def card(c):
+        return f"""
     <a class="confcard" href="conference/{slug(c['conference'])}.html">
       <span class="ccname">{esc(c['conference'])}</span>
-      <span class="ccmean">{c['mean']:+.1f}</span>
-      <span class="ccmeta">{int(c['count'])} teams &middot; best {c['max']:+.1f}</span>
-    </a>""" for c in payload["conferences"])
+      <span class="ccmean">{c.get('strength', c['mean']):+.1f}</span>
+      <span class="ccmeta">{int(c['count'])} teams &middot; best {c['max']:+.1f}
+      &middot; mean {c['mean']:+.1f}</span>
+    </a>"""
+
+    ranked = [c for c in payload["conferences"] if c.get("ranked", True)]
+    unranked = [c for c in payload["conferences"] if not c.get("ranked", True)]
+    cards = "".join(card(c) for c in ranked)
+    loose = f"""
+  <h2>Not conferences</h2>
+  <p class="hint">Fewer than {common.MIN_RANKED} teams, so these are listed rather than
+  ranked. Independents are the absence of a conference, and a two-team average of them
+  is not a statement about any league.</p>
+  <div class="confgrid">{''.join(card(c) for c in unranked)}</div>""" if unranked else ""
     body = f"""
   <h1>Conferences</h1>
-  <p class="hint">Ranked by the mean power rating of member teams.</p>
-  <div class="confgrid">{cards}</div>"""
+  <p class="hint">Ranked by a top-weighted average of member ratings: each next-best
+  team in a conference counts 10% less than the one above it. That measures quality
+  at the top while still counting depth, and unlike a plain mean it does not punish
+  an eighteen-team league for its tail. The plain mean is shown beside it.</p>
+  <div class="confgrid">{cards}</div>{loose}"""
     return page(f"Conferences — MRI {season_text(payload)}", body, payload)
 
 

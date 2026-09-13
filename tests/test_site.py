@@ -296,3 +296,56 @@ def test_hidden_actually_hides(built) -> None:
         "the stylesheet must force [hidden] to display:none, or every "
         "display-setting class silently defeats it"
     )
+
+
+# --- conference strength ----------------------------------------------------
+
+def test_conference_strength_is_top_weighted_not_a_plain_mean() -> None:
+    """A deep league with a weak tail should not lose to a small clean one on
+    the strength of its floor. Each next-best team counts less."""
+    from mri.export import common
+
+    deep = [{"conference": "Deep", "power": p} for p in (30, 28, 26, 24, 5, 4, 3, 2)]
+    flat = [{"conference": "Flat", "power": p} for p in (16, 16, 16, 16, 16, 16, 16, 16)]
+    rows = {r["conference"]: r for r in common.conference_strength(deep + flat)}
+
+    assert rows["Deep"]["mean"] < rows["Flat"]["mean"], "the plain means must disagree"
+    assert rows["Deep"]["strength"] > rows["Flat"]["strength"]
+
+
+def test_conference_strength_does_not_reward_being_small() -> None:
+    """Truncating a conference to its best teams must not raise its rating -
+    that is the failure mode of a top-N measure, and why this decays instead."""
+    from mri.export import common
+
+    full = [{"conference": "A", "power": p} for p in (30, 28, 26, 24, 22, 20)]
+    trimmed = full[:4]
+    a = common.conference_strength(full)[0]["strength"]
+    b = common.conference_strength(trimmed)[0]["strength"]
+    assert b > a, "a shorter, equally strong-at-the-top league should score higher here"
+    assert abs(b - a) < 3.0, "but only slightly - not by discarding its tail wholesale"
+
+
+def test_groups_too_small_to_be_leagues_are_not_ranked() -> None:
+    """Football's two independents came third on this measure. They are
+    arithmetically strong and they are not a conference."""
+    from mri.export import common
+
+    teams = [{"conference": "Big", "power": p} for p in (20, 19, 18, 17, 16, 15)]
+    teams += [{"conference": "Independent", "power": p} for p in (34, 30)]
+    rows = common.conference_strength(teams)
+
+    assert rows[0]["conference"] == "Big"
+    assert rows[0]["ranked"]
+    assert not rows[-1]["ranked"]
+    assert rows[-1]["conference"] == "Independent"
+
+
+def test_unranked_groups_stay_off_the_strength_panel(built) -> None:
+    """They keep a page and a filter entry; they just do not appear in a
+    ranking of conferences."""
+    index = (built / "index.html").read_text()
+    panel = index.split("Conference strength", 1)[1].split("</section>", 1)[0]
+    assert "FBS Independent" not in panel
+    assert (built / "conference" / "fbs-independent.html").exists()
+    assert 'value="FBS Independent"' in index  # still in the filter

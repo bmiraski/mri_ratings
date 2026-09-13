@@ -33,6 +33,7 @@ import pandas as pd
 
 from ..ingest import bb_registry as registry, cbbd
 from ..ratings import mri2
+from . import common
 
 RATINGS = Path(__file__).resolve().parents[3] / "data" / "parquet" / "bb_ratings.parquet"
 
@@ -216,15 +217,7 @@ def build(season: int, out_dir: Path) -> dict:
             }
         )
 
-    conferences = (
-        pd.DataFrame(teams_payload)
-        .groupby("conference")["power"]
-        .agg(["mean", "count", "max"])
-        .sort_values("mean", ascending=False)
-        .round(2)
-        .reset_index()
-        .to_dict("records")
-    )
+    conferences = common.conference_strength(teams_payload)
 
     finished = season < latest_playing_season() or _season_over(games)
     payload = {

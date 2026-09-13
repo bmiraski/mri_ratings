@@ -29,7 +29,7 @@
       <div class="panelhead">
         <h1 class="ptitle">Power rating</h1>
         <div class="controls">
-          <label class="sr">Conference<select id="conf"><option value="">All conferences</option><option value="SEC">SEC</option><option value="FBS Independent">FBS Independent</option><option value="Big Ten">Big Ten</option><option value="Big 12">Big 12</option><option value="ACC">ACC</option><option value="Pac-12">Pac-12</option><option value="American">American</option><option value="Sun Belt">Sun Belt</option><option value="Mountain West">Mountain West</option><option value="MAC">MAC</option><option value="Conference USA">Conference USA</option></select></label>
+          <label class="sr">Conference<select id="conf"><option value="">All conferences</option><option value="SEC">SEC</option><option value="Big Ten">Big Ten</option><option value="Big 12">Big 12</option><option value="ACC">ACC</option><option value="American">American</option><option value="Pac-12">Pac-12</option><option value="Sun Belt">Sun Belt</option><option value="Mountain West">Mountain West</option><option value="MAC">MAC</option><option value="Conference USA">Conference USA</option><option value="FBS Independent">FBS Independent</option></select></label>
           <label class="sr">Sort<select id="sort">
             <option value="rank">By power</option>
             <option value="resume">By r&eacute;sum&eacute;</option>
@@ -1738,8 +1738,11 @@
 
       <section class="panel">
         <p class="ptitle">Conference strength</p>
-        <ul class="conf"><li><a class="confnm" href="conference/sec.html">SEC</a><span class="track"><span class="confbar" style="width:100%"></span></span><span class="confv">+15.7</span></li><li><a class="confnm" href="conference/fbs-independent.html">FBS Independent</a><span class="track"><span class="confbar" style="width:79%"></span></span><span class="confv">+12.4</span></li><li><a class="confnm" href="conference/big-ten.html">Big Ten</a><span class="track"><span class="confbar" style="width:66%"></span></span><span class="confv">+10.4</span></li><li><a class="confnm" href="conference/big-12.html">Big 12</a><span class="track"><span class="confbar" style="width:51%"></span></span><span class="confv">+8.0</span></li><li><a class="confnm" href="conference/acc.html">ACC</a><span class="track"><span class="confbar" style="width:32%"></span></span><span class="confv">+5.1</span></li><li><a class="confnm" href="conference/pac-12.html">Pac-12</a><span class="track"><span class="confbar neg" style="width:20%"></span></span><span class="confv">-3.1</span></li><li><a class="confnm" href="conference/american.html">American</a><span class="track"><span class="confbar neg" style="width:34%"></span></span><span class="confv">-5.3</span></li><li><a class="confnm" href="conference/sun-belt.html">Sun Belt</a><span class="track"><span class="confbar neg" style="width:56%"></span></span><span class="confv">-8.7</span></li><li><a class="confnm" href="conference/mountain-west.html">Mountain West</a><span class="track"><span class="confbar neg" style="width:78%"></span></span><span class="confv">-12.3</span></li><li><a class="confnm" href="conference/mac.html">MAC</a><span class="track"><span class="confbar neg" style="width:92%"></span></span><span class="confv">-14.5</span></li><li><a class="confnm" href="conference/conference-usa.html">Conference USA</a><span class="track"><span class="confbar neg" style="width:93%"></span></span><span class="confv">-14.5</span></li></ul>
-        <p class="note">Mean power rating of member teams.</p>
+        <ul class="conf"><li><a class="confnm" href="conference/sec.html">SEC</a><span class="track"><span class="confbar" style="width:100%"></span></span><span class="confv">+19.2</span></li><li><a class="confnm" href="conference/big-ten.html">Big Ten</a><span class="track"><span class="confbar" style="width:86%"></span></span><span class="confv">+16.6</span></li><li><a class="confnm" href="conference/big-12.html">Big 12</a><span class="track"><span class="confbar" style="width:63%"></span></span><span class="confv">+12.0</span></li><li><a class="confnm" href="conference/acc.html">ACC</a><span class="track"><span class="confbar" style="width:51%"></span></span><span class="confv">+9.8</span></li><li><a class="confnm" href="conference/american.html">American</a><span class="track"><span class="confbar neg" style="width:4%"></span></span><span class="confv">-0.8</span></li><li><a class="confnm" href="conference/pac-12.html">Pac-12</a><span class="track"><span class="confbar neg" style="width:8%"></span></span><span class="confv">-1.5</span></li><li><a class="confnm" href="conference/sun-belt.html">Sun Belt</a><span class="track"><span class="confbar neg" style="width:32%"></span></span><span class="confv">-6.2</span></li><li><a class="confnm" href="conference/mountain-west.html">Mountain West</a><span class="track"><span class="confbar neg" style="width:53%"></span></span><span class="confv">-10.2</span></li><li><a class="confnm" href="conference/mac.html">MAC</a><span class="track"><span class="confbar neg" style="width:58%"></span></span><span class="confv">-11.1</span></li><li><a class="confnm" href="conference/conference-usa.html">Conference USA</a><span class="track"><span class="confbar neg" style="width:70%"></span></span><span class="confv">-13.4</span></li></ul>
+        <p class="note">A top-weighted average of member ratings &mdash; each
+        next-best team counts 10% less than the one above it, so the measure is
+        about quality at the top without ignoring what is underneath, and does
+        not reward a conference merely for being small.</p>
       </section>
     </aside>
   </div>
@@ -1774,7 +1777,7 @@
     <p>MRI &mdash; a computer rating system for college football,
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-13 22:23 UTC
+    <p class="muted">Ratings last changed 2026-09-13 22:46 UTC
     &middot; 185 games rated &middot; home field 4.2 pts</p>
   </div>
 </footer>

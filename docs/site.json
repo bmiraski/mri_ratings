@@ -1,7 +1,7 @@
 {
   "season": 2026,
   "week": 2,
-  "generated": "2026-09-13T22:23:37.116982+00:00",
+  "generated": "2026-09-13T22:46:22.608084+00:00",
   "homeField": 4.24,
   "gamesRated": 185,
   "teams": [
@@ -3873,69 +3873,91 @@
   "conferences": [
     {
       "conference": "SEC",
+      "strength": 19.23,
       "mean": 15.67,
       "count": 16,
-      "max": 27.52
-    },
-    {
-      "conference": "FBS Independent",
-      "mean": 12.36,
-      "count": 2,
-      "max": 32.33
+      "max": 27.52,
+      "ranked": true
     },
     {
       "conference": "Big Ten",
+      "strength": 16.62,
       "mean": 10.39,
       "count": 18,
-      "max": 34.56
+      "max": 34.56,
+      "ranked": true
     },
     {
       "conference": "Big 12",
+      "strength": 12.04,
       "mean": 7.99,
       "count": 16,
-      "max": 26.44
+      "max": 26.44,
+      "ranked": true
     },
     {
       "conference": "ACC",
+      "strength": 9.84,
       "mean": 5.08,
       "count": 17,
-      "max": 28.2
-    },
-    {
-      "conference": "Pac-12",
-      "mean": -3.11,
-      "count": 8,
-      "max": 10.93
+      "max": 28.2,
+      "ranked": true
     },
     {
       "conference": "American",
+      "strength": -0.8,
       "mean": -5.26,
       "count": 14,
-      "max": 11.77
+      "max": 11.77,
+      "ranked": true
+    },
+    {
+      "conference": "Pac-12",
+      "strength": -1.52,
+      "mean": -3.11,
+      "count": 8,
+      "max": 10.93,
+      "ranked": true
     },
     {
       "conference": "Sun Belt",
+      "strength": -6.23,
       "mean": -8.7,
       "count": 14,
-      "max": 9.35
+      "max": 9.35,
+      "ranked": true
     },
     {
       "conference": "Mountain West",
+      "strength": -10.23,
       "mean": -12.29,
       "count": 10,
-      "max": 1.44
+      "max": 1.44,
+      "ranked": true
     },
     {
       "conference": "MAC",
+      "strength": -11.06,
       "mean": -14.46,
       "count": 13,
-      "max": 3.37
+      "max": 3.37,
+      "ranked": true
     },
     {
       "conference": "Conference USA",
+      "strength": -13.41,
       "mean": -14.54,
       "count": 10,
-      "max": -10.49
+      "max": -10.49,
+      "ranked": true
+    },
+    {
+      "conference": "FBS Independent",
+      "strength": 13.42,
+      "mean": 12.36,
+      "count": 2,
+      "max": 32.33,
+      "ranked": false
     }
   ],
   "details": {
@@ -25439,5 +25461,5 @@
     "football",
     "basketball"
   ],
-  "digest": "2621c0c2b0ed353f"
+  "digest": "73aeeaaf9fa7d013"
 }

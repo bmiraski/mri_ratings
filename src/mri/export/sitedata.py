@@ -19,6 +19,7 @@ import pandas as pd
 
 from ..ingest import boxscores, cfbd, registry
 from ..ratings import classic, mri2
+from . import common
 
 
 @dataclass
@@ -169,15 +170,7 @@ def build(year: int, out_dir: Path) -> dict:
             }
         )
 
-    conferences = (
-        pd.DataFrame(teams_payload)
-        .groupby("conference")["power"]
-        .agg(["mean", "count", "max"])
-        .sort_values("mean", ascending=False)
-        .round(2)
-        .reset_index()
-        .to_dict("records")
-    )
+    conferences = common.conference_strength(teams_payload)
 
     payload = {
         "season": year,
