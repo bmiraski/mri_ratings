@@ -48,6 +48,31 @@ def request(endpoint: str, *, refresh: bool = False, **params):
         cfbd.BASE_URL = original
 
 
+def _is_final(game: dict) -> bool:
+    """Whether a game was actually played.
+
+    This is not the obvious test, and the obvious test is wrong. The football
+    API returns null points for a game that has not happened; this one returns
+    zero. So ``homePoints is not None`` accepts every cancelled, postponed and
+    not-yet-played game and records it as a 0-0 tie.
+
+    That is not a hypothetical. It put 1,465 phantom ties into the first build
+    of the chain - 992 of them in 2020-21, where COVID cancelled 719 games and
+    another 275 were never rescheduled. Each one entered the solve as real
+    evidence that two teams are exactly equal.
+
+    ``status`` carries the answer cleanly: every 0-0 row in every season checked
+    is cancelled, postponed or scheduled, and every final has real points. The
+    points test is kept as a fallback in case the field ever goes missing, but
+    it is no longer the primary.
+    """
+    status = (game.get("status") or "").lower()
+    if status:
+        return status == "final"
+    points = (game.get("homePoints"), game.get("awayPoints"))
+    return all(p is not None for p in points) and points != (0, 0)
+
+
 def _windows(season: int) -> list[tuple[str, str]]:
     """Month-long date ranges covering one season."""
     out = []
@@ -86,7 +111,7 @@ def games(season: int, *, refresh_last: bool = True, completed_only: bool = True
             if game["id"] in seen:
                 continue
             seen.add(game["id"])
-            played = game.get("homePoints") is not None and game.get("awayPoints") is not None
+            played = _is_final(game)
             if completed_only and not played:
                 continue
             rows.append(
@@ -98,6 +123,7 @@ def games(season: int, *, refresh_last: bool = True, completed_only: bool = True
                     "team1": game["awayTeam"],
                     "team2": game["homeTeam"],
                     "played": played,
+                    "status": game.get("status"),
                     "pts1": float(game["awayPoints"]) if played else None,
                     "pts2": float(game["homePoints"]) if played else None,
                     "win1": (1.0 if game["awayPoints"] > game["homePoints"] else 0.0) if played else 0.0,

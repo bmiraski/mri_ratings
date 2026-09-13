@@ -162,6 +162,32 @@ def test_scale_does_not_drift_across_the_chain(bb_ratings) -> None:
     assert all(15 < top < 45 for top in tops), f"best-team ratings drifted: {tops}"
 
 
+def test_cancelled_and_scheduled_games_are_not_played() -> None:
+    """The basketball API returns 0-0 for a game that never happened, where the
+    football one returns null. Testing points-are-present therefore accepts
+    every cancellation as a tie, which is how 1,465 phantom games reached the
+    first build of the chain. Status is the field that actually answers."""
+    from mri.ingest import cbbd
+
+    assert cbbd._is_final({"status": "final", "homePoints": 70, "awayPoints": 68})
+    assert not cbbd._is_final({"status": "cancelled", "homePoints": 0, "awayPoints": 0})
+    assert not cbbd._is_final({"status": "postponed", "homePoints": 0, "awayPoints": 0})
+    assert not cbbd._is_final({"status": "scheduled", "homePoints": 0, "awayPoints": 0})
+    # Fallback for a payload with no status at all.
+    assert cbbd._is_final({"homePoints": 70, "awayPoints": 68})
+    assert not cbbd._is_final({"homePoints": 0, "awayPoints": 0})
+
+
+def test_no_phantom_ties_reached_the_ratings() -> None:
+    """The same bug, caught from the other end."""
+    games = Path(__file__).resolve().parents[1] / "data" / "parquet" / "bb_games.parquet"
+    if not games.exists():
+        pytest.skip("basketball games not built")
+    frame = pd.read_parquet(games)
+    ties = frame[(frame["pts1"] == 0) & (frame["pts2"] == 0)]
+    assert ties.empty, f"{len(ties)} unplayed games rated as 0-0 ties"
+
+
 def test_home_court_is_plausible_every_season(bb_ratings) -> None:
     """Between one and five points. Above that the fit is blaming schedule on
     the venue; below it, something has gone wrong with the anchor."""
