@@ -51,6 +51,13 @@ DEFAULT_MARGIN_SIGMA = 16.0
 REPLACEMENT_PRIOR = -22.0
 POOLED_FCS = "Non D1A"
 
+# Home field is barely identifiable from two weeks of games, and early in a
+# season the fit will happily blame a 40-point win over an FCS team on playing
+# at home. Anchoring it to a mild prior keeps it honest until the schedule can
+# speak for itself.
+DEFAULT_HOME_FIELD_PRIOR = 3.0
+DEFAULT_HOME_FIELD_RIDGE = 60.0
+
 
 @dataclass
 class Ratings:
@@ -146,6 +153,9 @@ def fit(
     compression: float = DEFAULT_COMPRESSION,
     ridge: float = DEFAULT_RIDGE,
     neutral: pd.Series | np.ndarray | None = None,
+    anchor_teams: list[str] | None = None,
+    home_field_prior: float = DEFAULT_HOME_FIELD_PRIOR,
+    home_field_ridge: float = DEFAULT_HOME_FIELD_RIDGE,
     with_resume: bool = True,
     with_efficiency: bool = True,
 ) -> Ratings:
@@ -162,6 +172,14 @@ def fit(
         Strength of the pull toward ``prior``. Larger means a team needs more
         evidence to move. Because the penalty is fixed while the number of
         equations per team grows, shrinkage fades over a season on its own.
+    anchor_teams
+        Teams whose average rating is pinned to zero, normally the FBS field.
+        Ratings are only determined up to a constant, so without an anchor the
+        scale is free to wander - and it does, badly, once hundreds of
+        individually-named FCS opponents enter the pool and drag the centre of
+        mass down with them. Anchoring changes no prediction, since a uniform
+        shift cancels in every rating difference, but it keeps "zero" meaning
+        "an average FBS team" from one season to the next.
     """
     if games.empty:
         raise ValueError("no games to fit")
@@ -191,8 +209,8 @@ def fit(
         prior_vector[teams.index(POOLED_FCS)] = REPLACEMENT_PRIOR
 
     penalty = np.full(len(teams) + 1, ridge)
-    penalty[-1] = 0.0  # let home-field advantage float free
-    target = np.append(prior_vector, 0.0)
+    penalty[-1] = home_field_ridge
+    target = np.append(prior_vector, home_field_prior)
 
     gram = X.T @ X + np.diag(penalty)
     rhs = X.T @ y + penalty * target
@@ -212,9 +230,41 @@ def fit(
     scale = float(np.clip(scale, 0.5, 4.0))
 
     power = pd.Series(raw * scale, index=teams, name="power")
-    home_field = float(raw_home_field * scale)
 
-    residuals = actual - edge * scale
+    # Home field is deliberately NOT rescaled with the ratings. Its prior is
+    # expressed in real points, and early in a season - when shrinkage makes the
+    # fitted edges small and the scale factor correspondingly large - multiplying
+    # it through inflates a 3-point effect into eight or more. Instead it is
+    # re-estimated on the scaled ratings as a shrunken mean of what the home
+    # side actually scored beyond the rating difference.
+    residual_margin = actual - (X[:, :-1] @ raw) * scale
+    hosted = ~np.asarray(neutral, dtype=bool)
+
+    # Only games between teams we actually know anything about get a say. A
+    # September blowout of an FCS visitor whose rating is pinned near its prior
+    # leaves a huge positive residual that has nothing to do with home field,
+    # and in a two-week-old season those games are half the schedule.
+    if anchor_teams:
+        known = set(anchor_teams)
+        measurable = hosted & np.array(
+            [a in known and b in known for a, b in zip(games["team1"], games["team2"])]
+        )
+        if measurable.sum() < 20:
+            measurable = hosted
+    else:
+        measurable = hosted
+
+    home_field = float(
+        (residual_margin[measurable].sum() + home_field_ridge * home_field_prior)
+        / (measurable.sum() + home_field_ridge)
+    )
+
+    if anchor_teams:
+        present = [t for t in anchor_teams if t in power.index]
+        if present:
+            power = power - power[present].mean()
+
+    residuals = residual_margin - np.where(hosted, home_field, 0.0)  # noqa: E501
     sigma = float(np.std(residuals, ddof=1)) or DEFAULT_MARGIN_SIGMA
 
     played = pd.concat([games["team1"], games["team2"]]).value_counts()
@@ -224,7 +274,13 @@ def fit(
 
     if with_resume:
         ratings.resume = wins_above_expected(games, power, home_field, sigma, neutral)
-    if with_efficiency:
+
+    # Yardage lives in box scores, which the API serves a week at a time and the
+    # games feed omits entirely. The power rating never needed it, so when it is
+    # absent the efficiency layer is simply skipped rather than treated as an
+    # error - scores alone are enough to rate a season.
+    has_yardage = {"rush1", "rush2", "pass1", "pass2"} <= set(games.columns)
+    if with_efficiency and has_yardage:
         offense, defense = _fit_efficiency(games, teams, X[:, :-1], ridge)
         ratings.adj_offense, ratings.adj_defense = offense, defense
     return ratings
@@ -306,16 +362,28 @@ def build_prior(
     previous: pd.Series | None,
     teams: list[str],
     regression: float = DEFAULT_PRIOR_REGRESSION,
+    centre_teams: list[str] | None = None,
 ) -> pd.Series:
     """Carry last season's ratings forward, regressed toward the mean.
 
     Rosters turn over, so last year's number is informative but stale.
     ``regression`` is the share pulled back toward average: 0 trusts last season
     completely, 1 discards it.
+
+    ``centre_teams`` says which teams define "average". This matters more than
+    it looks: API data names every FCS opponent individually, so a plain median
+    over all teams is a median over mostly-FCS teams, and regressing toward it
+    drags the entire FBS field down a little more each season.
     """
     if previous is None or previous.empty:
         return pd.Series(0.0, index=teams)
-    carried = previous.reindex(teams)
-    centre = previous.median()
-    carried = carried.fillna(REPLACEMENT_PRIOR)
+
+    pool = previous
+    if centre_teams:
+        present = [t for t in centre_teams if t in previous.index]
+        if present:
+            pool = previous[present]
+    centre = pool.median()
+
+    carried = previous.reindex(teams).fillna(REPLACEMENT_PRIOR + centre)
     return (1.0 - regression) * carried + regression * centre

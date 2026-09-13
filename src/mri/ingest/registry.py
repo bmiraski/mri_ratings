@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 
@@ -28,8 +29,17 @@ class Team:
 
 
 def _key(name: object) -> str:
-    """Match the way Excel compares text: case- and whitespace-insensitive."""
-    return " ".join(str(name).split()).casefold()
+    """Normalize a team name down to something that matches across sources.
+
+    Excel compared text case- and whitespace-insensitively, which the archive
+    depends on. The API adds two more wrinkles: diacritics ("San Jose State")
+    and punctuation ("Hawai'i", "Middle Tenn. St"), so both are stripped. What
+    survives is letters, digits and single spaces.
+    """
+    text = unicodedata.normalize("NFKD", str(name))
+    text = "".join(c for c in text if not unicodedata.combining(c))
+    text = "".join(c if c.isalnum() or c.isspace() else " " for c in text)
+    return " ".join(text.split()).casefold()
 
 
 @lru_cache(maxsize=1)
