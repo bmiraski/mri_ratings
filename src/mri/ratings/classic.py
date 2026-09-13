@@ -1,36 +1,48 @@
-"""MRI Classic - a faithful Python port of the 2018 Excel formula.
+"""MRI Classic - faithful Python ports of the original Excel formulas.
 
-This module is deliberately not improved. It exists to reproduce the workbook
+This module is deliberately not improved. It exists to reproduce the workbooks
 exactly so that (a) the historical rankings stay comparable and (b) there is a
-known-good baseline to measure MRI 2.0 against. Every quirk is preserved,
-including the pooled FCS opponent, the +/-35 margin cap, and the 0.1 fallback
-when an opponent is undefeated.
+known-good baseline to measure MRI 2.0 against. Every quirk is preserved.
 
-The formula, from Team Data column V:
+Both sports share a skeleton - win percentage, opponents, opponents' opponents,
+summed game credit, then z-scored statistical components - but the details
+differ enough that treating basketball as football with renamed columns would
+be wrong in four places. The ``Sport`` config below holds the differences.
 
-    MRI = 25 * WinPct
-        + 25 * OppWinPct
-        + 10 * OppOppWinPct
-        + sum(game points)
-        +  5 * z(RushYds/G)
-        +  5 * z(PassYds/G)
-        +  7 * -z(TotalYdsAllowed/G)
-        +  3 * z(TurnoverMargin)
+FOOTBALL, from Team Data column V:
 
-Game points, from Games columns U and V:
+    MRI = 25*Win% + 25*OppWin% + 10*OppOppWin% + sum(game credit)
+        + 5*z(RushYds/G) + 5*z(PassYds/G)
+        + 7*-z(TotalYdsAllowed/G) + 3*z(TurnoverMargin)
 
-    win  ->  min( 35, margin) * OppWinPct  * OppOppWinPct
-    loss ->  max(-35, margin) * OppLossPct * OppOppLossPct
+    win  ->  min( 35, margin) * OppWin%  * OppOppWin%
+    loss ->  max(-35, margin) * OppLoss% * OppOppLoss%   (0.1 if opp unbeaten)
 
-z-scores use the sample standard deviation (Excel STDEV) over FBS teams only;
-the pooled FCS row is excluded from the statistics and from the rankings, but
-its win-loss record still feeds every opponent lookup.
+BASKETBALL, from the 2019-20 workbook:
+
+    MRI = 25*Win% + 25*OppWin% + 10*OppOppWin% + sum(game credit)
+        + 10*z(ReboundDiff/G) + 6*z(TurnoverDiff/G)
+
+    win  ->  min( 30, margin) * OppWin%  * OppOppWin%
+    loss ->  max(-30, margin) * OppLoss% * OppOppLoss%   (no fallback)
+
+The differences that matter: the cap is 30 not 35; there is no undefeated-
+opponent fallback; the turnover term is per game where football's is a raw
+total; and strength of schedule uses an RPI-style adjustment that removes the
+team's own games from its opponents' records, which the football sheet never
+did. Football pools non-FBS opponents into one "Non D1A" row; basketball drops
+non-D1 games entirely, which is why its workbooks carry no pooled team.
+
+z-scores use the sample standard deviation (Excel STDEV) over rated teams only.
 """
 
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+
+from dataclasses import dataclass, field
+from typing import Callable
 
 MARGIN_CAP = 35.0
 UNDEFEATED_OPPONENT_FALLBACK = 0.1
@@ -46,6 +58,106 @@ WEIGHTS = {
 }
 
 POOLED_FCS = "Non D1A"
+
+
+@dataclass(frozen=True)
+class Sport:
+    """What differs between the football and basketball workbooks."""
+
+    name: str
+    margin_cap: float
+    undefeated_fallback: float | None
+    # long-form column -> (team1 source, team2 source); the reverse pairing is
+    # generated automatically for the opponent's side.
+    stat_pairs: dict[str, tuple[str, str]]
+    # Adds the z-scored component columns to the aggregated frame.
+    derive: Callable[["pd.DataFrame", "pd.Series"], None]
+    # (column, weight, sign) - sign -1 for "lower is better".
+    components: tuple[tuple[str, float, int], ...]
+    # Strength of schedule, which the two sports compute differently.
+    sos: Callable[["pd.DataFrame"], "pd.Series"]
+
+
+def _derive_football(records: pd.DataFrame, played: pd.Series) -> None:
+    records["rush_per_game"] = _safe_pct(records["rush_for"], played)
+    records["pass_per_game"] = _safe_pct(records["pass_for"], played)
+    records["yards_allowed_per_game"] = _safe_pct(
+        records["rush_against"] + records["pass_against"], played
+    )
+    records["turnover_margin"] = records["to_forced"] - records["to_committed"]
+
+
+def _derive_basketball(records: pd.DataFrame, played: pd.Series) -> None:
+    records["rebound_diff_per_game"] = _safe_pct(
+        records["reb_for"] - records["reb_against"], played
+    )
+    records["turnover_diff_per_game"] = _safe_pct(
+        records["to_forced"] - records["to_committed"], played
+    )
+
+
+def _sos_football(records: pd.DataFrame) -> pd.Series:
+    """Opponents' win percentage times their opponents'. Unadjusted."""
+    return records["opp_win_pct"] * records["opp_opp_win_pct"]
+
+
+def _sos_basketball(records: pd.DataFrame) -> pd.Series:
+    """RPI-style, with the team's own games removed from its opponents' records.
+
+    From Team Data columns W, X and Y of the basketball workbooks. Without the
+    adjustment a team inflates its own strength of schedule by beating people:
+    every win it records shows up again as an opponent win.
+    """
+    own_games = records["wins"] + records["losses"]
+    opp_numerator = records["opp_wins"] - records["losses"]
+    opp_denominator = records["opp_wins"] + records["opp_losses"] - own_games
+    opp = _safe_pct(opp_numerator, opp_denominator)
+
+    opp2_numerator = records["opp_opp_wins"] - own_games * records["wins"]
+    opp2_denominator = records["opp_opp_wins"] + records["opp_opp_losses"] - own_games ** 2
+    opp2 = _safe_pct(opp2_numerator, opp2_denominator)
+    return pd.Series(opp * opp2, index=records.index)
+
+
+FOOTBALL = Sport(
+    name="football",
+    margin_cap=35.0,
+    undefeated_fallback=0.1,
+    stat_pairs={
+        "rush_for": ("rush1", "rush2"),
+        "rush_against": ("rush2", "rush1"),
+        "pass_for": ("pass1", "pass2"),
+        "pass_against": ("pass2", "pass1"),
+        "to_committed": ("to1", "to2"),
+        "to_forced": ("to2", "to1"),
+    },
+    derive=_derive_football,
+    components=(
+        ("rush_per_game", 5.0, 1),
+        ("pass_per_game", 5.0, 1),
+        ("yards_allowed_per_game", 7.0, -1),
+        ("turnover_margin", 3.0, 1),
+    ),
+    sos=_sos_football,
+)
+
+BASKETBALL = Sport(
+    name="basketball",
+    margin_cap=30.0,
+    undefeated_fallback=None,
+    stat_pairs={
+        "reb_for": ("reb1", "reb2"),
+        "reb_against": ("reb2", "reb1"),
+        "to_committed": ("to1", "to2"),
+        "to_forced": ("to2", "to1"),
+    },
+    derive=_derive_basketball,
+    components=(
+        ("rebound_diff_per_game", 10.0, 1),
+        ("turnover_diff_per_game", 6.0, 1),
+    ),
+    sos=_sos_basketball,
+)
 
 
 def _safe_pct(numerator: pd.Series | np.ndarray, denominator: pd.Series | np.ndarray):
@@ -92,70 +204,58 @@ def canonicalize(games: pd.DataFrame, teams: list[str] | None) -> tuple[pd.DataF
     return games, teams
 
 
-def _long_form(games: pd.DataFrame) -> pd.DataFrame:
+def _long_form(games: pd.DataFrame, sport: Sport) -> pd.DataFrame:
     """One row per team per game, so aggregation is a single groupby."""
-    side1 = pd.DataFrame(
-        {
-            "team": games["team1"],
-            "opponent": games["team2"],
-            "points_for": games["pts1"],
-            "points_against": games["pts2"],
-            "rush_for": games["rush1"],
-            "rush_against": games["rush2"],
-            "pass_for": games["pass1"],
-            "pass_against": games["pass2"],
-            "to_committed": games["to1"],
-            "to_forced": games["to2"],
-            "won": games["win1"],
-        }
+    home = {
+        "team": games["team1"], "opponent": games["team2"],
+        "points_for": games["pts1"], "points_against": games["pts2"],
+        "won": games["win1"],
+    }
+    away = {
+        "team": games["team2"], "opponent": games["team1"],
+        "points_for": games["pts2"], "points_against": games["pts1"],
+        "won": games["win2"],
+    }
+    for column, (first, second) in sport.stat_pairs.items():
+        home[column] = games[first]
+        away[column] = games[second]
+
+    long = pd.concat(
+        [pd.DataFrame(home), pd.DataFrame(away)], ignore_index=True
     )
-    side2 = pd.DataFrame(
-        {
-            "team": games["team2"],
-            "opponent": games["team1"],
-            "points_for": games["pts2"],
-            "points_against": games["pts1"],
-            "rush_for": games["rush2"],
-            "rush_against": games["rush1"],
-            "pass_for": games["pass2"],
-            "pass_against": games["pass1"],
-            "to_committed": games["to2"],
-            "to_forced": games["to1"],
-            "won": games["win2"],
-        }
-    )
-    long = pd.concat([side1, side2], ignore_index=True)
     long["lost"] = 1.0 - long["won"]
     long["margin"] = long["points_for"] - long["points_against"]
     return long
 
 
-def compute(games: pd.DataFrame, teams: list[str] | None = None) -> pd.DataFrame:
+def compute(
+    games: pd.DataFrame,
+    teams: list[str] | None = None,
+    sport: Sport = FOOTBALL,
+) -> pd.DataFrame:
     """Compute MRI Classic for every team in ``games``.
 
     Parameters
     ----------
     games
-        Normalized game table from ``mri.ingest.archive.read_games``.
+        Normalized game table with the archive's column names.
     teams
-        FBS team list. Teams outside this list (the pooled FCS row) still
+        The rated team list. Teams outside it (football's pooled FCS row) still
         contribute to opponent records but are excluded from the z-score
         statistics and from the returned rankings.
+    sport
+        ``FOOTBALL`` or ``BASKETBALL``. The two formulas share a skeleton and
+        differ in the margin cap, the undefeated-opponent fallback, the
+        statistical components and the strength-of-schedule definition.
     """
     games, teams = canonicalize(games, teams)
-    long = _long_form(games)
+    long = _long_form(games, sport)
 
     # --- Pass 1: raw records -------------------------------------------------
-    records = long.groupby("team").agg(
-        wins=("won", "sum"),
-        losses=("lost", "sum"),
-        rush_yards=("rush_for", "sum"),
-        rush_allowed=("rush_against", "sum"),
-        pass_yards=("pass_for", "sum"),
-        pass_allowed=("pass_against", "sum"),
-        to_committed=("to_committed", "sum"),
-        to_forced=("to_forced", "sum"),
-    )
+    aggregations = {"wins": ("won", "sum"), "losses": ("lost", "sum")}
+    for column in sport.stat_pairs:
+        aggregations[column] = (column, "sum")
+    records = long.groupby("team").agg(**aggregations)
     if teams is not None:
         records = records.reindex(records.index.union(teams)).fillna(0.0)
 
@@ -181,7 +281,7 @@ def compute(games: pd.DataFrame, teams: list[str] | None = None) -> pd.DataFrame
     records = records.join(opp2).fillna(0.0)
 
     # --- Per-game points ------------------------------------------------------
-    long["game_points"] = _game_points(long)
+    long["game_points"] = _game_points(long, sport)
     records = records.join(
         long.groupby("team")["game_points"].sum().rename("game_points")
     ).fillna(0.0)
@@ -196,37 +296,19 @@ def compute(games: pd.DataFrame, teams: list[str] | None = None) -> pd.DataFrame
     records["opp_opp_win_pct"] = _safe_pct(
         records["opp_opp_wins"], records["opp_opp_wins"] + records["opp_opp_losses"]
     )
-    records["sos"] = records["opp_win_pct"] * records["opp_opp_win_pct"]
+    records["sos"] = sport.sos(records)
 
-    records["rush_per_game"] = _safe_pct(records["rush_yards"], played)
-    records["pass_per_game"] = _safe_pct(records["pass_yards"], played)
-    records["yards_allowed_per_game"] = _safe_pct(
-        records["rush_allowed"] + records["pass_allowed"], played
-    )
-    records["turnover_margin"] = records["to_forced"] - records["to_committed"]
+    sport.derive(records, played)
 
-    # --- z-scores over FBS only ----------------------------------------------
+    # --- z-scores over rated teams only --------------------------------------
     fbs = _fbs_mask(records, teams)
-    stats = {}
-    for column in (
-        "rush_per_game",
-        "pass_per_game",
-        "yards_allowed_per_game",
-        "turnover_margin",
-    ):
-        pool = records.loc[fbs, column]
-        stats[column] = (pool.mean(), pool.std(ddof=1))
 
     def z(column: str) -> pd.Series:
-        mean, dev = stats[column]
+        pool = records.loc[fbs, column]
+        mean, dev = pool.mean(), pool.std(ddof=1)
         if not dev:
             return pd.Series(0.0, index=records.index)
         return (records[column] - mean) / dev
-
-    records["z_rush"] = z("rush_per_game")
-    records["z_pass"] = z("pass_per_game")
-    records["z_defense"] = -z("yards_allowed_per_game")
-    records["z_turnovers"] = z("turnover_margin")
 
     # --- The rating ----------------------------------------------------------
     records["mri"] = (
@@ -234,11 +316,11 @@ def compute(games: pd.DataFrame, teams: list[str] | None = None) -> pd.DataFrame
         + WEIGHTS["opp_win_pct"] * records["opp_win_pct"]
         + WEIGHTS["opp_opp_win_pct"] * records["opp_opp_win_pct"]
         + records["game_points"]
-        + WEIGHTS["rush"] * records["z_rush"]
-        + WEIGHTS["pass"] * records["z_pass"]
-        + WEIGHTS["defense"] * records["z_defense"]
-        + WEIGHTS["turnovers"] * records["z_turnovers"]
     )
+    for column, weight, sign in sport.components:
+        contribution = z(column) * (weight * sign)
+        records[f"z_{column}"] = contribution
+        records["mri"] = records["mri"] + contribution
     records["mri_per_game"] = _safe_pct(records["mri"], played)
 
     result = records.loc[fbs].copy()
@@ -248,8 +330,8 @@ def compute(games: pd.DataFrame, teams: list[str] | None = None) -> pd.DataFrame
     return result.reset_index().rename(columns={"index": "team"})
 
 
-def _game_points(long: pd.DataFrame) -> np.ndarray:
-    """Opponent-weighted credit for each game, per Games!U and Games!V."""
+def _game_points(long: pd.DataFrame, sport: Sport = FOOTBALL) -> np.ndarray:
+    """Opponent-weighted credit for each game, per the Games sheet."""
     opp_w = long["opp_wins"].to_numpy(float)
     opp_l = long["opp_losses"].to_numpy(float)
     opp2_w = long["opp_opp_wins"].to_numpy(float)
@@ -262,19 +344,21 @@ def _game_points(long: pd.DataFrame) -> np.ndarray:
 
     opp_win_pct = np.divide(opp_w, opp_games, out=np.zeros_like(opp_w), where=opp_games != 0)
     opp2_win_pct = np.divide(opp2_w, opp2_games, out=np.zeros_like(opp2_w), where=opp2_games != 0)
-    # Excel substitutes 0.1 when the opponent has no losses, so a loss to an
-    # undefeated team still costs something rather than nothing.
-    opp_loss_pct = np.where(
-        opp_l == 0,
-        UNDEFEATED_OPPONENT_FALLBACK,
-        np.divide(opp_l, opp_games, out=np.zeros_like(opp_l), where=opp_games != 0),
+    # The football sheet substitutes 0.1 when the opponent has no losses, so a
+    # loss to an undefeated team still costs something rather than nothing. The
+    # basketball sheet has no such fallback, and copying one in would change
+    # every rating in a season where anyone runs the table.
+    opp_loss_pct = np.divide(
+        opp_l, opp_games, out=np.zeros_like(opp_l), where=opp_games != 0
     )
+    if sport.undefeated_fallback is not None:
+        opp_loss_pct = np.where(opp_l == 0, sport.undefeated_fallback, opp_loss_pct)
     opp2_loss_pct = np.divide(
         opp2_l, opp2_games, out=np.zeros_like(opp2_l), where=opp2_games != 0
     )
 
-    win_points = np.minimum(MARGIN_CAP, margin) * opp_win_pct * opp2_win_pct
-    loss_points = np.maximum(-MARGIN_CAP, margin) * opp_loss_pct * opp2_loss_pct
+    win_points = np.minimum(sport.margin_cap, margin) * opp_win_pct * opp2_win_pct
+    loss_points = np.maximum(-sport.margin_cap, margin) * opp_loss_pct * opp2_loss_pct
     return np.where(won, win_points, loss_points)
 
 

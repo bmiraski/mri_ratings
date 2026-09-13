@@ -63,8 +63,24 @@ class ArchiveSeason:
 
 
 def year_from_path(path: Path | str) -> int:
-    """Pull the season year out of a filename like MRIFootball2010_final.xls."""
-    match = re.search(r"(19|20)\d{2}", Path(path).name)
+    """Pull the season year out of a filename.
+
+    Football files name a single year (MRIFootball2010_final.xls). Basketball
+    files name a span (MRIBasketball201920), and the season is labelled by the
+    year it ends in - 2019-20 is season 2020 - which is also what the API uses.
+    """
+    name = Path(path).name
+    # Basketball files named with a single year use the season's START year -
+    # MRIBasketball2012 is the 2012-13 season, as its own title page says - so
+    # it maps to season 2013 under the ends-in convention the API uses.
+    single = re.fullmatch(r"MRIBasketball((?:19|20)\d{2})\.xlsx", name)
+    if single:
+        return int(single.group(1)) + 1
+    span = re.search(r"((?:19|20)\d{2})(\d{2})(?!\d)", name)
+    if span:
+        start, end = span.group(1), span.group(2)
+        return int(start[:2] + end) if end != start[2:] else int(start)
+    match = re.search(r"(19|20)\d{2}", name)
     if not match:
         raise ValueError(f"no year in filename: {path}")
     return int(match.group(0))
@@ -190,4 +206,147 @@ def read_archive(directory: Path | str) -> dict[int, ArchiveSeason]:
         existing = seasons.get(season.year)
         if existing is None or len(season.games) > len(existing.games):
             seasons[season.year] = season
+    return dict(sorted(seasons.items()))
+
+
+# ---------------------------------------------------------------------------
+# Basketball
+# ---------------------------------------------------------------------------
+
+BASKETBALL_GAMES = {
+    "team1": 1, "team2": 2, "pts1": 3, "pts2": 4,
+    "reb1": 5, "reb2": 6, "to1": 7, "to2": 8, "win1": 9, "win2": 10,
+}
+BASKETBALL_STATS = ["pts1", "pts2", "reb1", "reb2", "to1", "to2", "win1", "win2"]
+
+
+def read_basketball_workbook(path: Path | str) -> ArchiveSeason:
+    """Read one MRIBasketball workbook.
+
+    Same idea as the football reader, three differences. The files are .xlsx so
+    openpyxl reads them rather than xlrd; the statistics are rebounds and
+    turnovers rather than rushing and passing; and there is no pooled opponent
+    row, because the basketball workbooks drop non-D1 games instead of pooling
+    them. The published table also starts on row 3, under a title row.
+    """
+    import openpyxl
+
+    path = Path(path)
+    book = openpyxl.load_workbook(path, data_only=True, read_only=True)
+    try:
+        games = _read_basketball_games(book["Games"])
+        teams = _read_basketball_roster(book["Team Data"])
+        published = _read_basketball_published(book["MRI"])
+    finally:
+        book.close()
+
+    return ArchiveSeason(
+        year=year_from_path(path),
+        path=path,
+        games=games,
+        teams=teams,
+        published=published,
+    )
+
+
+def _read_basketball_games(sheet) -> pd.DataFrame:
+    rows = []
+    for row in sheet.iter_rows(min_row=2, max_col=10, values_only=True):
+        if not row or not row[0] or not row[1]:
+            continue
+        if not isinstance(row[2], (int, float)) or not isinstance(row[3], (int, float)):
+            continue
+        record = {"team1": str(row[0]).strip(), "team2": str(row[1]).strip()}
+        for name, column in BASKETBALL_GAMES.items():
+            if name in ("team1", "team2"):
+                continue
+            value = row[column - 1]
+            record[name] = float(value) if isinstance(value, (int, float)) else 0.0
+        rows.append(record)
+
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return frame
+    for column in BASKETBALL_STATS:
+        frame[column] = frame[column].astype(float)
+    return frame
+
+
+def _read_basketball_roster(sheet) -> list[str]:
+    teams = []
+    for row in sheet.iter_rows(min_row=2, max_col=1, values_only=True):
+        name = row[0]
+        if not name:
+            break
+        teams.append(str(name).strip())
+    return teams
+
+
+def _read_basketball_published(sheet) -> pd.DataFrame:
+    """The MRI sheet's ranking. Row 1 is a title, row 2 the header.
+
+    Columns are located by header name rather than position, because the layout
+    changed partway through: workbooks up to 2017-18 run Rank/Team/W/L/MRI,
+    and from 2018-19 a Conference column is inserted third. Reading by position
+    silently shifts W, L and MRI by one and yields ratings that look plausible
+    and are wrong.
+    """
+    rows = list(sheet.iter_rows(min_row=1, max_row=2, max_col=12, values_only=True))
+    header = rows[1] if len(rows) > 1 else ()
+    index = {
+        str(name).strip().casefold(): position
+        for position, name in enumerate(header)
+        if name
+    }
+    if "team" not in index or "mri" not in index:
+        return pd.DataFrame()
+
+    def value(row, key):
+        position = index.get(key)
+        return row[position] if position is not None and position < len(row) else None
+
+    out = []
+    for row in sheet.iter_rows(min_row=3, max_col=12, values_only=True):
+        if not row or not value(row, "team"):
+            continue
+        rating = value(row, "mri")
+        if not isinstance(rating, (int, float)):
+            continue
+        out.append(
+            {
+                "rank": value(row, "rank"),
+                "team": str(value(row, "team")).strip(),
+                "conference": value(row, "conference"),
+                "wins": value(row, "w"),
+                "losses": value(row, "l"),
+                "mri": float(rating),
+            }
+        )
+    return pd.DataFrame(out)
+
+
+MIN_USABLE_GAMES = 500
+
+
+def read_basketball_archive(directory: Path | str) -> dict[int, ArchiveSeason]:
+    """Read every usable basketball workbook in a directory.
+
+    Some files in the archive are stubs rather than seasons - MRIBasketball2013
+    carries 163 games and a published table that is entirely #DIV/0!, because it
+    was saved before the season had begun. Validating against one proves
+    nothing, so anything without a real game log and a real published table is
+    skipped rather than silently failed.
+    """
+    seasons: dict[int, ArchiveSeason] = {}
+    for path in sorted(Path(directory).glob("MRIBasketball*.xlsx")):
+        try:
+            season = read_basketball_workbook(path)
+        except Exception as exc:  # pragma: no cover - corrupt file guard
+            print(f"  skipped {path.name}: {exc}")
+            continue
+        if len(season.games) < MIN_USABLE_GAMES or season.published.empty:
+            print(f"  skipped {path.name}: {len(season.games)} games, "
+                  f"{len(season.published)} published ratings - not a usable season")
+            continue
+        seasons[season.year] = season
     return dict(sorted(seasons.items()))
