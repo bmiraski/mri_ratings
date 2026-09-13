@@ -887,6 +887,135 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
                 description="How the MRI rating system works, and how well it does.")
 
 
+def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
+    """The basketball analysis view, led by the verdict rather than the card.
+
+    Football's betting page opens with its finding and then shows a flagged
+    list, because football's backtest found a live signal in closing line value.
+    Basketball's found nothing at all, so there is no flagged list here and
+    nothing on the page is filtered to resemble one. The disagreements are shown
+    because they are interesting; the page says plainly that they have not made
+    money, above the table rather than below it.
+    """
+    espn = betting.get("espn_headline") or {}
+    dk = betting.get("dk_headline") or {}
+    break_even = espn.get("breakEven", 0.5238)
+
+    def bucket_rows(records, with_clv=False):
+        out = []
+        for row in records or []:
+            if row["edge"] == "ALL":
+                continue
+            clv = f"{row['clv']:+.2f}" if with_clv and row.get("clv") is not None else "&ndash;"
+            out.append(f"""
+      <tr>
+        <td>{esc(row['edge'])}</td>
+        <td class="num">{row['bets']}</td>
+        <td class="num {'over' if row['ats'] >= break_even else 'under'}">{row['ats']:.1%}</td>
+        <td class="num">{row['units']:+.1f}</td>
+        <td class="num muted">{clv}</td>
+      </tr>""")
+        return "".join(out)
+
+    seasons = espn.get("atsBySeason") or {}
+    season_rows = "".join(
+        f"<tr><td>{esc(k)}</td><td class=\"num {'over' if v >= break_even else 'under'}\">{v:.1%}</td></tr>"
+        for k, v in sorted(seasons.items())
+    )
+
+    games = board.get("disagreements") or []
+    if games:
+        card = "".join(f"""
+      <tr>
+        <td class="wk">{esc(g['day'][5:])}</td>
+        <td class="opp">{esc(g['away'])} {'vs' if g['neutral'] else 'at'} {esc(g['home'])}</td>
+        <td class="num">{g['predicted']:+.1f}</td>
+        <td class="num">{g['market']:+.1f}</td>
+        <td class="num perf {'over' if g['edge'] > 0 else 'under'}">{g['edge']:+.1f}</td>
+        <td class="opp">{esc(g['side'])}</td>
+      </tr>""" for g in games[:25])
+        card_block = f"""
+  <div class="tablewrap"><table>
+    <thead><tr><th>Date</th><th>Game</th><th class="num">Model</th><th class="num">Market</th>
+    <th class="num">Gap</th><th>Model's side</th></tr></thead>
+    <tbody>{card}</tbody>
+  </table></div>
+  <p class="note">{board['priced']} of the next {len(board['games'])} games carry a DraftKings
+  number. Games involving a team the model has barely seen are left out entirely, because
+  the largest gaps in November are the model's ignorance rather than its opinion.</p>"""
+    else:
+        card_block = """
+  <p class="empty">No games in the next few days. This fills in during the season.</p>"""
+
+    body = f"""
+  <article class="prose">
+  <h1>Model versus market</h1>
+
+  <p class="lede"><strong>The model does not beat the market, and this page is not a
+  card to bet.</strong> It is published because the comparison is interesting and
+  because a system that only shows you its good weeks is not telling you anything.</p>
+
+  <h2>The market is the better predictor</h2>
+  <table class="compare">
+    <thead><tr><th></th><th>MRI 2.0</th><th>Market</th></tr></thead>
+    <tbody>
+      <tr><td>Mean margin error, {espn.get('games', 0):,} games (ESPN Bet)</td>
+        <td>{espn.get('modelMae', 0):.2f} pts</td><td><strong>{espn.get('marketMae', 0):.2f} pts</strong></td></tr>
+      <tr><td>Mean margin error, {dk.get('games', 0):,} games (DraftKings)</td>
+        <td>{dk.get('modelMae', 0):.2f} pts</td><td><strong>{dk.get('marketMae', 0):.2f} pts</strong></td></tr>
+      <tr><td>Picks the winner outright</td>
+        <td>{espn.get('modelWinner', 0):.1%}</td><td><strong>{espn.get('marketWinner', 0):.1%}</strong></td></tr>
+    </tbody>
+  </table>
+  <p>The two numbers correlate at {espn.get('correlation', 0):.2f}, so most of the time they
+  agree. Where they disagree it is usually the model that is wrong, and half a point of
+  margin error is the whole reason there is nothing to bet here.</p>
+
+  <h2>Against the closing line, by season</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Season</th><th class="num">ATS</th></tr></thead>
+    <tbody>{season_rows}</tbody>
+  </table></div>
+  <p>Break-even at &minus;110 is {break_even:.2%}. Four seasons, never close, no trend.
+  On DraftKings over 2025&ndash;26 it is {dk.get('ats', 0):.1%} across
+  {dk.get('games', 0):,} games, which is worse still.</p>
+
+  <h2>By size of disagreement</h2>
+  <p class="hint">If the model knew something the market did not, the buckets where it
+  disagrees most should be the ones that win. Against ESPN Bet's closing number:</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Gap</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody>{bucket_rows(betting.get('espn_close'))}</tbody>
+  </table></div>
+  <p>One bucket clears significance: gaps of 15 points or more went 54&ndash;25.
+  There are 79 of those in 16,954 games, 42 of them in the first season tested, and
+  reading them is the end of the story &mdash; they are November mismatches against
+  opponents the model has barely seen. In one, the model favoured Mississippi Valley
+  State by four where the market had Hawai'i by 25.5. It won the bet while being wrong
+  by 22 points. The bucket is measuring the model's own failures, and it does not
+  reappear on DraftKings.</p>
+
+  <h2>The one faint signal</h2>
+  <p>Betting the opening number rather than the close, mean closing line value is
+  positive and grows with the size of the disagreement &mdash; the market tends to drift
+  toward this model's side after the opener. That is a reason to keep measuring, not a
+  reason to bet, and it is the same shape of hint football produced.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Gap</th><th class="num">Bets</th><th class="num">ATS</th>
+    <th class="num">Units</th><th class="num">CLV</th></tr></thead>
+    <tbody>{bucket_rows(betting.get('dk_open'), with_clv=True)}</tbody>
+  </table></div>
+  <p class="note">DraftKings openers, 2025&ndash;26.</p>
+
+  <h2>Where they disagree now</h2>
+  {card_block}
+  </article>"""
+    return page(f"Model versus market — MRI basketball {season_text(payload)}", body, payload,
+                description="Where the MRI basketball model disagrees with the market, "
+                            "and why that has not made money.")
+
+
 def bb_method_page(payload: dict) -> str:
     """The basketball method page.
 
@@ -1032,7 +1161,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     write(out_dir / "archive.html", archive_page(payload))
     write(out_dir / "method.html", method_page(payload))
     if payload.get("betting") and payload.get("board"):
-        write(out_dir / "betting.html", betting_page(payload, payload["betting"], payload["board"]))
+        renderer = bb_betting_page if chrome.sport == "basketball" else betting_page
+        write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
     published = payload if publish_details else {k: v for k, v in payload.items() if k != "details"}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -1212,6 +1342,9 @@ th.num { text-align:right; }
   margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
 .compare thead, .compare tbody { display:table; width:100%; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
+/* Numbers sit right; their headings were still sitting left, so neither column
+   lined up with the thing it labelled. */
+.compare th:not(:first-child), .compare td:not(:first-child) { text-align:right; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
   padding:14px 16px; margin:18px 0; }

@@ -164,6 +164,9 @@ th.num { text-align:right; }
   margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
 .compare thead, .compare tbody { display:table; width:100%; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
+/* Numbers sit right; their headings were still sitting left, so neither column
+   lined up with the thing it labelled. */
+.compare th:not(:first-child), .compare td:not(:first-child) { text-align:right; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
   padding:14px 16px; margin:18px 0; }

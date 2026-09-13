@@ -1,0 +1,437 @@
+{
+  "espn_close": [
+    {
+      "edge": "0-1",
+      "bets": 3569,
+      "won": 1830,
+      "ats": 0.5127486690949846,
+      "vs_breakeven": -0.011051330905015422,
+      "units": -82.9,
+      "p_value": 0.9096345945202895,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "1-2",
+      "bets": 3309,
+      "won": 1659,
+      "ats": 0.5013599274705349,
+      "vs_breakeven": -0.022440072529465116,
+      "units": -156.0,
+      "p_value": 0.9953496828037047,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "2-3",
+      "bets": 2755,
+      "won": 1380,
+      "ats": 0.5009074410163339,
+      "vs_breakeven": -0.022892558983666156,
+      "units": -132.5,
+      "p_value": 0.9923216704546711,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "3-5",
+      "bets": 3779,
+      "won": 1887,
+      "ats": 0.4993384493252183,
+      "vs_breakeven": -0.02446155067478173,
+      "units": -194.2,
+      "p_value": 0.9987593552689014,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "5-7",
+      "bets": 1993,
+      "won": 1024,
+      "ats": 0.5137982940291018,
+      "vs_breakeven": -0.010001705970898223,
+      "units": -41.9,
+      "p_value": 0.8202983319990491,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "7-10",
+      "bets": 1109,
+      "won": 572,
+      "ats": 0.5157799819657349,
+      "vs_breakeven": -0.008020018034265108,
+      "units": -18.7,
+      "p_value": 0.7140054643121925,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "10-15",
+      "bets": 361,
+      "won": 185,
+      "ats": 0.5124653739612188,
+      "vs_breakeven": -0.011334626038781215,
+      "units": -8.6,
+      "p_value": 0.6859671302603148,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "15+",
+      "bets": 79,
+      "won": 54,
+      "ats": 0.6835443037974683,
+      "vs_breakeven": 0.1597443037974683,
+      "units": 26.5,
+      "p_value": 0.0028738871758806264,
+      "significant": true,
+      "clv": null
+    },
+    {
+      "edge": "ALL",
+      "bets": 16954,
+      "won": 8591,
+      "ats": 0.5067240769140026,
+      "vs_breakeven": -0.01707592308599748,
+      "units": -608.3,
+      "p_value": 0.999995857316377,
+      "significant": false,
+      "clv": null
+    }
+  ],
+  "espn_headline": {
+    "book": "ESPN Bet",
+    "games": 16955,
+    "modelMae": 9.4,
+    "marketMae": 8.86,
+    "modelWinner": 0.7162,
+    "marketWinner": 0.7302,
+    "correlation": 0.904,
+    "ats": 0.5067,
+    "atsBySeason": {
+      "2023": 0.5163,
+      "2024": 0.5005,
+      "2025": 0.5005,
+      "2026": 0.5187
+    },
+    "breakEven": 0.5238
+  },
+  "espn_open": [
+    {
+      "edge": "0-1",
+      "bets": 592,
+      "won": 286,
+      "ats": 0.4831081081081081,
+      "vs_breakeven": -0.04069189189189193,
+      "units": -50.6,
+      "p_value": 0.9784329608003366,
+      "significant": false,
+      "clv": -0.01
+    },
+    {
+      "edge": "1-2",
+      "bets": 635,
+      "won": 317,
+      "ats": 0.49921259842519683,
+      "vs_breakeven": -0.024587401574803214,
+      "units": -32.8,
+      "p_value": 0.8997285550746726,
+      "significant": false,
+      "clv": 0.17
+    },
+    {
+      "edge": "2-3",
+      "bets": 465,
+      "won": 241,
+      "ats": 0.5182795698924731,
+      "vs_breakeven": -0.005520430107526897,
+      "units": -5.4,
+      "p_value": 0.6123352444788821,
+      "significant": false,
+      "clv": 0.06
+    },
+    {
+      "edge": "3-5",
+      "bets": 611,
+      "won": 301,
+      "ats": 0.49263502454991814,
+      "vs_breakeven": -0.0311649754500819,
+      "units": -40.0,
+      "p_value": 0.9432101650537968,
+      "significant": false,
+      "clv": 0.16
+    },
+    {
+      "edge": "5-7",
+      "bets": 284,
+      "won": 151,
+      "ats": 0.5316901408450704,
+      "vs_breakeven": 0.007890140845070337,
+      "units": 4.7,
+      "p_value": 0.4184473855282503,
+      "significant": false,
+      "clv": 0.32
+    },
+    {
+      "edge": "7-10",
+      "bets": 113,
+      "won": 57,
+      "ats": 0.504424778761062,
+      "vs_breakeven": -0.01937522123893809,
+      "units": -4.6,
+      "p_value": 0.6940641130530122,
+      "significant": false,
+      "clv": 0.42
+    },
+    {
+      "edge": "10-15",
+      "bets": 47,
+      "won": 29,
+      "ats": 0.6170212765957447,
+      "vs_breakeven": 0.09322127659574464,
+      "units": 9.2,
+      "p_value": 0.12822856556003254,
+      "significant": false,
+      "clv": 1.21
+    },
+    {
+      "edge": "15+",
+      "bets": 29,
+      "won": 24,
+      "ats": 0.8275862068965517,
+      "vs_breakeven": 0.30378620689655167,
+      "units": 18.5,
+      "p_value": 0.000667849200052081,
+      "significant": true,
+      "clv": 4.66
+    },
+    {
+      "edge": "ALL",
+      "bets": 2776,
+      "won": 1406,
+      "ats": 0.5064841498559077,
+      "vs_breakeven": -0.017315850144092315,
+      "units": -101.0,
+      "p_value": 0.9674919331183621,
+      "significant": false,
+      "clv": 0.2
+    }
+  ],
+  "dk_close": [
+    {
+      "edge": "0-1",
+      "bets": 878,
+      "won": 430,
+      "ats": 0.489749430523918,
+      "vs_breakeven": -0.03405056947608204,
+      "units": -62.8,
+      "p_value": 0.9799583603349558,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "1-2",
+      "bets": 845,
+      "won": 429,
+      "ats": 0.5076923076923077,
+      "vs_breakeven": -0.01610769230769238,
+      "units": -28.6,
+      "p_value": 0.8344730766388715,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "2-3",
+      "bets": 738,
+      "won": 340,
+      "ats": 0.46070460704607047,
+      "vs_breakeven": -0.06309539295392957,
+      "units": -97.8,
+      "p_value": 0.9997365892879179,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "3-5",
+      "bets": 1060,
+      "won": 511,
+      "ats": 0.4820754716981132,
+      "vs_breakeven": -0.04172452830188683,
+      "units": -92.9,
+      "p_value": 0.997010731794366,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "5-7",
+      "bets": 568,
+      "won": 264,
+      "ats": 0.4647887323943662,
+      "vs_breakeven": -0.059011267605633855,
+      "units": -70.4,
+      "p_value": 0.9978564833559478,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "7-10",
+      "bets": 313,
+      "won": 148,
+      "ats": 0.4728434504792332,
+      "vs_breakeven": -0.050956549520766836,
+      "units": -33.5,
+      "p_value": 0.968604569792399,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "10-15",
+      "bets": 86,
+      "won": 43,
+      "ats": 0.5,
+      "vs_breakeven": -0.023800000000000043,
+      "units": -4.3,
+      "p_value": 0.7090816012118905,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "15+",
+      "bets": 10,
+      "won": 6,
+      "ats": 0.6,
+      "vs_breakeven": 0.07619999999999993,
+      "units": 1.6,
+      "p_value": 0.43673452714772426,
+      "significant": false,
+      "clv": null
+    },
+    {
+      "edge": "ALL",
+      "bets": 4498,
+      "won": 2171,
+      "ats": 0.48265895953757226,
+      "vs_breakeven": -0.04114104046242778,
+      "units": -388.7,
+      "p_value": 0.9999999844947828,
+      "significant": false,
+      "clv": null
+    }
+  ],
+  "dk_open": [
+    {
+      "edge": "0-1",
+      "bets": 884,
+      "won": 454,
+      "ats": 0.5135746606334841,
+      "vs_breakeven": -0.010225339366515929,
+      "units": -19.0,
+      "p_value": 0.7397849679134834,
+      "significant": false,
+      "clv": 0.08
+    },
+    {
+      "edge": "1-2",
+      "bets": 846,
+      "won": 422,
+      "ats": 0.4988179669030733,
+      "vs_breakeven": -0.02498203309692676,
+      "units": -44.4,
+      "p_value": 0.9317355311910237,
+      "significant": false,
+      "clv": -0.02
+    },
+    {
+      "edge": "2-3",
+      "bets": 763,
+      "won": 368,
+      "ats": 0.48230668414154654,
+      "vs_breakeven": -0.041493315858453506,
+      "units": -66.5,
+      "p_value": 0.9900895376433851,
+      "significant": false,
+      "clv": 0.11
+    },
+    {
+      "edge": "3-5",
+      "bets": 1010,
+      "won": 487,
+      "ats": 0.48217821782178216,
+      "vs_breakeven": -0.04162178217821788,
+      "units": -88.3,
+      "p_value": 0.9963002118931179,
+      "significant": false,
+      "clv": 0.21
+    },
+    {
+      "edge": "5-7",
+      "bets": 526,
+      "won": 240,
+      "ats": 0.45627376425855515,
+      "vs_breakeven": -0.0675262357414449,
+      "units": -74.6,
+      "p_value": 0.9991633793018243,
+      "significant": false,
+      "clv": 0.22
+    },
+    {
+      "edge": "7-10",
+      "bets": 302,
+      "won": 151,
+      "ats": 0.5,
+      "vs_breakeven": -0.023800000000000043,
+      "units": -15.1,
+      "p_value": 0.8121622038828864,
+      "significant": false,
+      "clv": 0.58
+    },
+    {
+      "edge": "10-15",
+      "bets": 76,
+      "won": 41,
+      "ats": 0.5394736842105263,
+      "vs_breakeven": 0.015673684210526284,
+      "units": 2.5,
+      "p_value": 0.4377045559995681,
+      "significant": false,
+      "clv": 0.68
+    },
+    {
+      "edge": "15+",
+      "bets": 10,
+      "won": 7,
+      "ats": 0.7,
+      "vs_breakeven": 0.1761999999999999,
+      "units": 3.7,
+      "p_value": 0.21370116896618058,
+      "significant": false,
+      "clv": 8.2
+    },
+    {
+      "edge": "ALL",
+      "bets": 4417,
+      "won": 2170,
+      "ats": 0.49128367670364503,
+      "vs_breakeven": -0.03251632329635501,
+      "units": -301.7,
+      "p_value": 0.9999928521913939,
+      "significant": false,
+      "clv": 0.18
+    }
+  ],
+  "dk_headline": {
+    "book": "DraftKings",
+    "games": 4498,
+    "modelMae": 9.52,
+    "marketMae": 8.81,
+    "modelWinner": 0.6928,
+    "marketWinner": 0.7045,
+    "correlation": 0.916,
+    "ats": 0.4827,
+    "atsBySeason": {
+      "2026": 0.4827
+    },
+    "breakEven": 0.5238
+  }
+}

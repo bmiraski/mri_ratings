@@ -236,3 +236,83 @@ def test_season_probe_is_cached() -> None:
     from mri.export import bb_sitedata
 
     assert hasattr(bb_sitedata.latest_playing_season, "cache_info")
+
+
+# --- betting ---------------------------------------------------------------
+
+def test_market_sign_convention() -> None:
+    """The spread is quoted from the home team's perspective and is negative
+    when the home team is favoured, so the market's expected home margin is
+    -spread. Getting this backwards produces a backtest that runs perfectly and
+    reports the model as an inverse oracle."""
+    import pandas as pd
+
+    from mri.betting import bb_lines
+
+    games = Path(__file__).resolve().parents[1] / "data" / "parquet" / "bb_priced_dk.parquet"
+    if not games.exists():
+        pytest.skip("priced games not built")
+    frame = pd.read_parquet(games)
+    # An efficient market's number should track the actual margin closely and
+    # sit near it on average.
+    assert frame["market"].corr(frame["actual"]) > 0.5
+    assert abs(frame["market"].mean() - frame["actual"].mean()) < 2.0
+    assert bb_lines.BOOK == "DraftKings"
+
+
+def test_projection_services_are_never_treated_as_markets() -> None:
+    """numberfire and teamrankings sit beside the sportsbooks in this feed and
+    are model outputs. Scoring against them measures agreement with somebody
+    else's projection and would report it as beating a market."""
+    from mri.betting import bb_lines
+
+    assert "numberfire" in bb_lines.NOT_MARKETS
+    assert "teamrankings" in bb_lines.NOT_MARKETS
+    frame = bb_lines.season_lines(2021)
+    if frame.empty:
+        pytest.skip("2020-21 lines unavailable")
+    assert not frame["provider"].str.casefold().isin(bb_lines.NOT_MARKETS).any()
+
+
+def test_backtest_corrects_for_the_number_of_buckets() -> None:
+    """Eight buckets is eight chances at p < 0.05, so one usually takes it."""
+    from mri.betting import bb_backtest as bb
+
+    assert bb.COMPARISONS == len(bb.BUCKETS) - 1
+    assert bb.COMPARISONS >= 8
+
+
+def test_the_board_never_prices_a_game_it_has_already_seen() -> None:
+    """The whole discipline in one assertion: a board built as of a date may
+    only use games that finished before it."""
+    import datetime as dt
+
+    import pandas as pd
+
+    from mri.betting import bb_board
+    from mri.ingest import cbbd
+
+    cut = dt.date(2026, 1, 15)
+    real = cbbd.games
+
+    def as_of(season, **kwargs):
+        frame = real(season, completed_only=False).copy()
+        day = pd.to_datetime(frame["start_date"], format="ISO8601", utc=True).dt.date
+        frame.loc[day >= cut, ["played", "pts1", "pts2", "win1", "win2"]] = [
+            False, None, None, 0.0, 0.0
+        ]
+        return frame[frame["played"]] if kwargs.get("completed_only", True) else frame
+
+    cbbd.games = as_of
+    try:
+        board = bb_board.build_board(2026, today=cut)
+    finally:
+        cbbd.games = real
+
+    if not board["games"]:
+        pytest.skip("season data unavailable")
+    days = {g["day"] for g in board["games"]}
+    assert min(days) >= cut.isoformat(), "the board is pricing games already played"
+    assert max(days) <= (cut + dt.timedelta(days=bb_board.HORIZON_DAYS)).isoformat()
+    # Thin teams are excluded from the shown disagreements, never from the data.
+    assert all(g["confident"] for g in board["disagreements"])

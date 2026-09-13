@@ -63,6 +63,15 @@ def main() -> None:
 
     if basketball:
         basketball["sports"] = sports
+        # The basketball page appears only once there is a backtest to be honest
+        # about, the same condition football's uses.
+        bb_betting = data_dir / "bb_betting.json"
+        if bb_betting.exists():
+            from mri.betting import bb_board
+            basketball["betting"] = json.loads(bb_betting.read_text())
+            basketball["board"] = bb_board.build_board(basketball["season"])
+            print(f"  board: {basketball['board']['priced']} priced, "
+                  f"{len(basketball['board']['disagreements'])} disagreements")
         print(f"building basketball {basketball['seasonLabel']} "
               f"({basketball['periodLabel']})...")
         print(f"  {basketball['gamesRated']} games, {len(basketball['teams'])} teams, "

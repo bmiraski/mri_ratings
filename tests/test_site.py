@@ -186,6 +186,11 @@ def bb_payload() -> dict:
     payload = json.loads(BB_DATA.read_text())
     from mri.export import bb_sitedata
     payload["details"] = bb_sitedata.team_details(payload["season"], payload)
+    betting = BB_DATA.parent / "bb_betting.json"
+    if betting.exists():
+        from mri.betting import bb_board
+        payload["betting"] = json.loads(betting.read_text())
+        payload["board"] = bb_board.build_board(payload["season"])
     return payload
 
 
@@ -349,3 +354,16 @@ def test_unranked_groups_stay_off_the_strength_panel(built) -> None:
     assert "FBS Independent" not in panel
     assert (built / "conference" / "fbs-independent.html").exists()
     assert 'value="FBS Independent"' in index  # still in the filter
+
+
+def test_basketball_betting_page_leads_with_the_verdict(both) -> None:
+    """A betting page that opens with picks and hides its record is a tout
+    sheet. This one has no picks to open with, and must say so first."""
+    page = both / "basketball" / "betting.html"
+    if not page.exists():
+        pytest.skip("basketball betting data not built")
+    html = page.read_text()
+    verdict = html.index("does not beat the market")
+    assert verdict < html.index("Where they disagree now")
+    # Football's word for its filtered list. Nothing here has earned it.
+    assert "flagged" not in html.lower()
