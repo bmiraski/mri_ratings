@@ -9,8 +9,8 @@ Excel workbook from 2000 through 2019; this is the Python version.
 |---|---|
 | **MRI Classic** | Done. The original spreadsheet formula, ported and verified to reproduce all 17 archived seasons exactly. |
 | **Team registry** | Done. 138 FBS teams for 2026 with alias resolution back to the historical workbooks. |
-| **CFBD ingest** | In progress. |
-| **MRI 2.0** | Not started. |
+| **MRI 2.0** | Done and validated. Beats Classic by 1.9 points of straight-up accuracy across 2003-2019. |
+| **CFBD ingest** | Blocked: `api.collegefootballdata.com` is not on the sandbox egress allowlist. |
 | **Rankings site** | Not started. |
 | **Betting module** | Not started. |
 
@@ -32,9 +32,46 @@ historical rankings. Its known limits — one-level-deep strength of schedule,
 a pooled FCS opponent, raw yardage that rewards tempo, no prior and no
 home-field term — are what MRI 2.0 addresses.
 
-**MRI 2.0** (in design) solves ratings and schedule strength simultaneously
-via a ridge-regularized fit on game margins, and splits the output into a
-*Résumé* rating for ranking and a *Power* rating, in points, for prediction.
+**MRI 2.0** turns every game into one equation,
+
+```
+margin  =  rating_home - rating_away + home_field
+```
+
+and solves the whole season at once, so a team's rating depends on its
+opponents' ratings, which depend on theirs. Strength of schedule stops being a
+separate statistic and becomes a property of the solution. Ratings are shrunk
+toward a prior carried from last season, which is what makes a Week 3 ranking
+publishable instead of noise.
+
+It publishes two numbers rather than one:
+
+| | Question | Units | Use |
+|---|---|---|---|
+| **Power** | How good is this team? | points vs an average team | predictions, spreads |
+| **Résumé** | What has it earned? | wins above what an average team would manage against the same schedule | rankings, playoff arguments |
+
+2019 is the clean illustration: Ohio State rates the higher Power (+34.3), but
+LSU carries the better Résumé (+9.1 wins), and LSU is the team that went 15-0
+and won the title.
+
+### Does it actually work?
+
+Walk-forward across all 17 seasons, fitting on the games played so far and
+scoring the games that come next:
+
+| | MRI 2.0 | MRI Classic |
+|---|---|---|
+| straight-up accuracy | **73.8%** | 71.9% |
+| margin error (MAE) | 13.0 pts | n/a - Classic has no point scale |
+| Brier score | 0.177 | n/a |
+
+A +1.9 point edge, winning 13 of 17 seasons, paired t = 4.1 over 85 windows.
+The gap is widest early in the year (+3.1 points at the 40% mark), which is the
+prior doing its job.
+
+Hyperparameters were searched on 2003-2013 and the margin is reported on
+2014-2019, which took no part in the search: +2.1 points there.
 
 ## Validation
 
