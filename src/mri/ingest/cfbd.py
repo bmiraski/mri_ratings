@@ -88,17 +88,25 @@ def request(endpoint: str, *, refresh: bool = False, **params):
     raise CfbdError(f"{endpoint} rate limited after three attempts")
 
 
-def games(year: int, *, season_type: str = "both", refresh: bool = False) -> pd.DataFrame:
+def games(
+    year: int,
+    *,
+    season_type: str = "both",
+    refresh: bool = False,
+    completed_only: bool = True,
+) -> pd.DataFrame:
     """All games for a season, normalized to the archive's column names.
 
-    Only completed games are returned; scheduled ones carry no result to rate.
+    ``completed_only`` keeps the rating path honest - a scheduled game carries
+    no result. Pass False for the site's remaining-schedule view, where unplayed
+    games are exactly the point.
     """
     raw = request("/games", year=year, seasonType=season_type, refresh=refresh)
     rows = []
     for game in raw:
-        if not game.get("completed"):
-            continue
-        if game.get("homePoints") is None or game.get("awayPoints") is None:
+        played = bool(game.get("completed")) and game.get("homePoints") is not None \
+            and game.get("awayPoints") is not None
+        if completed_only and not played:
             continue
         rows.append(
             {
@@ -109,10 +117,11 @@ def games(year: int, *, season_type: str = "both", refresh: bool = False) -> pd.
                 "start_date": game.get("startDate"),
                 "team1": game["awayTeam"],
                 "team2": game["homeTeam"],
-                "pts1": float(game["awayPoints"]),
-                "pts2": float(game["homePoints"]),
-                "win1": 1.0 if game["awayPoints"] > game["homePoints"] else 0.0,
-                "win2": 1.0 if game["homePoints"] > game["awayPoints"] else 0.0,
+                "played": played,
+                "pts1": float(game["awayPoints"]) if played else None,
+                "pts2": float(game["homePoints"]) if played else None,
+                "win1": (1.0 if game["awayPoints"] > game["homePoints"] else 0.0) if played else 0.0,
+                "win2": (1.0 if game["homePoints"] > game["awayPoints"] else 0.0) if played else 0.0,
                 "neutral": bool(game.get("neutralSite")),
                 "class1": (game.get("awayClassification") or "").lower(),
                 "class2": (game.get("homeClassification") or "").lower(),

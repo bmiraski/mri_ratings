@@ -1,0 +1,18 @@
+# Deploy target for mri.mira.ski
+[build]
+  publish = "site/public"
+  command = "PYTHONPATH=src python3 scripts/build_site.py"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

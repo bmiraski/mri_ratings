@@ -231,3 +231,90 @@ def _hex(value, fallback: str) -> str:
     if not value.startswith("#"):
         value = "#" + value
     return value if len(value) == 7 else fallback
+
+
+def team_details(year: int, payload: dict) -> dict:
+    """Per-team schedule with each game's performance against expectation.
+
+    This is the number no other rating publishes and the most interesting thing
+    the model knows. For a simultaneous solve there is no tidy "points this game
+    contributed" the way Classic had, but there is something better: what the
+    final ratings say the margin should have been, against what it was. Beating
+    a good team by three is a different result from beating them by thirty, and
+    this is where that shows up.
+    """
+    from scipy.stats import norm
+
+    schedule = _canonical(cfbd.games(year, completed_only=False))
+    power = {t["team"]: t["power"] for t in payload["teams"]}
+    home_field = payload["homeField"]
+    sigma = 16.5
+    replacement = min(power.values()) - 8 if power else -30.0
+
+    def rating(team: str) -> float:
+        return power.get(team, replacement)
+
+    details: dict[str, dict] = {t["team"]: {"played": [], "upcoming": []} for t in payload["teams"]}
+
+    for row in schedule.itertuples():
+        edge = 0.0 if row.neutral else home_field
+        expected_home = rating(row.team2) - rating(row.team1) + edge
+
+        for team, opponent, site, expected in (
+            (row.team2, row.team1, "vs" if not row.neutral else "n", expected_home),
+            (row.team1, row.team2, "at" if not row.neutral else "n", -expected_home),
+        ):
+            if team not in details:
+                continue
+            entry = {
+                "week": int(row.week),
+                "opponent": opponent,
+                "opponentRank": next(
+                    (t["rank"] for t in payload["teams"] if t["team"] == opponent), None
+                ),
+                "opponentPower": round(rating(opponent), 1),
+                "site": site,
+                "expected": round(expected, 1),
+            }
+            if row.played:
+                scored = row.pts2 if team == row.team2 else row.pts1
+                allowed = row.pts1 if team == row.team2 else row.pts2
+                margin = scored - allowed
+                entry.update(
+                    {
+                        "scored": int(scored),
+                        "allowed": int(allowed),
+                        "won": margin > 0,
+                        "margin": int(margin),
+                        "performance": round(margin - expected, 1),
+                    }
+                )
+                details[team]["played"].append(entry)
+            else:
+                entry["winProbability"] = round(float(norm.cdf(expected / sigma)), 3)
+                details[team]["upcoming"].append(entry)
+
+    for team, detail in details.items():
+        played = detail["played"]
+        detail["played"] = sorted(played, key=lambda g: g["week"])
+        detail["upcoming"] = sorted(detail["upcoming"], key=lambda g: g["week"])
+        remaining = [g["opponentPower"] for g in detail["upcoming"]]
+        detail["remainingDifficulty"] = round(sum(remaining) / len(remaining), 1) if remaining else None
+        detail["playedDifficulty"] = (
+            round(sum(g["opponentPower"] for g in played) / len(played), 1) if played else None
+        )
+        detail["bestWin"] = max(
+            (g for g in played if g["won"]), key=lambda g: g["opponentPower"], default=None
+        )
+        detail["worstLoss"] = min(
+            (g for g in played if not g["won"]), key=lambda g: g["opponentPower"], default=None
+        )
+    return details
+
+
+def build_full(year: int, out_dir: Path) -> dict:
+    """site.json plus the per-team detail the team pages need."""
+    payload = build(year, out_dir)
+    payload["details"] = team_details(year, payload)
+    (out_dir / "site.json").write_text(json.dumps(payload, indent=2))
+    return payload
