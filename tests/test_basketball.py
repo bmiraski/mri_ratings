@@ -316,3 +316,40 @@ def test_the_board_never_prices_a_game_it_has_already_seen() -> None:
     assert max(days) <= (cut + dt.timedelta(days=bb_board.HORIZON_DAYS)).isoformat()
     # Thin teams are excluded from the shown disagreements, never from the data.
     assert all(g["confident"] for g in board["disagreements"])
+
+
+def test_the_prior_chain_heals_itself(tmp_path, monkeypatch) -> None:
+    """bb_ratings.parquet is written by a script nothing runs automatically.
+    The first season after nobody re-ran it, every team would have started from
+    no prior at all - not an error, just a silently worse November."""
+    from mri.export import bb_sitedata
+
+    monkeypatch.setattr(bb_sitedata, "RATINGS", tmp_path / "absent.parquet")
+    prior = bb_sitedata._prior_for(2026)
+    if prior is None:
+        pytest.skip("2024-25 games unavailable")
+    assert len(prior) > 300
+    assert prior.max() > 15, "a recomputed prior must be on the same scale"
+
+
+def test_the_recomputed_prior_matches_the_stored_one(tmp_path, monkeypatch) -> None:
+    """The fallback has to agree with the chain, or a missing file would
+    silently move every rating."""
+    import pandas as pd
+
+    from mri.export import bb_sitedata
+
+    if not bb_sitedata.RATINGS.exists():
+        pytest.skip("basketball ratings not built")
+    stored = bb_sitedata._prior_for(2026)
+    monkeypatch.setattr(bb_sitedata, "RATINGS", tmp_path / "absent.parquet")
+    recomputed = bb_sitedata._prior_for(2026)
+
+    shared = stored.index.intersection(recomputed.index)
+    assert len(shared) > 300
+    # Identical, not merely close. The fallback reconstructs the same chain the
+    # script wrote, which is the only version of this worth having: a fallback
+    # that is approximately right moves every rating on the site the day the
+    # file goes missing, and nothing says it happened.
+    assert (stored[shared] - recomputed[shared]).abs().max() < 1e-9
+    assert list(stored.nlargest(5).index) == list(recomputed.nlargest(5).index)

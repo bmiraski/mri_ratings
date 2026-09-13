@@ -81,13 +81,55 @@ def _weeks(frame: pd.DataFrame) -> pd.Series:
     return ((dates - start).dt.days // 7 + 1).astype(int)
 
 
-def _prior_for(season: int) -> pd.Series | None:
-    """The previous season's final ratings from the chained build."""
-    if not RATINGS.exists():
+def _prior_for(season: int, depth: int = 6) -> pd.Series | None:
+    """The previous season's final ratings.
+
+    Normally these come from the chained build in bb_ratings.parquet. That file
+    is written by scripts/build_basketball.py and nothing extends it
+    automatically, so the first November after a season nobody re-ran it, the
+    prior would silently be absent - not an error, just every team starting the
+    season from nothing, which is precisely the failure the prior exists to
+    prevent and the least visible one it could have.
+
+    So when the file cannot answer, the answer is computed from that season's
+    games instead, and the site no longer depends on somebody remembering.
+
+    Rebuilding the chain is the point: a season fit with no prior at all comes
+    out visibly compressed - the ridge has nothing to shrink toward but zero, and
+    2024-25's best team lands at +24 against the chain's +30. So the fallback
+    recurses a bounded distance to reconstruct the prior the chain would have
+    handed down, rather than substituting a flatter thing that looks similar.
+    """
+    if RATINGS.exists():
+        frame = pd.read_parquet(RATINGS)
+        previous = frame[frame["season"] == season - 1]
+        if not previous.empty:
+            return previous.set_index("team")["power"]
+    if depth <= 0:
         return None
-    frame = pd.read_parquet(RATINGS)
-    previous = frame[frame["season"] == season - 1]
-    return None if previous.empty else previous.set_index("team")["power"]
+
+    earlier = season - 1
+    games = _canonical(cbbd.games(earlier), earlier)
+    if games.empty:
+        return None
+
+    profile = mri2.BASKETBALL_PROFILE
+    teams = sorted(set(games["team1"]) | set(games["team2"]))
+    d1 = [t for t in teams if registry.is_d1(t, season=earlier)]
+    return mri2.fit(
+        games,
+        prior=mri2.build_prior(
+            _prior_for(earlier, depth - 1), teams, profile.prior_regression,
+            centre_teams=d1 or None,
+        ),
+        neutral=games["neutral"],
+        anchor_teams=d1 or None,
+        compression=profile.compression,
+        ridge=profile.ridge,
+        home_field_prior=profile.home_field_prior,
+        with_resume=False,
+        with_efficiency=False,
+    ).power
 
 
 def weekly_ratings(season: int) -> pd.DataFrame:
