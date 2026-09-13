@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method — MRI 2026</title>
+<meta name="description" content="How the MRI rating system works, and how well it does.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="mark" href="index.html">The <em>MRI</em></a>
+    <nav>
+      <a href="index.html">Rankings</a>
+      <a href="conferences.html">Conferences</a>
+      <a href="archive.html">Archive</a>
+      <a href="method.html">Method</a>
+    </nav>
+    <div class="stamp">2026 &middot; Week 2</div>
+  </div>
+</header>
+<main class="wrap">
+  <article class="prose">
+  <h1>Method</h1>
+
+  <p>MRI is a computer rating system for college football. It ran as an Excel
+  workbook from 2000 to 2019 and was rebuilt in 2026. Two ratings are
+  published: the original formula, unchanged, and its replacement.</p>
+
+  <h2>MRI Classic</h2>
+  <p>The 2018 formula, frozen. Each game earns a team credit weighted by how good
+  its opponent was:</p>
+  <pre>win   →  min( 35, margin) × OppWin%  × OppOppWin%
+loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
+  <p>and the season rating adds those up alongside win percentage and four
+  statistical z-scores:</p>
+  <pre>MRI = 25 × Win%  +  25 × OppWin%  +  10 × OppOppWin%  +  Σ game credit
+    +  5 × z(RushYds/G)  +  5 × z(PassYds/G)
+    +  7 × −z(YdsAllowed/G)  +  3 × z(TurnoverMargin)</pre>
+  <p>The Python port reproduces every rating published across the 2003&ndash;2019
+  workbooks to within 5&times;10<sup>−13</sup>, with identical top-25 ordering in all
+  seventeen seasons. It is kept for continuity, and because a baseline you cannot
+  beat is a baseline worth keeping.</p>
+
+  <h2>MRI 2.0</h2>
+  <p>Classic measures schedule strength as opponents' win percentage times their
+  opponents' win percentage. That treats a 9&ndash;3 Sun Belt team and a 9&ndash;3 SEC team as
+  equal tests, because win percentage does not know who anyone played.</p>
+  <p>MRI 2.0 turns every game into one equation &mdash;</p>
+  <pre>margin  =  rating(home)  −  rating(away)  +  home field</pre>
+  <p>&mdash; and solves the whole season at once. A team's rating then depends on its
+  opponents' ratings, which depend on theirs, all the way down. Strength of schedule
+  stops being a separate statistic and becomes a property of the solution.</p>
+  <p>Four further differences:</p>
+  <ul>
+    <li><strong>Margin is compressed, not capped.</strong> Classic truncates at ±35, so a
+    34-point win and a 60-point win score the same. Here margin passes through a curve
+    that is near-identity inside two touchdowns and flattens beyond it.</li>
+    <li><strong>Ratings are pulled toward a prior</strong> carried from last season, so the
+    first month is signal rather than noise. The pull fades on its own as games accumulate.</li>
+    <li><strong>Home field is estimated</strong> from the games themselves rather than assumed,
+    and neutral sites are excluded. It currently sits at 4.2 points.</li>
+    <li><strong>FCS opponents are rated individually.</strong> Classic pooled every non-FBS
+    team into a single 7&ndash;105 entity, so beating North Dakota State and beating Mercer
+    scored identically.</li>
+  </ul>
+
+  <h2>Two numbers</h2>
+  <p><strong>Power</strong> answers how good a team is, in points against an average FBS
+  team, so the gap between two teams is a predicted spread. <strong>R&eacute;sum&eacute;</strong>
+  answers what a team has earned, measured as wins above what an average team would have
+  managed against the same schedule at the same sites. Classic conflated these, which is
+  why it was hard to bet with.</p>
+
+  <h2>Does it work</h2>
+  <p>Tested by walking forward through all seventeen archived seasons: fit on the games
+  played so far, score the games that come next, never on data it has seen.</p>
+  <table class="compare">
+    <thead><tr><th></th><th>MRI 2.0</th><th>MRI Classic</th></tr></thead>
+    <tbody>
+      <tr><td>Straight-up accuracy</td><td><strong>73.6%</strong></td><td>72.0%</td></tr>
+      <tr><td>Margin error</td><td>13.0 pts</td><td>n/a</td></tr>
+      <tr><td>Brier score</td><td>0.177</td><td>n/a</td></tr>
+    </tbody>
+  </table>
+  <p>MRI 2.0 wins 13 of 17 seasons. Its hyperparameters were searched on 2003&ndash;2013
+  and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
+
+  <h2>What it cannot do</h2>
+  <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
+  the honest signal that this model should not be expected to beat a closing line. If it
+  has an edge anywhere it is against opening numbers, and that claim will be backtested
+  and reported here before it is acted on &mdash; including if the answer is no.</p>
+  </article></main>
+<footer class="site">
+  <div class="wrap">
+    <p>MRI &mdash; a computer rating system for college football, run 2000&ndash;2019
+    and rebuilt for 2026. Game data from
+    <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
+    <p class="muted">Ratings generated 2026-09-13 20:29 UTC
+    &middot; 185 games rated &middot; home field 4.2 pts</p>
+  </div>
+</footer>
+</body>
+</html>

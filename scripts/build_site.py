@@ -3,6 +3,11 @@
 One entry point for the weekly run: pull whatever games are new, recompute both
 ratings week by week, and write the static site.
 
+Output goes to docs/, which is committed to the repo. GitHub Pages serves that
+folder directly, so the host never needs to run a build or hold the API key -
+whatever produces the files (this script, or the weekly Action) is the only
+thing that needs credentials.
+
 Run:  PYTHONPATH=src python3 scripts/build_site.py
 """
 
@@ -21,7 +26,7 @@ SEASON = 2026
 
 def main() -> None:
     data_dir = ROOT / "site" / "data"
-    public = ROOT / "site" / "public"
+    public = ROOT / "docs"
 
     print(f"building {SEASON}...")
     payload = sitedata.build_full(SEASON, data_dir)

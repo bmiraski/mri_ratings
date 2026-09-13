@@ -9,9 +9,10 @@ Excel workbook from 2000 through 2019; this is the Python version.
 |---|---|
 | **MRI Classic** | Done. The original spreadsheet formula, ported and verified to reproduce all 17 archived seasons exactly. |
 | **Team registry** | Done. 138 FBS teams for 2026 with alias resolution back to the historical workbooks. |
-| **MRI 2.0** | Done and validated. Beats Classic by 1.9 points of straight-up accuracy across 2003-2019. |
-| **CFBD ingest** | Blocked: `api.collegefootballdata.com` is not on the sandbox egress allowlist. |
-| **Rankings site** | Not started. |
+| **MRI 2.0** | Done and validated. Beats Classic by 1.7 points of straight-up accuracy across 2003-2019. |
+| **CFBD ingest** | Done. 2020-2026 bridged from the API, cached on disk. |
+| **Rankings site** | Done. 157 pages in `docs/`, served by GitHub Pages at mri.mira.ski. |
+| **Weekly refresh** | Done. GitHub Action rebuilds and commits three times a week. |
 | **Betting module** | Not started. |
 
 ## The two ratings
@@ -110,3 +111,31 @@ PYTHONPATH=src python3 -m pytest tests/ -q
 
 Historical game logs come from the original workbooks in `data/archive/`.
 Current-season data comes from the [College Football Data API](https://collegefootballdata.com).
+
+
+## Deployment
+
+The site is a folder of files. `docs/` is committed to the repo and GitHub Pages
+serves it directly, so the host never runs a build and never holds a credential.
+
+    Settings -> Pages -> Deploy from a branch -> main / docs
+
+`docs/CNAME` is written by the build rather than by hand: GitHub creates that
+file when you set a custom domain, and since the generator rewrites the whole
+output directory it would otherwise be deleted on the next build and quietly
+take the domain down. Change the domain in `CUSTOM_DOMAIN` in
+`src/mri/export/site.py`.
+
+`docs/.nojekyll` stops GitHub running the output through Jekyll, which would
+skip anything whose name starts with an underscore.
+
+### Weekly refresh
+
+`.github/workflows/weekly.yml` rebuilds the ratings Monday, Thursday and
+Saturday, runs the tests, and commits `docs/` if anything changed. It needs one
+repository secret:
+
+    Settings -> Secrets and variables -> Actions -> New repository secret
+    CFBD_API_KEY = your key from collegefootballdata.com/key
+
+Locally, put the same key in `.env` at the repo root (gitignored).

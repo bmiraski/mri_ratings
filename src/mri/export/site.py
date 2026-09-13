@@ -25,6 +25,12 @@ from pathlib import Path
 SERIES = "#3987e5"
 SERIES_LIGHT = "#2a78d6"
 
+# The custom domain. Written into the output as a CNAME file on every build:
+# GitHub Pages puts that file in the repo when you set the domain in Settings,
+# and since this generator rewrites the whole output directory it would
+# otherwise be deleted on the next build and quietly take the domain down.
+CUSTOM_DOMAIN = "mri.mira.ski"
+
 
 def slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
@@ -570,6 +576,11 @@ def build(payload: dict, out_dir: Path) -> list[Path]:
         path.write_text(content)
         written.append(path)
 
+    # Without this, GitHub Pages runs the output through Jekyll, which skips
+    # files and directories whose names begin with an underscore.
+    write(out_dir / ".nojekyll", "")
+    if CUSTOM_DOMAIN:
+        write(out_dir / "CNAME", CUSTOM_DOMAIN + "\n")
     write(out_dir / "styles.css", STYLES)
     write(out_dir / "index.html", rankings_page(payload))
     write(out_dir / "conferences.html", conferences_index(payload))

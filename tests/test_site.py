@@ -109,7 +109,7 @@ def test_logo_paths_are_depth_correct(payload, built) -> None:
 
 def test_cached_logo_files_exist(payload, built) -> None:
     import shutil
-    source = Path(__file__).resolve().parents[1] / "site" / "public" / "logos"
+    source = Path(__file__).resolve().parents[1] / "docs" / "logos"
     if not source.exists():
         pytest.skip("logos not cached")
     shutil.copytree(source, built / "logos", dirs_exist_ok=True)
