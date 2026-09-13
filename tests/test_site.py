@@ -367,3 +367,59 @@ def test_basketball_betting_page_leads_with_the_verdict(both) -> None:
     assert verdict < html.index("Where they disagree now")
     # Football's word for its filtered list. Nothing here has earned it.
     assert "flagged" not in html.lower()
+
+
+def test_the_intermediate_json_is_idempotent_too(tmp_path) -> None:
+    """docs/ stopped churning on a timestamp a while ago; site/data/ did not,
+    and once it joined the committed paths every scheduled run produced a
+    two-file diff containing nothing but a new clock reading."""
+    from mri.export import common
+
+    payload = {"season": 2026, "teams": [{"team": "A", "power": 1.0}],
+               "generated": "2026-01-01T00:00:00+00:00"}
+    path = tmp_path / "site.json"
+    common.settle_timestamp(payload, path)
+    path.write_text(json.dumps(payload))
+
+    again = dict(payload, generated="2026-06-01T12:00:00+00:00")
+    common.settle_timestamp(again, path)
+    assert again["generated"] == "2026-01-01T00:00:00+00:00"
+
+    # Real ratings change: the caller's fresh stamp is kept, not overwritten.
+    # (settle_timestamp only ever carries an old stamp forward; it relies on the
+    # caller having set "now" first, which every build does.)
+    changed = dict(again, teams=[{"team": "A", "power": 2.0}],
+                   generated="2026-06-01T12:00:00+00:00")
+    common.settle_timestamp(changed, path)
+    assert changed["generated"] == "2026-06-01T12:00:00+00:00"
+
+
+def test_every_third_party_import_is_declared() -> None:
+    """openpyxl was imported by two modules and listed in no requirements file.
+    In CI that is not a skipped test, it is three files failing to collect, so
+    the scheduled run's whole test gate fell over before it ran anything."""
+    import ast
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    declared = {
+        line.split(">=")[0].split("==")[0].strip().lower()
+        for line in (root / "requirements.txt").read_text().splitlines()
+        if line.strip() and not line.startswith("#")
+    }
+    stdlib = set(sys.stdlib_module_names)
+
+    imported = set()
+    for folder in ("src", "scripts", "tests"):
+        for file in (root / folder).rglob("*.py"):
+            for node in ast.walk(ast.parse(file.read_text())):
+                if isinstance(node, ast.Import):
+                    imported.update(a.name.split(".")[0] for a in node.names)
+                elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+                    imported.add(node.module.split(".")[0])
+
+    missing = sorted(
+        m for m in imported
+        if m not in stdlib and m != "mri" and m.lower() not in declared
+    )
+    assert not missing, f"imported but not in requirements.txt: {missing}"

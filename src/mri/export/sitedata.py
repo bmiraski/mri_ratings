@@ -97,8 +97,14 @@ def weekly_classic(year: int) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
-def build(year: int, out_dir: Path) -> dict:
-    """Write site.json and return the payload."""
+def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
+    """Write site.json and return the payload.
+
+    ``write=False`` is for build_full, which adds the per-team detail and then
+    writes once. Writing here as well meant the file was superseded within the
+    same run, so the digest each run compared against was the one it had just
+    written itself - never a match, and a fresh timestamp every time.
+    """
     identities = team_identities(year)
     modern = weekly_ratings(year)
     legacy = weekly_classic(year)
@@ -183,7 +189,10 @@ def build(year: int, out_dir: Path) -> dict:
     }
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "site.json").write_text(json.dumps(payload, indent=2))
+    if write:
+        path = out_dir / "site.json"
+        common.settle_timestamp(payload, path)
+        path.write_text(json.dumps(payload, indent=2))
     return payload
 
 
@@ -307,7 +316,9 @@ def team_details(year: int, payload: dict) -> dict:
 
 def build_full(year: int, out_dir: Path) -> dict:
     """site.json plus the per-team detail the team pages need."""
-    payload = build(year, out_dir)
+    payload = build(year, out_dir, write=False)
     payload["details"] = team_details(year, payload)
-    (out_dir / "site.json").write_text(json.dumps(payload, indent=2))
+    path = out_dir / "site.json"
+    common.settle_timestamp(payload, path)
+    path.write_text(json.dumps(payload, indent=2))
     return payload

@@ -1,5 +1,10 @@
 duckdb>=1.5
 numpy>=2.0
+# Reads the basketball .xlsx workbooks and writes the Excel exports. Missing
+# here until now, which meant the scheduled run's test step failed to collect
+# three files rather than running them - including the one test that proves the
+# port reproduces Ben's published ratings.
+openpyxl>=3.1
 pandas>=2.2
 pyarrow>=18.0
 requests>=2.32

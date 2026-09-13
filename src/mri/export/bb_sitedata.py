@@ -236,7 +236,9 @@ def build(season: int, out_dir: Path) -> dict:
     }
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "bb.json").write_text(json.dumps(payload, indent=2))
+    path = out_dir / "bb.json"
+    common.settle_timestamp(payload, path)
+    path.write_text(json.dumps(payload, indent=2))
     return payload
 
 

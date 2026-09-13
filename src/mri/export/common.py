@@ -2,7 +2,43 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
+
 import pandas as pd
+
+
+def content_digest(payload: dict) -> str:
+    """Fingerprint everything about a payload except when it was built."""
+    material = {k: v for k, v in payload.items() if k not in {"generated", "digest"}}
+    return hashlib.sha256(
+        json.dumps(material, sort_keys=True, default=str).encode()
+    ).hexdigest()[:16]
+
+
+def settle_timestamp(payload: dict, path: Path) -> dict:
+    """Carry the previous timestamp forward when nothing else has changed.
+
+    The published pages already do this, which is what stopped a scheduled run
+    committing 157 files for a clock tick. The intermediate JSON did not, so
+    once it joined the list of committed paths every daily run produced a
+    two-file diff whose entire content was a new timestamp - the same churn,
+    reintroduced one directory over.
+
+    Applying it here rather than at the writer also keeps the two in agreement:
+    the stamp now means "when these ratings last changed" in both places.
+    """
+    payload["digest"] = content_digest(payload)
+    if not path.exists():
+        return payload
+    try:
+        previous = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return payload
+    if previous.get("digest") == payload["digest"] and previous.get("generated"):
+        payload["generated"] = previous["generated"]
+    return payload
 
 # Each next-best team in a conference counts 10% less than the one above it.
 #
