@@ -194,6 +194,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         f'\n      <a href="{up}betting.html">Betting</a>'
         if payload.get("betting") and payload.get("board") else ""
     )
+    seasons_link = f'\n      <a href="{up}seasons.html">Seasons</a>' if payload.get("seasons") else ""
     # The switch offers only sports this build actually published. The same rule
     # as the betting link above: a header link to a directory that does not exist
     # is a dead link on every page of the site, which is worse than no switch.
@@ -224,7 +225,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
       <a href="{up}index.html">Rankings</a>
       <a href="{up}conferences.html">Conferences</a>
 {betting_link}
-      <a href="{up}archive.html">Archive</a>
+      <a href="{up}archive.html">Archive</a>{seasons_link}
       <a href="{up}method.html">Method</a>
     </nav>
     <div class="stamp">{esc(season_text(payload))} &middot; {esc(period_text(payload))}</div>
@@ -674,6 +675,128 @@ def archive_page(payload: dict) -> str:
     <tbody>{''.join(rows)}</tbody>
   </table></div>"""
     return page(f"Archive — MRI {season_text(payload)}", body, payload)
+
+
+def seasons_index(payload: dict) -> str:
+    """Every season the system has, newest first.
+
+    Deliberately two tables rather than one. The archive spans two ratings on
+    two scales - Classic counts cumulative points where 150 is a great season,
+    MRI 2.0 counts points against an average team where +35 is - and a single
+    sorted column would invite a comparison that is not available. The seam is
+    shown rather than smoothed.
+    """
+    chrome = chrome_for(payload)
+    entries = payload.get("seasons") or []
+    if not entries:
+        return ""
+
+    def table(rows, note):
+        if not rows:
+            return ""
+        second = rows[0].get("secondaryName")
+        body = "".join(f"""
+      <tr>
+        <td class="rk"><a href="season/{s['season']}.html">{esc(s['label'])}</a></td>
+        <td class="opp">{esc(s['teams'][0]['team'])}</td>
+        <td class="rec">{s['teams'][0]['wins']}&ndash;{s['teams'][0]['losses']}</td>
+        <td class="num">{s['teams'][0]['rating']:,.2f}</td>
+        {f'<td class="num muted">{s["teams"][0]["secondary"]:,.2f}</td>' if second and s["teams"][0].get("secondary") is not None else ('<td class="num muted">&ndash;</td>' if second else '')}
+        <td class="num muted">{s['rated']}</td>
+      </tr>""" for s in rows if s["teams"])
+        return f"""
+  <h2>{esc(rows[0]['system'])}</h2>
+  <p class="hint">{note}</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Season</th><th>Number one</th><th>Rec</th>
+    <th class="num">{esc(rows[0]['ratingName'])}</th>
+    {f'<th class="num">{esc(second)}</th>' if second else ''}
+    <th class="num">Teams rated</th></tr></thead>
+    <tbody>{body}</tbody>
+  </table></div>"""
+
+    modern = [s for s in entries if s["system"] == "MRI 2.0"]
+    classic = [s for s in entries if s["system"] == "MRI Classic"]
+    verified = [s for s in classic if s.get("matchesPublished")]
+    # The cumulative caveat applies to both sports; the 2017 example does not,
+    # and a note explaining a football workbook on the basketball page is just a
+    # wrong sentence in an archive that exists to be trusted.
+    provenance = (
+        "recomputed from the game logs in Ben's own workbooks; "
+        f"{len(verified)} of these reproduce the published top 25 exactly"
+        if verified else "exactly as Ben published it at the time"
+    )
+    example = (
+        " 2017's workbook stops before the bowls, which is most of why its number "
+        "looks small."
+        if chrome.sport == "football" else ""
+    )
+    classic_note = (
+        f"The original formula, {provenance}. Classic totals are cumulative, so a "
+        f"season with more games scores higher for that reason alone.{example}"
+        + (" The per-game column is the comparable one."
+           if any(s.get("secondaryName") for s in classic) else "")
+    )
+
+    body = f"""
+  <h1>Seasons</h1>
+  <p class="hint">Every season MRI has rated, and what it said when the season was
+  over. Two ratings, two scales, kept apart on purpose: Classic counts cumulative
+  points, where a great season is around 150; MRI 2.0 counts points against an
+  average {chrome.field} team, where a great season is around +35. A number from one
+  cannot be read against a number from the other.</p>
+  {table(modern, "Points against an average team &mdash; the current rating.")}
+  {table(classic, classic_note)}"""
+    return page(f"Seasons — MRI {chrome.noun}", body, payload,
+                description=f"Every season of MRI {chrome.noun} ratings, back to the beginning.")
+
+
+def season_page(entry: dict, payload: dict) -> str:
+    """One season's final ranking."""
+    chrome = chrome_for(payload)
+    lookup = {t["team"]: t for t in payload["teams"]}
+
+    def name(team: str) -> str:
+        # Linked only where the team still exists in the current field; an
+        # archive is full of programs that have since moved or folded.
+        if team in lookup:
+            return f'<a href="../team/{slug(team)}.html">{esc(team)}</a>'
+        return esc(team)
+
+    secondary = entry.get("secondaryName")
+    rows = "".join(f"""
+      <tr>
+        <td class="rk">{t['rank']}</td>
+        <td class="opp">{name(t['team'])}</td>
+        <td class="rec">{t['wins']}&ndash;{t['losses']}</td>
+        <td class="num">{t['rating']:,.2f}</td>
+        {f'<td class="num muted">{t["secondary"]:,.2f}</td>' if secondary and t.get("secondary") is not None else ('<td class="num muted">&ndash;</td>' if secondary else '')}
+      </tr>""" for t in entry["teams"])
+
+    checked = ""
+    if entry.get("matchesPublished"):
+        checked = ("""
+  <p class="note">This table was recomputed from the season's game log rather than
+  copied from the workbook, and it reproduces the published top 25 exactly.</p>""")
+    elif entry.get("source") == "published":
+        checked = ("""
+  <p class="note">Taken directly from the workbook Ben published at the time, not
+  recomputed.</p>""")
+
+    body = f"""
+  <h1>{esc(entry['label'])}</h1>
+  <p class="teamsub">{esc(entry['system'])} &middot; {entry['rated']} teams rated
+  &middot; showing the top {len(entry['teams'])}</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>Team</th><th>Rec</th>
+    <th class="num">{esc(entry['ratingName'])}</th>
+    {f'<th class="num">{esc(secondary)}</th>' if secondary else ''}</tr></thead>
+    <tbody>{rows}</tbody>
+  </table></div>
+  {checked}
+  <p class="hint"><a href="../seasons.html">All seasons</a></p>"""
+    return page(f"{entry['label']} — MRI {chrome.noun}", body, payload, depth=1,
+                description=f"Final MRI {chrome.noun} ratings for {entry['label']}.")
 
 
 def betting_page(payload: dict, betting: dict, board: dict) -> str:
@@ -1164,7 +1287,16 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         renderer = bb_betting_page if chrome.sport == "basketball" else betting_page
         write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
-    published = payload if publish_details else {k: v for k, v in payload.items() if k != "details"}
+    if payload.get("seasons"):
+        (out_dir / "season").mkdir(exist_ok=True)
+        write(out_dir / "seasons.html", seasons_index(payload))
+        for entry in payload["seasons"]:
+            write(out_dir / "season" / f"{entry['season']}.html", season_page(entry, payload))
+
+    # The season tables are rendered into their own pages; carrying them in the
+    # published JSON as well would roughly double it for no reader.
+    drop = {"seasons"} | (set() if publish_details else {"details"})
+    published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
 
     for team in payload["teams"]:
@@ -1345,6 +1477,9 @@ th.num { text-align:right; }
 /* Numbers sit right; their headings were still sitting left, so neither column
    lined up with the thing it labelled. */
 .compare th:not(:first-child), .compare td:not(:first-child) { text-align:right; }
+/* Season labels are two-part for basketball ("2025-26") and were breaking over
+   two lines in a narrow first column. */
+td.rk { white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
   padding:14px 16px; margin:18px 0; }

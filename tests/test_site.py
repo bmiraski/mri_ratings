@@ -468,3 +468,74 @@ def test_a_failed_logo_falls_back_to_the_colour_chip() -> None:
     summary = logos.cache_logos(payload, Path("/tmp/mri-logo-test"))
     assert summary["failed"] == 1
     assert payload["teams"][0]["logo"] is None
+
+
+# --- season archive ---------------------------------------------------------
+
+def test_the_archive_excludes_the_season_being_played() -> None:
+    """A live season belongs on the rankings page. An archive entry for it is a
+    second, staler answer to the same question, in the place people go for the
+    record."""
+    from mri.export import seasons
+
+    entries = seasons.football_seasons(current=2026)
+    assert entries
+    assert max(s["season"] for s in entries) < 2026
+
+
+def test_the_archive_excludes_mid_season_workbooks() -> None:
+    """MRIBasketball201718.xlsx is a December snapshot - 1,521 games, nobody
+    past twelve. Published as '2017-18 final' it is simply a wrong answer."""
+    from mri.export import seasons
+
+    entries = seasons.basketball_seasons()
+    assert entries, "basketball archive is empty"
+    assert 2018 not in {s["season"] for s in entries}
+    for entry in entries:
+        best = entry["teams"][0]
+        assert best["wins"] + best["losses"] >= 20, (
+            f"{entry['label']}: leader played {best['wins'] + best['losses']} games"
+        )
+
+
+def test_archive_seasons_rank_from_one_with_no_gaps() -> None:
+    """current_ratings rates FCS teams too, so an unfiltered football table
+    showed Idaho at #94 among FBS teams and ranks with holes in them."""
+    from mri.export import seasons
+
+    for entry in seasons.football_seasons(current=2026) + seasons.basketball_seasons():
+        ranks = [t["rank"] for t in entry["teams"]]
+        assert ranks == list(range(1, len(ranks) + 1)), f"{entry['label']}: {ranks[:8]}"
+
+
+def test_the_two_ratings_are_never_mixed_in_one_table() -> None:
+    """Classic counts cumulative points where 150 is great; MRI 2.0 counts
+    points against an average team where +35 is. One sorted column of both
+    would invite a comparison that does not exist.
+
+    Read from docs/ rather than a temp build: the archive is assembled by the
+    build script, not by sitedata, so the intermediate the fixture uses never
+    carries it."""
+    page = Path(__file__).resolve().parents[1] / "docs" / "seasons.html"
+    if not page.exists():
+        pytest.skip("site not built")
+    html = page.read_text()
+    # Each system heads its own table.
+    assert html.count("<table>") >= 2
+    assert "MRI Classic" in html and "MRI 2.0" in html
+
+
+def test_each_season_claims_only_the_provenance_it_has() -> None:
+    """Football's Classic seasons are recomputed from the game logs and checked
+    against what was published. Basketball's are read straight out of the
+    workbook. Claiming the second is the first would be inventing a
+    verification."""
+    from mri.export import seasons
+
+    for entry in seasons.football_seasons(current=2026):
+        if entry["system"] == seasons.CLASSIC:
+            assert entry["source"] == "recomputed"
+    for entry in seasons.basketball_seasons():
+        if entry["system"] == seasons.CLASSIC:
+            assert entry["source"] == "published"
+            assert not entry["matchesPublished"]

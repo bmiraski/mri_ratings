@@ -167,6 +167,9 @@ th.num { text-align:right; }
 /* Numbers sit right; their headings were still sitting left, so neither column
    lined up with the thing it labelled. */
 .compare th:not(:first-child), .compare td:not(:first-child) { text-align:right; }
+/* Season labels are two-part for basketball ("2025-26") and were breaking over
+   two lines in a narrow first column. */
+td.rk { white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
   padding:14px 16px; margin:18px 0; }

@@ -47,6 +47,11 @@ def main() -> None:
     print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
           f"{summary['failed']} failed")
 
+    from mri.export import seasons as season_archive
+
+    payload["seasons"] = season_archive.football_seasons(current=SEASON)
+    print(f"  archive: {len(payload['seasons'])} past seasons")
+
     basketball = basketball_payload(data_dir)
 
     # Both payloads are prepared before either renders, because the sport switch
@@ -63,6 +68,10 @@ def main() -> None:
 
     if basketball:
         basketball["sports"] = sports
+        basketball["seasons"] = season_archive.basketball_seasons(
+            current=basketball["season"] if not basketball.get("finished") else None
+        )
+        print(f"  archive: {len(basketball['seasons'])} past basketball seasons")
         # The basketball page appears only once there is a backtest to be honest
         # about, the same condition football's uses.
         bb_betting = data_dir / "bb_betting.json"
