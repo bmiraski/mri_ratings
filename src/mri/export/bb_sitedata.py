@@ -171,11 +171,17 @@ def weekly_ratings(season: int) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
 
-def team_identities(season: int) -> dict[str, dict]:
-    """Conference and colours per team.
+# ESPN keys its logos by the same team id the basketball feed calls sourceId.
+# CFBD's own CDN was the obvious first choice and carries football schools only,
+# so 227 of the 365 returned 403; this one has all of them.
+LOGO_URL = "https://a.espncdn.com/i/teamlogos/ncaa/500/{id}.png"
 
-    No logos. CFBD's CDN carries football schools only, so 227 of the 365 would
-    404; the design's colour mark covers every team instead of most of them.
+
+def team_identities(season: int) -> dict[str, dict]:
+    """Conference, colours and logo per team.
+
+    A team with no id, or whose logo cannot be fetched, keeps the colour mark.
+    That path is exercised rather than theoretical, so it stays.
     """
     frame = cbbd.teams(season)
     out = {}
@@ -185,7 +191,7 @@ def team_identities(season: int) -> dict[str, dict]:
             "color": _hex(row.color, FALLBACK),
             "altColor": _hex(row.alt_color, FALLBACK_ALT),
             "abbreviation": row.abbreviation,
-            "logo": None,
+            "logo": LOGO_URL.format(id=row.source_id) if row.source_id else None,
         }
     return out
 
@@ -247,7 +253,7 @@ def build(season: int, out_dir: Path) -> dict:
                 or "Independent",
                 "color": identity.get("color", FALLBACK),
                 "altColor": identity.get("altColor", FALLBACK_ALT),
-                "logo": None,
+                "logo": identity.get("logo"),
                 "abbreviation": identity.get("abbreviation"),
                 "previousRank": last,
                 "movement": (last - int(row["rank"])) if last else 0,

@@ -74,6 +74,13 @@ def main() -> None:
                   f"{len(basketball['board']['disagreements'])} disagreements")
         print(f"building basketball {basketball['seasonLabel']} "
               f"({basketball['periodLabel']})...")
+        # Cached into the basketball subtree rather than shared with football's.
+        # The stored path is relative to the sport's own root, which is what
+        # every page's depth is counted from - one shared directory would need
+        # each mark to know which sport it was being drawn for.
+        summary = logos.cache_logos(basketball, public / "basketball")
+        print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
+              f"{summary['failed']} failed")
         print(f"  {basketball['gamesRated']} games, {len(basketball['teams'])} teams, "
               f"home court {basketball['homeField']:.2f}")
         # The per-team detail is 4MB and is already rendered into every team page.

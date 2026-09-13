@@ -408,6 +408,9 @@ def test_every_third_party_import_is_declared() -> None:
         if line.strip() and not line.startswith("#")
     }
     stdlib = set(sys.stdlib_module_names)
+    # A handful of packages install under a different name than they import as.
+    aliases = {"PIL": "pillow", "yaml": "pyyaml", "dateutil": "python-dateutil",
+               "bs4": "beautifulsoup4", "sklearn": "scikit-learn"}
 
     imported = set()
     for folder in ("src", "scripts", "tests"):
@@ -420,6 +423,48 @@ def test_every_third_party_import_is_declared() -> None:
 
     missing = sorted(
         m for m in imported
-        if m not in stdlib and m != "mri" and m.lower() not in declared
+        if m not in stdlib and m != "mri"
+        and aliases.get(m, m).lower() not in declared
     )
     assert not missing, f"imported but not in requirements.txt: {missing}"
+
+
+def test_basketball_logos_are_cached_not_hotlinked() -> None:
+    """365 remote images is 365 requests to somebody else's CDN on every page
+    load, and a site that breaks when they reorganise it.
+
+    Asserted against the published JSON rather than the intermediate: logos are
+    cached between the two, so site/data/ holds the remote URLs by design and
+    docs/ holds what readers actually get."""
+    published = Path(__file__).resolve().parents[1] / "docs" / "basketball" / "basketball.json"
+    if not published.exists():
+        pytest.skip("site not built")
+    teams = json.loads(published.read_text())["teams"]
+    remote = [t for t in teams if (t.get("logo") or "").startswith("http")]
+    assert not remote, f"{len(remote)} logos still point at a remote host"
+    have = [t for t in teams if t.get("logo")]
+    assert len(have) > 350, f"only {len(have)} of {len(teams)} teams have a logo"
+
+
+def test_cached_logos_are_small_enough_to_commit() -> None:
+    """ESPN serves 500px and ignores size hints. Stored as they arrive, 365 of
+    them is 23MB in the repository for marks drawn at 46px."""
+    folder = Path(__file__).resolve().parents[1] / "docs" / "basketball" / "logos"
+    if not folder.exists():
+        pytest.skip("logos not cached")
+    sizes = [f.stat().st_size for f in folder.iterdir() if f.is_file()]
+    assert sizes
+    assert max(sizes) < 60_000, f"largest cached logo is {max(sizes)} bytes"
+    assert sum(sizes) < 12_000_000, f"logo cache is {sum(sizes) / 1e6:.1f}MB"
+
+
+def test_a_failed_logo_falls_back_to_the_colour_chip() -> None:
+    """A logo left pointing at a URL that just failed is a broken image on
+    every page that draws the team."""
+    from mri.export import logos
+
+    payload = {"teams": [{"team": "Nowhere", "logo": "https://example.invalid/x.png",
+                          "color": "#123456"}]}
+    summary = logos.cache_logos(payload, Path("/tmp/mri-logo-test"))
+    assert summary["failed"] == 1
+    assert payload["teams"][0]["logo"] is None

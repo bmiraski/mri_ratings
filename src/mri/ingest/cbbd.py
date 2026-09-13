@@ -172,6 +172,9 @@ def teams(season: int, *, refresh: bool = False) -> pd.DataFrame:
         [
             {
                 "team_id": t["id"],
+                # ESPN's id for the school, which is what its logo CDN is keyed
+                # by. The basketball feed carries no logo URL of its own.
+                "source_id": t.get("sourceId"),
                 "team": t["school"],
                 "display": t.get("displayName"),
                 "abbreviation": t.get("abbreviation"),

@@ -6,6 +6,9 @@ numpy>=2.0
 # port reproduces Ben's published ratings.
 openpyxl>=3.1
 pandas>=2.2
+# Downscales cached logos. ESPN serves 500px and ignores size hints, so 365
+# basketball marks would otherwise be 23MB in the repository.
+pillow>=10.0
 pyarrow>=18.0
 requests>=2.32
 scipy>=1.14

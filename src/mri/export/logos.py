@@ -59,11 +59,16 @@ def cache_logos(payload: dict, out_dir: Path, *, refresh: bool = False) -> dict:
                 response.raise_for_status()
                 if not response.content:
                     raise ValueError("empty body")
-                path.write_bytes(response.content)
+                path.write_bytes(_shrink(response.content, suffix))
                 fetched += 1
             except Exception as exc:  # noqa: BLE001 - a logo is never fatal
                 print(f"  logo failed for {team['team']}: {exc}")
                 failed += 1
+                # Cleared rather than left pointing at a URL we just failed to
+                # fetch. The page falls back to the colour chip on its own; a
+                # remote URL that 403s is 365 broken requests per page load and
+                # a flash of missing images before the onerror handler runs.
+                team["logo"] = None
                 continue
 
         team["logoRemote"] = url
@@ -75,3 +80,34 @@ def cache_logos(payload: dict, out_dir: Path, *, refresh: bool = False) -> dict:
 def _prefer_small(url: str) -> str:
     """Swap CFBD's 500px default for a size the site actually renders."""
     return re.sub(r"/logos/\d+/", f"/logos/{PREFERRED_WIDTH}/", url)
+
+
+def _shrink(data: bytes, suffix: str) -> bytes:
+    """Downscale a raster logo to the width the site renders.
+
+    CFBD serves whatever size you ask for in the path. ESPN - which is where the
+    basketball logos come from, because CFBD's CDN carries football schools only
+    - serves 500px and ignores every size hint. At 63KB each, 365 of those is
+    23MB committed to the repository and pushed to every visitor, for marks the
+    site never draws larger than 46px.
+
+    Failure here is never fatal: a logo that will not resize is stored as it
+    arrived, which costs bytes and loses nothing.
+    """
+    if suffix.lower() == ".svg":
+        return data
+    try:
+        import io
+
+        from PIL import Image
+
+        image = Image.open(io.BytesIO(data))
+        if image.width <= PREFERRED_WIDTH:
+            return data
+        image = image.convert("RGBA")
+        image.thumbnail((PREFERRED_WIDTH, PREFERRED_WIDTH), Image.LANCZOS)
+        buffer = io.BytesIO()
+        image.save(buffer, format="PNG", optimize=True)
+        return buffer.getvalue()
+    except Exception:  # noqa: BLE001 - a logo is never fatal
+        return data
