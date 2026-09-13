@@ -72,16 +72,24 @@ def movement_chip(value) -> str:
     return f'<span class="mv {kind}" title="{label}">{arrow}{abs(value)}</span>'
 
 
-def identity_mark(team: dict, size: int = 20) -> str:
+def identity_mark(team: dict, size: int = 20, depth: int = 0) -> str:
     """Logo when we have one, a color chip when we don't. Never color alone -
-    the team name is always beside it."""
+    the team name is always beside it.
+
+    ``depth`` prefixes the cached logo path for pages in a subdirectory. Cached
+    paths are site-relative rather than absolute so the output also works when
+    opened straight off disk.
+    """
     if team.get("logo"):
+        source = team["logo"]
+        if not source.startswith(("http://", "https://")):
+            source = "../" * depth + source
         fallback = (
             "this.replaceWith(Object.assign(document.createElement('span'),"
             f"{{className:'chip',style:'background:{esc(team['color'])}'}}))"
         )
         return (
-            f'<img class="logo" src="{esc(team["logo"])}" alt="" width="{size}" height="{size}"'
+            f'<img class="logo" src="{esc(source)}" alt="" width="{size}" height="{size}"'
             f' loading="lazy" onerror="{esc(fallback)}">'
         )
     return f'<span class="chip" style="background:{esc(team["color"])}"></span>'
@@ -354,7 +362,7 @@ def team_page(team: dict, payload: dict) -> str:
     body = f"""
   <article class="teampage" style="--team:{esc(team['color'])}">
     <div class="teamhead">
-      {identity_mark(team, 46)}
+      {identity_mark(team, 46, depth=1)}
       <div>
         <h1>{esc(team['team'])}</h1>
         <p class="teamsub">{esc(team['conference'])} &middot; {team['wins']}&ndash;{team['losses']}
@@ -404,7 +412,7 @@ def conference_page(name: str, payload: dict) -> str:
     rows = "".join(f"""
       <tr style="--team:{esc(t['color'])}">
         <td class="rk">{t['rank']}</td>
-        <td class="tm"><span class="rule"></span>{identity_mark(t, 18)}<a href="../team/{slug(t['team'])}.html">{esc(t['team'])}</a></td>
+        <td class="tm"><span class="rule"></span>{identity_mark(t, 18, depth=1)}<a href="../team/{slug(t['team'])}.html">{esc(t['team'])}</a></td>
         <td class="rec">{t['wins']}&ndash;{t['losses']}</td>
         <td class="num">{t['power']:+.1f}</td>
         <td class="num">{t['resume']:+.2f}</td>

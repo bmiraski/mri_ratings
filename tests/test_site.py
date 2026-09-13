@@ -94,3 +94,27 @@ def test_every_team_row_links_to_its_page(payload, built) -> None:
     index = (built / "index.html").read_text()
     for team in payload["teams"][:25]:
         assert f'team/{site.slug(team["team"])}.html' in index
+
+
+def test_logo_paths_are_depth_correct(payload, built) -> None:
+    """A cached logo referenced from team/ must climb out of the directory,
+    or every team page shows a colour chip instead."""
+    cached = [t for t in payload["teams"] if not str(t.get("logo", "")).startswith("http")]
+    if not cached:
+        pytest.skip("logos not cached in this build")
+    team = cached[0]
+    text = (built / "team" / f"{site.slug(team['team'])}.html").read_text()
+    assert f'src="../{team["logo"]}"' in text
+
+
+def test_cached_logo_files_exist(payload, built) -> None:
+    import shutil
+    source = Path(__file__).resolve().parents[1] / "site" / "public" / "logos"
+    if not source.exists():
+        pytest.skip("logos not cached")
+    shutil.copytree(source, built / "logos", dirs_exist_ok=True)
+    missing = [
+        t["team"] for t in payload["teams"]
+        if not str(t.get("logo", "")).startswith("http") and not (built / t["logo"]).exists()
+    ]
+    assert not missing, f"missing logo files for {missing[:5]}"

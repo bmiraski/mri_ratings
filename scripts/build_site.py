@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from mri.export import site, sitedata  # noqa: E402
+from mri.export import logos, site, sitedata  # noqa: E402
 
 SEASON = 2026
 
@@ -26,6 +26,10 @@ def main() -> None:
     print(f"building {SEASON}...")
     payload = sitedata.build_full(SEASON, data_dir)
     print(f"  week {payload['week']}, {payload['gamesRated']} games, {len(payload['teams'])} teams")
+
+    summary = logos.cache_logos(payload, public)
+    print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
+          f"{summary['failed']} failed")
 
     files = site.build(payload, public)
     print(f"  wrote {len(files)} files to {public.relative_to(ROOT)}")
