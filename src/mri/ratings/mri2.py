@@ -59,6 +59,58 @@ DEFAULT_HOME_FIELD_PRIOR = 3.0
 DEFAULT_HOME_FIELD_RIDGE = 60.0
 
 
+@dataclass(frozen=True)
+class Profile:
+    """Per-sport settings for the same solver.
+
+    The method is identical for both sports - every game is one equation and
+    the season is solved at once. What differs is scale. Basketball margins are
+    tighter (a standard deviation near 14 against football's 16.5), home
+    advantage is larger, there are 365 teams rather than 138, and a non-D1
+    opponent sits much further below the floor than an FCS one does.
+    """
+
+    name: str
+    compression: float
+    ridge: float
+    prior_regression: float
+    home_field_prior: float
+    replacement_prior: float
+
+
+FOOTBALL_PROFILE = Profile(
+    name="football",
+    compression=DEFAULT_COMPRESSION,
+    ridge=DEFAULT_RIDGE,
+    prior_regression=DEFAULT_PRIOR_REGRESSION,
+    home_field_prior=DEFAULT_HOME_FIELD_PRIOR,
+    replacement_prior=REPLACEMENT_PRIOR,
+)
+
+# Searched by scripts/tune_basketball.py over 80 combinations, tuned on
+# 2021-22 to 2023-24 and reported on 2024-25 and 2025-26.
+#
+# The search found nothing. On the holdout the chosen settings score MAE 9.303
+# and 70.10% accuracy against 9.292 and 70.17% for the untuned guesses - the
+# guesses are fractionally better, and the gap is noise. That is a real finding
+# about the sport rather than a failed exercise: basketball plays ~5,800 games
+# among 365 teams, so by the time 40% of a season is gone there is enough
+# evidence per team that the prior and the ridge barely matter. Football, with
+# 900 games and 138 teams, is far more sensitive - tuning there bought a full
+# point of MAE.
+#
+# These values are kept because a searched region beats a guess, not because
+# they are better.
+BASKETBALL_PROFILE = Profile(
+    name="basketball",
+    compression=34.0,
+    ridge=8.0,
+    prior_regression=0.35,
+    home_field_prior=3.5,
+    replacement_prior=-20.0,
+)
+
+
 @dataclass
 class Ratings:
     """The fitted model for one season (or one slice of one)."""

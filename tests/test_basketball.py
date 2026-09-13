@@ -115,3 +115,60 @@ def test_football_path_is_unchanged_by_the_refactor() -> None:
     default = classic.compute(games, ["A", "B"])
     explicit = classic.compute(games, ["A", "B"], sport=classic.FOOTBALL)
     pd.testing.assert_frame_equal(default, explicit)
+
+
+# --- MRI 2.0 for basketball -------------------------------------------------
+
+RATINGS = Path(__file__).resolve().parents[1] / "data" / "parquet" / "bb_ratings.parquet"
+
+
+@pytest.fixture(scope="module")
+def bb_ratings():
+    if not RATINGS.exists():
+        pytest.skip("basketball ratings not built")
+    return pd.read_parquet(RATINGS)
+
+
+def test_profiles_differ_between_sports() -> None:
+    """Basketball margins are tighter and its home advantage larger, so the
+    same solver needs different settings."""
+    from mri.ratings import mri2
+
+    assert mri2.BASKETBALL_PROFILE.compression != mri2.FOOTBALL_PROFILE.compression
+    assert mri2.BASKETBALL_PROFILE.home_field_prior > mri2.FOOTBALL_PROFILE.home_field_prior
+
+
+def test_ratings_cover_every_season(bb_ratings) -> None:
+    assert set(bb_ratings["season"]) == set(range(2021, 2027))
+
+
+def test_each_season_rates_a_full_field(bb_ratings) -> None:
+    from mri.ingest import bb_registry as registry
+
+    for season, chunk in bb_ratings.groupby("season"):
+        d1 = chunk[chunk["team"].map(lambda t: registry.is_d1(t, season=int(season)))]
+        assert 330 < len(d1) < 375, f"{season}: {len(d1)} D1 teams rated"
+
+
+def test_scale_does_not_drift_across_the_chain(bb_ratings) -> None:
+    """The football bridge decayed from +37 to -34 before the scale was
+    anchored. This is the guard against that happening again."""
+    from mri.ingest import bb_registry as registry
+
+    tops = []
+    for season, chunk in bb_ratings.groupby("season"):
+        d1 = chunk[chunk["team"].map(lambda t: registry.is_d1(t, season=int(season)))]
+        tops.append(d1["power"].max())
+    assert all(15 < top < 45 for top in tops), f"best-team ratings drifted: {tops}"
+
+
+def test_home_court_is_plausible_every_season(bb_ratings) -> None:
+    """Between one and five points. Above that the fit is blaming schedule on
+    the venue; below it, something has gone wrong with the anchor."""
+    from mri.ratings import bb_backtest as bb
+
+    games = bb.prepare(2026)
+    if games.empty:
+        pytest.skip("season unavailable")
+    model = bb.fit_slice(games, None, season=2026)
+    assert 1.0 < model.home_field < 5.0
