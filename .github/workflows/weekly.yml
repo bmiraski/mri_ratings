@@ -4,19 +4,23 @@ name: Refresh ratings
 # that needs the API key. It rebuilds and commits the output; GitHub Pages
 # picks the change up on its own.
 #
-# Sunday morning is the real run, once a weekend of games is final. The
-# midweek and Saturday runs catch stragglers and, later, betting lines.
+# Daily, because basketball plays daily. College basketball runs six or seven
+# nights a week from November to April, so a Monday/Thursday/Saturday cadence
+# would price a betting board off ratings up to three days stale - and three
+# days is a dozen games for every team in a conference.
 #
-# The same three runs refresh basketball, which is in season from November to
-# April - roughly the half of the year football is not. Out of season the
-# basketball pages hold the completed season, marked final, rather than going
-# blank.
+# 11:00 UTC is 6am Eastern, 3am Pacific: after the last west-coast game has
+# gone final and before anyone is reading. The extra Saturday run is for
+# football, ahead of kickoff.
+#
+# Out of season the basketball pages hold the completed season, marked final,
+# rather than going blank - and cost nothing to refresh, since a month that has
+# already ended is never re-fetched.
 
 on:
   schedule:
-    - cron: "0 13 * * 1"   # Monday 13:00 UTC - Sunday games are final
-    - cron: "0 13 * * 4"   # Thursday - midweek games
-    - cron: "0 15 * * 6"   # Saturday - ahead of kickoff
+    - cron: "0 11 * * *"   # daily 11:00 UTC - last night's games are final
+    - cron: "0 15 * * 6"   # Saturday - ahead of football kickoff
   workflow_dispatch:        # and a button, for when you want it now
 
 concurrency:

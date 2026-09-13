@@ -26,6 +26,7 @@ recent one with games in it.
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -45,11 +46,16 @@ def season_label(season: int) -> str:
     return f"{season - 1}–{str(season)[2:]}"
 
 
+@lru_cache(maxsize=1)
 def latest_playing_season(limit: int = 3) -> int:
     """The most recent season with completed games in it.
 
     In September nothing has been played yet, so this returns last season and
     the site marks it final. In December it returns the live one.
+
+    Cached because both ``build`` and ``build_full`` ask, and each answer walks
+    a season's worth of date windows. Uncached it doubled the API calls of every
+    run for a value that cannot change mid-build.
     """
     from ..ingest.bb_registry import CURRENT_SEASON
 

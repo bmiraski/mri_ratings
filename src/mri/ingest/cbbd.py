@@ -84,25 +84,48 @@ def _windows(season: int) -> list[tuple[str, str]]:
     return out
 
 
+# Days after a window closes during which its results can still change: a game
+# that tipped near midnight, or one finalized late.
+GRACE = dt.timedelta(days=2)
+
+
+def _is_live(start: str, end: str, today: dt.date) -> bool:
+    """Whether a window's contents can still change, and so is worth re-fetching.
+
+    The first rule here was "end is not in the past", which is true of every
+    future month as well as the current one. In September that made all seven
+    windows of the coming season look live, and a daily job spent seven API calls
+    a day re-reading a schedule that had not changed. A window that has not begun
+    cannot have results, so only one window is ever live: the one we are in.
+
+    A window with no cache at all is fetched regardless - that check lives in the
+    request layer, not here - so a month is always read once before it starts and
+    re-read while it is running.
+
+    The known gap: a game postponed out of one window and replayed inside an
+    earlier, already-closed one is not picked up until something forces a
+    refresh. Rare, and the alternative is re-fetching the whole season daily.
+    """
+    return dt.date.fromisoformat(start) <= today <= dt.date.fromisoformat(end) + GRACE
+
+
 def games(season: int, *, refresh_last: bool = True, completed_only: bool = True) -> pd.DataFrame:
     """Every game of a season, normalized to the archive's column names.
 
-    ``refresh_last`` re-fetches the final window, which is the only one whose
-    results can still change. Earlier months come from cache.
+    ``refresh_last`` re-fetches the window we are currently inside, which is the
+    only one whose results can still change. Every other month comes from cache.
     """
     windows = _windows(season)
     today = dt.date.today()
     rows, seen = [], set()
 
-    for index, (start, end) in enumerate(windows):
-        # A window already in the past cannot change; only refresh a live one.
-        live = dt.date.fromisoformat(end) >= today
+    for start, end in windows:
         payload = request(
             "/games",
             season=season,
             startDateRange=start,
             endDateRange=end,
-            refresh=refresh_last and live,
+            refresh=refresh_last and _is_live(start, end, today),
         )
         if len(payload) >= PAGE_CAP:
             print(f"  warning: {start}..{end} hit the {PAGE_CAP}-row cap; games may be missing")
@@ -171,13 +194,12 @@ def team_box_scores(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
     rows = []
     today = dt.date.today()
     for start, end in _windows(season):
-        live = dt.date.fromisoformat(end) >= today
         payload = request(
             "/games/teams",
             season=season,
             startDateRange=start,
             endDateRange=end,
-            refresh=refresh_last and live,
+            refresh=refresh_last and _is_live(start, end, today),
         )
         for entry in payload:
             for team in entry.get("teams", []):

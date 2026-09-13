@@ -198,3 +198,41 @@ def test_home_court_is_plausible_every_season(bb_ratings) -> None:
         pytest.skip("season unavailable")
     model = bb.fit_slice(games, None, season=2026)
     assert 1.0 < model.home_field < 5.0
+
+
+def test_only_the_current_window_is_refetched() -> None:
+    """A daily job must not re-read months that cannot change.
+
+    The original rule - "the window has not ended yet" - is true of every future
+    month too, so in the off-season all seven windows of the coming season looked
+    live and cost seven API calls a day to learn nothing.
+    """
+    import datetime as dt
+
+    from mri.ingest import cbbd
+
+    november = ("2026-11-01", "2026-12-01")
+    december = ("2026-12-01", "2027-01-01")
+    march = ("2027-03-01", "2027-04-01")
+
+    # Mid-November: only November.
+    today = dt.date(2026, 11, 15)
+    assert cbbd._is_live(*november, today)
+    assert not cbbd._is_live(*december, today)
+    assert not cbbd._is_live(*march, today)
+
+    # September, before anything has tipped: nothing is live.
+    preseason = dt.date(2026, 9, 13)
+    assert not any(cbbd._is_live(*w, preseason) for w in (november, december, march))
+
+    # A window stays live briefly past its end, for late finals.
+    assert cbbd._is_live(*november, dt.date(2026, 12, 2))
+    assert not cbbd._is_live(*november, dt.date(2026, 12, 10))
+
+
+def test_season_probe_is_cached() -> None:
+    """Both build and build_full ask which season to show; each answer walks a
+    season of date windows, so asking twice doubled every run's API calls."""
+    from mri.export import bb_sitedata
+
+    assert hasattr(bb_sitedata.latest_playing_season, "cache_info")
