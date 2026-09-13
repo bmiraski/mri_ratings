@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method — MRI basketball 2025–26</title>
+<meta name="description" content="How the MRI basketball rating works, and what it has been shown to do.">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="mark" href="index.html">The <em>MRI</em></a>
+    <div class="sports"><a href="../index.html">Football</a><a href="../basketball/index.html" aria-current="page" class="on">Basketball</a></div>
+    <nav>
+      <a href="index.html">Rankings</a>
+      <a href="conferences.html">Conferences</a>
+
+      <a href="archive.html">Archive</a>
+      <a href="method.html">Method</a>
+    </nav>
+    <div class="stamp">2025–26 &middot; Final</div>
+  </div>
+</header>
+<main class="wrap">
+  <article class="prose">
+  <h1>Method</h1>
+
+  <p>MRI is a computer rating system. Ben ran it as an Excel workbook for college
+  football and college basketball; the basketball workbooks stop at 2019&ndash;20.
+  This is the same idea rebuilt, and carried forward through the seasons in
+  between.</p>
+
+  <h2>The rating</h2>
+  <p>Every game becomes one equation &mdash;</p>
+  <pre>margin  =  rating(home)  −  rating(away)  +  home court</pre>
+  <p>&mdash; and the whole season is solved at once. A team's rating depends on its
+  opponents' ratings, which depend on theirs, all the way down, so strength of
+  schedule is not a separate statistic bolted on afterwards. It is what the
+  solution is made of.</p>
+  <ul>
+    <li><strong>Margin is compressed.</strong> A 30-point win is worth more than a
+    20-point win and not very much more, through a curve that is near-identity
+    inside a normal result and flattens past it. Nothing is gained by running up
+    a score.</li>
+    <li><strong>Ratings are pulled toward last season's</strong> so November means
+    something. The pull fades on its own as games accumulate, and it is gone
+    well before conference play.</li>
+    <li><strong>Home court is estimated</strong> from the games rather than assumed,
+    and neutral sites are excluded. It sits at 2.7 points here, and has
+    run between 2.7 and 3.3 across the six rebuilt seasons.</li>
+    <li><strong>Non-Division-I opponents are rated individually</strong> rather than
+    pooled, so a November exhibition against a good one is not the same result as
+    a November exhibition against a bad one.</li>
+  </ul>
+
+  <h2>Two numbers</h2>
+  <p><strong>Power</strong> answers how good a team is, in points against an average
+  Division I team, so the gap between two teams is a predicted spread.
+  <strong>R&eacute;sum&eacute;</strong> answers what a team has earned, measured as wins above
+  what an average team would have managed against the same schedule at the same
+  venues. They are different questions and they are published separately.</p>
+
+  <h2>What is and is not established</h2>
+  <p>The original formula was ported and checked against the surviving workbooks:
+  it reproduces every published rating in 2012&ndash;13, 2017&ndash;18, 2018&ndash;19
+  and 2019&ndash;20 to floating-point tolerance. That is the part that is proven.</p>
+  <p>Ratings since then are a chain: 2019&ndash;20 primes 2020&ndash;21, which primes
+  the next, through to now. Walking forward within each season &mdash; fit on the
+  games played, score the games that come next &mdash; the model calls about 70% of
+  games correctly with a mean margin error near 9.3 points.</p>
+  <p>Its settings were searched over 80 combinations and the search found nothing
+  that beat the starting guesses on seasons it had not seen. That is reported here
+  because it is true: at this many games per team the knobs stop mattering, and a
+  tuning exercise that claims a win it did not get is worth less than one that
+  admits it.</p>
+
+  <h2>What it cannot do</h2>
+  <p>A margin error near 9.3 points is about where college basketball closing spreads
+  sit. As with football, that is the honest signal that this should not be expected
+  to beat a closing line. There is no betting page for basketball and there will not
+  be one unless a backtest earns it.</p>
+  </article></main>
+<footer class="site">
+  <div class="wrap">
+    <p>MRI &mdash; a computer rating system for college basketball,
+    run through 2019&ndash;20 and rebuilt from 2020&ndash;21. Game data from
+    <a href="https://collegebasketballdata.com">CollegeBasketballData</a>.</p>
+    <p class="muted">Ratings last changed 2026-09-13 22:23 UTC
+    &middot; 6300 games rated &middot; home court 2.7 pts</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -88,19 +88,24 @@ FOOTBALL_PROFILE = Profile(
 )
 
 # Searched by scripts/tune_basketball.py over 80 combinations, tuned on
-# 2021-22 to 2023-24 and reported on 2024-25 and 2025-26.
+# 2021-22 to 2023-24 and reported on 2024-25 and 2025-26. Re-run after the
+# phantom-tie fix, on clean data.
 #
-# The search found nothing. On the holdout the chosen settings score MAE 9.303
-# and 70.10% accuracy against 9.292 and 70.17% for the untuned guesses - the
-# guesses are fractionally better, and the gap is noise. That is a real finding
-# about the sport rather than a failed exercise: basketball plays ~5,800 games
-# among 365 teams, so by the time 40% of a season is gone there is enough
-# evidence per team that the prior and the ridge barely matter. Football, with
-# 900 games and 138 teams, is far more sensitive - tuning there bought a full
-# point of MAE.
+# The search found nothing, and found nothing twice. On the holdout the best
+# searched settings score MAE 9.2771 against 9.3018 for these - a fortieth of a
+# point - while scoring *worse* on accuracy (70.03% against 70.16%) and on
+# Brier. That is noise, not an improvement.
 #
-# These values are kept because a searched region beats a guess, not because
-# they are better.
+# It is a real finding about the sport rather than a failed exercise:
+# basketball plays ~6,000 games among 365 teams, so by the time 40% of a season
+# is gone there is enough evidence per team that the prior and the ridge barely
+# matter. Football, with 900 games among 138 teams, is far more sensitive -
+# the same search there bought a full point of MAE.
+#
+# One reason to prefer these over the searched winner beyond the tie: the
+# searched settings imply a home court of 2.41 points, while the seasons
+# themselves come in at 2.7 to 3.3. The number that matches the world wins a
+# tie against the number that matches the objective by a fortieth of a point.
 BASKETBALL_PROFILE = Profile(
     name="basketball",
     compression=34.0,

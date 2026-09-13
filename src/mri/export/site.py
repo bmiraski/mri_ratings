@@ -21,6 +21,7 @@ import hashlib
 import html
 import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 SERIES = "#3987e5"
@@ -31,6 +32,70 @@ SERIES_LIGHT = "#2a78d6"
 # and since this generator rewrites the whole output directory it would
 # otherwise be deleted on the next build and quietly take the domain down.
 CUSTOM_DOMAIN = "mri.mira.ski"
+
+
+# --------------------------------------------------------------------------
+# per-sport chrome
+# --------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class Chrome:
+    """What differs between the two sports' sites.
+
+    The pages themselves are shared. Keeping a second set of templates for
+    basketball would mean every fix to a table or a chart had to be made twice,
+    and within a month one of them would be stale. So the sports differ in this
+    object and in their payloads, and nowhere else.
+
+    ``home`` is the sport's directory under docs/. Football keeps the root so
+    that every URL published so far still resolves; basketball is a subtree.
+    """
+
+    sport: str
+    title: str          # the switch label
+    home: str           # "" for football, "basketball/" for basketball
+    noun: str           # "college football"
+    field: str          # what "average" means: FBS, Division I
+    venue: str          # home field / home court
+    outsider: str       # tag for an opponent outside the rated field
+    source_name: str
+    source_url: str
+    with_classic: bool
+    history: str        # the era line in the footer
+
+
+CHROME = {
+    "football": Chrome(
+        sport="football", title="Football", home="", noun="college football",
+        field="FBS", venue="home field", outsider="FCS",
+        source_name="CollegeFootballData", source_url="https://collegefootballdata.com",
+        with_classic=True, history="run 2000&ndash;2019 and rebuilt for {season}",
+    ),
+    "basketball": Chrome(
+        sport="basketball", title="Basketball", home="basketball/",
+        noun="college basketball", field="Division I", venue="home court",
+        outsider="non-D1",
+        source_name="CollegeBasketballData", source_url="https://collegebasketballdata.com",
+        # Fixed, not {season}: the chain starts at 2020-21 whatever season the
+        # page happens to be showing.
+        with_classic=False,
+        history="run through 2019&ndash;20 and rebuilt from 2020&ndash;21",
+    ),
+}
+
+
+def chrome_for(payload: dict) -> Chrome:
+    return CHROME[payload.get("sport", "football")]
+
+
+def season_text(payload: dict) -> str:
+    """'2026' for football, '2025-26' for basketball."""
+    return str(payload.get("seasonLabel") or payload["season"])
+
+
+def period_text(payload: dict) -> str:
+    """'Week 7', or 'Final' once a basketball season has finished."""
+    return payload.get("periodLabel") or f"Week {payload['week']}"
 
 
 def slug(name: str) -> str:
@@ -99,7 +164,13 @@ def identity_mark(team: dict, size: int = 20, depth: int = 0) -> str:
             f'<img class="logo" src="{esc(source)}" alt="" width="{size}" height="{size}"'
             f' loading="lazy" onerror="{esc(fallback)}">'
         )
-    return f'<span class="chip" style="background:{esc(team["color"])}"></span>'
+    # The chip takes the same size as the logo it stands in for. Football rarely
+    # reaches this branch, so the fixed 20px went unnoticed; basketball uses it
+    # for all 365 teams, where a 20px mark beside a 46px heading reads as a bug.
+    return (
+        f'<span class="chip" style="background:{esc(team["color"])};'
+        f'width:{size}px;height:{size}px;border-radius:{max(3, size // 7)}px"></span>'
+    )
 
 
 # --------------------------------------------------------------------------
@@ -107,7 +178,13 @@ def identity_mark(team: dict, size: int = 20, depth: int = 0) -> str:
 # --------------------------------------------------------------------------
 
 def page(title: str, body: str, payload: dict, *, depth: int = 0, description: str = "") -> str:
+    chrome = chrome_for(payload)
     up = "../" * depth
+    # Two levels of relative path, because there are now two roots. ``up`` walks
+    # back to the sport's own index; ``docs`` walks back one further to the site
+    # root, which is where the other sport lives.
+    docs = up + ("../" if chrome.home else "")
+
     # The betting page exists only once a backtest has been run, so the nav must
     # not promise it unconditionally - a dead link in the header on every page
     # is a worse failure than a missing section.
@@ -115,19 +192,32 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         f'\n      <a href="{up}betting.html">Betting</a>'
         if payload.get("betting") and payload.get("board") else ""
     )
+    # The switch offers only sports this build actually published. The same rule
+    # as the betting link above: a header link to a directory that does not exist
+    # is a dead link on every page of the site, which is worse than no switch.
+    published = payload.get("sports") or [chrome.sport]
+    current = ' aria-current="page" class="on"'
+    switch = "" if len(published) < 2 else '<div class="sports">{}</div>'.format("".join(
+        '<a href="{}{}index.html"{}>{}</a>'.format(
+            docs, CHROME[name].home,
+            current if name == chrome.sport else "", CHROME[name].title
+        )
+        for name in published if name in CHROME
+    ))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
-<meta name="description" content="{esc(description or 'A computer rating system for college football.')}">
-<link rel="stylesheet" href="{up}styles.css">
+<meta name="description" content="{esc(description or f'A computer rating system for {chrome.noun}.')}">
+<link rel="stylesheet" href="{docs}styles.css">
 </head>
 <body>
 <header class="site">
   <div class="wrap bar">
     <a class="mark" href="{up}index.html">The <em>MRI</em></a>
+    {switch}
     <nav>
       <a href="{up}index.html">Rankings</a>
       <a href="{up}conferences.html">Conferences</a>
@@ -135,17 +225,17 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
       <a href="{up}archive.html">Archive</a>
       <a href="{up}method.html">Method</a>
     </nav>
-    <div class="stamp">{payload['season']} &middot; Week {payload['week']}</div>
+    <div class="stamp">{esc(season_text(payload))} &middot; {esc(period_text(payload))}</div>
   </div>
 </header>
 <main class="wrap">{body}</main>
 <footer class="site">
   <div class="wrap">
-    <p>MRI &mdash; a computer rating system for college football, run 2000&ndash;2019
-    and rebuilt for {payload['season']}. Game data from
-    <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
+    <p>MRI &mdash; a computer rating system for {chrome.noun},
+    {chrome.history.format(season=season_text(payload))}. Game data from
+    <a href="{chrome.source_url}">{chrome.source_name}</a>.</p>
     <p class="muted">Ratings last changed {esc(payload['generated'][:16].replace('T', ' '))} UTC
-    &middot; {payload['gamesRated']} games rated &middot; home field {payload['homeField']:.1f} pts</p>
+    &middot; {payload['gamesRated']} games rated &middot; {chrome.venue} {payload['homeField']:.1f} pts</p>
   </div>
 </footer>
 </body>
@@ -157,6 +247,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
 # --------------------------------------------------------------------------
 
 def rankings_page(payload: dict) -> str:
+    chrome = chrome_for(payload)
     teams = payload["teams"]
     top = teams[0]
 
@@ -190,13 +281,42 @@ def rankings_page(payload: dict) -> str:
         <span class="gv">#{t['rank']} <em>vs</em> #{t['classicRank']}</span></li>"""
         for t in disagreements
     )
+    # Basketball publishes one rating, so the comparison panel and the sort that
+    # depends on it are dropped rather than rendered empty.
+    classic_panel = f"""
+      <section class="panel">
+        <p class="ptitle">Where Classic disagrees</p>
+        <ul class="list">{gap_rows}</ul>
+        <p class="note">MRI 2.0 rank versus the frozen 2018 formula. Classic has no
+        preseason prior and weights raw win percentage heavily, so in September an
+        unbeaten team that has played nobody rides high.</p>
+      </section>
+""" if chrome.with_classic and gap_rows else ""
+    classic_option = (
+        '\n            <option value="classic">By MRI Classic</option>'
+        if chrome.with_classic else ""
+    )
+
+    # Where the panel Classic would have filled goes to the argument the two
+    # published numbers are having with each other: who the model rates far above
+    # what their record has earned, and who has earned more than they look.
+    gap_panel = "" if chrome.with_classic else _resume_gap_panel(teams)
 
     movers = sorted(teams, key=lambda t: -abs(t["movement"]))[:5]
     mover_rows = "".join(
         f"""<li><a class="gnm" href="team/{slug(t['team'])}.html">{esc(t['team'])}</a>
         <span class="gv">{movement_chip(t['movement'])} to #{t['rank']}</span></li>"""
         for t in movers if t["movement"]
-    ) or '<li class="empty">No movement yet &mdash; this is the first rated week.</li>'
+    ) or '<li class="empty">No movement &mdash; the ranking is unchanged from last week.</li>'
+    # In a finished season the last week's movement is a ±1 shuffle at the bottom
+    # of the table. Presenting that as news would be filling a box for its own
+    # sake, so the panel goes away once the season is over.
+    movers_panel = "" if payload.get("finished") else f"""
+      <section class="panel">
+        <p class="ptitle">Biggest movers</p>
+        <ul class="list">{mover_rows}</ul>
+      </section>
+"""
 
     conferences = "".join(_conference_bar(c, payload) for c in payload["conferences"])
     options = "".join(
@@ -213,12 +333,11 @@ def rankings_page(payload: dict) -> str:
           <label class="sr">Conference<select id="conf"><option value="">All conferences</option>{options}</select></label>
           <label class="sr">Sort<select id="sort">
             <option value="rank">By power</option>
-            <option value="resume">By r&eacute;sum&eacute;</option>
-            <option value="classic">By MRI Classic</option>
+            <option value="resume">By r&eacute;sum&eacute;</option>{classic_option}
           </select></label>
         </div>
       </div>
-      <p class="hint">Points against an average FBS team &mdash; the gap between two
+      <p class="hint">Points against an average {chrome.field} team &mdash; the gap between two
       rows is a predicted spread. <strong>R&eacute;sum&eacute;</strong> is wins above what an
       average team would manage against the same schedule.</p>
       <ul id="list">{''.join(rows)}</ul>
@@ -237,19 +356,7 @@ def rankings_page(payload: dict) -> str:
         </div>
       </section>
 
-      <section class="panel">
-        <p class="ptitle">Where Classic disagrees</p>
-        <ul class="list">{gap_rows}</ul>
-        <p class="note">MRI 2.0 rank versus the frozen 2018 formula. Classic has no
-        preseason prior and weights raw win percentage heavily, so in September an
-        unbeaten team that has played nobody rides high.</p>
-      </section>
-
-      <section class="panel">
-        <p class="ptitle">Biggest movers</p>
-        <ul class="list">{mover_rows}</ul>
-      </section>
-
+{classic_panel}{gap_panel}{movers_panel}
       <section class="panel">
         <p class="ptitle">Conference strength</p>
         <ul class="conf">{conferences}</ul>
@@ -283,8 +390,46 @@ def rankings_page(payload: dict) -> str:
   sort.addEventListener('change', apply);
 }})();
 </script>"""
-    return page(f"MRI — {payload['season']} college football rankings", body, payload,
-                description="Opponent-adjusted college football ratings, updated weekly.")
+    return page(f"MRI — {season_text(payload)} {chrome.noun} rankings", body, payload,
+                description=f"Opponent-adjusted {chrome.noun} ratings, updated weekly.")
+
+
+def _resume_gap_panel(teams: list[dict]) -> str:
+    """The widest disagreements between what a team is and what it has earned.
+
+    Power and Résumé are published as separate numbers precisely because they
+    answer different questions, and the places they disagree most are the whole
+    reason for keeping them apart: a team the model rates twenty spots above its
+    record, or one whose record flatters it. Only teams inside the top hundred
+    are eligible - a rank gap of forty means nothing at #300, where the ratings
+    are a tenth of a point apart.
+    """
+    # One direction only. A list headed "better than their record" that also
+    # contains teams whose record flatters them is a heading that lies about half
+    # its own rows, so this keeps only the teams the model rates above what they
+    # have earned, and the note explains which way to read it.
+    eligible = [
+        t for t in teams
+        if t.get("resumeRank") and t["rank"] <= 100 and t["resumeRank"] > t["rank"]
+    ]
+    ranked = sorted(eligible, key=lambda t: -(t["resumeRank"] - t["rank"]))[:5]
+    if not ranked:
+        return ""
+    rows = "".join(
+        f"""<li><a class="gnm" href="team/{slug(t['team'])}.html">{esc(t['team'])}</a>
+        <span class="gv">#{t['rank']} <em>vs</em> #{t['resumeRank']}</span></li>"""
+        for t in ranked
+    )
+    return f"""
+      <section class="panel">
+        <p class="ptitle">Better than their record</p>
+        <ul class="list">{rows}</ul>
+        <p class="note">Power rank, then r&eacute;sum&eacute; rank. These teams have played
+        better than their wins show &mdash; close losses to good teams, or a schedule
+        that gave them nothing to bank. It is the gap the two published numbers exist
+        to make visible.</p>
+      </section>
+"""
 
 
 def _conference_bar(conference: dict, payload: dict) -> str:
@@ -335,13 +480,14 @@ def _trend_stat(team: dict) -> str:
 
 
 def team_page(team: dict, payload: dict) -> str:
+    chrome = chrome_for(payload)
     detail = payload["details"].get(team["team"], {"played": [], "upcoming": []})
     lookup = {t["team"]: t for t in payload["teams"]}
 
     def opponent_link(name: str) -> str:
         if name in lookup:
             return f'<a href="{slug(name)}.html">{esc(name)}</a>'
-        return f'{esc(name)} <span class="fcs">FCS</span>'
+        return f'{esc(name)} <span class="fcs">{chrome.outsider}</span>'
 
     played = "".join(f"""
       <tr>
@@ -414,7 +560,7 @@ def team_page(team: dict, payload: dict) -> str:
       </table></div>
     </section>
   </article>"""
-    return page(f"{team['team']} — MRI {payload['season']}", body, payload, depth=1,
+    return page(f"{team['team']} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{team['team']} MRI rating, schedule and game-by-game performance.")
 
 
@@ -423,15 +569,20 @@ def team_page(team: dict, payload: dict) -> str:
 # --------------------------------------------------------------------------
 
 def conference_page(name: str, payload: dict) -> str:
+    chrome = chrome_for(payload)
     members = [t for t in payload["teams"] if t["conference"] == name]
+    classic_cell = (
+        lambda t: f"""
+        <td class="num muted">{t.get('classicRank') or '&ndash;'}</td>"""
+    ) if chrome.with_classic else (lambda t: "")
+    classic_head = '<th class="num">Classic</th>' if chrome.with_classic else ""
     rows = "".join(f"""
       <tr style="--team:{esc(t['color'])}">
         <td class="rk">{t['rank']}</td>
         <td class="tm"><span class="rule"></span>{identity_mark(t, 18, depth=1)}<a href="../team/{slug(t['team'])}.html">{esc(t['team'])}</a></td>
         <td class="rec">{t['wins']}&ndash;{t['losses']}</td>
         <td class="num">{t['power']:+.1f}</td>
-        <td class="num">{t['resume']:+.2f}</td>
-        <td class="num muted">{t.get('classicRank') or '&ndash;'}</td>
+        <td class="num">{t['resume']:+.2f}</td>{classic_cell(t)}
       </tr>""" for t in members)
 
     mean = sum(t["power"] for t in members) / len(members) if members else 0
@@ -440,10 +591,10 @@ def conference_page(name: str, payload: dict) -> str:
   <p class="teamsub">{len(members)} teams &middot; mean power {mean:+.1f}</p>
   <div class="tablewrap"><table class="conftable">
     <thead><tr><th>#</th><th>Team</th><th>Rec</th><th class="num">Power</th>
-    <th class="num">R&eacute;sum&eacute;</th><th class="num">Classic</th></tr></thead>
+    <th class="num">R&eacute;sum&eacute;</th>{classic_head}</tr></thead>
     <tbody>{rows}</tbody>
   </table></div>"""
-    return page(f"{name} — MRI {payload['season']}", body, payload, depth=1,
+    return page(f"{name} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{name} teams ranked by MRI power rating.")
 
 
@@ -458,7 +609,7 @@ def conferences_index(payload: dict) -> str:
   <h1>Conferences</h1>
   <p class="hint">Ranked by the mean power rating of member teams.</p>
   <div class="confgrid">{cards}</div>"""
-    return page(f"Conferences — MRI {payload['season']}", body, payload)
+    return page(f"Conferences — MRI {season_text(payload)}", body, payload)
 
 
 # --------------------------------------------------------------------------
@@ -467,7 +618,11 @@ def conferences_index(payload: dict) -> str:
 
 def archive_page(payload: dict) -> str:
     weeks = max(len(t["rankHistory"]) for t in payload["teams"])
-    header = "".join(f"<th>Wk {w + 1}</th>" for w in range(weeks))
+    # Basketball's first rated week is not week one - a ranking of 365 teams off
+    # three days of November play is noise, so those weeks are never published
+    # and the column headings have to say which weeks these actually are.
+    labels = payload.get("weeks") or list(range(1, weeks + 1))
+    header = "".join(f"<th>Wk {labels[w] if w < len(labels) else w + 1}</th>" for w in range(weeks))
     rows = []
     for spot in range(min(25, len(payload["teams"]))):
         cells = []
@@ -489,7 +644,7 @@ def archive_page(payload: dict) -> str:
     <thead><tr><th>#</th>{header}</tr></thead>
     <tbody>{''.join(rows)}</tbody>
   </table></div>"""
-    return page(f"Archive — MRI {payload['season']}", body, payload)
+    return page(f"Archive — MRI {season_text(payload)}", body, payload)
 
 
 def betting_page(payload: dict, betting: dict, board: dict) -> str:
@@ -624,6 +779,8 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
 
 
 def method_page(payload: dict) -> str:
+    if chrome_for(payload).sport == "basketball":
+        return bb_method_page(payload)
     body = f"""
   <article class="prose">
   <h1>Method</h1>
@@ -697,8 +854,79 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   has an edge anywhere it is against opening numbers, and that claim will be backtested
   and reported here before it is acted on &mdash; including if the answer is no.</p>
   </article>"""
-    return page(f"Method — MRI {payload['season']}", body, payload,
+    return page(f"Method — MRI {season_text(payload)}", body, payload,
                 description="How the MRI rating system works, and how well it does.")
+
+
+def bb_method_page(payload: dict) -> str:
+    """The basketball method page.
+
+    Shorter than football's on purpose. Football has seventeen validated
+    seasons, a frozen formula to compare against and a betting backtest behind
+    it. Basketball has four validated workbooks and six chained seasons, and
+    saying more than that would be borrowing football's credibility.
+    """
+    body = f"""
+  <article class="prose">
+  <h1>Method</h1>
+
+  <p>MRI is a computer rating system. Ben ran it as an Excel workbook for college
+  football and college basketball; the basketball workbooks stop at 2019&ndash;20.
+  This is the same idea rebuilt, and carried forward through the seasons in
+  between.</p>
+
+  <h2>The rating</h2>
+  <p>Every game becomes one equation &mdash;</p>
+  <pre>margin  =  rating(home)  −  rating(away)  +  home court</pre>
+  <p>&mdash; and the whole season is solved at once. A team's rating depends on its
+  opponents' ratings, which depend on theirs, all the way down, so strength of
+  schedule is not a separate statistic bolted on afterwards. It is what the
+  solution is made of.</p>
+  <ul>
+    <li><strong>Margin is compressed.</strong> A 30-point win is worth more than a
+    20-point win and not very much more, through a curve that is near-identity
+    inside a normal result and flattens past it. Nothing is gained by running up
+    a score.</li>
+    <li><strong>Ratings are pulled toward last season's</strong> so November means
+    something. The pull fades on its own as games accumulate, and it is gone
+    well before conference play.</li>
+    <li><strong>Home court is estimated</strong> from the games rather than assumed,
+    and neutral sites are excluded. It sits at {payload['homeField']:.1f} points here, and has
+    run between 2.7 and 3.3 across the six rebuilt seasons.</li>
+    <li><strong>Non-Division-I opponents are rated individually</strong> rather than
+    pooled, so a November exhibition against a good one is not the same result as
+    a November exhibition against a bad one.</li>
+  </ul>
+
+  <h2>Two numbers</h2>
+  <p><strong>Power</strong> answers how good a team is, in points against an average
+  Division I team, so the gap between two teams is a predicted spread.
+  <strong>R&eacute;sum&eacute;</strong> answers what a team has earned, measured as wins above
+  what an average team would have managed against the same schedule at the same
+  venues. They are different questions and they are published separately.</p>
+
+  <h2>What is and is not established</h2>
+  <p>The original formula was ported and checked against the surviving workbooks:
+  it reproduces every published rating in 2012&ndash;13, 2017&ndash;18, 2018&ndash;19
+  and 2019&ndash;20 to floating-point tolerance. That is the part that is proven.</p>
+  <p>Ratings since then are a chain: 2019&ndash;20 primes 2020&ndash;21, which primes
+  the next, through to now. Walking forward within each season &mdash; fit on the
+  games played, score the games that come next &mdash; the model calls about 70% of
+  games correctly with a mean margin error near 9.3 points.</p>
+  <p>Its settings were searched over 80 combinations and the search found nothing
+  that beat the starting guesses on seasons it had not seen. That is reported here
+  because it is true: at this many games per team the knobs stop mattering, and a
+  tuning exercise that claims a win it did not get is worth less than one that
+  admits it.</p>
+
+  <h2>What it cannot do</h2>
+  <p>A margin error near 9.3 points is about where college basketball closing spreads
+  sit. As with football, that is the honest signal that this should not be expected
+  to beat a closing line. There is no betting page for basketball and there will not
+  be one unless a backtest earns it.</p>
+  </article>"""
+    return page(f"Method — MRI basketball {season_text(payload)}", body, payload,
+                description="How the MRI basketball rating works, and what it has been shown to do.")
 
 
 # --------------------------------------------------------------------------
@@ -713,7 +941,7 @@ def content_digest(payload: dict) -> str:
     ).hexdigest()[:16]
 
 
-def _settle_timestamp(payload: dict, out_dir: Path) -> None:
+def _settle_timestamp(payload: dict, out_dir: Path, name: str = "site.json") -> None:
     """Keep the previous timestamp when nothing but the clock has moved.
 
     The footer stamp is rendered into all 157 pages, so a build that changed
@@ -723,7 +951,7 @@ def _settle_timestamp(payload: dict, out_dir: Path) -> None:
     ratings last changed", which is the more useful claim anyway.
     """
     payload["digest"] = content_digest(payload)
-    existing = out_dir / "site.json"
+    existing = out_dir / name
     if not existing.exists():
         return
     try:
@@ -734,9 +962,24 @@ def _settle_timestamp(payload: dict, out_dir: Path) -> None:
         payload["generated"] = previous["generated"]
 
 
-def build(payload: dict, out_dir: Path) -> list[Path]:
+def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> list[Path]:
+    """Render one sport's pages.
+
+    ``site_root`` is docs/ itself, not the sport's folder - the stylesheet, the
+    CNAME and the Jekyll opt-out belong to the site rather than to either sport,
+    and writing two copies of the stylesheet is how they drift apart. The sport's
+    own pages go under ``site_root / chrome.home``.
+
+    ``publish_details`` controls whether the per-team schedule detail is written
+    into the published JSON. It is already rendered into every team page, and for
+    basketball it is 4MB that would be recommitted on every weekly run, so the
+    basketball build leaves it out.
+    """
+    chrome = chrome_for(payload)
+    out_dir = site_root / chrome.home if chrome.home else site_root
+    json_name = f"{chrome.sport}.json" if chrome.home else "site.json"
     out_dir.mkdir(parents=True, exist_ok=True)
-    _settle_timestamp(payload, out_dir)
+    _settle_timestamp(payload, out_dir, json_name)
     (out_dir / "team").mkdir(exist_ok=True)
     (out_dir / "conference").mkdir(exist_ok=True)
 
@@ -746,19 +989,24 @@ def build(payload: dict, out_dir: Path) -> list[Path]:
         path.write_text(content)
         written.append(path)
 
-    # Without this, GitHub Pages runs the output through Jekyll, which skips
-    # files and directories whose names begin with an underscore.
-    write(out_dir / ".nojekyll", "")
+    # Site-wide, written once at the root whichever sport is building. Without
+    # .nojekyll, GitHub Pages runs the output through Jekyll, which skips files
+    # and directories whose names begin with an underscore.
+    site_root.mkdir(parents=True, exist_ok=True)
+    write(site_root / ".nojekyll", "")
     if CUSTOM_DOMAIN:
-        write(out_dir / "CNAME", CUSTOM_DOMAIN + "\n")
-    write(out_dir / "styles.css", STYLES)
+        write(site_root / "CNAME", CUSTOM_DOMAIN + "\n")
+    write(site_root / "styles.css", STYLES)
+
     write(out_dir / "index.html", rankings_page(payload))
     write(out_dir / "conferences.html", conferences_index(payload))
     write(out_dir / "archive.html", archive_page(payload))
     write(out_dir / "method.html", method_page(payload))
     if payload.get("betting") and payload.get("board"):
         write(out_dir / "betting.html", betting_page(payload, payload["betting"], payload["board"]))
-    write(out_dir / "site.json", json.dumps(payload, indent=2))
+
+    published = payload if publish_details else {k: v for k, v in payload.items() if k != "details"}
+    write(out_dir / json_name, json.dumps(published, indent=2))
 
     for team in payload["teams"]:
         write(out_dir / "team" / f"{slug(team['team'])}.html", team_page(team, payload))
@@ -795,6 +1043,16 @@ header.site { border-bottom:1px solid var(--grid); background:var(--surface); }
 .bar { display:flex; align-items:center; gap:20px; flex-wrap:wrap; padding-block:14px; }
 .mark { font-size:20px; font-weight:800; letter-spacing:-0.02em; text-decoration:none; }
 .mark em { font-style:normal; color:var(--series); }
+/* The sport switch sits beside the wordmark rather than inside the nav, because
+   it changes which site you are on and the nav changes which page. Segmented so
+   it reads as a choice between two, with the current one filled rather than
+   merely coloured - colour alone would not survive a greyscale print or a
+   colourblind reader. */
+.sports { display:flex; border:1px solid var(--grid); border-radius:999px; overflow:hidden; }
+.sports a { font-size:12px; font-weight:600; padding:4px 12px; text-decoration:none;
+  color:var(--muted); white-space:nowrap; }
+.sports a:hover { color:var(--primary); }
+.sports a.on { background:var(--primary); color:var(--surface); }
 header nav { display:flex; gap:16px; flex:1; flex-wrap:wrap; }
 header nav a { font-size:13px; color:var(--secondary); text-decoration:none; }
 header nav a:hover { color:var(--primary); }

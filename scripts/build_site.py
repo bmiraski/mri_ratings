@@ -47,11 +47,48 @@ def main() -> None:
     print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
           f"{summary['failed']} failed")
 
+    basketball = basketball_payload(data_dir)
+
+    # Both payloads are prepared before either renders, because the sport switch
+    # in the header must only offer a sport that this build actually published.
+    # Rendering football first would mean its 158 pages carry a link to a
+    # basketball directory that the next step might fail to create.
+    sports = ["football"] + (["basketball"] if basketball else [])
+    payload["sports"] = sports
+
     files = site.build(payload, public)
     print(f"  wrote {len(files)} files to {public.relative_to(ROOT)}")
-
     top = payload["teams"][0]
     print(f"  #1 {top['team']} ({top['power']:+.1f})")
+
+    if basketball:
+        basketball["sports"] = sports
+        print(f"building basketball {basketball['seasonLabel']} "
+              f"({basketball['periodLabel']})...")
+        print(f"  {basketball['gamesRated']} games, {len(basketball['teams'])} teams, "
+              f"home court {basketball['homeField']:.2f}")
+        # The per-team detail is 4MB and is already rendered into every team page.
+        files = site.build(basketball, public, publish_details=False)
+        top = basketball["teams"][0]
+        print(f"  wrote {len(files)} files - #1 {top['team']} ({top['power']:+.1f})")
+
+
+def basketball_payload(data_dir):
+    """The basketball data, or None.
+
+    Kept in the same entry point so one weekly run refreshes both sports and they
+    cannot drift apart, but isolated: basketball is out of season for half the
+    football year, and a failure there must not take the football site down with
+    it. Returning None rather than raising is what lets the switch disappear
+    instead of pointing at nothing.
+    """
+    from mri.export import bb_sitedata
+
+    try:
+        return bb_sitedata.build_full(None, data_dir)
+    except Exception as exc:  # noqa: BLE001 - one sport never blocks the other
+        print(f"  basketball skipped: {exc}")
+        return None
 
 
 if __name__ == "__main__":

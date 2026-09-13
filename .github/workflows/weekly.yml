@@ -6,6 +6,11 @@ name: Refresh ratings
 #
 # Sunday morning is the real run, once a weekend of games is final. The
 # midweek and Saturday runs catch stragglers and, later, betting lines.
+#
+# The same three runs refresh basketball, which is in season from November to
+# April - roughly the half of the year football is not. Out of season the
+# basketball pages hold the completed season, marked final, rather than going
+# blank.
 
 on:
   schedule:
@@ -48,7 +53,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs data/raw
+          git add docs data/raw site/data
           if git diff --staged --quiet; then
             echo "No new games since the last run."
           else

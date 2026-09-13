@@ -21,7 +21,9 @@ from mri.ingest import bb_registry as registry  # noqa: E402
 from mri.ratings import bb_backtest as bb, mri2  # noqa: E402
 
 WARMUP = 2020          # 2019-20, the last season Ben ran himself
-SEASONS = range(2021, 2027)
+# Through to the current season. Seasons with no games yet are skipped, so this
+# does not need editing each November - re-running it extends the chain.
+SEASONS = range(2021, registry.CURRENT_SEASON + 1)
 
 
 def main() -> None:

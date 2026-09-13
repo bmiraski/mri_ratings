@@ -167,3 +167,113 @@ def test_digest_ignores_only_the_timestamp(payload) -> None:
 
     b["week"] = 99
     assert site.content_digest(a) != site.content_digest(b)
+
+
+# --- two sports under one roof ---------------------------------------------
+
+BB_DATA = Path(__file__).resolve().parents[1] / "site" / "data" / "bb.json"
+
+
+@pytest.fixture(scope="module")
+def bb_payload() -> dict:
+    """bb.json plus the detail it deliberately does not carry.
+
+    The per-team detail is 4MB for 365 teams and is rendered into the team
+    pages, so it is never written to disk. The pages still need it, so the test
+    rebuilds it from the cached game data the same way the real build does."""
+    if not BB_DATA.exists():
+        pytest.skip("basketball site data not built")
+    payload = json.loads(BB_DATA.read_text())
+    from mri.export import bb_sitedata
+    payload["details"] = bb_sitedata.team_details(payload["season"], payload)
+    return payload
+
+
+@pytest.fixture(scope="module")
+def both(payload, bb_payload, tmp_path_factory) -> Path:
+    """Both sports rendered into one docs/ root, as the real build does."""
+    out = tmp_path_factory.mktemp("both")
+    sports = ["football", "basketball"]
+    site.build({**payload, "sports": sports}, out)
+    site.build({**bb_payload, "sports": sports}, out, publish_details=False)
+    return out
+
+
+def test_football_keeps_the_root(both) -> None:
+    """Every URL published so far is a root URL. Moving football into a
+    subdirectory would break all of them, so it stays put."""
+    assert (both / "index.html").exists()
+    assert (both / "team").is_dir()
+    assert (both / "basketball" / "index.html").exists()
+
+
+def test_one_stylesheet_for_the_whole_site(both) -> None:
+    """Two copies would drift. Both sports link back to the root one."""
+    assert (both / "styles.css").exists()
+    assert not (both / "basketball" / "styles.css").exists()
+    deep = (both / "basketball" / "team").glob("*.html")
+    assert 'href="../../styles.css"' in next(deep).read_text()
+
+
+def test_links_resolve_across_both_sports(both) -> None:
+    import urllib.parse
+
+    broken = []
+    for page in both.rglob("*.html"):
+        for href in re.findall(r'(?:href|src)="([^"]+)"', page.read_text()):
+            if href.startswith(("http://", "https://", "#", "mailto:", "data:")):
+                continue
+            if not (page.parent / urllib.parse.unquote(href)).resolve().exists():
+                broken.append(f"{page.relative_to(both)} -> {href}")
+    assert not broken, broken[:10]
+
+
+def test_each_sport_switch_points_at_the_other(both) -> None:
+    """The switch is the only cross-sport link, and it is on every page. A
+    depth mistake here breaks hundreds of pages at once, silently."""
+    seen = 0
+    for page in both.rglob("*.html"):
+        html = page.read_text()
+        assert 'class="sports"' in html, page
+        assert html.count('aria-current="page"') == 1, page
+        seen += 1
+    assert seen > 500
+
+
+def test_a_solo_build_shows_no_switch(payload, tmp_path) -> None:
+    """A build that publishes one sport must not put a header link on every
+    page pointing at a directory it did not create."""
+    site.build(payload, tmp_path)
+    html = (tmp_path / "index.html").read_text()
+    assert 'class="sports"' not in html
+    assert "basketball/index.html" not in html
+
+
+def test_basketball_publishes_no_classic_column(bb_payload, both) -> None:
+    """Basketball has one rating. A Classic column would be an empty promise."""
+    index = (both / "basketball" / "index.html").read_text()
+    assert "MRI Classic" not in index
+    assert "Where Classic disagrees" not in index
+
+
+def test_basketball_json_omits_the_bulky_detail(both) -> None:
+    """4MB recommitted weekly, for something already rendered into every team
+    page."""
+    published = json.loads((both / "basketball" / "basketball.json").read_text())
+    assert "details" not in published
+    assert published["teams"]
+
+
+def test_sports_do_not_share_a_json_file(both) -> None:
+    assert (both / "site.json").exists()
+    assert (both / "basketball" / "basketball.json").exists()
+
+
+def test_basketball_build_is_idempotent(bb_payload, tmp_path) -> None:
+    """The weekly Action commits whatever changed. A build that rewrites 400
+    files for a timestamp commits 400 files every week."""
+    site.build(bb_payload, tmp_path, publish_details=False)
+    first = {p: p.read_bytes() for p in sorted(tmp_path.rglob("*")) if p.is_file()}
+    site.build(bb_payload, tmp_path, publish_details=False)
+    second = {p: p.read_bytes() for p in sorted(tmp_path.rglob("*")) if p.is_file()}
+    assert first == second
