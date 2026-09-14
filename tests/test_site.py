@@ -585,3 +585,34 @@ def test_history_rows_carry_the_field_size() -> None:
     for rows in seasons.team_history(seasons.football_seasons(current=2026)).values():
         for row in rows:
             assert row["of"] >= row["rank"] > 0
+
+
+def test_archive_field_size_matches_the_real_one_each_season() -> None:
+    """The strongest available check: the number of teams the archive rates in
+    a season should equal the number the API says were FBS that year."""
+    from mri.export import seasons
+    from mri.ingest import cfbd
+
+    for entry in seasons.football_seasons(current=2026):
+        if entry["system"] != "MRI 2.0":
+            continue
+        try:
+            actual = len(cfbd.fbs_teams(entry["season"]))
+        except Exception:  # noqa: BLE001
+            pytest.skip("FBS roster unavailable offline")
+        assert entry["rated"] == actual, (
+            f"{entry['season']}: archive rates {entry['rated']}, API says {actual}"
+        )
+
+
+def test_no_team_is_rated_before_it_joined_fbs() -> None:
+    from mri.export import seasons
+    from mri.ingest import registry
+
+    for entry in seasons.football_seasons(current=2026):
+        if entry["system"] != "MRI 2.0":
+            continue
+        for team in entry["teams"]:
+            assert registry.was_fbs(team["team"], entry["season"]), (
+                f"{team['team']} rated in {entry['season']} but was not FBS"
+            )

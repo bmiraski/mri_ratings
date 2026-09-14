@@ -80,3 +80,48 @@ def test_historical_names_all_map() -> None:
     games = pd.read_parquet(ARCHIVE_GAMES)
     names = set(games["team1"]) | set(games["team2"])
     assert set(registry.unresolved(names)) == EXPECTED_UNRESOLVED
+
+
+def test_fbs_membership_is_season_aware() -> None:
+    """The hand-written registry describes 2026 and nothing else. The field was
+    128 teams in 2020 and is 138 now: James Madison arrived in 2022, Sam Houston
+    and Jacksonville State in 2023, Kennesaw State in 2024, Delaware in 2025,
+    North Dakota State in 2026. Asking the current registry about 2020 put all
+    of them in rankings for seasons they spent playing FCS football."""
+    from mri.ingest import registry
+
+    assert registry.was_fbs("Alabama", 2020)
+    assert not registry.was_fbs("James Madison", 2020)
+    assert registry.was_fbs("James Madison", 2022)
+    assert not registry.was_fbs("Delaware", 2024)
+    assert registry.was_fbs("Delaware", 2025)
+    assert not registry.was_fbs("North Dakota State", 2025)
+
+    # Idaho went the other way and left; it is in no season we rate.
+    assert not registry.was_fbs("Idaho", 2020)
+
+    # The field grows, and never shrinks across this range.
+    sizes = [len(registry.fbs_members(y)) for y in range(2020, 2027)]
+    assert sizes == sorted(sizes), sizes
+    assert sizes[0] == 128 and sizes[-1] == 138, sizes
+
+
+def test_season_aware_membership_resolves_aliases() -> None:
+    """A season answered by the API and one answered by the registry have to
+    agree on spelling, or a team drops out of its own history at the boundary."""
+    from mri.ingest import registry
+
+    for name in ("Cal", "Central Florida", "Mississippi", "North Carolina State"):
+        canonical = registry.resolve(name)
+        assert canonical and canonical != name
+        assert registry.was_fbs(name, 2022) == registry.was_fbs(canonical, 2022)
+
+
+def test_current_membership_is_unchanged_by_the_season_aware_path() -> None:
+    """is_fbs() with no season still means "now", and the live site depends on
+    that. was_fbs(None) must agree with it exactly."""
+    from mri.ingest import registry
+
+    for team in registry.teams():
+        assert registry.is_fbs(team) == registry.was_fbs(team)
+    assert registry.was_fbs("North Dakota State") is True

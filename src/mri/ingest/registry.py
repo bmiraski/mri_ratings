@@ -91,7 +91,49 @@ def conferences() -> dict[str, dict]:
 
 
 def is_fbs(name: object) -> bool:
+    """Whether a team is FBS *now*, per the hand-written 2026 registry.
+
+    This is the right question for the live season and the wrong one for
+    history. Use ``was_fbs`` when the season matters.
+    """
     return resolve(name) is not None
+
+
+# The registry is a hand-written file for the current season, which is fine for
+# 138 teams that fit in one's head - and no use at all for a 23-season archive.
+# Membership moved underneath it: 128 FBS teams in 2020, 138 in 2026. James
+# Madison arrived in 2022, Kennesaw State and Delaware in 2025, North Dakota
+# State in 2026, and Idaho left before any of it.
+#
+# Asking the current registry about 2020 therefore put teams in that season's
+# rankings that were playing FCS football at the time. The API knows the roster
+# for each year and is the authority here, exactly as it is for basketball;
+# names come back through ``resolve`` so a season answered by the API and a
+# season answered by the registry agree on spelling.
+@lru_cache(maxsize=32)
+def fbs_members(season: int) -> frozenset[str]:
+    """The canonical names of every FBS team in a given season."""
+    from . import cfbd
+
+    try:
+        frame = cfbd.fbs_teams(season)
+    except Exception:  # noqa: BLE001 - an archive page is not worth a crash
+        return frozenset()
+    return frozenset(resolve(n, str(n)) for n in frame["team"])
+
+
+def was_fbs(name: object, season: int | None = None) -> bool:
+    """Whether a team was FBS in a season. Falls back to the current registry.
+
+    The fallback matters: with no network and no cache the archive should show
+    a slightly-too-generous field rather than an empty one.
+    """
+    if season is None:
+        return is_fbs(name)
+    members = fbs_members(season)
+    if not members:
+        return is_fbs(name)
+    return resolve(name, str(name)) in members
 
 
 def unresolved(names) -> list[str]:

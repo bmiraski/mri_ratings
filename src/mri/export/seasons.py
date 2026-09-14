@@ -142,7 +142,14 @@ def football_seasons(current: int | None = None) -> list[dict]:
             # current_ratings rates every team that played, FCS included, so an
             # unfiltered table shows Idaho at #94 in a list of FBS teams. Ranks
             # are recomputed after the filter rather than left with gaps.
-            chunk = chunk[chunk["team"].map(registry.is_fbs)].sort_values("rank")
+            #
+            # Season-aware, not current: the field was 128 teams in 2020 and is
+            # 138 now. Asking today's registry about 2020 ranked James Madison,
+            # Kennesaw State, Delaware and North Dakota State in seasons they
+            # spent playing FCS football.
+            chunk = chunk[
+                chunk["team"].map(lambda t: registry.was_fbs(t, int(season)))
+            ].sort_values("rank")
             rows = [
                 {
                     "rank": position,
