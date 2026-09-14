@@ -368,3 +368,34 @@ def test_the_box_score_feed_is_filtered_to_real_games() -> None:
     ties = table[(table["pts1"] == 0) & (table["pts2"] == 0)]
     assert ties.empty, f"{len(ties)} unplayed games in the Classic game log"
     assert 22442 not in set(table["game_id"]), "the known phantom game is back"
+
+
+def test_box_score_windows_are_split_under_the_row_cap() -> None:
+    """This endpoint returns two rows a game, so it reaches the 3,000-row cap in
+    a busy month where the games feed never comes close - and the cap is silent.
+    It cost 121 games from the 2025-26 Classic log, and the Excel workbook built
+    from that log agreed with Python perfectly while both read truncated data."""
+    from mri.ingest import cbbd
+
+    table = cbbd.classic_table(2026)
+    games = cbbd.games(2026)
+    if table.empty or games.empty:
+        pytest.skip("season data unavailable")
+    missing = len(games) - len(table)
+    # A handful of games genuinely carry no box score; hundreds means truncation.
+    assert missing < 100, f"{missing} games missing from the Classic log"
+
+
+def test_cache_keys_do_not_collide_when_truncated() -> None:
+    """Sorted alphabetically, endDateRange and season use up the filename budget
+    before startDateRange is reached, so two windows ending on the same date used
+    to share a cache file. Monthly windows all end on different days, which is
+    why nothing was wrong until something tried to split one."""
+    from mri.ingest import cfbd
+
+    same_end = [
+        {"season": 2026, "startDateRange": "2026-01-01", "endDateRange": "2026-02-01"},
+        {"season": 2026, "startDateRange": "2026-01-16", "endDateRange": "2026-02-01"},
+    ]
+    paths = {cfbd._cache_path("/games/teams", p) for p in same_end}
+    assert len(paths) == 2, "two different windows still share a cache file"

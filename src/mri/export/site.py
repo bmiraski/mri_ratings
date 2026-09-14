@@ -839,11 +839,21 @@ def seasons_index(payload: dict) -> str:
     # The cumulative caveat applies to both sports; the 2017 example does not,
     # and a note explaining a football workbook on the basketball page is just a
     # wrong sentence in an archive that exists to be trusted.
-    provenance = (
-        "recomputed from the game logs in Ben's own workbooks; "
-        f"{len(verified)} of these reproduce the published top 25 exactly"
-        if verified else "exactly as Ben published it at the time"
-    )
+    published = [s for s in classic if s.get("source") == "published"]
+    computed = [s for s in classic if s.get("source") == "computed"]
+    if verified:
+        provenance = ("recomputed from the game logs in Ben's own workbooks; "
+                      f"{len(verified)} of these reproduce the published top 25 exactly")
+    elif published and computed:
+        provenance = (
+            f"{len(published)} of these seasons are exactly as Ben published them; "
+            f"the other {len(computed)} are years he never ran, with the same formula "
+            "applied to them here"
+        )
+    elif computed:
+        provenance = "seasons Ben never ran, with his formula applied to them here"
+    else:
+        provenance = "exactly as Ben published it at the time"
     example = (
         " 2017's workbook stops before the bowls, which is most of why its number "
         "looks small."
@@ -900,6 +910,11 @@ def season_page(entry: dict, payload: dict) -> str:
         checked = ("""
   <p class="note">Taken directly from the workbook Ben published at the time, not
   recomputed.</p>""")
+    elif entry.get("source") == "computed" and entry["system"] == "MRI Classic":
+        checked = ("""
+  <p class="note">Ben never ran this season. These are his original formula's
+  ratings computed here from the season's box scores, so they are what MRI Classic
+  says about the year rather than a record of what it said at the time.</p>""")
 
     body = f"""
   <h1>{esc(entry['label'])}</h1>

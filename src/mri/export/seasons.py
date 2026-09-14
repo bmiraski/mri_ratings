@@ -191,11 +191,17 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
 
     out = []
 
+    _add_computed_classic(out, current, season_label)
+
     if ARCHIVE_BB.exists():
         from ..ingest.archive import read_basketball_archive
 
         for season, data in read_basketball_archive(ARCHIVE_BB).items():
             table = data.published.sort_values("rank")
+            if any(e["season"] == int(season) for e in out):
+                # Already covered by the computed table, which for 2017-18 is a
+                # whole season where the workbook is a December snapshot.
+                continue
             played = (table["wins"] + table["losses"]).median()
             if played < MIN_MEDIAN_GAMES:
                 print(f"  archive: skipping {season} - median {played:.0f} games "
@@ -276,6 +282,47 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
             )
 
     return sorted(out, key=lambda s: -s["season"])
+
+
+def _add_computed_classic(out: list[dict], current: int | None, season_label) -> None:
+    """Classic for the basketball seasons Ben never ran.
+
+    Computed, not published. His own workbooks are what he put out at the time;
+    these are what his formula says about years he did not run it on, and the
+    archive distinguishes the two rather than leaving a reader to assume.
+    """
+    computed = _read("bb_classic")
+    if not computed.empty:
+        for season, chunk in computed.groupby("season"):
+            season = int(season)
+            if current is not None and season >= current:
+                continue
+            chunk = chunk.sort_values("rank")
+            rows = [
+                {
+                    "rank": int(r["rank"]),
+                    "team": r["team"],
+                    "wins": int(r["wins"]),
+                    "losses": int(r["losses"]),
+                    "rating": round(float(r["mri"]), 2),
+                    "secondary": round(float(r["mri_per_game"]), 2),
+                    "sosRank": int(r["sos_rank"]) if pd.notna(r["sos_rank"]) else None,
+                }
+                for _, r in chunk.iterrows()
+            ]
+            out.append(
+                {
+                    "season": season,
+                    "label": season_label(season),
+                    "system": CLASSIC,
+                    "ratingName": "MRI",
+                    "secondaryName": "Per game",
+                    "teams": rows,
+                    "rated": len(rows),
+                    "source": "computed",
+                    "matchesPublished": None,
+                }
+            )
 
 
 def _agrees(rows: list[dict], published: dict | None) -> bool | None:

@@ -81,8 +81,20 @@ def weekly_ratings(year: int) -> pd.DataFrame:
 
 
 def weekly_classic(year: int) -> pd.DataFrame:
-    """MRI Classic as of the end of each completed week, for comparison."""
-    table = boxscores.classic_table(year)
+    """MRI Classic as of the end of each completed week, for comparison.
+
+    Classic is the only part of the site that needs box scores, and box scores
+    are the only thing a spent API quota can take away that the rest of the
+    build cannot do without. Losing a comparison column is a bad day; failing
+    the whole run and publishing nothing is a worse one, so this degrades.
+    """
+    from ..ingest.cfbd import QuotaExceeded
+
+    try:
+        table = boxscores.classic_table(year)
+    except QuotaExceeded as exc:
+        print(f"  MRI Classic unavailable this run: {exc}")
+        return pd.DataFrame()
     if table.empty:
         return pd.DataFrame()
 

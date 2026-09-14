@@ -30,11 +30,19 @@ BASE_URL = "https://api.collegefootballdata.com"
 ROOT = Path(__file__).resolve().parents[3]
 CACHE_DIR = ROOT / "data" / "raw"
 POOLED_FCS = "Non D1A"
+
+RETRIES = 6
+MAX_BACKOFF = 60.0
 FBS = "fbs"
 
 
 class CfbdError(RuntimeError):
     pass
+
+
+class QuotaExceeded(CfbdError):
+    """The monthly call allowance is gone. Distinct from a passing throttle:
+    nothing that waits will help, so callers that can degrade should."""
 
 
 def _api_key() -> str:
@@ -53,13 +61,30 @@ def _api_key() -> str:
 
 
 def _cache_path(endpoint: str, params: dict) -> Path:
+    """A readable, and above all unique, filename for a response.
+
+    The signature is trimmed to keep filenames manageable, and the trim used to
+    be the whole of it - which silently made two different requests share a
+    cache file whenever they agreed on everything up to the cut. The basketball
+    windows are exactly that shape: sorted alphabetically, ``endDateRange`` and
+    ``season`` come first and use up the budget, so every window ending on the
+    same date collided no matter where it started.
+
+    Monthly windows all end on different dates, so nothing was wrong until
+    something tried to split one - and then a half-month request quietly
+    returned the whole month's cached, truncated payload, and the split looked
+    like it had made matters worse rather than exposing a cache bug.
+
+    A digest is appended whenever the signature had to be cut, which keeps every
+    untruncated name exactly as it was and makes the rest unique.
+    """
     stem = endpoint.strip("/").replace("/", "_")
     if params:
         digest = hashlib.sha1(
             json.dumps(params, sort_keys=True).encode()
         ).hexdigest()[:10]
         signature = "_".join(f"{k}{v}" for k, v in sorted(params.items()) if k != "year")
-        signature = signature[:40] or digest
+        signature = f"{signature[:40]}_{digest}" if len(signature) > 40 else (signature or digest)
         year = params.get("year", "")
         stem = f"{stem}_{year}_{signature}"
     return CACHE_DIR / f"{stem}.json"
@@ -73,11 +98,37 @@ def request(endpoint: str, *, refresh: bool = False, **params):
     if path.exists() and not refresh:
         return json.loads(path.read_text())
 
+    # A refresh is an optimization - "this week's numbers may have moved" - not
+    # a requirement. When the allowance is gone, the choice is between last
+    # week's cached copy and no page at all, and the cached copy wins every
+    # time. Only a genuinely uncached request has nothing to fall back to.
+    stale = json.loads(path.read_text()) if path.exists() else None
+
     headers = {"Authorization": f"Bearer {_api_key()}", "Accept": "application/json"}
-    for attempt in range(3):
+    # 1s, 2s, 4s over three attempts was fine when a build made eight calls. The
+    # basketball paths now fetch a season a window at a time and split the busy
+    # ones, so a run can make hundreds - and a real rate-limit window outlasts
+    # seven seconds every time. Retry-After is honoured when the server sends
+    # one, because guessing is strictly worse than being told.
+    for attempt in range(RETRIES):
         response = requests.get(f"{BASE_URL}{endpoint}", params=params, headers=headers, timeout=60)
         if response.status_code == 429:
-            time.sleep(2 ** attempt)
+            # Two different things arrive as 429. A throttle clears in seconds
+            # and is worth waiting out; a spent monthly quota does not clear
+            # until the month does, and retrying it six times just means six
+            # more refusals and two minutes of nothing. The body says which.
+            if "quota" in response.text.lower():
+                if stale is not None:
+                    print(f"  quota spent; serving cached {endpoint}")
+                    return stale
+                raise QuotaExceeded(
+                    f"{endpoint}: monthly API call quota exhausted. Cached data "
+                    "still works; anything uncached has to wait for the quota to "
+                    "reset, or a higher tier at collegefootballdata.com/upgrade."
+                )
+            wait = response.headers.get("Retry-After")
+            delay = float(wait) if wait and wait.isdigit() else min(2 ** attempt, MAX_BACKOFF)
+            time.sleep(delay)
             continue
         if not response.ok:
             raise CfbdError(f"{endpoint} {params} -> {response.status_code}: {response.text[:200]}")
@@ -85,7 +136,7 @@ def request(endpoint: str, *, refresh: bool = False, **params):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload))
         return payload
-    raise CfbdError(f"{endpoint} rate limited after three attempts")
+    raise CfbdError(f"{endpoint} rate limited after {RETRIES} attempts")
 
 
 def games(

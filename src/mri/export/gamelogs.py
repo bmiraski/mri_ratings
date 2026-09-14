@@ -154,6 +154,28 @@ def basketball(current: int | None) -> dict[int, dict[str, list[dict]]]:
             power = {canonical(r["team"]): float(r["power"]) for _, r in rated.iterrows()}
             logs[season] = _rows_from(chunk, canonical, power, 2.9, dated=True)
 
+    # 2013-14 to 2017-18 are computed from the API rather than a workbook, so
+    # their game logs come from the same place - and unlike the workbook seasons
+    # they carry dates.
+    computed = _read("bb_classic")
+    if not computed.empty:
+        from ..ingest import cbbd
+
+        power_by_season = {}
+        for season in sorted(int(x) for x in computed["season"].unique()):
+            if season in logs or (current is not None and season >= current):
+                continue
+
+            def canonical(name, _s=season):
+                return registry.resolve(name, str(name), season=_s)
+
+            table = cbbd.classic_table(season)
+            if table.empty:
+                continue
+            # No MRI 2.0 for these years, so no expected margin, exactly as for
+            # football's Classic seasons.
+            logs[season] = _rows_from(table, canonical, power_by_season, 0.0, dated=True)
+
     if ARCHIVE_BB.exists():
         from ..ingest.archive import read_basketball_archive
 

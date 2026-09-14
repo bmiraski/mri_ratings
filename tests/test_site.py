@@ -490,12 +490,17 @@ def test_the_archive_excludes_mid_season_workbooks() -> None:
 
     entries = seasons.basketball_seasons()
     assert entries, "basketball archive is empty"
-    assert 2018 not in {s["season"] for s in entries}
+    # 2017-18 is in the archive now, but as a full season computed from the API
+    # rather than the December workbook - the invariant is that no published
+    # season is a snapshot, not that this particular year is absent.
     for entry in entries:
         best = entry["teams"][0]
         assert best["wins"] + best["losses"] >= 20, (
             f"{entry['label']}: leader played {best['wins'] + best['losses']} games"
         )
+    snapshot = next(e for e in entries if e["season"] == 2018)
+    assert snapshot["source"] == "computed"
+    assert snapshot["teams"][0]["wins"] >= 30, "2017-18 is the snapshot again"
 
 
 def test_archive_seasons_rank_from_one_with_no_gaps() -> None:
@@ -535,10 +540,16 @@ def test_each_season_claims_only_the_provenance_it_has() -> None:
     for entry in seasons.football_seasons(current=2026):
         if entry["system"] == seasons.CLASSIC:
             assert entry["source"] == "recomputed"
+    # Basketball Classic is now a mix: the workbook years are Ben's published
+    # ratings; 2013-14 to 2017-18 are years he never ran, computed here. Neither
+    # may claim to be the other.
+    workbooks = {2013, 2019, 2020}
     for entry in seasons.basketball_seasons():
-        if entry["system"] == seasons.CLASSIC:
-            assert entry["source"] == "published"
-            assert not entry["matchesPublished"]
+        if entry["system"] != seasons.CLASSIC:
+            continue
+        expected = "published" if entry["season"] in workbooks else "computed"
+        assert entry["source"] == expected, f"{entry['label']}: {entry['source']}"
+        assert not entry["matchesPublished"]
 
 
 def test_renamed_programs_have_one_history_not_two() -> None:

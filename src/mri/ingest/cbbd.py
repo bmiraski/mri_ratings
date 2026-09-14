@@ -188,6 +188,50 @@ def teams(season: int, *, refresh: bool = False) -> pd.DataFrame:
     )
 
 
+def _split_to_fit(season: int, refresh_last: bool, today: dt.date,
+                  depth: int = 4) -> list[tuple[str, str]]:
+    """Month windows, halved until each fits under the row cap.
+
+    This endpoint returns one row per team per game - two rows a game - so it
+    reaches the 3,000-row cap in a busy month where the games feed, at one row
+    each, never comes close. The cap is silent: the response just stops, and
+    nothing distinguishes a month with exactly 3,000 rows from a month that had
+    more.
+
+    It was not hypothetical. January 2016 and both November and January of
+    2025-26 came back at exactly 3,000, and the basketball Classic game log for
+    2025-26 was 121 games short as a result - which means the Excel workbook
+    built from it was too, agreeing perfectly with a Python calculation that was
+    reading the same truncated data.
+
+    So each window is fetched, and split in half and refetched whenever it comes
+    back at the cap. Bounded depth, because a window that still overflows when
+    it is under two days wide is a different problem and should be visible
+    rather than recursed into forever.
+    """
+    out = []
+    pending = [(start, end, depth) for start, end in _windows(season)]
+    while pending:
+        start, end, budget = pending.pop(0)
+        payload = request(
+            "/games/teams",
+            season=season,
+            startDateRange=start,
+            endDateRange=end,
+            refresh=refresh_last and _is_live(start, end, today),
+        )
+        first, last = dt.date.fromisoformat(start), dt.date.fromisoformat(end)
+        span = (last - first).days
+        if len(payload) < PAGE_CAP or span <= 1 or budget <= 0:
+            if len(payload) >= PAGE_CAP:
+                print(f"  warning: {start}..{end} still at the {PAGE_CAP}-row cap")
+            out.append((start, end))
+            continue
+        middle = (first + dt.timedelta(days=span // 2)).isoformat()
+        pending = [(start, middle, budget - 1), (middle, end, budget - 1)] + pending
+    return out
+
+
 def team_box_scores(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
     """Per-team rebounds and turnovers, which is what MRI Basketball needs.
 
@@ -204,7 +248,7 @@ def team_box_scores(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
     """
     rows = []
     today = dt.date.today()
-    for start, end in _windows(season):
+    for start, end in _split_to_fit(season, refresh_last, today):
         payload = request(
             "/games/teams",
             season=season,
