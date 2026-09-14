@@ -44,7 +44,9 @@ ARCHIVE_BB = Path(__file__).resolve().parents[3] / "data" / "archive-bb"
 CLASSIC = "MRI Classic"
 MODERN = "MRI 2.0"
 
-# Enough to be a record of the season without publishing 365 rows per year.
+# How many rows a season page shows. Entries carry every rated team, because
+# the per-team history is an inversion of exactly this data and needs all of
+# them; the cap is applied when the season page renders.
 TOP = 40
 
 # A workbook with a median of nine games played per team is a snapshot somebody
@@ -84,8 +86,19 @@ def football_seasons(current: int | None = None) -> list[dict]:
     classic = _read("archive_ratings")
     published = _read("archive_published")
     if not classic.empty:
+        # The workbooks spell fourteen programs differently than the API does -
+        # Cal, Central Florida, Mississippi, North Carolina State, Troy State and
+        # nine more. Without resolving them each of those teams had two
+        # histories: seventeen Classic seasons under the old name and six MRI
+        # 2.0 seasons under the new one, neither aware of the other, and a team
+        # page showing whichever half matched its own spelling. The registry
+        # already held every mapping; nothing was asking it.
+        def canonical(name: object) -> str:
+            return registry.resolve(name, str(name))
+
         by_season = {
-            int(s): c.set_index("team")["rank"].to_dict()
+            int(s): {canonical(t): r for t, r in
+                     c.set_index("team")["rank"].to_dict().items()}
             for s, c in published.groupby("season")
         } if not published.empty else {}
         for season, chunk in classic.groupby("season"):
@@ -95,7 +108,7 @@ def football_seasons(current: int | None = None) -> list[dict]:
             rows = [
                 {
                     "rank": int(r["rank"]),
-                    "team": r["team"],
+                    "team": canonical(r["team"]),
                     "wins": int(r["wins"]),
                     "losses": int(r["losses"]),
                     "rating": round(float(r["mri"]), 2),
@@ -111,7 +124,7 @@ def football_seasons(current: int | None = None) -> list[dict]:
                     "system": CLASSIC,
                     "ratingName": "MRI",
                     "secondaryName": "Per game",
-                    "teams": rows[:TOP],
+                    "teams": rows,
                     "rated": len(rows),
                     "source": "recomputed",
                     # Whether the recomputation still agrees with the workbook.
@@ -149,7 +162,7 @@ def football_seasons(current: int | None = None) -> list[dict]:
                     "system": MODERN,
                     "ratingName": "Power",
                     "secondaryName": "Résumé",
-                    "teams": rows[:TOP],
+                    "teams": rows,
                     "rated": len(rows),
                     "source": "computed",
                     "matchesPublished": None,
@@ -166,6 +179,7 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
     already show it, and an archive entry for an unfinished season would be a
     second, quietly different answer to the same question.
     """
+    from ..ingest import bb_registry as registry
     from .bb_sitedata import season_label
 
     out = []
@@ -180,10 +194,16 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
                 print(f"  archive: skipping {season} - median {played:.0f} games "
                       f"played, a mid-season snapshot rather than a season")
                 continue
+            # The same split football had, and worse: the workbooks spell more
+            # than fifty of these programs differently than the API does, so
+            # without resolving them a team's Classic seasons and its MRI 2.0
+            # seasons file under two names and neither page knows about the
+            # other. Departed programs keep their workbook spelling, which is
+            # correct - there is no current name to resolve them to.
             rows = [
                 {
                     "rank": int(r["rank"]),
-                    "team": r["team"],
+                    "team": registry.resolve(r["team"], str(r["team"]), season=int(season)),
                     "wins": int(r["wins"]),
                     "losses": int(r["losses"]),
                     "rating": round(float(r["mri"]), 2),
@@ -199,7 +219,7 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
                     "system": CLASSIC,
                     "ratingName": "MRI",
                     "secondaryName": None,
-                    "teams": rows[:TOP],
+                    "teams": rows,
                     "rated": len(rows),
                     # Read straight out of the workbook, not recomputed. Saying
                     # otherwise would claim a verification that never happened
@@ -213,8 +233,6 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
     ratings = _read("bb_ratings")
     games = _read("bb_games")
     if not ratings.empty:
-        from ..ingest import bb_registry as registry
-
         for season, chunk in ratings.groupby("season"):
             season = int(season)
             if current is not None and season >= current:
@@ -243,7 +261,7 @@ def basketball_seasons(current: int | None = None) -> list[dict]:
                     "system": MODERN,
                     "ratingName": "Power",
                     "secondaryName": "Résumé",
-                    "teams": rows[:TOP],
+                    "teams": rows,
                     "rated": len(rows),
                     "source": "computed",
                     "matchesPublished": None,
@@ -272,3 +290,37 @@ def for_sport(sport: str, current: int | None = None) -> list[dict]:
     if sport == "basketball":
         return basketball_seasons(current)
     return football_seasons(current)
+
+
+def team_history(entries: list[dict]) -> dict[str, list[dict]]:
+    """Invert the season list: for each team, every season it was rated in.
+
+    Ranks travel across the two ratings and the numbers do not. Both formulas
+    rank within the same field, so "#4 in 2011" and "#4 in 2023" mean roughly
+    the same thing even though 143.5 and +34.6 do not; the rating is carried
+    with the name of the system that produced it so a reader is never invited to
+    subtract one from the other.
+
+    The field itself grew - 117 FBS teams in 2003, 138 now - so even a rank is a
+    rank among more teams than it used to be. The row carries the size so the
+    page can say so.
+    """
+    history: dict[str, list[dict]] = {}
+    for entry in entries:
+        for team in entry["teams"]:
+            history.setdefault(team["team"], []).append(
+                {
+                    "season": entry["season"],
+                    "label": entry["label"],
+                    "system": entry["system"],
+                    "ratingName": entry["ratingName"],
+                    "rank": team["rank"],
+                    "of": entry["rated"],
+                    "wins": team["wins"],
+                    "losses": team["losses"],
+                    "rating": team["rating"],
+                }
+            )
+    for rows in history.values():
+        rows.sort(key=lambda r: -r["season"])
+    return history

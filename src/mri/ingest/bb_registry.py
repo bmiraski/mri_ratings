@@ -72,6 +72,7 @@ ALIASES = {
     "Wisconsin-Green Bay": "Green Bay",
     "Wisconsin-Milwaukee": "Milwaukee",
     "Louisiana-Lafayette": "Louisiana",
+    "Louisiana-Monroe": "UL Monroe",
     # Actual renames
     "Detroit": "Detroit Mercy",
     "Houston Baptist": "Houston Christian",
@@ -93,7 +94,6 @@ DEPARTED = {
     "Savannah State": "left D1 after 2018-19",
     "St. Francis (NY)": "dropped to D3 in 2023; a different school from St. Francis (PA)",
     "St. Francis (PA)": "leaves D1 after 2025-26",
-    "Louisiana-Monroe": "carried under a different spelling; resolved per season",
 }
 
 

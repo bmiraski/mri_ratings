@@ -539,3 +539,49 @@ def test_each_season_claims_only_the_provenance_it_has() -> None:
         if entry["system"] == seasons.CLASSIC:
             assert entry["source"] == "published"
             assert not entry["matchesPublished"]
+
+
+def test_renamed_programs_have_one_history_not_two() -> None:
+    """The workbooks and the API spell many programs differently - Cal,
+    Central Florida, Mississippi, North Carolina State, Troy State and ten more
+    in football; over fifty in basketball. Unresolved, each of those teams had
+    two histories that did not know about each other, and a team page showed
+    whichever half matched its own spelling.
+
+    The registries already held every mapping. Nothing was asking them."""
+    from mri.export import seasons
+    from mri.ingest import registry
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    stale = [name for name in history if registry.resolve(name, name) != name]
+    assert not stale, f"histories still filed under superseded names: {stale}"
+
+    for old in ("Cal", "Central Florida", "Mississippi", "North Carolina State",
+                "Troy State", "Miami (Ohio)", "Southern Mississippi"):
+        assert old not in history, f"{old} still has its own history"
+
+    # And the joined result actually spans both ratings.
+    for team in ("California", "UCF", "Ole Miss", "NC State", "Troy"):
+        systems = {r["system"] for r in history[team]}
+        assert systems == {"MRI Classic", "MRI 2.0"}, f"{team}: {systems}"
+
+
+def test_basketball_histories_are_joined_too() -> None:
+    from mri.export import seasons
+
+    history = seasons.team_history(seasons.basketball_seasons(current=2027))
+    spanning = sum(1 for rows in history.values()
+                   if len({r["system"] for r in rows}) == 2)
+    assert spanning > 300, f"only {spanning} teams span both ratings"
+    for old in ("Cal", "Central Florida", "Connecticut", "Louisiana-Monroe"):
+        assert old not in history, f"{old} still has its own history"
+
+
+def test_history_rows_carry_the_field_size() -> None:
+    """A rank travels between the two ratings; the field it was a rank of grew
+    from 117 teams to 138, so the row has to say."""
+    from mri.export import seasons
+
+    for rows in seasons.team_history(seasons.football_seasons(current=2026)).values():
+        for row in rows:
+            assert row["of"] >= row["rank"] > 0

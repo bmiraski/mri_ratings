@@ -101,3 +101,17 @@ def test_conferences_are_plausible(roster) -> None:
     grouped = registry.conferences()
     assert 25 < len(grouped) < 40
     assert all(len(members) >= 4 for members in grouped.values())
+
+
+def test_louisiana_monroe_resolves() -> None:
+    """It sat in DEPARTED with the note "carried under a different spelling;
+    resolved per season" - and nothing resolved it. The API calls it UL Monroe.
+    A departed-list entry that is really a missing alias is worse than no entry,
+    because it reads as a decision somebody made."""
+    from mri.ingest import bb_registry as registry
+
+    assert registry.resolve("Louisiana-Monroe", season=2026) == "UL Monroe"
+    assert "Louisiana-Monroe" not in registry.DEPARTED
+    # St. Francis (NY) really did leave - it dropped to Division III.
+    assert "St. Francis (NY)" in registry.DEPARTED
+    assert registry.resolve("St. Francis (NY)", season=2026) is None

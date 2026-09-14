@@ -487,6 +487,51 @@ def _trend_stat(team: dict) -> str:
     )
 
 
+def _history_section(team: dict, payload: dict) -> str:
+    """Every season this team has been rated, newest first.
+
+    Rank is the column that travels. Both formulas rank within the same field,
+    so #4 in 2011 and #4 in 2023 mean approximately the same thing, while 143.50
+    and +34.60 do not - one counts cumulative points and the other counts points
+    against an average team. So the rating is shown with the name of the system
+    beside it and never in a chart that would imply a line between them.
+
+    The field grew too, from 117 teams to 138, which is why each row says what
+    it was a rank of.
+    """
+    rows = (payload.get("history") or {}).get(team["team"]) or []
+    if len(rows) < 2:
+        return ""
+
+    chrome = chrome_for(payload)
+    body = "".join(f"""
+      <tr>
+        <td class="rk"><a href="../season/{r['season']}.html">{esc(r['label'])}</a></td>
+        <td class="num"><strong>{r['rank']}</strong><span class="of"> of {r['of']}</span></td>
+        <td class="rec">{r['wins']}&ndash;{r['losses']}</td>
+        <td class="num">{r['rating']:,.2f}</td>
+        <td class="muted sysname">{esc(r['ratingName'])}</td>
+      </tr>""" for r in rows)
+
+    best = min(rows, key=lambda r: r["rank"])
+    systems = {r["system"] for r in rows}
+    caveat = (
+        " Two ratings appear here and their numbers are not comparable; the rank is."
+        if len(systems) > 1 else ""
+    )
+    return f"""
+    <section>
+      <h2>Season by season</h2>
+      <p class="hint">Best finish: <strong>#{best['rank']}</strong> in {esc(best['label'])}.
+      {len(rows)} rated seasons.{caveat}</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Season</th><th class="num">Rank</th><th>Rec</th>
+        <th class="num">Rating</th><th>&nbsp;</th></tr></thead>
+        <tbody>{body}</tbody>
+      </table></div>
+    </section>"""
+
+
 def team_page(team: dict, payload: dict) -> str:
     chrome = chrome_for(payload)
     detail = payload["details"].get(team["team"], {"played": [], "upcoming": []})
@@ -567,6 +612,7 @@ def team_page(team: dict, payload: dict) -> str:
         <tbody>{upcoming}</tbody>
       </table></div>
     </section>
+{_history_section(team, payload)}
   </article>"""
     return page(f"{team['team']} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{team['team']} MRI rating, schedule and game-by-game performance.")
@@ -1295,7 +1341,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
 
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
-    drop = {"seasons"} | (set() if publish_details else {"details"})
+    drop = {"seasons", "history"} | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
 
@@ -1480,6 +1526,8 @@ th.num { text-align:right; }
 /* Season labels are two-part for basketball ("2025-26") and were breaking over
    two lines in a narrow first column. */
 td.rk { white-space:nowrap; }
+.of { color:var(--muted); font-weight:400; font-size:11px; }
+.sysname { font-size:11px; white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
   padding:14px 16px; margin:18px 0; }
