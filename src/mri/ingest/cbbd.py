@@ -193,6 +193,14 @@ def team_box_scores(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
 
     Football's Classic wanted rushing and passing; basketball's wants rebound
     differential and turnover differential, so this is the equivalent call.
+
+    The shape is not football's and the first version of this assumed it was.
+    Football nests both sides under ``teams``; this endpoint returns one flat
+    row per team-game with ``teamStats`` and ``opponentStats`` beside each
+    other, and the counts live one level down again - ``rebounds.total``,
+    ``turnovers.total``, not bare integers. Asking for the football shape
+    produced an empty frame and no error at all, which is the failure worth
+    naming: every caller saw "this season has no box scores" and believed it.
     """
     rows = []
     today = dt.date.today()
@@ -205,21 +213,31 @@ def team_box_scores(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
             refresh=refresh_last and _is_live(start, end, today),
         )
         for entry in payload:
-            for team in entry.get("teams", []):
-                stats = team.get("stats", team)
-                rows.append(
-                    {
-                        "game_id": entry.get("gameId", entry.get("id")),
-                        "team": team.get("team"),
-                        "home_away": "home" if team.get("isHome") else "away",
-                        "rebounds": _number(stats.get("totalRebounds") or stats.get("rebounds")),
-                        "turnovers": _number(stats.get("turnovers")),
-                    }
-                )
+            stats = entry.get("teamStats") or {}
+            rows.append(
+                {
+                    "game_id": entry.get("gameId"),
+                    "season": entry.get("season"),
+                    "start_date": entry.get("startDate"),
+                    "team": entry.get("team"),
+                    "opponent": entry.get("opponent"),
+                    "home_away": "home" if entry.get("isHome") else "away",
+                    "neutral": bool(entry.get("neutralSite")),
+                    "points": _number(stats.get("points")),
+                    "rebounds": _number(stats.get("rebounds")),
+                    "turnovers": _number(stats.get("turnovers")),
+                }
+            )
     return pd.DataFrame(rows)
 
 
 def _number(value):
+    """Unwrap the counts, which arrive as objects rather than integers.
+
+    ``{"offensive": 11, "defensive": 25, "total": 36}`` for rebounds,
+    ``{"total": 6, "teamTotal": 1}`` for turnovers. "total" is the one the
+    formula wants in both cases.
+    """
     if value is None or value == "":
         return None
     if isinstance(value, dict):
@@ -228,3 +246,62 @@ def _number(value):
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def classic_table(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
+    """A game log in the archive's shape, so MRI Basketball Classic can run on it.
+
+    Classic needs rebounds and turnovers for both sides of every game, which the
+    games feed does not carry and the box-score feed does. This joins them into
+    the exact columns the 2019-20 workbook used - team1/team2, pts, reb, to, win
+    - with team1 the visitor, so the ported formula runs on current seasons the
+    same way it runs on the archive.
+
+    Games whose box score is missing a count are dropped rather than defaulted.
+    A zero would be read as "grabbed no rebounds", which is a result rather than
+    an absence, and Classic would rate it as one.
+
+    Only games the games feed calls final are kept, and that filter is doing real
+    work: the box-score feed emits rows for games that never happened, with zeros
+    throughout and nothing to mark them. Delaware at Towson on 2022-01-28 is one -
+    "scheduled" in the games feed, a 0-0 final here. Classic reads a 0-0 game as a
+    loss for both sides, so a single phantom row moved Towson's rating by 1.7
+    points and nine other teams' through the opponent chain. This is the same
+    trap as the one in ``games`` wearing different clothes: a feed that answers
+    with zeros instead of nulls, and a caller that believes it.
+    """
+    box = team_box_scores(season, refresh_last=refresh_last)
+    if box.empty:
+        return box
+
+    real = set(games(season, refresh_last=refresh_last)["game_id"])
+    box = box[box["game_id"].isin(real)]
+    box = box.dropna(subset=["points", "rebounds", "turnovers"])
+    rows = []
+    for game_id, pair in box.groupby("game_id"):
+        if len(pair) != 2:
+            continue
+        # team1 is the visitor, matching the workbooks. On a neutral court the
+        # feed still marks one side home; the ordering is then arbitrary and
+        # harmless, since Classic has no home-court term.
+        away = pair[pair["home_away"] == "away"]
+        home = pair[pair["home_away"] == "home"]
+        if len(away) != 1 or len(home) != 1:
+            away, home = pair.iloc[[0]], pair.iloc[[1]]
+        a, h = away.iloc[0], home.iloc[0]
+        rows.append(
+            {
+                "game_id": game_id,
+                "season": a["season"],
+                "start_date": a["start_date"],
+                "team1": a["team"], "team2": h["team"],
+                "pts1": float(a["points"]), "pts2": float(h["points"]),
+                "reb1": float(a["rebounds"]), "reb2": float(h["rebounds"]),
+                "to1": float(a["turnovers"]), "to2": float(h["turnovers"]),
+                "win1": 1.0 if a["points"] > h["points"] else 0.0,
+                "win2": 1.0 if h["points"] > a["points"] else 0.0,
+                "neutral": bool(a["neutral"]),
+            }
+        )
+    frame = pd.DataFrame(rows)
+    return frame.sort_values("start_date").reset_index(drop=True) if not frame.empty else frame

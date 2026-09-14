@@ -4,3 +4,10 @@ __pycache__/
 *.duckdb
 .env
 shot-*.png
+
+# Basketball box scores: 146MB of raw JSON, fetched only by the one-off Excel
+# export and never read by the daily site build. The football raw cache is
+# committed because the scheduled run depends on it; this one would more than
+# double the repository to spare a manual script an API call. Re-fetches on
+# demand.
+data/raw/games_teams__*.json

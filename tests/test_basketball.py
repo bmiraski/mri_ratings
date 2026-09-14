@@ -353,3 +353,18 @@ def test_the_recomputed_prior_matches_the_stored_one(tmp_path, monkeypatch) -> N
     # file goes missing, and nothing says it happened.
     assert (stored[shared] - recomputed[shared]).abs().max() < 1e-9
     assert list(stored.nlargest(5).index) == list(recomputed.nlargest(5).index)
+
+
+def test_the_box_score_feed_is_filtered_to_real_games() -> None:
+    """The box-score endpoint emits rows for games that never happened, zeros
+    throughout and nothing marking them - Delaware at Towson on 2022-01-28 is
+    "scheduled" in the games feed and a 0-0 final here. Classic reads 0-0 as a
+    loss for both sides, so one phantom row moved ten teams' ratings."""
+    from mri.ingest import cbbd
+
+    table = cbbd.classic_table(2022)
+    if table.empty:
+        pytest.skip("2021-22 box scores unavailable")
+    ties = table[(table["pts1"] == 0) & (table["pts2"] == 0)]
+    assert ties.empty, f"{len(ties)} unplayed games in the Classic game log"
+    assert 22442 not in set(table["game_id"]), "the known phantom game is back"
