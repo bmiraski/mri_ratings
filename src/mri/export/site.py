@@ -487,6 +487,68 @@ def _trend_stat(team: dict) -> str:
     )
 
 
+def team_season_page(team: dict, entry: dict, rows: list[dict], payload: dict) -> str:
+    """One team, one past season, every game.
+
+    Linkable on its own, which is the reason it is a page rather than an
+    accordion on the team page: a single season is a thing people send each
+    other.
+    """
+    chrome = chrome_for(payload)
+    lookup = {t["team"] for t in payload["teams"]}
+    has_expected = any(r["expected"] is not None for r in rows)
+    dated = any(r["when"] for r in rows)
+
+    def opponent(row: dict) -> str:
+        if row["pooled"]:
+            return f'<span class="fcs">non-{chrome.field} opponent</span>'
+        name = row["opponent"]
+        if name in lookup:
+            return f'<a href="../{slug(name)}.html">{esc(name)}</a>'
+        return esc(name)
+
+    body_rows = "".join(f"""
+      <tr>
+        {f'<td class="wk">{esc(r["when"][5:]) if r["when"] else "&ndash;"}</td>' if dated else ''}
+        <td class="site">{'at' if r['site'] == 'at' else ('vs' if r['site'] == 'vs' else 'N')}</td>
+        <td class="opp">{opponent(r)}</td>
+        <td class="res"><span class="{'w' if r['won'] else 'l'}">{'W' if r['won'] else 'L'}</span> {r['scored']}&ndash;{r['allowed']}</td>
+        {f'<td class="num">{r["expected"]:+.1f}</td><td class="num perf {"over" if r["performance"] > 0 else "under"}">{r["performance"]:+.1f}</td>' if has_expected and r["expected"] is not None else ('<td class="num muted">&ndash;</td><td class="num muted">&ndash;</td>' if has_expected else '')}
+      </tr>""" for r in rows)
+
+    wins = sum(1 for r in rows if r["won"])
+    note = ""
+    if not has_expected:
+        note = (f"""<p class="note">No expected-margin column for this season:
+        MRI 2.0 rates {chrome.noun} from 2020 onward, and these games were rated by
+        the original formula, which scores a result rather than predicting one.</p>""")
+    if not dated:
+        note += ("""<p class="note">The workbook for this season carries no dates, so
+        games are listed in the order it recorded them rather than chronologically.</p>""")
+    elif any(r["when"] is None for r in rows):
+        missing = sum(1 for r in rows if r["when"] is None)
+        note += (f"""<p class="note">{missing} of these games carry no date in the
+        source workbook; they sort to the top rather than into the season.</p>""")
+
+    header = (('<th>Date</th>' if dated else '') + '<th></th><th>Opponent</th><th>Result</th>'
+              + ('<th class="num">Expected</th><th class="num">Perf</th>' if has_expected else ''))
+
+    body = f"""
+  <h1>{esc(team['team'])} &middot; {esc(entry['label'])}</h1>
+  <p class="teamsub">{wins}&ndash;{len(rows) - wins} &middot; #{entry['rank']} of {entry['of']}
+  &middot; {esc(entry['ratingName'])} {entry['rating']:,.2f} &middot; {esc(entry['system'])}</p>
+  <div class="tablewrap"><table>
+    <thead><tr>{header}</tr></thead>
+    <tbody>{body_rows}</tbody>
+  </table></div>
+  {note}
+  <p class="hint"><a href="../{slug(team['team'])}.html">{esc(team['team'])}</a>
+  &middot; <a href="../../season/{entry['season']}.html">{esc(entry['label'])} rankings</a></p>"""
+    return page(f"{team['team']} {entry['label']} — MRI {chrome.noun}", body, payload, depth=2,
+                description=f"Every {entry['label']} game for {team['team']}, "
+                            "with the margin the ratings implied.")
+
+
 def _history_section(team: dict, payload: dict) -> str:
     """Every season this team has been rated, newest first.
 
@@ -504,9 +566,18 @@ def _history_section(team: dict, payload: dict) -> str:
         return ""
 
     chrome = chrome_for(payload)
+    logs = payload.get("gamelogs") or {}
+    have_log = {r["season"] for r in rows
+                if (logs.get(r["season"]) or {}).get(team["team"])}
+
+    def season_link(r: dict) -> str:
+        if r["season"] in have_log:
+            return f'<a href="{slug(team["team"])}/{r["season"]}.html">{esc(r["label"])}</a>'
+        return f'<a href="../season/{r["season"]}.html">{esc(r["label"])}</a>'
+
     body = "".join(f"""
       <tr>
-        <td class="rk"><a href="../season/{r['season']}.html">{esc(r['label'])}</a></td>
+        <td class="rk">{season_link(r)}</td>
         <td class="num"><strong>{r['rank']}</strong><span class="of"> of {r['of']}</span></td>
         <td class="rec">{r['wins']}&ndash;{r['losses']}</td>
         <td class="num">{r['rating']:,.2f}</td>
@@ -523,7 +594,8 @@ def _history_section(team: dict, payload: dict) -> str:
     <section>
       <h2>Season by season</h2>
       <p class="hint">Best finish: <strong>#{best['rank']}</strong> in {esc(best['label'])}.
-      {len(rows)} rated seasons.{caveat}</p>
+      {len(rows)} rated seasons.{caveat}
+      {"Season links open that year's game log." if have_log else ""}</p>
       <div class="tablewrap"><table>
         <thead><tr><th>Season</th><th class="num">Rank</th><th>Rec</th>
         <th class="num">Rating</th><th>&nbsp;</th></tr></thead>
@@ -1341,12 +1413,24 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
 
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
-    drop = {"seasons", "history"} | (set() if publish_details else {"details"})
+    drop = {"seasons", "history", "gamelogs"} | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
 
+    logs = payload.get("gamelogs") or {}
+    history = payload.get("history") or {}
     for team in payload["teams"]:
         write(out_dir / "team" / f"{slug(team['team'])}.html", team_page(team, payload))
+        seasons_with_log = [
+            row for row in history.get(team["team"], [])
+            if (logs.get(row["season"]) or {}).get(team["team"])
+        ]
+        if seasons_with_log:
+            folder = out_dir / "team" / slug(team["team"])
+            folder.mkdir(exist_ok=True)
+            for row in seasons_with_log:
+                write(folder / f"{row['season']}.html",
+                      team_season_page(team, row, logs[row["season"]][team["team"]], payload))
     for conference in payload["conferences"]:
         name = conference["conference"]
         write(out_dir / "conference" / f"{slug(name)}.html", conference_page(name, payload))

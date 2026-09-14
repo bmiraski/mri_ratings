@@ -51,6 +51,8 @@ def main() -> None:
 
     payload["seasons"] = season_archive.football_seasons(current=SEASON)
     payload["history"] = season_archive.team_history(payload["seasons"])
+    from mri.export import gamelogs
+    payload["gamelogs"] = gamelogs.prune(gamelogs.football(SEASON), payload["history"])
     print(f"  archive: {len(payload['seasons'])} past seasons, "
           f"history for {len(payload['history'])} teams")
 
@@ -74,6 +76,12 @@ def main() -> None:
             current=basketball["season"] if not basketball.get("finished") else None
         )
         basketball["history"] = season_archive.team_history(basketball["seasons"])
+        basketball["gamelogs"] = gamelogs.prune(
+            gamelogs.basketball(
+                basketball["season"] if not basketball.get("finished") else None
+            ),
+            basketball["history"],
+        )
         print(f"  archive: {len(basketball['seasons'])} past basketball seasons, "
               f"history for {len(basketball['history'])} teams")
         # The basketball page appears only once there is a backtest to be honest

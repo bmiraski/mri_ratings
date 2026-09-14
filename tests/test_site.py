@@ -616,3 +616,76 @@ def test_no_team_is_rated_before_it_joined_fbs() -> None:
             assert registry.was_fbs(team["team"], entry["season"]), (
                 f"{team['team']} rated in {entry['season']} but was not FBS"
             )
+
+
+# --- per-season game logs ---------------------------------------------------
+
+def test_game_logs_exist_only_for_seasons_a_team_was_rated() -> None:
+    """Without pruning, every FCS team that ever appeared on a schedule gets a
+    page - thousands of them, for teams the site does not rank."""
+    from mri.export import gamelogs, seasons
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    logs = gamelogs.prune(gamelogs.football(2026), history)
+    rated = {(row["season"], team) for team, rows in history.items() for row in rows}
+    for season, teams in logs.items():
+        for team in teams:
+            assert (season, team) in rated, f"{team} has a {season} log but no {season} rating"
+
+
+def test_game_logs_are_chronological_where_dates_exist() -> None:
+    """The feed does not return them in order: a 2025 log arrived with a bowl
+    game sitting between week one and week sixteen."""
+    from mri.export import gamelogs, seasons
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    logs = gamelogs.prune(gamelogs.football(2026), history)
+    for teams in logs.values():
+        for rows in teams.values():
+            dated = [r["when"] for r in rows if r["when"]]
+            assert dated == sorted(dated)
+
+
+def test_pre_2020_logs_carry_no_expected_margin() -> None:
+    """MRI 2.0 never rated those seasons, and a column of dashes that looks
+    like a missing value is worse than a stated absence."""
+    from mri.export import gamelogs, seasons
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    logs = gamelogs.prune(gamelogs.football(2026), history)
+    for rows in logs[2011].values():
+        assert all(r["expected"] is None for r in rows)
+    assert any(r["expected"] is not None
+               for rows in logs[2025].values() for r in rows)
+
+
+def test_pooled_opponents_are_flagged_not_printed_as_a_school() -> None:
+    """The workbooks pooled every non-FBS opponent into "Non D1A". Roughly one
+    pre-2020 row in nine, and it is not the name of a team."""
+    from mri.export import gamelogs, seasons
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    logs = gamelogs.prune(gamelogs.football(2026), history)
+    pooled = [r for rows in logs[2011].values() for r in rows if r["pooled"]]
+    assert pooled, "expected some pooled opponents in a 2011 log"
+
+    page = Path(__file__).resolve().parents[1] / "docs" / "team" / "alabama" / "2011.html"
+    if page.exists():
+        html = page.read_text()
+        assert "Non D1A" not in html
+        assert "non-FBS opponent" in html
+
+
+def test_a_game_log_page_states_its_season_record(built) -> None:
+    """The page has to agree with the summary row that links to it."""
+    from mri.export import gamelogs, seasons
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    logs = gamelogs.prune(gamelogs.football(2026), history)
+    for team, rows in list(history.items())[:20]:
+        for row in rows:
+            log = (logs.get(row["season"]) or {}).get(team)
+            if not log:
+                continue
+            wins = sum(1 for g in log if g["won"])
+            assert wins == row["wins"], f"{team} {row['season']}: {wins} vs {row['wins']}"
