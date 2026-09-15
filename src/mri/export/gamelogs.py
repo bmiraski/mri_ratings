@@ -159,7 +159,7 @@ def basketball(current: int | None) -> dict[int, dict[str, list[dict]]]:
     # they carry dates.
     computed = _read("bb_classic")
     if not computed.empty:
-        from ..ingest import cbbd
+        from ..ingest import bb_gamelog
 
         power_by_season = {}
         for season in sorted(int(x) for x in computed["season"].unique()):
@@ -169,7 +169,7 @@ def basketball(current: int | None) -> dict[int, dict[str, list[dict]]]:
             def canonical(name, _s=season):
                 return registry.resolve(name, str(name), season=_s)
 
-            table = cbbd.classic_table(season)
+            table = bb_gamelog.for_season(season)
             if table.empty:
                 continue
             # No MRI 2.0 for these years, so no expected margin, exactly as for

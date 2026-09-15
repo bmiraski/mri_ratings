@@ -133,7 +133,7 @@ def test_exported_workbook_matches_python(path: Path) -> None:
     recalculation only proves the formulas evaluate; this proves they compute
     the same thing ``classic.compute`` does, for every rated team.
     """
-    from mri.ingest import cbbd
+    from mri.ingest import bb_gamelog
 
     season = int("".join(c for c in path.stem if c.isdigit()))
     book = openpyxl.load_workbook(path, data_only=True)
@@ -148,7 +148,7 @@ def test_exported_workbook_matches_python(path: Path) -> None:
 
     # The same canonicalization write_season applies, so the Python side is
     # rating exactly the field the workbook rated.
-    games = cbbd.classic_table(season)
+    games = bb_gamelog.for_season(season)
     games = games.copy()
     for column in ("team1", "team2"):
         games[column] = [registry.resolve(n, n, season=season) for n in games[column]]

@@ -76,7 +76,7 @@ def main() -> None:
     failures = []
 
     for season in range(first, last + 1):
-        games = cbbd.classic_table(season)
+        games = bb_gamelog.for_season(season)
         if games.empty:
             print(f"  {season}: no games")
             continue

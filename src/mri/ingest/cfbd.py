@@ -104,7 +104,18 @@ def request(endpoint: str, *, refresh: bool = False, **params):
     # time. Only a genuinely uncached request has nothing to fall back to.
     stale = json.loads(path.read_text()) if path.exists() else None
 
-    headers = {"Authorization": f"Bearer {_api_key()}", "Accept": "application/json"}
+    try:
+        key = _api_key()
+    except CfbdError:
+        # Same principle as a spent quota: a refresh is an optimization. With a
+        # cached copy in hand and no way to ask for a newer one, the copy is the
+        # answer. This is what lets the test step run without a key - it has the
+        # committed cache and no business fetching anything.
+        if stale is not None:
+            return stale
+        raise
+
+    headers = {"Authorization": f"Bearer {key}", "Accept": "application/json"}
     # 1s, 2s, 4s over three attempts was fine when a build made eight calls. The
     # basketball paths now fetch a season a window at a time and split the busy
     # ones, so a run can make hundreds - and a real rate-limit window outlasts

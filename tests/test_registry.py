@@ -125,3 +125,36 @@ def test_current_membership_is_unchanged_by_the_season_aware_path() -> None:
     for team in registry.teams():
         assert registry.is_fbs(team) == registry.was_fbs(team)
     assert registry.was_fbs("North Dakota State") is True
+
+
+def test_a_cached_response_is_served_when_no_key_is_available() -> None:
+    """The scheduled run's test step has no API key, on purpose - it has the
+    committed cache and no business fetching anything. Before this, any test
+    that touched a refreshed endpoint died on "No CFBD API key" rather than
+    reading the copy sitting next to it, and took the whole gate down."""
+    import json
+
+    from mri.ingest import cfbd
+
+    params = {"year": 2026, "week": 1, "seasonType": "regular"}
+    path = cfbd._cache_path("/games/teams", params)
+    if not path.exists():
+        pytest.skip("football box scores not cached")
+
+    import os
+    saved, os.environ["CFBD_API_KEY"] = os.environ.pop("CFBD_API_KEY", None), ""
+    env_file = cfbd.ROOT / ".env"
+    hidden = env_file.with_suffix(".hidden") if env_file.exists() else None
+    try:
+        del os.environ["CFBD_API_KEY"]
+        if hidden:
+            env_file.rename(hidden)
+        # refresh=True would normally force a fetch; with no key it must fall
+        # back rather than raise.
+        payload = cfbd.request("/games/teams", refresh=True, **params)
+        assert payload == json.loads(path.read_text())
+    finally:
+        if hidden:
+            hidden.rename(env_file)
+        if saved is not None:
+            os.environ["CFBD_API_KEY"] = saved

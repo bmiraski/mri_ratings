@@ -360,9 +360,9 @@ def test_the_box_score_feed_is_filtered_to_real_games() -> None:
     throughout and nothing marking them - Delaware at Towson on 2022-01-28 is
     "scheduled" in the games feed and a 0-0 final here. Classic reads 0-0 as a
     loss for both sides, so one phantom row moved ten teams' ratings."""
-    from mri.ingest import cbbd
+    from mri.ingest import bb_gamelog
 
-    table = cbbd.classic_table(2022)
+    table = bb_gamelog.for_season(2022)
     if table.empty:
         pytest.skip("2021-22 box scores unavailable")
     ties = table[(table["pts1"] == 0) & (table["pts2"] == 0)]
@@ -375,9 +375,9 @@ def test_box_score_windows_are_split_under_the_row_cap() -> None:
     a busy month where the games feed never comes close - and the cap is silent.
     It cost 121 games from the 2025-26 Classic log, and the Excel workbook built
     from that log agreed with Python perfectly while both read truncated data."""
-    from mri.ingest import cbbd
+    from mri.ingest import bb_gamelog, cbbd
 
-    table = cbbd.classic_table(2026)
+    table = bb_gamelog.for_season(2026)
     games = cbbd.games(2026)
     if table.empty or games.empty:
         pytest.skip("season data unavailable")

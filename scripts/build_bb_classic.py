@@ -25,7 +25,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from mri.ingest import bb_registry as registry, cbbd  # noqa: E402
+from mri.ingest import bb_gamelog, bb_registry as registry  # noqa: E402
 from mri.ratings import classic  # noqa: E402
 
 OUT = ROOT / "data" / "parquet" / "bb_classic.parquet"
@@ -35,7 +35,7 @@ DEFAULT_FIRST, DEFAULT_LAST = 2014, 2018
 
 
 def compute(season: int) -> pd.DataFrame:
-    games = cbbd.classic_table(season)
+    games = bb_gamelog.for_season(season)
     if games.empty:
         return pd.DataFrame()
 
