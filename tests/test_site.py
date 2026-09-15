@@ -700,3 +700,92 @@ def test_a_game_log_page_states_its_season_record(built) -> None:
                 continue
             wins = sum(1 for g in log if g["won"])
             assert wins == row["wins"], f"{team} {row['season']}: {wins} vs {row['wins']}"
+
+
+# --- champions and the rank chart -------------------------------------------
+
+def test_every_completed_season_has_exactly_one_champion() -> None:
+    """A title is a finishing position, so each season awards one and only one.
+    Two would mean the rank recomputation left a duplicate; none would mean it
+    started from zero somewhere."""
+    from mri.export import seasons
+
+    for entries in (seasons.football_seasons(current=2026),
+                    seasons.basketball_seasons(current=2027)):
+        for entry in entries:
+            firsts = [t for t in entry["teams"] if t["rank"] == 1]
+            assert len(firsts) == 1, f"{entry['label']}: {len(firsts)} teams at #1"
+
+
+def test_titles_come_only_from_finished_seasons() -> None:
+    """Leading in week three is not winning anything. The archive holds only
+    completed seasons, and the banner reads from the archive - this asserts that
+    the live season cannot leak into it."""
+    from mri.export import seasons, site
+
+    entries = seasons.football_seasons(current=2026)
+    payload = {"history": seasons.team_history(entries)}
+    champions = {t for t in payload["history"] if site.titles_of(t, payload)}
+    assert champions
+    for team in champions:
+        for row in site.titles_of(team, payload):
+            assert row["season"] < 2026, f"{team} credited with the live season"
+
+    # Alabama's six is the checkable case.
+    assert len(site.titles_of("Alabama", payload)) == 6
+
+
+def test_the_banner_marks_champions_and_only_champions() -> None:
+    """Read from docs/ rather than a temp build: the archive is assembled by the
+    build script, so the intermediate the fixture uses carries no history and
+    every page would look title-less."""
+    docs = Path(__file__).resolve().parents[1] / "docs" / "team"
+    if not (docs / "alabama.html").exists():
+        pytest.skip("site not built")
+
+    won = (docs / "alabama.html").read_text()
+    assert "MRI Champion" in won
+    assert "6 football titles" in won.lower()
+    for year in ("2009", "2011", "2020"):
+        assert year in won
+
+    for name in ("vanderbilt", "kansas-state", "syracuse"):
+        page = docs / f"{name}.html"
+        if page.exists():
+            assert "MRI Champion" not in page.read_text(), f"{name} has no titles"
+
+
+def test_the_rank_chart_never_crops_a_season() -> None:
+    """The axis is scaled to the team rather than the field, which is only
+    honest if it still contains every point."""
+    import re
+
+    from mri.export import seasons, site
+
+    entries = seasons.football_seasons(current=2026)
+    history = seasons.team_history(entries)
+    drawn = 0
+    for rows in history.values():
+        svg = site._rank_chart(rows)
+        if not svg:
+            continue
+        drawn += 1
+        axis_max = int(re.search(r'axis running to\s*(\d+)', svg).group(1))
+        assert axis_max >= max(r["rank"] for r in rows)
+        assert axis_max >= 25, "the floor stops one-place wobbles being drawn as drama"
+        # One dot per season, gold only for the wins.
+        assert svg.count("<circle") == len(rows)
+        assert svg.count('class="champ"') == sum(1 for r in rows if r["rank"] == 1)
+    assert drawn > 100
+
+
+def test_the_rank_chart_is_suppressed_when_there_is_no_shape() -> None:
+    """Same rule the sparklines follow: two points always draw a full-slope
+    line whatever the underlying change."""
+    from mri.export import site
+
+    row = {"season": 2024, "label": "2024", "system": "MRI 2.0", "ratingName": "Power",
+           "rank": 4, "of": 134, "wins": 10, "losses": 3, "rating": 20.0}
+    assert site._rank_chart([row]) == ""
+    assert site._rank_chart([row, dict(row, season=2025)]) == ""
+    assert site._rank_chart([row, dict(row, season=2025), dict(row, season=2023)])

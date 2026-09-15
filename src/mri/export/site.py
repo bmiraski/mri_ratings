@@ -269,7 +269,7 @@ def rankings_page(payload: dict) -> str:
         <span class="rk">{team['rank']}</span>
         <span class="mid">
           <span class="top">{identity_mark(team)}<a class="nm" href="team/{slug(team['team'])}.html">{esc(team['team'])}</a>{movement_chip(team['movement'])}</span>
-          <span class="sub">{esc(team['conference'])} <span class="sub-item">{team['wins']}&ndash;{team['losses']}</span> {classic_note}</span>
+          <span class="sub">{esc(team['conference'])} <span class="sub-item">{team['wins']}&ndash;{team['losses']}</span> {classic_note}{_title_chip(team, payload)}</span>
         </span>
         <span class="sp">{sparkline(team['trajectory'])}</span>
         <span class="vals"><span class="pw">{team['power']:+.1f}</span><span class="rs">r&eacute;s {team['resume']:+.2f}</span></span>
@@ -549,6 +549,152 @@ def team_season_page(team: dict, entry: dict, rows: list[dict], payload: dict) -
                             "with the margin the ratings implied.")
 
 
+def titles_of(team: str, payload: dict) -> list[dict]:
+    """The seasons a team finished the year rated first.
+
+    Finished, not led: the archive only ever holds completed seasons, so a team
+    sitting top in week three of a live season is nowhere near this list. That
+    is the whole point of a banner - it has to be earned all the way through.
+    """
+    rows = (payload.get("history") or {}).get(team) or []
+    return [r for r in rows if r["rank"] == 1]
+
+
+TROPHY = (
+    '<svg class="trophy" viewBox="0 0 24 24" width="{size}" height="{size}" aria-hidden="true">'
+    '<path fill="currentColor" d="M18 4V2H6v2H2v3a5 5 0 0 0 4.1 4.9A6 6 0 0 0 11 16.9V19H7v3h10v-3h-4'
+    'v-2.1a6 6 0 0 0 4.9-5A5 5 0 0 0 22 7V4h-4zM4 7V6h2v3.8A3 3 0 0 1 4 7zm16 0a3 3 0 0 1-2 2.8V6h2v1z"/>'
+    "</svg>"
+)
+
+
+def _title_chip(team: dict, payload: dict) -> str:
+    """A quiet marker in the rankings list. Sparse by nature - fourteen teams in
+    football, nine in basketball - so it marks a row rather than decorating it."""
+    won = titles_of(team["team"], payload)
+    if not won:
+        return ""
+    label = f"{len(won)} MRI title{'' if len(won) == 1 else 's'}"
+    return (f'<span class="sub-item wonchip" title="{esc(label)}">'
+            f'{TROPHY.format(size=11)}{len(won)}</span>')
+
+
+def _titles_banner(team: dict, payload: dict) -> str:
+    """Flags fly forever."""
+    won = titles_of(team["team"], payload)
+    if not won:
+        return ""
+    chrome = chrome_for(payload)
+    years = ", ".join(
+        f'<a href="{slug(team["team"])}/{r["season"]}.html">{esc(r["label"])}</a>'
+        if (payload.get("gamelogs") or {}).get(r["season"], {}).get(team["team"])
+        else esc(r["label"])
+        for r in sorted(won, key=lambda r: r["season"])
+    )
+    plural = "" if len(won) == 1 else "s"
+    return f"""
+    <div class="titles">
+      {TROPHY.format(size=26)}
+      <div>
+        <span class="titlesl">MRI Champion &middot; {len(won)} {chrome.noun.split()[-1]} title{plural}</span>
+        <span class="titlesy">{years}</span>
+      </div>
+    </div>"""
+
+
+def _rank_chart(rows: list[dict]) -> str:
+    """Rank by season, drawn on the one axis the two ratings share.
+
+    The ratings themselves cannot be plotted together and this is the reason
+    this chart exists at all: Classic counts cumulative points where a great
+    season is 150, MRI 2.0 counts points against an average team where a great
+    season is +35, and a line joining them would be a lie with a trend in it.
+    Rank is different - both formulas rank within the same field - so the line
+    is honest even across the seam, which is drawn in rather than hidden.
+
+    Inverted, because first belongs at the top. The axis runs to the largest
+    field the team ever played in, so the field growing from 117 teams to 138
+    is visible rather than silently rescaling every year.
+    """
+    if len(rows) < 3:
+        return ""
+
+    points = sorted(rows, key=lambda r: r["season"])
+    seasons = [r["season"] for r in points]
+    # The axis runs to this team's own worst finish, rounded up, not to the size
+    # of the field. Against 365 basketball teams a full-field axis makes every
+    # line a flat squiggle in the top eighth of an empty box; against 138 it
+    # still wastes half the plot for anyone decent. The floor of 25 stops a
+    # permanently-elite team's one-place wobbles from being drawn as drama - the
+    # same reason the sparklines refuse to draw two points.
+    deepest = max(r["rank"] for r in points)
+    worst = next((step for step in (25, 50, 75, 100, 150, 200, 250, 300, 400)
+                  if step >= deepest), deepest)
+    lo, hi = min(seasons), max(seasons)
+    span = (hi - lo) or 1
+
+    W, H = 720, 190
+    L, R, T, B = 34, 12, 14, 26
+    px = lambda s: L + (s - lo) / span * (W - L - R)
+    py = lambda rank: T + (rank - 1) / max(worst - 1, 1) * (H - T - B)
+
+    path = " ".join(
+        f"{'M' if i == 0 else 'L'}{px(r['season']):.1f},{py(r['rank']):.1f}"
+        for i, r in enumerate(points)
+    )
+
+    # The seam between the two ratings, where there is one.
+    seam = ""
+    for earlier, later in zip(points, points[1:]):
+        if earlier["system"] != later["system"]:
+            x = (px(earlier["season"]) + px(later["season"])) / 2
+            # Labels sit on the baseline, not at the top where the line lives.
+            seam = (
+                f'<line x1="{x:.1f}" y1="{T}" x2="{x:.1f}" y2="{H - B}" '
+                f'stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>'
+                f'<text x="{x - 5:.1f}" y="{H - B - 5}" text-anchor="end" class="ct">Classic</text>'
+                f'<text x="{x + 5:.1f}" y="{H - B - 5}" text-anchor="start" class="ct">MRI 2.0</text>'
+            )
+            break
+
+    # A top-25 reference line, which is the threshold anyone reading this cares
+    # about, drawn only when the team's axis actually reaches it.
+    top25 = ""
+    if worst > 30:
+        y = py(25)
+        top25 = (f'<line x1="{L}" y1="{y:.1f}" x2="{W - R}" y2="{y:.1f}" stroke="var(--grid)" '
+                 f'stroke-width="1"/><text x="{L - 5}" y="{y + 3:.1f}" text-anchor="end" class="ct">25</text>')
+
+    dots = "".join(
+        f'<circle cx="{px(r["season"]):.1f}" cy="{py(r["rank"]):.1f}" '
+        f'r="{4 if r["rank"] == 1 else 2.6}" '
+        f'class="{"champ" if r["rank"] == 1 else "pt"}">'
+        f'<title>{esc(r["label"])}: #{r["rank"]} of {r["of"]} ({r["wins"]}-{r["losses"]})</title>'
+        f"</circle>"
+        for r in points
+    )
+
+    first, last = points[0], points[-1]
+    return f"""
+      <div class="rankchart">
+        <svg viewBox="0 0 {W} {H}" role="img"
+             aria-label="Finishing rank by season, best at the top.">
+          {top25}{seam}
+          <line x1="{L}" y1="{T}" x2="{L}" y2="{H - B}" stroke="var(--axis)" stroke-width="1"/>
+          <text x="{L - 5}" y="{T + 4}" text-anchor="end" class="ct">1</text>
+          <text x="{L - 5}" y="{H - B}" text-anchor="end" class="ct">{worst}</text>
+          <path d="{path}" fill="none" stroke="var(--series)" stroke-width="2"
+                stroke-linejoin="round" stroke-linecap="round"/>
+          {dots}
+          <text x="{px(first['season']):.1f}" y="{H - 8}" text-anchor="start" class="ct">{esc(first['label'])}</text>
+          <text x="{px(last['season']):.1f}" y="{H - 8}" text-anchor="end" class="ct">{esc(last['label'])}</text>
+        </svg>
+        <p class="note">Finishing rank, best at the top, on an axis running to
+        {worst} &mdash; this team's own range, not the size of the field. Each row
+        below says what its rank was out of. Hover a point for the season.</p>
+      </div>"""
+
+
 def _history_section(team: dict, payload: dict) -> str:
     """Every season this team has been rated, newest first.
 
@@ -576,9 +722,9 @@ def _history_section(team: dict, payload: dict) -> str:
         return f'<a href="../season/{r["season"]}.html">{esc(r["label"])}</a>'
 
     body = "".join(f"""
-      <tr>
+      <tr{' class="wonit"' if r['rank'] == 1 else ''}>
         <td class="rk">{season_link(r)}</td>
-        <td class="num"><strong>{r['rank']}</strong><span class="of"> of {r['of']}</span></td>
+        <td class="num">{TROPHY.format(size=13) if r['rank'] == 1 else ''}<strong>{r['rank']}</strong><span class="of"> of {r['of']}</span></td>
         <td class="rec">{r['wins']}&ndash;{r['losses']}</td>
         <td class="num">{r['rating']:,.2f}</td>
         <td class="muted sysname">{esc(r['ratingName'])}</td>
@@ -596,6 +742,7 @@ def _history_section(team: dict, payload: dict) -> str:
       <p class="hint">Best finish: <strong>#{best['rank']}</strong> in {esc(best['label'])}.
       {len(rows)} rated seasons.{caveat}
       {"Season links open that year's game log." if have_log else ""}</p>
+      {_rank_chart(rows)}
       <div class="tablewrap"><table>
         <thead><tr><th>Season</th><th class="num">Rank</th><th>Rec</th>
         <th class="num">Rating</th><th>&nbsp;</th></tr></thead>
@@ -647,6 +794,7 @@ def team_page(team: dict, payload: dict) -> str:
 
     body = f"""
   <article class="teampage" style="--team:{esc(team['color'])}">
+    {_titles_banner(team, payload)}
     <div class="teamhead">
       {identity_mark(team, 46, depth=1)}
       <div>
@@ -1626,6 +1774,24 @@ th.num { text-align:right; }
    two lines in a narrow first column. */
 td.rk { white-space:nowrap; }
 .of { color:var(--muted); font-weight:400; font-size:11px; }
+/* Champion marks. Gold reads as "won something" without needing a legend, and
+   every use of it is beside a number or a year, never carrying meaning alone. */
+.trophy { color:#c8961e; vertical-align:-2px; margin-right:4px; }
+.titles { display:flex; gap:12px; align-items:center; background:var(--surface);
+  border:1px solid var(--grid); border-left:3px solid #c8961e; border-radius:10px;
+  padding:12px 16px; margin-bottom:18px; }
+.titles > div { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.titlesl { font-size:12px; font-weight:700; text-transform:uppercase;
+  letter-spacing:0.08em; color:#c8961e; }
+.titlesy { font-size:13px; color:var(--secondary); }
+.titlesy a { color:var(--secondary); }
+.wonchip { color:#c8961e; font-weight:600; }
+tr.wonit td { background:color-mix(in srgb, #c8961e 7%, transparent); }
+.rankchart { margin-top:14px; }
+.rankchart svg { width:100%; height:auto; display:block; }
+.rankchart .ct { font-size:10px; fill:var(--muted); }
+.rankchart .pt { fill:var(--series); }
+.rankchart .champ { fill:#c8961e; stroke:var(--surface); stroke-width:1.5; }
 .sysname { font-size:11px; white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
 .verdict { border-left:3px solid var(--down); background:var(--surface); border-radius:0 10px 10px 0;
