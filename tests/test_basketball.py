@@ -381,9 +381,13 @@ def test_box_score_windows_are_split_under_the_row_cap() -> None:
     games = cbbd.games(2026)
     if table.empty or games.empty:
         pytest.skip("season data unavailable")
-    missing = len(games) - len(table)
-    # A handful of games genuinely carry no box score; hundreds means truncation.
-    assert missing < 100, f"{missing} games missing from the Classic log"
+    # The log now carries every final game and leaves the counts blank where the
+    # box score is missing, so truncation shows up as blanks rather than as
+    # absent rows. A handful of games genuinely carry no box score; hundreds in
+    # a modern season means a window came back at the cap.
+    assert len(table) == len(games), "the log must carry every final game"
+    blank = int(table["reb1"].isna().sum())
+    assert blank < 100, f"{blank} games with no box score in the Classic log"
 
 
 def test_cache_keys_do_not_collide_when_truncated() -> None:
@@ -399,3 +403,30 @@ def test_cache_keys_do_not_collide_when_truncated() -> None:
     ]
     paths = {cfbd._cache_path("/games/teams", p) for p in same_end}
     assert len(paths) == 2, "two different windows still share a cache file"
+
+
+def test_the_game_log_keeps_games_whose_box_score_never_arrived() -> None:
+    """Built from the box scores alone, the log lost whole games.
+
+    The box-score feed is missing about one game in eight for 2004-05 and
+    2011-12. Joining the other way round - games feed first, box scores onto it -
+    is what keeps the record right: Kentucky went 38-2 in 2011-12 and was
+    published as 31-1 before this.
+    """
+    from mri.ingest import bb_gamelog
+
+    table = bb_gamelog.load(2012)
+    if table.empty:
+        pytest.skip("2011-12 game log not in the store")
+
+    blank = table[table["reb1"].isna()]
+    assert len(blank) > 100, "2011-12 is the season with the gap; it should show"
+    assert blank["pts1"].notna().all(), "a missing box score is not a missing score"
+    assert (blank["win1"] + blank["win2"] == 1.0).all(), "every one is a decision"
+
+    kentucky = table[(table["team1"] == "Kentucky") | (table["team2"] == "Kentucky")]
+    wins = float(
+        kentucky.loc[kentucky["team1"] == "Kentucky", "win1"].sum()
+        + kentucky.loc[kentucky["team2"] == "Kentucky", "win2"].sum()
+    )
+    assert (wins, len(kentucky) - wins) == (38.0, 2.0)

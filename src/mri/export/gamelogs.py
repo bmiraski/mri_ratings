@@ -154,9 +154,9 @@ def basketball(current: int | None) -> dict[int, dict[str, list[dict]]]:
             power = {canonical(r["team"]): float(r["power"]) for _, r in rated.iterrows()}
             logs[season] = _rows_from(chunk, canonical, power, 2.9, dated=True)
 
-    # 2013-14 to 2017-18 are computed from the API rather than a workbook, so
-    # their game logs come from the same place - and unlike the workbook seasons
-    # they carry dates.
+    # 2004-05 to 2017-18, apart from the seasons Ben published himself, are
+    # computed from the API rather than a workbook, so their game logs come from
+    # the same place - and unlike the workbook seasons they carry dates.
     computed = _read("bb_classic")
     if not computed.empty:
         from ..ingest import bb_gamelog

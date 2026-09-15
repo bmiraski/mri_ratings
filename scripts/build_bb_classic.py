@@ -1,10 +1,10 @@
 """Compute MRI Basketball Classic for the seasons Ben never ran.
 
-His basketball workbooks cover 2012-13, 2018-19 and 2019-20 (2017-18 exists but
-is a December snapshot, not a season). That leaves 2013-14 through 2017-18
-missing entirely, and those years are now reachable: the API carries rebounds
-and turnovers per game back to at least 2013-14, which is exactly what Classic
-needs and what the games feed alone cannot provide.
+The basketball workbooks in this repository cover 2012-13, 2018-19 and 2019-20
+(2017-18 exists but is a December snapshot, not a season). Everything from
+2004-05 forward that those three do not cover is reachable from the API, which
+carries rebounds and turnovers per game - exactly what Classic needs and what
+the games feed alone cannot provide.
 
 These ratings are computed, not published. Ben's own workbook seasons are what
 he put out at the time and the archive says so; these are what his formula says
@@ -30,13 +30,28 @@ from mri.ratings import classic  # noqa: E402
 
 OUT = ROOT / "data" / "parquet" / "bb_classic.parquet"
 
-# The gap between the 2012-13 workbook and the 2018-19 one.
-DEFAULT_FIRST, DEFAULT_LAST = 2014, 2018
+# Everything the API can support that Ben's workbooks in this repo do not cover.
+#
+# The games feed reaches back to 2000-01, but Classic needs rebounds and
+# turnovers, which live in the box scores, and those do not really start until
+# 2004-05. The four seasons before it are not thin, they are empty: 2000-01 and
+# 2001-02 return no box-score rows at all, 2002-03 returns one game and 2003-04
+# twelve. A rating built on twelve games is not a worse rating, it is a
+# different thing wearing the same name, so the floor is set where the data
+# actually begins and the earlier years are left for the workbooks.
+FIRST_WITH_BOX_SCORES = 2005
+MIN_GAMES = 2000  # a real Division I season is 5,000-plus; this only catches ruins
+DEFAULT_FIRST, DEFAULT_LAST = 2005, 2018
+
+# Seasons Ben published himself. Computing these would silently replace his own
+# ratings with a reconstruction of them, which is a worse answer even when the
+# numbers agree.
+PUBLISHED = {2013, 2019, 2020}
 
 
 def compute(season: int) -> pd.DataFrame:
     games = bb_gamelog.for_season(season)
-    if games.empty:
+    if len(games) < MIN_GAMES:
         return pd.DataFrame()
 
     games = games.copy()
@@ -65,9 +80,12 @@ def main() -> None:
         frames.append(existing[~existing["season"].between(first, last)])
 
     for season in range(first, last + 1):
+        if season in PUBLISHED:
+            print(f"  {season - 1}-{str(season)[2:]}: Ben's own workbook, left alone")
+            continue
         table = compute(season)
         if table.empty:
-            print(f"  {season - 1}-{str(season)[2:]}: no usable games")
+            print(f"  {season - 1}-{str(season)[2:]}: too few box scores to rate")
             continue
         best = table.iloc[0]
         print(

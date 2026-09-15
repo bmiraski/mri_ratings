@@ -24,10 +24,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.export import bb_workbook  # noqa: E402
+from mri.ingest import bb_gamelog  # noqa: E402
 from mri.ingest import bb_registry as registry  # noqa: E402
-from mri.ingest import cbbd  # noqa: E402
 
-DEFAULT_FIRST, DEFAULT_LAST = 2021, 2026
+DEFAULT_FIRST, DEFAULT_LAST = 2005, 2026
 OUT_DIR = ROOT / "exports"
 RECALC = Path("/root/.claude/skills/synced")
 

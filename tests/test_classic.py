@@ -74,3 +74,63 @@ def test_case_insensitive_team_matching() -> None:
     result = classic.compute(games, ["Boise State", "Idaho", "Nevada"])
     boise = result.set_index("team").loc["Boise State"]
     assert boise["wins"] == 2, "spelling variants must collapse into one team"
+
+
+def _bb_games(reb_missing: bool) -> pd.DataFrame:
+    """Two games for one team, optionally with the second box score absent."""
+    return pd.DataFrame(
+        {
+            "team1": ["Duke", "Duke"],
+            "team2": ["Kansas", "Kentucky"],
+            "pts1": [80.0, 70.0],
+            "pts2": [70.0, 60.0],
+            "reb1": [40.0, None if reb_missing else 40.0],
+            "reb2": [30.0, None if reb_missing else 30.0],
+            "to1": [10.0, None if reb_missing else 10.0],
+            "to2": [15.0, None if reb_missing else 15.0],
+            "win1": [1.0, 1.0],
+            "win2": [0.0, 0.0],
+        }
+    )
+
+
+def test_missing_box_score_keeps_the_result_and_skips_the_statistics() -> None:
+    """A game with no rebound counts still happened.
+
+    The basketball feed is missing about one box score in eight for 2004-05 and
+    2011-12. Building the log from the box scores alone dropped those games
+    outright, which cost a typical 2011-12 team four games off its record. They
+    have to count towards the record, the schedule and the game credit, and to
+    be left out of the per-game statistics only - so the team's rebound margin
+    per game is what its reported games say, not that number diluted by games
+    nobody reported.
+    """
+    teams = ["Duke", "Kansas", "Kentucky"]
+    full = classic.compute(_bb_games(False), teams, sport=classic.BASKETBALL)
+    partial = classic.compute(_bb_games(True), teams, sport=classic.BASKETBALL)
+
+    for table in (full, partial):
+        duke = table.set_index("team").loc["Duke"]
+        assert duke["wins"] == 2, "both games count towards the record"
+        assert duke["games"] == 2
+
+    assert full.set_index("team").loc["Duke"]["stat_games"] == 2
+    assert partial.set_index("team").loc["Duke"]["stat_games"] == 1
+
+    # +10 a game either way: one game of +10 over one counted game, not over two.
+    assert full.set_index("team").loc["Duke"]["rebound_diff_per_game"] == 10.0
+    assert partial.set_index("team").loc["Duke"]["rebound_diff_per_game"] == 10.0
+
+
+@pytest.mark.skipif(not _seasons, reason="archive workbooks not present")
+def test_football_counts_every_game_as_a_stat_game() -> None:
+    """The stat denominator is a basketball concession, not a football change.
+
+    Every row of the football archive carries rushing, passing and turnovers, so
+    stat_games equals games played and the ratings are the ones the workbooks
+    published - which the acceptance tests above check directly. This says why
+    they still pass.
+    """
+    season = _seasons[sorted(_seasons)[0]]
+    table = classic.compute(season.games, season.teams)
+    assert (table["stat_games"] == table["games"]).all()

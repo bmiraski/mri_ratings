@@ -96,7 +96,8 @@ def write_season(
     book = Workbook()
     book.remove(book.active)
 
-    _about_sheet(book, season, len(games), len(d1))
+    _about_sheet(book, season, len(games), len(d1),
+                 int(games["reb1"].isna().sum()))
     _games_sheet(book, games, len(ordered))
     stats_row = _team_data_sheet(book, games, ordered, d1, season)
     _mri_sheet(book, d1, len(ordered))
@@ -110,13 +111,26 @@ def write_season(
     return path
 
 
-def _about_sheet(book: Workbook, season: int, game_count: int, d1_count: int) -> None:
+def _about_sheet(book: Workbook, season: int, game_count: int, d1_count: int,
+                 no_box: int = 0) -> None:
     sheet = book.create_sheet("About")
+    gap = []
+    if no_box:
+        gap = [
+            ("MISSING BOX SCORES", True),
+            (f"{no_box} of these {game_count} games have a score but no rebound or", False),
+            ("turnover counts in the source data. Their Reb and TO cells are blank", False),
+            ("rather than zero, and column Y of Team Data counts the games that do", False),
+            ("have counts - that is what RDPG and TODPG divide by, so a missing box", False),
+            ("score costs a team nothing but the statistics it never reported.", False),
+            ("", False),
+        ]
     lines = [
         (f"MRI {season_label(season)}", True),
         ("", False),
         (f"{game_count} games, {d1_count} D1 teams.", False),
         ("", False),
+        *gap,
         ("WHAT IS LIVE", True),
         ("Games, Team Data and MRI carry the original formulas. Correct a score on", False),
         ("the Games sheet and the whole season re-rates, exactly as the 2003-2019", False),
@@ -140,8 +154,13 @@ def _about_sheet(book: Workbook, season: int, game_count: int, d1_count: int) ->
         cell = sheet.cell(index, 1, text)
         cell.font = Font(name=FONT, bold=bold, size=13 if index == 1 else 10)
     sheet.column_dimensions["A"].width = 78
-    sheet.cell(5, 1).fill = NOTE_FILL
-    sheet.cell(16, 1).fill = NOTE_FILL
+    # By heading rather than by row number: the missing-box-score section is
+    # only present in some seasons, so fixed row indices highlighted the wrong
+    # lines in the seasons that have it.
+    highlight = {"WHAT IS LIVE", "MISSING BOX SCORES", "NON-D1 OPPONENTS"}
+    for index, (text, _) in enumerate(lines, start=1):
+        if text in highlight:
+            sheet.cell(index, 1).fill = NOTE_FILL
 
 
 def _games_sheet(book: Workbook, games: pd.DataFrame, team_rows: int) -> None:
@@ -161,7 +180,12 @@ def _games_sheet(book: Workbook, games: pd.DataFrame, team_rows: int) -> None:
             [row.pts1, row.pts2, row.reb1, row.reb2, row.to1, row.to2, row.win1, row.win2],
             start=3,
         ):
-            sheet.cell(offset, column, float(value) if pd.notna(value) else 0.0)
+            # A game whose box score never arrived leaves Reb and TO blank
+            # rather than zero, which is what lets Team Data count the games
+            # that actually have statistics. Scores and win flags are never
+            # missing - the games feed carries those for every final.
+            if pd.notna(value):
+                sheet.cell(offset, column, float(value))
         if pd.notna(row.start_date):
             # openpyxl rejects tz-aware datetimes outright, and the time of
             # day carries no information the ratings use, so only the
@@ -262,9 +286,9 @@ def _team_data_sheet(
         if not rated:
             continue
         sheet.cell(r, 15, f"=I{r}-J{r}")                                    # Reb Diff
-        sheet.cell(r, 16, f"=IFERROR(O{r}/(B{r}+C{r}),0)")                   # RDPG
+        sheet.cell(r, 16, f"=IFERROR(O{r}/Y{r},0)")                          # RDPG
         sheet.cell(r, 17, f"=L{r}-K{r}")                                    # TO Diff
-        sheet.cell(r, 18, f"=IFERROR(Q{r}/(B{r}+C{r}),0)")                   # TODPG
+        sheet.cell(r, 18, f"=IFERROR(Q{r}/Y{r},0)")                          # TODPG
         sheet.cell(r, 19, registry.conference_of(team, season=season) or "")
         sheet.cell(r, 20, (
             f"=IFERROR((B{r}/(B{r}+C{r}))*25,0)+IFERROR((D{r}/(D{r}+E{r}))*25,0)"
@@ -281,6 +305,16 @@ def _team_data_sheet(
         sheet.cell(r, 22, f"=RANK(U{r},U$2:U${d1_last})")
         sheet.cell(r, 23, f"=IFERROR((D{r}-C{r})/(D{r}+E{r}-(B{r}+C{r})),0)")
         sheet.cell(r, 24, f"=IFERROR((F{r}-((B{r}+C{r})*B{r}))/((F{r}+G{r})-(B{r}+C{r})^2),0)")
+        # Y: games with a box score, which is the denominator RDPG and TODPG
+        # divide by. It equals W+L wherever the feed is complete, and in the
+        # two seasons where it is not - 2004-05 and 2011-12, missing about one
+        # box score in eight - dividing by W+L would shrink a team's rebound
+        # margin in proportion to how many of its box scores are missing. Kept
+        # past the labelled set, beside the other working columns.
+        sheet.cell(r, 25, (
+            f"=COUNTIFS({g},$A{r},Games!$E$2:$E${n + 1},\"<>\")"
+            f"+COUNTIFS({h},$A{r},Games!$F$2:$F${n + 1},\"<>\")"
+        ))
 
     stats_row = last_team_row + 1
     sheet.cell(stats_row, 1, "Mean").font = Font(name=FONT, bold=True, size=10)

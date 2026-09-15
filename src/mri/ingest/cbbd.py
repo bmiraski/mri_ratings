@@ -61,16 +61,23 @@ def _is_final(game: dict) -> bool:
     another 275 were never rescheduled. Each one entered the solve as real
     evidence that two teams are exactly equal.
 
-    ``status`` carries the answer cleanly: every 0-0 row in every season checked
-    is cancelled, postponed or scheduled, and every final has real points. The
-    points test is kept as a fallback in case the field ever goes missing, but
-    it is no longer the primary.
+    ``status`` carries the answer cleanly in the seasons the chain rates: every
+    0-0 row there is cancelled, postponed or scheduled, and every final has real
+    points. It does not carry it in the older ones. 2011-12 has 76 rows and
+    2012-13 has 60 that say "final" and 0-0 in the same breath, and trusting
+    status alone let every one of them back in - as a loss for both sides, which
+    is how Classic reads a tie.
+
+    So the score is checked as well as the status, and equal scores are rejected
+    rather than only 0-0. Basketball plays overtime until somebody wins; a game
+    in this feed with the same number on both sides did not happen, whatever
+    that number is.
     """
-    status = (game.get("status") or "").lower()
-    if status:
-        return status == "final"
     points = (game.get("homePoints"), game.get("awayPoints"))
-    return all(p is not None for p in points) and points != (0, 0)
+    if any(p is None for p in points) or points[0] == points[1]:
+        return False
+    status = (game.get("status") or "").lower()
+    return status == "final" if status else True
 
 
 def _windows(season: int) -> list[tuple[str, str]]:
@@ -301,9 +308,20 @@ def classic_table(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
     - with team1 the visitor, so the ported formula runs on current seasons the
     same way it runs on the archive.
 
-    Games whose box score is missing a count are dropped rather than defaulted.
-    A zero would be read as "grabbed no rebounds", which is a result rather than
-    an absence, and Classic would rate it as one.
+    The games feed is the spine and the box scores are joined onto it, rather
+    than the other way round, because the two do not cover the same games. The
+    box-score feed is missing about one game in eight in 2004-05 and 2011-12,
+    one in twenty in the two seasons after 2004-05, and under one in a hundred
+    everywhere since 2007-08. Building the log from the box scores alone dropped
+    those games entirely, which cost a typical 2011-12 team four games off its
+    record - a team that went 32-7 was published as 28-6. Building it from the
+    games feed keeps the result, the schedule and the game credit, and leaves
+    the rebound and turnover counts empty for the games that have none.
+
+    Empty, not zero. A zero would be read as "grabbed no rebounds", which is a
+    result rather than an absence, and Classic would rate it as one; blanks are
+    excluded from the per-game statistics by their own denominator instead (see
+    ``classic.compute``).
 
     Only games the games feed calls final are kept, and that filter is doing real
     work: the box-score feed emits rows for games that never happened, with zeros
@@ -314,37 +332,51 @@ def classic_table(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
     trap as the one in ``games`` wearing different clothes: a feed that answers
     with zeros instead of nulls, and a caller that believes it.
     """
-    box = team_box_scores(season, refresh_last=refresh_last)
-    if box.empty:
-        return box
+    feed = games(season, refresh_last=refresh_last)
+    if feed.empty:
+        return pd.DataFrame()
+    feed = feed[feed["played"]]
+    if feed.empty:
+        return pd.DataFrame()
 
-    real = set(games(season, refresh_last=refresh_last)["game_id"])
-    box = box[box["game_id"].isin(real)]
-    box = box.dropna(subset=["points", "rebounds", "turnovers"])
+    box = team_box_scores(season, refresh_last=refresh_last)
+    stats: dict[object, dict[str, dict]] = {}
+    if not box.empty:
+        box = box.dropna(subset=["rebounds", "turnovers"])
+        for game_id, pair in box.groupby("game_id"):
+            if len(pair) != 2:
+                continue
+            by_team = {str(row["team"]): row for _, row in pair.iterrows()}
+            if len(by_team) == 2:
+                stats[game_id] = by_team
+
+    def counts(game_id, team: str) -> tuple[float | None, float | None]:
+        side = stats.get(game_id, {}).get(str(team))
+        if side is None:
+            return None, None
+        return float(side["rebounds"]), float(side["turnovers"])
+
     rows = []
-    for game_id, pair in box.groupby("game_id"):
-        if len(pair) != 2:
-            continue
+    for game in feed.itertuples():
         # team1 is the visitor, matching the workbooks. On a neutral court the
         # feed still marks one side home; the ordering is then arbitrary and
         # harmless, since Classic has no home-court term.
-        away = pair[pair["home_away"] == "away"]
-        home = pair[pair["home_away"] == "home"]
-        if len(away) != 1 or len(home) != 1:
-            away, home = pair.iloc[[0]], pair.iloc[[1]]
-        a, h = away.iloc[0], home.iloc[0]
+        reb1, to1 = counts(game.game_id, game.team1)
+        reb2, to2 = counts(game.game_id, game.team2)
+        if (reb1 is None) != (reb2 is None):
+            # One side of a game and not the other is not a usable half-game.
+            reb1 = reb2 = to1 = to2 = None
         rows.append(
             {
-                "game_id": game_id,
-                "season": a["season"],
-                "start_date": a["start_date"],
-                "team1": a["team"], "team2": h["team"],
-                "pts1": float(a["points"]), "pts2": float(h["points"]),
-                "reb1": float(a["rebounds"]), "reb2": float(h["rebounds"]),
-                "to1": float(a["turnovers"]), "to2": float(h["turnovers"]),
-                "win1": 1.0 if a["points"] > h["points"] else 0.0,
-                "win2": 1.0 if h["points"] > a["points"] else 0.0,
-                "neutral": bool(a["neutral"]),
+                "game_id": game.game_id,
+                "season": game.season,
+                "start_date": game.start_date,
+                "team1": game.team1, "team2": game.team2,
+                "pts1": float(game.pts1), "pts2": float(game.pts2),
+                "reb1": reb1, "reb2": reb2,
+                "to1": to1, "to2": to2,
+                "win1": float(game.win1), "win2": float(game.win2),
+                "neutral": bool(game.neutral),
             }
         )
     frame = pd.DataFrame(rows)

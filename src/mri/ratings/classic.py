@@ -78,21 +78,21 @@ class Sport:
     sos: Callable[["pd.DataFrame"], "pd.Series"]
 
 
-def _derive_football(records: pd.DataFrame, played: pd.Series) -> None:
-    records["rush_per_game"] = _safe_pct(records["rush_for"], played)
-    records["pass_per_game"] = _safe_pct(records["pass_for"], played)
+def _derive_football(records: pd.DataFrame, counted: pd.Series) -> None:
+    records["rush_per_game"] = _safe_pct(records["rush_for"], counted)
+    records["pass_per_game"] = _safe_pct(records["pass_for"], counted)
     records["yards_allowed_per_game"] = _safe_pct(
-        records["rush_against"] + records["pass_against"], played
+        records["rush_against"] + records["pass_against"], counted
     )
     records["turnover_margin"] = records["to_forced"] - records["to_committed"]
 
 
-def _derive_basketball(records: pd.DataFrame, played: pd.Series) -> None:
+def _derive_basketball(records: pd.DataFrame, counted: pd.Series) -> None:
     records["rebound_diff_per_game"] = _safe_pct(
-        records["reb_for"] - records["reb_against"], played
+        records["reb_for"] - records["reb_against"], counted
     )
     records["turnover_diff_per_game"] = _safe_pct(
-        records["to_forced"] - records["to_committed"], played
+        records["to_forced"] - records["to_committed"], counted
     )
 
 
@@ -225,6 +225,13 @@ def _long_form(games: pd.DataFrame, sport: Sport) -> pd.DataFrame:
     )
     long["lost"] = 1.0 - long["won"]
     long["margin"] = long["points_for"] - long["points_against"]
+    # A game whose box score never arrived still happened. It counts towards the
+    # record, the schedule and the game credit, and it is the per-game
+    # statistics - and only those - that have to leave it out, because the
+    # numerator cannot include what was never reported. Every football row and
+    # almost every basketball one carries stats, so this is 1.0 nearly
+    # everywhere; see the note in ``compute``.
+    long["counted"] = long[list(sport.stat_pairs)].notna().all(axis=1).astype(float)
     return long
 
 
@@ -252,7 +259,11 @@ def compute(
     long = _long_form(games, sport)
 
     # --- Pass 1: raw records -------------------------------------------------
-    aggregations = {"wins": ("won", "sum"), "losses": ("lost", "sum")}
+    aggregations = {
+        "wins": ("won", "sum"),
+        "losses": ("lost", "sum"),
+        "counted": ("counted", "sum"),
+    }
     for column in sport.stat_pairs:
         aggregations[column] = (column, "sum")
     records = long.groupby("team").agg(**aggregations)
@@ -298,7 +309,16 @@ def compute(
     )
     records["sos"] = sport.sos(records)
 
-    sport.derive(records, played)
+    # The denominator for the per-game statistics. It is the number of games
+    # played everywhere the source is complete, which is every football season
+    # in the archive and most basketball ones; where it is not, dividing by
+    # games played would shrink a team's rebound margin in proportion to how
+    # many of its box scores the feed happens to be missing, which is a rating
+    # penalty for a gap in someone else's database. 2004-05 and 2011-12 are
+    # missing about one box score in eight and would have been the two seasons
+    # visibly wrong.
+    records["stat_games"] = records.pop("counted")
+    sport.derive(records, records["stat_games"])
 
     # --- z-scores over rated teams only --------------------------------------
     fbs = _fbs_mask(records, teams)

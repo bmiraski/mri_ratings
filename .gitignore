@@ -11,3 +11,10 @@ shot-*.png
 # double the repository to spare a manual script an API call. Re-fetches on
 # demand.
 data/raw/games_teams__*.json
+
+# Basketball games feed for seasons before 2020-21, for the same reason one step
+# removed. Nothing the daily build runs reads them: the MRI 2.0 chain warms up
+# on 2019-20 and goes forward, and every older season is served from the derived
+# Classic game log in data/parquet, which is 2MB for all of them against 125MB
+# of JSON. The one-off archive scripts refetch on demand.
+data/raw/games__*_season20[01][0-9]_*.json

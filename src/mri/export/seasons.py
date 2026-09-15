@@ -23,8 +23,16 @@ What is here:
                             MRI 2.0, chained season to season
     basketball   2012-13, 2018-19, 2019-20
                             MRI Basketball Classic, as published
+    basketball   2004-05 through 2017-18, the rest
+                            MRI Basketball Classic, computed from the API
     basketball   2020-21 onward
                             MRI 2.0, chained from 2019-20
+
+Basketball stops at 2004-05 because that is where the box scores start. The
+games feed reaches 2000-01, but Classic is a rebound and turnover formula and
+those counts do not exist before 2002-03, which itself carries one game and
+2003-04 twelve. Ben's own workbooks go back to 2000-01; only five of them are
+in this repository, and the four missing seasons can only come from there.
 
 Not 2017-18: that workbook is a December snapshot, nobody past twelve games.
 The season in progress is excluded too - the rankings page is where a live
