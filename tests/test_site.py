@@ -789,3 +789,52 @@ def test_the_rank_chart_is_suppressed_when_there_is_no_shape() -> None:
     assert site._rank_chart([row]) == ""
     assert site._rank_chart([row, dict(row, season=2025)]) == ""
     assert site._rank_chart([row, dict(row, season=2025), dict(row, season=2023)])
+
+
+def test_brand_assets_are_published(built: Path) -> None:
+    """The header, the favicon and the share card all point at real files.
+
+    They are copied out of site/assets/web rather than generated here, so the
+    failure mode is a page referencing a file nobody copied - which a browser
+    reports as a missing logo and nothing else notices.
+    """
+    assets = built / "assets"
+    for name in ("mri-lockup.png", "mri-lockup-ink.png", "favicon.ico",
+                 "icon-192.png", "apple-touch-icon.png", "mri-card.png"):
+        assert (assets / name).exists(), f"{name} was not published"
+    assert (built / "favicon.ico").exists(), "browsers ask for /favicon.ico by habit"
+
+
+def test_the_light_theme_gets_its_own_wordmark(built: Path) -> None:
+    """The wordmark is white, so the same file on a light background is blank.
+
+    <picture> swaps it for the ink version under prefers-color-scheme: light.
+    If that source ever goes missing the page still renders - with an invisible
+    logo for every reader whose system is set to light.
+    """
+    page = (built / "index.html").read_text()
+    assert 'media="(prefers-color-scheme: light)"' in page
+    assert "mri-lockup-ink.png" in page
+
+    from PIL import Image
+    import numpy as np
+
+    def ink(name: str) -> float:
+        art = np.array(Image.open(built / "assets" / name).convert("RGBA"))
+        # The wordmark half only; the icon is a red field in both files.
+        right = art[:, art.shape[1] // 2:, :]
+        visible = right[..., 3] > 128
+        return float(right[..., :3][visible].mean())
+
+    assert ink("mri-lockup.png") > 200, "the dark-theme wordmark should be near white"
+    assert ink("mri-lockup-ink.png") < 60, "the light-theme wordmark should be near black"
+
+
+def test_the_share_card_is_not_transparent(built: Path) -> None:
+    """Link previews composite onto a background of their own choosing, which
+    for a white wordmark on transparency is usually white on white."""
+    from PIL import Image
+
+    card = Image.open(built / "assets" / "mri-card.png")
+    assert card.mode in ("RGB", "P"), f"share card carries an alpha channel ({card.mode})"
+    assert card.size == (1200, 630)

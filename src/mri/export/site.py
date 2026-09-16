@@ -26,14 +26,24 @@ from pathlib import Path
 
 from . import common
 
-SERIES = "#3987e5"
-SERIES_LIGHT = "#2a78d6"
+# The brand crimson, from the logo. It is the site's accent in both themes at
+# Ben's direction. Worth knowing what that costs: against the dark background it
+# measures 2.3:1, where 3:1 is the floor for a graphic element and 4.5:1 for
+# text, so the sparklines and conference bars are dimmer in dark mode than the
+# blue they replaced. It reads as one brand with the logo, which is the trade.
+BRAND = "#AB011B"
+SERIES = BRAND
+SERIES_LIGHT = BRAND
 
 # The custom domain. Written into the output as a CNAME file on every build:
 # GitHub Pages puts that file in the repo when you set the domain in Settings,
 # and since this generator rewrites the whole output directory it would
 # otherwise be deleted on the next build and quietly take the domain down.
 CUSTOM_DOMAIN = "mri.mira.ski"
+
+# Absolute, because a link preview is fetched by a scraper that has no page to
+# resolve a relative path against.
+SITE_URL = f"https://{CUSTOM_DOMAIN}/"
 
 
 # --------------------------------------------------------------------------
@@ -215,11 +225,25 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description or f'A computer rating system for {chrome.noun}.')}">
 <link rel="stylesheet" href="{docs}styles.css">
+<link rel="icon" href="{docs}favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="{docs}assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="{docs}assets/apple-touch-icon.png">
+<meta name="theme-color" content="{BRAND}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(description or f'A computer rating system for {chrome.noun}.')}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{SITE_URL}assets/mri-card.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <header class="site">
   <div class="wrap bar">
-    <a class="mark" href="{up}index.html">The <em>MRI</em></a>
+    <a class="mark" href="{up}index.html" aria-label="The MRI, home">
+      <picture>
+        <source media="(prefers-color-scheme: light)" srcset="{docs}assets/mri-lockup-ink.png">
+        <img src="{docs}assets/mri-lockup.png" alt="The MRI" width="129" height="38">
+      </picture>
+    </a>
     {switch}
     <nav>
       <a href="{up}index.html">Rankings</a>
@@ -1524,6 +1548,39 @@ def _settle_timestamp(payload: dict, out_dir: Path, name: str = "site.json") -> 
         payload["generated"] = previous["generated"]
 
 
+BRAND_WEB = Path(__file__).resolve().parents[3] / "site" / "assets" / "web"
+
+
+def _copy_brand(site_root: Path) -> list[Path]:
+    """Put the logo, icons and share card where the pages reference them.
+
+    Copied, not generated: ``scripts/build_brand_assets.py`` derives these from
+    the delivered art and commits the result, so the site build moves bytes and
+    stays byte-identical run to run rather than depending on whichever Pillow
+    happens to be installed to encode a PNG the same way twice.
+
+    The favicon goes to the root as well as to assets/, because browsers and
+    feed readers ask for /favicon.ico by habit whatever the page declares.
+    """
+    if not BRAND_WEB.is_dir():
+        return []
+    assets = site_root / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    out = []
+    for source in sorted(BRAND_WEB.iterdir()):
+        if source.suffix.lower() not in (".png", ".ico"):
+            continue
+        for target in ([assets / source.name, site_root / source.name]
+                       if source.name == "favicon.ico" else [assets / source.name]):
+            data = source.read_bytes()
+            # Only write when it differs, so an unchanged logo does not restamp
+            # the file and show up as a change in the daily commit.
+            if not target.exists() or target.read_bytes() != data:
+                target.write_bytes(data)
+            out.append(target)
+    return out
+
+
 def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> list[Path]:
     """Render one sport's pages.
 
@@ -1559,6 +1616,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     if CUSTOM_DOMAIN:
         write(site_root / "CNAME", CUSTOM_DOMAIN + "\n")
     write(site_root / "styles.css", STYLES)
+    written.extend(_copy_brand(site_root))
 
     write(out_dir / "index.html", rankings_page(payload))
     write(out_dir / "conferences.html", conferences_index(payload))
@@ -1605,14 +1663,14 @@ STYLES = """
 :root {
   --surface:#1a1a19; --plane:#0d0d0d; --primary:#ffffff; --secondary:#c3c2b7;
   --muted:#898781; --grid:#2c2c2a; --axis:#383835;
-  --up:#0ca30c; --down:#d03b3b; --series:#3987e5;
+  --up:#0ca30c; --down:#d03b3b; --series:#AB011B;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --surface:#fcfcfb; --plane:#f9f9f7; --primary:#0b0b0b; --secondary:#52514e;
     --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
-    --up:#006300; --down:#d03b3b; --series:#2a78d6;
+    --up:#006300; --down:#d03b3b; --series:#AB011B;
     color-scheme: light;
   }
 }
@@ -1630,8 +1688,14 @@ a { color:inherit; }
 
 header.site { border-bottom:1px solid var(--grid); background:var(--surface); }
 .bar { display:flex; align-items:center; gap:20px; flex-wrap:wrap; padding-block:14px; }
-.mark { font-size:20px; font-weight:800; letter-spacing:-0.02em; text-decoration:none; }
-.mark em { font-style:normal; color:var(--series); }
+/* The mark is the lockup image now. Height is fixed and width follows, so the
+   art keeps its proportions whatever the file turns out to be; the width and
+   height attributes on the img are only there to reserve the box before it
+   loads and stop the header jumping. The wordmark is white, so the light theme
+   gets a recoloured file through <picture> rather than the same file on a
+   background it disappears into. */
+.mark { display:inline-flex; align-items:center; text-decoration:none; }
+.mark img { height:38px; width:auto; display:block; }
 /* The sport switch sits beside the wordmark rather than inside the nav, because
    it changes which site you are on and the nav changes which page. Segmented so
    it reads as a choice between two, with the current one filled rather than
@@ -1811,7 +1875,11 @@ footer.site .muted { color:var(--muted); }
 @media (max-width:860px) { .grid { grid-template-columns:1fr; } }
 @media (max-width:620px) {
   .bar { gap:10px 14px; }
+  /* Full width so the mark takes its own line above the nav, as the wordmark
+     did - but the image inside must not stretch with it, so it stays auto and
+     shrinks a little for the narrower bar. */
   .mark { width:100%; }
+  .mark img { height:32px; }
   header nav { flex:1 1 auto; gap:14px; }
   .stamp { flex:none; }
   .panelhead { align-items:flex-start; flex-direction:column; gap:10px; }

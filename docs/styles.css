@@ -2,14 +2,14 @@
 :root {
   --surface:#1a1a19; --plane:#0d0d0d; --primary:#ffffff; --secondary:#c3c2b7;
   --muted:#898781; --grid:#2c2c2a; --axis:#383835;
-  --up:#0ca30c; --down:#d03b3b; --series:#3987e5;
+  --up:#0ca30c; --down:#d03b3b; --series:#AB011B;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --surface:#fcfcfb; --plane:#f9f9f7; --primary:#0b0b0b; --secondary:#52514e;
     --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
-    --up:#006300; --down:#d03b3b; --series:#2a78d6;
+    --up:#006300; --down:#d03b3b; --series:#AB011B;
     color-scheme: light;
   }
 }
@@ -27,8 +27,14 @@ a { color:inherit; }
 
 header.site { border-bottom:1px solid var(--grid); background:var(--surface); }
 .bar { display:flex; align-items:center; gap:20px; flex-wrap:wrap; padding-block:14px; }
-.mark { font-size:20px; font-weight:800; letter-spacing:-0.02em; text-decoration:none; }
-.mark em { font-style:normal; color:var(--series); }
+/* The mark is the lockup image now. Height is fixed and width follows, so the
+   art keeps its proportions whatever the file turns out to be; the width and
+   height attributes on the img are only there to reserve the box before it
+   loads and stop the header jumping. The wordmark is white, so the light theme
+   gets a recoloured file through <picture> rather than the same file on a
+   background it disappears into. */
+.mark { display:inline-flex; align-items:center; text-decoration:none; }
+.mark img { height:38px; width:auto; display:block; }
 /* The sport switch sits beside the wordmark rather than inside the nav, because
    it changes which site you are on and the nav changes which page. Segmented so
    it reads as a choice between two, with the current one filled rather than
@@ -208,7 +214,11 @@ footer.site .muted { color:var(--muted); }
 @media (max-width:860px) { .grid { grid-template-columns:1fr; } }
 @media (max-width:620px) {
   .bar { gap:10px 14px; }
+  /* Full width so the mark takes its own line above the nav, as the wordmark
+     did - but the image inside must not stretch with it, so it stays auto and
+     shrinks a little for the narrower bar. */
   .mark { width:100%; }
+  .mark img { height:32px; }
   header nav { flex:1 1 auto; gap:14px; }
   .stamp { flex:none; }
   .panelhead { align-items:flex-start; flex-direction:column; gap:10px; }
