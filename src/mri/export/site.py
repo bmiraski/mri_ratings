@@ -35,6 +35,13 @@ BRAND = "#AB011B"
 SERIES = BRAND
 SERIES_LIGHT = BRAND
 
+# The row sparklines are the exception. Every ranking row already carries its
+# team's colour as a stripe down its left edge, and a crimson trace beside 138
+# of those is one more colour competing rather than a brand doing brand work.
+# The ink colour steps out of the way and follows the theme, so it is white on
+# dark and near-black on light rather than literally white in both.
+TREND = "var(--primary)"
+
 # The custom domain. Written into the output as a CNAME file on every build:
 # GitHub Pages puts that file in the repo when you set the domain in Settings,
 # and since this generator rewrites the whole output directory it would
@@ -122,7 +129,7 @@ def esc(value) -> str:
 # small chart primitives
 # --------------------------------------------------------------------------
 
-def sparkline(values, width=58, height=22, color=SERIES) -> str:
+def sparkline(values, width=58, height=22, color=TREND) -> str:
     """2px trajectory with a ringed end marker, per the mark specs.
 
     Suppressed below three points. With only two, every sparkline is a
