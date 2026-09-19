@@ -18,6 +18,12 @@ from . import cfbd, registry
 
 STAT_COLUMNS = ["rush1", "rush2", "pass1", "pass2", "to1", "to2"]
 
+# Box scores post hours after a game goes final, and a week's games are spread
+# over Tuesday to Saturday. A week fetched on Thursday is missing Saturday's
+# stats, and it stays missing unless something fetches it again - so the two
+# most recent weeks are refreshed, not just the last one.
+REFRESH_WEEKS = 2
+
 
 def season_weeks(year: int) -> list[tuple[str, int]]:
     """Weeks with completed games, as (season_type, week) pairs."""
@@ -31,19 +37,23 @@ def season_weeks(year: int) -> list[tuple[str, int]]:
 def classic_table(year: int, *, refresh_last_week: bool = True) -> pd.DataFrame:
     """Games for one season with the per-side stats Classic needs.
 
-    ``refresh_last_week`` re-fetches the most recent week, which is the only one
-    whose box scores can still change. Everything earlier is served from cache.
+    ``refresh_last_week`` re-fetches the most recent ``REFRESH_WEEKS`` weeks,
+    the only ones whose box scores can still change. Everything earlier is served
+    from cache.
     """
     games = cfbd.games(year)
     if games.empty:
         return games
 
     weeks = season_weeks(year)
-    latest = weeks[-1] if weeks else None
+    # A finished season has nothing left to change; only the one in progress
+    # spends API calls.
+    refresh_last_week = refresh_last_week and year == cfbd.current_season()
+    recent = set(weeks[-REFRESH_WEEKS:])
 
     frames = []
     for season_type, week in weeks:
-        refresh = refresh_last_week and (season_type, week) == latest
+        refresh = refresh_last_week and (season_type, week) in recent
         frames.append(
             cfbd.team_box_scores(year, week, season_type=season_type, refresh=refresh)
         )

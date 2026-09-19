@@ -17,6 +17,7 @@ them into "Non D1A", because that is what MRI Classic did.
 
 from __future__ import annotations
 
+import datetime as dt
 import hashlib
 import json
 import os
@@ -34,6 +35,19 @@ POOLED_FCS = "Non D1A"
 RETRIES = 6
 MAX_BACKOFF = 60.0
 FBS = "fbs"
+
+
+# Cache files this process has already re-fetched. A build asks for the current
+# season's games from several places, and one fresh copy per run is all it needs
+# - without this a refresh costs one API call per caller instead of one per run.
+_FETCHED: set[Path] = set()
+
+
+def current_season(today: dt.date | None = None) -> int:
+    """The football season in progress: the calendar year from June onward, and
+    the previous one during the January playoffs and the offseason's start."""
+    today = today or dt.date.today()
+    return today.year if today.month >= 6 else today.year - 1
 
 
 class CfbdError(RuntimeError):
@@ -95,6 +109,9 @@ def request(endpoint: str, *, refresh: bool = False, **params):
     params = {k: v for k, v in params.items() if v is not None}
     path = _cache_path(endpoint, params)
 
+    if refresh and path in _FETCHED:
+        refresh = False
+
     if path.exists() and not refresh:
         return json.loads(path.read_text())
 
@@ -146,6 +163,7 @@ def request(endpoint: str, *, refresh: bool = False, **params):
         payload = response.json()
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(payload))
+        _FETCHED.add(path)
         return payload
     raise CfbdError(f"{endpoint} rate limited after {RETRIES} attempts")
 
@@ -154,15 +172,23 @@ def games(
     year: int,
     *,
     season_type: str = "both",
-    refresh: bool = False,
+    refresh: bool | None = None,
     completed_only: bool = True,
 ) -> pd.DataFrame:
     """All games for a season, normalized to the archive's column names.
+
+    ``refresh=None`` means "if the season is still being played". A finished
+    season is served from cache forever; the one in progress is re-fetched once
+    per run, because the list of which games are final is exactly the thing
+    that changes. Serving it from cache is how a completed game stayed
+    "scheduled" - and out of the ratings - for days.
 
     ``completed_only`` keeps the rating path honest - a scheduled game carries
     no result. Pass False for the site's remaining-schedule view, where unplayed
     games are exactly the point.
     """
+    if refresh is None:
+        refresh = year == current_season()
     raw = request("/games", year=year, seasonType=season_type, refresh=refresh)
     rows = []
     for game in raw:

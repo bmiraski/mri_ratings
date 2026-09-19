@@ -158,3 +158,66 @@ def test_a_cached_response_is_served_when_no_key_is_available() -> None:
             hidden.rename(env_file)
         if saved is not None:
             os.environ["CFBD_API_KEY"] = saved
+
+
+def test_the_season_in_progress_is_refreshed_and_finished_ones_are_not(monkeypatch) -> None:
+    """The bug this guards: ``cfbd.games`` served the current season from cache
+    forever, so a game that finished after the cache was seeded stayed
+    "scheduled" and never reached the ratings. The daily run reported "no new
+    games" for days while the API had them."""
+    import datetime as dt
+
+    from mri.ingest import cfbd
+
+    assert cfbd.current_season(dt.date(2026, 9, 18)) == 2026
+    assert cfbd.current_season(dt.date(2027, 1, 12)) == 2026  # playoffs
+
+    seen = {}
+
+    def fake_request(endpoint, *, refresh=False, **params):
+        seen[params["year"]] = refresh
+        return []
+
+    monkeypatch.setattr(cfbd, "request", fake_request)
+    monkeypatch.setattr(cfbd, "current_season", lambda today=None: 2026)
+    cfbd.games(2026)
+    cfbd.games(2019)
+    assert seen == {2026: True, 2019: False}
+
+    # An explicit choice still wins.
+    cfbd.games(2026, refresh=False)
+    assert seen[2026] is False
+
+
+def test_a_refresh_is_fetched_once_per_run(monkeypatch, tmp_path) -> None:
+    """Several callers ask for the same current-season file in one build. Each
+    should not cost an API call."""
+    import os
+
+    from mri.ingest import cfbd
+
+    monkeypatch.setattr(cfbd, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(cfbd, "_FETCHED", set())
+    monkeypatch.setenv("CFBD_API_KEY", "test-key")
+
+    calls = []
+
+    class Response:
+        status_code = 200
+        ok = True
+        headers = {}
+        text = ""
+
+        def json(self):
+            return [{"n": len(calls)}]
+
+    def fake_get(*args, **kwargs):
+        calls.append(args)
+        return Response()
+
+    monkeypatch.setattr(cfbd.requests, "get", fake_get)
+    first = cfbd.request("/games", refresh=True, year=2026)
+    second = cfbd.request("/games", refresh=True, year=2026)
+    assert len(calls) == 1
+    assert first == second
+    assert os.path.exists(cfbd._cache_path("/games", {"year": 2026}))

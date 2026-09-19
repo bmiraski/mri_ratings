@@ -111,6 +111,22 @@ def test_exported_workbook_matches_python(path: Path) -> None:
     assert from_excel, f"{path.name} has no computed ratings - was it recalculated?"
 
     games = boxscores.classic_table(year)
+
+    # The workbook for the season in progress is a snapshot: it is exported by
+    # hand (recalculation needs LibreOffice), while the daily run keeps pulling
+    # in new games. Once a game is played the two are computed from different
+    # data and cannot agree, which is not a fault in the formulas - and if it
+    # failed the gate, no daily refresh would ever be committed. A finished
+    # season has no such excuse, so a mismatch there still fails.
+    from mri.ingest import cfbd
+
+    exported_games = book["Games"].max_row - 1  # header row
+    if year == cfbd.current_season() and len(games) != exported_games:
+        pytest.skip(
+            f"{path.name} is a snapshot of {exported_games} games; "
+            f"{len(games)} have been played since"
+        )
+
     teams = sorted(set(games["team1"]) | set(games["team2"]))
     from_python = classic.compute(games, teams).set_index("team")["mri"].to_dict()
 
