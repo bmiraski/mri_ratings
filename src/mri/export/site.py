@@ -24,6 +24,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from ..betting.board import MIN_EDGE_TO_SHOW as MIN_EDGE
+from ..sim import season as sim_season
 from . import common
 
 # The brand crimson, from the logo. It is the site's accent in both themes at
@@ -212,6 +214,10 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         if payload.get("betting") and payload.get("board") else ""
     )
     seasons_link = f'\n      <a href="{up}seasons.html">Seasons</a>' if payload.get("seasons") else ""
+    # Football only, and only when the build produced them: the same rule as the
+    # betting link, for the same reason.
+    slate_link = f'\n      <a href="{up}slate.html">Slate</a>' if payload.get("slate") else ""
+    sim_link = f'\n      <a href="{up}simulation.html">Simulation</a>' if payload.get("sim") else ""
     # The switch offers only sports this build actually published. The same rule
     # as the betting link above: a header link to a directory that does not exist
     # is a dead link on every page of the site, which is worse than no switch.
@@ -254,7 +260,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     {switch}
     <nav>
       <a href="{up}index.html">Rankings</a>
-      <a href="{up}conferences.html">Conferences</a>
+      <a href="{up}conferences.html">Conferences</a>{slate_link}{sim_link}
 {betting_link}
       <a href="{up}archive.html">Archive</a>{seasons_link}
       <a href="{up}method.html">Method</a>
@@ -1119,6 +1125,7 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
     because that is the most important true thing about it.
     """
     closing, opening = betting["closing"], betting["opening"]
+    record_html = _record_section(payload["record"]) if payload.get("record") else ""
 
     def bucket_rows(rows, clv=False):
         out = []
@@ -1227,6 +1234,7 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
   question cannot be settled from history. It can only be settled forward, which is what
   the card below is for.</p>
 
+{record_html}
   <h2>This week</h2>
   <p class="note"><strong>Tracked, not recommended.</strong> These are the largest
   disagreements with the opening number. They are published so the record accumulates in
@@ -1241,6 +1249,477 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
     return page(f"Betting — MRI {payload['season']}", body, payload,
                 description="What the model says about the market, and how badly it has done.")
 
+
+
+# --------------------------------------------------------------------------
+# season simulation, weekly slate, and the public record
+# --------------------------------------------------------------------------
+
+def _pct(value, *, signed: bool = False) -> str:
+    """A probability as people read it: no false precision at either end."""
+    if value is None:
+        return "&ndash;"
+    v = float(value)
+    if signed:
+        points = v * 100
+        if abs(points) < 0.05:
+            return "0"
+        return f"{points:+.0f}" if abs(points) >= 10 else f"{points:+.1f}"
+    if v < 0.0005:
+        return "&lt;0.1%"
+    if v < 0.10:
+        return f"{v:.1%}"
+    if v > 0.995:
+        return "&gt;99%"
+    return f"{v:.0%}"
+
+
+def _record_text(wins, losses) -> str:
+    return f"{int(wins)}&ndash;{int(losses)}"
+
+
+_SIM_SCRIPT = '''
+<script>
+(function () {
+  var body = document.querySelector('#simtable tbody');
+  var items = Array.prototype.slice.call(body.children);
+  var conf = document.getElementById('conf'), sort = document.getElementById('sort');
+  var live = document.getElementById('live'), none = document.getElementById('none');
+  function apply() {
+    var key = sort.value, want = conf.value, shown = 0;
+    var ordered = items.slice().sort(function (a, b) {
+      if (key === 'rank') return a.dataset.rank - b.dataset.rank;
+      return b.dataset[key] - a.dataset[key];
+    });
+    ordered.forEach(function (row, i) {
+      var chance = parseFloat(row.dataset.field) > 0.0005 || parseFloat(row.dataset.champ) > 0.005;
+      var ok = (!want || row.dataset.conf === want) && (!live.checked || chance);
+      row.hidden = !ok;
+      if (ok) { shown++; row.firstElementChild.textContent = shown; }
+      body.appendChild(row);
+    });
+    none.hidden = shown > 0;
+  }
+  conf.addEventListener('change', apply);
+  sort.addEventListener('change', apply);
+  live.addEventListener('change', apply);
+  apply();
+})();
+</script>'''
+
+
+def simulation_page(payload: dict) -> str:
+    sim = payload["sim"]
+    odds = sim["teams"]
+    teams = {t["team"]: t for t in payload["teams"]}
+    details = payload.get("details") or {}
+    n = sim["sims"]
+
+    # Where each team's remaining schedule sits: the average power of the
+    # opponents still to play, ranked hardest first.
+    remaining = {t: d.get("remainingDifficulty") for t, d in details.items()
+                 if d.get("remainingDifficulty") is not None}
+    hardest = {t: i + 1 for i, t in enumerate(sorted(remaining, key=lambda t: -remaining[t]))}
+
+    ordered = sorted(odds, key=lambda t: (-odds[t]["playoff"], -odds[t]["title"], teams[t]["rank"]))
+    rows = []
+    for position, name in enumerate(ordered, 1):
+        o, team = odds[name], teams[name]
+        change = o.get("playoffChange")
+        chip = ""
+        if change is not None and abs(change) >= 0.0005:
+            kind = "over" if change > 0 else "under"
+            chip = f'<span class="{kind}">{_pct(change, signed=True)}</span>'
+        elif change is not None:
+            chip = '<span class="muted">0</span>'
+        difficulty = remaining.get(name)
+        rows.append(f"""<tr data-conf="{esc(team['conference'])}" data-field="{o['playoff']}"
+            data-title="{o['title']}" data-champ="{o['conferenceTitle']}" data-wins="{o['projectedWins']}"
+            data-rank="{team['rank']}" data-left="{difficulty if difficulty is not None else -99}">
+          <td class="rk">{position}</td>
+          <td class="opp"><span class="nmcell">{identity_mark(team, 18)}<a href="team/{slug(name)}.html">{esc(name)}</a></span>
+            <span class="muted sub">{esc(team['conference'])}</span></td>
+          <td class="num">{_record_text(team['wins'], team['losses'])}</td>
+          <td class="num">{o['projectedWins']:.1f}&ndash;{o['projectedLosses']:.1f}</td>
+          <td class="num">{o['gamesLeft']}</td>
+          <td class="num" title="{('Hardest remaining schedule: #%d of %d' % (hardest[name], len(hardest))) if name in hardest else ''}">{f'{difficulty:+.1f}' if difficulty is not None else '&ndash;'}</td>
+          <td class="num">{_pct(o['conferenceTitle']) if team['conference'] not in ('FBS Independent', 'Independent') else '&ndash;'}</td>
+          <td class="num prob"><span class="pbar" style="width:{o['playoff'] * 64:.0f}px"></span>{_pct(o['playoff'])}</td>
+          <td class="num">{_pct(o['bye'])}</td>
+          <td class="num prob"><span class="pbar alt" style="width:{min(o['title'] * 4, 1) * 64:.0f}px"></span>{_pct(o['title'])}</td>
+          <td class="num">{chip}</td>
+        </tr>""")
+
+    conferences = []
+    for c in sorted({t["conference"] for t in teams.values()}):
+        members = sorted((t for t in teams.values() if t["conference"] == c),
+                         key=lambda t: -odds[t["team"]]["conferenceTitle"])
+        if c in ("FBS Independent", "Independent"):
+            continue
+        top = members[:3]
+        line = " &middot; ".join(
+            f'<a href="team/{slug(t["team"])}.html">{esc(t["team"])}</a> {_pct(odds[t["team"]]["conferenceTitle"])}'
+            for t in top)
+        conferences.append(f"""
+    <div class="confcard">
+      <span class="ccname">{esc(c)}</span>
+      <span class="ccmeta">{line}</span>
+    </div>""")
+
+    movers = ""
+    if sim.get("hasHistory"):
+        changed = [t for t in ordered if odds[t].get("playoffChange") is not None]
+        up = sorted(changed, key=lambda t: -odds[t]["playoffChange"])[:5]
+        down = sorted(changed, key=lambda t: odds[t]["playoffChange"])[:5]
+
+        def mover_rows(names):
+            return "".join(
+                f"""<li><a class="gnm" href="team/{slug(t)}.html">{esc(t)}</a>
+                <span class="gv">{_pct(odds[t]['playoff'])} <em>{_pct(odds[t]['playoffChange'], signed=True)}</em></span></li>"""
+                for t in names if abs(odds[t]["playoffChange"]) >= 0.0005
+            ) or '<li class="empty">No movement yet.</li>'
+
+        movers = f"""
+  <div class="grid two">
+    <section class="panel"><p class="ptitle">Gaining since last week</p><ul class="list">{mover_rows(up)}</ul></section>
+    <section class="panel"><p class="ptitle">Losing since last week</p><ul class="list">{mover_rows(down)}</ul></section>
+  </div>"""
+
+    options = "".join(f'<option value="{esc(c["conference"])}">{esc(c["conference"])}</option>'
+                      for c in payload["conferences"])
+    backtest = payload.get("simBacktest")
+    check = ""
+    if backtest:
+        model = backtest["variants"]["model"]
+        check = (f"""<p class="note">Checked against history: run as of weeks {', '.join(str(w) for w in backtest['weeks'][:-1])}
+        and {backtest['weeks'][-1]} of {backtest['seasons'][0]}&ndash;{backtest['seasons'][1]}, its chance of a
+        top-12 finish scored a Brier of {model['brier']:.3f} against {backtest['baseBrier']:.3f} for
+        knowing nothing but the base rate. <a href="method.html#simulation">How it is built and how it did.</a></p>""")
+
+    body = f"""
+  <article class="prose wide">
+  <h1>Season simulation</h1>
+  <p class="lead">The rest of the {payload['season']} schedule played out {n:,} times from the ratings
+  as of {esc(period_text(payload))}: standings settled, the ten conference championship games played, a
+  committee ranking produced, the 12-team field picked under this year's rules, and the bracket
+  played through. The columns are how often each thing happened.</p>
+  <p class="hint"><strong>Playoff</strong> is making the field &mdash; the four power-conference
+  champions, the best team from the other six conferences, Notre Dame if it is ranked in the top 12,
+  and the highest-ranked rest. <strong>Bye</strong> is a top-four seed. <strong>Title</strong> is winning
+  the whole thing. Ratings are treated as estimates, not facts, so early in the season the range is wide.</p>
+  {check}
+
+  <section class="panel">
+    <div class="panelhead">
+      <p class="ptitle">Every team</p>
+      <div class="controls">
+        <label class="sr">Conference<select id="conf"><option value="">All conferences</option>{options}</select></label>
+        <label class="sr">Sort<select id="sort">
+          <option value="field">By playoff chance</option>
+          <option value="title">By title chance</option>
+          <option value="champ">By conference title</option>
+          <option value="wins">By projected wins</option>
+          <option value="left">By hardest schedule left</option>
+          <option value="rank">By power</option>
+        </select></label>
+        <label class="chk"><input type="checkbox" id="live" checked> Only teams with a chance</label>
+      </div>
+    </div>
+    <div class="tablewrap"><table id="simtable" class="simtable">
+      <thead><tr><th class="rk">#</th><th>Team</th><th class="num">Rec.</th><th class="num" title="Projected final regular-season record">Proj.</th>
+      <th class="num" title="Games remaining">Left</th><th class="num" title="Average power of the opponents still to play">Sched. left</th>
+      <th class="num">Conf. title</th><th class="num">Playoff</th><th class="num">Bye</th><th class="num">Title</th>
+      <th class="num" title="Change in playoff chance since last week, in points">&Delta;</th></tr></thead>
+      <tbody>{''.join(rows)}</tbody>
+    </table></div>
+    <p class="empty" id="none" hidden>No teams match that filter.</p>
+  </section>
+{movers}
+  <h2>Conference races</h2>
+  <div class="confgrid">{''.join(conferences)}</div>
+
+  <h2>What this does not know</h2>
+  <p>It knows scores, not injuries: a starting quarterback lost next week changes a team's
+  chances and this page will not see it until the results show it. Conference tiebreakers are
+  simplified to a coin flip after conference wins, so a two-way tie's odds are slightly off. And
+  the committee is modelled from what it has valued in past years &mdash; résumé far more than
+  strength &mdash; not asked.</p>
+  <p class="muted">Deterministic for a given set of results and ratings: the same inputs give the
+  same page, so it changes when something happened and not otherwise.</p>
+  </article>"""
+    body += _SIM_SCRIPT
+    return page(f"Season simulation — MRI {season_text(payload)}", body, payload,
+                description="Playoff, bye and title odds from simulating the rest of the season.")
+
+
+def _favorite(predicted: float | None, home: str, away: str) -> str:
+    """'Texas Tech −8.1' from a home-perspective margin."""
+    if predicted is None:
+        return "&ndash;"
+    if abs(predicted) < 0.05:
+        return "Pick'em"
+    team = home if predicted > 0 else away
+    return f"{esc(team)}&nbsp;&minus;{abs(predicted):.1f}"
+
+
+def _matchup(g: dict, teams: dict) -> str:
+    def side(name):
+        team = teams.get(name)
+        rank = f'<span class="rkchip">#{team["rank"]}</span> ' if team and team["rank"] <= 25 else ""
+        mark = identity_mark(team, 16) if team else ""
+        label = (f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name))
+        return f'<span class="nmcell">{mark}{rank}{label}</span>'
+    joiner = "vs" if g["neutral"] else "at"
+    return f'<span class="mu">{side(g["away"])} <span class="muted">{joiner}</span> {side(g["home"])}</span>'
+
+
+def slate_page(payload: dict) -> str:
+    slate = payload["slate"]
+    teams = {t["team"]: t for t in payload["teams"]}
+    by_id = {g["id"]: g for d in slate["days"] for g in d["games"]}
+    # Links only to pages this build wrote, the same rule as the header.
+    betting_ref = ('<a href="betting.html">betting page</a>'
+                   if payload.get("betting") and payload.get("board") else "betting board")
+    sim_ref = ('<a href="simulation.html">season simulation</a>'
+               if payload.get("sim") else "season simulation")
+
+    def market_cell(g):
+        if g.get("market") is None:
+            return '<span class="muted">&ndash;</span>'
+        moved = ""
+        if g.get("open") is not None and abs(g["open"] - g["market"]) >= 0.5:
+            moved = f' <span class="muted" title="Where the line opened">opened {_favorite(g["open"], g["home"], g["away"])}</span>'
+        return _favorite(g["market"], g["home"], g["away"]) + moved
+
+    def stake_cell(g):
+        s = g.get("stake")
+        if not s or s["swing"] < 0.02:
+            return '<span class="muted">&ndash;</span>'
+        return (f'{esc(s["team"])} <span class="muted">{_pct(s["ifLose"])} &rarr;</span> '
+                f'<strong>{_pct(s["ifWin"])}</strong>')
+
+    def upcoming_row(g):
+        favourite_p = g["homeWinProbability"] if g["predicted"] >= 0 else 1 - g["homeWinProbability"]
+        edge = g.get("edge")
+        edge_cell = "&ndash;" if edge is None else f"{edge:+.1f}"
+        flag = ' class="flagged"' if g.get("flagged") else ""
+        return f"""<tr{flag}>
+          <td class="wk">{g['time']}</td>
+          <td class="opp">{_matchup(g, teams)}</td>
+          <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
+          <td class="num">{_pct(favourite_p)}</td>
+          <td class="num">{market_cell(g)}</td>
+          <td class="num perf {'over' if (edge or 0) > 0 else 'under'}">{edge_cell}{' &#9873;' if g.get('flagged') else ''}</td>
+          <td>{stake_cell(g)}</td>
+        </tr>"""
+
+    head = """<thead><tr><th>Time</th><th>Game</th><th class="num">Model</th><th class="num">Win</th>
+      <th class="num">Market</th><th class="num" title="Model minus the opening number">Edge</th>
+      <th title="The team with the most to lose: its playoff chance if it loses, then if it wins">Playoff stake</th></tr></thead>"""
+
+    days = "".join(f"""
+  <h2>{esc(d['label'])}</h2>
+  <div class="tablewrap"><table class="slate">{head}<tbody>{''.join(upcoming_row(g) for g in d['games'])}</tbody></table></div>"""
+                   for d in slate["days"])
+
+    watch = "".join(f"""<li>{_matchup(by_id[i], teams)}
+        <span class="gv">{by_id[i]['dateLabel']} &middot; {stake_cell(by_id[i])}</span></li>"""
+                    for i in slate["watch"] if i in by_id)
+    watch_panel = f"""
+  <section class="panel">
+    <p class="ptitle">Most riding on it</p>
+    <ul class="list watch">{watch}</ul>
+    <p class="note">Games ranked by how much the result moves one team's playoff chance, from the
+    {sim_ref}. The first figure is that team's chance if it loses;
+    the second, if it wins.</p>
+  </section>""" if watch else ""
+
+    def result_row(g):
+        r = g["result"]
+        winner_home = r["homeScore"] > r["awayScore"]
+        score = (f'{esc(g["away"])} {r["awayScore"]}, {esc(g["home"])} {r["homeScore"]}')
+        mark = "&#10003;" if r["modelCorrect"] else "&#10007;"
+        cls = "over" if r["modelCorrect"] else "under"
+        market = f'{r["marketError"]:.1f}' if r.get("marketError") is not None else "&ndash;"
+        return f"""<tr><td class="wk">{esc(g['dateLabel'])}</td><td class="opp">{score}</td>
+          <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
+          <td class="num {cls}">{mark}</td><td class="num">{r['modelError']:.1f}</td><td class="num">{market}</td></tr>"""
+
+    results = ""
+    if slate["results"]:
+        results = f"""
+  <h2>Already played this week</h2>
+  <div class="tablewrap"><table class="slate">
+    <thead><tr><th>Day</th><th>Final</th><th class="num">Model (entering the week)</th><th class="num">Called it</th>
+    <th class="num">Model miss</th><th class="num">Market miss</th></tr></thead>
+    <tbody>{''.join(result_row(g) for g in slate['results'])}</tbody></table></div>"""
+
+    fcs = ""
+    if slate["fcs"]:
+        rows = "".join(f"""<tr><td class="wk">{esc(g['dateLabel'])} &middot; {g['time']}</td>
+          <td class="opp">{_matchup(g, teams)}</td>
+          <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
+          <td class="num">{_pct(g['homeWinProbability'] if g['predicted'] >= 0 else 1 - g['homeWinProbability'])}</td></tr>"""
+                       for g in slate["fcs"])
+        fcs = f"""
+  <h2>Against FCS opponents</h2>
+  <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
+    <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody>{rows}</tbody></table></div>"""
+
+    body = f"""
+  <article class="prose wide">
+  <h1>Week {slate['week']} slate</h1>
+  <p class="lead">{slate['games']} games with an FBS team. The model's line and win chance for each,
+  the market's number beside it (DraftKings), and what the result does to the playoff picture.</p>
+  <p class="hint"><strong>Model</strong> is the favourite and the margin the ratings predict.
+  <strong>Edge</strong> is the model minus the opening number, in points; a flag means it is large enough
+  that the {betting_ref} tracks it. These are tracked, not recommended:
+  see how that has gone on the same page.</p>
+{watch_panel}{days}{results}{fcs}
+  </article>"""
+    return page(f"Week {slate['week']} slate — MRI {season_text(payload)}", body, payload,
+                description="Every game this week: model line, market line, and what rides on it.")
+
+
+def _record_section(record: dict) -> str:
+    """The public track record, for the betting page."""
+    rec, fwd, ref = record["reconstructed"], record["forward"], record["reference"]
+    if not rec.get("summary"):
+        return ""
+    s = rec["summary"]
+    b = s["bets"]
+
+    def signed(value, digits=1):
+        return f"{value:+.{digits}f}"
+
+    gap = s.get("maeGap")
+    gap_text = ""
+    if gap is not None and s.get("maeGapError") is not None:
+        worse = gap > 0
+        gap_text = (f"That is {abs(gap):.1f} points {'worse' if worse else 'better'} than the market "
+                    f"(&plusmn;{s['maeGapError']:.1f}).")
+
+    weeks = "".join(f"""<tr><td>{w['week']}</td><td class="num">{w['games']}</td>
+        <td class="num">{w['accuracy']:.0%}</td><td class="num">{w['mae']:.1f}</td>
+        <td class="num">{f"{w['marketMae']:.1f}" if w.get('marketMae') is not None else '&ndash;'}</td>
+        <td class="num">{w['record']}</td>
+        <td class="num {'over' if w['units'] > 0 else 'under' if w['units'] < 0 else ''}">{w['units']:+.1f}</td></tr>"""
+                    for w in rec["weeks"])
+
+    if fwd["logged"]:
+        picks = "".join(f"""<tr><td class="wk">{p['week']}</td>
+          <td class="opp">{esc(p['away'])} {'vs' if p['neutral'] else 'at'} {esc(p['home'])}</td>
+          <td>{esc(p['home'] if p['side'] == 'home' else p['away'])}</td>
+          <td class="num">{p['predicted']:+.1f}</td><td class="num">{p['taken']:+.1f}</td>
+          <td class="num">{p['edge']:+.1f}</td>
+          <td class="num">{esc(p['result']) if 'result' in p else '<span class="muted">pending</span>'}</td>
+          <td class="num">{f"{p['clv']:+.1f}" if 'clv' in p else '<span class="muted">&ndash;</span>'}</td></tr>"""
+                        for p in fwd["picks"][:40])
+        more = (f'<p class="muted">Showing 40 of {fwd["logged"]}.</p>' if fwd["logged"] > 40 else "")
+        forward = f"""
+  <h3>The forward log</h3>
+  <p>Started {esc(fwd['started'])}. Each flagged game is written down before kickoff &mdash; model line,
+  the market's number at that moment, the side &mdash; and never edited afterwards. Graded against the number
+  taken, at &minus;110.</p>
+  <p><strong>{fwd['wins']}&ndash;{fwd['losses']}{f"&ndash;{fwd['pushes']}" if fwd['pushes'] else ''}</strong>
+  on {fwd['graded']} graded of {fwd['logged']} logged
+  ({signed(fwd['units'])} units{f", mean closing line value {signed(fwd['clv'])}" if fwd['clv'] is not None else ''}).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's margin for the home team">Model (home)</th><th class="num" title="Market's expected home margin when logged">Line (home)</th>
+    <th class="num">Edge</th><th class="num">Result</th><th class="num">CLV</th></tr></thead>
+    <tbody>{picks}</tbody></table></div>{more}"""
+    else:
+        forward = f"""
+  <h3>The forward log</h3>
+  <p>Started {esc(fwd['started'])}. Nothing logged yet: it records each flagged game before kickoff and
+  never edits it afterwards.</p>"""
+
+    slope_text = ""
+    if s.get("slope") is not None and s.get("marketSlope") is not None:
+        slope_text = (f"""<tr><td>Size of the lines</td><td class="num">{s['slope']:.2f}</td>
+          <td class="num">{s['marketSlope']:.2f}</td></tr>""")
+
+    return f"""
+  <h2>The record so far</h2>
+  <p>Two records, and only one of them is a track record.</p>
+
+  <h3>The season, reconstructed</h3>
+  <p>For every game already played, what the model would have said using only the ratings from before that
+  week. Nothing from the week it is predicting leaks in, but it was computed afterwards, and a record computed
+  afterwards is a backtest however carefully it is done.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>{s['games']} games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
+    <tbody>
+      <tr><td>Picked the winner</td><td class="num">{s['accuracy']:.1%}</td><td class="num">{f"{s['marketAccuracy']:.1%}" if s.get('marketAccuracy') is not None else '&ndash;'}</td></tr>
+      <tr><td>Average miss, points</td><td class="num">{s['modelMaePriced'] if s.get('modelMaePriced') is not None else s['mae']}</td><td class="num">{s['marketMae'] if s.get('marketMae') is not None else '&ndash;'}</td></tr>{slope_text}
+    </tbody>
+  </table></div>
+  <p>{gap_text} Over the seventeen archived seasons the model averaged {ref['mae']:.1f} points and
+  picked {ref['accuracy']:.1%} winners; a September sample has far less to go on, because the ratings
+  lean on last year until this year's results replace them. A size of 1.00 means the lines are the right
+  size; below it, they are too extreme &mdash; a favourite laying more points than it wins by.</p>
+
+  <p>Where the model disagreed with the opening number by {MIN_EDGE:g} points or more, the board's own rule:
+  <strong>{b['wins']}&ndash;{b['losses']}{f"&ndash;{b['pushes']}" if b['pushes'] else ''}</strong> against the number
+  ({f"{b['ats']:.1%}" if b['ats'] is not None else '&ndash;'}; break-even is 52.4%), {signed(b['units'])} units,
+  mean closing line value {signed(b['clv']) if b['clv'] is not None else '&ndash;'}.
+  That is {b['count']} bets, far too few to say whether the disagreements mean anything.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Week</th><th class="num">Games</th><th class="num">Winners</th><th class="num">Miss</th>
+    <th class="num">Market miss</th><th class="num">Bets</th><th class="num">Units</th></tr></thead>
+    <tbody>{weeks}</tbody>
+  </table></div>
+{forward}"""
+
+
+
+
+def _sim_method_section(payload: dict) -> str:
+    """The method page's account of the simulation, with its own report card."""
+    if not payload.get("sim"):
+        return ""            # no simulation page this build, so nothing to explain or link to
+    weight = sim_season.COMMITTEE_POWER_WEIGHT
+    backtest = payload.get("simBacktest")
+    card = ""
+    if backtest:
+        model, exact = backtest["variants"]["model"], backtest["variants"]["exact"]
+        bins = "".join(
+            f"""<tr><td>{esc(b['range'])}</td><td class="num">{b['teams']:,}</td>
+            <td class="num">{b['predicted']:.0%}</td><td class="num">{b['observed']:.0%}</td></tr>"""
+            for b in model["calibration"] if b["teams"] >= 50)
+        card = f"""
+  <p>Graded the honest way: run as it would have been on the morning of weeks
+  {', '.join(str(w) for w in backtest['weeks'][:-1])} and {backtest['weeks'][-1]} of every season from
+  {backtest['seasons'][0]} to {backtest['seasons'][1]} (2020 excluded), using only what was known then, and
+  compared with whether each team finished in the committee's top 12. Each row groups the teams the simulation
+  gave that chance; the last columns are how often they did.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Predicted</th><th class="num">Team-seasons</th><th class="num">Average predicted</th>
+    <th class="num">Actually did</th></tr></thead>
+    <tbody>{bins}</tbody>
+  </table></div>
+  <p>Brier score {model['brier']:.3f}, against {backtest['baseBrier']:.3f} for a forecast that knows only that
+  12 of about 130 teams make it. In Week 3 alone it was {model['byWeek'].get('3', model['byWeek'].get(3, 0)):.3f}.
+  Treating the ratings as exact, with no error bars, scored {exact['brier']:.3f} overall &mdash; nearly the
+  same, which is an honest finding: the uncertainty matters most in September and matters little by November.</p>"""
+    return f"""
+  <h2 id="simulation">Simulation and the playoff</h2>
+  <p>The <a href="simulation.html">simulation page</a> plays the rest of the season {sim_season.DEFAULT_SIMS:,}
+  times. Each run first draws every team's true strength around its rating, with a spread that shrinks as games
+  are played, then plays the remaining games, settles conference standings, plays the ten conference
+  championship games, ranks the teams the way the selection committee would, selects the 12-team field, and plays the
+  bracket. Counting the runs gives each chance.</p>
+  <p><strong>The committee is modelled, not asked.</strong> It ranks by r&eacute;sum&eacute; far more than by
+  strength. A blend of {1 - weight:.0%} r&eacute;sum&eacute; and {weight:.0%} power recovers 10.8 of the
+  committee's true top 12 and 3.7 of its top 4 across 2014&ndash;2025, with the average team landing 1.5 places
+  from its real rank. A little noise is added on top, because even at its best the blend misses about one team in
+  twelve. The field follows this year's rules: the ACC, Big 12, Big Ten and SEC champions are in; so is the
+  highest-ranked team from the American, Conference USA, MAC, Mountain West, Pac-12 and Sun Belt; Notre Dame is in if it is
+  ranked in the top 12; the remaining places go to the highest-ranked teams left.</p>
+  <p><strong>Simplifications, stated.</strong> Ties in conference wins are broken by coin flip, not head-to-head.
+  Injuries are invisible until they show up in results. The committee blend was chosen using the same twelve
+  seasons it is reported on.</p>{card}"""
 
 def method_page(payload: dict) -> str:
     if chrome_for(payload).sport == "basketball":
@@ -1312,6 +1791,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   <p>MRI 2.0 wins 13 of 17 seasons. Its hyperparameters were searched on 2003&ndash;2013
   and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
 
+{_sim_method_section(payload)}
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
@@ -1633,6 +2113,14 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         renderer = bb_betting_page if chrome.sport == "basketball" else betting_page
         write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
+    # Football only, and only when the build produced them.
+    for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_page)):
+        if payload.get(key):
+            write(out_dir / f"{name}.html", renderer(payload))
+            write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
+    if payload.get("record"):
+        write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
+
     if payload.get("seasons"):
         (out_dir / "season").mkdir(exist_ok=True)
         write(out_dir / "seasons.html", seasons_index(payload))
@@ -1641,7 +2129,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
 
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
-    drop = {"seasons", "history", "gamelogs"} | (set() if publish_details else {"details"})
+    drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest"} \
+        | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
 
@@ -1836,7 +2325,7 @@ th.num { text-align:right; }
 .compare.wide thead, .compare.wide tbody { min-width:430px; }
 .compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px;
   margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
-.compare thead, .compare tbody { display:table; width:100%; }
+.compare thead, .compare tbody { display:table; width:100%; table-layout:fixed; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
 /* Numbers sit right; their headings were still sitting left, so neither column
    lined up with the thing it labelled. */
@@ -1898,4 +2387,25 @@ footer.site .muted { color:var(--muted); }
   .vals { min-width:60px; }
   .confnm { width:80px; }
 }
+/* season simulation, slate, record */
+.prose.wide { max-width:none; }
+.prose h3 { font-size:15px; margin:22px 0 4px; }
+.lead { font-size:15.5px; color:var(--secondary); max-width:78ch; }
+.grid.two { grid-template-columns:1fr 1fr; }
+.prob { white-space:nowrap; }
+.pbar { display:inline-block; height:7px; border-radius:2px; background:var(--series); margin-right:7px;
+  vertical-align:middle; min-width:1px; }
+.pbar.alt { background:var(--secondary); }
+.nmcell { display:inline-flex; align-items:center; gap:6px; }
+.nmcell a { text-decoration:none; } .nmcell a:hover { text-decoration:underline; }
+.sub { font-size:11px; margin-left:6px; }
+.rkchip { font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.chk { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--secondary); }
+.simtable td.rk, .slate td.wk, .slate td.perf { white-space:nowrap; }
+table.slate tr.flagged td { background:color-mix(in srgb, var(--series) 9%, transparent); }
+.confcard a { text-decoration:none; } .confcard a:hover { text-decoration:underline; }
+.confcard .ccmeta { font-size:12.5px; color:var(--secondary); line-height:1.7; margin-top:6px; }
+.watch li { flex-direction:column; align-items:flex-start; gap:3px; }
+.mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
+@media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }
 """

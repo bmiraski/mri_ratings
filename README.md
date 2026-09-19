@@ -92,7 +92,8 @@ way they always did.
 ```
 src/mri/ingest      archive reader, team registry, CFBD client
 src/mri/ratings     classic.py (frozen), mri2.py (in progress)
-src/mri/betting     model line vs market, backtest
+src/mri/betting     model line vs market, backtest, tracker.py (the public record)
+src/mri/sim         season simulation: conference races, committee, 12-team field, bracket
 src/mri/export      site + xlsx output
 scripts/            build entry points
 data/archive/       the original .xls workbooks, 2003-2019
@@ -107,6 +108,26 @@ pip install -r requirements.txt
 PYTHONPATH=src python3 scripts/build_archive.py   # workbooks -> parquet
 PYTHONPATH=src python3 -m pytest tests/ -q
 ```
+
+### Season simulation, slate and record
+
+`scripts/build_site.py` also builds three football pages, each isolated so a failure
+leaves the rankings published and the page off rather than stale:
+
+- **Simulation** (`simulation.html`) - `mri/sim/season.py` plays the rest of the schedule
+  10,000 times. `scripts/calibrate_committee.py` chose the committee proxy (70% Resume,
+  30% Power) against `data/cfp_final_rankings.json`; `scripts/backtest_simulation.py`
+  grades the probabilities against history and writes `site/data/sim_backtest.json`, which
+  the method page reads. Re-run both by hand when the model changes. Weekly odds are
+  kept in `site/data/sim_history.json`; a finished week is never recomputed.
+- **Slate** (`slate.html`) - every game this week with the model's line, the market's, and
+  the playoff stakes from the simulation.
+- **Record** (on `betting.html`) - a walk-forward reconstruction of the season, and an
+  append-only forward log in `site/data/picks.json`. A logged pick is never rewritten; only
+  its result is added after the game. Do not edit that file by hand.
+
+The rankings endpoint of the CFBD API must be called with a `week`: without one, older
+seasons return polls that do not belong to the week they are labelled with.
 
 ## Data
 

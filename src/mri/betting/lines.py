@@ -49,12 +49,20 @@ def normalize_provider(name: object) -> str:
     return PROVIDER_ALIASES.get(key, str(name).strip())
 
 
-def season_lines(year: int, *, refresh: bool = False) -> pd.DataFrame:
+def season_lines(year: int, *, refresh: bool | None = None) -> pd.DataFrame:
     """Every line for a season, one row per game per provider.
 
     ``market`` is the market's expected home margin - the sign already flipped -
     so it compares directly against a model's predicted margin.
+
+    ``refresh=None`` re-fetches the season in progress, once per run. Lines are
+    the most perishable thing this site publishes - they move daily - and they
+    were being served from the first copy cached, so a board built on Friday was
+    pricing games off whatever the market said whenever the file was seeded.
+    Finished seasons stay cached forever.
     """
+    if refresh is None:
+        refresh = year == cfbd.current_season()
     raw = cfbd.request("/lines", year=year, refresh=refresh)
     rows = []
     for game in raw:
@@ -93,7 +101,7 @@ def season_lines(year: int, *, refresh: bool = False) -> pd.DataFrame:
 
 
 def preferred_lines(year: int, provider: str = "DraftKings", fallback: str = "consensus",
-                    *, refresh: bool = False) -> pd.DataFrame:
+                    *, refresh: bool | None = None) -> pd.DataFrame:
     """The chosen book where it exists, a fallback where it does not.
 
     DraftKings only starts in 2023, so a backtest that insists on it has three

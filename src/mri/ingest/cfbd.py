@@ -203,6 +203,9 @@ def games(
                 "week": game["week"],
                 "season_type": game["seasonType"],
                 "start_date": game.get("startDate"),
+                # The feed puts a placeholder time on games whose kickoff has not
+                # been set, so a start time is only real when this is False.
+                "start_time_tbd": bool(game.get("startTimeTBD")),
                 "team1": game["awayTeam"],
                 "team2": game["homeTeam"],
                 "played": played,
@@ -215,6 +218,10 @@ def games(
                 "class2": (game.get("homeClassification") or "").lower(),
                 "conf1": game.get("awayConference"),
                 "conf2": game.get("homeConference"),
+                # Counts toward the conference standings. Not the same as two
+                # teams sharing a conference: the Pac-12's week-13 flex games
+                # are between members and do not count.
+                "conference_game": bool(game.get("conferenceGame")),
             }
         )
 

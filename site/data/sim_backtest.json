@@ -1,0 +1,219 @@
+{
+  "seasons": [
+    2014,
+    2025
+  ],
+  "weeks": [
+    3,
+    6,
+    9,
+    12
+  ],
+  "sims": 3000,
+  "target": "finishes in the committee's final top 12",
+  "committeeNoise": 0.2,
+  "noiseSweep": {
+    "0.0": 0.0354,
+    "0.2": 0.0348,
+    "0.4": 0.036,
+    "0.6": 0.0392
+  },
+  "baseRate": 0.0918,
+  "baseBrier": 0.0834,
+  "variants": {
+    "model": {
+      "brier": 0.0348,
+      "byWeek": {
+        "3": 0.0495,
+        "6": 0.0363,
+        "9": 0.0309,
+        "12": 0.0223
+      },
+      "calibration": [
+        {
+          "range": "0%-2%",
+          "teams": 4204,
+          "predicted": 0.001,
+          "observed": 0.003
+        },
+        {
+          "range": "2%-10%",
+          "teams": 489,
+          "predicted": 0.049,
+          "observed": 0.041
+        },
+        {
+          "range": "10%-30%",
+          "teams": 435,
+          "predicted": 0.184,
+          "observed": 0.175
+        },
+        {
+          "range": "30%-50%",
+          "teams": 181,
+          "predicted": 0.389,
+          "observed": 0.414
+        },
+        {
+          "range": "50%-70%",
+          "teams": 153,
+          "predicted": 0.597,
+          "observed": 0.562
+        },
+        {
+          "range": "70%-90%",
+          "teams": 146,
+          "predicted": 0.804,
+          "observed": 0.836
+        },
+        {
+          "range": "90%-100%",
+          "teams": 144,
+          "predicted": 0.966,
+          "observed": 0.951
+        }
+      ],
+      "week3": [
+        {
+          "range": "0%-2%",
+          "teams": 913,
+          "predicted": 0.002,
+          "observed": 0.005
+        },
+        {
+          "range": "2%-10%",
+          "teams": 195,
+          "predicted": 0.049,
+          "observed": 0.067
+        },
+        {
+          "range": "10%-30%",
+          "teams": 174,
+          "predicted": 0.179,
+          "observed": 0.149
+        },
+        {
+          "range": "30%-50%",
+          "teams": 67,
+          "predicted": 0.389,
+          "observed": 0.373
+        },
+        {
+          "range": "50%-70%",
+          "teams": 49,
+          "predicted": 0.603,
+          "observed": 0.551
+        },
+        {
+          "range": "70%-90%",
+          "teams": 27,
+          "predicted": 0.793,
+          "observed": 0.889
+        },
+        {
+          "range": "90%-100%",
+          "teams": 13,
+          "predicted": 0.946,
+          "observed": 0.923
+        }
+      ]
+    },
+    "exact": {
+      "brier": 0.035,
+      "byWeek": {
+        "3": 0.0504,
+        "6": 0.0362,
+        "9": 0.0309,
+        "12": 0.0224
+      },
+      "calibration": [
+        {
+          "range": "0%-2%",
+          "teams": 4330,
+          "predicted": 0.001,
+          "observed": 0.004
+        },
+        {
+          "range": "2%-10%",
+          "teams": 434,
+          "predicted": 0.051,
+          "observed": 0.053
+        },
+        {
+          "range": "10%-30%",
+          "teams": 362,
+          "predicted": 0.186,
+          "observed": 0.177
+        },
+        {
+          "range": "30%-50%",
+          "teams": 165,
+          "predicted": 0.39,
+          "observed": 0.424
+        },
+        {
+          "range": "50%-70%",
+          "teams": 136,
+          "predicted": 0.594,
+          "observed": 0.507
+        },
+        {
+          "range": "70%-90%",
+          "teams": 156,
+          "predicted": 0.803,
+          "observed": 0.788
+        },
+        {
+          "range": "90%-100%",
+          "teams": 169,
+          "predicted": 0.968,
+          "observed": 0.947
+        }
+      ],
+      "week3": [
+        {
+          "range": "0%-2%",
+          "teams": 993,
+          "predicted": 0.002,
+          "observed": 0.012
+        },
+        {
+          "range": "2%-10%",
+          "teams": 161,
+          "predicted": 0.051,
+          "observed": 0.081
+        },
+        {
+          "range": "10%-30%",
+          "teams": 125,
+          "predicted": 0.182,
+          "observed": 0.128
+        },
+        {
+          "range": "30%-50%",
+          "teams": 57,
+          "predicted": 0.391,
+          "observed": 0.404
+        },
+        {
+          "range": "50%-70%",
+          "teams": 39,
+          "predicted": 0.597,
+          "observed": 0.462
+        },
+        {
+          "range": "70%-90%",
+          "teams": 37,
+          "predicted": 0.785,
+          "observed": 0.73
+        },
+        {
+          "range": "90%-100%",
+          "teams": 26,
+          "predicted": 0.954,
+          "observed": 0.885
+        }
+      ]
+    }
+  }
+}

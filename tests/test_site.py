@@ -838,3 +838,156 @@ def test_the_share_card_is_not_transparent(built: Path) -> None:
     card = Image.open(built / "assets" / "mri-card.png")
     assert card.mode in ("RGB", "P"), f"share card carries an alpha channel ({card.mode})"
     assert card.size == (1200, 630)
+
+
+# ---- season simulation, slate and public record
+
+BACKTEST = Path(__file__).resolve().parents[1] / "site" / "data" / "sim_backtest.json"
+
+
+@pytest.fixture(scope="module")
+def extended(payload) -> dict:
+    """The payload with the three football extras, filled with plausible numbers."""
+    p = json.loads(json.dumps(payload))
+    teams = p["teams"]
+    odds = {
+        t["team"]: {
+            "conferenceGame": 0.1, "conferenceTitle": 0.05 + 0.5 / t["rank"], "playoff": 0.9 / t["rank"],
+            "bye": 0.4 / t["rank"], "quarterfinal": 0.5 / t["rank"], "semifinal": 0.3 / t["rank"],
+            "final": 0.2 / t["rank"], "title": 0.1 / t["rank"], "projectedWins": 9.0, "projectedLosses": 3.0,
+            "unbeaten": 0.01, "top12": 0.1, "gamesLeft": 10, "playoffChange": 0.012, "titleChange": -0.001,
+        }
+        for t in teams
+    }
+    p["sim"] = {"season": p["season"], "week": p["week"], "slateWeek": p["week"], "sims": 10000,
+                "fieldSize": 12, "teams": odds, "leverage": {}, "hasHistory": True,
+                "reconstructedWeeks": [1]}
+    home, away = teams[0]["team"], teams[1]["team"]
+    game = {"id": 1, "week": p["week"], "date": "2026-09-26", "dateLabel": "Sat, Sep 26", "time": "7:30 PM ET",
+            "sort": "1930", "home": home, "away": away, "neutral": False, "predicted": 7.4,
+            "homeWinProbability": 0.7, "played": False, "market": 6.5, "open": 5.5, "total": 51.5,
+            "edge": 1.9, "flagged": False,
+            "stake": {"side": "home", "ifWin": 0.6, "ifLose": 0.2, "swing": 0.4, "team": home}}
+    done = {**game, "id": 2, "played": True, "dateLabel": "Thu, Sep 24",
+            "result": {"homeScore": 27, "awayScore": 13, "modelCorrect": True, "modelError": 6.6,
+                       "marketError": 7.5}}
+    fcs = {"id": 3, "week": p["week"], "date": "2026-09-26", "dateLabel": "Sat, Sep 26", "time": "TBD",
+           "sort": "9999", "home": home, "away": "Some FCS", "neutral": False, "predicted": 30.0,
+           "homeWinProbability": 0.99, "played": False}
+    p["slate"] = {"week": p["week"], "days": [{"date": "2026-09-26", "label": "Sat, Sep 26", "games": [game]}],
+                  "results": [done], "fcs": [fcs], "watch": [1], "flagged": 0, "games": 3}
+    summary = {"games": 100, "accuracy": 0.8, "mae": 14.0, "priced": 100, "modelMaePriced": 14.0,
+               "marketMae": 12.0, "marketAccuracy": 0.82, "modelAccuracyPriced": 0.8, "maeGap": 2.0,
+               "maeGapError": 1.4, "slope": 0.73, "marketSlope": 0.93,
+               "bets": {"count": 10, "wins": 4, "losses": 6, "pushes": 0, "ats": 0.4, "units": -2.4, "clv": 0.3}}
+    p["record"] = {
+        "reference": {"seasons": "2003–2019", "accuracy": 0.738, "mae": 13.0},
+        "reconstructed": {"summary": summary, "bets": [], "weeks": [
+            {"week": 1, "games": 50, "accuracy": 0.8, "mae": 15.0, "marketMae": 12.0, "bets": 5,
+             "record": "2-3", "units": -1.2}]},
+        "forward": {"started": "2026-09-19", "logged": 1, "graded": 0, "wins": 0, "losses": 0, "pushes": 0,
+                    "ats": None, "units": 0, "clv": None,
+                    "picks": [{"game_id": 1, "week": 4, "home": home, "away": away, "neutral": False,
+                               "side": "home", "predicted": 12.0, "taken": 6.5, "edge": 5.5,
+                               "kickoff": "2026-09-26T23:30:00.000Z", "loggedAt": "2026-09-24T11:00Z"}]},
+    }
+    if BACKTEST.exists():
+        p["simBacktest"] = json.loads(BACKTEST.read_text())
+    return p
+
+
+@pytest.fixture(scope="module")
+def built_extended(extended, tmp_path_factory) -> Path:
+    out = tmp_path_factory.mktemp("site_extended")
+    site.build(extended, out)
+    return out
+
+
+def test_new_pages_exist_and_are_linked(built_extended) -> None:
+    for name in ("simulation.html", "slate.html", "simulation.json", "slate.json", "record.json"):
+        assert (built_extended / name).exists(), name
+    index = (built_extended / "index.html").read_text()
+    assert 'href="simulation.html"' in index and 'href="slate.html"' in index
+
+
+def test_links_still_resolve_with_the_new_pages(built_extended) -> None:
+    broken = []
+    for page in built_extended.rglob("*.html"):
+        for href in re.findall(r'href="([^"]+)"', page.read_text()):
+            if href.startswith(("http://", "https://", "#", "mailto:")):
+                continue
+            if not (page.parent / href.split("#")[0]).resolve().exists():
+                broken.append(f"{page.relative_to(built_extended)} -> {href}")
+    assert not broken, broken[:10]
+
+
+def test_nav_promises_only_what_the_build_produced(built) -> None:
+    """The stock payload has no simulation, so the header must not link to one."""
+    text = (built / "index.html").read_text()
+    assert "simulation.html" not in text and "slate.html" not in text
+    assert not (built / "simulation.html").exists()
+
+
+def test_the_bulky_extras_stay_out_of_site_json(built_extended) -> None:
+    published = json.loads((built_extended / "site.json").read_text())
+    for key in ("sim", "slate", "record", "simBacktest"):
+        assert key not in published
+
+
+def test_simulation_page_lists_every_team_escaped(built_extended, extended) -> None:
+    text = (built_extended / "simulation.html").read_text()
+    assert text.count("<tr data-conf=") == len(extended["teams"])
+    assert "Texas A&amp;M" in text and "Texas A&M<" not in text
+    assert "Season simulation" in text
+
+
+def test_slate_page_shows_each_section(built_extended) -> None:
+    text = (built_extended / "slate.html").read_text()
+    for needle in ("Most riding on it", "Already played this week", "Against FCS opponents", "Some FCS"):
+        assert needle in text, needle
+
+
+def test_betting_page_carries_the_record_and_says_what_it_is(extended) -> None:
+    root = Path(__file__).resolve().parents[1] / "site" / "data"
+    if not (root / "betting.json").exists() or not (root / "board.json").exists():
+        pytest.skip("no betting data built")
+    betting = json.loads((root / "betting.json").read_text())
+    board = json.loads((root / "board.json").read_text())
+    text = site.betting_page(extended, betting, board)
+    assert "The season, reconstructed" in text and "The forward log" in text
+    assert "backtest however carefully" in text
+    # The stock page, without a record, still renders.
+    bare = {k: v for k, v in extended.items() if k != "record"}
+    assert "The forward log" not in site.betting_page(bare, betting, board)
+
+
+def test_record_section_reports_the_model_losing_when_it_is() -> None:
+    record = {
+        "reference": {"seasons": "2003", "accuracy": 0.738, "mae": 13.0},
+        "reconstructed": {"summary": {
+            "games": 40, "accuracy": 0.75, "mae": 15.0, "modelMaePriced": 15.0, "marketMae": 12.0,
+            "marketAccuracy": 0.8, "maeGap": 3.0, "maeGapError": 1.0, "slope": 0.7, "marketSlope": 0.95,
+            "bets": {"count": 5, "wins": 1, "losses": 4, "pushes": 0, "ats": 0.2, "units": -2.6, "clv": None}},
+            "weeks": [], "bets": []},
+        "forward": {"started": "2026-09-19", "logged": 0, "graded": 0, "wins": 0, "losses": 0, "pushes": 0,
+                    "ats": None, "units": 0, "clv": None, "picks": []},
+    }
+    text = site._record_section(record)
+    assert "3.0 points worse than the market" in text
+    assert "Nothing logged yet" in text
+
+
+def test_probabilities_are_not_shown_with_false_precision() -> None:
+    assert site._pct(0.0) == "&lt;0.1%"
+    assert site._pct(0.0432) == "4.3%"
+    assert site._pct(0.437) == "44%"
+    assert site._pct(0.9993) == "&gt;99%"
+    assert site._pct(0.031, signed=True) == "+3.1"
+    assert site._pct(-0.0004, signed=True) == "0"
+
+
+def test_method_page_reports_the_simulation_check(built_extended) -> None:
+    text = (built_extended / "method.html").read_text()
+    assert 'id="simulation"' in text
+    if BACKTEST.exists():
+        assert "Brier score" in text

@@ -21,8 +21,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 import json  # noqa: E402
 
-from mri.betting import board  # noqa: E402
-from mri.export import logos, site, sitedata  # noqa: E402
+from mri.betting import board, tracker  # noqa: E402
+from mri.export import logos, simdata, site, sitedata, slate  # noqa: E402
 
 SEASON = 2026
 
@@ -42,6 +42,8 @@ def main() -> None:
         print(f"  board: week {payload['board']['week']}, "
               f"{len(payload['board']['flagged'])} flagged")
     print(f"  week {payload['week']}, {payload['gamesRated']} games, {len(payload['teams'])} teams")
+
+    add_football_extras(payload, data_dir)
 
     summary = logos.cache_logos(payload, public)
     print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
@@ -108,6 +110,47 @@ def main() -> None:
         files = site.build(basketball, public, publish_details=False)
         top = basketball["teams"][0]
         print(f"  wrote {len(files)} files - #1 {top['team']} ({top['power']:+.1f})")
+
+
+def add_football_extras(payload: dict, data_dir: Path) -> None:
+    """The season simulation, this week's slate and the public record.
+
+    Each is isolated the way basketball is, and for the same reason: they sit on
+    top of the rankings, and a failure in one must not stop the rankings being
+    published. What fails is left off - its nav link and page disappear - rather
+    than rendered from stale numbers.
+    """
+    weekly = sitedata.weekly_ratings(SEASON)
+
+    sim = None
+    try:
+        sim = simdata.build(SEASON, payload, weekly, data_dir / "sim_history.json")
+        payload["sim"] = sim
+        top = max(sim["teams"].items(), key=lambda kv: kv[1]["title"])
+        print(f"  simulation: {sim['sims']:,} runs, most likely champion {top[0]} "
+              f"({top[1]['title']:.1%})")
+        backtest = data_dir / "sim_backtest.json"
+        if backtest.exists():
+            payload["simBacktest"] = json.loads(backtest.read_text())
+    except Exception as exc:  # noqa: BLE001
+        print(f"  simulation skipped: {exc}")
+
+    try:
+        payload["slate"] = slate.build(SEASON, payload, payload.get("board") or {}, sim, weekly)
+        if payload["slate"]:
+            print(f"  slate: week {payload['slate']['week']}, {payload['slate']['games']} games")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  slate skipped: {exc}")
+
+    if payload.get("board"):
+        try:
+            payload["record"] = tracker.build(
+                SEASON, payload, weekly, payload["board"], data_dir / "picks.json")
+            fwd = payload["record"]["forward"]
+            print(f"  record: {payload['record']['reconstructed'].get('summary', {}).get('games', 0)} "
+                  f"games reconstructed, {fwd['logged']} picks logged")
+        except Exception as exc:  # noqa: BLE001
+            print(f"  record skipped: {exc}")
 
 
 def basketball_payload(data_dir):
