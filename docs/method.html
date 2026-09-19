@@ -29,6 +29,8 @@
     <nav>
       <a href="index.html">Rankings</a>
       <a href="conferences.html">Conferences</a>
+      <a href="slate.html">Slate</a>
+      <a href="simulation.html">Simulation</a>
 
       <a href="betting.html">Betting</a>
       <a href="archive.html">Archive</a>
@@ -78,7 +80,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     <li><strong>Ratings are pulled toward a prior</strong> carried from last season, so the
     first month is signal rather than noise. The pull fades on its own as games accumulate.</li>
     <li><strong>Home field is estimated</strong> from the games themselves rather than assumed,
-    and neutral sites are excluded. It currently sits at 4.2 points.</li>
+    and neutral sites are excluded. It currently sits at 4.1 points.</li>
     <li><strong>FCS opponents are rated individually.</strong> Classic pooled every non-FBS
     team into a single 7&ndash;105 entity, so beating North Dakota State and beating Mercer
     scored identically.</li>
@@ -105,6 +107,44 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   <p>MRI 2.0 wins 13 of 17 seasons. Its hyperparameters were searched on 2003&ndash;2013
   and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
 
+
+  <h2 id="simulation">Simulation and the playoff</h2>
+  <p>The <a href="simulation.html">simulation page</a> plays the rest of the season 10,000
+  times. Each run first draws every team's true strength around its rating, with a spread that shrinks as games
+  are played, then plays the remaining games, settles conference standings, plays the ten conference
+  championship games, ranks the teams the way the selection committee would, selects the 12-team field, and plays the
+  bracket. Counting the runs gives each chance.</p>
+  <p><strong>The committee is modelled, not asked.</strong> It ranks by r&eacute;sum&eacute; far more than by
+  strength. A blend of 70% r&eacute;sum&eacute; and 30% power recovers 10.8 of the
+  committee's true top 12 and 3.7 of its top 4 across 2014&ndash;2025, with the average team landing 1.5 places
+  from its real rank. A little noise is added on top, because even at its best the blend misses about one team in
+  twelve. The field follows this year's rules: the ACC, Big 12, Big Ten and SEC champions are in; so is the
+  highest-ranked team from the American, Conference USA, MAC, Mountain West, Pac-12 and Sun Belt; Notre Dame is in if it is
+  ranked in the top 12; the remaining places go to the highest-ranked teams left.</p>
+  <p><strong>Simplifications, stated.</strong> Ties in conference wins are broken by coin flip, not head-to-head.
+  Injuries are invisible until they show up in results. The committee blend was chosen using the same twelve
+  seasons it is reported on.</p>
+  <p>Graded the honest way: run as it would have been on the morning of weeks
+  3, 6, 9 and 12 of every season from
+  2014 to 2025 (2020 excluded), using only what was known then, and
+  compared with whether each team finished in the committee's top 12. Each row groups the teams the simulation
+  gave that chance; the last columns are how often they did.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Predicted</th><th class="num">Team-seasons</th><th class="num">Average predicted</th>
+    <th class="num">Actually did</th></tr></thead>
+    <tbody><tr><td>0%-2%</td><td class="num">4,204</td>
+            <td class="num">0%</td><td class="num">0%</td></tr><tr><td>2%-10%</td><td class="num">489</td>
+            <td class="num">5%</td><td class="num">4%</td></tr><tr><td>10%-30%</td><td class="num">435</td>
+            <td class="num">18%</td><td class="num">18%</td></tr><tr><td>30%-50%</td><td class="num">181</td>
+            <td class="num">39%</td><td class="num">41%</td></tr><tr><td>50%-70%</td><td class="num">153</td>
+            <td class="num">60%</td><td class="num">56%</td></tr><tr><td>70%-90%</td><td class="num">146</td>
+            <td class="num">80%</td><td class="num">84%</td></tr><tr><td>90%-100%</td><td class="num">144</td>
+            <td class="num">97%</td><td class="num">95%</td></tr></tbody>
+  </table></div>
+  <p>Brier score 0.035, against 0.083 for a forecast that knows only that
+  12 of about 130 teams make it. In Week 3 alone it was 0.050.
+  Treating the ratings as exact, with no error bars, scored 0.035 overall &mdash; nearly the
+  same, which is an honest finding: the uncertainty matters most in September and matters little by November.</p>
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
@@ -116,8 +156,8 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     <p>MRI &mdash; a computer rating system for college football,
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-19 01:06 UTC
-    &middot; 186 games rated &middot; home field 4.2 pts</p>
+    <p class="muted">Ratings last changed 2026-09-19 04:36 UTC
+    &middot; 188 games rated &middot; home field 4.1 pts</p>
   </div>
 </footer>
 </body>

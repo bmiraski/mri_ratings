@@ -168,7 +168,7 @@ th.num { text-align:right; }
 .compare.wide thead, .compare.wide tbody { min-width:430px; }
 .compare { background:var(--surface); border:1px solid var(--grid); border-radius:10px;
   margin:14px 0; display:block; overflow-x:auto; max-width:100%; }
-.compare thead, .compare tbody { display:table; width:100%; }
+.compare thead, .compare tbody { display:table; width:100%; table-layout:fixed; }
 .compare td { color:var(--secondary); } .compare td strong { color:var(--primary); }
 /* Numbers sit right; their headings were still sitting left, so neither column
    lined up with the thing it labelled. */
@@ -230,3 +230,24 @@ footer.site .muted { color:var(--muted); }
   .vals { min-width:60px; }
   .confnm { width:80px; }
 }
+/* season simulation, slate, record */
+.prose.wide { max-width:none; }
+.prose h3 { font-size:15px; margin:22px 0 4px; }
+.lead { font-size:15.5px; color:var(--secondary); max-width:78ch; }
+.grid.two { grid-template-columns:1fr 1fr; }
+.prob { white-space:nowrap; }
+.pbar { display:inline-block; height:7px; border-radius:2px; background:var(--series); margin-right:7px;
+  vertical-align:middle; min-width:1px; }
+.pbar.alt { background:var(--secondary); }
+.nmcell { display:inline-flex; align-items:center; gap:6px; }
+.nmcell a { text-decoration:none; } .nmcell a:hover { text-decoration:underline; }
+.sub { font-size:11px; margin-left:6px; }
+.rkchip { font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.chk { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--secondary); }
+.simtable td.rk, .slate td.wk, .slate td.perf { white-space:nowrap; }
+table.slate tr.flagged td { background:color-mix(in srgb, var(--series) 9%, transparent); }
+.confcard a { text-decoration:none; } .confcard a:hover { text-decoration:underline; }
+.confcard .ccmeta { font-size:12.5px; color:var(--secondary); line-height:1.7; margin-top:6px; }
+.watch li { flex-direction:column; align-items:flex-start; gap:3px; }
+.mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
+@media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }
