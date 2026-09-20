@@ -1,0 +1,1173 @@
+{
+  "season": 2026,
+  "week": 3,
+  "sims": 4000,
+  "announced": [
+    {
+      "week": 1,
+      "date": "2026-09-05",
+      "city": "Baton Rouge, LA",
+      "teams": [
+        "Clemson",
+        "LSU"
+      ],
+      "host": "LSU"
+    },
+    {
+      "week": 2,
+      "date": "2026-09-12",
+      "city": "Austin, TX",
+      "teams": [
+        "Ohio State",
+        "Texas"
+      ],
+      "host": "Texas"
+    },
+    {
+      "week": 3,
+      "date": "2026-09-19",
+      "city": "Oxford, MS",
+      "teams": [
+        "LSU",
+        "Ole Miss"
+      ],
+      "host": "Ole Miss"
+    },
+    {
+      "week": 4,
+      "date": "2026-09-26",
+      "city": "Athens, GA",
+      "teams": [
+        "Oklahoma",
+        "Georgia"
+      ],
+      "host": "Georgia"
+    },
+    {
+      "week": 5,
+      "date": "2026-10-03",
+      "city": "Clemson, SC",
+      "teams": [
+        "Miami (FL)",
+        "Clemson"
+      ],
+      "host": "Clemson"
+    },
+    {
+      "week": 6,
+      "date": "2026-10-10",
+      "city": "Tuscaloosa, AL",
+      "teams": [
+        "Georgia",
+        "Alabama"
+      ],
+      "host": "Alabama"
+    },
+    {
+      "week": 7,
+      "date": "2026-10-17",
+      "city": "Bloomington, IN",
+      "teams": [
+        "Ohio State",
+        "Indiana"
+      ],
+      "host": "Indiana"
+    }
+  ],
+  "weeks": [
+    {
+      "week": 8,
+      "date": "Oct 24",
+      "iso": "2026-10-24",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "Texas",
+          "away": "Ole Miss",
+          "neutral": false,
+          "venue": "DKR-Texas Memorial Stadium",
+          "probability": 0.4651,
+          "rankHome": 3.5,
+          "rankAway": 8.8,
+          "bothTop10": 0.669,
+          "bothUnbeaten": 0.117
+        },
+        {
+          "kind": "game",
+          "home": "Michigan",
+          "away": "Indiana",
+          "neutral": false,
+          "venue": "Michigan Stadium",
+          "probability": 0.1257,
+          "rankHome": 14.7,
+          "rankAway": 15.5,
+          "bothTop10": 0.127,
+          "bothUnbeaten": 0.059
+        },
+        {
+          "kind": "game",
+          "home": "Miami (FL)",
+          "away": "Pittsburgh",
+          "neutral": false,
+          "venue": "Hard Rock Stadium",
+          "probability": 0.1065,
+          "rankHome": 11.4,
+          "rankAway": 31.0,
+          "bothTop10": 0.002,
+          "bothUnbeaten": 0.236
+        },
+        {
+          "kind": "game",
+          "home": "Alabama",
+          "away": "Texas A&M",
+          "neutral": false,
+          "venue": "Bryant-Denny Stadium",
+          "probability": 0.0978,
+          "rankHome": 4.0,
+          "rankAway": 21.4,
+          "bothTop10": 0.19,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Utah",
+          "away": "Houston",
+          "neutral": false,
+          "venue": "Rice-Eccles Stadium",
+          "probability": 0.0279,
+          "rankHome": 18.5,
+          "rankAway": 37.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Cincinnati",
+          "away": "Texas Tech",
+          "neutral": false,
+          "venue": "Nippert Stadium",
+          "probability": 0.0127,
+          "rankHome": 62.1,
+          "rankAway": 20.2,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.023
+        },
+        {
+          "kind": "game",
+          "home": "Mississippi State",
+          "away": "Oklahoma",
+          "neutral": false,
+          "venue": "Davis Wade Stadium",
+          "probability": 0.0111,
+          "rankHome": 16.4,
+          "rankAway": 29.9,
+          "bothTop10": 0.015,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "South Carolina",
+          "away": "Tennessee",
+          "neutral": false,
+          "venue": "Williams-Brice Stadium",
+          "probability": 0.0105,
+          "rankHome": 41.8,
+          "rankAway": 17.0,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.8573,
+      "omitted": 48
+    },
+    {
+      "week": 9,
+      "date": "Oct 31",
+      "iso": "2026-10-31",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "Georgia",
+          "away": "Florida",
+          "neutral": true,
+          "venue": "Mercedes-Benz Stadium",
+          "probability": 0.2874,
+          "rankHome": 6.8,
+          "rankAway": 17.3,
+          "bothTop10": 0.257,
+          "bothUnbeaten": 0.023
+        },
+        {
+          "kind": "game",
+          "home": "Texas",
+          "away": "Mississippi State",
+          "neutral": false,
+          "venue": "DKR-Texas Memorial Stadium",
+          "probability": 0.2179,
+          "rankHome": 3.2,
+          "rankAway": 16.4,
+          "bothTop10": 0.282,
+          "bothUnbeaten": 0.013
+        },
+        {
+          "kind": "game",
+          "home": "USC",
+          "away": "Ohio State",
+          "neutral": false,
+          "venue": "Los Angeles Memorial Coliseum",
+          "probability": 0.2003,
+          "rankHome": 14.4,
+          "rankAway": 10.2,
+          "bothTop10": 0.26,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Texas Tech",
+          "away": "Arizona",
+          "neutral": false,
+          "venue": "Jones AT&T Stadium",
+          "probability": 0.0454,
+          "rankHome": 19.6,
+          "rankAway": 44.3,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Oregon",
+          "away": "Northwestern",
+          "neutral": false,
+          "venue": "Autzen Stadium",
+          "probability": 0.0268,
+          "rankHome": 19.9,
+          "rankAway": 41.5,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Nebraska",
+          "away": "Washington",
+          "neutral": false,
+          "venue": "Memorial Stadium (Lincoln, NE)",
+          "probability": 0.0256,
+          "rankHome": 38.3,
+          "rankAway": 34.5,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.002
+        },
+        {
+          "kind": "game",
+          "home": "Cincinnati",
+          "away": "Utah",
+          "neutral": false,
+          "venue": "Nippert Stadium",
+          "probability": 0.0197,
+          "rankHome": 62.9,
+          "rankAway": 16.5,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.006
+        },
+        {
+          "kind": "game",
+          "home": "Ole Miss",
+          "away": "Auburn",
+          "neutral": false,
+          "venue": "Vaught-Hemingway Stadium",
+          "probability": 0.0137,
+          "rankHome": 9.7,
+          "rankAway": 36.8,
+          "bothTop10": 0.011,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "BYU",
+          "away": "Arizona State",
+          "neutral": false,
+          "venue": "LaVell Edwards Stadium",
+          "probability": 0.0128,
+          "rankHome": 18.8,
+          "rankAway": 49.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Navy",
+          "away": "Notre Dame",
+          "neutral": true,
+          "venue": "Gillette Stadium",
+          "probability": 0.0111,
+          "rankHome": 86.9,
+          "rankAway": 6.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.8607,
+      "omitted": 46
+    },
+    {
+      "week": 10,
+      "date": "Nov 7",
+      "iso": "2026-11-07",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "Notre Dame",
+          "away": "Miami (FL)",
+          "neutral": false,
+          "venue": "Notre Dame Stadium",
+          "probability": 0.4729,
+          "rankHome": 6.7,
+          "rankAway": 8.9,
+          "bothTop10": 0.579,
+          "bothUnbeaten": 0.428
+        },
+        {
+          "kind": "game",
+          "home": "Ole Miss",
+          "away": "Georgia",
+          "neutral": false,
+          "venue": "Vaught-Hemingway Stadium",
+          "probability": 0.1887,
+          "rankHome": 9.4,
+          "rankAway": 5.8,
+          "bothTop10": 0.561,
+          "bothUnbeaten": 0.026
+        },
+        {
+          "kind": "game",
+          "home": "Utah",
+          "away": "BYU",
+          "neutral": false,
+          "venue": "Rice-Eccles Stadium",
+          "probability": 0.0866,
+          "rankHome": 15.7,
+          "rankAway": 18.2,
+          "bothTop10": 0.074,
+          "bothUnbeaten": 0.061
+        },
+        {
+          "kind": "game",
+          "home": "LSU",
+          "away": "Alabama",
+          "neutral": false,
+          "venue": "Tiger Stadium (LA)",
+          "probability": 0.0605,
+          "rankHome": 16.5,
+          "rankAway": 5.0,
+          "bothTop10": 0.272,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Ohio State",
+          "away": "Oregon",
+          "neutral": false,
+          "venue": "Ohio Stadium",
+          "probability": 0.0464,
+          "rankHome": 8.5,
+          "rankAway": 18.0,
+          "bothTop10": 0.209,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Missouri",
+          "away": "Texas",
+          "neutral": false,
+          "venue": "Memorial Stadium",
+          "probability": 0.0367,
+          "rankHome": 29.3,
+          "rankAway": 3.0,
+          "bothTop10": 0.099,
+          "bothUnbeaten": 0.009
+        }
+      ],
+      "covered": 0.8918,
+      "omitted": 56
+    },
+    {
+      "week": 11,
+      "date": "Nov 14",
+      "iso": "2026-11-14",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "LSU",
+          "away": "Texas",
+          "neutral": false,
+          "venue": "Tiger Stadium (LA)",
+          "probability": 0.2192,
+          "rankHome": 16.4,
+          "rankAway": 3.0,
+          "bothTop10": 0.341,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Indiana",
+          "away": "USC",
+          "neutral": false,
+          "venue": "Memorial Stadium (Bloomington, IN)",
+          "probability": 0.1092,
+          "rankHome": 16.2,
+          "rankAway": 17.4,
+          "bothTop10": 0.093,
+          "bothUnbeaten": 0.006
+        },
+        {
+          "kind": "game",
+          "home": "Miami (FL)",
+          "away": "Duke",
+          "neutral": false,
+          "venue": "Hard Rock Stadium",
+          "probability": 0.1028,
+          "rankHome": 9.5,
+          "rankAway": 34.9,
+          "bothTop10": 0.003,
+          "bothUnbeaten": 0.03
+        },
+        {
+          "kind": "game",
+          "home": "Oregon",
+          "away": "Michigan",
+          "neutral": false,
+          "venue": "Autzen Stadium",
+          "probability": 0.101,
+          "rankHome": 18.8,
+          "rankAway": 16.0,
+          "bothTop10": 0.089,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Georgia",
+          "away": "Missouri",
+          "neutral": false,
+          "venue": "Sanford Stadium",
+          "probability": 0.0789,
+          "rankHome": 5.6,
+          "rankAway": 30.1,
+          "bothTop10": 0.068,
+          "bothUnbeaten": 0.002
+        },
+        {
+          "kind": "game",
+          "home": "Texas A&M",
+          "away": "Tennessee",
+          "neutral": false,
+          "venue": "Kyle Field",
+          "probability": 0.0714,
+          "rankHome": 21.0,
+          "rankAway": 17.6,
+          "bothTop10": 0.042,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Vanderbilt",
+          "away": "Alabama",
+          "neutral": false,
+          "venue": "FirstBank Stadium",
+          "probability": 0.0477,
+          "rankHome": 35.4,
+          "rankAway": 5.2,
+          "bothTop10": 0.03,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "game",
+          "home": "Arizona",
+          "away": "Utah",
+          "neutral": false,
+          "venue": "Arizona Stadium",
+          "probability": 0.04,
+          "rankHome": 42.3,
+          "rankAway": 14.5,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Oklahoma",
+          "away": "Ole Miss",
+          "neutral": false,
+          "venue": "Memorial Stadium (Norman, OK)",
+          "probability": 0.0294,
+          "rankHome": 25.0,
+          "rankAway": 10.4,
+          "bothTop10": 0.073,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Ohio State",
+          "away": "Northwestern",
+          "neutral": false,
+          "venue": "Ohio Stadium",
+          "probability": 0.022,
+          "rankHome": 7.4,
+          "rankAway": 40.8,
+          "bothTop10": 0.013,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "TCU",
+          "away": "Kansas State",
+          "neutral": false,
+          "venue": "Amon G. Carter Stadium",
+          "probability": 0.0179,
+          "rankHome": 52.0,
+          "rankAway": 27.0,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "USF",
+          "away": "Memphis",
+          "neutral": false,
+          "venue": "Raymond James Stadium",
+          "probability": 0.0143,
+          "rankHome": 37.1,
+          "rankAway": 67.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.8538,
+      "omitted": 55
+    },
+    {
+      "week": 12,
+      "date": "Nov 21",
+      "iso": "2026-11-21",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "Notre Dame",
+          "away": "SMU",
+          "neutral": false,
+          "venue": "Notre Dame Stadium",
+          "probability": 0.2715,
+          "rankHome": 7.5,
+          "rankAway": 26.9,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Miami (FL)",
+          "away": "Virginia Tech",
+          "neutral": false,
+          "venue": "Hard Rock Stadium",
+          "probability": 0.1024,
+          "rankHome": 9.0,
+          "rankAway": 36.8,
+          "bothTop10": 0.009,
+          "bothUnbeaten": 0.011
+        },
+        {
+          "kind": "game",
+          "home": "Michigan",
+          "away": "UCLA",
+          "neutral": false,
+          "venue": "Michigan Stadium",
+          "probability": 0.0795,
+          "rankHome": 17.2,
+          "rankAway": 31.3,
+          "bothTop10": 0.01,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "game",
+          "home": "Tennessee",
+          "away": "LSU",
+          "neutral": false,
+          "venue": "Neyland Stadium",
+          "probability": 0.0753,
+          "rankHome": 18.0,
+          "rankAway": 16.7,
+          "bothTop10": 0.087,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Washington",
+          "away": "Indiana",
+          "neutral": false,
+          "venue": "Husky Stadium",
+          "probability": 0.0537,
+          "rankHome": 34.4,
+          "rankAway": 15.5,
+          "bothTop10": 0.011,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "game",
+          "home": "South Carolina",
+          "away": "Georgia",
+          "neutral": false,
+          "venue": "Williams-Brice Stadium",
+          "probability": 0.0485,
+          "rankHome": 35.3,
+          "rankAway": 5.2,
+          "bothTop10": 0.033,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Nebraska",
+          "away": "Ohio State",
+          "neutral": false,
+          "venue": "Memorial Stadium (Lincoln, NE)",
+          "probability": 0.0468,
+          "rankHome": 36.0,
+          "rankAway": 7.0,
+          "bothTop10": 0.015,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Louisville",
+          "away": "Pittsburgh",
+          "neutral": false,
+          "venue": "L&N Federal Credit Union Stadium",
+          "probability": 0.0402,
+          "rankHome": 27.4,
+          "rankAway": 35.4,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "TCU",
+          "away": "Utah",
+          "neutral": false,
+          "venue": "Amon G. Carter Stadium",
+          "probability": 0.0306,
+          "rankHome": 51.2,
+          "rankAway": 14.2,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Kansas State",
+          "away": "Arizona",
+          "neutral": false,
+          "venue": "Bill Snyder Family Stadium",
+          "probability": 0.0266,
+          "rankHome": 26.9,
+          "rankAway": 42.1,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Baylor",
+          "away": "Texas Tech",
+          "neutral": false,
+          "venue": "McLane Stadium",
+          "probability": 0.0262,
+          "rankHome": 48.3,
+          "rankAway": 19.2,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Oklahoma",
+          "away": "Texas A&M",
+          "neutral": false,
+          "venue": "Memorial Stadium (Norman, OK)",
+          "probability": 0.0202,
+          "rankHome": 24.4,
+          "rankAway": 19.7,
+          "bothTop10": 0.036,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Duke",
+          "away": "Clemson",
+          "neutral": false,
+          "venue": "Wallace Wade Stadium",
+          "probability": 0.0122,
+          "rankHome": 36.6,
+          "rankAway": 39.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Florida",
+          "away": "Vanderbilt",
+          "neutral": false,
+          "venue": "Ben Hill Griffin Stadium",
+          "probability": 0.0117,
+          "rankHome": 17.1,
+          "rankAway": 36.3,
+          "bothTop10": 0.006,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "USC",
+          "away": "Maryland",
+          "neutral": false,
+          "venue": "Los Angeles Memorial Coliseum",
+          "probability": 0.0056,
+          "rankHome": 18.0,
+          "rankAway": 50.3,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.851,
+      "omitted": 51
+    },
+    {
+      "week": 13,
+      "date": "Nov 28",
+      "iso": "2026-11-28",
+      "championship": false,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "game",
+          "home": "Ohio State",
+          "away": "Michigan",
+          "neutral": false,
+          "venue": "Ohio Stadium",
+          "probability": 0.2402,
+          "rankHome": 6.3,
+          "rankAway": 17.1,
+          "bothTop10": 0.27,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Texas A&M",
+          "away": "Texas",
+          "neutral": false,
+          "venue": "Kyle Field",
+          "probability": 0.2256,
+          "rankHome": 19.0,
+          "rankAway": 3.4,
+          "bothTop10": 0.232,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Ole Miss",
+          "away": "Mississippi State",
+          "neutral": false,
+          "venue": "Vaught-Hemingway Stadium",
+          "probability": 0.0571,
+          "rankHome": 12.6,
+          "rankAway": 20.0,
+          "bothTop10": 0.097,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "UCLA",
+          "away": "USC",
+          "neutral": false,
+          "venue": "Rose Bowl",
+          "probability": 0.0435,
+          "rankHome": 32.3,
+          "rankAway": 17.7,
+          "bothTop10": 0.01,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "game",
+          "home": "Oregon",
+          "away": "Washington",
+          "neutral": false,
+          "venue": "Autzen Stadium",
+          "probability": 0.0338,
+          "rankHome": 16.7,
+          "rankAway": 35.0,
+          "bothTop10": 0.009,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Alabama",
+          "away": "Auburn",
+          "neutral": false,
+          "venue": "Bryant-Denny Stadium",
+          "probability": 0.0262,
+          "rankHome": 6.2,
+          "rankAway": 38.4,
+          "bothTop10": 0.01,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Texas Tech",
+          "away": "TCU",
+          "neutral": false,
+          "venue": "Jones AT&T Stadium",
+          "probability": 0.0241,
+          "rankHome": 19.2,
+          "rankAway": 51.0,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Vanderbilt",
+          "away": "Tennessee",
+          "neutral": false,
+          "venue": "FirstBank Stadium",
+          "probability": 0.0237,
+          "rankHome": 36.9,
+          "rankAway": 17.7,
+          "bothTop10": 0.007,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Utah",
+          "away": "West Virginia",
+          "neutral": false,
+          "venue": "Rice-Eccles Stadium",
+          "probability": 0.0206,
+          "rankHome": 13.7,
+          "rankAway": 59.1,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "game",
+          "home": "Iowa",
+          "away": "Nebraska",
+          "neutral": false,
+          "venue": "Kinnick Stadium",
+          "probability": 0.0172,
+          "rankHome": 30.3,
+          "rankAway": 36.7,
+          "bothTop10": 0.001,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Iowa State",
+          "away": "Kansas State",
+          "neutral": false,
+          "venue": "Jack Trice Stadium",
+          "probability": 0.0159,
+          "rankHome": 53.1,
+          "rankAway": 26.8,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Missouri",
+          "away": "Oklahoma",
+          "neutral": false,
+          "venue": "Memorial Stadium",
+          "probability": 0.0138,
+          "rankHome": 30.8,
+          "rankAway": 23.9,
+          "bothTop10": 0.006,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Maryland",
+          "away": "Penn State",
+          "neutral": false,
+          "venue": "SECU Stadium",
+          "probability": 0.0126,
+          "rankHome": 50.4,
+          "rankAway": 21.1,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "USF",
+          "away": "Tulane",
+          "neutral": false,
+          "venue": "Raymond James Stadium",
+          "probability": 0.0085,
+          "rankHome": 37.3,
+          "rankAway": 74.4,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "game",
+          "home": "Florida State",
+          "away": "Florida",
+          "neutral": false,
+          "venue": "Doak Campbell Stadium",
+          "probability": 0.0076,
+          "rankHome": 48.8,
+          "rankAway": 16.6,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.7704,
+      "omitted": 50
+    },
+    {
+      "week": 14,
+      "date": "Dec 5",
+      "iso": "2026-12-05",
+      "championship": true,
+      "other": 0.0531,
+      "games": [
+        {
+          "kind": "championship",
+          "conference": "SEC",
+          "probability": 0.6318,
+          "rankHome": 1.8,
+          "rankAway": 3.2,
+          "bothTop10": 0.991,
+          "bothUnbeaten": 0.045
+        },
+        {
+          "kind": "championship",
+          "conference": "Big Ten",
+          "probability": 0.1498,
+          "rankHome": 4.8,
+          "rankAway": 8.4,
+          "bothTop10": 0.684,
+          "bothUnbeaten": 0.011
+        },
+        {
+          "kind": "championship",
+          "conference": "Big 12",
+          "probability": 0.122,
+          "rankHome": 9.8,
+          "rankAway": 14.5,
+          "bothTop10": 0.145,
+          "bothUnbeaten": 0.085
+        },
+        {
+          "kind": "championship",
+          "conference": "ACC",
+          "probability": 0.0355,
+          "rankHome": 9.7,
+          "rankAway": 18.4,
+          "bothTop10": 0.046,
+          "bothUnbeaten": 0.0
+        },
+        {
+          "kind": "championship",
+          "conference": "American",
+          "probability": 0.004,
+          "rankHome": 34.0,
+          "rankAway": 45.3,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.001
+        },
+        {
+          "kind": "championship",
+          "conference": "Sun Belt",
+          "probability": 0.0017,
+          "rankHome": 51.3,
+          "rankAway": 64.3,
+          "bothTop10": 0.0,
+          "bothUnbeaten": 0.0
+        }
+      ],
+      "covered": 0.9448,
+      "omitted": 4
+    }
+  ],
+  "check": [
+    {
+      "week": 4,
+      "date": "2026-09-26",
+      "teams": [
+        "Oklahoma",
+        "Georgia"
+      ],
+      "host": "Georgia",
+      "probability": 0.0238,
+      "rank": 5,
+      "favourite": {
+        "home": "Tennessee",
+        "away": "Texas",
+        "probability": 0.3632
+      }
+    },
+    {
+      "week": 5,
+      "date": "2026-10-03",
+      "teams": [
+        "Miami (FL)",
+        "Clemson"
+      ],
+      "host": "Clemson",
+      "probability": 0.02,
+      "rank": 9,
+      "favourite": {
+        "home": "Mississippi State",
+        "away": "Alabama",
+        "probability": 0.4301
+      }
+    },
+    {
+      "week": 6,
+      "date": "2026-10-10",
+      "teams": [
+        "Georgia",
+        "Alabama"
+      ],
+      "host": "Alabama",
+      "probability": 0.6672,
+      "rank": 1,
+      "favourite": {
+        "home": "Alabama",
+        "away": "Georgia",
+        "probability": 0.6672
+      }
+    },
+    {
+      "week": 7,
+      "date": "2026-10-17",
+      "teams": [
+        "Ohio State",
+        "Indiana"
+      ],
+      "host": "Indiana",
+      "probability": 0.1383,
+      "rank": 4,
+      "favourite": {
+        "home": "Texas",
+        "away": "Florida",
+        "probability": 0.2191
+      }
+    }
+  ],
+  "sites": [
+    {
+      "team": "Notre Dame",
+      "hostsAtLeastOnce": 0.6072,
+      "appearsAtLeastOnce": 0.6124
+    },
+    {
+      "team": "Texas",
+      "hostsAtLeastOnce": 0.5672,
+      "appearsAtLeastOnce": 0.7702
+    },
+    {
+      "team": "Georgia",
+      "hostsAtLeastOnce": 0.3489,
+      "appearsAtLeastOnce": 0.6515
+    },
+    {
+      "team": "Ohio State",
+      "hostsAtLeastOnce": 0.2879,
+      "appearsAtLeastOnce": 0.4851
+    },
+    {
+      "team": "Miami (FL)",
+      "hostsAtLeastOnce": 0.2821,
+      "appearsAtLeastOnce": 0.6193
+    },
+    {
+      "team": "Texas A&M",
+      "hostsAtLeastOnce": 0.2701,
+      "appearsAtLeastOnce": 0.3455
+    },
+    {
+      "team": "LSU",
+      "hostsAtLeastOnce": 0.2547,
+      "appearsAtLeastOnce": 0.3159
+    },
+    {
+      "team": "Ole Miss",
+      "hostsAtLeastOnce": 0.2361,
+      "appearsAtLeastOnce": 0.5813
+    },
+    {
+      "team": "USC",
+      "hostsAtLeastOnce": 0.2043,
+      "appearsAtLeastOnce": 0.3161
+    },
+    {
+      "team": "Michigan",
+      "hostsAtLeastOnce": 0.1928,
+      "appearsAtLeastOnce": 0.4202
+    },
+    {
+      "team": "Oregon",
+      "hostsAtLeastOnce": 0.1519,
+      "appearsAtLeastOnce": 0.2136
+    },
+    {
+      "team": "Utah",
+      "hostsAtLeastOnce": 0.1293,
+      "appearsAtLeastOnce": 0.263
+    },
+    {
+      "team": "Alabama",
+      "hostsAtLeastOnce": 0.1211,
+      "appearsAtLeastOnce": 0.3757
+    },
+    {
+      "team": "Indiana",
+      "hostsAtLeastOnce": 0.1155,
+      "appearsAtLeastOnce": 0.2866
+    }
+  ],
+  "armyNavy": {
+    "visitsSince2014": 8,
+    "seasons": 12,
+    "lastFour": 0,
+    "estimate": 0.1
+  },
+  "model": {
+    "features": [
+      "best_rank",
+      "worst_rank",
+      "both_top10",
+      "both_top25",
+      "both_unbeaten",
+      "losses",
+      "last_rank_best",
+      "last_rank_worst",
+      "brand"
+    ],
+    "coefficients": [
+      -0.0222,
+      -0.9785,
+      0.1426,
+      0.9405,
+      0.0409,
+      -0.9741,
+      0.2279,
+      -0.2577,
+      0.536
+    ],
+    "weeks": 107,
+    "fitted": "2014-2025, 2020 excluded; weeks 5 on",
+    "otherRate": 0.0531
+  }
+}
