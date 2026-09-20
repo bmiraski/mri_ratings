@@ -157,6 +157,20 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
+### Heisman odds (in progress: Phase 0, the data)
+
+`data/heisman_voting.json` holds every Heisman finalist from 2005 to 2025 with the winner's points and any other
+finish or points a published result gives (the winner is certain; the Trust lists the other finalists in an order that
+is sometimes alphabetical, so a finish is recorded only when one was published). `data/parquet/player_seasons.parquet`
+holds every notable FBS player of every season since 2009 - counting stats for the regular season only, and PPA and
+usage from 2013 (PPA includes bowls; the API gives no way to exclude them).
+
+- The feed has holes in 2009-2011 (Auburn's whole 2010 offense, so Cam Newton is missing); from 2012 every finalist
+  resolves to a player. `tests/test_heisman_data.py` names the four known gaps and fails if the list changes.
+- `mri/heisman/funnel.py` cuts a season to about 75 candidates. All 13 winners of 2013-2025 survive it.
+- Rebuild the player table with `PYTHONPATH=src python3 scripts/build_player_history.py`. It is about 90 calls for the
+  history and is safe to interrupt: finished responses are cached.
+
 ### Season simulation, slate and record
 
 `scripts/build_site.py` also builds three football pages, each isolated so a failure

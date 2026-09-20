@@ -26,3 +26,9 @@ data/raw/stats_player_season_*.json
 data/raw/teams_roster_*.json
 data/raw/recruiting_players_*.json
 data/raw/draft_picks_*.json
+
+# Football player-level feeds (stats by category, PPA, usage): megabytes each, seventeen seasons of
+# them. Read once to build data/parquet/player_seasons.parquet; the current season is re-fetched by
+# the weekly job. Re-fetches on demand.
+data/raw/ppa_players_season_*.json
+data/raw/player_usage_*.json
