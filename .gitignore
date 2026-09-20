@@ -18,3 +18,11 @@ data/raw/games_teams__*.json
 # Classic game log in data/parquet, which is 2MB for all of them against 125MB
 # of JSON. The one-off archive scripts refetch on demand.
 data/raw/games__*_season20[01][0-9]_*.json
+
+# Basketball player, roster, recruiting and draft feeds: several megabytes each, read once to
+# build the derived tables in data/parquet (a couple of megabytes for every season since 2010)
+# and by the one live call for the season ahead. Re-fetches on demand.
+data/raw/stats_player_season_*.json
+data/raw/teams_roster_*.json
+data/raw/recruiting_players_*.json
+data/raw/draft_picks_*.json

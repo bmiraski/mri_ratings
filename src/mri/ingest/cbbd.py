@@ -381,3 +381,76 @@ def classic_table(season: int, *, refresh_last: bool = True) -> pd.DataFrame:
         )
     frame = pd.DataFrame(rows)
     return frame.sort_values("start_date").reset_index(drop=True) if not frame.empty else frame
+
+
+def _win_shares(value) -> float | None:
+    """Win shares arrive as ``{"offensive", "defensive", "total", "totalPer40"}``."""
+    if isinstance(value, dict):
+        value = value.get("total")
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def player_seasons(season: int, *, refresh: bool = False) -> pd.DataFrame:
+    """One row per player per team per season: minutes, win shares and the rest.
+
+    A single call returns the whole division - about ten thousand rows - so a
+    season costs one request, not one per team. Fixed once the season is over.
+    """
+    rows = []
+    for r in request("/stats/player/season", season=season, refresh=refresh):
+        rows.append({
+            "season": season,
+            "athlete_id": r.get("athleteId"),
+            "name": r.get("name"),
+            "team": r.get("team"),
+            "conference": r.get("conference"),
+            "games": r.get("games"),
+            "starts": r.get("starts"),
+            "minutes": r.get("minutes"),
+            "win_shares": _win_shares(r.get("winShares")),
+            "net_rating": r.get("netRating"),
+            "usage": r.get("usage"),
+            "porpag": r.get("PORPAG"),
+        })
+    frame = pd.DataFrame(rows)
+    return frame.dropna(subset=["athlete_id", "team"]) if not frame.empty else frame
+
+
+def rosters(season: int, *, refresh: bool = False) -> pd.DataFrame:
+    """Who is on each team's roster for a season: (team, athlete_id, name).
+
+    Not populated for a coming season until the schools post their rosters, and
+    the feed says nothing then - an empty ``players`` list, not an error - so an
+    empty frame from this function means "not yet", never "nobody".
+    """
+    rows = []
+    for team in request("/teams/roster", season=season, refresh=refresh):
+        for p in team.get("players") or []:
+            rows.append({"season": season, "team": team.get("team"), "conference": team.get("conference"),
+                         "athlete_id": p.get("id"), "name": p.get("name")})
+    return pd.DataFrame(rows, columns=["season", "team", "conference", "athlete_id", "name"])
+
+
+def recruits(year: int, *, refresh: bool = False) -> pd.DataFrame:
+    """A recruiting class: each commit's stars, rating and school.
+
+    ``year`` is the class - the year the players graduate high school - so the
+    class of 2026 plays in the 2026-27 season, which this project calls 2027.
+    """
+    rows = []
+    for r in request("/recruiting/players", year=year, refresh=refresh):
+        committed = r.get("committedTo") or {}
+        rows.append({"year": year, "name": r.get("name"), "stars": r.get("stars"), "rating": r.get("rating"),
+                     "team": committed.get("name"), "position": r.get("position")})
+    return pd.DataFrame(rows, columns=["year", "name", "stars", "rating", "team", "position"])
+
+
+def draft_picks(year: int, *, refresh: bool = False) -> pd.DataFrame:
+    """NBA draft picks for a year, with the athlete id that links them to a college roster."""
+    rows = [{"year": year, "athlete_id": r.get("athleteId"), "overall": r.get("overall"), "name": r.get("name"),
+             "college_id": r.get("sourceTeamCollegeId")}
+            for r in request("/draft/picks", year=year, refresh=refresh)]
+    return pd.DataFrame(rows, columns=["year", "athlete_id", "overall", "name", "college_id"])

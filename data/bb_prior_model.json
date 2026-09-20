@@ -1,0 +1,51 @@
+{
+  "roster": {
+    "features": [
+      "ret_ws",
+      "in_ws",
+      "frosh"
+    ],
+    "coefficients": {
+      "intercept": -5.1339,
+      "last_season": 0.7725,
+      "ret_ws": 8.0173,
+      "in_ws": 0.3703,
+      "frosh": 6.1352
+    }
+  },
+  "noRoster": {
+    "features": [
+      "vet_min",
+      "draft_min",
+      "frosh"
+    ],
+    "coefficients": {
+      "intercept": 0.3313,
+      "last_season": 0.8301,
+      "vet_min": -3.1319,
+      "draft_min": -7.7156,
+      "frosh": 6.3842
+    }
+  },
+  "tighten": 0.7,
+  "fitted": "2012-2026",
+  "teamSeasons": 5081,
+  "outOfSampleRmse": {
+    "old": {
+      "all": 5.14,
+      "lowReturning": 5.95
+    },
+    "last season only": {
+      "all": 4.7,
+      "lowReturning": 5.77
+    },
+    "before rosters": {
+      "all": 4.57,
+      "lowReturning": 5.61
+    },
+    "with a roster": {
+      "all": 4.19,
+      "lowReturning": 4.92
+    }
+  }
+}

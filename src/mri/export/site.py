@@ -2151,6 +2151,58 @@ def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
                             "and why that has not made money.")
 
 
+
+def _bb_prior_section(payload: dict) -> str:
+    model = payload.get("priorModel")
+    if not model:
+        return ""
+    backtest = payload.get("priorBacktest")
+    state = payload.get("priorState") or {}
+    rmse = model.get("outOfSampleRmse") or {}
+    table = ""
+    if backtest:
+        rows = "".join(
+            f"""<tr><td>{esc(label)}</td><td class="num">{e['old']['games']:,}</td><td class="num">{e['old']['mae']:.2f}</td>
+            <td class="num">{e['before rosters']['mae']:.2f}</td><td class="num">{e['with a roster']['mae']:.2f}</td>
+            <td class="num">{e['with a roster']['gain']:+.2f} &plusmn;{e['with a roster']['gainError']:.2f}</td></tr>"""
+            for label, e in backtest["bins"].items())
+        table = f"""
+  <p>Every game of {backtest['seasons'][0]}&ndash;{backtest['seasons'][1]} (2021, the COVID season, chained but not scored), predicted from only the earlier
+  games of its own season, in slices of the season (the average miss, in points, of each prior; the last column is what a roster gains over the old rule). Each prior is chained properly, starting every season from the previous season's final ratings under the same
+  method, and the new priors' coefficients are fitted leaving the predicted season out.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Season so far</th><th class="num">Games</th><th class="num" title="Average miss, in points, of the old prior">Old</th>
+    <th class="num" title="Average miss with the version that needs no roster">Before rosters</th>
+    <th class="num" title="Average miss with returning and incoming production">With roster</th>
+    <th class="num" title="Points gained with a roster, and the margin of error">Gain</th></tr></thead>
+    <tbody>{rows}</tbody></table></div>
+  <p>The gain is real and modest, and it fades. Basketball plays about 6,000 games among 365 teams, so by the time a fifth of the season is gone the games have
+  taught the model most of what the prior was guessing. Football, with a fraction of the games, keeps the benefit longer.</p>"""
+    now = ""
+    if state:
+        season_label = f"{state['season'] - 1}&ndash;{str(state['season'])[2:]}"
+        if state.get("mode") == "roster":
+            now = (f"Rosters for {season_label} are posted for {state['teamsWithRosters']} of {state['teams']} teams, "
+                   "so this season's preseason ratings use the roster.")
+        else:
+            now = (f"Rosters for {season_label} have not been posted yet, so the preseason ratings use the version "
+                   "that does not need them. The site switches to the roster version by itself as the schools post their rosters, one team at a time.")
+    return f"""
+  <h2 id="priors">Preseason priors</h2>
+  <p>A season starts from a prior, and basketball's was last season's rating pulled 35% of the way to average for everyone. Rosters turn over faster in college
+  basketball than anywhere else, so that treats a team that lost its whole rotation like one that kept it. The prior is now a regression on last season's rating
+  and what is known about the roster: <strong>returning production</strong> (the share of last season's win shares still on the roster), <strong>incoming
+  production</strong> (what the newcomers did last season somewhere else, which is the transfer portal) and the <strong>freshman class</strong>.</p>
+  <p>Rosters for a coming season are posted late. Before they are, the prior uses only what last season and the draft already imply: how many of last year's
+  minutes belong to players in their fourth year or later or headed to the NBA draft, and the freshman class. {now}</p>
+  <p>Scored on how good teams turned out to be, leaving each season out in turn, a season's final rating is missed by {rmse.get('old', {}).get('all', 0):.1f} points
+  under the old rule, {rmse.get('before rosters', {}).get('all', 0):.1f} with the before-rosters version and {rmse.get('with a roster', {}).get('all', 0):.1f} with a roster. Part of the gap
+  to the old rule is only its weight on last season being tuned for something else; the fair comparison is a last-season-only refit at
+  {rmse.get('last season only', {}).get('all', 0):.1f}. The game-by-game test below is the one to trust.</p>{table}
+  <p><strong>Two adjustments, found by testing and not by argument.</strong> The new prior keeps the division's level where the old one had it, because a
+  level that is a point off lands on every game against a non-Division I opponent, which is most of November. And its spread is pulled in to
+  {model['tighten']:.0%}: at full spread it is worse than the old prior, at that setting it is better in every part of the season, and at 50% it starts to give the gain back.</p>"""
+
 def bb_method_page(payload: dict) -> str:
     """The basketball method page.
 
@@ -2180,9 +2232,9 @@ def bb_method_page(payload: dict) -> str:
     20-point win and not very much more, through a curve that is near-identity
     inside a normal result and flattens past it. Nothing is gained by running up
     a score.</li>
-    <li><strong>Ratings are pulled toward last season's</strong> so November means
-    something. The pull fades on its own as games accumulate, and it is gone
-    well before conference play.</li>
+    <li><strong>Ratings are pulled toward a preseason estimate</strong> built from last
+    season's rating and who is on the roster, so November means something. The pull
+    fades on its own as games accumulate, and it is gone well before conference play.</li>
     <li><strong>Home court is estimated</strong> from the games rather than assumed,
     and neutral sites are excluded. It sits at {payload['homeField']:.1f} points here, and has
     run between 2.7 and 3.3 across the six rebuilt seasons.</li>
@@ -2198,6 +2250,7 @@ def bb_method_page(payload: dict) -> str:
   what an average team would have managed against the same schedule at the same
   venues. They are different questions and they are published separately.</p>
 
+{_bb_prior_section(payload)}
   <h2>What is and is not established</h2>
   <p>The original formula was ported and checked against the surviving workbooks:
   it reproduces every published rating in 2012&ndash;13, 2017&ndash;18, 2018&ndash;19
@@ -2351,7 +2404,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
-            "priorModel", "priorBacktest", "gameday", "gamedayBacktest"} \
+            "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))

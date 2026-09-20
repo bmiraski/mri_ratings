@@ -140,6 +140,23 @@ that plays out the season and asks the model each run. To keep it current:
 The history was transcribed from NCAA.com's list of GameDay locations; a test checks every entry against
 the schedule (right teams, right day, right host), so a typo fails the build.
 
+### Basketball preseason priors
+
+Basketball's prior (`mri/ratings/bb_priors.py`) is a regression on last season's rating and the roster:
+returning win shares, incoming win shares (transfers) and the freshman class. There are two versions. Until
+the schools post a season's rosters the API returns none, and each team gets the version that needs only
+last season, the draft and the recruiting class; teams switch to the roster version one at a time as their
+rosters appear, with no action needed. `data/bb_prior_model.json` holds the coefficients.
+
+After each season ends (and `CURRENT_SEASON` in `bb_registry.py` is bumped):
+
+```bash
+PYTHONPATH=src python3 scripts/build_bb_players.py   # player stats, recruits, draft -> data/parquet
+PYTHONPATH=src python3 scripts/fit_bb_prior.py       # refit the coefficients
+PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; feeds the method page
+PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
+```
+
 ### Season simulation, slate and record
 
 `scripts/build_site.py` also builds three football pages, each isolated so a failure

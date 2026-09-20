@@ -32,7 +32,7 @@ from pathlib import Path
 import pandas as pd
 
 from ..ingest import bb_registry as registry, cbbd
-from ..ratings import mri2
+from ..ratings import bb_priors, mri2
 from . import common
 
 RATINGS = Path(__file__).resolve().parents[3] / "data" / "parquet" / "bb_ratings.parquet"
@@ -118,10 +118,7 @@ def _prior_for(season: int, depth: int = 6) -> pd.Series | None:
     d1 = [t for t in teams if registry.is_d1(t, season=earlier)]
     return mri2.fit(
         games,
-        prior=mri2.build_prior(
-            _prior_for(earlier, depth - 1), teams, profile.prior_regression,
-            centre_teams=d1 or None,
-        ),
+        prior=bb_priors.for_season(earlier, _prior_for(earlier, depth - 1), teams, d1),
         neutral=games["neutral"],
         anchor_teams=d1 or None,
         compression=profile.compression,
@@ -155,7 +152,7 @@ def weekly_ratings(season: int) -> pd.DataFrame:
 
         model = mri2.fit(
             so_far,
-            prior=mri2.build_prior(prior, teams, profile.prior_regression, centre_teams=d1),
+            prior=bb_priors.for_season(season, prior, teams, d1),
             neutral=so_far["neutral"],
             anchor_teams=d1,
             compression=profile.compression,

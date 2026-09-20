@@ -41,7 +41,7 @@ import pandas as pd
 
 from ..export import bb_sitedata
 from ..ingest import bb_registry as registry, cbbd
-from ..ratings import mri2
+from ..ratings import bb_priors, mri2
 from . import bb_lines
 
 # Below this the disagreement is inside the noise of a 9.4-point model and not
@@ -174,10 +174,7 @@ def _rate(season: int, played: pd.DataFrame) -> mri2.Ratings:
     d1 = [t for t in teams if registry.is_d1(t, season=season)]
     return mri2.fit(
         played,
-        prior=mri2.build_prior(
-            bb_sitedata._prior_for(season), teams, profile.prior_regression,
-            centre_teams=d1 or None,
-        ),
+        prior=bb_priors.for_season(season, bb_sitedata._prior_for(season), teams, d1),
         neutral=played["neutral"],
         anchor_teams=d1 or None,
         compression=profile.compression,

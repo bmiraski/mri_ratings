@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.ingest import bb_registry as registry  # noqa: E402
-from mri.ratings import bb_backtest as bb, mri2  # noqa: E402
+from mri.ratings import bb_backtest as bb, bb_priors, mri2  # noqa: E402
 
 WARMUP = 2020          # 2019-20, the last season Ben ran himself
 # Through to the current season. Seasons with no games yet are skipped, so this
@@ -45,9 +45,7 @@ def main() -> None:
         rated = [t for t in teams if registry.is_d1(t, season=season)]
         model = mri2.fit(
             games,
-            prior=mri2.build_prior(
-                prior, teams, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=rated
-            ),
+            prior=bb_priors.for_season(season, prior, teams, rated),
             neutral=games["neutral"],
             anchor_teams=rated,
             compression=mri2.BASKETBALL_PROFILE.compression,

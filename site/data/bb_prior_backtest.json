@@ -1,0 +1,117 @@
+{
+  "seasons": [
+    2014,
+    2026
+  ],
+  "excluded": [
+    2021
+  ],
+  "tighten": 0.7,
+  "bins": {
+    "0%-5%": {
+      "old": {
+        "games": 3626,
+        "mae": 13.91,
+        "accuracy": 0.8831
+      },
+      "before rosters": {
+        "games": 3626,
+        "mae": 13.89,
+        "accuracy": 0.8844,
+        "gain": 0.02,
+        "gainError": 0.04
+      },
+      "with a roster": {
+        "games": 3626,
+        "mae": 13.75,
+        "accuracy": 0.8872,
+        "gain": 0.16,
+        "gainError": 0.06
+      }
+    },
+    "5%-10%": {
+      "old": {
+        "games": 3629,
+        "mae": 12.6,
+        "accuracy": 0.8035
+      },
+      "before rosters": {
+        "games": 3629,
+        "mae": 12.46,
+        "accuracy": 0.8046,
+        "gain": 0.13,
+        "gainError": 0.05
+      },
+      "with a roster": {
+        "games": 3629,
+        "mae": 12.31,
+        "accuracy": 0.8099,
+        "gain": 0.29,
+        "gainError": 0.08
+      }
+    },
+    "10%-20%": {
+      "old": {
+        "games": 7260,
+        "mae": 10.54,
+        "accuracy": 0.7685
+      },
+      "before rosters": {
+        "games": 7260,
+        "mae": 10.42,
+        "accuracy": 0.77,
+        "gain": 0.13,
+        "gainError": 0.03
+      },
+      "with a roster": {
+        "games": 7260,
+        "mae": 10.29,
+        "accuracy": 0.7763,
+        "gain": 0.25,
+        "gainError": 0.05
+      }
+    },
+    "20%-40%": {
+      "old": {
+        "games": 14520,
+        "mae": 10.46,
+        "accuracy": 0.7843
+      },
+      "before rosters": {
+        "games": 14520,
+        "mae": 10.36,
+        "accuracy": 0.7849,
+        "gain": 0.1,
+        "gainError": 0.02
+      },
+      "with a roster": {
+        "games": 14520,
+        "mae": 10.3,
+        "accuracy": 0.789,
+        "gain": 0.16,
+        "gainError": 0.03
+      }
+    },
+    "40%-100%": {
+      "old": {
+        "games": 43567,
+        "mae": 9.13,
+        "accuracy": 0.6961
+      },
+      "before rosters": {
+        "games": 43567,
+        "mae": 9.07,
+        "accuracy": 0.6963,
+        "gain": 0.05,
+        "gainError": 0.01
+      },
+      "with a roster": {
+        "games": 43567,
+        "mae": 9.06,
+        "accuracy": 0.6986,
+        "gain": 0.07,
+        "gainError": 0.01
+      }
+    }
+  }
+}

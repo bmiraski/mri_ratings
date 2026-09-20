@@ -1103,3 +1103,23 @@ def test_the_gameday_page_links_only_to_pages_that_exist(with_gameday) -> None:
     without_sim = {k: v for k, v in with_gameday.items() if k != "sim"}
     assert 'href="simulation.html"' not in site.gameday_page(without_sim)
     assert 'href="simulation.html"' in site.gameday_page(with_gameday)
+
+
+# ---- the basketball method page's preseason-prior section
+
+def test_the_basketball_method_page_explains_the_prior_and_says_which_version_is_live(bb_payload, tmp_path) -> None:
+    model = json.loads((Path(__file__).resolve().parents[1] / "data" / "bb_prior_model.json").read_text())
+    backtest = Path(__file__).resolve().parents[1] / "site" / "data" / "bb_prior_backtest.json"
+    p = {**bb_payload, "priorModel": model, "priorState": {"season": 2027, "teamsWithRosters": 0, "teams": 365,
+                                                            "mode": "before rosters"}}
+    if backtest.exists():
+        p["priorBacktest"] = json.loads(backtest.read_text())
+    text = site.bb_method_page(p)
+    assert 'id="priors"' in text and "returning production" in text
+    assert "have not been posted yet" in text
+    if backtest.exists():
+        assert "Before rosters" in text and ">Gain<" in text
+
+    live = site.bb_method_page({**p, "priorState": {"season": 2027, "teamsWithRosters": 300, "teams": 365, "mode": "roster"}})
+    assert "are posted for 300 of 365 teams" in live
+    assert 'id="priors"' not in site.bb_method_page(bb_payload)

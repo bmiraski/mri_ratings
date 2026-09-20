@@ -186,10 +186,28 @@ def basketball_payload(data_dir):
     from mri.export import bb_sitedata
 
     try:
-        return bb_sitedata.build_full(None, data_dir)
+        payload = bb_sitedata.build_full(None, data_dir)
     except Exception as exc:  # noqa: BLE001 - one sport never blocks the other
         print(f"  basketball skipped: {exc}")
         return None
+
+    # The method page explains the preseason prior; it is not published data.
+    try:
+        from mri.ingest import bb_registry
+        from mri.ratings import bb_priors
+
+        model = bb_priors.load_model()
+        if model:
+            payload["priorModel"] = model
+            backtest = data_dir / "bb_prior_backtest.json"
+            if backtest.exists():
+                payload["priorBacktest"] = json.loads(backtest.read_text())
+            payload["priorState"] = bb_priors.status(bb_registry.CURRENT_SEASON, list(bb_registry.teams()))
+            print(f"  basketball prior: {payload['priorState']['mode']} "
+                  f"({payload['priorState']['teamsWithRosters']} of {payload['priorState']['teams']} rosters)")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  basketball prior note skipped: {exc}")
+    return payload
 
 
 if __name__ == "__main__":
