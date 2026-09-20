@@ -1,0 +1,101 @@
+{
+  "weeks": 107,
+  "seasons": [
+    2014,
+    2025
+  ],
+  "meanCandidates": 52.1,
+  "baseline": {
+    "uniformTop1": 0.024,
+    "uniformLogLoss": 3.883,
+    "biggestRanksTop1": 0.598,
+    "biggestRanksTop3": 0.85
+  },
+  "candidateSets": {
+    "rankings and records only": {
+      "top1": 0.654,
+      "top3": 0.879,
+      "logLoss": 1.209
+    },
+    "+ how the teams ranked last season and how often GameDay has wanted them (chosen)": {
+      "top1": 0.645,
+      "top3": 0.888,
+      "logLoss": 1.178
+    },
+    "+ closeness of the game": {
+      "top1": 0.645,
+      "top3": 0.888,
+      "logLoss": 1.184
+    },
+    "+ SEC / Big Ten host": {
+      "top1": 0.645,
+      "top3": 0.888,
+      "logLoss": 1.18
+    },
+    "+ already visited this season": {
+      "top1": 0.645,
+      "top3": 0.879,
+      "logLoss": 1.182
+    },
+    "+ hosted lately": {
+      "top1": 0.654,
+      "top3": 0.888,
+      "logLoss": 1.182
+    },
+    "+ played each other at this point in the last two years": {
+      "top1": 0.645,
+      "top3": 0.888,
+      "logLoss": 1.179
+    }
+  },
+  "chosen": "+ how the teams ranked last season and how often GameDay has wanted them (chosen)",
+  "calibration": [
+    {
+      "range": "0%-2%",
+      "games": 5098,
+      "predicted": 0.002,
+      "observed": 0.001
+    },
+    {
+      "range": "2%-5%",
+      "games": 171,
+      "predicted": 0.032,
+      "observed": 0.035
+    },
+    {
+      "range": "5%-15%",
+      "games": 139,
+      "predicted": 0.089,
+      "observed": 0.058
+    },
+    {
+      "range": "15%-30%",
+      "games": 51,
+      "predicted": 0.215,
+      "observed": 0.255
+    },
+    {
+      "range": "30%-50%",
+      "games": 46,
+      "predicted": 0.387,
+      "observed": 0.522
+    },
+    {
+      "range": "50%-100%",
+      "games": 70,
+      "predicted": 0.739,
+      "observed": 0.714
+    }
+  ],
+  "coefficients": {
+    "best_rank": -0.0222,
+    "worst_rank": -0.9785,
+    "both_top10": 0.1426,
+    "both_top25": 0.9405,
+    "both_unbeaten": 0.0409,
+    "losses": -0.9741,
+    "last_rank_best": 0.2279,
+    "last_rank_worst": -0.2577,
+    "brand": 0.536
+  }
+}

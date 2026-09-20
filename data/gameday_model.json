@@ -1,0 +1,34 @@
+{
+  "features": [
+    "best_rank",
+    "worst_rank",
+    "both_top10",
+    "both_top25",
+    "both_unbeaten",
+    "losses",
+    "last_rank_best",
+    "last_rank_worst",
+    "brand"
+  ],
+  "coefficients": [
+    -0.0222,
+    -0.9785,
+    0.1426,
+    0.9405,
+    0.0409,
+    -0.9741,
+    0.2279,
+    -0.2577,
+    0.536
+  ],
+  "ridge": 3.0,
+  "fitted": "2014-2025, 2020 excluded; weeks 5 on",
+  "weeks": 107,
+  "otherRate": 0.0531,
+  "armyNavy": {
+    "visitsSince2014": 8,
+    "seasons": 12,
+    "lastFour": 0,
+    "estimate": 0.1
+  }
+}

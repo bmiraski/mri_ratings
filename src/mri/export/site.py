@@ -218,6 +218,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     # betting link, for the same reason.
     slate_link = f'\n      <a href="{up}slate.html">Slate</a>' if payload.get("slate") else ""
     sim_link = f'\n      <a href="{up}simulation.html">Simulation</a>' if payload.get("sim") else ""
+    if payload.get("gameday"):
+        sim_link += f'\n      <a href="{up}gameday.html">GameDay</a>'
     # The switch offers only sports this build actually published. The same rule
     # as the betting link above: a header link to a directory that does not exist
     # is a dead link on every page of the site, which is worse than no switch.
@@ -1794,6 +1796,150 @@ def _sim_method_section(payload: dict) -> str:
   Injuries are invisible until they show up in results. The committee blend was chosen using the same twelve
   seasons it is reported on.</p>{card}"""
 
+
+def gameday_page(payload: dict) -> str:
+    g = payload["gameday"]
+    teams = {t["team"]: t for t in payload["teams"]}
+    bt = payload.get("gamedayBacktest") or {}
+    choice, ahead = bt.get("choice"), bt.get("forecast")
+
+    def chip(name: str) -> str:
+        team = teams.get(name)
+        if not team:
+            return esc(name)
+        return f'<span class="nmcell">{identity_mark(team, 16)}<a href="team/{slug(name)}.html">{esc(name)}</a></span>'
+
+    def matchup(away: str, home: str, neutral: bool) -> str:
+        return f'<span class="mu">{chip(away)} <span class="muted">{"vs" if neutral else "at"}</span> {chip(home)}</span>'
+
+    confirmed = "".join(f"""<tr><td class="wk">{a['week']}</td><td class="wk">{esc(dt_label(a['date']))}</td>
+          <td class="opp">{matchup(a['teams'][0] if a['teams'][1] == a['host'] else a['teams'][1], a['host'], False) if a.get('host') else ' vs '.join(chip(t) for t in a['teams'])}</td>
+          <td>{esc(a['city'])}</td></tr>""" for a in g["announced"])
+
+    def why(e: dict) -> str:
+        bits = [f"usually ranked around #{e['rankAway']:.0f} and #{e['rankHome']:.0f}"]
+        if e["bothTop10"] >= 0.05:
+            bits.append(f"both top 10 in {e['bothTop10']:.0%} of seasons")
+        if e["bothUnbeaten"] >= 0.05:
+            bits.append(f"both unbeaten in {e['bothUnbeaten']:.0%}")
+        return " &middot; ".join(bits)
+
+    def forecast_block(w: dict) -> str:
+        rows = []
+        for e in w["games"]:
+            if e["kind"] == "championship":
+                game = f'<strong>{esc(e["conference"])} championship game</strong>'
+                site = '<span class="muted">wherever it is played</span>'
+            else:
+                game = matchup(e["away"], e["home"], e["neutral"])
+                site = esc(e["venue"] or e["home"])
+            rows.append(f"""<tr><td class="num prob"><span class="pbar" style="width:{min(e['probability'] * 170, 170):.0f}px"></span>{_pct(e['probability'])}</td>
+              <td class="opp">{game}</td><td>{site}</td><td class="muted small">{why(e)}</td></tr>""")
+        left = max(0.0, 1.0 - w["other"] - w["covered"])
+        rows.append(f"""<tr class="rest"><td class="num">{_pct(left)}</td><td class="opp muted">Every other game{f" ({w['omitted']} of them)" if w.get('omitted') else ""}</td><td></td><td></td></tr>
+          <tr class="rest"><td class="num">{_pct(w['other'])}</td><td class="opp muted">Somewhere off the schedule &mdash; an FCS game, a surprise</td><td></td><td></td></tr>""")
+        title = "Conference championship week" if w["championship"] else "Week " + str(w["week"])
+        return f"""
+  <section class="panel gd">
+    <p class="ptitle">{title} &middot; {esc(w['date'])}</p>
+    <div class="tablewrap"><table class="slate">
+      <thead><tr><th class="num">Chance</th><th>Game</th><th>Site</th><th>Why</th></tr></thead>
+      <tbody>{''.join(rows)}</tbody></table></div>
+  </section>"""
+
+    blocks = "".join(forecast_block(w) for w in g["weeks"])
+    sim_ref = '<a href="simulation.html">season simulation</a>' if payload.get("sim") else "season simulation"
+
+    sites = "".join(f"""<tr><td class="opp">{chip(s['team'])}</td>
+          <td class="num prob"><span class="pbar" style="width:{s['hostsAtLeastOnce'] * 110:.0f}px"></span>{_pct(s['hostsAtLeastOnce'])}</td>
+          <td class="num">{_pct(s['appearsAtLeastOnce'])}</td></tr>""" for s in g["sites"])
+
+    an = g["armyNavy"]
+    last_known = max((a["week"] for a in g["announced"]), default=0)
+    visits: dict[str, int] = {}
+    for a in g["announced"]:
+        for t in a["teams"]:
+            visits[t] = visits.get(t, 0) + 1
+    repeats = [t for t, n in visits.items() if n > 1]
+    repeat_text = (f" &mdash; it has already been back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} this year"
+                   if repeats else "")
+    misses = [c["week"] for c in g["check"] if c["rank"] is None or c["rank"] > 3]
+    if misses:
+        miss_text = ("Week " if len(misses) == 1 else "Weeks ") + " and ".join(str(w) for w in misses) + (
+            " is the current example." if len(misses) == 1 else " are the current examples.")
+    else:
+        miss_text = "None of the announced weeks so far has been a surprise to it."
+    check_rows = "".join(f"""<tr><td class="wk">{c['week']}</td><td class="opp">{' at '.join(chip(t) for t in ([x for x in c['teams'] if x != c['host']] + [c['host']]))}</td>
+          <td class="num">{_pct(c['probability']) if c['probability'] is not None else '&ndash;'}</td>
+          <td class="num">{('#' + str(c['rank'])) if c['rank'] else '&ndash;'}</td>
+          <td>{chip(c['favourite']['away'])} <span class="muted">at</span> {chip(c['favourite']['home'])} <span class="muted">({_pct(c['favourite']['probability'])})</span></td></tr>"""
+                           for c in g["check"] if c["host"])
+
+    import math
+
+    coef = dict(zip(g["model"]["features"], g["model"]["coefficients"]))
+    halving = math.exp(coef["worst_rank"] * math.log(2))
+    both25 = math.exp(coef["both_top25"])
+    loss_cut = 1.0 - math.exp(coef["losses"])
+    grade = ""
+    if choice and ahead:
+        grade = f"""
+  <p>Two tests, both on 2014&ndash;2025 (2020 aside). <strong>Given the real rankings</strong> for each week, the model picks
+  the actual GameDay game out of about {choice['meanCandidates']:.0f} candidates first {choice['candidateSets'][choice['chosen']]['top1']:.0%} of the
+  time and in its top three {choice['candidateSets'][choice['chosen']]['top3']:.0%} of the time, leaving each season out in turn (a coin toss
+  among the games would be {choice['baseline']['uniformTop1']:.0%}). <strong>The harder test</strong> is this page's job: stand at the end of Week 3, simulate the rest of the
+  season, and forecast every stop from Week 8 to the championship game. Across {ahead['stops']} stops, the real site was the model's first choice {ahead['top1']:.0%} of the time,
+  in its top three {ahead['top3']:.0%}, and in its top five {ahead['top5']:.0%}.</p>"""
+
+    body = f"""
+  <article class="prose wide">
+  <h1>Where will College GameDay be?</h1>
+  <p class="lead">A guess, for fun. ESPN announces each week's location the Monday before, so as of Week {g['week']} the show's stops through Week {last_known} are known.
+  Here is the rest, from what has won the show's attention in past seasons and what the season simulation says about who will be ranked where.
+  Not an official anything, and not a ranking.</p>
+
+  <h2>Confirmed</h2>
+  <div class="tablewrap"><table class="slate"><thead><tr><th>Wk</th><th>Date</th><th>Game</th><th>Site</th></tr></thead>
+    <tbody>{confirmed}</tbody></table></div>
+
+  <h2>The forecast</h2>
+  <p class="hint">Each row is a game's chance of being the one, out of every game that week, averaged over {g['sims']:,} simulated
+  seasons. The rankings in those seasons come from the same résumé-heavy blend the {sim_ref}
+  uses for the committee. About {g['model']['otherRate']:.0%} of the time, every week, the show goes somewhere that is not an FBS game at all.</p>
+  {blocks}
+
+  <h2>Who is likely to host from here</h2>
+  <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Hosts at least once, Weeks 8&ndash;14</th>
+    <th class="num">Plays in a stop at least once</th></tr></thead><tbody>{sites}</tbody></table></div>
+
+  <h2>Army&ndash;Navy</h2>
+  <p>GameDay went to Army&ndash;Navy every year from 2014 to 2021 and has not since. We give it about {_pct(an['estimate'])}
+  for the December game, weighted toward the last four years, in which it went {an['lastFour']} times.</p>
+
+  <h2>How it works, and how well</h2>
+  <p>The model is a choice among the week's games. Each game gets a score from a handful of things about the two teams, and its chance is its
+  share of the week's total. The big ones: how highly the <em>worse</em> of the two teams ranks, where each doubling of its rank roughly
+  {'halves' if 0.4 < halving < 0.6 else 'cuts'} a game's chances (to {halving:.0%} of what they were); whether both teams are in the top 25, which makes a game about
+  {both25:.1f} times as likely; and losses, each of which, between the two teams, cuts its chances by about {loss_cut:.0%}. Smaller: how the teams ranked last season, and
+  how often GameDay has wanted them lately, which is a fair definition of a brand.</p>
+  <p>What did not help, once the rankings were known: whether GameDay had already been to the host this season, how recently the host had hosted, how
+  close the game is expected to be, and whether the host is in the SEC or Big Ten. The rule of thumb that the show does not come back to the same place is not visible
+  in the picks{repeat_text}.</p>{grade}
+  <p><strong>Where it has been wrong:</strong> games that are big for reasons the ratings cannot see. {miss_text}</p>
+  <div class="tablewrap"><table><thead><tr><th>Wk</th><th>Announced</th><th class="num">Our chance</th><th class="num">Our rank</th><th>Our first choice</th></tr></thead>
+    <tbody>{check_rows}</tbody></table></div>
+  <p class="muted">Those weeks were announced before this page existed and were not used to fit anything, which makes them the one live test. Early-season stops
+  lean on preseason reputation more than the model does; it was built for Week 8 on. Past locations from NCAA.com's history of the show; announcements from ESPN.</p>
+  </article>"""
+    return page(f"College GameDay forecast — MRI {season_text(payload)}", body, payload,
+                description="Where will ESPN's College GameDay be? A forecast for the weeks not yet announced.")
+
+
+def dt_label(iso: str) -> str:
+    import datetime as _dt
+
+    return _dt.date.fromisoformat(iso).strftime("%b %-d")
+
 def method_page(payload: dict) -> str:
     if chrome_for(payload).sport == "basketball":
         return bb_method_page(payload)
@@ -2188,7 +2334,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
     # Football only, and only when the build produced them.
-    for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_page)):
+    for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_page),
+                                ("gameday", "gameday", gameday_page)):
         if payload.get(key):
             write(out_dir / f"{name}.html", renderer(payload))
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
@@ -2204,7 +2351,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
-            "priorModel", "priorBacktest"} \
+            "priorModel", "priorBacktest", "gameday", "gamedayBacktest"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -2480,6 +2627,9 @@ footer.site .muted { color:var(--muted); }
 table.slate tr.flagged td { background:color-mix(in srgb, var(--series) 9%, transparent); }
 .confcard a { text-decoration:none; } .confcard a:hover { text-decoration:underline; }
 .confcard .ccmeta { font-size:12.5px; color:var(--secondary); line-height:1.7; margin-top:6px; }
+table.slate tr.rest td { border-top:none; font-size:12.5px; }
+.small { font-size:12px; line-height:1.5; }
+.panel.gd { margin-top:14px; }
 .watch li { flex-direction:column; align-items:flex-start; gap:3px; }
 .mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
 @media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }

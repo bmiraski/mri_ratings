@@ -125,6 +125,21 @@ PYTHONPATH=src python3 scripts/build_current.py    # rebuild the season-to-seaso
 Talent and returning production are fetched once per season and cached in `data/raw`. If either
 is missing the old prior is used and the build carries on.
 
+### College GameDay forecast
+
+`gameday.html` guesses where ESPN's College GameDay will be for the weeks not yet announced.
+`src/mri/gameday/` holds a choice model (which game each week does the show pick, given the
+rankings that week?) fitted on 2014-2025 stops in `data/gameday_locations.json`, and a forecast
+that plays out the season and asks the model each run. To keep it current:
+
+- **Each Monday**, add the week's announced stop to `announced2026` in `data/gameday_locations.json`
+  (`week`, `date`, `city`, `teams`, `host`; names as CollegeFootballData spells them).
+- **After each season**, add the year's stops to `seasons` in the same file, then
+  `PYTHONPATH=src python3 scripts/fit_gameday.py` and `scripts/backtest_gameday.py`.
+
+The history was transcribed from NCAA.com's list of GameDay locations; a test checks every entry against
+the schedule (right teams, right day, right host), so a typo fails the build.
+
 ### Season simulation, slate and record
 
 `scripts/build_site.py` also builds three football pages, each isolated so a failure

@@ -233,6 +233,7 @@ def games(
                 # The feed puts a placeholder time on games whose kickoff has not
                 # been set, so a start time is only real when this is False.
                 "start_time_tbd": bool(game.get("startTimeTBD")),
+                "venue": game.get("venue"),
                 "team1": game["awayTeam"],
                 "team2": game["homeTeam"],
                 "played": played,

@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
-from mri.export import logos, simdata, site, sitedata, slate  # noqa: E402
+from mri.export import gamedaydata, logos, simdata, site, sitedata, slate  # noqa: E402
 from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
@@ -149,6 +149,19 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
             print(f"  slate: week {payload['slate']['week']}, {payload['slate']['games']} games")
     except Exception as exc:  # noqa: BLE001
         print(f"  slate skipped: {exc}")
+
+    try:
+        payload["gameday"] = gamedaydata.build(SEASON, payload)
+        if payload["gameday"]:
+            bt = {}
+            for key, name in (("choice", "gameday_backtest.json"), ("forecast", "gameday_forecast_backtest.json")):
+                path = data_dir / name
+                if path.exists():
+                    bt[key] = json.loads(path.read_text())
+            payload["gamedayBacktest"] = bt
+            print(f"  gameday: {len(payload['gameday']['weeks'])} weeks forecast")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  gameday skipped: {exc}")
 
     if payload.get("board"):
         try:

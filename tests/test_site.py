@@ -1042,3 +1042,64 @@ def test_method_page_explains_the_prior_and_grades_it(extended, tmp_path) -> Non
         assert "Old prior miss" in text
     bare = {k: v for k, v in p.items() if k not in ("priorModel", "priorBacktest")}
     assert 'id="priors"' not in site.method_page(bare)
+
+
+# ---- the GameDay page
+
+@pytest.fixture(scope="module")
+def with_gameday(extended) -> dict:
+    p = json.loads(json.dumps(extended))
+    a, b, c = (t["team"] for t in p["teams"][:3])
+    game = {"kind": "game", "home": a, "away": b, "neutral": False, "venue": "Some Stadium", "probability": 0.42,
+            "rankHome": 4.0, "rankAway": 9.0, "bothTop10": 0.55, "bothUnbeaten": 0.2}
+    cg = {"kind": "championship", "conference": "SEC", "probability": 0.5, "rankHome": 3.0, "rankAway": 8.0,
+          "bothTop10": 0.9, "bothUnbeaten": 0.1}
+    p["gameday"] = {
+        "season": 2026, "week": 3, "sims": 4000,
+        "announced": [{"week": 1, "date": "2026-09-05", "city": "Baton Rouge, LA", "teams": [a, b], "host": a},
+                      {"week": 2, "date": "2026-09-12", "city": "Austin, TX", "teams": [c, b], "host": c}],
+        "weeks": [{"week": 8, "date": "Oct 24", "iso": "2026-10-24", "championship": False, "other": 0.05,
+                   "games": [game], "covered": 0.42, "omitted": 9},
+                  {"week": 14, "date": "Dec 5", "iso": "2026-12-05", "championship": True, "other": 0.05,
+                   "games": [cg], "covered": 0.5}],
+        "check": [{"week": 1, "date": "2026-09-05", "teams": [a, b], "host": a, "probability": 0.02, "rank": 6,
+                   "favourite": {"home": c, "away": b, "probability": 0.3}}],
+        "sites": [{"team": a, "hostsAtLeastOnce": 0.6, "appearsAtLeastOnce": 0.7}],
+        "armyNavy": {"estimate": 0.1, "lastFour": 0, "visitsSince2014": 8, "seasons": 12},
+        "model": {"features": ["best_rank", "worst_rank", "both_top10", "both_top25", "both_unbeaten", "losses"],
+                  "coefficients": [-0.02, -0.98, 0.14, 0.94, 0.04, -0.97], "weeks": 107, "fitted": "x",
+                  "otherRate": 0.053},
+    }
+    p["gamedayBacktest"] = {
+        "choice": {"meanCandidates": 52, "chosen": "c", "candidateSets": {"c": {"top1": 0.64, "top3": 0.89}},
+                   "baseline": {"uniformTop1": 0.024}},
+        "forecast": {"stops": 69, "top1": 0.41, "top3": 0.64, "top5": 0.77}}
+    return p
+
+
+def test_the_gameday_page_and_its_link_exist_only_when_built(with_gameday, extended, tmp_path) -> None:
+    site.build(with_gameday, tmp_path / "a")
+    site.build(extended, tmp_path / "b")
+    assert (tmp_path / "a" / "gameday.html").exists() and (tmp_path / "a" / "gameday.json").exists()
+    assert 'href="gameday.html"' in (tmp_path / "a" / "index.html").read_text()
+    assert not (tmp_path / "b" / "gameday.html").exists()
+    assert "gameday.html" not in (tmp_path / "b" / "index.html").read_text()
+    published = json.loads((tmp_path / "a" / "site.json").read_text())
+    assert "gameday" not in published and "gamedayBacktest" not in published
+
+
+def test_the_gameday_page_says_what_is_confirmed_and_what_is_a_guess(with_gameday) -> None:
+    text = site.gameday_page(with_gameday)
+    for needle in ("Where will College GameDay be?", "Confirmed", "The forecast", "SEC championship game",
+                   "Who is likely to host", "Army", "How it works, and how well"):
+        assert needle in text.replace("&ndash;", "-") or needle in text, needle
+    assert "through Week 2 are known" in text          # derived from the announced list, not written in
+    assert "42%" in text and "Some Stadium" in text
+    assert "9 of them" in text                        # the games it left out are counted, not hidden
+    assert "Week 1 is the current example" in text     # the announced week the model ranked sixth
+
+
+def test_the_gameday_page_links_only_to_pages_that_exist(with_gameday) -> None:
+    without_sim = {k: v for k, v in with_gameday.items() if k != "sim"}
+    assert 'href="simulation.html"' not in site.gameday_page(without_sim)
+    assert 'href="simulation.html"' in site.gameday_page(with_gameday)
