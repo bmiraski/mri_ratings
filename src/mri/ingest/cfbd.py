@@ -168,6 +168,33 @@ def request(endpoint: str, *, refresh: bool = False, **params):
     raise CfbdError(f"{endpoint} rate limited after {RETRIES} attempts")
 
 
+def talent(year: int) -> pd.Series:
+    """The 247Sports talent composite for each team: roster quality, accumulated
+    over recruiting classes. Published before the season and fixed after it, so it
+    is cached for good. Available from 2015; teams the composite does not cover
+    (the service academies in some years) are simply absent."""
+    rows = request("/talent", year=year)
+    return pd.Series({r["team"]: float(r["talent"]) for r in rows if r.get("talent") is not None},
+                     dtype=float, name="talent")
+
+
+def returning(year: int) -> pd.DataFrame:
+    """Returning production: the share of last season's production - measured in
+    predicted points added, and in usage - that is still on the roster. Fixed
+    before the season, so cached for good. Available from 2014.
+
+    Columns ``percent_ppa`` and ``usage`` are shares in [0, 1]; a team that lost
+    its passer, its rushers and its receivers to the portal is near zero.
+    """
+    rows = request("/player/returning", year=year)
+    frame = pd.DataFrame(
+        [{"team": r["team"], "percent_ppa": r.get("percentPPA"), "usage": r.get("usage")} for r in rows]
+    )
+    if frame.empty:
+        return pd.DataFrame(columns=["percent_ppa", "usage"])
+    return frame.set_index("team").astype(float).clip(lower=0.0, upper=1.0)
+
+
 def games(
     year: int,
     *,

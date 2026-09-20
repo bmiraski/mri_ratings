@@ -1,0 +1,83 @@
+{
+  "seasons": [
+    2015,
+    2025
+  ],
+  "excluded": [
+    2020
+  ],
+  "spans": {
+    "weeks 1-3": {
+      "old": {
+        "games": 1442,
+        "mae": 13.6,
+        "accuracy": 0.7614,
+        "slope": 0.9,
+        "marketMae": 12.24
+      },
+      "new": {
+        "games": 1442,
+        "mae": 13.0,
+        "accuracy": 0.7649,
+        "slope": 0.93,
+        "marketMae": 12.24
+      },
+      "maeGain": 0.6,
+      "maeGainError": 0.26
+    },
+    "weeks 4-6": {
+      "old": {
+        "games": 1628,
+        "mae": 12.97,
+        "accuracy": 0.7236,
+        "slope": 0.79,
+        "marketMae": 11.95
+      },
+      "new": {
+        "games": 1628,
+        "mae": 12.69,
+        "accuracy": 0.7346,
+        "slope": 0.83,
+        "marketMae": 11.95
+      },
+      "maeGain": 0.28,
+      "maeGainError": 0.17
+    },
+    "weeks 7-13": {
+      "old": {
+        "games": 3977,
+        "mae": 13.12,
+        "accuracy": 0.7181,
+        "slope": 0.81,
+        "marketMae": 12.45
+      },
+      "new": {
+        "games": 3977,
+        "mae": 12.89,
+        "accuracy": 0.7211,
+        "slope": 0.85,
+        "marketMae": 12.45
+      },
+      "maeGain": 0.23,
+      "maeGainError": 0.07
+    },
+    "all": {
+      "old": {
+        "games": 7047,
+        "mae": 13.18,
+        "accuracy": 0.7283,
+        "slope": 0.83,
+        "marketMae": 12.3
+      },
+      "new": {
+        "games": 7047,
+        "mae": 12.86,
+        "accuracy": 0.7332,
+        "slope": 0.87,
+        "marketMae": 12.3
+      },
+      "maeGain": 0.32,
+      "maeGainError": 0.08
+    }
+  }
+}

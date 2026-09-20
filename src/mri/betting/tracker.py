@@ -33,13 +33,18 @@ import numpy as np
 import pandas as pd
 
 from ..ingest import cfbd, registry
-from ..ratings import mri2
+from ..ratings import mri2, priors
 from . import board as board_module
 from . import lines as lines_module
 
 WIN_PAYOUT = 100 / 110          # a -110 winner returns 0.909 units per unit staked
 MIN_EDGE = board_module.MIN_EDGE_TO_SHOW
 SIGMA = board_module.SIGMA
+
+# Which version of the model made a pick. Picks logged before this field existed
+# were made by the model that carried last season's rating forward and nothing else;
+# they stay exactly as written and are counted as "earlier" on the page.
+MODEL = "roster-prior"
 
 # The 2003-2019 walk-forward result MRI 2.0 was validated on, for scale.
 REFERENCE = {"seasons": "2003\u20132019", "accuracy": 0.738, "mae": 13.0}
@@ -87,7 +92,7 @@ def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
     previous = board_module._previous_season(year)
     known = set(previous.index) if previous is not None else set()
     every_team = sorted(set(schedule["team1"]) | set(schedule["team2"]))
-    preseason = mri2.build_prior(previous, every_team, centre_teams=sorted(fbs))
+    preseason = priors.for_season(year, previous, every_team, sorted(fbs))
 
     rows = []
     for row in played.itertuples():
@@ -227,7 +232,7 @@ def update_log(year: int, board: dict, path: Path, *, now: dt.datetime | None = 
             "neutral": game["neutral"], "kickoff": kickoff,
             "side": "home" if game["edge"] > 0 else "away",
             "predicted": game["predicted"], "open": game["marketOpen"], "taken": taken,
-            "edge": game["edge"], "loggedAt": now.strftime("%Y-%m-%dT%H:%MZ"),
+            "edge": game["edge"], "loggedAt": now.strftime("%Y-%m-%dT%H:%MZ"), "model": MODEL,
         })
         known.add(gid)
 
@@ -266,6 +271,7 @@ def summarize(log: dict) -> dict:
         "picks": [dict(sorted(p.items())) for p in
                   sorted(log["picks"], key=lambda p: (p["week"], -abs(p["edge"]), p["game_id"]))],
         "logged": len(log["picks"]),
+        "earlier": sum("model" not in p for p in log["picks"]),
         "graded": len(graded),
         "wins": sum(p["result"] == "win" for p in graded),
         "losses": sum(p["result"] == "loss" for p in graded),

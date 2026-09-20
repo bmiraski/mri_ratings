@@ -18,7 +18,7 @@ from pathlib import Path
 import pandas as pd
 
 from ..ingest import boxscores, cfbd, registry
-from ..ratings import classic, mri2
+from ..ratings import classic, mri2, priors
 from . import common
 
 
@@ -68,7 +68,7 @@ def weekly_ratings(year: int) -> pd.DataFrame:
         fbs = [t for t in teams if registry.is_fbs(t)]
         model = mri2.fit(
             so_far,
-            prior=mri2.build_prior(prior, teams, centre_teams=fbs),
+            prior=priors.for_season(year, prior, teams, fbs),
             neutral=so_far["neutral"],
             anchor_teams=fbs,
         )
@@ -188,6 +188,10 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
             }
         )
 
+    roster = roster_context(year, teams_payload)
+    for entry in teams_payload:
+        entry["roster"] = roster.get(entry["team"])
+
     conferences = common.conference_strength(teams_payload)
 
     payload = {
@@ -224,6 +228,54 @@ def _canonical(frame: pd.DataFrame) -> pd.DataFrame:
     for column in ("team1", "team2"):
         frame[column] = [registry.resolve(n, n) for n in frame[column]]
     return frame
+
+
+def roster_context(year: int, teams: list[dict]) -> dict[str, dict]:
+    """Talent and returning production for each team, and what the talent is worth.
+
+    ``talentImplied`` is the rating a roster's talent alone would predict, from
+    the relationship across 2015-2025 (``data/prior_model.json``); ``talentGap`` is
+    how far the team's rating is from it - positive means beating its roster. It is
+    a description, not a verdict: talent explains about a third of the variation
+    in ratings, so a gap of a few points is well inside the noise.
+
+    The service academies get no talent figure. Their recruits are not ranked the
+    way everyone else's are, and the composite is not a measure of their rosters.
+    """
+    try:
+        talent, returning = cfbd.talent(year), cfbd.returning(year)
+    except Exception as exc:  # noqa: BLE001 - a page without the line beats no page
+        print(f"  roster context unavailable: {exc}")
+        return {}
+    model = priors.load_model() or {}
+    fit = model.get("talentFit")
+    names = [t["team"] for t in teams]
+    z = priors.talent_scores(talent, names)
+    measured = [n for n in names if n in talent.index and n not in priors.TALENT_UNMEASURED]
+    talent_rank = talent.reindex(measured).rank(ascending=False, method="min")
+    share = returning["percent_ppa"].reindex(names) if not returning.empty else pd.Series(dtype=float)
+    share_rank = share.rank(ascending=False, method="min")
+
+    out = {}
+    for team in teams:
+        name = team["team"]
+        entry: dict = {"talent": None, "returning": None}
+        if name in measured:
+            entry["talent"] = round(float(talent[name]), 1)
+            entry["talentRank"] = int(talent_rank[name])
+            entry["talentOf"] = len(measured)
+            if fit:
+                implied = fit["intercept"] + fit["slope"] * float(z[name])
+                entry["talentImplied"] = round(implied, 1)
+                entry["talentGap"] = round(team["power"] - implied, 1)
+        elif name in talent.index or name in priors.TALENT_UNMEASURED:
+            entry["talentNote"] = "unmeasured"
+        if name in share.index and pd.notna(share[name]):
+            entry["returning"] = round(float(share[name]), 3)
+            entry["returningRank"] = int(share_rank[name])
+            entry["returningOf"] = int(share.notna().sum())
+        out[name] = entry
+    return out
 
 
 def _prior_for(year: int) -> pd.Series | None:

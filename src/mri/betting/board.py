@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 
 from ..ingest import cfbd, registry
-from ..ratings import mri2
+from ..ratings import mri2, priors
 from . import lines as lines_module
 
 MIN_EDGE_TO_SHOW = 3.0
@@ -133,7 +133,7 @@ def _rate(year: int, played: pd.DataFrame) -> mri2.Ratings:
     fbs = [t for t in teams if registry.is_fbs(t)]
     return mri2.fit(
         played,
-        prior=mri2.build_prior(_previous_season(year), teams, centre_teams=fbs),
+        prior=priors.for_season(year, _previous_season(year), teams, fbs),
         neutral=played["neutral"],
         anchor_teams=fbs,
         with_resume=False,

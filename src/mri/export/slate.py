@@ -23,7 +23,7 @@ from scipy.stats import norm
 from ..betting import board as board_module
 from ..betting import lines as lines_module
 from ..ingest import cfbd, registry
-from ..ratings import mri2
+from ..ratings import mri2, priors
 
 SIGMA = board_module.SIGMA
 WATCH = 8
@@ -85,7 +85,7 @@ def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.Da
     else:
         previous = board_module._previous_season(year)
         every = sorted(set(schedule["team1"]) | set(schedule["team2"]))
-        prior_power = mri2.build_prior(previous, every, centre_teams=list(teams)).to_dict()
+        prior_power = priors.for_season(year, previous, every, list(teams)).to_dict()
         prior_hf = mri2.DEFAULT_HOME_FIELD_PRIOR
 
     book = lines_module.preferred_lines(year)

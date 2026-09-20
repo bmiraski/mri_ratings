@@ -991,3 +991,54 @@ def test_method_page_reports_the_simulation_check(built_extended) -> None:
     assert 'id="simulation"' in text
     if BACKTEST.exists():
         assert "Brier score" in text
+
+
+# ---- roster context on team pages, and the priors section of the method page
+
+def test_team_page_shows_talent_against_results_and_returning_production(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    team = p["teams"][0]
+    team["roster"] = {"talent": 1003.7, "talentRank": 1, "talentOf": 127, "talentImplied": 17.0,
+                      "talentGap": 16.6, "returning": 0.687, "returningRank": 25, "returningOf": 128}
+    text = site.team_page(team, p)
+    assert "Roster talent" in text and "#1 of 127" in text and "beating it" in text
+    assert "69% of last year" in text and "#25 of 128" in text
+    assert "counted against its preseason rating" not in text
+
+    team["roster"]["returning"], team["roster"]["talentGap"] = 0.02, 1.0
+    low = site.team_page(team, p)
+    assert "counted against its preseason rating" in low and "in line with it" in low
+
+
+def test_team_page_says_the_academies_are_not_comparable(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    team = p["teams"][0]
+    team["roster"] = {"talent": None, "talentNote": "unmeasured", "returning": None}
+    text = site.team_page(team, p)
+    assert "not comparable" in text and "Returning production" not in text
+
+
+def test_team_page_without_roster_data_still_renders(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    team = p["teams"][0]
+    team["roster"] = None
+    assert "Roster talent" not in site.team_page(team, p)
+
+
+def test_method_page_explains_the_prior_and_grades_it(extended, tmp_path) -> None:
+    root = Path(__file__).resolve().parents[1]
+    model = root / "data" / "prior_model.json"
+    if not model.exists():
+        pytest.skip("no prior model fitted")
+    p = json.loads(json.dumps(extended))
+    p["priorModel"] = json.loads(model.read_text())
+    backtest = root / "site" / "data" / "prior_backtest.json"
+    if backtest.exists():
+        p["priorBacktest"] = json.loads(backtest.read_text())
+    site.build(p, tmp_path)
+    text = (tmp_path / "method.html").read_text()
+    assert 'id="priors"' in text and "returning production" in text.lower()
+    if backtest.exists():
+        assert "Old prior miss" in text
+    bare = {k: v for k, v in p.items() if k not in ("priorModel", "priorBacktest")}
+    assert 'id="priors"' not in site.method_page(bare)

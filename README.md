@@ -109,6 +109,22 @@ PYTHONPATH=src python3 scripts/build_archive.py   # workbooks -> parquet
 PYTHONPATH=src python3 -m pytest tests/ -q
 ```
 
+### Preseason priors
+
+MRI 2.0 starts each season from a prior. `mri/ratings/priors.py` builds it as a regression on
+last season's rating, roster talent (the 247 composite) and returning production, with the
+service academies' talent treated as unmeasured and teams new to FBS keeping the old rule.
+Coefficients live in `data/prior_model.json`. To refit after a season ends:
+
+```bash
+PYTHONPATH=src python3 scripts/fit_prior.py        # refit; prints out-of-sample error
+PYTHONPATH=src python3 scripts/backtest_priors.py  # grade it game by game; feeds the method page
+PYTHONPATH=src python3 scripts/build_current.py    # rebuild the season-to-season chain
+```
+
+Talent and returning production are fetched once per season and cached in `data/raw`. If either
+is missing the old prior is used and the build carries on.
+
 ### Season simulation, slate and record
 
 `scripts/build_site.py` also builds three football pages, each isolated so a failure

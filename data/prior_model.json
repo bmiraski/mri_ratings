@@ -1,0 +1,38 @@
+{
+  "fitted": "2015-2025, 2020 excluded",
+  "teamSeasons": 1297,
+  "coefficients": {
+    "intercept": -4.6381,
+    "last_season": 0.4713,
+    "talent": 3.8259,
+    "returning": 7.9046
+  },
+  "outOfSampleRmse": {
+    "model": 8.4,
+    "old": 9.08
+  },
+  "talentFit": {
+    "intercept": -0.465,
+    "slope": 7.232,
+    "r2": 0.319,
+    "residualSd": 9.69,
+    "persistence": 0.46
+  },
+  "academies": {
+    "meanZ": -2.38,
+    "gap": 20.3,
+    "gapWithPrior": 1.8,
+    "teamSeasons": 28
+  },
+  "lowReturning": {
+    "share": 0.1,
+    "teamSeasons": 21,
+    "oldBias": -8.6,
+    "newBias": -2.9
+  },
+  "talentUnmeasured": [
+    "Army",
+    "Navy",
+    "Air Force"
+  ]
+}

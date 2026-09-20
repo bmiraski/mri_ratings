@@ -23,6 +23,7 @@ import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
 from mri.export import logos, simdata, site, sitedata, slate  # noqa: E402
+from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
 
@@ -121,6 +122,13 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
     than rendered from stale numbers.
     """
     weekly = sitedata.weekly_ratings(SEASON)
+
+    model = priors.load_model()
+    if model:
+        payload["priorModel"] = model
+        backtest = data_dir / "prior_backtest.json"
+        if backtest.exists():
+            payload["priorBacktest"] = json.loads(backtest.read_text())
 
     sim = None
     try:

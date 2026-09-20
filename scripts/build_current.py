@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.ingest import cfbd, registry  # noqa: E402
-from mri.ratings import mri2  # noqa: E402
+from mri.ratings import mri2, priors  # noqa: E402
 
 BRIDGE_SEASONS = range(2020, 2027)
 CURRENT_SEASON = 2026
@@ -64,7 +64,7 @@ def main() -> None:
 
         teams = sorted(set(games["team1"]) | set(games["team2"]))
         fbs_teams = [t for t in teams if registry.is_fbs(t)]
-        prior = mri2.build_prior(previous, teams, centre_teams=fbs_teams)
+        prior = priors.for_season(season, previous, teams, fbs_teams)
         model = mri2.fit(
             games, prior=prior, neutral=games["neutral"], anchor_teams=fbs_teams
         )

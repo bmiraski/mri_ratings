@@ -829,6 +829,23 @@ def team_page(team: dict, payload: dict) -> str:
     if detail.get("remainingDifficulty") is not None:
         highlights.append(f'<div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">{detail["remainingDifficulty"]:+.1f} avg opponent</span></div>')
 
+    roster = team.get("roster") or {}
+    if roster.get("talent") is not None:
+        text = f'#{roster["talentRank"]} of {roster["talentOf"]}'
+        if "talentGap" in roster:
+            gap = roster["talentGap"]
+            verdict = ("in line with it" if abs(gap) < 5
+                       else "beating it" if gap > 0 else "short of it")
+            text += (f' &middot; worth {roster["talentImplied"]:+.1f}, rated {team["power"]:+.1f}: {verdict}')
+        highlights.append(f'<div class="hl" title="The 247Sports talent composite: roster quality built up over recruiting classes. It explains about a third of the variation in ratings, so a gap of a few points means little."><span class="hll">Roster talent</span><span class="hlv">{text}</span></div>')
+    elif roster.get("talentNote"):
+        highlights.append('<div class="hl"><span class="hll">Roster talent</span><span class="hlv">not comparable &mdash; recruiting rankings do not measure the service academies</span></div>')
+    if roster.get("returning") is not None:
+        text = f'{roster["returning"]:.0%} of last year\'s &middot; #{roster["returningRank"]} of {roster["returningOf"]}'
+        if roster["returning"] < 0.25:
+            text += ' &middot; counted against its preseason rating'
+        highlights.append(f'<div class="hl" title="The share of last season\'s production, by predicted points added, still on the roster."><span class="hll">Returning production</span><span class="hlv">{text}</span></div>')
+
     body = f"""
   <article class="teampage" style="--team:{esc(team['color'])}">
     {_titles_banner(team, payload)}
@@ -1606,6 +1623,9 @@ def _record_section(record: dict) -> str:
         <td class="num {'over' if w['units'] > 0 else 'under' if w['units'] < 0 else ''}">{w['units']:+.1f}</td></tr>"""
                     for w in rec["weeks"])
 
+    earlier = (f" {fwd['earlier']} of the picks were logged before the preseason prior began to use roster talent "
+               "and returning production, so they were made by the earlier model; they stay as written."
+               if fwd.get("earlier") else "")
     if fwd["logged"]:
         picks = "".join(f"""<tr><td class="wk">{p['week']}</td>
           <td class="opp">{esc(p['away'])} {'vs' if p['neutral'] else 'at'} {esc(p['home'])}</td>
@@ -1620,7 +1640,7 @@ def _record_section(record: dict) -> str:
   <h3>The forward log</h3>
   <p>Started {esc(fwd['started'])}. Each flagged game is written down before kickoff &mdash; model line,
   the market's number at that moment, the side &mdash; and never edited afterwards. Graded against the number
-  taken, at &minus;110.</p>
+  taken, at &minus;110.{earlier}</p>
   <p><strong>{fwd['wins']}&ndash;{fwd['losses']}{f"&ndash;{fwd['pushes']}" if fwd['pushes'] else ''}</strong>
   on {fwd['graded']} graded of {fwd['logged']} logged
   ({signed(fwd['units'])} units{f", mean closing line value {signed(fwd['clv'])}" if fwd['clv'] is not None else ''}).</p>
@@ -1674,6 +1694,59 @@ def _record_section(record: dict) -> str:
 
 
 
+
+
+def _prior_method_section(payload: dict) -> str:
+    model = payload.get("priorModel")
+    if not model:
+        return ""
+    c, fit = model["coefficients"], model.get("talentFit") or {}
+    low, acad = model["lowReturning"], model["academies"]
+    rmse = model.get("outOfSampleRmse") or {}
+    bt = payload.get("priorBacktest")
+    table = ""
+    if bt:
+        rows = "".join(
+            f"""<tr><td>{esc(label)}</td><td class="num">{d['old']['games']:,}</td>
+            <td class="num">{d['old']['mae']:.2f}</td><td class="num">{d['new']['mae']:.2f}</td>
+            <td class="num">{d['maeGain']:+.2f} &plusmn;{d['maeGainError']:.2f}</td>
+            <td class="num">{d['old']['marketMae']:.2f}</td></tr>"""
+            for label, d in bt["spans"].items())
+        table = f"""
+  <p>Every game of {bt['seasons'][0]}&ndash;{bt['seasons'][1]} (2020 aside) predicted from only the earlier weeks of its own
+  season, once from each prior. Both chains run properly, each season starting from the previous season's ratings under the
+  same method, with the new prior's coefficients fitted leaving the predicted season out.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Games in</th><th class="num">Predicted</th><th class="num">Old prior miss</th>
+    <th class="num">New prior miss</th><th class="num">Gain, points</th><th class="num">Market miss</th></tr></thead>
+    <tbody>{rows}</tbody></table></div>
+  <p>The gain is largest in the first three weeks, where the prior is most of what the ratings know, and fades as results
+  replace it. The market still wins every row.</p>"""
+    persistence = (f" The gap is not just noise: a team that beat its talent one year did so the next with a correlation of "
+                   f"{fit['persistence']:.2f}.") if fit.get("persistence") is not None else ""
+    return f"""
+  <h2 id="priors">Preseason priors</h2>
+  <p>Every season starts from a prior, and for a long time the prior was last season's rating pulled 30% toward
+  average for everyone. That treats a team that returns its whole roster like one that lost it to the transfer portal.
+  It is now a regression of a season's final rating on three things known before a game is played:</p>
+  <p>last season's rating, counted at {c['last_season']:.2f};
+  the roster's <strong>talent</strong> (the 247Sports composite, as a z-score within FBS), worth {c['talent']:+.1f} points
+  per standard deviation; and <strong>returning production</strong> (the share of last year's production, by predicted points
+  added, still on the roster), worth {c['returning']:+.1f} points from none to all of it.</p>
+  <p>Fitted on {esc(model['fitted'])} ({model['teamSeasons']:,} team-seasons). Scored by leaving each season out in turn it misses
+  by {rmse.get('model', 0):.1f} points where the old prior missed by {rmse.get('old', 0):.1f}. For the teams that returned under
+  {low['share']:.0%} of their production ({low['teamSeasons']} team-seasons) the old prior over-rated them by
+  {abs(low['oldBias']):.1f} points on average, because a team like that falls about that far from last season. The new prior still
+  over-rates them by about {abs(low['newBias']):.0f}.</p>{table}
+  <p><strong>Exceptions, on purpose.</strong> The service academies' recruits are not ranked the way everyone else's are, and
+  the composite calls Army, Navy and Air Force about {abs(acad['meanZ']):.1f} standard deviations worse than average; across
+  {acad['teamSeasons']} team-seasons they beat what that implied by {acad['gap']:.0f} points on average. With talent treated as
+  unmeasured for them the prior is off by {abs(acad['gapWithPrior']):.1f}. Teams that were not FBS last year have
+  no comparable last season and keep the old prior.</p>
+  <p><strong>Talent and results.</strong> Talent alone explains about {fit.get('r2', 0):.0%} of the variation in a season's rating.
+  Each team page shows what its roster's talent alone would predict next to what it is actually rated.{persistence}
+  In testing, most of the improvement came from talent; returning production adds a smaller one on average, and matters most
+  for the few teams that lose nearly everyone.</p>"""
 
 def _sim_method_section(payload: dict) -> str:
     """The method page's account of the simulation, with its own report card."""
@@ -1791,6 +1864,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   <p>MRI 2.0 wins 13 of 17 seasons. Its hyperparameters were searched on 2003&ndash;2013
   and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
 
+{_prior_method_section(payload)}
 {_sim_method_section(payload)}
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
@@ -2129,7 +2203,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
 
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
-    drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest"} \
+    drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
+            "priorModel", "priorBacktest"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))

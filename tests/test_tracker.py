@@ -129,3 +129,16 @@ def test_rerunning_changes_nothing(wire, tmp_path) -> None:
     assert second == first
     assert json.dumps(second, sort_keys=False) == json.dumps(first, sort_keys=False)
     assert path.read_text() == text
+
+
+def test_new_picks_carry_the_model_that_made_them_and_old_ones_are_left_alone(wire, tmp_path) -> None:
+    path = tmp_path / "picks.json"
+    path.write_text(json.dumps({"season": 2026, "started": "2026-09-19", "picks": [{
+        "game_id": 99, "week": 3, "home": "Old H", "away": "Old A", "neutral": False,
+        "kickoff": "2026-09-20T00:00:00.000Z", "side": "home", "predicted": 9.0, "open": 3.0,
+        "taken": 3.0, "edge": 6.0, "loggedAt": "2026-09-19T04:36Z"}]}))
+    summary = tracker.update_log(2026, board(), path, now=NOW)
+    picks = {p["game_id"]: p for p in json.loads(path.read_text())["picks"]}
+    assert "model" not in picks[99], "an earlier pick was relabelled"
+    assert picks[1]["model"] == tracker.MODEL
+    assert summary["earlier"] == 1 and summary["logged"] == 2
