@@ -832,7 +832,20 @@ def team_page(team: dict, payload: dict) -> str:
         highlights.append(f'<div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">{detail["remainingDifficulty"]:+.1f} avg opponent</span></div>')
 
     roster = team.get("roster") or {}
-    if roster.get("talent") is not None:
+    if roster.get("mode"):
+        # Basketball: what is known about the roster, and how the preseason rating used it.
+        if roster["mode"] == "roster" and roster.get("returning") is not None:
+            text = f'{roster["returning"]:.0%} of last season\'s win shares &middot; #{roster["returningRank"]} of {roster["returningOf"]}'
+            if roster["returning"] < 0.30:
+                text += " &middot; counted against its preseason rating"
+            highlights.append(f'<div class="hl" title="The share of last season\'s win shares produced by players still on the roster."><span class="hll">Returning production</span><span class="hlv">{text}</span></div>')
+            newcomers = roster["incoming"]
+            highlights.append(f'<div class="hl" title="What this roster\'s newcomers produced last season at other schools: the transfer portal."><span class="hll">Incoming production</span><span class="hlv">{newcomers:.1f} win shares from other schools\' players</span></div>')
+        elif roster.get("veteranMinutes") is not None:
+            highlights.append(f'<div class="hl" title="Rosters for this season are not posted yet, so the preseason rating leans on who was likely to leave: players in a fourth season or later, and players who were drafted."><span class="hll">Last season\'s minutes</span><span class="hlv">{roster["veteranMinutes"]:.0%} from fourth-year-plus players &middot; {roster["draftMinutes"]:.0%} from players drafted</span></div>')
+        if roster.get("freshman"):
+            highlights.append(f'<div class="hl" title="How highly the incoming recruits were rated, summed over the class."><span class="hll">Recruiting class</span><span class="hlv">#{roster["freshmanRank"]} in the country</span></div>')
+    elif roster.get("talent") is not None:
         text = f'#{roster["talentRank"]} of {roster["talentOf"]}'
         if "talentGap" in roster:
             gap = roster["talentGap"]
@@ -842,7 +855,7 @@ def team_page(team: dict, payload: dict) -> str:
         highlights.append(f'<div class="hl" title="The 247Sports talent composite: roster quality built up over recruiting classes. It explains about a third of the variation in ratings, so a gap of a few points means little."><span class="hll">Roster talent</span><span class="hlv">{text}</span></div>')
     elif roster.get("talentNote"):
         highlights.append('<div class="hl"><span class="hll">Roster talent</span><span class="hlv">not comparable &mdash; recruiting rankings do not measure the service academies</span></div>')
-    if roster.get("returning") is not None:
+    if not roster.get("mode") and roster.get("returning") is not None:
         text = f'{roster["returning"]:.0%} of last year\'s &middot; #{roster["returningRank"]} of {roster["returningOf"]}'
         if roster["returning"] < 0.25:
             text += ' &middot; counted against its preseason rating'

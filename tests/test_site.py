@@ -1123,3 +1123,24 @@ def test_the_basketball_method_page_explains_the_prior_and_says_which_version_is
     live = site.bb_method_page({**p, "priorState": {"season": 2027, "teamsWithRosters": 300, "teams": 365, "mode": "roster"}})
     assert "are posted for 300 of 365 teams" in live
     assert 'id="priors"' not in site.bb_method_page(bb_payload)
+
+
+def test_basketball_team_pages_show_the_roster_in_either_mode(bb_payload) -> None:
+    p = json.loads(json.dumps(bb_payload))
+    team = p["teams"][0]
+    team["roster"] = {"mode": "roster", "returning": 0.21, "returningRank": 301, "returningOf": 340, "incoming": 9.4,
+                      "veteranMinutes": 0.4, "draftMinutes": 0.1, "freshman": 0.5, "freshmanRank": 7}
+    text = site.team_page(team, p)
+    assert "Returning production" in text and "21% of last season" in text and "#301 of 340" in text
+    assert "counted against its preseason rating" in text
+    assert "Incoming production" in text and "9.4 win shares" in text
+    assert "#7 in the country" in text
+    assert text.count("Returning production") == 1          # the football line is not drawn as well
+
+    team["roster"] = {"mode": "before rosters", "veteranMinutes": 0.71, "draftMinutes": 0.43}
+    early = site.team_page(team, p)
+    assert "71% from fourth-year-plus players" in early and "43% from players drafted" in early
+    assert "Returning production" not in early and "Recruiting class" not in early
+
+    team["roster"] = None
+    assert "Returning production" not in site.team_page(team, p)

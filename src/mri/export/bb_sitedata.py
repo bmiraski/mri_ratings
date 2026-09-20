@@ -204,6 +204,46 @@ def _records(games: pd.DataFrame, season: int) -> dict[str, tuple[int, int]]:
     return {k: (v[0], v[1]) for k, v in tally.items()}
 
 
+def roster_context(season: int, names: list[str]) -> dict[str, dict]:
+    """What is known about each team's roster, for the team pages.
+
+    With a roster: the share of last season's win shares that returned and what the
+    newcomers produced elsewhere. Without one - the feed posts rosters late - what
+    last season and the draft already imply: how much of last year's playing time
+    belonged to players near the end of their eligibility or headed to the NBA. The
+    freshman class is known either way.
+    """
+    from ..ratings import bb_priors
+
+    tables = bb_priors._tables()
+    if tables is None:
+        return {}
+    try:
+        feats = bb_priors.features(season, names, *tables, roster=bb_priors.rosters_for(season, names))
+    except Exception as exc:  # noqa: BLE001 - a page without the line beats no page
+        print(f"  roster context unavailable: {exc}")
+        return {}
+
+    have = feats[feats["has_roster"]]
+    returning_rank = have["ret_ws"].rank(ascending=False, method="min")
+    class_rank = feats["frosh"].rank(ascending=False, method="min")
+    out = {}
+    for team in names:
+        if team not in feats.index:
+            continue
+        f = feats.loc[team]
+        entry: dict = {"mode": "roster" if f["has_roster"] else "before rosters"}
+        if f["has_roster"]:
+            entry.update({"returning": round(float(f["ret_ws"]), 3), "returningRank": int(returning_rank[team]),
+                          "returningOf": int(len(have)), "incoming": round(float(f["in_ws"]), 1)})
+        if pd.notna(f["vet_min"]):
+            entry.update({"veteranMinutes": round(float(f["vet_min"]), 3), "draftMinutes": round(float(f["draft_min"]), 3)})
+        if f["frosh"] > 0:
+            entry.update({"freshman": round(float(f["frosh"]), 2), "freshmanRank": int(class_rank[team])})
+        out[team] = entry
+    return out
+
+
 def build(season: int, out_dir: Path) -> dict:
     """Write bb.json and return the payload."""
     modern = weekly_ratings(season)
@@ -261,6 +301,10 @@ def build(season: int, out_dir: Path) -> dict:
                 "sosRank": None,
             }
         )
+
+    roster = roster_context(season, [t["team"] for t in teams_payload])
+    for entry in teams_payload:
+        entry["roster"] = roster.get(entry["team"])
 
     conferences = common.conference_strength(teams_payload)
 

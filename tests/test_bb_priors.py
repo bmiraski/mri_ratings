@@ -191,3 +191,33 @@ def test_the_backtest_file_says_the_new_prior_wins_where_it_claims_to() -> None:
     for label, e in bt["bins"].items():
         assert e["with a roster"]["mae"] <= e["old"]["mae"], label
         assert e["with a roster"]["gain"] > 0 and e["with a roster"]["gainError"] >= 0
+
+
+# ---- the team page's roster lines
+
+def test_roster_context_says_what_is_known_in_each_mode(monkeypatch) -> None:
+    from mri.export import bb_sitedata
+
+    played, recruits, draft = tables()
+    monkeypatch.setattr(bb_priors, "_tables", lambda: (played, recruits, draft))
+
+    roster = {"Duke": {1, 2, 8, 20, 21, 22, 23, 24}, "Kansas": {4, 5, 40, 41, 42, 43, 44, 45}}
+    monkeypatch.setattr(bb_priors, "rosters_for", lambda season, d1: roster)
+    ctx = bb_sitedata.roster_context(SEASON, D1)
+    assert ctx["Duke"]["mode"] == "roster" and ctx["Duke"]["returning"] == pytest.approx(10 / 12, abs=1e-3)
+    assert ctx["Duke"]["incoming"] == 7.0 and ctx["Duke"]["returningOf"] == 2
+    assert ctx["Kansas"]["returning"] == 1.0 and ctx["Kansas"]["returningRank"] == 1
+    assert ctx["Kansas"]["freshman"] == pytest.approx(0.19) and ctx["Kansas"]["freshmanRank"] == 1
+    assert ctx["Kentucky"]["mode"] == "before rosters" and "returning" not in ctx["Kentucky"]
+    assert ctx["Duke"]["veteranMinutes"] == pytest.approx(800 / 2400, abs=1e-3)
+
+    monkeypatch.setattr(bb_priors, "rosters_for", lambda season, d1: None)
+    none_posted = bb_sitedata.roster_context(SEASON, D1)
+    assert all(e["mode"] == "before rosters" and "returning" not in e for e in none_posted.values())
+
+
+def test_roster_context_is_empty_rather_than_fatal_without_data(monkeypatch) -> None:
+    from mri.export import bb_sitedata
+
+    monkeypatch.setattr(bb_priors, "_tables", lambda: None)
+    assert bb_sitedata.roster_context(SEASON, D1) == {}
