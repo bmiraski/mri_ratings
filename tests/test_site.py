@@ -1144,3 +1144,79 @@ def test_basketball_team_pages_show_the_roster_in_either_mode(bb_payload) -> Non
 
     team["roster"] = None
     assert "Returning production" not in site.team_page(team, p)
+
+
+# ---- conference records and the Number One logo
+
+def test_conference_record_shows_only_when_there_is_one_to_show() -> None:
+    assert site.conference_record({"confWins": 3, "confLosses": 1}) == "3&ndash;1"
+    assert site.conference_record({"confWins": 0, "confLosses": 0}) is None      # nothing played yet
+    assert site.conference_record({}) is None                                     # an independent
+    assert site.conference_record({"confWins": None, "confLosses": None}) is None
+
+
+def test_football_conference_records_count_only_conference_games() -> None:
+    import pandas as pd
+    from mri.export import sitedata
+
+    def game(a, b, a_won, conf=True):
+        return {"team1": a, "team2": b, "win1": 1.0 if a_won else 0.0, "win2": 0.0 if a_won else 1.0,
+                "conference_game": conf}
+
+    conference = {"A": "SEC", "B": "SEC", "C": "SEC", "D": "Big Ten", "N": "FBS Independent", "M": "FBS Independent"}
+    games = pd.DataFrame([
+        game("A", "B", True), game("C", "A", True), game("B", "C", False),
+        game("A", "D", True),                       # not the same conference
+        game("A", "C", True, conf=False),           # the feed says it does not count (a flex game)
+        game("N", "M", True),                       # independents have no conference
+        game("A", "Some FCS team", True),           # not a conference at all
+    ])
+    records = sitedata._conference_records(games, conference)
+    assert records["A"] == (1, 1)                       # beat B, lost to C
+    assert records["C"] == (2, 0) and records["B"] == (0, 2)
+    assert "N" not in records and "M" not in records and "D" not in records
+
+
+def test_basketball_conference_records_leave_out_conference_tournaments() -> None:
+    import pandas as pd
+    from mri.export import bb_sitedata
+
+    def game(a, b, a_won, kind="STD", ca="ACC", cb="ACC"):
+        return {"team1": a, "team2": b, "win1": 1.0 if a_won else 0.0, "win2": 0.0 if a_won else 1.0,
+                "game_type": kind, "conf1": ca, "conf2": cb}
+
+    games = pd.DataFrame([
+        game("Duke", "North Carolina", True),
+        game("Duke", "North Carolina", False, kind="TRNMNT"),        # the conference tournament
+        game("Duke", "Kansas", True, ca="ACC", cb="Big 12"),         # not a conference game
+    ])
+    records = bb_sitedata._conference_records(games, 2026)
+    assert records["Duke"] == (1, 0) and records["North Carolina"] == (0, 1) and "Kansas" not in records
+    assert bb_sitedata._conference_records(games.drop(columns=["game_type"]), 2026) == {}
+
+
+def test_conference_pages_and_team_pages_carry_the_conference_record(payload) -> None:
+    p = json.loads(json.dumps(payload))
+    conference = p["conferences"][0]["conference"]
+    members = [t for t in p["teams"] if t["conference"] == conference]
+    for i, t in enumerate(members):
+        t["confWins"], t["confLosses"] = i % 4, (i + 1) % 3 + 1
+    top = members[0]
+    text = site.conference_page(conference, p)
+    assert 'title="Record in conference games"' in text and f'{top["confWins"]}&ndash;{top["confLosses"]}' in text
+    assert f"{top['confWins']}&ndash;{top['confLosses']} in conference" in site.team_page(top, p)
+
+    # An independent, or a team whose conference schedule has not started, gets no record
+    top["confWins"], top["confLosses"] = 0, 0
+    assert "in conference" not in site.team_page(top, p)
+
+
+def test_the_number_one_box_carries_a_larger_logo_on_the_right(payload) -> None:
+    text = site.rankings_page(payload)
+    box = text[text.index('<p class="ptitle">Number one</p>'):]
+    box = box[:box.index("</section>")]
+    top = payload["teams"][0]
+    assert 'class="herologo"' in box and box.index('class="heronm"') < box.index('class="herologo"')
+    if top.get("logo"):
+        assert 'width="72" height="72"' in box
+    assert f'team/{site.slug(top["team"])}.html' in box

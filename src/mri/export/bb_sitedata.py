@@ -204,6 +204,28 @@ def _records(games: pd.DataFrame, season: int) -> dict[str, tuple[int, int]]:
     return {k: (v[0], v[1]) for k, v in tally.items()}
 
 
+def _conference_records(games: pd.DataFrame, season: int) -> dict[str, tuple[int, int]]:
+    """Regular-season conference records.
+
+    ``game_type`` is what separates a conference game from a conference tournament
+    game: both are between members and both are labelled regular season, and the
+    tournament games would give a Big Ten team a 22-game "conference schedule" in a
+    20-game league. Only ``STD`` games between teams in the same conference count.
+    """
+    if "game_type" not in games.columns:
+        return {}
+    tally: dict[str, list[int]] = {}
+    for row in games.itertuples():
+        if row.game_type != "STD" or not row.conf1 or row.conf1 != row.conf2:
+            continue
+        for team, won in ((row.team1, row.win1), (row.team2, row.win2)):
+            if not registry.is_d1(team, season=season):
+                continue
+            entry = tally.setdefault(team, [0, 0])
+            entry[0 if won == 1.0 else 1] += 1
+    return {k: (v[0], v[1]) for k, v in tally.items()}
+
+
 def roster_context(season: int, names: list[str]) -> dict[str, dict]:
     """What is known about each team's roster, for the team pages.
 
@@ -268,6 +290,7 @@ def build(season: int, out_dir: Path) -> dict:
     }
 
     records = _records(games, season)
+    conference_records = _conference_records(games, season)
     teams_payload = []
     for team, row in current.iterrows():
         identity = identities.get(team, {})
@@ -285,6 +308,8 @@ def build(season: int, out_dir: Path) -> dict:
                 "resumeRank": int(row["resume_rank"]) if pd.notna(row["resume_rank"]) else None,
                 "wins": records.get(team, (0, 0))[0],
                 "losses": records.get(team, (0, 0))[1],
+                "confWins": conference_records.get(team, (0, 0))[0],
+                "confLosses": conference_records.get(team, (0, 0))[1],
                 "conference": identity.get("conference")
                 or registry.conference_of(team, season=season)
                 or "Independent",

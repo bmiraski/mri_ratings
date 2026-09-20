@@ -165,6 +165,18 @@ def movement_chip(value) -> str:
     return f'<span class="mv {kind}" title="{label}">{arrow}{abs(value)}</span>'
 
 
+def conference_record(team: dict) -> str | None:
+    """'3–1', or None when there is no conference record to show.
+
+    No conference (an independent) and no conference game played yet are both
+    "nothing to show" - a 0-0 beside every team in September says nothing.
+    """
+    wins, losses = team.get("confWins"), team.get("confLosses")
+    if wins is None or losses is None or wins + losses == 0:
+        return None
+    return f"{wins}&ndash;{losses}"
+
+
 def identity_mark(team: dict, size: int = 20, depth: int = 0) -> str:
     """Logo when we have one, a color chip when we don't. Never color alone -
     the team name is always beside it.
@@ -396,6 +408,7 @@ def rankings_page(payload: dict) -> str:
             <div class="heronm"><a href="team/{slug(top['team'])}.html">{esc(top['team'])}</a></div>
             <div class="herosub">{top['wins']}&ndash;{top['losses']} &middot; r&eacute;sum&eacute; #{top['resumeRank']}</div>
           </div>
+          <a class="herologo" href="team/{slug(top['team'])}.html" tabindex="-1" aria-hidden="true">{identity_mark(top, 72)}</a>
         </div>
       </section>
 
@@ -869,6 +882,7 @@ def team_page(team: dict, payload: dict) -> str:
       <div>
         <h1>{esc(team['team'])}</h1>
         <p class="teamsub">{esc(team['conference'])} &middot; {team['wins']}&ndash;{team['losses']}
+        {f"&middot; {conference_record(team)} in conference" if conference_record(team) else ""}
         {f"&middot; MRI Classic #{team['classicRank']}" if team.get('classicRank') else ""}</p>
       </div>
     </div>
@@ -924,6 +938,7 @@ def conference_page(name: str, payload: dict) -> str:
         <td class="rk">{t['rank']}</td>
         <td class="tm"><span class="rule"></span>{identity_mark(t, 18, depth=1)}<a href="../team/{slug(t['team'])}.html">{esc(t['team'])}</a></td>
         <td class="rec">{t['wins']}&ndash;{t['losses']}</td>
+        <td class="rec">{conference_record(t) or '<span class="muted">&ndash;</span>'}</td>
         <td class="num">{t['power']:+.1f}</td>
         <td class="num">{t['resume']:+.2f}</td>{classic_cell(t)}
       </tr>""" for t in members)
@@ -940,7 +955,7 @@ def conference_page(name: str, payload: dict) -> str:
   {f"&middot; #{rank} of {len(payload['conferences'])}" if rank else ""}
   &middot; mean power {mean:+.1f}</p>
   <div class="tablewrap"><table class="conftable">
-    <thead><tr><th>#</th><th>Team</th><th>Rec</th><th class="num">Power</th>
+    <thead><tr><th>#</th><th>Team</th><th>Rec</th><th title="Record in conference games">Conf.</th><th class="num">Power</th>
     <th class="num">R&eacute;sum&eacute;</th>{classic_head}</tr></thead>
     <tbody>{rows}</tbody>
   </table></div>"""
@@ -2541,6 +2556,7 @@ ul { list-style:none; margin:0; padding:0; }
 .hero { display:flex; align-items:center; gap:14px; }
 .heronum { font-size:48px; font-weight:800; line-height:1; letter-spacing:-0.03em; }
 .heronm { font-size:15px; font-weight:600; }
+.herologo { margin-left:auto; flex:none; display:flex; }
 .heronm a { text-decoration:none; }
 .herosub { font-size:12px; color:var(--secondary); }
 

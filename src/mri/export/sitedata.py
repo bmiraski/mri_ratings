@@ -148,6 +148,11 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
     }
 
     records = _records(games)
+    conference_of = {
+        team: (identities[team].conference if identities.get(team) else registry.conference_of(team))
+        for team in current.index
+    }
+    conference_records = _conference_records(games, conference_of)
     teams_payload = []
     for team, row in current.iterrows():
         identity = identities.get(team)
@@ -161,6 +166,8 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
                 "resumeRank": int(row["resume_rank"]) if pd.notna(row["resume_rank"]) else None,
                 "wins": records.get(team, (0, 0))[0],
                 "losses": records.get(team, (0, 0))[1],
+                "confWins": conference_records.get(team, (0, 0))[0],
+                "confLosses": conference_records.get(team, (0, 0))[1],
                 "conference": identity.conference if identity else registry.conference_of(team),
                 "color": identity.color if identity else "#444444",
                 "altColor": identity.alt_color if identity else "#888888",
@@ -210,6 +217,26 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
         common.settle_timestamp(payload, path)
         path.write_text(json.dumps(payload, indent=2))
     return payload
+
+
+def _conference_records(games: pd.DataFrame, conference: dict[str, str]) -> dict[str, tuple[int, int]]:
+    """Conference-game records: only games the feed counts as conference games.
+
+    Two teams sharing a conference is not enough. The Pac-12's week-13 flex games
+    are between members and count for nothing in the standings, so the feed's own
+    flag decides, and both teams must be in the same conference on the site as well.
+    """
+    tally: dict[str, list[int]] = {}
+    for row in games.itertuples():
+        if not getattr(row, "conference_game", False):
+            continue
+        a, b = conference.get(row.team1), conference.get(row.team2)
+        if not a or a != b or a in ("FBS Independent", "Independent"):
+            continue
+        for team, won in ((row.team1, row.win1), (row.team2, row.win2)):
+            entry = tally.setdefault(team, [0, 0])
+            entry[0 if won == 1.0 else 1] += 1
+    return {k: (v[0], v[1]) for k, v in tally.items()}
 
 
 def _records(games: pd.DataFrame) -> dict[str, tuple[int, int]]:
