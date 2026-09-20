@@ -185,23 +185,23 @@
   week. Nothing from the week it is predicting leaks in, but it was computed afterwards, and a record computed
   afterwards is a backtest however carefully it is done.</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>103 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
+    <thead><tr><th>157 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
     <tbody>
-      <tr><td>Picked the winner</td><td class="num">80.6%</td><td class="num">82.5%</td></tr>
-      <tr><td>Average miss, points</td><td class="num">14.99</td><td class="num">12.05</td></tr><tr><td>Size of the lines</td><td class="num">0.73</td>
+      <tr><td>Picked the winner</td><td class="num">80.9%</td><td class="num">83.4%</td></tr>
+      <tr><td>Average miss, points</td><td class="num">13.6</td><td class="num">10.95</td></tr><tr><td>Size of the lines</td><td class="num">0.75</td>
           <td class="num">0.93</td></tr>
     </tbody>
   </table></div>
-  <p>That is 3.0 points worse than the market (&plusmn;1.4). Over the seventeen archived seasons the model averaged 13.0 points and
+  <p>That is 2.7 points worse than the market (&plusmn;1.1). Over the seventeen archived seasons the model averaged 13.0 points and
   picked 73.8% winners; a September sample has far less to go on, because the ratings
   lean on last year until this year's results replace them. A size of 1.00 means the lines are the right
   size; below it, they are too extreme &mdash; a favourite laying more points than it wins by.</p>
 
   <p>Where the model disagreed with the opening number by 3 points or more, the board's own rule:
-  <strong>22&ndash;34</strong> against the number
-  (39.3%; break-even is 52.4%), -14.0 units,
-  mean closing line value +0.5.
-  That is 56 bets, far too few to say whether the disagreements mean anything.</p>
+  <strong>36&ndash;49&ndash;2</strong> against the number
+  (42.4%; break-even is 52.4%), -16.3 units,
+  mean closing line value +0.4.
+  That is 87 bets, far too few to say whether the disagreements mean anything.</p>
 
   <div class="tablewrap"><table>
     <thead><tr><th>Week</th><th class="num">Games</th><th class="num">Winners</th><th class="num">Miss</th>
@@ -214,20 +214,20 @@
         <td class="num">80%</td><td class="num">13.9</td>
         <td class="num">10.8</td>
         <td class="num">14-23</td>
-        <td class="num under">-10.3</td></tr><tr><td>3</td><td class="num">3</td>
-        <td class="num">100%</td><td class="num">11.4</td>
-        <td class="num">5.5</td>
-        <td class="num">1-1</td>
-        <td class="num under">-0.1</td></tr></tbody>
+        <td class="num under">-10.3</td></tr><tr><td>3</td><td class="num">57</td>
+        <td class="num">82%</td><td class="num">11.0</td>
+        <td class="num">8.7</td>
+        <td class="num">15-16-2</td>
+        <td class="num under">-2.4</td></tr></tbody>
   </table></div>
 
   <h3>The forward log</h3>
   <p>Started 2026-09-19. Each flagged game is written down before kickoff &mdash; model line,
   the market's number at that moment, the side &mdash; and never edited afterwards. Graded against the number
   taken, at &minus;110.</p>
-  <p><strong>0&ndash;0</strong>
-  on 0 graded of 31 logged
-  (+0.0 units).</p>
+  <p><strong>16&ndash;14&ndash;1</strong>
+  on 31 graded of 48 logged
+  (+0.5 units, mean closing line value -0.1).</p>
   <div class="tablewrap"><table>
     <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's margin for the home team">Model (home)</th><th class="num" title="Market's expected home margin when logged">Line (home)</th>
     <th class="num">Edge</th><th class="num">Result</th><th class="num">CLV</th></tr></thead>
@@ -236,287 +236,341 @@
           <td>North Texas</td>
           <td class="num">-12.9</td><td class="num">+3.0</td>
           <td class="num">-15.9</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Stanford at Duke</td>
           <td>Duke</td>
           <td class="num">+25.0</td><td class="num">+10.0</td>
           <td class="num">+15.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-0.5</td></tr><tr><td class="wk">3</td>
           <td class="opp">Temple at Toledo</td>
           <td>Toledo</td>
           <td class="num">+18.6</td><td class="num">+6.0</td>
           <td class="num">+14.6</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-1.5</td></tr><tr><td class="wk">3</td>
           <td class="opp">Bowling Green at Iowa State</td>
           <td>Iowa State</td>
           <td class="num">+36.5</td><td class="num">+23.5</td>
           <td class="num">+14.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Kentucky at Texas A&amp;M</td>
           <td>Texas A&amp;M</td>
           <td class="num">+29.1</td><td class="num">+16.5</td>
           <td class="num">+13.6</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Utah State at Utah</td>
           <td>Utah</td>
           <td class="num">+38.6</td><td class="num">+27.5</td>
           <td class="num">+11.1</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Florida State at Alabama</td>
           <td>Alabama</td>
           <td class="num">+26.3</td><td class="num">+19.5</td>
           <td class="num">+10.8</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Virginia Tech at Maryland</td>
           <td>Maryland</td>
           <td class="num">+8.2</td><td class="num">-3.0</td>
           <td class="num">+9.7</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.5</td></tr><tr><td class="wk">3</td>
           <td class="opp">Western Kentucky at Indiana</td>
           <td>Indiana</td>
           <td class="num">+54.2</td><td class="num">+44.5</td>
           <td class="num">+9.7</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Kent State at Ohio State</td>
           <td>Ohio State</td>
           <td class="num">+61.6</td><td class="num">+52.5</td>
           <td class="num">+9.1</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">NC State at Vanderbilt</td>
           <td>Vanderbilt</td>
           <td class="num">+12.6</td><td class="num">+3.0</td>
           <td class="num">+8.6</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">James Madison at San Diego State</td>
           <td>James Madison</td>
           <td class="num">-6.8</td><td class="num">+1.5</td>
           <td class="num">-8.3</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">FIU at Florida Atlantic</td>
           <td>FIU</td>
           <td class="num">-0.6</td><td class="num">+6.5</td>
           <td class="num">-8.1</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+2.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">West Virginia vs Virginia</td>
           <td>Virginia</td>
           <td class="num">+15.5</td><td class="num">+10.5</td>
           <td class="num">+7.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Marshall at Missouri State</td>
           <td>Missouri State</td>
           <td class="num">+2.4</td><td class="num">-4.0</td>
           <td class="num">+6.9</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Akron at Minnesota</td>
           <td>Akron</td>
           <td class="num">+20.6</td><td class="num">+23.5</td>
           <td class="num">-5.9</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Nevada at Middle Tennessee</td>
           <td>Middle Tennessee</td>
           <td class="num">-0.8</td><td class="num">-3.5</td>
           <td class="num">+5.7</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">UAB at Louisiana</td>
           <td>Louisiana</td>
           <td class="num">+15.2</td><td class="num">+7.5</td>
           <td class="num">+5.2</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-0.5</td></tr><tr><td class="wk">3</td>
           <td class="opp">Michigan State at Notre Dame</td>
           <td>Notre Dame</td>
           <td class="num">+34.6</td><td class="num">+29.5</td>
           <td class="num">+5.1</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Buffalo at Penn State</td>
           <td>Penn State</td>
           <td class="num">+44.1</td><td class="num">+40.5</td>
           <td class="num">+4.6</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">BYU at Colorado State</td>
           <td>BYU</td>
           <td class="num">-25.3</td><td class="num">-17.5</td>
           <td class="num">-4.3</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Charlotte at Appalachian State</td>
           <td>Appalachian State</td>
           <td class="num">+23.8</td><td class="num">+17.5</td>
           <td class="num">+4.3</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-2.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">UTSA at Texas</td>
           <td>UTSA</td>
           <td class="num">+25.4</td><td class="num">+30.5</td>
           <td class="num">-4.1</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+1.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">LSU at Ole Miss</td>
           <td>Ole Miss</td>
           <td class="num">+5.5</td><td class="num">-3.0</td>
           <td class="num">+4.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">New Mexico at Oklahoma</td>
           <td>New Mexico</td>
           <td class="num">+19.5</td><td class="num">+21.5</td>
           <td class="num">-4.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Western Michigan at Rice</td>
           <td>Western Michigan</td>
           <td class="num">-15.5</td><td class="num">-8.5</td>
           <td class="num">-4.0</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Tulane at Kansas State</td>
           <td>Tulane</td>
           <td class="num">+16.6</td><td class="num">+20.5</td>
           <td class="num">-3.9</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Troy at Missouri</td>
           <td>Missouri</td>
           <td class="num">+31.2</td><td class="num">+27.5</td>
           <td class="num">+3.7</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">loss</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Purdue at UCLA</td>
           <td>UCLA</td>
           <td class="num">+17.7</td><td class="num">+14.0</td>
           <td class="num">+3.7</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">push</td>
+          <td class="num">+0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Georgia at Arkansas</td>
           <td>Georgia</td>
           <td class="num">-20.9</td><td class="num">-24.5</td>
           <td class="num">-3.4</td>
-          <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">3</td>
+          <td class="num">win</td>
+          <td class="num">-0.0</td></tr><tr><td class="wk">3</td>
           <td class="opp">Mississippi State at South Carolina</td>
           <td>Mississippi State</td>
           <td class="num">+4.2</td><td class="num">+4.0</td>
           <td class="num">-3.3</td>
+          <td class="num">win</td>
+          <td class="num">+1.0</td></tr><tr><td class="wk">4</td>
+          <td class="opp">Oklahoma State at West Virginia</td>
+          <td>West Virginia</td>
+          <td class="num">+12.7</td><td class="num">+1.5</td>
+          <td class="num">+15.2</td>
           <td class="num"><span class="muted">pending</span></td>
-          <td class="num"><span class="muted">&ndash;</span></td></tr></tbody></table></div>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Wisconsin at Penn State</td>
+          <td>Penn State</td>
+          <td class="num">+23.4</td><td class="num">+10.0</td>
+          <td class="num">+11.9</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">South Carolina at Alabama</td>
+          <td>Alabama</td>
+          <td class="num">+22.1</td><td class="num">+11.5</td>
+          <td class="num">+10.6</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Vanderbilt at Auburn</td>
+          <td>Vanderbilt</td>
+          <td class="num">+0.4</td><td class="num">+9.5</td>
+          <td class="num">-8.1</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Notre Dame at Purdue</td>
+          <td>Notre Dame</td>
+          <td class="num">-34.6</td><td class="num">-27.5</td>
+          <td class="num">-7.1</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Central Michigan at Miami (FL)</td>
+          <td>Miami (FL)</td>
+          <td class="num">+48.9</td><td class="num">+42.5</td>
+          <td class="num">+6.4</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Oklahoma at Georgia</td>
+          <td>Georgia</td>
+          <td class="num">+16.2</td><td class="num">+14.0</td>
+          <td class="num">+6.2</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Iowa at Michigan</td>
+          <td>Iowa</td>
+          <td class="num">-1.7</td><td class="num">+4.5</td>
+          <td class="num">-6.2</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr><tr><td class="wk">4</td>
+          <td class="opp">Oregon at USC</td>
+          <td>USC</td>
+          <td class="num">+0.7</td><td class="num">-1.5</td>
+          <td class="num">+6.2</td>
+          <td class="num"><span class="muted">pending</span></td>
+          <td class="num"><span class="muted">&ndash;</span></td></tr></tbody></table></div><p class="muted">Showing 40 of 48.</p>
   <h2>This week</h2>
   <p class="note"><strong>Tracked, not recommended.</strong> These are the largest
   disagreements with the opening number. They are published so the record accumulates in
   public, including the losing weeks.</p>
-  <p class="note">1 game(s) set aside because the model has no prior season for one side: North Dakota State. An early-season "edge" against a team the model has never rated is ignorance, not an opinion.</p>
+  
   <div class="tablewrap"><table>
     <thead><tr><th>Wk</th><th>Game</th><th class="num">Model</th><th class="num">Open</th>
     <th class="num">Edge</th><th>Side</th></tr></thead>
     <tbody><tr>
-        <td class="wk">3</td>
-        <td class="opp">North Texas at Texas State</td>
-        <td class="num">-13.1</td>
-        <td class="num">+3.0</td>
-        <td class="num perf under">-16.1</td>
-        <td>North Texas</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Stanford at Duke</td>
-        <td class="num">+25.1</td>
-        <td class="num">+10.0</td>
-        <td class="num perf over">+15.1</td>
-        <td>Duke</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Temple at Toledo</td>
-        <td class="num">+18.6</td>
-        <td class="num">+4.0</td>
-        <td class="num perf over">+14.6</td>
-        <td>Toledo</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Bowling Green at Iowa State</td>
-        <td class="num">+36.8</td>
-        <td class="num">+22.5</td>
-        <td class="num perf over">+14.3</td>
-        <td>Iowa State</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Kentucky at Texas A&amp;M</td>
-        <td class="num">+29.3</td>
-        <td class="num">+15.5</td>
-        <td class="num perf over">+13.8</td>
-        <td>Texas A&amp;M</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Utah State at Utah</td>
-        <td class="num">+38.8</td>
-        <td class="num">+27.5</td>
-        <td class="num perf over">+11.3</td>
-        <td>Utah</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Florida State at Alabama</td>
-        <td class="num">+26.4</td>
-        <td class="num">+15.5</td>
-        <td class="num perf over">+10.9</td>
+        <td class="wk">4</td>
+        <td class="opp">Oklahoma State at West Virginia</td>
+        <td class="num">+12.7</td>
+        <td class="num">-2.5</td>
+        <td class="num perf over">+15.2</td>
+        <td>West Virginia</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Wisconsin at Penn State</td>
+        <td class="num">+23.4</td>
+        <td class="num">+11.5</td>
+        <td class="num perf over">+11.9</td>
+        <td>Penn State</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">South Carolina at Alabama</td>
+        <td class="num">+22.1</td>
+        <td class="num">+11.5</td>
+        <td class="num perf over">+10.6</td>
         <td>Alabama</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Western Kentucky at Indiana</td>
-        <td class="num">+54.6</td>
-        <td class="num">+44.5</td>
-        <td class="num perf over">+10.1</td>
-        <td>Indiana</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Virginia Tech at Maryland</td>
-        <td class="num">+8.2</td>
-        <td class="num">-1.5</td>
-        <td class="num perf over">+9.7</td>
-        <td>Maryland</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Kent State at Ohio State</td>
-        <td class="num">+62.0</td>
-        <td class="num">+52.5</td>
-        <td class="num perf over">+9.5</td>
-        <td>Ohio State</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">NC State at Vanderbilt</td>
-        <td class="num">+12.6</td>
-        <td class="num">+4.0</td>
-        <td class="num perf over">+8.6</td>
-        <td>Vanderbilt</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">James Madison at San Diego State</td>
-        <td class="num">-6.9</td>
-        <td class="num">+1.5</td>
-        <td class="num perf under">-8.4</td>
-        <td>James Madison</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">FIU at Florida Atlantic</td>
-        <td class="num">-0.7</td>
-        <td class="num">+7.5</td>
-        <td class="num perf under">-8.2</td>
-        <td>FIU</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">West Virginia vs Virginia</td>
-        <td class="num">+15.6</td>
+        <td class="wk">4</td>
+        <td class="opp">Vanderbilt at Auburn</td>
+        <td class="num">+0.4</td>
         <td class="num">+8.5</td>
-        <td class="num perf over">+7.1</td>
-        <td>Virginia</td></tr><tr>
-        <td class="wk">3</td>
-        <td class="opp">Marshall at Missouri State</td>
-        <td class="num">+2.3</td>
+        <td class="num perf under">-8.1</td>
+        <td>Vanderbilt</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Notre Dame at Purdue</td>
+        <td class="num">-34.6</td>
+        <td class="num">-27.5</td>
+        <td class="num perf under">-7.1</td>
+        <td>Notre Dame</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Central Michigan at Miami (FL)</td>
+        <td class="num">+48.9</td>
+        <td class="num">+42.5</td>
+        <td class="num perf over">+6.4</td>
+        <td>Miami (FL)</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Oklahoma at Georgia</td>
+        <td class="num">+16.2</td>
+        <td class="num">+10.0</td>
+        <td class="num perf over">+6.2</td>
+        <td>Georgia</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Iowa at Michigan</td>
+        <td class="num">-1.7</td>
+        <td class="num">+4.5</td>
+        <td class="num perf under">-6.2</td>
+        <td>Iowa</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Oregon at USC</td>
+        <td class="num">+0.7</td>
+        <td class="num">-5.5</td>
+        <td class="num perf over">+6.2</td>
+        <td>USC</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Ole Miss at Florida</td>
         <td class="num">-4.5</td>
-        <td class="num perf over">+6.8</td>
-        <td>Missouri State</td></tr></tbody>
+        <td class="num">+1.5</td>
+        <td class="num perf under">-6.0</td>
+        <td>Ole Miss</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Northwestern at Indiana</td>
+        <td class="num">+28.5</td>
+        <td class="num">+23.5</td>
+        <td class="num perf over">+5.0</td>
+        <td>Indiana</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Boise State at Western Michigan</td>
+        <td class="num">-2.5</td>
+        <td class="num">-7.5</td>
+        <td class="num perf over">+5.0</td>
+        <td>Western Michigan</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">UCLA at Maryland</td>
+        <td class="num">+3.1</td>
+        <td class="num">-1.5</td>
+        <td class="num perf over">+4.6</td>
+        <td>Maryland</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Texas at Tennessee</td>
+        <td class="num">-2.3</td>
+        <td class="num">-6.5</td>
+        <td class="num perf over">+4.2</td>
+        <td>Tennessee</td></tr><tr>
+        <td class="wk">4</td>
+        <td class="opp">Minnesota at Washington</td>
+        <td class="num">+13.7</td>
+        <td class="num">+9.5</td>
+        <td class="num perf over">+4.2</td>
+        <td>Washington</td></tr></tbody>
   </table></div>
   </article></main>
 <footer class="site">
@@ -524,8 +578,8 @@
     <p>MRI &mdash; a computer rating system for college football,
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-19 14:01 UTC
-    &middot; 189 games rated &middot; home field 4.1 pts</p>
+    <p class="muted">Ratings last changed 2026-09-20 14:22 UTC
+    &middot; 260 games rated &middot; home field 3.5 pts</p>
   </div>
 </footer>
 </body>
