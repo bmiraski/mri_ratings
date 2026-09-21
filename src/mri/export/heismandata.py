@@ -18,6 +18,10 @@ import numpy as np
 
 from ..heisman import data, live
 
+MARKET = Path(__file__).resolve().parents[3] / "data" / "heisman_market.json"
+MARKET_STALE_DAYS = 10
+FINALIST_ROWS = 8
+
 SHOWN = 15
 KEPT = 30                 # players whose odds are saved each week, for movement
 POSITIONS = {"QB": "QB", "RB": "RB", "REC": "WR/TE"}
@@ -43,8 +47,46 @@ def _num(x):
     return None if x is None or (isinstance(x, float) and np.isnan(x)) else float(x)
 
 
+def market_for(rows: list[dict], today: dt.date, path: Path | None = None) -> dict | None:
+    """Sportsbook odds for the players on the page, if a recent enough snapshot has been saved.
+
+    The market is a benchmark, never an input: it is shown beside the model so a reader can see
+    where they disagree, and nothing here changes a probability. Stale odds are worse than none, so a file
+    older than ten days is ignored.
+    """
+    path = path or MARKET
+    if not path.exists():
+        return None
+    saved = json.loads(path.read_text())
+    if (today - dt.date.fromisoformat(saved["asOf"])).days > MARKET_STALE_DAYS:
+        return None
+    wanted = {data.normalize(k): v for k, v in saved["odds"].items()}
+    matched = 0
+    for r in rows:
+        odds = wanted.get(data.normalize(r["player"]))
+        if odds is None:
+            r["market"] = None
+            continue
+        matched += 1
+        r["market"] = {"odds": odds, "implied": round(100 / (odds + 100) if odds > 0 else -odds / (-odds + 100), 4)}
+    if matched < 2:
+        for r in rows:
+            r["market"] = None
+        return None
+    return {"asOf": saved["asOf"], "source": saved["source"], "note": saved["note"]}
+
+
+def defender_rate(voting: dict) -> dict:
+    """How often a defender has been invited to the ceremony, from the voting record itself."""
+    seasons = sorted(int(y) for y in voting["seasons"] if int(y) >= 2012)
+    hit = {y: [f["player"] for f in voting["seasons"][str(y)]["finalists"] if f.get("defender") and f.get("finalist") is not False]
+           for y in seasons}
+    years = [y for y, names in hit.items() if names]
+    return {"seasons": len(seasons), "count": len(years), "years": years, "names": [n for y in years for n in hit[y]]}
+
+
 def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None = None, odds_fn=None,
-          sims: int = 10_000) -> dict | None:
+          sims: int = 10_000, defenders_fn=None) -> dict | None:
     """The page's data, or None if there is nothing honest to show."""
     today = today or dt.date.today()
     voting = data.load_voting()
@@ -97,11 +139,20 @@ def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None
     for r in rows:
         by_team.setdefault(r["team"], {"player": r["player"], "win": r["win"], "position": r["position"]})
 
+    market = market_for(rows, today)
+    try:
+        watch = (defenders_fn or live.defenders_to_watch)(payload)
+    except Exception:  # noqa: BLE001 - a list of names to watch is not worth the page
+        watch = []
+    reach = [{"player": r["player"], "team": r["team"], "position": POSITIONS[r["group"]], "finalist": round(float(r["finalist"]), 4),
+              "win": round(float(r["win"]), 4)} for _, r in odds.sort_values("finalist", ascending=False).head(FINALIST_ROWS).iterrows()]
     voted = {int(y): next(f["player"] for f in s["finalists"] if f["finish"] == 1) for y, s in voting["seasons"].items()}
     page = {
         "season": year, "week": week, "sims": result["sims"], "candidates": result["candidates"], "updated": today.isoformat(),
         "closed": False, "dates": dates, "players": rows, "rest": round(max(0.0, 1.0 - shown_win), 4),
         "byPosition": by_position, "byTeam": by_team, "winners": {str(y): n for y, n in voted.items()},
+        "reach": reach, "expectedFinalists": round(float(odds["finalist"].sum()), 2), "defenders": {**defender_rate(voting), "watch": watch},
+        "market": market,
     }
     history["weeks"][str(week)] = {
         "odds": {_key(r["player"], r["team"]): [round(float(r["win"]), 4), round(float(r["finalist"]), 4)]

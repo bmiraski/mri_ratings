@@ -41,6 +41,18 @@
       "top3": 0.786,
       "logLoss": 1.731,
       "meanWinnerRank": 3.143
+    },
+    "+ late-season production (weeks 10-13)": {
+      "top1": 0.643,
+      "top3": 0.857,
+      "logLoss": 1.698,
+      "meanWinnerRank": 3.071
+    },
+    "+ production against top-25 opponents": {
+      "top1": 0.643,
+      "top3": 0.857,
+      "logLoss": 1.748,
+      "meanWinnerRank": 3.143
     }
   },
   "chosen": "production and team (chosen)",

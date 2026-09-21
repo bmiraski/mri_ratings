@@ -85,3 +85,57 @@ def test_after_the_ballots_close_the_last_odds_are_shown_and_never_recomputed(tm
     page = heismandata.build(2026, PAYLOAD, path, today=dt.date(2026, 12, 8), odds_fn=boom)
     assert page["closed"] is True and page["players"][0]["player"] == "Ann Alpha" and page["updated"] == "2026-12-01"
     assert heismandata.build(2026, PAYLOAD, tmp_path / "none.json", today=dt.date(2026, 12, 8), odds_fn=boom) is None
+
+
+# ---- the market benchmark, the finalist view, defenders
+
+def market_file(tmp_path, as_of="2026-09-20", odds=None):
+    path = tmp_path / "market.json"
+    path.write_text(json.dumps({"asOf": as_of, "source": "A book", "note": "Includes the margin.",
+                                "odds": odds or {"Ann Alpha": 310, "Bob Beta": -150}}))
+    return path
+
+
+def test_market_odds_become_implied_chances_for_the_players_on_the_page(tmp_path) -> None:
+    rows = [{"player": "Ann Alpha"}, {"player": "Bob Beta"}, {"player": "Cy Gamma"}]
+    info = heismandata.market_for(rows, dt.date(2026, 9, 22), market_file(tmp_path))
+    assert info["asOf"] == "2026-09-20"
+    assert rows[0]["market"] == {"odds": 310, "implied": pytest.approx(100 / 410, abs=1e-4)}
+    assert rows[1]["market"]["implied"] == pytest.approx(0.6)          # a favorite at -150
+    assert rows[2]["market"] is None
+
+
+def test_stale_or_thin_market_data_is_not_shown(tmp_path) -> None:
+    rows = [{"player": "Ann Alpha"}, {"player": "Bob Beta"}]
+    assert heismandata.market_for(rows, dt.date(2026, 10, 5), market_file(tmp_path)) is None           # fifteen days old
+    thin = [{"player": "Ann Alpha"}, {"player": "Cy Gamma"}]
+    assert heismandata.market_for(thin, dt.date(2026, 9, 21), market_file(tmp_path)) is None           # only one match
+    assert all(r["market"] is None for r in thin)
+    assert heismandata.market_for(rows, dt.date(2026, 9, 21), tmp_path / "missing.json") is None
+
+
+def test_the_defender_rate_comes_from_the_voting_record() -> None:
+    from mri.heisman import data
+
+    d = heismandata.defender_rate(data.load_voting())
+    assert d["years"] == [2012, 2016, 2019, 2021] and d["count"] == 4 and d["seasons"] == 14
+    assert "Chase Young" in d["names"] and "Jacob Rodriguez" not in d["names"]    # a top-ten finish is not an invitation
+
+
+def test_the_page_data_carries_the_finalist_view_the_defenders_and_the_market(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(heismandata, "MARKET", market_file(tmp_path))
+    page = heismandata.build(2026, PAYLOAD, tmp_path / "h.json", today=dt.date(2026, 9, 22), odds_fn=lambda p, sims: odds(),
+                             defenders_fn=lambda payload: [{"player": "Dee Fender", "team": "Alpha", "position": "LB", "tackles": 30,
+                                                            "sacks": 3.0, "interceptions": 1}])
+    assert [r["player"] for r in page["reach"]][:2] == ["Ann Alpha", "Bob Beta"]        # most likely finalist first
+    assert page["expectedFinalists"] == pytest.approx(sum(r["finalist"] for r in page["reach"]), abs=0.05)
+    assert page["defenders"]["watch"][0]["player"] == "Dee Fender" and page["defenders"]["count"] == 4
+    assert page["market"]["asOf"] == "2026-09-20" and page["players"][0]["market"]["odds"] == 310
+
+
+def test_a_failing_defender_lookup_costs_the_page_only_the_names(tmp_path) -> None:
+    def boom(payload):
+        raise RuntimeError("the API was down")
+
+    page = heismandata.build(2026, PAYLOAD, tmp_path / "h.json", today=dt.date(2026, 9, 22), odds_fn=lambda p, sims: odds(), defenders_fn=boom)
+    assert page["defenders"]["watch"] == [] and page["players"]

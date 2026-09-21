@@ -1998,6 +1998,15 @@ def heisman_page(payload: dict) -> str:
             return f"{s['rushYds']:,} rush yds, {s['rushTd']} TD &middot; {s['recYds']:,} rec"
         return f"{s['recYds']:,} rec yds, {s['recTd']} TD" + (f" &middot; {s['rushYds']:,} rush" if s["rushYds"] >= 100 else "")
 
+    market = h.get("market")
+
+    def market_cell(row: dict) -> str:
+        if not market:
+            return ""
+        m = row.get("market")
+        return (f'<td class="num small" title="Sportsbook odds; the implied chance of {_pct(m["implied"])} includes the book\'s margin">{m["odds"]:+d}</td>'
+                if m else '<td class="num muted">&ndash;</td>')
+
     def path(row: dict) -> str:
         if row["winIfTop4"] is None or row["winIfNot"] is None:
             return '<span class="muted">&ndash;</span>'
@@ -2012,7 +2021,7 @@ def heisman_page(payload: dict) -> str:
       <td>{move(r)}</td>
       <td class="num">{_pct(r['finalist'])}</td>
       <td class="muted small">{line(r)}</td>
-      <td class="num">{f"{r['pace']:,}" if r.get('pace') else '&ndash;'}</td>
+      <td class="num">{f"{r['pace']:,}" if r.get('pace') else '&ndash;'}</td>{market_cell(r)}
       <td class="small">{path(r)}</td></tr>""" for i, r in enumerate(h["players"], 1))
     position_text = ", ".join(f"{name} {_pct(v)}" for name, v in sorted(h["byPosition"].items(), key=lambda kv: -kv[1]))
 
@@ -2023,6 +2032,37 @@ def heisman_page(payload: dict) -> str:
     else:
         status = (f'<p class="hint">Updated {esc(dt_label(h["updated"]))}, through Week {h["week"]}. Ballots are due {esc(dt_label(dates["votingDeadline"]))}, '
                   f'when the finalists are announced; the winner is named {esc(dt_label(dates["ceremony"]))}. Championship games count; bowls and the playoff do not.</p>')
+
+    market_note = ""
+    if market:
+        market_note = (f'<p class="hint"><strong>Market</strong> is what a sportsbook was paying on {esc(dt_label(market["asOf"]))} ({esc(market["source"])}). '
+                       f'{esc(market["note"])} It is here as a benchmark, to show where the model and the betting market disagree; it is not used to make a single number above.</p>')
+
+    reach_section = ""
+    if h.get("reach"):
+        rows_reach = "".join(f"""<tr><td class="opp"><span class="nmcell">{mark(r['team'], 18)}<strong>{esc(r['player'])}</strong></span>
+            <span class="muted small"> {esc(r['position'])} &middot; {esc(r['team'])}</span></td>
+            <td class="num prob"><span class="pbar" style="width:{min(r['finalist'] * 150, 130):.0f}px"></span>{_pct(r['finalist'])}</td>
+            <td class="num muted">{_pct(r['win'])}</td></tr>""" for r in h["reach"])
+        dfn = h.get("defenders") or {}
+        defender_text = ""
+        if dfn:
+            years = ", ".join(str(y) for y in dfn["years"])
+            watch = ", ".join(f"{esc(w['player'])} ({esc(w['team'])})" for w in dfn.get("watch") or [])
+            defender_text = (f"<p><strong>Not in this table: defenders.</strong> A player who was mainly a defender has been invited to New York in {dfn['count']} of the last "
+                             f"{dfn['seasons']} seasons ({years}), so a share of the four places usually goes to someone the model does not score."
+                             + (f" The leading defensive players on top-ranked teams right now, by tackles, sacks and takeaways: {watch}." if watch else "") + "</p>")
+        cal = ""
+        if ahead and ahead.get("finalistBrier"):
+            cal = (f" These chances were rescaled after the backtest showed the raw ones running high for everyone but the favorites (a candidate given 9% reached New York about 5% of the time); "
+                   f"on held-out seasons that trimmed the error a little, from {ahead['finalistBrier']['raw']:.4f} to {ahead['finalistBrier']['calibrated']:.4f}.")
+        reach_section = f"""
+  <details class="reach"{' open' if h['week'] >= 9 else ''}><summary><h2 style="display:inline">Who reaches New York</h2></summary>
+    <p>The Trust invites three to five players to the ceremony, usually four. This is each candidate's chance of finishing in the top four of the voting, most likely first.
+    Added up, the chances come to about {h.get('expectedFinalists', 0):.1f} offensive finalists.{cal}</p>
+    <div class="tablewrap"><table class="slate"><thead><tr><th>Player</th><th class="num">Finalist</th><th class="num muted">Win</th></tr></thead><tbody>{rows_reach}</tbody></table></div>
+    {defender_text}
+  </details>"""
 
     sim_ref = '<a href="simulation.html">season simulation</a>' if payload.get("sim") else "season simulation"
     wk = sorted(ahead["byWeek"], key=int) if ahead else []
@@ -2041,6 +2081,19 @@ def heisman_page(payload: dict) -> str:
                 else:
                     cells.append('<td class="num">&ndash;</td>')
             past_rows += f'<tr><td class="wk">{year}</td><td class="opp">{esc(h["winners"].get(year, ""))}</td>{"".join(cells)}</tr>'
+    tried = ""
+    if ahead and ahead.get("variants"):
+        rows_v = "".join(f'<tr><td class="opp">{esc(k)}</td><td class="num">{v["meanLogLoss"]:.3f}</td><td class="num">{v["earlyLogLoss"]:.3f}</td><td class="num">{v["meanTop3"]:.0%}</td></tr>'
+                         for k, v in ahead["variants"].items())
+        extra = ""
+        for label, r in (final or {}).get("candidateSets", {}).items():
+            if "late" in label or "top-25" in label:
+                extra += f"<li>{esc(label)}: log loss {r['logLoss']:.2f}, against {final['candidateSets'][final['chosen']]['logLoss']:.2f} without it.</li>"
+        tried = f"""<details><summary>What was tried and did not help</summary>
+    <p>Each of these was tested the same way as everything else, and the plain version won or tied. Lower log loss is better; the first two columns are the average over the six weeks and over weeks 3 and 5.</p>
+    <div class="tablewrap"><table class="slate"><thead><tr><th>Way of projecting</th><th class="num">Log loss</th><th class="num">Weeks 3&ndash;5</th><th class="num">Winner in top 3</th></tr></thead><tbody>{rows_v}</tbody></table></div>
+    <p class="hint">"Team link" makes a player's finish move with his team's simulated results (they are correlated about {ahead.get('teamLink', 0):.2f} in the history). "Last season" pulls a player's early-season rate toward what he did last year instead of toward the average for his position.</p>
+    {'<ul>' + extra + '</ul>' if extra else ''}</details>"""
     grade = ""
     if final and ahead:
         chosen = final["candidateSets"][final["chosen"]]
@@ -2057,6 +2110,7 @@ def heisman_page(payload: dict) -> str:
     <th class="num">Winner first</th><th class="num muted">standings only</th></tr></thead><tbody>{week_rows}</tbody></table></div>
   <p class="hint">Thirteen seasons is a small sample: each season moves a rate by about eight points, so read the pattern, not any one week. Where it says a candidate has a
   20&ndash;30% chance, candidates like that have won about that often; the very small chances run a little high.</p>
+  {tried}
   <details><summary>Every winner, and where the model had him</summary>
     <div class="tablewrap"><table class="slate"><thead><tr><th>Year</th><th>Winner</th><th class="num">Week 3</th><th class="num">Week 7</th><th class="num">Week 11</th><th class="num">Week 13</th></tr></thead>
     <tbody>{past_rows}</tbody></table></div>
@@ -2068,11 +2122,13 @@ def heisman_page(payload: dict) -> str:
   <p class="lead">Who is likely to win the Heisman Trophy, and who is likely to be in New York. A model's guess, built to be checked: below the table is how it has done on every season since 2013.</p>
   {status}
   <div class="tablewrap"><table class="slate heisman"><thead><tr><th>#</th><th>Player</th><th class="num">Win</th><th title="Change since last week">Wk</th><th class="num" title="Chance of finishing in the top four of the voting, the ceremony's finalists">Finalist</th>
-    <th>So far</th><th class="num" title="Projected total yards at the end of the regular season">Proj. yds</th><th>What has to happen</th></tr></thead>
+    <th>So far</th><th class="num" title="Projected total yards at the end of the regular season">Proj. yds</th>{'<th class="num" title="What a sportsbook is paying, as a benchmark. It does not feed the model.">Market</th>' if market else ''}<th>What has to happen</th></tr></thead>
     <tbody>{body_rows}</tbody>
-    <tbody><tr class="rest"><td></td><td class="opp muted">Everyone else</td><td class="num">{_pct(h['rest'])}</td><td colspan="5"></td></tr></tbody></table></div>
+    <tbody><tr class="rest"><td></td><td class="opp muted">Everyone else</td><td class="num">{_pct(h['rest'])}</td><td colspan="{6 if market else 5}"></td></tr></tbody></table></div>
   <p class="hint">Where the chance sits, by position: {position_text}. {h['candidates']} candidates were scored across {h['sims']:,} simulated seasons.</p>
 
+{market_note}
+  {reach_section}
   <h2>How it works</h2>
   <p>The rest of the season is played out {h['sims']:,} times with the same engine as the {sim_ref}, so a team that loses twice in November is a different
   argument from one that goes unbeaten, and each simulated season knows which it is. Each candidate's finished stat line is projected from what he has done and how many games

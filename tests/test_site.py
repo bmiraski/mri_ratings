@@ -1297,3 +1297,39 @@ def test_a_team_page_names_its_heisman_candidate_and_links_up_a_level(with_heism
     assert "Test Passer" in text and 'href="../heisman.html"' in text and "11% to win" in text
     other = with_heisman["teams"][5]
     assert '<span class="hll">Heisman</span>' not in site.team_page(other, with_heisman)     # a team with no candidate has no line
+
+
+def test_the_heisman_page_shows_the_finalist_view_defenders_market_and_what_was_tried(with_heisman) -> None:
+    p = json.loads(json.dumps(with_heisman))
+    a, b = (t["team"] for t in p["teams"][:2])
+    p["heisman"].update({
+        "reach": [{"player": "Test Passer", "team": a, "position": "QB", "finalist": 0.41, "win": 0.113},
+                  {"player": "Test Catcher", "team": b, "position": "WR/TE", "finalist": 0.22, "win": 0.046}],
+        "expectedFinalists": 3.6,
+        "defenders": {"seasons": 14, "count": 4, "years": [2012, 2016, 2019, 2021], "names": [],
+                      "watch": [{"player": "Dee Fender", "team": a, "position": "LB", "tackles": 30, "sacks": 3.0, "interceptions": 1}]},
+        "market": {"asOf": "2026-09-20", "source": "A sportsbook", "note": "Includes the margin."}})
+    p["heisman"]["players"][0]["market"] = {"odds": 310, "implied": 0.244}
+    p["heisman"]["players"][1]["market"] = None
+    text = site.heisman_page(p)
+    assert "Who reaches New York" in text and "41%" in text and "about 3.6 offensive finalists" in text
+    assert '<details class="reach"' in text
+    assert "Not in this table: defenders" in text and "4 of the last 14 seasons (2012, 2016, 2019, 2021)" in text and "Dee Fender" in text
+    assert "+310" in text and "Market</strong> is what a sportsbook was paying on Sep 20" in text and "not used to make a single number" in text
+    assert "What was tried and did not help" in text and "team link" in text.lower() and "last season" in text.lower()
+
+
+def test_the_finalist_view_is_open_late_in_the_season_and_closed_early(with_heisman) -> None:
+    p = json.loads(json.dumps(with_heisman))
+    a = p["teams"][0]["team"]
+    p["heisman"]["reach"] = [{"player": "Test Passer", "team": a, "position": "QB", "finalist": 0.4, "win": 0.1}]
+    early = site.heisman_page(p)
+    p["heisman"]["week"] = 11
+    late = site.heisman_page(p)
+    tag = lambda t: t.split('<details class="reach"')[1].split(">")[0]
+    assert "open" not in tag(early) and "open" in tag(late)
+
+
+def test_no_market_column_appears_when_there_is_no_market(with_heisman) -> None:
+    text = site.heisman_page(with_heisman)
+    assert ">Market<" not in text and "Market</strong>" not in text

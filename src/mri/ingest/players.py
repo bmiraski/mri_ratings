@@ -157,3 +157,41 @@ def weekly_table(year: int, week: int | None) -> pd.DataFrame:
     for column, floor in WEEKLY_KEEP.items():
         mask |= frame[column] >= floor
     return frame[mask].reset_index(drop=True)
+
+
+GAME_COLUMNS = {("passing", "YDS"): "pass_yds", ("passing", "TD"): "pass_td", ("rushing", "YDS"): "rush_yds",
+                ("rushing", "TD"): "rush_td", ("receiving", "YDS"): "rec_yds", ("receiving", "TD"): "rec_td"}
+
+
+def game_rows(year: int, week: int, *, refresh: bool | None = None) -> list[dict]:
+    """Every offensive player line of one week: one row per player per game, with his opponent.
+
+    Only lines worth a voter's notice are kept (25 yards, or a touchdown): the week is two megabytes and
+    most of it is a third-string tight end's one catch.
+    """
+    games = cfbd.request("/games/players", year=year, week=week, seasonType="regular", refresh=_refresh(year, refresh))
+    out = []
+    for game in games:
+        sides = game.get("teams") or []
+        for side in sides:
+            others = [o["team"] for o in sides if o is not side]
+            lines: dict[str, dict] = {}
+            for category in side.get("categories", []):
+                for kind in category.get("types", []):
+                    column = GAME_COLUMNS.get((category["name"], kind["name"]))
+                    if column is None:
+                        continue
+                    for a in kind.get("athletes", []):
+                        row = lines.setdefault(str(a["id"]), {"season": year, "week": week, "game_id": game["id"], "player_id": str(a["id"]),
+                                                              "player": a["name"], "team": side["team"], "opponent": others[0] if others else None,
+                                                              "points": side.get("points"), "opp_points": next((o.get("points") for o in sides if o is not side), None),
+                                                              **{c: 0.0 for c in GAME_COLUMNS.values()}})
+                        try:
+                            row[column] = float(a["stat"])
+                        except (TypeError, ValueError):
+                            pass
+            for row in lines.values():
+                yards = row["pass_yds"] + row["rush_yds"] + row["rec_yds"]
+                if yards >= 25 or row["pass_td"] + row["rush_td"] + row["rec_td"] >= 1:
+                    out.append(row)
+    return out

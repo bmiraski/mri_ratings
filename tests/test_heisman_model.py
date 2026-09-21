@@ -264,3 +264,95 @@ def test_the_committed_forecast_backtest_beats_the_standings_and_is_calibrated()
     for bucket in b["calibration"]:
         if bucket["candidates"] >= 200:
             assert abs(bucket["predicted"] - bucket["observed"]) < 0.03, bucket
+
+
+# ---- last season's rate, the team link, and the calibration curve
+
+def test_last_seasons_rate_becomes_the_prior_only_where_there_is_one() -> None:
+    current, games, group = np.array([300.0, 300.0]), np.array([3.0, 3.0]), np.array([0, 0])
+    last = np.array([200.0, np.nan])                         # one player had a big year last year, the other has no history
+    plain = project.group_rates(current, games, group)
+    with_last = project.group_rates(current, games, group, last, {"last": 0.5, "shrink": 2.0})
+    assert plain[0] == plain[1] == pytest.approx(100.0)       # the same three games: the same rate
+    assert with_last[0] > with_last[1] and with_last[1] == pytest.approx(plain[1])
+    off = project.group_rates(current, games, group, last, {"last": 0.0})
+    assert off[0] == pytest.approx(plain[0])                  # a weight of zero is the original behaviour
+
+
+def test_a_players_history_is_looked_up_by_id_so_a_transfer_keeps_it() -> None:
+    table = pd.DataFrame([
+        {"season": 2025, "player_id": "7", "player": "Transfer", "team": "Old School", "pass_att": 400, "pass_yds": 3600, "pass_td": 30,
+         "rush_car": 0, "rush_yds": 0, "rush_td": 0, "rec_rec": 0, "rec_yds": 0, "rec_td": 0, "def_tot": 0, "def_sacks": 0, "def_tfl": 0,
+         "def_int": 0, "def_pd": 0},
+        {"season": 2024, "player_id": "8", "player": "Too Old", "team": "X", "pass_att": 400, "pass_yds": 9000, "pass_td": 90, "rush_car": 0,
+         "rush_yds": 0, "rush_td": 0, "rec_rec": 0, "rec_yds": 0, "rec_td": 0, "def_tot": 0, "def_sacks": 0, "def_tfl": 0, "def_int": 0, "def_pd": 0}])
+    rates = snapshots.last_rates(table, 2026)
+    assert set(rates) == {"7"} and rates["7"] == pytest.approx((3600 + 20 * 30) / snapshots.DEFAULT_GAMES)
+
+
+def test_linked_draws_move_with_the_team_and_unlinked_ones_do_not() -> None:
+    from scipy.stats import spearmanr
+
+    rng = np.random.default_rng(0)
+    pool = np.linspace(0.0, 1.5, 400)
+    z = rng.standard_normal((4000, 1)) * np.ones((1, 3))       # a team's fortunes, shared by its three candidates
+    linked = forecast.draws_for(pool, (4000, 3), np.random.default_rng(1), link=0.4, team_z=z)
+    free = forecast.draws_for(pool, (4000, 3), np.random.default_rng(1), link=0.0, team_z=z)
+    assert spearmanr(z[:, 0], linked[:, 0]).statistic > 0.25
+    assert abs(spearmanr(z[:, 0], free[:, 0]).statistic) < 0.05
+    assert linked.min() >= pool.min() and linked.max() <= pool.max()             # never a ratio history has not seen
+    assert np.mean(linked) == pytest.approx(np.mean(pool), abs=0.03)             # the link changes who does well, not how well on average
+
+
+def test_the_calibration_curve_is_monotone_and_pulls_overconfident_odds_toward_what_happened() -> None:
+    from mri.heisman import calibrate
+
+    rng = np.random.default_rng(3)
+    predicted = rng.beta(0.6, 4, 20000)
+    happened = rng.random(20000) < predicted * 0.6            # every forecast is too high by two thirds
+    knots = calibrate.fit_map(predicted, happened)
+    xs, ys = np.array(knots).T
+    assert (np.diff(ys) >= 0).all() and knots[0] == [0.0, 0.0] and knots[-1] == [1.0, 1.0]
+    fixed = calibrate.apply(knots, predicted)
+    assert np.mean((fixed - happened) ** 2) < np.mean((predicted - happened) ** 2)
+    assert abs(fixed.mean() - happened.mean()) < abs(predicted.mean() - happened.mean())
+    assert calibrate.apply(knots, [0.0, 1.0]).tolist() == [0.0, 1.0]
+
+
+def test_a_backwards_bin_is_merged_not_kept() -> None:
+    from mri.heisman import calibrate
+
+    predicted = np.concatenate([np.full(100, 0.03), np.full(100, 0.08)])
+    observed = np.concatenate([np.full(100, 0.10), np.full(100, 0.02)])   # the higher forecast did worse
+    ys = np.array(calibrate.fit_map(predicted, observed)).T[1]
+    assert (np.diff(ys) >= 0).all()
+
+
+def test_the_committed_settings_are_the_ones_the_backtest_chose() -> None:
+    saved = json.loads(live.RATIOS.read_text())
+    b = json.loads((ROOT / "site" / "data" / "heisman_forecast_backtest.json").read_text())
+    assert saved["variant"] == b["setting"]
+    ys = np.array(saved["finalistMap"]).T[1]
+    assert (np.diff(ys) >= 0).all() and saved["finalistMap"][0] == [0.0, 0.0]
+    assert b["finalistBrier"]["calibrated"] < b["finalistBrier"]["raw"]            # held-out seasons, curve fitted on the others
+    assert min(v["meanLogLoss"] for v in b["variants"].values()) >= b["variants"][b["chosen"]]["meanLogLoss"] - 1e-9
+
+
+def test_a_game_line_needs_25_yards_or_a_touchdown_and_knows_its_opponent(monkeypatch) -> None:
+    def athlete(pid, name, v):
+        return {"id": pid, "name": name, "stat": str(v)}
+
+    def side(team, points, lines):
+        cats = []
+        for cat, kind, pid, name, v in lines:
+            cats.append({"name": cat, "types": [{"name": kind, "athletes": [athlete(pid, name, v)]}]})
+        return {"team": team, "points": points, "categories": cats}
+
+    game = {"id": 1, "teams": [side("Indiana", 30, [("passing", "YDS", "1", "Passer", 250), ("passing", "TD", "1", "Passer", 2),
+                                                    ("receiving", "YDS", "2", "Small", 10)]),
+                               side("Ohio State", 24, [("rushing", "YDS", "3", "Scorer", 5), ("rushing", "TD", "3", "Scorer", 1)])]}
+    monkeypatch.setattr(players.cfbd, "request", lambda *a, **k: [game])
+    rows = {r["player"]: r for r in players.game_rows(2025, 5)}
+    assert set(rows) == {"Passer", "Scorer"}                 # ten yards and no touchdown is not worth a row
+    assert rows["Passer"]["opponent"] == "Ohio State" and rows["Passer"]["pass_yds"] == 250 and rows["Passer"]["opp_points"] == 24
+    assert rows["Scorer"]["opponent"] == "Indiana" and rows["Scorer"]["rush_td"] == 1

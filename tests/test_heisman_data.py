@@ -189,3 +189,9 @@ def test_the_funnel_keeps_every_winner_since_2013_and_most_finalists() -> None:
             if f["finish"] == 1:
                 assert hit, f"the {year} winner, {f['player']}, would not have been a candidate"
     assert kept_finalists / total >= 0.85, (kept_finalists, total)
+
+
+def test_defenders_are_marked_in_the_voting_record() -> None:
+    marked = [(int(y), f["player"]) for y, s in VOTING["seasons"].items() for f in s["finalists"] if f.get("defender")]
+    assert sorted(marked) == [(2012, "Manti Te'o"), (2016, "Jabrill Peppers"), (2019, "Chase Young"), (2021, "Aidan Hutchinson"),
+                              (2025, "Caleb Downs"), (2025, "Jacob Rodriguez")]

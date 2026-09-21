@@ -19,6 +19,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -29,21 +30,63 @@ from mri.ingest import cfbd  # noqa: E402
 
 USED = ("prod_rank", "group_rank", "prod_z", "team_rank")
 PENALTY = 0.3
+# label -> (features from the standard matrix, extra columns computed here)
 CANDIDATE_SETS = {
-    "production only": ("prod_rank", "group_rank", "prod_z"),
-    "team only": ("team_rank", "losses", "unbeaten"),
-    "production and team (chosen)": USED,
-    "+ record (losses, unbeaten)": USED + ("losses", "unbeaten"),
-    "+ position and last year's finalists": USED + ("is_rb", "is_receiver", "prev_finalist"),
+    "production only": (("prod_rank", "group_rank", "prod_z"), ()),
+    "team only": (("team_rank", "losses", "unbeaten"), ()),
+    "production and team (chosen)": (USED, ()),
+    "+ record (losses, unbeaten)": (USED + ("losses", "unbeaten"), ()),
+    "+ position and last year's finalists": (USED + ("is_rb", "is_receiver", "prev_finalist"), ()),
+    "+ late-season production (weeks 10-13)": (USED, ("late_z",)),
+    "+ production against top-25 opponents": (USED, ("sig_z", "sig_pg_z")),
 }
+TOP = 25                # an opponent is "good" if it finished in the top 25 of our ratings
 
 
-def loyo(seasons, names, penalty=PENALTY):
+def _z(x):
+    x = np.asarray(x, float)
+    return (x - x.mean()) / (x.std() or 1.0)
+
+
+def extras(seasons, finals, weekly, games) -> None:
+    """Attach two families of extra columns to each season's pool.
+
+    ``late_z``: what he did after week 9, standardized against the field. ``sig_z`` and ``sig_pg_z``: how much
+    he produced against the teams that finished in the top 25, in total and per such game.
+    """
+    from mri.heisman import funnel
+
+    zeros = {c: 0.0 for c in ["def_tot", "def_solo", "def_sacks", "def_tfl", "def_pd", "def_td", "def_int"]}
+    for s in seasons:
+        w9 = funnel.classify(weekly[(weekly["season"] == s.year) & (weekly["week"] == 9)].assign(**zeros))
+        at9 = w9.set_index(["player_id", "team"])["off_score"]
+        before = np.array([float(at9.get((a, b), 0.0)) for a, b in zip(s.pool["player_id"], s.pool["team"])])
+        cols = {"late_z": _z(np.maximum(s.pool["off_score"].to_numpy() - before, 0.0))}
+        if games is not None:
+            good = set(finals[s.year].index[finals[s.year]["power_rank"] <= TOP])
+            g = games[(games["season"] == s.year) & games["opponent"].isin(good)].copy()
+            g["score"] = g["pass_yds"] + g["rush_yds"] + g["rec_yds"] + 20 * (g["pass_td"] + g["rush_td"] + g["rec_td"])
+            total = g.groupby(["player_id", "team"])["score"].sum()
+            count = g.groupby(["player_id", "team"])["score"].size()
+            keys = list(zip(s.pool["player_id"], s.pool["team"]))
+            sig = np.array([float(total.get(k, 0.0)) for k in keys])
+            n = np.array([float(count.get(k, 0.0)) for k in keys])
+            cols["sig_z"] = _z(sig)
+            cols["sig_pg_z"] = _z(np.where(n > 0, sig / np.maximum(n, 1), 0.0))
+        s.extra = pd.DataFrame(cols)
+
+
+def loyo(seasons, names, extra_names=(), penalty=PENALTY):
     cols = [features.NAMES.index(n) for n in names]
+
+    def X(x):
+        base = x.X[:, cols]
+        return np.hstack([base, x.extra[list(extra_names)].to_numpy()]) if extra_names else base
+
     out = {"top1": 0, "top3": 0, "log": 0.0, "ranks": [], "p": [], "hit": [], "finalists": [0, 0]}
     for s in seasons:
-        beta = choice.fit([(x.X[:, cols], x.winner) for x in seasons if x.year != s.year], penalty)
-        p = choice.probabilities(beta, s.X[:, cols])
+        beta = choice.fit([(X(x), x.winner) for x in seasons if x.year != s.year], penalty)
+        p = choice.probabilities(beta, X(s))
         order = np.argsort(-p)
         rank = int(np.where(order == s.winner)[0][0]) + 1
         out["ranks"].append(rank)
@@ -77,18 +120,23 @@ def baselines(seasons):
 def main() -> None:
     voting = data.load_voting()
     table = data.load_players()
-    seasons = [final_model.season(y, table, teams.team_state(cfbd.games(y)), voting)
-               for y in range(final_model.FIRST_SEASON, 2026)]
+    states = {y: teams.team_state(cfbd.games(y)) for y in range(final_model.FIRST_SEASON, 2026)}
+    seasons = [final_model.season(y, table, states[y], voting) for y in range(final_model.FIRST_SEASON, 2026)]
+    games_path = ROOT / "data" / "parquet" / "player_games.parquet"
+    extras(seasons, states, pd.read_parquet(ROOT / "data" / "parquet" / "player_weekly.parquet"),
+           pd.read_parquet(games_path) if games_path.exists() else None)
     for s in seasons:
         assert s.winner is not None, f"{s.year}'s winner is not among the candidates"
     n = len(seasons)
 
     comparison = {}
-    for label, names in CANDIDATE_SETS.items():
-        r = loyo(seasons, names)
+    for label, (names, more) in CANDIDATE_SETS.items():
+        if more and any(m not in seasons[0].extra.columns for m in more):
+            continue                                   # the per-game table has not been built
+        r = loyo(seasons, names, more)
         comparison[label] = {k: round(float(r[k]), 3) for k in ("top1", "top3", "logLoss", "meanWinnerRank")}
         print(f"{label:38s} top-1 {r['top1']:.2f}  top-3 {r['top3']:.2f}  mean rank {r['meanWinnerRank']:.1f}  log loss {r['logLoss']:.2f}")
-        if names == USED:
+        if label == "production and team (chosen)":
             chosen = r
     base = baselines(seasons)
     print("baselines:", {k: round(v, 3) for k, v in base.items()})

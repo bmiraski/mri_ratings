@@ -33,7 +33,14 @@ def simulate_teams(teams: list[dict], schedule: pd.DataFrame, *, home_field: flo
     names = [t["team"] for t in teams]
     return {"names": names, "index": {n: i for i, n in enumerate(names)},
             "rank": np.concatenate([c["rank"] for c in chunks]).astype(float),
-            "made_cg": np.concatenate([c["made_cg"] for c in chunks]).astype(float)}
+            "made_cg": np.concatenate([c["made_cg"] for c in chunks]).astype(float),
+            "win_z": _standardize(np.concatenate([c["wins"] for c in chunks]).astype(float))}
+
+
+def _standardize(wins: np.ndarray) -> np.ndarray:
+    """How good a season each simulated one was for each team, against that team's own other simulated seasons."""
+    spread = wins.std(axis=0, keepdims=True)
+    return np.where(spread > 0, (wins - wins.mean(axis=0, keepdims=True)) / np.where(spread > 0, spread, 1.0), 0.0)
 
 
 def remaining_games(schedule: pd.DataFrame, names: list[str], last_regular_week: int = 13) -> dict[str, int]:
@@ -45,8 +52,26 @@ def remaining_games(schedule: pd.DataFrame, names: list[str], last_regular_week:
     return {n: counts.get(n, 0) for n in names}
 
 
+def draws_for(ratio_pool: np.ndarray, shape: tuple[int, int], rng: np.random.Generator, *, link: float = 0.0,
+              team_z: np.ndarray | None = None) -> np.ndarray:
+    """Projection ratios for every simulated season and candidate.
+
+    Independent draws from history's ratios, unless ``link`` (a correlation) says a player's season
+    and his team's move together: then each draw is the ratio at the quantile a shared normal score
+    picks out, the score being part his team's simulated fortunes (a good team's quarterback has
+    the more points to score) and part his own luck.
+    """
+    if link <= 0 or team_z is None:
+        return rng.choice(ratio_pool, size=shape)
+    from scipy.special import ndtr
+
+    score = np.sqrt(link) * team_z + np.sqrt(1.0 - link) * rng.standard_normal(shape)
+    ordered = np.sort(ratio_pool)
+    return ordered[np.minimum((ndtr(score) * len(ordered)).astype(int), len(ordered) - 1)]
+
+
 def odds(pool: pd.DataFrame, runs: dict, left: dict[str, int], ratio_pool: np.ndarray, model: dict, *,
-         seed: int = 2026, finalist_draws: int = 3) -> pd.DataFrame:
+         seed: int = 2026, finalist_draws: int = 3, link: float = 0.0, variant: dict | None = None) -> pd.DataFrame:
     """Each candidate's chance to win, and to finish in the top four, across the simulated seasons.
 
     ``pool`` needs player, team, group_code, off_score (season to date), team_games and prev_finalist.
@@ -60,9 +85,10 @@ def odds(pool: pd.DataFrame, runs: dict, left: dict[str, int], ratio_pool: np.nd
 
     base_left = np.array([left.get(t, 0) for t in pool["team"]], dtype=float)
     remaining = base_left[None, :] + runs["made_cg"][:, team_idx]                          # (S, G)
-    draws = rng.choice(ratio_pool, size=(S, G))
+    draws = draws_for(ratio_pool, (S, G), rng, link=link, team_z=runs["win_z"][:, team_idx])
+    last = pool["last_rate"].to_numpy() if "last_rate" in pool else None
     final = project.project(pool["off_score"].to_numpy(), pool["team_games"].to_numpy(), pool["group_code"].to_numpy(),
-                            remaining, draws)
+                            remaining, draws, last, variant)
     team_rank = runs["rank"][:, team_idx]
     X = features.matrix(final, pool["group_code"].to_numpy(), team_rank, 0.0, pool["prev_finalist"].to_numpy())[..., cols]
     u = X @ beta

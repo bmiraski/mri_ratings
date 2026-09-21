@@ -4,6 +4,45 @@
     2025
   ],
   "sims": 1000,
+  "chosen": "original",
+  "setting": {
+    "last": 0.0,
+    "shrink": 2.0,
+    "link": 0.0
+  },
+  "teamLink": 0.199,
+  "variants": {
+    "original": {
+      "meanLogLoss": 2.274,
+      "earlyLogLoss": 2.534,
+      "meanTop3": 0.703
+    },
+    "team link": {
+      "meanLogLoss": 2.278,
+      "earlyLogLoss": 2.516,
+      "meanTop3": 0.671
+    },
+    "last season (weight .5, 2 games)": {
+      "meanLogLoss": 2.295,
+      "earlyLogLoss": 2.586,
+      "meanTop3": 0.656
+    },
+    "last season (weight .7, 4 games)": {
+      "meanLogLoss": 2.338,
+      "earlyLogLoss": 2.696,
+      "meanTop3": 0.669
+    },
+    "last season (weight .5) + link": {
+      "meanLogLoss": 2.296,
+      "earlyLogLoss": 2.569,
+      "meanTop3": 0.671
+    },
+    "last season (weight .7, 4 games) + link": {
+      "meanLogLoss": 2.332,
+      "earlyLogLoss": 2.667,
+      "meanTop3": 0.656
+    }
+  },
   "byWeek": {
     "3": {
       "forecast": {
@@ -164,11 +203,53 @@
       "observed": 1.0
     }
   ],
+  "finalistCalibration": [
+    {
+      "range": "0%-5%",
+      "candidates": 3693,
+      "predicted": 0.011,
+      "observed": 0.004
+    },
+    {
+      "range": "5%-15%",
+      "candidates": 749,
+      "predicted": 0.088,
+      "observed": 0.049
+    },
+    {
+      "range": "15%-30%",
+      "candidates": 348,
+      "predicted": 0.209,
+      "observed": 0.161
+    },
+    {
+      "range": "30%-50%",
+      "candidates": 172,
+      "predicted": 0.387,
+      "observed": 0.413
+    },
+    {
+      "range": "50%-75%",
+      "candidates": 77,
+      "predicted": 0.602,
+      "observed": 0.61
+    },
+    {
+      "range": "75%-100%",
+      "candidates": 25,
+      "predicted": 0.854,
+      "observed": 0.88
+    }
+  ],
+  "finalistBrier": {
+    "raw": 0.03224,
+    "calibrated": 0.03202
+  },
   "byWeekDetail": {
     "3": {
       "2013": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Marcus Mariota"
       },
       "2014": {
@@ -203,7 +284,7 @@
       },
       "2020": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Dillon Gabriel"
       },
       "2021": {
@@ -223,7 +304,7 @@
       },
       "2024": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Jaxson Dart"
       },
       "2025": {
@@ -270,7 +351,7 @@
       },
       "2020": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Shane Buechele"
       },
       "2021": {
@@ -290,7 +371,7 @@
       },
       "2024": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Jalen Milroe"
       },
       "2025": {
@@ -357,7 +438,7 @@
       },
       "2024": {
         "rank": null,
-        "p": null,
+        "p": 0,
         "leader": "Cameron Ward"
       },
       "2025": {

@@ -187,6 +187,22 @@ seconds. `site/data/heisman_history.json` keeps one snapshot per week (rebuildin
 "Wk" column measures against. Each team's page names its top candidate. **After the voting deadline (Dec 7) the page
 stops recomputing** and shows the last odds recorded before the ballots closed, labelled as such.
 
+**Things that were tried and did not help** (each tested the way everything else is, and left out; the numbers are on the page):
+a link between a player's finish and his team's simulated results (real, correlation about 0.20, but no gain in log loss);
+last season's rate as the prior a player's early rate is pulled toward (worse); late-season production and production
+against top-25 opponents as features of the final-vote model (both worse). The backtest picks between projection variants
+by log loss and keeps the original unless another gains at least 0.02, so this can change if a later season tips it.
+`data/parquet/player_games.parquet` (`scripts/build_player_games.py`, one call per season-week) exists for the last of those.
+
+**Finalist odds** are calibrated with a monotone curve fitted in the backtest (`mri/heisman/calibrate.py`,
+`finalistMap` in `data/heisman_ratios.json`); on held-out seasons it trims the error only slightly, mostly by lowering the
+mid-sized chances that ran high. Defenders are still not scored: the page says a defender has been invited in 4 of the last
+14 seasons (flagged `defender` in the voting file) and names the leading ones, from two extra API calls (defensive and interceptions).
+
+**Market benchmark.** `data/heisman_market.json` holds sportsbook odds for whoever you type in, with an `asOf` date. The
+page shows them beside the model when at least two players match and the file is under ten days old, and never uses them in a number.
+Updating it is optional and by hand.
+
 - A single hand-edit is needed each December: add the new season's finalists (and any published points) to
   `data/heisman_voting.json`, then rerun the four scripts below.
 - Each year: `build_player_history.py` (about 90 calls), `build_player_weekly.py` (about 250; resumable),
