@@ -53,9 +53,10 @@ def _refresh(year: int, refresh: bool | None) -> bool:
     return (year == cfbd.current_season()) if refresh is None else refresh
 
 
-def category_rows(year: int, category: str, *, refresh: bool | None = None) -> list[dict]:
+def category_rows(year: int, category: str, *, refresh: bool | None = None, end_week: int | None = None) -> list[dict]:
+    """One category for the whole division. ``end_week`` gives the totals through that week."""
     return cfbd.request("/stats/player/season", year=year, category=category, seasonType="regular",
-                        refresh=_refresh(year, refresh))
+                        endWeek=end_week, refresh=_refresh(year, refresh) if end_week is None else False)
 
 
 def ppa_rows(year: int, *, refresh: bool | None = None) -> list[dict]:
@@ -111,5 +112,48 @@ def season_table(year: int, *, refresh: bool | None = None, keep_all: bool = Fal
         return frame
     mask = pd.Series(False, index=frame.index)
     for column, floor in KEEP.items():
+        mask |= frame[column] >= floor
+    return frame[mask].reset_index(drop=True)
+
+
+OFFENSE = ("passing", "rushing", "receiving")
+# Below this a player has not done enough of anything by mid-season for a voter to have noticed,
+# and the table stays a few thousand rows a snapshot.
+WEEKLY_KEEP = {"pass_att": 30, "rush_car": 25, "rec_rec": 10}
+
+
+def weekly_table(year: int, week: int | None) -> pd.DataFrame:
+    """Offensive totals through a given week: one row per notable FBS player.
+
+    ``week=None`` is the season to date, re-fetched once per run for the season in progress.
+
+    Three calls, and no defence: the snapshots exist to score offensive candidates in the middle of
+    a season, and the defenders who have ever mattered are not among them.
+    """
+    stats: dict[tuple[str, str], dict] = {}
+    for category in OFFENSE:
+        for r in category_rows(year, category, end_week=week):
+            column = COLUMNS.get((r["category"], r["statType"]))
+            if column is None:
+                continue
+            key = (str(r["playerId"]), r["team"])
+            row = stats.setdefault(key, {"season": year, "week": week, "player_id": key[0], "player": r["player"],
+                                         "team": r["team"], "position": r.get("position")})
+            try:
+                row[column] = float(r["stat"])
+            except (TypeError, ValueError):
+                continue
+    frame = pd.DataFrame(list(stats.values()))
+    if frame.empty:
+        return frame
+    columns = [c for (cat, _), c in COLUMNS.items() if cat in OFFENSE]
+    for column in columns:
+        if column not in frame:
+            frame[column] = 0.0
+    frame[columns] = frame[columns].fillna(0.0)
+    fbs = set(cfbd.fbs_teams(year)["team"])
+    frame = frame[frame["team"].isin(fbs)]
+    mask = pd.Series(False, index=frame.index)
+    for column, floor in WEEKLY_KEEP.items():
         mask |= frame[column] >= floor
     return frame[mask].reset_index(drop=True)

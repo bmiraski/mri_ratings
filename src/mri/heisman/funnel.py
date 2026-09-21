@@ -22,39 +22,51 @@ defenders, none of whom finished better than fourth).
 
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 GROUP_SIZES = {"QB": 20, "RB": 20, "REC": 25, "DEF": 10}
 TEAM_RANK_CUTOFF = 45
 
 
-def classify(table: pd.DataFrame) -> pd.DataFrame:
-    """Add total yards and touchdowns, the volume scores, and the position group."""
+QB_ATTEMPTS = 100      # what makes a quarterback over a full season
+
+
+def classify(table: pd.DataFrame, team_games: pd.Series | None = None) -> pd.DataFrame:
+    """Add total yards and touchdowns, the volume scores, and the position group.
+
+    A passer is a quarterback if he threw a hundred passes in a full season. Partway through one
+    that bar is scaled by how many games his team has played, or every quarterback in September
+    would be sorted in with the running backs.
+    """
     t = table.copy()
+    floor = QB_ATTEMPTS * np.minimum(team_games.to_numpy(dtype=float), 12.0) / 12.0 if team_games is not None else QB_ATTEMPTS
+    t["_qb_floor"] = floor
     t["tot_yds"] = t["pass_yds"] + t["rush_yds"] + t["rec_yds"]
     t["tot_td"] = t["pass_td"] + t["rush_td"] + t["rec_td"]
     t["off_score"] = t["tot_yds"] + 20 * t["tot_td"]
     t["def_score"] = t["def_tot"] + 4 * t["def_sacks"] + 3 * t["def_tfl"] + 8 * t["def_int"] + 3 * t["def_pd"]
 
     def group(r) -> str:
-        if r["pass_att"] >= 100 and r["pass_att"] >= r["rush_car"]:
+        if r["pass_att"] >= r["_qb_floor"] and r["pass_att"] >= r["rush_car"]:
             return "QB"
         if r["def_score"] >= 60 and r["off_score"] < 400:
             return "DEF"
         return "REC" if r["rec_rec"] > r["rush_car"] else "RB"
 
     t["group"] = t.apply(group, axis=1)
-    return t
+    return t.drop(columns="_qb_floor")
 
 
 def candidates(season_table: pd.DataFrame, team_rank: pd.Series, *, sizes: dict | None = None,
-               cutoff: int = TEAM_RANK_CUTOFF) -> pd.DataFrame:
+               cutoff: int = TEAM_RANK_CUTOFF, games: pd.Series | None = None) -> pd.DataFrame:
     """The players worth scoring in one season, best of each group first.
 
-    ``team_rank`` is each team's rank in our ratings (1 = best), as of the moment being asked about.
+    ``team_rank`` is each team's rank in our ratings (1 = best), as of the moment being asked about;
+    ``games`` is how many games each team has played, for a season still in progress.
     """
     sizes = sizes or GROUP_SIZES
-    t = classify(season_table)
+    t = classify(season_table, season_table["team"].map(games) if games is not None else None)
     t = t.assign(team_rank=t["team"].map(team_rank))
     kept = []
     for group, size in sizes.items():

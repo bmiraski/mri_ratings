@@ -1,0 +1,24 @@
+{
+  "features": [
+    "prod_rank",
+    "group_rank",
+    "prod_z",
+    "team_rank"
+  ],
+  "coefficients": [
+    0.0018,
+    -1.7473,
+    0.8297,
+    -1.4356
+  ],
+  "ridge": 0.3,
+  "fitted": "2012-2025",
+  "seasons": 14,
+  "candidatesPerSeason": 65,
+  "groups": [
+    "QB",
+    "RB",
+    "REC"
+  ],
+  "teamRankCutoff": 45
+}

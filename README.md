@@ -157,19 +157,33 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
-### Heisman odds (in progress: Phase 0, the data)
+### Heisman odds (model and forecast built; page next)
 
-`data/heisman_voting.json` holds every Heisman finalist from 2005 to 2025 with the winner's points and any other
-finish or points a published result gives (the winner is certain; the Trust lists the other finalists in an order that
-is sometimes alphabetical, so a finish is recorded only when one was published). `data/parquet/player_seasons.parquet`
-holds every notable FBS player of every season since 2009 - counting stats for the regular season only, and PPA and
-usage from 2013 (PPA includes bowls; the API gives no way to exclude them).
+**The record.** `data/heisman_voting.json` holds every finalist 2005-2025 (the winner is certain; the Trust lists the
+others in an order that is sometimes alphabetical, so a finish is recorded only when a result was published).
+`data/parquet/player_seasons.parquet` is every notable FBS player since 2009 (regular-season counting stats;
+the feed has holes in 2009-2011, so everything is fitted on 2012 on). `data/parquet/player_weekly.parquet` is
+season-to-date offensive totals at weeks 3, 5, 7, 9, 11 and 13 of every season, for the backtest.
 
-- The feed has holes in 2009-2011 (Auburn's whole 2010 offense, so Cam Newton is missing); from 2012 every finalist
-  resolves to a player. `tests/test_heisman_data.py` names the four known gaps and fails if the list changes.
-- `mri/heisman/funnel.py` cuts a season to about 75 candidates. All 13 winners of 2013-2025 survive it.
-- Rebuild the player table with `PYTHONPATH=src python3 scripts/build_player_history.py`. It is about 90 calls for the
-  history and is safe to interrupt: finished responses are cached.
+**The final-vote model** (`mri/heisman/final_model.py`, `scripts/fit_heisman.py`). A conditional logit over each
+season's ~65 candidates (top 20 QBs, 20 RBs and 25 receivers on top-45 teams; defenders are not candidates - nobody
+who was mainly a defender has won since 1997). Four features, all relative to that year's field: rank by
+production, rank within his position, how far above the field's average he is, and his team's résumé-heavy rank.
+Efficiency (PPA), record, position and last year's finalist were tried and did not help on fourteen seasons, so
+they are out. Leaving each season out in turn, it names the winner 64% of the time and has him in its top three
+86% of the time; "the most productive player on a top-five team" manages 50%.
+
+**The forecast** (`mri/heisman/forecast.py`, `project.py`, `live.py`). Play the rest of the season 10,000 times with the
+season engine (which now takes an optional `observe` callback for each run's finish), project each candidate's
+finished stat line as his shrunk rate times the games his team has left times a ratio drawn from what actually
+happened to candidates at that point of every other season (`data/heisman_ratios.json`; injuries and regression are in
+it), score the field, and count. Player output and team results are drawn independently - the known simplification.
+`scripts/backtest_heisman.py` grades it on 2013-2025 at six points in each season, leaving the season out.
+
+- A single hand-edit is needed each December: add the new season's finalists (and any published points) to
+  `data/heisman_voting.json`, then rerun the four scripts below.
+- Each year: `build_player_history.py` (about 90 calls), `build_player_weekly.py` (about 250; resumable),
+  `fit_heisman.py`, `backtest_heisman.py`. The raw responses are large and ignored by git.
 
 ### Season simulation, slate and record
 

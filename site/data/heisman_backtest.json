@@ -1,0 +1,115 @@
+{
+  "seasons": 14,
+  "years": [
+    2012,
+    2025
+  ],
+  "baselines": {
+    "mostProductive": 0.357,
+    "mostProductiveOnATopFiveTeam": 0.5,
+    "bestOnTheBestTeam": 0.214,
+    "uniform": 0.015
+  },
+  "uniformLogLoss": 4.174,
+  "candidateSets": {
+    "production only": {
+      "top1": 0.357,
+      "top3": 0.643,
+      "logLoss": 2.59,
+      "meanWinnerRank": 6.0
+    },
+    "team only": {
+      "top1": 0.214,
+      "top3": 0.357,
+      "logLoss": 3.421,
+      "meanWinnerRank": 11.071
+    },
+    "production and team (chosen)": {
+      "top1": 0.643,
+      "top3": 0.857,
+      "logLoss": 1.64,
+      "meanWinnerRank": 3.071
+    },
+    "+ record (losses, unbeaten)": {
+      "top1": 0.643,
+      "top3": 0.857,
+      "logLoss": 1.682,
+      "meanWinnerRank": 3.143
+    },
+    "+ position and last year's finalists": {
+      "top1": 0.643,
+      "top3": 0.786,
+      "logLoss": 1.731,
+      "meanWinnerRank": 3.143
+    }
+  },
+  "chosen": "production and team (chosen)",
+  "calibration": [
+    {
+      "range": "0%-2%",
+      "candidates": 835,
+      "predicted": 0.002,
+      "observed": 0.002
+    },
+    {
+      "range": "2%-5%",
+      "candidates": 26,
+      "predicted": 0.03,
+      "observed": 0.038
+    },
+    {
+      "range": "5%-15%",
+      "candidates": 26,
+      "predicted": 0.085,
+      "observed": 0.0
+    },
+    {
+      "range": "15%-30%",
+      "candidates": 8,
+      "predicted": 0.21,
+      "observed": 0.375
+    },
+    {
+      "range": "30%-50%",
+      "candidates": 9,
+      "predicted": 0.406,
+      "observed": 0.444
+    },
+    {
+      "range": "50%-100%",
+      "candidates": 6,
+      "predicted": 0.683,
+      "observed": 0.667
+    }
+  ],
+  "winnerRanks": {
+    "2012": 1,
+    "2013": 1,
+    "2014": 1,
+    "2015": 3,
+    "2016": 2,
+    "2017": 1,
+    "2018": 1,
+    "2019": 1,
+    "2020": 3,
+    "2021": 1,
+    "2022": 1,
+    "2023": 1,
+    "2024": 18,
+    "2025": 8
+  },
+  "hardestSeasons": [
+    {
+      "year": 2024,
+      "winnerRank": 18
+    },
+    {
+      "year": 2025,
+      "winnerRank": 8
+    },
+    {
+      "year": 2015,
+      "winnerRank": 3
+    }
+  ]
+}

@@ -78,6 +78,7 @@ def simulate(
     track: list[int] | None = None,
     championships: dict[str, dict] | None = None,
     rules: dict | None = None,
+    observe=None,
 ) -> dict:
     """Simulate the rest of the season.
 
@@ -95,6 +96,11 @@ def simulate(
                   are set the standings stop mattering for that conference.
                   A game already played stays in ``schedule``, where it counts
                   toward records and résumé like any other.
+    ``observe``   a callable handed each chunk of runs as it finishes, for callers that
+                  need more than the summary counts (the Heisman forecast needs each
+                  team's finish in each run). It receives a dict of ``rank`` (1 = best,
+                  the committee blend *without* the committee's noise), ``losses``,
+                  ``wins`` and ``made_cg``, each shaped (runs, teams).
     ``rules``     overrides ``power_four``, ``group_of_six`` and ``top_seed_hosts``
                   (tuples of conference names), ``uncertainty`` (a multiplier on
                   rating error) and ``committee_noise``. Only the historical backtest needs this: the
@@ -278,6 +284,11 @@ def simulate(
             return (x - x.mean(axis=1, keepdims=True)) / x.std(axis=1, keepdims=True)
 
         score = COMMITTEE_POWER_WEIGHT * z(est) + (1.0 - COMMITTEE_POWER_WEIGHT) * z(resume)
+        if observe is not None:
+            clean = np.argsort(-score, axis=1)
+            clean_rank = np.empty_like(clean)
+            clean_rank[rows[:, None], clean] = np.arange(1, T + 1)[None, :]
+            observe({"rank": clean_rank, "losses": reg_losses.copy(), "wins": reg_wins.copy(), "made_cg": made_cg.copy()})
         score = score + float(rules.get("committee_noise", COMMITTEE_NOISE)) \
             * rng.standard_normal((B, T))
         order = np.argsort(-score, axis=1)

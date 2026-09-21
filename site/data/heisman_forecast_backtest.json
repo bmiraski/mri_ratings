@@ -1,0 +1,571 @@
+{
+  "seasons": [
+    2013,
+    2025
+  ],
+  "sims": 1000,
+  "byWeek": {
+    "3": {
+      "forecast": {
+        "top1": 0.3,
+        "top3": 0.6,
+        "top4": 0.7,
+        "meanWinnerRank": 4.6,
+        "winnerProbability": 0.097,
+        "logLoss": 2.641,
+        "seasons": 10
+      },
+      "current": {
+        "top1": 0.1,
+        "top3": 0.1,
+        "top4": 0.2,
+        "meanWinnerRank": 9.4,
+        "winnerProbability": 0.096,
+        "logLoss": 4.048,
+        "seasons": 10
+      }
+    },
+    "5": {
+      "forecast": {
+        "top1": 0.273,
+        "top3": 0.727,
+        "top4": 0.727,
+        "meanWinnerRank": 4.09,
+        "winnerProbability": 0.118,
+        "logLoss": 2.428,
+        "seasons": 11
+      },
+      "current": {
+        "top1": 0.182,
+        "top3": 0.364,
+        "top4": 0.455,
+        "meanWinnerRank": 7.18,
+        "winnerProbability": 0.163,
+        "logLoss": 3.082,
+        "seasons": 11
+      }
+    },
+    "7": {
+      "forecast": {
+        "top1": 0.167,
+        "top3": 0.583,
+        "top4": 0.667,
+        "meanWinnerRank": 5.08,
+        "winnerProbability": 0.118,
+        "logLoss": 2.497,
+        "seasons": 12
+      },
+      "current": {
+        "top1": 0.083,
+        "top3": 0.417,
+        "top4": 0.5,
+        "meanWinnerRank": 8.42,
+        "winnerProbability": 0.09,
+        "logLoss": 3.31,
+        "seasons": 12
+      }
+    },
+    "9": {
+      "forecast": {
+        "top1": 0.308,
+        "top3": 0.769,
+        "top4": 0.769,
+        "meanWinnerRank": 5.92,
+        "winnerProbability": 0.162,
+        "logLoss": 2.426,
+        "seasons": 13
+      },
+      "current": {
+        "top1": 0.308,
+        "top3": 0.538,
+        "top4": 0.538,
+        "meanWinnerRank": 6.08,
+        "winnerProbability": 0.206,
+        "logLoss": 2.726,
+        "seasons": 13
+      }
+    },
+    "11": {
+      "forecast": {
+        "top1": 0.385,
+        "top3": 0.692,
+        "top4": 0.769,
+        "meanWinnerRank": 4.23,
+        "winnerProbability": 0.251,
+        "logLoss": 1.984,
+        "seasons": 13
+      },
+      "current": {
+        "top1": 0.308,
+        "top3": 0.615,
+        "top4": 0.769,
+        "meanWinnerRank": 4.77,
+        "winnerProbability": 0.313,
+        "logLoss": 2.124,
+        "seasons": 13
+      }
+    },
+    "13": {
+      "forecast": {
+        "top1": 0.615,
+        "top3": 0.846,
+        "top4": 0.846,
+        "meanWinnerRank": 2.92,
+        "winnerProbability": 0.303,
+        "logLoss": 1.666,
+        "seasons": 13
+      },
+      "current": {
+        "top1": 0.538,
+        "top3": 0.769,
+        "top4": 0.846,
+        "meanWinnerRank": 3.85,
+        "winnerProbability": 0.318,
+        "logLoss": 1.89,
+        "seasons": 13
+      }
+    }
+  },
+  "calibration": [
+    {
+      "range": "0%-2%",
+      "candidates": 4269,
+      "predicted": 0.003,
+      "observed": 0.001
+    },
+    {
+      "range": "2%-5%",
+      "candidates": 392,
+      "predicted": 0.032,
+      "observed": 0.023
+    },
+    {
+      "range": "5%-15%",
+      "candidates": 291,
+      "predicted": 0.085,
+      "observed": 0.093
+    },
+    {
+      "range": "15%-30%",
+      "candidates": 88,
+      "predicted": 0.209,
+      "observed": 0.193
+    },
+    {
+      "range": "30%-50%",
+      "candidates": 19,
+      "predicted": 0.384,
+      "observed": 0.474
+    },
+    {
+      "range": "50%-100%",
+      "candidates": 5,
+      "predicted": 0.597,
+      "observed": 1.0
+    }
+  ],
+  "byWeekDetail": {
+    "3": {
+      "2013": {
+        "rank": null,
+        "p": null,
+        "leader": "Marcus Mariota"
+      },
+      "2014": {
+        "rank": 2,
+        "p": 0.112,
+        "leader": "Kenny Hill"
+      },
+      "2015": {
+        "rank": 6,
+        "p": 0.029,
+        "leader": "Chad Kelly"
+      },
+      "2016": {
+        "rank": 1,
+        "p": 0.27,
+        "leader": "Lamar Jackson"
+      },
+      "2017": {
+        "rank": 2,
+        "p": 0.125,
+        "leader": "Mason Rudolph"
+      },
+      "2018": {
+        "rank": 1,
+        "p": 0.14,
+        "leader": "Kyler Murray"
+      },
+      "2019": {
+        "rank": 3,
+        "p": 0.077,
+        "leader": "Tua Tagovailoa"
+      },
+      "2020": {
+        "rank": null,
+        "p": null,
+        "leader": "Dillon Gabriel"
+      },
+      "2021": {
+        "rank": 1,
+        "p": 0.116,
+        "leader": "Bryce Young"
+      },
+      "2022": {
+        "rank": 15,
+        "p": 0.013,
+        "leader": "Stetson Bennett"
+      },
+      "2023": {
+        "rank": 4,
+        "p": 0.057,
+        "leader": "Michael Penix Jr."
+      },
+      "2024": {
+        "rank": null,
+        "p": null,
+        "leader": "Jaxson Dart"
+      },
+      "2025": {
+        "rank": 11,
+        "p": 0.034,
+        "leader": "Taylen Green"
+      }
+    },
+    "5": {
+      "2013": {
+        "rank": 3,
+        "p": 0.064,
+        "leader": "Marcus Mariota"
+      },
+      "2014": {
+        "rank": 2,
+        "p": 0.147,
+        "leader": "Kenny Hill"
+      },
+      "2015": {
+        "rank": 11,
+        "p": 0.027,
+        "leader": "Trevone Boykin"
+      },
+      "2016": {
+        "rank": 1,
+        "p": 0.317,
+        "leader": "Lamar Jackson"
+      },
+      "2017": {
+        "rank": 2,
+        "p": 0.116,
+        "leader": "Mason Rudolph"
+      },
+      "2018": {
+        "rank": 1,
+        "p": 0.242,
+        "leader": "Kyler Murray"
+      },
+      "2019": {
+        "rank": 3,
+        "p": 0.087,
+        "leader": "Jalen Hurts"
+      },
+      "2020": {
+        "rank": null,
+        "p": null,
+        "leader": "Shane Buechele"
+      },
+      "2021": {
+        "rank": 1,
+        "p": 0.161,
+        "leader": "Bryce Young"
+      },
+      "2022": {
+        "rank": 13,
+        "p": 0.022,
+        "leader": "C.J. Stroud"
+      },
+      "2023": {
+        "rank": 5,
+        "p": 0.057,
+        "leader": "Michael Penix Jr."
+      },
+      "2024": {
+        "rank": null,
+        "p": null,
+        "leader": "Jalen Milroe"
+      },
+      "2025": {
+        "rank": 3,
+        "p": 0.062,
+        "leader": "Jeremiah Smith"
+      }
+    },
+    "7": {
+      "2013": {
+        "rank": 2,
+        "p": 0.105,
+        "leader": "Marcus Mariota"
+      },
+      "2014": {
+        "rank": 2,
+        "p": 0.11,
+        "leader": "Dak Prescott"
+      },
+      "2015": {
+        "rank": 11,
+        "p": 0.025,
+        "leader": "Trevone Boykin"
+      },
+      "2016": {
+        "rank": 1,
+        "p": 0.384,
+        "leader": "Lamar Jackson"
+      },
+      "2017": {
+        "rank": 5,
+        "p": 0.051,
+        "leader": "Mason Rudolph"
+      },
+      "2018": {
+        "rank": 2,
+        "p": 0.24,
+        "leader": "Dwayne Haskins"
+      },
+      "2019": {
+        "rank": 3,
+        "p": 0.132,
+        "leader": "Tua Tagovailoa"
+      },
+      "2020": {
+        "rank": 8,
+        "p": 0.031,
+        "leader": "Trevor Lawrence"
+      },
+      "2021": {
+        "rank": 1,
+        "p": 0.139,
+        "leader": "Bryce Young"
+      },
+      "2022": {
+        "rank": 19,
+        "p": 0.014,
+        "leader": "Emeka Egbuka"
+      },
+      "2023": {
+        "rank": 3,
+        "p": 0.101,
+        "leader": "Dillon Gabriel"
+      },
+      "2024": {
+        "rank": null,
+        "p": null,
+        "leader": "Cameron Ward"
+      },
+      "2025": {
+        "rank": 4,
+        "p": 0.089,
+        "leader": "Jeremiah Smith"
+      }
+    },
+    "9": {
+      "2013": {
+        "rank": 2,
+        "p": 0.17,
+        "leader": "Marcus Mariota"
+      },
+      "2014": {
+        "rank": 2,
+        "p": 0.163,
+        "leader": "Dak Prescott"
+      },
+      "2015": {
+        "rank": 9,
+        "p": 0.024,
+        "leader": "Trevone Boykin"
+      },
+      "2016": {
+        "rank": 1,
+        "p": 0.535,
+        "leader": "Lamar Jackson"
+      },
+      "2017": {
+        "rank": 3,
+        "p": 0.101,
+        "leader": "J.T. Barrett"
+      },
+      "2018": {
+        "rank": 1,
+        "p": 0.289,
+        "leader": "Kyler Murray"
+      },
+      "2019": {
+        "rank": 2,
+        "p": 0.212,
+        "leader": "Jalen Hurts"
+      },
+      "2020": {
+        "rank": 3,
+        "p": 0.101,
+        "leader": "Mac Jones"
+      },
+      "2021": {
+        "rank": 1,
+        "p": 0.226,
+        "leader": "Bryce Young"
+      },
+      "2022": {
+        "rank": 11,
+        "p": 0.025,
+        "leader": "C.J. Stroud"
+      },
+      "2023": {
+        "rank": 1,
+        "p": 0.158,
+        "leader": "Jayden Daniels"
+      },
+      "2024": {
+        "rank": 39,
+        "p": 0.0,
+        "leader": "Cameron Ward"
+      },
+      "2025": {
+        "rank": 2,
+        "p": 0.104,
+        "leader": "Jeremiah Smith"
+      }
+    },
+    "11": {
+      "2013": {
+        "rank": 3,
+        "p": 0.132,
+        "leader": "Marcus Mariota"
+      },
+      "2014": {
+        "rank": 1,
+        "p": 0.374,
+        "leader": "Marcus Mariota"
+      },
+      "2015": {
+        "rank": 4,
+        "p": 0.18,
+        "leader": "Baker Mayfield"
+      },
+      "2016": {
+        "rank": 1,
+        "p": 0.675,
+        "leader": "Lamar Jackson"
+      },
+      "2017": {
+        "rank": 1,
+        "p": 0.475,
+        "leader": "Baker Mayfield"
+      },
+      "2018": {
+        "rank": 1,
+        "p": 0.458,
+        "leader": "Kyler Murray"
+      },
+      "2019": {
+        "rank": 1,
+        "p": 0.439,
+        "leader": "Joe Burrow"
+      },
+      "2020": {
+        "rank": 3,
+        "p": 0.129,
+        "leader": "Mac Jones"
+      },
+      "2021": {
+        "rank": 2,
+        "p": 0.169,
+        "leader": "Sam Hartman"
+      },
+      "2022": {
+        "rank": 9,
+        "p": 0.031,
+        "leader": "Drake Maye"
+      },
+      "2023": {
+        "rank": 2,
+        "p": 0.152,
+        "leader": "Michael Penix Jr."
+      },
+      "2024": {
+        "rank": 21,
+        "p": 0.002,
+        "leader": "Dillon Gabriel"
+      },
+      "2025": {
+        "rank": 6,
+        "p": 0.053,
+        "leader": "Jeremiah Smith"
+      }
+    },
+    "13": {
+      "2013": {
+        "rank": 3,
+        "p": 0.112,
+        "leader": "Derek Carr"
+      },
+      "2014": {
+        "rank": 1,
+        "p": 0.664,
+        "leader": "Marcus Mariota"
+      },
+      "2015": {
+        "rank": 3,
+        "p": 0.167,
+        "leader": "Deshaun Watson"
+      },
+      "2016": {
+        "rank": 2,
+        "p": 0.28,
+        "leader": "Deshaun Watson"
+      },
+      "2017": {
+        "rank": 1,
+        "p": 0.513,
+        "leader": "Baker Mayfield"
+      },
+      "2018": {
+        "rank": 1,
+        "p": 0.6,
+        "leader": "Kyler Murray"
+      },
+      "2019": {
+        "rank": 1,
+        "p": 0.424,
+        "leader": "Joe Burrow"
+      },
+      "2020": {
+        "rank": 1,
+        "p": 0.322,
+        "leader": "DeVonta Smith"
+      },
+      "2021": {
+        "rank": 1,
+        "p": 0.268,
+        "leader": "Bryce Young"
+      },
+      "2022": {
+        "rank": 1,
+        "p": 0.159,
+        "leader": "Caleb Williams"
+      },
+      "2023": {
+        "rank": 1,
+        "p": 0.348,
+        "leader": "Jayden Daniels"
+      },
+      "2024": {
+        "rank": 17,
+        "p": 0.002,
+        "leader": "Dillon Gabriel"
+      },
+      "2025": {
+        "rank": 5,
+        "p": 0.075,
+        "leader": "Jeremiyah Love"
+      }
+    }
+  }
+}
