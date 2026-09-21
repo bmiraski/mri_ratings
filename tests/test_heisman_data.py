@@ -14,6 +14,7 @@ from mri.heisman import data, funnel
 from mri.ingest import players
 
 VOTING = data.load_voting()
+LAST = data.last_season(VOTING)
 
 WINNERS = {
     2005: "Reggie Bush", 2006: "Troy Smith", 2007: "Tim Tebow", 2008: "Sam Bradford", 2009: "Mark Ingram",
@@ -30,10 +31,14 @@ FEED_GAPS = {(2009, "Ndamukong Suh"), (2010, "Cam Newton"), (2010, "LaMichael Ja
 # ---- the voting file
 
 def test_every_season_has_exactly_the_winner_it_should() -> None:
-    assert sorted(int(y) for y in VOTING["seasons"]) == sorted(WINNERS)
-    for year, name in WINNERS.items():
+    seasons = sorted(int(y) for y in VOTING["seasons"])
+    assert seasons == list(range(2005, LAST + 1))                       # no gaps, whatever the latest is
+    for year, name in WINNERS.items():                                  # the record as it stood when this was written
         first = VOTING["seasons"][str(year)]["finalists"][0]
         assert first["player"] == name and first["finish"] == 1 and first["points"] > 0, year
+    for year in seasons:                                                # and any season added since
+        first = VOTING["seasons"][str(year)]["finalists"][0]
+        assert first["finish"] == 1 and first["points"] > 0, year
 
 
 def test_finishes_and_points_agree_where_both_are_known() -> None:
@@ -56,7 +61,7 @@ def test_points_are_possible_given_the_ballots() -> None:
 
 
 def test_the_ceremony_dates_are_in_order() -> None:
-    d = VOTING["keyDates2026"]
+    d = data.key_dates(VOTING, 2026)
     assert d["ballotsDistributed"] < d["votingDeadline"] <= d["finalistsAnnounced"] < d["ceremony"]
 
 
@@ -96,7 +101,7 @@ PLAYERS = data.load_players()
 
 def test_the_player_table_has_no_duplicates_and_covers_every_season_since_2009() -> None:
     assert not PLAYERS.duplicated(["season", "player_id", "team"]).any()
-    assert sorted(PLAYERS["season"].unique()) == list(range(2009, 2026))
+    assert sorted(PLAYERS["season"].unique()) == list(range(2009, LAST + 1))
     assert set(players.COLUMNS.values()) <= set(PLAYERS.columns)
 
 
@@ -173,9 +178,9 @@ def test_advanced_numbers_exist_only_from_2013(monkeypatch) -> None:
 def test_the_funnel_keeps_every_winner_since_2013_and_most_finalists() -> None:
     from mri.ratings import prior_fit
 
-    power, _ = prior_fit.season_ratings()
+    power, _ = prior_fit.season_ratings(LAST)
     kept_finalists = total = 0
-    for year in range(2013, 2026):
+    for year in range(2013, LAST + 1):
         rank = power[year].rank(ascending=False)
         pool = funnel.candidates(PLAYERS[PLAYERS["season"] == year], rank)
         assert 60 <= len(pool) <= 80, (year, len(pool))

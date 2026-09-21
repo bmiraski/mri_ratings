@@ -1333,3 +1333,65 @@ def test_the_finalist_view_is_open_late_in_the_season_and_closed_early(with_heis
 def test_no_market_column_appears_when_there_is_no_market(with_heisman) -> None:
     text = site.heisman_page(with_heisman)
     assert ">Market<" not in text and "Market</strong>" not in text
+
+
+# ---- "most riding on it", the forward log's lines, and where Method lives
+
+def test_the_stake_carries_where_the_team_stands_now() -> None:
+    from mri.export import slate
+
+    entry = {"home": {"ifWin": 0.80, "ifLose": 0.60}, "away": {"ifWin": 0.86, "ifLose": 0.43}}
+    sim = {"teams": {"Visitors": {"playoff": 0.75}, "Hosts": {"playoff": 0.7}}}
+    stake = slate._stake(entry, "Hosts", "Visitors", sim)
+    assert stake["team"] == "Visitors" and stake["now"] == 0.75 and stake["ifLose"] == 0.43 and stake["ifWin"] == 0.86
+    assert 0.43 <= stake["now"] <= 0.86                                    # the current chance sits between the two outcomes
+    assert "now" not in slate._stake(entry, "Hosts", "Visitors", None)     # no simulation, no current chance: nothing invented
+    assert slate._stake(None, "Hosts", "Visitors", sim) is None
+
+
+def test_most_riding_on_it_reads_as_a_current_chance_and_two_outcomes(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    game = p["slate"]["days"][0]["games"][0]
+    game["stake"]["now"] = 0.42
+    text = site.slate_page(p)
+    panel = text[text.index("Most riding on it"):]
+    panel = panel[:panel.index("</section>")]
+    assert "playoff chance: <strong>42%</strong> now, 20% in a loss vs. <strong>60%</strong> in a win" in panel
+    assert "&rarr;" not in panel                                            # no bare "20% -> 60%" to misread as a swing
+    assert "42% now" in text                                                # the table column carries it too
+    del game["stake"]["now"]
+    older = site.slate_page(p)
+    assert "20% &rarr;" in older                                            # an older payload without it still renders
+
+
+def test_the_forward_log_shows_the_opening_line_and_an_edge_that_reconciles(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    home, away = p["teams"][0]["team"], p["teams"][1]["team"]
+    base = {"week": 4, "home": home, "away": away, "neutral": False, "side": "home", "kickoff": "2026-09-26T23:30:00.000Z",
+            "loggedAt": "2026-09-24T11:00Z"}
+    p["record"]["forward"]["picks"] = [
+        {**base, "game_id": 1, "predicted": 26.3, "open": 15.5, "taken": 19.5, "edge": 10.8},        # the market moved before it was logged
+        {**base, "game_id": 2, "predicted": 25.0, "open": 10.0, "taken": 10.0, "edge": 15.0},        # it did not
+        {**base, "game_id": 3, "predicted": 12.0, "taken": 6.5, "edge": 5.5}]                        # an older pick with no opening line
+    p["record"]["forward"]["logged"] = 3
+    text = site._record_section(p["record"])
+    assert ">Open<" in text and ">Logged<" in text and "Line (home)" not in text
+    rows = [r for r in text.split("<tr>") if "+26.3" in r or "+25.0" in r or "+12.0" in r]
+    first, second, third = rows
+    assert "+15.5" in first and "+19.5" in first and ">+6.8<" in first                # 26.3 - 19.5, the number that adds up
+    assert "Flagged on +10.8 against the opening line" in first                        # the flagging edge stays visible
+    assert ">+15.0<" in second                                                          # unchanged when the line did not move
+    assert "&ndash;" in third and ">+5.5<" in third                                     # no opening line: a dash, and model minus logged
+    assert "In 1 of the 3 picks the line had already moved" in text
+    assert "opening</em> line" in text and "graded against the number the market was showing" in text
+
+
+def test_method_lives_in_the_footer_not_the_header(built) -> None:
+    for name in ("index.html", "method.html"):
+        text = (built / name).read_text()
+        header = text[text.index("<nav>"):text.index("</nav>")]
+        footer = text[text.index('<footer class="site">'):]
+        assert "method.html" not in header and "Method" not in header
+        assert 'href="method.html"' in footer and "Method: how the ratings work" in footer
+    team = next((built / "team").glob("*.html")).read_text()
+    assert 'href="../method.html"' in team[team.index('<footer class="site">'):]           # the link is right one level down too

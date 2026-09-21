@@ -21,9 +21,9 @@ from . import mri2, priors
 YEARS = [y for y in range(2015, 2026) if y != 2020]
 
 
-def season_ratings() -> tuple[dict[int, pd.Series], dict[int, list[str]]]:
+def season_ratings(last: int = 2025) -> tuple[dict[int, pd.Series], dict[int, list[str]]]:
     power, fbs = {}, {}
-    for year in range(2013, 2026):
+    for year in range(2013, last + 1):
         games = cfbd.games(year)
         games = games[(games["season_type"] == "regular") & games["played"]].reset_index(drop=True)
         teams = sorted(set(games.loc[games["class1"] == "fbs", "team1"])

@@ -279,7 +279,6 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
       <a href="{up}conferences.html">Conferences</a>{slate_link}{sim_link}
 {betting_link}
       <a href="{up}archive.html">Archive</a>{seasons_link}
-      <a href="{up}method.html">Method</a>
     </nav>
     <div class="stamp">{esc(season_text(payload))} &middot; {esc(period_text(payload))}</div>
   </div>
@@ -289,7 +288,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
   <div class="wrap">
     <p>MRI &mdash; a computer rating system for {chrome.noun},
     {chrome.history.format(season=season_text(payload))}. Game data from
-    <a href="{chrome.source_url}">{chrome.source_name}</a>.</p>
+    <a href="{chrome.source_url}">{chrome.source_name}</a>.
+    <a href="{up}method.html">Method: how the ratings work</a>.</p>
     <p class="muted">Ratings last changed {esc(payload['generated'][:16].replace('T', ' '))} UTC
     &middot; {payload['gamesRated']} games rated &middot; {chrome.venue} {payload['homeField']:.1f} pts</p>
   </div>
@@ -1546,11 +1546,22 @@ def slate_page(payload: dict) -> str:
         return _favorite(g["market"], g["home"], g["away"]) + moved
 
     def stake_cell(g):
+        """The team with the most riding on the game: where its playoff chance is, and where a loss or a win would take it."""
         s = g.get("stake")
         if not s or s["swing"] < 0.02:
             return '<span class="muted">&ndash;</span>'
-        return (f'{esc(s["team"])} <span class="muted">{_pct(s["ifLose"])} &rarr;</span> '
-                f'<strong>{_pct(s["ifWin"])}</strong>')
+        if s.get("now") is None:
+            return (f'{esc(s["team"])} <span class="muted">{_pct(s["ifLose"])} &rarr;</span> '
+                    f'<strong>{_pct(s["ifWin"])}</strong>')
+        return (f'{esc(s["team"])} <span class="muted">{_pct(s["now"])} now &middot;</span> '
+                f'{_pct(s["ifLose"])} loss &middot; <strong>{_pct(s["ifWin"])} win</strong>')
+
+    def stake_sentence(g):
+        s = g["stake"]
+        if s.get("now") is None:
+            return stake_cell(g)
+        return (f'{esc(s["team"])}&rsquo;s playoff chance: <strong>{_pct(s["now"])}</strong> now, '
+                f'{_pct(s["ifLose"])} in a loss vs. <strong>{_pct(s["ifWin"])}</strong> in a win')
 
     def upcoming_row(g):
         favourite_p = g["homeWinProbability"] if g["predicted"] >= 0 else 1 - g["homeWinProbability"]
@@ -1569,7 +1580,7 @@ def slate_page(payload: dict) -> str:
 
     head = """<thead><tr><th>Time</th><th>Game</th><th class="num">Model</th><th class="num">Win</th>
       <th class="num">Market</th><th class="num" title="Model minus the opening number">Edge</th>
-      <th title="The team with the most to lose: its playoff chance if it loses, then if it wins">Playoff stake</th></tr></thead>"""
+      <th title="The team with the most riding on the game: its playoff chance now, then if it loses, then if it wins">Playoff stake</th></tr></thead>"""
 
     days = "".join(f"""
   <h2>{esc(d['label'])}</h2>
@@ -1577,15 +1588,14 @@ def slate_page(payload: dict) -> str:
                    for d in slate["days"])
 
     watch = "".join(f"""<li>{_matchup(by_id[i], teams)}
-        <span class="gv">{by_id[i]['dateLabel']} &middot; {stake_cell(by_id[i])}</span></li>"""
+        <span class="gv">{by_id[i]['dateLabel']} &middot; {stake_sentence(by_id[i])}</span></li>"""
                     for i in slate["watch"] if i in by_id)
     watch_panel = f"""
   <section class="panel">
     <p class="ptitle">Most riding on it</p>
     <ul class="list watch">{watch}</ul>
     <p class="note">Games ranked by how much the result moves one team's playoff chance, from the
-    {sim_ref}. The first figure is that team's chance if it loses;
-    the second, if it wins.</p>
+    {sim_ref}. Each line gives that team's chance now, then where a loss would leave it and where a win would.</p>
   </section>""" if watch else ""
 
     def result_row(g):
@@ -1660,6 +1670,20 @@ def _record_section(record: dict) -> str:
         <td class="num {'over' if w['units'] > 0 else 'under' if w['units'] < 0 else ''}">{w['units']:+.1f}</td></tr>"""
                     for w in rec["weeks"])
 
+    def edge_cell(p: dict) -> str:
+        """Model minus the line the pick was logged at: the number that reconciles with the two beside it.
+
+        Games are flagged on the edge against the *opening* line, but a pick is graded against the line
+        available when it was written down, so the edge that was actually there is the second one. The
+        flagging edge is in the tooltip.
+        """
+        at_logged = p["predicted"] - p["taken"]
+        flagged = f"Flagged on {p['predicted'] - p['open']:+.1f} against the opening line." if p.get("open") is not None else ""
+        return f'<td class="num" title="Model minus the logged line. {flagged}">{at_logged:+.1f}</td>'
+
+    moved = [p for p in fwd["picks"] if p.get("open") is not None and abs(p["open"] - p["taken"]) >= 0.5]
+    moved_text = (f" In {len(moved)} of the {fwd['logged']} picks the line had already moved by the time the pick was logged; "
+                  f"the edge shown is against the line as it then stood." if moved else "")
     earlier = (f" {fwd['earlier']} of the picks were logged before the preseason prior began to use roster talent "
                "and returning production, so they were made by the earlier model; they stay as written."
                if fwd.get("earlier") else "")
@@ -1667,8 +1691,10 @@ def _record_section(record: dict) -> str:
         picks = "".join(f"""<tr><td class="wk">{p['week']}</td>
           <td class="opp">{esc(p['away'])} {'vs' if p['neutral'] else 'at'} {esc(p['home'])}</td>
           <td>{esc(p['home'] if p['side'] == 'home' else p['away'])}</td>
-          <td class="num">{p['predicted']:+.1f}</td><td class="num">{p['taken']:+.1f}</td>
-          <td class="num">{p['edge']:+.1f}</td>
+          <td class="num">{p['predicted']:+.1f}</td>
+          <td class="num muted">{f"{p['open']:+.1f}" if p.get('open') is not None else '&ndash;'}</td>
+          <td class="num">{p['taken']:+.1f}</td>
+          {edge_cell(p)}
           <td class="num">{esc(p['result']) if 'result' in p else '<span class="muted">pending</span>'}</td>
           <td class="num">{f"{p['clv']:+.1f}" if 'clv' in p else '<span class="muted">&ndash;</span>'}</td></tr>"""
                         for p in fwd["picks"][:40])
@@ -1676,14 +1702,15 @@ def _record_section(record: dict) -> str:
         forward = f"""
   <h3>The forward log</h3>
   <p>Started {esc(fwd['started'])}. Each flagged game is written down before kickoff &mdash; model line,
-  the market's number at that moment, the side &mdash; and never edited afterwards. Graded against the number
-  taken, at &minus;110.{earlier}</p>
+  the market's number at that moment, the side &mdash; and never edited afterwards. Games are flagged on the gap between the model and the
+  <em>opening</em> line, but a pick is graded against the number the market was showing when it was written down, at &minus;110,
+  because that is the price a bettor could actually have had. Every line is the home team's expected margin, and Edge is the model's minus the logged one.{moved_text}{earlier}</p>
   <p><strong>{fwd['wins']}&ndash;{fwd['losses']}{f"&ndash;{fwd['pushes']}" if fwd['pushes'] else ''}</strong>
   on {fwd['graded']} graded of {fwd['logged']} logged
   ({signed(fwd['units'])} units{f", mean closing line value {signed(fwd['clv'])}" if fwd['clv'] is not None else ''}).</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's margin for the home team">Model (home)</th><th class="num" title="Market's expected home margin when logged">Line (home)</th>
-    <th class="num">Edge</th><th class="num">Result</th><th class="num">CLV</th></tr></thead>
+    <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's expected margin for the home team">Model</th><th class="num muted" title="Where the market opened: its expected home margin. Games are flagged on the gap between this and the model">Open</th><th class="num" title="Market's expected home margin at the moment the pick was written down, which is what it is graded against">Logged</th>
+    <th class="num" title="Model minus the logged line">Edge</th><th class="num">Result</th><th class="num" title="Points the line moved toward the pick between logging and kickoff">CLV</th></tr></thead>
     <tbody>{picks}</tbody></table></div>{more}"""
     else:
         forward = f"""
@@ -2025,13 +2052,16 @@ def heisman_page(payload: dict) -> str:
       <td class="small">{path(r)}</td></tr>""" for i, r in enumerate(h["players"], 1))
     position_text = ", ".join(f"{name} {_pct(v)}" for name, v in sorted(h["byPosition"].items(), key=lambda kv: -kv[1]))
 
-    if h.get("closed"):
+    if h.get("closed") and dates:
         status = (f'<p class="hint"><strong>Voting closed {esc(dt_label(dates["votingDeadline"]))}.</strong> These are the last odds before the ballots '
                   f'were in, as of Week {h["week"]}; they are not updated after the voters have decided. Finalists were announced '
                   f'{esc(dt_label(dates["finalistsAnnounced"]))} and the winner is named {esc(dt_label(dates["ceremony"]))}.</p>')
-    else:
+    elif dates:
         status = (f'<p class="hint">Updated {esc(dt_label(h["updated"]))}, through Week {h["week"]}. Ballots are due {esc(dt_label(dates["votingDeadline"]))}, '
                   f'when the finalists are announced; the winner is named {esc(dt_label(dates["ceremony"]))}. Championship games count; bowls and the playoff do not.</p>')
+    else:
+        status = (f'<p class="hint">Updated {esc(dt_label(h["updated"]))}, through Week {h["week"]}. Ballots are due in early December, after the conference '
+                  f'championship games, which count; bowls and the playoff do not.</p>')
 
     market_note = ""
     if market:
@@ -2669,7 +2699,7 @@ a { color:inherit; }
 .wrap { max-width:1080px; margin:0 auto; padding-left:18px; padding-right:18px; }
 
 header.site { border-bottom:1px solid var(--grid); background:var(--surface); }
-.bar { display:flex; align-items:center; gap:20px; flex-wrap:wrap; padding-block:14px; }
+.bar { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-block:14px; }
 /* The mark is the lockup image now. Height is fixed and width follows, so the
    art keeps its proportions whatever the file turns out to be; the width and
    height attributes on the img are only there to reserve the box before it
@@ -2684,14 +2714,14 @@ header.site { border-bottom:1px solid var(--grid); background:var(--surface); }
    merely coloured - colour alone would not survive a greyscale print or a
    colourblind reader. */
 .sports { display:flex; border:1px solid var(--grid); border-radius:999px; overflow:hidden; }
-.sports a { font-size:12px; font-weight:600; padding:4px 12px; text-decoration:none;
+.sports a { font-size:12px; font-weight:600; padding:4px 10px; text-decoration:none;
   color:var(--muted); white-space:nowrap; }
 .sports a:hover { color:var(--primary); }
 .sports a.on { background:var(--primary); color:var(--surface); }
-header nav { display:flex; gap:16px; flex:1; flex-wrap:wrap; }
+header nav { display:flex; gap:12px; flex:1; flex-wrap:wrap; }
 header nav a { font-size:13px; color:var(--secondary); text-decoration:none; }
 header nav a:hover { color:var(--primary); }
-.stamp { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.stamp { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; }
 
 main { padding-block:26px 40px; }
 .grid { display:grid; grid-template-columns:1.55fr 1fr; gap:18px; align-items:start; }

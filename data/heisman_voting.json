@@ -1,12 +1,6 @@
 {
  "source": "Finalists: the Heisman Trust's complete list of finalists (heisman.com/voting-records). Winners' points: the Trust's records via CFBTrack. Other points and finishes where a published result gives them (Trust announcements, SI, CBS, USA Today). Ballots: 3-2-1.",
  "notes": "The winner of each year is certain. The Trust's list gives the rest of a year's finalists in an order that is sometimes finish order and sometimes alphabetical (2005 and 2016 are), so a finish is recorded only where a result was published; None means the finalist is known and the place is not. 'finalist': false marks players who finished in the top ten without being invited to the ceremony. 'defender': true marks a player who was mainly a defender.",
- "keyDates2026": {
-  "ballotsDistributed": "2026-12-05",
-  "votingDeadline": "2026-12-07",
-  "finalistsAnnounced": "2026-12-07",
-  "ceremony": "2026-12-12"
- },
  "seasons": {
   "2005": {
    "voters": 923,
@@ -653,6 +647,14 @@
      "finalist": false
     }
    ]
+  }
+ },
+ "keyDates": {
+  "2026": {
+   "ballotsDistributed": "2026-12-05",
+   "votingDeadline": "2026-12-07",
+   "finalistsAnnounced": "2026-12-07",
+   "ceremony": "2026-12-12"
   }
  }
 }

@@ -19,9 +19,10 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from mri.heisman import data  # noqa: E402
 from mri.ingest import players  # noqa: E402
 
-SEASONS = range(2012, 2026)
+SEASONS = range(2012, data.last_season() + 1)
 WEEKS = (3, 5, 7, 9, 11, 13)
 BUDGET = 240          # seconds; the sandbox stops a command at 300
 

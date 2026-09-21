@@ -63,6 +63,23 @@ def _swing(entry: dict | None) -> dict | None:
     return best
 
 
+def _stake(entry: dict | None, home: str, away: str, sim: dict | None) -> dict | None:
+    """The team with more riding on a game: its playoff chance if it loses and if it wins, and where it stands now.
+
+    The current chance is what makes the other two readable. "20% -> 60%" looks like a team swinging between
+    two extremes; "42% now, 20% in a loss, 60% in a win" shows it is in the middle of that range.
+    """
+    best = _swing(entry)
+    if not best:
+        return None
+    team = home if best["side"] == "home" else away
+    out = {**{k: (round(float(v), 4) if k != "side" else v) for k, v in best.items()}, "team": team}
+    now = ((sim or {}).get("teams") or {}).get(team, {}).get("playoff")
+    if now is not None:
+        out["now"] = round(float(now), 4)
+    return out
+
+
 def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.DataFrame, *,
           now: dt.datetime | None = None) -> dict | None:
     schedule = _canonical(cfbd.games(year, completed_only=False))
@@ -136,10 +153,9 @@ def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.Da
             if row and row.get("edge") is not None:
                 entry["edge"] = row["edge"]
                 entry["flagged"] = (home, away) in flagged
-            stake = _swing(leverage.get(str(int(game.game_id))))
+            stake = _stake(leverage.get(str(int(game.game_id))), home, away, sim)
             if stake:
-                entry["stake"] = {**{k: (round(float(v), 4) if k != "side" else v) for k, v in stake.items()},
-                                  "team": home if stake["side"] == "home" else away}
+                entry["stake"] = stake
         else:
             actual = float(game.pts2 - game.pts1)
             entry["result"] = {

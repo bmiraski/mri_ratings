@@ -1,6 +1,6 @@
 """Fit the final-vote model and grade it on seasons it has not seen.
 
-For each season 2012-2025, the candidates are the funnel's pool at the end of the
+For each season from 2012 to the latest one in the voting file, the candidates are the funnel's pool at the end of the
 regular season, described by where each stands among them and how good his team is.
 The model is fitted to the other thirteen seasons and asked who won this one.
 
@@ -120,8 +120,9 @@ def baselines(seasons):
 def main() -> None:
     voting = data.load_voting()
     table = data.load_players()
-    states = {y: teams.team_state(cfbd.games(y)) for y in range(final_model.FIRST_SEASON, 2026)}
-    seasons = [final_model.season(y, table, states[y], voting) for y in range(final_model.FIRST_SEASON, 2026)]
+    last = data.last_season(voting)
+    states = {y: teams.team_state(cfbd.games(y)) for y in range(final_model.FIRST_SEASON, last + 1)}
+    seasons = [final_model.season(y, table, states[y], voting) for y in range(final_model.FIRST_SEASON, last + 1)]
     games_path = ROOT / "data" / "parquet" / "player_games.parquet"
     extras(seasons, states, pd.read_parquet(ROOT / "data" / "parquet" / "player_weekly.parquet"),
            pd.read_parquet(games_path) if games_path.exists() else None)

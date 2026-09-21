@@ -19,12 +19,13 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from mri.ingest import cfbd, players  # noqa: E402
+from mri.heisman import data  # noqa: E402
+from mri.ingest import players  # noqa: E402
 
 
 def main() -> None:
     first = int(sys.argv[1]) if len(sys.argv) > 1 else players.FIRST_SEASON
-    last = cfbd.current_season() - 1                    # the last season that has been played
+    last = data.last_season()                          # the last season whose Heisman has been recorded
     frames = []
     for year in range(first, last + 1):
         frame = players.season_table(year)

@@ -134,7 +134,9 @@ def test_the_committed_model_points_the_right_way() -> None:
     coef = dict(zip(m["features"], m["coefficients"]))
     assert set(m["features"]) <= set(features.NAMES)
     assert coef["prod_z"] > 0 and coef["group_rank"] < 0 and coef["team_rank"] < 0
-    assert m["seasons"] == 14 and m["fitted"] == "2012-2025"
+    last = data.last_season()
+    assert m["seasons"] == last - final_model.FIRST_SEASON + 1 and m["fitted"] == f"{final_model.FIRST_SEASON}-{last}", \
+        "the voting file has a newer season than the model: rerun scripts/fit_heisman.py and scripts/backtest_heisman.py"
 
 
 def test_every_winner_is_a_candidate_in_every_season() -> None:
@@ -142,7 +144,7 @@ def test_every_winner_is_a_candidate_in_every_season() -> None:
     from mri.ingest import cfbd
 
     voting, table = data.load_voting(), data.load_players()
-    for year in range(2013, 2026):
+    for year in range(2013, data.last_season() + 1):
         s = final_model.season(year, table, teams.team_state(cfbd.games(year)), voting)
         assert s.winner is not None, year
         assert len(s.pool) == 65 and s.X.shape == (65, len(features.NAMES))

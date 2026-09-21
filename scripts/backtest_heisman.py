@@ -1,6 +1,6 @@
 """If this odds engine had existed, how would it have done?
 
-For every season 2013-2025 and each snapshot week (3, 5, 7, 9, 11 and 13), stand at that
+For every season from 2013 to the latest one in the voting file, and each snapshot week (3, 5, 7, 9, 11 and 13), stand at that
 point knowing only what was known then: the season's stats to date, the standings to date,
 the ratings to date. Play out the rest of the season, project every candidate, score the
 field, and see where the eventual winner sat.
@@ -40,7 +40,8 @@ from mri.heisman import calibrate, data, features, final_model, forecast, histor
 from mri.ingest import cfbd  # noqa: E402
 from mri.ratings import prior_fit  # noqa: E402
 
-SEASONS = list(range(2013, 2026))
+LAST = data.last_season()
+SEASONS = list(range(2013, LAST + 1))
 WEEKS = project.SNAPSHOT_WEEKS
 SIMS = 1000
 BUDGET = 250
@@ -83,13 +84,13 @@ def summarize(rows: list[dict]) -> dict:
 def main() -> None:
     voting, final_table = data.load_voting(), data.load_players()
     weekly = pd.read_parquet(ROOT / "data" / "parquet" / "player_weekly.parquet")
-    power_np, _ = prior_fit.season_ratings()
+    power_np, _ = prior_fit.season_ratings(LAST)
     model_meta = final_model.load_model()
     cols = [features.NAMES.index(n) for n in model_meta["features"]]
 
     games_all = {y: cfbd.games(y, completed_only=False) for y in SEASONS}
-    finals = {y: teams.team_state(cfbd.games(y)) for y in range(final_model.FIRST_SEASON, 2026)}
-    seasons = [final_model.season(y, final_table, finals[y], voting) for y in range(final_model.FIRST_SEASON, 2026)]
+    finals = {y: teams.team_state(cfbd.games(y)) for y in range(final_model.FIRST_SEASON, LAST + 1)}
+    seasons = [final_model.season(y, final_table, finals[y], voting) for y in range(final_model.FIRST_SEASON, LAST + 1)]
     power_np[2012] = finals[2012]["power"]           # 2013's prior is 2012's ratings
 
     print("building snapshots", flush=True)

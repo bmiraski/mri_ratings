@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 
 from mri.export import heismandata
+from mri.heisman import data
 
 PAYLOAD = {"week": 4, "teams": [{"team": "Alpha", "rank": 2, "wins": 4, "losses": 0}, {"team": "Beta", "rank": 30, "wins": 2, "losses": 2},
                                 {"team": "Gamma", "rank": 9, "wins": 3, "losses": 1}]}
@@ -118,7 +119,7 @@ def test_the_defender_rate_comes_from_the_voting_record() -> None:
     from mri.heisman import data
 
     d = heismandata.defender_rate(data.load_voting())
-    assert d["years"] == [2012, 2016, 2019, 2021] and d["count"] == 4 and d["seasons"] == 14
+    assert d["years"][:4] == [2012, 2016, 2019, 2021] and d["count"] >= 4 and d["seasons"] == data.last_season() - 2011
     assert "Chase Young" in d["names"] and "Jacob Rodriguez" not in d["names"]    # a top-ten finish is not an invitation
 
 
@@ -139,3 +140,13 @@ def test_a_failing_defender_lookup_costs_the_page_only_the_names(tmp_path) -> No
 
     page = heismandata.build(2026, PAYLOAD, tmp_path / "h.json", today=dt.date(2026, 9, 22), odds_fn=lambda p, sims: odds(), defenders_fn=boom)
     assert page["defenders"]["watch"] == [] and page["players"]
+
+
+def test_a_season_with_no_calendar_never_freezes_and_a_known_one_does(tmp_path) -> None:
+    # 2027 has no ballot dates yet: even in December, before anyone has added them, the page keeps updating.
+    assert data.key_dates(data.load_voting(), 2027) is None
+    page = heismandata.build(2027, {**PAYLOAD, "season": 2027}, tmp_path / "h27.json", today=dt.date(2027, 12, 20),
+                             odds_fn=lambda p, sims: odds())
+    assert page["closed"] is False and page["dates"] is None
+    dates = data.key_dates(data.load_voting(), 2026)
+    assert dates["votingDeadline"] == "2026-12-07"

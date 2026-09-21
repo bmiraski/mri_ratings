@@ -90,10 +90,9 @@ def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None
     """The page's data, or None if there is nothing honest to show."""
     today = today or dt.date.today()
     voting = data.load_voting()
-    dates = voting["keyDates2026"]
-    deadline = dt.date.fromisoformat(dates["votingDeadline"])
+    dates = data.key_dates(voting, year)            # None for a season whose calendar has not been added yet
     history = _load(history_path, year)
-    closed = today >= deadline
+    closed = bool(dates) and today >= dt.date.fromisoformat(dates["votingDeadline"])
     week = int(payload["week"])
 
     if closed:

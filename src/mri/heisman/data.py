@@ -45,6 +45,22 @@ def load_voting(path: Path = VOTING) -> dict:
     return json.loads(path.read_text())
 
 
+def last_season(voting: dict | None = None) -> int:
+    """The latest season whose Heisman has been awarded and recorded: what every fit and backtest runs through.
+
+    Adding a season's finalists to the voting file is what moves this, and with it the whole pipeline: the
+    fitting scripts, the backtest and the yearly rebuilds of the player tables all read it, so a refit is a
+    matter of running them and not of editing them.
+    """
+    voting = voting or load_voting()
+    return max(int(y) for y in voting["seasons"])
+
+
+def key_dates(voting: dict, year: int) -> dict | None:
+    """The season's ballot dates (ballots out, deadline, finalists announced, ceremony), if they are known."""
+    return (voting.get("keyDates") or {}).get(str(year))
+
+
 def load_players(path: Path = PLAYERS) -> pd.DataFrame:
     return pd.read_parquet(path)
 

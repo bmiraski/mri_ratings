@@ -203,10 +203,13 @@ mid-sized chances that ran high. Defenders are still not scored: the page says a
 page shows them beside the model when at least two players match and the file is under ten days old, and never uses them in a number.
 Updating it is optional and by hand.
 
-- A single hand-edit is needed each December: add the new season's finalists (and any published points) to
-  `data/heisman_voting.json`, then rerun the four scripts below.
-- Each year: `build_player_history.py` (about 90 calls), `build_player_weekly.py` (about 250; resumable),
-  `fit_heisman.py`, `backtest_heisman.py`. The raw responses are large and ignored by git.
+- **Each December, one hand-edit:** add the new season's finalists (and any published points) to `data/heisman_voting.json`
+  under `seasons`, and next season's ballot dates under `keyDates` (dates are per season; a season with none never freezes).
+  The latest season in that file is what everything else follows: `data.last_season()` sets how far the fitting scripts, the
+  backtest and the player-table builders run, so refitting is running them, with no edits to code. The committed model and its
+  test say so if the voting file is ahead of them.
+- To refit (optional, a small change: one more season in fourteen): `build_player_history.py` (about 90 calls), `build_player_weekly.py`
+  (about 250; resumable), `fit_heisman.py`, `backtest_heisman.py`. The raw responses are large and ignored by git.
 
 ### Season simulation, slate and record
 

@@ -17,9 +17,10 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from mri.heisman import data  # noqa: E402
 from mri.ingest import cfbd, players  # noqa: E402
 
-SEASONS = range(2012, cfbd.current_season())
+SEASONS = range(2012, data.last_season() + 1)
 WEEKS = range(1, 16)
 
 
