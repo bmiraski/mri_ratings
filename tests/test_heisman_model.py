@@ -193,6 +193,10 @@ def test_odds_are_probabilities_and_the_better_situation_wins_more(runs) -> None
     out = forecast.odds(candidates(teams), r, left, ratios, MODEL, seed=1)
     assert out["win"].sum() == pytest.approx(1.0, abs=1e-9)
     assert (out["finalist"] >= out["win"] - 1e-9).all() and out["finalist"].max() <= 1.0
+    star = out.set_index("player").loc["Star"]
+    assert 0.0 <= star["team_top4"] <= 1.0
+    if not np.isnan(star["win_if_top4"]) and not np.isnan(star["win_if_not"]):
+        assert star["win_if_top4"] >= star["win_if_not"]                # doing it with a top-four team is never worse
     top = out.set_index("player")["win"]
     assert top["Star"] > top["Good"]                        # the same season on a far better team
     assert top["Star"] > top["Back"] and top["Star"] > top["Wide"]

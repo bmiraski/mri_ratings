@@ -157,7 +157,7 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
-### Heisman odds (model and forecast built; page next)
+### Heisman odds
 
 **The record.** `data/heisman_voting.json` holds every finalist 2005-2025 (the winner is certain; the Trust lists the
 others in an order that is sometimes alphabetical, so a finish is recorded only when a result was published).
@@ -179,6 +179,13 @@ finished stat line as his shrunk rate times the games his team has left times a 
 happened to candidates at that point of every other season (`data/heisman_ratios.json`; injuries and regression are in
 it), score the field, and count. Player output and team results are drawn independently - the known simplification.
 `scripts/backtest_heisman.py` grades it on 2013-2025 at six points in each season, leaving the season out.
+
+**The page** (`docs/heisman.html`, `mri/export/heismandata.py`, `heisman_page` in `site.py`). Built with every site
+build, isolated like the other football extras: if anything fails, the page and its nav link disappear and the
+rankings still publish. It costs three API calls (season-to-date passing, rushing and receiving) and about 25
+seconds. `site/data/heisman_history.json` keeps one snapshot per week (rebuilding a week replaces it) and is what the
+"Wk" column measures against. Each team's page names its top candidate. **After the voting deadline (Dec 7) the page
+stops recomputing** and shows the last odds recorded before the ballots closed, labelled as such.
 
 - A single hand-edit is needed each December: add the new season's finalists (and any published points) to
   `data/heisman_voting.json`, then rerun the four scripts below.

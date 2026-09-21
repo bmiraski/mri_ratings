@@ -1220,3 +1220,80 @@ def test_the_number_one_box_carries_a_larger_logo_on_the_right(payload) -> None:
     if top.get("logo"):
         assert 'width="72" height="72"' in box
     assert f'team/{site.slug(top["team"])}.html' in box
+
+
+# ---- the Heisman page
+
+@pytest.fixture(scope="module")
+def with_heisman(extended) -> dict:
+    p = json.loads(json.dumps(extended))
+    a, b = (t["team"] for t in p["teams"][:2])
+
+    def player(name, team, group, win, **extra):
+        return {"player": name, "team": team, "position": {"QB": "QB", "RB": "RB", "REC": "WR/TE"}[group], "group": group, "win": win,
+                "finalist": win * 2.5, "change": 0.012, "rankChange": 1,
+                "line": {"passYds": 1500, "passTd": 12, "rushYds": 120, "rushTd": 2, "recYds": 0, "recTd": 0},
+                "pace": 3900, "teamRank": 3, "teamRecord": "4–0", "teamTop4": 0.6, "winIfTop4": 0.15, "winIfNot": 0.03, **extra}
+
+    p["heisman"] = {
+        "season": 2026, "week": 4, "sims": 10000, "candidates": 65, "updated": "2026-09-27", "closed": False,
+        "dates": {"ballotsDistributed": "2026-12-05", "votingDeadline": "2026-12-07", "finalistsAnnounced": "2026-12-07", "ceremony": "2026-12-12"},
+        "players": [player("Test Passer", a, "QB", 0.113), player("Test Catcher", b, "REC", 0.046, change=-0.02, winIfTop4=None, winIfNot=None)],
+        "rest": 0.41, "byPosition": {"QB": 0.66, "WR/TE": 0.23, "RB": 0.11},
+        "byTeam": {a: {"player": "Test Passer", "win": 0.113, "position": "QB"}}, "winners": {"2019": "Joe Burrow", "2024": "Travis Hunter"},
+    }
+    root = Path(__file__).resolve().parents[1] / "site" / "data"
+    p["heismanBacktest"] = {"final": json.loads((root / "heisman_backtest.json").read_text()),
+                            "forecast": json.loads((root / "heisman_forecast_backtest.json").read_text())}
+    return p
+
+
+def test_the_heisman_page_and_its_link_exist_only_when_built(with_heisman, extended, tmp_path) -> None:
+    site.build(with_heisman, tmp_path / "a")
+    site.build(extended, tmp_path / "b")
+    assert (tmp_path / "a" / "heisman.html").exists() and (tmp_path / "a" / "heisman.json").exists()
+    assert 'href="heisman.html"' in (tmp_path / "a" / "index.html").read_text()
+    assert not (tmp_path / "b" / "heisman.html").exists() and "heisman.html" not in (tmp_path / "b" / "index.html").read_text()
+    published = json.loads((tmp_path / "a" / "site.json").read_text())
+    assert "heisman" not in published and "heismanBacktest" not in published
+
+
+def test_the_heisman_page_shows_the_odds_the_movement_and_the_track_record(with_heisman) -> None:
+    text = site.heisman_page(with_heisman)
+    for needle in ("Heisman odds", "Test Passer", "11%", "Test Catcher", "How it works", "How it has done", "What it cannot see",
+                   "Every winner, and where the model had him", "Joe Burrow", "Travis Hunter"):
+        assert needle in text, needle
+    assert "Ballots are due Dec 7" in text and "the winner is named Dec 12" in text
+    assert "if" in text and "finishes top 4" in text and "60% likely" in text          # what has to happen, with how likely it is
+    assert "&#9650;1.2" in text and "&#9660;2.0" in text                                # movement in points, up and down
+    assert "Everyone else" in text and "41%" in text
+    assert "QB 66%" in text                                                              # where the chance sits by position
+
+
+def test_a_candidate_whose_team_rarely_finishes_in_the_top_four_gets_no_conditional_line(with_heisman) -> None:
+    text = site.heisman_page(with_heisman)
+    row = text[text.index("Test Catcher"):]
+    row = row[:row.index("</tr>")]
+    assert "finishes top 4" not in row
+
+
+def test_the_heisman_page_says_when_the_voting_has_closed(with_heisman) -> None:
+    closed = json.loads(json.dumps(with_heisman))
+    closed["heisman"]["closed"] = True
+    text = site.heisman_page(closed)
+    assert "Voting closed Dec 7" in text and "not updated after the voters have decided" in text
+    assert "Ballots are due" not in text
+
+
+def test_the_heisman_page_tolerates_a_missing_backtest(with_heisman) -> None:
+    bare = {k: v for k, v in with_heisman.items() if k != "heismanBacktest"}
+    text = site.heisman_page(bare)
+    assert "Test Passer" in text and "How it has done" not in text
+
+
+def test_a_team_page_names_its_heisman_candidate_and_links_up_a_level(with_heisman) -> None:
+    team = with_heisman["teams"][0]
+    text = site.team_page(team, with_heisman)
+    assert "Test Passer" in text and 'href="../heisman.html"' in text and "11% to win" in text
+    other = with_heisman["teams"][5]
+    assert '<span class="hll">Heisman</span>' not in site.team_page(other, with_heisman)     # a team with no candidate has no line

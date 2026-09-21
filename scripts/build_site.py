@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
-from mri.export import gamedaydata, logos, simdata, site, sitedata, slate  # noqa: E402
+from mri.export import gamedaydata, heismandata, logos, simdata, site, sitedata, slate  # noqa: E402
 from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
@@ -162,6 +162,19 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
             print(f"  gameday: {len(payload['gameday']['weeks'])} weeks forecast")
     except Exception as exc:  # noqa: BLE001
         print(f"  gameday skipped: {exc}")
+
+    try:
+        payload["heisman"] = heismandata.build(SEASON, payload, data_dir / "heisman_history.json")
+        if payload["heisman"]:
+            payload["heismanBacktest"] = {
+                key: json.loads((data_dir / name).read_text())
+                for key, name in (("final", "heisman_backtest.json"), ("forecast", "heisman_forecast_backtest.json"))
+                if (data_dir / name).exists()}
+            top = payload["heisman"]["players"][0]
+            print(f"  heisman: week {payload['heisman']['week']}, {top['player']} ({top['team']}) leads at {top['win']:.1%}"
+                  f"{' [voting closed]' if payload['heisman']['closed'] else ''}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  heisman skipped: {exc}")
 
     if payload.get("board"):
         try:

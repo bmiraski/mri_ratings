@@ -21,6 +21,8 @@ import pandas as pd
 from ..sim import season
 from . import features, project
 
+MIN_RUNS = 30          # fewer simulated seasons than this and a conditional chance is noise
+
 
 def simulate_teams(teams: list[dict], schedule: pd.DataFrame, *, home_field: float, sims: int, seed: int = season.DEFAULT_SEED,
                    rules: dict | None = None, championships: dict | None = None) -> dict:
@@ -68,13 +70,21 @@ def odds(pool: pd.DataFrame, runs: dict, left: dict[str, int], ratio_pool: np.nd
     p = np.exp(u)
     p /= p.sum(axis=1, keepdims=True)
 
-    top4 = np.zeros(G)
+    reached = np.zeros(G)
     for _ in range(finalist_draws):
         gumbel = -np.log(-np.log(rng.random((S, G))))
         order = np.argsort(-(u + gumbel), axis=1)[:, :4]
-        top4 += np.bincount(order.ravel(), minlength=G)
+        reached += np.bincount(order.ravel(), minlength=G)
     out = pool[["player", "team", "group"]].copy()
     out["win"] = p.mean(axis=0)
-    out["finalist"] = top4 / (S * finalist_draws)
+    out["finalist"] = reached / (S * finalist_draws)
     out["projected"] = final.mean(axis=0)
+
+    # What has to happen: how his chances differ between the seasons in which his team finishes among the
+    # top four and the ones in which it does not. Left empty when a case is too rare to say anything about.
+    elite = team_rank <= 4
+    with_, without = elite.sum(axis=0), (~elite).sum(axis=0)
+    out["team_top4"] = elite.mean(axis=0)
+    out["win_if_top4"] = np.where(with_ >= MIN_RUNS, (p * elite).sum(axis=0) / np.maximum(with_, 1), np.nan)
+    out["win_if_not"] = np.where(without >= MIN_RUNS, (p * ~elite).sum(axis=0) / np.maximum(without, 1), np.nan)
     return out.sort_values("win", ascending=False).reset_index(drop=True)

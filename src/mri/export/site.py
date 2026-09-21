@@ -232,6 +232,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     sim_link = f'\n      <a href="{up}simulation.html">Simulation</a>' if payload.get("sim") else ""
     if payload.get("gameday"):
         sim_link += f'\n      <a href="{up}gameday.html">GameDay</a>'
+    if payload.get("heisman"):
+        sim_link += f'\n      <a href="{up}heisman.html">Heisman</a>'
     # The switch offers only sports this build actually published. The same rule
     # as the betting link above: a header link to a directory that does not exist
     # is a dead link on every page of the site, which is worse than no switch.
@@ -843,6 +845,11 @@ def team_page(team: dict, payload: dict) -> str:
         highlights.append(f'<div class="hl"><span class="hll">Schedule faced</span><span class="hlv">{detail["playedDifficulty"]:+.1f} avg opponent</span></div>')
     if detail.get("remainingDifficulty") is not None:
         highlights.append(f'<div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">{detail["remainingDifficulty"]:+.1f} avg opponent</span></div>')
+
+    candidate = ((payload.get("heisman") or {}).get("byTeam") or {}).get(team["team"])
+    if candidate:
+        highlights.append(f'<div class="hl" title="From the Heisman odds page: this team\'s most likely candidate."><span class="hll">Heisman</span>'
+                          f'<span class="hlv"><a href="../heisman.html">{esc(candidate["player"])}</a> &middot; {_pct(candidate["win"])} to win</span></div>')
 
     roster = team.get("roster") or {}
     if roster.get("mode"):
@@ -1963,6 +1970,125 @@ def gameday_page(payload: dict) -> str:
                 description="Where will ESPN's College GameDay be? A forecast for the weeks not yet announced.")
 
 
+def heisman_page(payload: dict) -> str:
+    h = payload["heisman"]
+    teams = {t["team"]: t for t in payload["teams"]}
+    bt = payload.get("heismanBacktest") or {}
+    final, ahead = bt.get("final"), bt.get("forecast")
+    dates = h["dates"]
+
+    def team_link(name: str) -> str:
+        return f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if name in teams else esc(name)
+
+    def mark(name: str, size: int = 22) -> str:
+        return identity_mark(teams[name], size) if name in teams else ""
+
+    def move(row: dict) -> str:
+        change = row.get("change")
+        if change is None or abs(change) < 0.0005:
+            return '<span class="mv flat" title="No change since last week">&ndash;</span>'
+        kind, arrow = ("up", "&#9650;") if change > 0 else ("down", "&#9660;")
+        return f'<span class="mv {kind}" title="Change in chance to win since last week, in points">{arrow}{abs(change) * 100:.1f}</span>'
+
+    def line(row: dict) -> str:
+        s = row["line"]
+        if row["group"] == "QB":
+            return f"{s['passYds']:,} pass yds, {s['passTd']} TD &middot; {s['rushYds']:,} rush, {s['rushTd']} TD"
+        if row["group"] == "RB":
+            return f"{s['rushYds']:,} rush yds, {s['rushTd']} TD &middot; {s['recYds']:,} rec"
+        return f"{s['recYds']:,} rec yds, {s['recTd']} TD" + (f" &middot; {s['rushYds']:,} rush" if s["rushYds"] >= 100 else "")
+
+    def path(row: dict) -> str:
+        if row["winIfTop4"] is None or row["winIfNot"] is None:
+            return '<span class="muted">&ndash;</span>'
+        return (f"{_pct(row['winIfTop4'])} if {esc(row['team'])} finishes top 4 "
+                f"<span class=\"muted\">({_pct(row['teamTop4'])} likely)</span> &middot; {_pct(row['winIfNot'])} if not")
+
+    body_rows = "".join(f"""<tr>
+      <td class="wk">{i}</td>
+      <td class="opp"><span class="nmcell">{mark(r['team'])}<strong>{esc(r['player'])}</strong></span>
+        <div class="muted small">{esc(r['position'])} &middot; {team_link(r['team'])}{f' &middot; <span style="white-space:nowrap">#{r["teamRank"]}, {r["teamRecord"]}</span>' if r.get('teamRank') else ""}</div></td>
+      <td class="num prob"><span class="pbar" style="width:{min(r['win'] * 240, 130):.0f}px"></span>{_pct(r['win'])}</td>
+      <td>{move(r)}</td>
+      <td class="num">{_pct(r['finalist'])}</td>
+      <td class="muted small">{line(r)}</td>
+      <td class="num">{f"{r['pace']:,}" if r.get('pace') else '&ndash;'}</td>
+      <td class="small">{path(r)}</td></tr>""" for i, r in enumerate(h["players"], 1))
+    position_text = ", ".join(f"{name} {_pct(v)}" for name, v in sorted(h["byPosition"].items(), key=lambda kv: -kv[1]))
+
+    if h.get("closed"):
+        status = (f'<p class="hint"><strong>Voting closed {esc(dt_label(dates["votingDeadline"]))}.</strong> These are the last odds before the ballots '
+                  f'were in, as of Week {h["week"]}; they are not updated after the voters have decided. Finalists were announced '
+                  f'{esc(dt_label(dates["finalistsAnnounced"]))} and the winner is named {esc(dt_label(dates["ceremony"]))}.</p>')
+    else:
+        status = (f'<p class="hint">Updated {esc(dt_label(h["updated"]))}, through Week {h["week"]}. Ballots are due {esc(dt_label(dates["votingDeadline"]))}, '
+                  f'when the finalists are announced; the winner is named {esc(dt_label(dates["ceremony"]))}. Championship games count; bowls and the playoff do not.</p>')
+
+    sim_ref = '<a href="simulation.html">season simulation</a>' if payload.get("sim") else "season simulation"
+    wk = sorted(ahead["byWeek"], key=int) if ahead else []
+    week_rows = "".join(f"""<tr><td class="wk">{w}</td>
+        <td class="num">{ahead['byWeek'][w]['forecast']['top3']:.0%}</td><td class="num muted">{ahead['byWeek'][w]['current']['top3']:.0%}</td>
+        <td class="num">{ahead['byWeek'][w]['forecast']['top1']:.0%}</td><td class="num muted">{ahead['byWeek'][w]['current']['top1']:.0%}</td></tr>""" for w in wk)
+    past_rows = ""
+    if ahead:
+        detail = ahead["byWeekDetail"]
+        for year in sorted(next(iter(detail.values())), reverse=True):
+            cells = []
+            for w in ("3", "7", "11", "13"):
+                d = detail[w][year]
+                if d["rank"]:
+                    cells.append(f'<td class="num">#{d["rank"]} <span class="muted">({_pct(d["p"])})</span></td>')
+                else:
+                    cells.append('<td class="num">&ndash;</td>')
+            past_rows += f'<tr><td class="wk">{year}</td><td class="opp">{esc(h["winners"].get(year, ""))}</td>{"".join(cells)}</tr>'
+    grade = ""
+    if final and ahead:
+        chosen = final["candidateSets"][final["chosen"]]
+        best_base = max(final["baselines"][k] for k in ("mostProductive", "mostProductiveOnATopFiveTeam", "bestOnTheBestTeam"))
+        grade = f"""
+  <h2>How it has done</h2>
+  <p>Two tests, both on past seasons, both leaving the season being predicted out of everything the model learned.
+  <strong>Given a finished regular season</strong>, it names the winner first {chosen['top1']:.0%} of the time and has him in its top three
+  {chosen['top3']:.0%} of the time, across {final['seasons']} seasons ({final['years'][0]}&ndash;{final['years'][1]}). Picking the most productive player on a top-five team
+  manages {best_base:.0%}.</p>
+  <p><strong>Standing partway through a season</strong> is this page's real job. At each of six points in each season from {ahead['seasons'][0]} to {ahead['seasons'][1]}, it saw only
+  what was known then, simulated the rest, and ranked the field. The last two columns are the same model applied to the standings as they stood, with no simulated season and no projection.</p>
+  <div class="tablewrap"><table class="slate"><thead><tr><th>Through week</th><th class="num">Winner in its top 3</th><th class="num muted">standings only</th>
+    <th class="num">Winner first</th><th class="num muted">standings only</th></tr></thead><tbody>{week_rows}</tbody></table></div>
+  <p class="hint">Thirteen seasons is a small sample: each season moves a rate by about eight points, so read the pattern, not any one week. Where it says a candidate has a
+  20&ndash;30% chance, candidates like that have won about that often; the very small chances run a little high.</p>
+  <details><summary>Every winner, and where the model had him</summary>
+    <div class="tablewrap"><table class="slate"><thead><tr><th>Year</th><th>Winner</th><th class="num">Week 3</th><th class="num">Week 7</th><th class="num">Week 11</th><th class="num">Week 13</th></tr></thead>
+    <tbody>{past_rows}</tbody></table></div>
+    <p class="hint">Rank among about 65 candidates, and the chance it gave him. A dash means he was not among them yet.</p></details>"""
+
+    body = f"""
+  <article class="prose wide">
+  <h1>Heisman odds</h1>
+  <p class="lead">Who is likely to win the Heisman Trophy, and who is likely to be in New York. A model's guess, built to be checked: below the table is how it has done on every season since 2013.</p>
+  {status}
+  <div class="tablewrap"><table class="slate heisman"><thead><tr><th>#</th><th>Player</th><th class="num">Win</th><th title="Change since last week">Wk</th><th class="num" title="Chance of finishing in the top four of the voting, the ceremony's finalists">Finalist</th>
+    <th>So far</th><th class="num" title="Projected total yards at the end of the regular season">Proj. yds</th><th>What has to happen</th></tr></thead>
+    <tbody>{body_rows}</tbody>
+    <tbody><tr class="rest"><td></td><td class="opp muted">Everyone else</td><td class="num">{_pct(h['rest'])}</td><td colspan="5"></td></tr></tbody></table></div>
+  <p class="hint">Where the chance sits, by position: {position_text}. {h['candidates']} candidates were scored across {h['sims']:,} simulated seasons.</p>
+
+  <h2>How it works</h2>
+  <p>The rest of the season is played out {h['sims']:,} times with the same engine as the {sim_ref}, so a team that loses twice in November is a different
+  argument from one that goes unbeaten, and each simulated season knows which it is. Each candidate's finished stat line is projected from what he has done and how many games
+  his team has left, using what actually happened to candidates at this point of every past season (hot starts cool, and some players get hurt). Then a model
+  that weighs what voters have rewarded &mdash; how much he produced compared with the rest of the field, how he compares within his position, and how good his team is &mdash;
+  picks a winner in each simulated season. The chances are how often each player won.</p>
+  <p><strong>What it cannot see.</strong> Defenders are not candidates: nobody who was mainly a defender has won since 1997, but a great one will still
+  take votes, and those sit in &ldquo;everyone else.&rdquo; A player who does something remarkable on both sides of the ball, or in one famous game, is worth more to a voter
+  than a stat line says (Travis Hunter in 2024 is the case the model missed worst). A player's output and his team's results are simulated separately, though in life they move together.
+  And it knows nothing of injuries that have not happened yet, except in the proportions they have happened before.</p>
+  {grade}
+  </article>"""
+    return page(f"Heisman odds — MRI {season_text(payload)}", body, payload,
+                description="Who is likely to win the Heisman Trophy, from a season simulation and a model graded on every season since 2013.")
+
+
 def dt_label(iso: str) -> str:
     import datetime as _dt
 
@@ -2416,7 +2542,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
 
     # Football only, and only when the build produced them.
     for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_page),
-                                ("gameday", "gameday", gameday_page)):
+                                ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page)):
         if payload.get(key):
             write(out_dir / f"{name}.html", renderer(payload))
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
@@ -2432,7 +2558,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
-            "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest"} \
+            "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
+            "heisman", "heismanBacktest"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
