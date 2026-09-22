@@ -157,12 +157,13 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
-### NCAA Tournament bracketology (in progress: Phase 2, at-large and seeding)
+### NCAA Tournament bracketology (Phases 1-3 built; Phase 4, the pages, not started)
 
 Two-part model, in the plan Ben and Claude wrote together
 (`claude_bracketology-plan.md` in the project): first, who wins each conference's
-automatic bid; then the at-large field and everyone's seed. Phase 1 (automatic
-bids) is built; Phase 2 (at-large and seeding) has not started.
+automatic bid; then the at-large field and everyone's seed; then both at once,
+simulated forward, with the field placed into a bracket. All three are built and
+backtested below.
 
 **Why a conference's own tournament isn't hand-documented.** Byes, reseeding, and
 how many teams even get invited vary conference to conference and change over
@@ -199,23 +200,38 @@ rather than at one neutral site (detected the same way, from the game data).
 **The backtest** (`scripts/build_bracket_history.py`) grades the simulation
 against the placeholder that's live today (the #1 regular-season standings team
 wins the auto bid) for every conference, 2011-2025 (2020 cancelled), using
-end-of-regular-season ratings and each conference's own actual bracket that
-year. Log loss alone is a weak test here - the placeholder is a deterministic
-100%-or-nothing call, so almost any real probability model beats it on log loss
-whenever the top seed doesn't win outright every time. The switch condition asks
-for both: a real log-loss margin (>= 0.3) *and* the simulation's own top pick
-being right at least as often as the placeholder's.
+ratings cut off *before* that conference's own tournament and each conference's
+own actual bracket that year. That cutoff matters and is worth stating plainly:
+an earlier version of this backtest fit ratings on the whole regular season,
+which in this feed's own labelling includes conference tournament games
+(`season_type == "regular"` covers both) - so a team's rating was quietly
+absorbing its own tournament run before that same run got re-simulated to
+"predict" it. Checked directly: 2025 Florida, which won both its conference
+tournament and the national title, rated 20.1 with the leak and 18.3 without
+it. Fixed by cutting every team's rating off at the season's earliest
+conference-tournament tip-off, and every number below is from that corrected
+run. Log loss alone is still a weak test here - the placeholder is a
+deterministic 100%-or-nothing call, so almost any real probability model beats
+it on log loss whenever the top seed doesn't win outright every time. The
+switch condition asks for both: a real log-loss margin (>= 0.3) *and* the
+simulation's own top pick being right at least as often as the placeholder's.
 
 Current read (all 32 conferences, n=6-13 graded seasons each - small samples,
 read the pattern and not any one conference's exact number):
 
-- **24 of 32 conferences clear both bars** - Southland (91% right vs. the
-  placeholder's 55%), WCC (92% vs. 83%), Patriot (85% vs. 54%), MAC (62% vs.
-  23%) and Big Ten (54% vs. 15%) are the clearest.
-- **8 don't yet**: Am. East, A-10, Summit, Big Sky, Horizon, Mountain West,
-  MEAC, NEC - the placeholder currently calls more of these right. NEC is the
-  outlier (18% vs. 36%); worth a closer look before assuming the rest are just
-  small-sample noise.
+- **19 of 32 conferences clear both bars** - WCC (92% right vs. the
+  placeholder's 67%), Southland (82% vs. 55%), Patriot (77% vs. 54%) and UAC
+  (64% vs. 36%) are the clearest; several others clear it by a much thinner
+  margin (Big South, Sun Belt, CAA, Big East, ASUN and American all tie the
+  placeholder's own hit rate and pass only on log loss).
+- **13 don't**: A-10, ACC, Am. East, Big 12, Big Sky, Horizon, Ivy, MEAC,
+  Mountain West, NEC, Pac-12, SoCon, Summit - the placeholder currently calls
+  more of these right. Several power conferences (ACC, Big 12, Pac-12) are in
+  this group, which is exactly the kind of thing the leak was masking.
+- The corrected picture is honestly weaker than the leaked one (which showed
+  24 of 32 clearing both bars) - a reminder that the earlier, better-looking
+  numbers were partly measuring the model's ability to see results it was
+  about to be asked to predict, not real skill.
 - Per Ben's call: whether a given conference actually switches off the
   placeholder is a decision made from these numbers, not automatic.
 
@@ -254,20 +270,140 @@ Leave-one-season-out, against the real field, every season:
 | Seed number, rank correlation | **0.93** | — |
 
 `bad_loss_rate`'s fitted coefficient doesn't point the way the committee's own
-stated principles would suggest (more bad losses should hurt, not help) - most
-likely collinear with résumé and schedule strength once those are also in the
-fit, and worth a second look before this goes further, rather than something
-hand-tuned away against the data's own signal.
+stated principles would suggest (more bad losses should hurt, not help), and
+neither does `road_neutral_wins`' (more road wins should help) - most likely
+both collinear with résumé and schedule strength once those are also in the fit,
+and worth a second look rather than something hand-tuned away against the data's
+own signal. What matters once the score drives a simulation is the net effect of
+a result, and that's pinned by a test: under the committed coefficients, winning
+a game instead of losing it always improves a team's score, whatever the quadrant
+or site (`tests/test_bracket_joint.py`).
+
+**Committee noise.** The score is a model of the committee, not the committee:
+treated as exact, it makes every team it likes a certainty, and on Selection
+Sunday about one in six of those missed. `scripts/backtest_atlarge.py` now also
+fits how much to blur it - a random shift to every team's score in every
+simulated world, `committeeNoise` in `data/atlarge_model.json`, in score units
+(roughly seed lines) - as the size that best predicts the real at-large field on
+Selection Sunday, leave-one-season-out. It lands at 1.25, and cuts that day's
+at-large log loss from 105 to 28 per season.
 
 Rerun with:
 
 ```bash
 PYTHONPATH=src python3 scripts/build_atlarge_history.py   # historical features -> data/parquet/atlarge_history.parquet
-PYTHONPATH=src python3 scripts/backtest_atlarge.py        # fit + grade -> data/atlarge_model.json, site/data/atlarge_backtest.json
+PYTHONPATH=src python3 scripts/backtest_atlarge.py        # fit + noise + grade -> data/atlarge_model.json, site/data/atlarge_backtest.json
 ```
 
-**Not started:** Phase 3 (a joint simulation tying Phase 1 and Phase 2 together,
-and region/bracket placement), Phase 4 (the pages).
+#### Phase 3 — the whole field, simulated
+
+**The joint simulation** (`mri/bracket/joint.py`). Phases 1 and 2 aren't
+independent - a bubble team's chances depend on how many bid thieves win their
+conference tournaments that year - so each simulated world plays out, in order:
+the rest of the regular season, game by game; every conference's standings and
+its tournament (Phase 1's bracket engine, one run per world, the games landing on
+each team's résumé the way they do on the committee's sheet); the automatic bids
+(tournament winner for conferences switched to the model, standings leader for
+those still on the placeholder, the real champion once a tournament is actually
+over); then the at-large field and seed lines from Phase 2's score, with that
+world's own draw of committee noise. Each world also draws its own rating error
+per team (shaped as in the football simulation, the single-game spread over the
+square root of games played plus the fit's prior weight; scaled 2x, which the
+February backtest preferred), since a February rating is an estimate.
+
+Power isn't refit inside each world. That's the same simplification the football
+simulation makes, and it's what makes this cheap: MRI 2.0's résumé is a sum over
+games of (result minus what an average team would have expected), so with power
+fixed, every résumé feature is a sum over games, and thousands of worlds are one
+sparse matrix product - about a second per thousand worlds for a full season.
+
+**Seed lines** (`mri/bracket/seeding.py`) follow the NCAA's announced 2027 format
+to the letter: the 12 lowest-ranked at-large teams play in as four No. 11s and
+eight No. 12s, the 12 lowest-ranked automatic qualifiers as four No. 15s and
+eight No. 16s. So line 12 is entirely Opening Round at-large teams, and a
+mid-major champion who used to be a 12 is a 13 now. One seam in the new format
+the first real bracket will settle: an at-large team good enough to skip the
+Opening Round but ranked below more than ten automatic qualifiers becomes a direct
+No. 13, *below* weaker at-large teams playing in as 11s and 12s. Replaying
+2024-25 under the new format does this to one team (UConn). The committee might
+instead drop a strong champion to 13; nothing published says which, so this
+follows the rule as written until a real bracket shows otherwise. History is
+graded in the 68-team format, with the First Four at-large pair on line 11.
+
+**Regions** (`mri/bracket/regions.py`) follow the committee's published
+bracketing principles directly: No. 1 seeds' regions fix the semifinals (overall
+No. 1's region meets No. 4's); later lines go along the S-curve; a conference's
+first four teams on the top four lines go to four different regions; conference
+mates who played three or more times can't meet before a regional final, twice
+not before a regional semifinal, once not in the first round (game counts from
+the actual schedule); overall No. 5 stays out of overall No. 1's region; a team
+may move one line to make it all work; and the top four lines' true-seed totals
+are balanced to within six points. Placement is greedy along the S-curve and
+then repaired by trading places (same line, or one line away) wherever a rule is
+still broken - the greedy pass alone got cornered by the 2012 Big East's nine
+bids. What it doesn't do is geography - the overall
+No. 1 picks its region and teams are kept near home, none of which is in the
+principles as a formula - so regions are numbered by their No. 1 seed rather than
+named, and a team's *region* is an approximation even where its seed line and
+path are rule-exact. When a rule can't be met (three of the four at-large Opening
+Round teams from one conference makes a same-conference Opening Round game
+unavoidable), it's reported in `ruleProblems`, not hidden. Opening Round
+pairings put neighbours on the true seed list together; the NCAA publishes no
+pairing rule, so that's an assumption.
+
+**The backtest** (`scripts/backtest_bracketology.py`): every season 2011-2025
+(2020 cancelled), from three points - February 1, the day the first conference
+tournament tips off, and Selection Sunday - against the field the committee
+actually picked. Phase 2's coefficients are leave-one-season-out; conference
+tournament formats are read from each conference's three previous tournaments.
+"Model" below switches the 19 conferences Phase 1 flags to the tournament
+simulation and leaves the other 13 on the placeholder; the bar to clear is "if
+the season ended today" (games to date, standings leaders take the automatic
+bids - Phase 2's answer on the day).
+
+| Per season | Feb 1 | Conf. tournaments start | Selection Sunday |
+|---|---|---|---|
+| Brier score, simulation (model) | **26.6** | **24.0** | **8.5** |
+| Brier score, simulation (all placeholder) | 28.1 | 29.0 | 8.5 |
+| Brier score, "if the season ended today" | 44.1 | 36.6 | 11.6 |
+| Log loss, simulation (model) vs. ended today | **90** vs. 406 | **107** vs. 338 | **31** vs. 107 |
+| Projected field: real teams named | 71.6% | 74.6% | 91.3% |
+| Seed line error, real field teams | 1.77 | 1.41 | 1.18 |
+
+Read with three caveats. First, the 19-conference "model" setting was picked by
+Phase 1's backtest on these same seasons, so its edge over the placeholder here
+is somewhat flattering. Second, calibration: on Selection Sunday it's good in
+every band; when the conference tournaments start it's good except at the top,
+where 99% has meant 91% - and nearly all of that is the placeholder itself: a
+one-bid league's standings leader is a certainty by rule, and in a check across
+seven of these seasons those leaders missed the field 27% of the time (everyone
+else at 90%+: 4%). On February 1, the 70-90%
+band runs about ten points optimistic (75% has meant 64%, 85% has meant 77%);
+read early-season bubble odds in that band a little down. Third, region
+placement: of 42 projected brackets, 3 have a flagged rule problem, all the
+unavoidable Opening Round case above.
+
+**Live** (`scripts/build_bracketology.py` -> `site/data/bracketology.json`):
+every team's odds of the field, the automatic bid and each seed line; each
+conference's automatic-bid odds and status (not started / underway / decided);
+one projected bracket, placed into regions, with the bubble (the Opening Round
+at-large teams, first four out, next four out). Nothing is written before
+Christmas, and the file is frozen from Selection Sunday on. Settings live in
+`data/bracketology_settings.json`: every conference is on the **placeholder**
+until Ben switches it, one line per conference; `formatOverride` gives a
+conference a hand-written tournament shape when its last three tournaments no
+longer describe it (the rebuilt Pac-12, whose last tournament was the old
+12-team league, is the obvious candidate before March). Replay any past date
+with `--season 2025 --as-of 2025-02-01 --force --out /tmp/x.json`, and add
+`--field-size 76` to see it under the 2027 format.
+
+```bash
+PYTHONPATH=src python3 scripts/backtest_bracketology.py   # resumable; -> data/bracketology_backtest.json
+PYTHONPATH=src python3 scripts/build_bracketology.py      # live; no-op outside Christmas..Selection Sunday
+```
+
+**Not started:** Phase 4 (the pages - list/S-curve view and bracket view - and
+wiring `build_bracketology.py` into the daily build).
 
 ### Heisman odds
 

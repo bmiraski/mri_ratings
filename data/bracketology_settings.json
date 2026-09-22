@@ -1,0 +1,43 @@
+{
+  "_about": "Bracketology (NCAA men's tournament) settings. autoBid: per conference, 'placeholder' (the regular-season standings leader takes the automatic bid) or 'model' (simulate the conference tournament). Ben's call, conference by conference, from data/bracket_autobid_backtest.json - nothing here flips on its own. formatOverride: a conference's tournament shape as bracket tiers (teams entering at each round, worst seeds first), for a league whose last three tournaments no longer describe it. selectionSunday: per season; a season not listed uses the Sunday on or after March 11.",
+  "startsOn": "12-25",
+  "sims": 5000,
+  "selectionSunday": {
+    "2027": "2027-03-14"
+  },
+  "autoBid": {
+    "A-10": "placeholder",
+    "ACC": "placeholder",
+    "ASUN": "placeholder",
+    "Am. East": "placeholder",
+    "American": "placeholder",
+    "Big 12": "placeholder",
+    "Big East": "placeholder",
+    "Big Sky": "placeholder",
+    "Big South": "placeholder",
+    "Big Ten": "placeholder",
+    "Big West": "placeholder",
+    "CAA": "placeholder",
+    "CUSA": "placeholder",
+    "Horizon": "placeholder",
+    "Ivy": "placeholder",
+    "MAC": "placeholder",
+    "MEAC": "placeholder",
+    "MVC": "placeholder",
+    "Metro": "placeholder",
+    "Mountain West": "placeholder",
+    "NEC": "placeholder",
+    "OVC": "placeholder",
+    "Pac-12": "placeholder",
+    "Patriot": "placeholder",
+    "SEC": "placeholder",
+    "SWAC": "placeholder",
+    "SoCon": "placeholder",
+    "Southland": "placeholder",
+    "Summit": "placeholder",
+    "Sun Belt": "placeholder",
+    "UAC": "placeholder",
+    "WCC": "placeholder"
+  },
+  "formatOverride": {}
+}

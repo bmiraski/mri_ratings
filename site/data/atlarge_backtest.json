@@ -93,5 +93,50 @@
   },
   "powerOnlyBaseline": {
     "atLargeHitRate": 0.715
+  },
+  "committeeNoise": {
+    "sigma": 1.25,
+    "grid": {
+      "0.0": {
+        "logLoss": 105.29,
+        "brier": 11.43
+      },
+      "0.25": {
+        "logLoss": 62.61,
+        "brier": 10.2
+      },
+      "0.5": {
+        "logLoss": 40.08,
+        "brier": 9.18
+      },
+      "0.75": {
+        "logLoss": 31.75,
+        "brier": 8.57
+      },
+      "1.0": {
+        "logLoss": 28.76,
+        "brier": 8.24
+      },
+      "1.25": {
+        "logLoss": 27.63,
+        "brier": 8.15
+      },
+      "1.5": {
+        "logLoss": 27.79,
+        "brier": 8.22
+      },
+      "1.75": {
+        "logLoss": 28.65,
+        "brier": 8.41
+      },
+      "2.0": {
+        "logLoss": 29.8,
+        "brier": 8.66
+      },
+      "2.5": {
+        "logLoss": 32.95,
+        "brier": 9.37
+      }
+    }
   }
 }

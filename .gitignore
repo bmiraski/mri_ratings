@@ -35,3 +35,8 @@ data/raw/player_usage_*.json
 # Per-game player box scores: one response per season-week, two megabytes each. Read once to build
 # data/parquet/player_games.parquet.
 data/raw/games_players_*.json
+
+# Patch files handed over for `git apply`. Kept out of the repository: a `git add -A`
+# after a patch that didn't apply commits the patch file itself and none of its
+# changes, which is exactly how the Phase 1 leakage fix went missing once.
+/*.patch

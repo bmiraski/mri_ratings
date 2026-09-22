@@ -31,20 +31,36 @@ def _safe_div(a, b):
     return np.where(b > 0, a / np.maximum(b, 1), 0.0)
 
 
+def columns(features) -> dict[str, np.ndarray]:
+    """Each feature the score is built from, as arrays.
+
+    ``features`` can be a DataFrame (one row per team) or a mapping of the same column names to numpy
+    arrays of any shape - the joint simulation passes team-by-world matrices, and gets back
+    team-by-world feature matrices, scored in one go by :func:`score_columns`.
+    """
+    get = lambda name: np.asarray(features[name], dtype=float)  # noqa: E731
+    games = get("wins") + get("losses")
+    quad1_games = get("quad1_wins") + get("quad1_losses")
+    return {
+        "power_rank_log": np.log(np.maximum(get("powerRank"), 1.0)),
+        "resume": np.nan_to_num(get("resume"), nan=0.0),
+        "quad1_win_pct": _safe_div(get("quad1_wins"), quad1_games),
+        "bad_loss_rate": _safe_div(get("bad_losses"), games),
+        "sos_rank_log": np.log(np.maximum(get("sos"), 1.0)),
+        "road_neutral_wins": np.nan_to_num(get("road_neutral_wins"), nan=0.0),
+    }
+
+
 def design(features: pd.DataFrame) -> np.ndarray:
     """The feature matrix a score is built from, plus an intercept column."""
-    games = features["wins"] + features["losses"]
-    quad1_games = features["quad1_wins"] + features["quad1_losses"]
-    cols = {
-        "power_rank_log": np.log(np.maximum(features["powerRank"], 1.0)),
-        "resume": features["resume"].fillna(0.0),
-        "quad1_win_pct": _safe_div(features["quad1_wins"], quad1_games),
-        "bad_loss_rate": _safe_div(features["bad_losses"], games),
-        "sos_rank_log": np.log(np.maximum(features["sos"], 1.0)),
-        "road_neutral_wins": features["road_neutral_wins"].fillna(0.0),
-    }
+    cols = columns(features)
     X = np.column_stack([cols[f] for f in FEATURES])
     return np.column_stack([X, np.ones(len(features))])
+
+
+def score_columns(cols: dict[str, np.ndarray], beta: np.ndarray) -> np.ndarray:
+    """:func:`score` for arrays of any shape: lower is better."""
+    return sum(beta[i] * cols[f] for i, f in enumerate(FEATURES)) + beta[-1]
 
 
 def fit(seasons: list[pd.DataFrame], *, ridge: float = 3.0) -> np.ndarray:

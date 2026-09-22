@@ -1,0 +1,2712 @@
+{
+ "seasons": [
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "sims": 2000,
+ "summary": {
+  "feb1": {
+   "placeholder": {
+    "seasons": 14,
+    "brierPerSeason": 28.13,
+    "logLossPerSeason": 99.02,
+    "fieldHitRate": 0.702,
+    "seedMAE": 1.78,
+    "seedExact": 0.243,
+    "regionProblems": 2,
+    "linesMoved": 4,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 1853,
+      "meanP": 0.023,
+      "madeField": 0.055
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 294,
+      "meanP": 0.146,
+      "madeField": 0.153
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 200,
+      "meanP": 0.242,
+      "madeField": 0.27
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 166,
+      "meanP": 0.348,
+      "madeField": 0.325
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 131,
+      "meanP": 0.45,
+      "madeField": 0.405
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 124,
+      "meanP": 0.553,
+      "madeField": 0.508
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 102,
+      "meanP": 0.648,
+      "madeField": 0.5
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 104,
+      "meanP": 0.75,
+      "madeField": 0.587
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 139,
+      "meanP": 0.845,
+      "madeField": 0.763
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 380,
+      "meanP": 0.978,
+      "madeField": 0.918
+     }
+    ]
+   },
+   "recommended": {
+    "seasons": 14,
+    "brierPerSeason": 26.63,
+    "logLossPerSeason": 90.29,
+    "fieldHitRate": 0.716,
+    "seedMAE": 1.77,
+    "seedExact": 0.238,
+    "regionProblems": 2,
+    "linesMoved": 4,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 2432,
+      "meanP": 0.027,
+      "madeField": 0.036
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 501,
+      "meanP": 0.144,
+      "madeField": 0.148
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 255,
+      "meanP": 0.244,
+      "madeField": 0.212
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 175,
+      "meanP": 0.346,
+      "madeField": 0.371
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 137,
+      "meanP": 0.447,
+      "madeField": 0.445
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 136,
+      "meanP": 0.548,
+      "madeField": 0.61
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 85,
+      "meanP": 0.65,
+      "madeField": 0.6
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 91,
+      "meanP": 0.75,
+      "madeField": 0.637
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 112,
+      "meanP": 0.845,
+      "madeField": 0.768
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 343,
+      "meanP": 0.98,
+      "madeField": 0.956
+     }
+    ]
+   },
+   "recommendedExact": {
+    "seasons": 14,
+    "brierPerSeason": 27.01,
+    "logLossPerSeason": 94.24,
+    "fieldHitRate": 0.716,
+    "seedMAE": 1.78,
+    "seedExact": 0.237,
+    "regionProblems": 1,
+    "linesMoved": 6,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 2114,
+      "meanP": 0.023,
+      "madeField": 0.046
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 382,
+      "meanP": 0.146,
+      "madeField": 0.149
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 210,
+      "meanP": 0.246,
+      "madeField": 0.233
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 167,
+      "meanP": 0.347,
+      "madeField": 0.341
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 121,
+      "meanP": 0.451,
+      "madeField": 0.413
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 134,
+      "meanP": 0.552,
+      "madeField": 0.53
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 103,
+      "meanP": 0.649,
+      "madeField": 0.612
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 102,
+      "meanP": 0.751,
+      "madeField": 0.608
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 113,
+      "meanP": 0.853,
+      "madeField": 0.752
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 377,
+      "meanP": 0.981,
+      "madeField": 0.939
+     }
+    ]
+   },
+   "endedToday": {
+    "seasons": 14,
+    "brierPerSeason": 44.07,
+    "logLossPerSeason": 405.94,
+    "fieldHitRate": 0.676,
+    "seedMAE": 1.91,
+    "seedExact": 0.229,
+    "regionProblems": 0,
+    "linesMoved": 4,
+    "calibration": [
+     {
+      "range": "0.9-1.0",
+      "n": 952,
+      "meanP": 1.0,
+      "madeField": 0.674
+     }
+    ]
+   }
+  },
+  "confStart": {
+   "placeholder": {
+    "seasons": 14,
+    "brierPerSeason": 28.98,
+    "logLossPerSeason": 172.28,
+    "fieldHitRate": 0.735,
+    "seedMAE": 1.41,
+    "seedExact": 0.281,
+    "regionProblems": 0,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 778,
+      "meanP": 0.019,
+      "madeField": 0.067
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 136,
+      "meanP": 0.147,
+      "madeField": 0.243
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 105,
+      "meanP": 0.249,
+      "madeField": 0.162
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 74,
+      "meanP": 0.352,
+      "madeField": 0.257
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 92,
+      "meanP": 0.455,
+      "madeField": 0.402
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 108,
+      "meanP": 0.541,
+      "madeField": 0.509
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 69,
+      "meanP": 0.653,
+      "madeField": 0.536
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 79,
+      "meanP": 0.75,
+      "madeField": 0.696
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 96,
+      "meanP": 0.851,
+      "madeField": 0.771
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 586,
+      "meanP": 0.988,
+      "madeField": 0.816
+     }
+    ]
+   },
+   "recommended": {
+    "seasons": 14,
+    "brierPerSeason": 24.01,
+    "logLossPerSeason": 106.5,
+    "fieldHitRate": 0.746,
+    "seedMAE": 1.41,
+    "seedExact": 0.264,
+    "regionProblems": 0,
+    "linesMoved": 2,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 1852,
+      "meanP": 0.026,
+      "madeField": 0.031
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 412,
+      "meanP": 0.144,
+      "madeField": 0.136
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 199,
+      "meanP": 0.248,
+      "madeField": 0.246
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 138,
+      "meanP": 0.349,
+      "madeField": 0.268
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 109,
+      "meanP": 0.452,
+      "madeField": 0.486
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 103,
+      "meanP": 0.543,
+      "madeField": 0.563
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 82,
+      "meanP": 0.65,
+      "madeField": 0.585
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 83,
+      "meanP": 0.753,
+      "madeField": 0.759
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 92,
+      "meanP": 0.85,
+      "madeField": 0.87
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 454,
+      "meanP": 0.986,
+      "madeField": 0.914
+     }
+    ]
+   },
+   "recommendedExact": {
+    "seasons": 14,
+    "brierPerSeason": 24.14,
+    "logLossPerSeason": 106.93,
+    "fieldHitRate": 0.749,
+    "seedMAE": 1.4,
+    "seedExact": 0.28,
+    "regionProblems": 0,
+    "linesMoved": 4,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 1695,
+      "meanP": 0.023,
+      "madeField": 0.038
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 322,
+      "meanP": 0.142,
+      "madeField": 0.134
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 199,
+      "meanP": 0.248,
+      "madeField": 0.251
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 122,
+      "meanP": 0.352,
+      "madeField": 0.23
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 112,
+      "meanP": 0.454,
+      "madeField": 0.464
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 112,
+      "meanP": 0.544,
+      "madeField": 0.482
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 83,
+      "meanP": 0.65,
+      "madeField": 0.566
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 96,
+      "meanP": 0.749,
+      "madeField": 0.771
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 94,
+      "meanP": 0.849,
+      "madeField": 0.851
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 465,
+      "meanP": 0.985,
+      "madeField": 0.912
+     }
+    ]
+   },
+   "endedToday": {
+    "seasons": 14,
+    "brierPerSeason": 36.64,
+    "logLossPerSeason": 337.52,
+    "fieldHitRate": 0.731,
+    "seedMAE": 1.45,
+    "seedExact": 0.284,
+    "regionProblems": 2,
+    "linesMoved": 2,
+    "calibration": [
+     {
+      "range": "0.9-1.0",
+      "n": 952,
+      "meanP": 1.0,
+      "madeField": 0.729
+     }
+    ]
+   }
+  },
+  "selectionSunday": {
+   "placeholder": {
+    "seasons": 14,
+    "brierPerSeason": 8.48,
+    "logLossPerSeason": 30.63,
+    "fieldHitRate": 0.913,
+    "seedMAE": 1.18,
+    "seedExact": 0.35,
+    "regionProblems": 1,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 704,
+      "meanP": 0.017,
+      "madeField": 0.014
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 104,
+      "meanP": 0.142,
+      "madeField": 0.163
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 68,
+      "meanP": 0.249,
+      "madeField": 0.265
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 59,
+      "meanP": 0.349,
+      "madeField": 0.322
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 50,
+      "meanP": 0.451,
+      "madeField": 0.44
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 58,
+      "meanP": 0.551,
+      "madeField": 0.603
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 57,
+      "meanP": 0.656,
+      "madeField": 0.596
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 46,
+      "meanP": 0.749,
+      "madeField": 0.739
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 66,
+      "meanP": 0.849,
+      "madeField": 0.924
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 710,
+      "meanP": 0.993,
+      "madeField": 0.982
+     }
+    ]
+   },
+   "recommended": {
+    "seasons": 14,
+    "brierPerSeason": 8.48,
+    "logLossPerSeason": 30.63,
+    "fieldHitRate": 0.913,
+    "seedMAE": 1.18,
+    "seedExact": 0.35,
+    "regionProblems": 1,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 704,
+      "meanP": 0.017,
+      "madeField": 0.014
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 104,
+      "meanP": 0.142,
+      "madeField": 0.163
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 68,
+      "meanP": 0.249,
+      "madeField": 0.265
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 59,
+      "meanP": 0.349,
+      "madeField": 0.322
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 50,
+      "meanP": 0.451,
+      "madeField": 0.44
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 58,
+      "meanP": 0.551,
+      "madeField": 0.603
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 57,
+      "meanP": 0.656,
+      "madeField": 0.596
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 46,
+      "meanP": 0.749,
+      "madeField": 0.739
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 66,
+      "meanP": 0.849,
+      "madeField": 0.924
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 710,
+      "meanP": 0.993,
+      "madeField": 0.982
+     }
+    ]
+   },
+   "recommendedExact": {
+    "seasons": 14,
+    "brierPerSeason": 8.49,
+    "logLossPerSeason": 30.72,
+    "fieldHitRate": 0.914,
+    "seedMAE": 1.18,
+    "seedExact": 0.35,
+    "regionProblems": 2,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 706,
+      "meanP": 0.017,
+      "madeField": 0.016
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 102,
+      "meanP": 0.143,
+      "madeField": 0.157
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 68,
+      "meanP": 0.249,
+      "madeField": 0.265
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 59,
+      "meanP": 0.349,
+      "madeField": 0.322
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 50,
+      "meanP": 0.451,
+      "madeField": 0.44
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 57,
+      "meanP": 0.552,
+      "madeField": 0.596
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 56,
+      "meanP": 0.654,
+      "madeField": 0.625
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 48,
+      "meanP": 0.748,
+      "madeField": 0.708
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 67,
+      "meanP": 0.85,
+      "madeField": 0.925
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 709,
+      "meanP": 0.993,
+      "madeField": 0.982
+     }
+    ]
+   },
+   "endedToday": {
+    "seasons": 14,
+    "brierPerSeason": 11.64,
+    "logLossPerSeason": 107.27,
+    "fieldHitRate": 0.915,
+    "seedMAE": 1.18,
+    "seedExact": 0.352,
+    "regionProblems": 1,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.9-1.0",
+      "n": 952,
+      "meanP": 1.0,
+      "madeField": 0.913
+     }
+    ]
+   }
+  }
+ },
+ "bySeason": {
+  "2011": {
+   "feb1": {
+    "placeholder": {
+     "brier": 31.430847,
+     "logLoss": 117.13736829903219,
+     "fieldHits": 43,
+     "fieldSize": 68,
+     "seedMAE": 2.0,
+     "seedExact": 0.23255813953488372,
+     "expectedSeedMAE": 1.654871189939593,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 27.985052500000002,
+     "logLoss": 90.35704446060461,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 1.9772727272727273,
+     "seedExact": 0.22727272727272727,
+     "expectedSeedMAE": 1.6261978407928501,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 29.657085000000002,
+     "logLoss": 96.41482065087149,
+     "fieldHits": 43,
+     "fieldSize": 68,
+     "seedMAE": 2.0,
+     "seedExact": 0.23255813953488372,
+     "expectedSeedMAE": 1.627854441381558,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 42.0,
+     "logLoss": 386.8646971431034,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 2.0425531914893615,
+     "seedExact": 0.19148936170212766,
+     "expectedSeedMAE": 2.0425531914893615,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 31.4640555,
+     "logLoss": 213.4952204620231,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.4375,
+     "seedExact": 0.2916666666666667,
+     "expectedSeedMAE": 1.409404328726429,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 23.649534000000003,
+     "logLoss": 101.55147866893338,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.5106382978723405,
+     "seedExact": 0.23404255319148937,
+     "expectedSeedMAE": 1.3419995601102521,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 24.599171000000002,
+     "logLoss": 103.61538540909959,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.4166666666666667,
+     "seedExact": 0.2708333333333333,
+     "expectedSeedMAE": 1.323574775012741,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 38.0,
+     "logLoss": 350.02373567519976,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.3673469387755102,
+     "seedExact": 0.3469387755102041,
+     "expectedSeedMAE": 1.3673469387755102,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 7.295796000000001,
+     "logLoss": 30.916605049018305,
+     "fieldHits": 64,
+     "fieldSize": 68,
+     "seedMAE": 1.234375,
+     "seedExact": 0.34375,
+     "expectedSeedMAE": 1.1974436084457973,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 7.295796000000001,
+     "logLoss": 30.916605049018305,
+     "fieldHits": 64,
+     "fieldSize": 68,
+     "seedMAE": 1.234375,
+     "seedExact": 0.34375,
+     "expectedSeedMAE": 1.1974436084457973,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 7.272698,
+     "logLoss": 30.870706080304558,
+     "fieldHits": 64,
+     "fieldSize": 68,
+     "seedMAE": 1.234375,
+     "seedExact": 0.34375,
+     "expectedSeedMAE": 1.197309873051146,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 10.0,
+     "logLoss": 92.13700539987443,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.253968253968254,
+     "seedExact": 0.3333333333333333,
+     "expectedSeedMAE": 1.253968253968254,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2012": {
+   "feb1": {
+    "placeholder": {
+     "brier": 23.485588,
+     "logLoss": 81.12160832678735,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.5,
+     "seedExact": 0.3,
+     "expectedSeedMAE": 1.57311999771731,
+     "regionProblems": 1,
+     "linesMoved": 2
+    },
+    "recommended": {
+     "brier": 21.1773115,
+     "logLoss": 72.49166069360001,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.4901960784313726,
+     "seedExact": 0.29411764705882354,
+     "expectedSeedMAE": 1.555950867120733,
+     "regionProblems": 1,
+     "linesMoved": 2
+    },
+    "recommendedExact": {
+     "brier": 21.643428500000002,
+     "logLoss": 75.34652951368405,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.5098039215686274,
+     "seedExact": 0.27450980392156865,
+     "expectedSeedMAE": 1.5106526654332921,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 38.0,
+     "logLoss": 350.02363567019944,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.653061224489796,
+     "seedExact": 0.2653061224489796,
+     "expectedSeedMAE": 1.653061224489796,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 28.749727500000002,
+     "logLoss": 175.80690038764195,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.5,
+     "seedExact": 0.19230769230769232,
+     "expectedSeedMAE": 1.5608408896563941,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 22.792075499999996,
+     "logLoss": 113.93477982135308,
+     "fieldHits": 56,
+     "fieldSize": 68,
+     "seedMAE": 1.4464285714285714,
+     "seedExact": 0.19642857142857142,
+     "expectedSeedMAE": 1.4000177056939678,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 22.533058999999998,
+     "logLoss": 114.72214232048191,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 1.3888888888888888,
+     "seedExact": 0.25925925925925924,
+     "expectedSeedMAE": 1.3741446257574421,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 34.0,
+     "logLoss": 313.1826742022958,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.2352941176470589,
+     "seedExact": 0.27450980392156865,
+     "expectedSeedMAE": 1.2352941176470589,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 6.762733,
+     "logLoss": 29.346307644525115,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0769230769230769,
+     "seedExact": 0.26153846153846155,
+     "expectedSeedMAE": 1.208929668936058,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 6.762733,
+     "logLoss": 29.346307644525115,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0769230769230769,
+     "seedExact": 0.26153846153846155,
+     "expectedSeedMAE": 1.208929668936058,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 6.762733,
+     "logLoss": 29.346307644525115,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0769230769230769,
+     "seedExact": 0.26153846153846155,
+     "expectedSeedMAE": 1.208929668936058,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 8.0,
+     "logLoss": 73.71642466092227,
+     "fieldHits": 64,
+     "fieldSize": 68,
+     "seedMAE": 1.078125,
+     "seedExact": 0.28125,
+     "expectedSeedMAE": 1.078125,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2013": {
+   "feb1": {
+    "placeholder": {
+     "brier": 25.8097945,
+     "logLoss": 95.02836001967272,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 2.32,
+     "seedExact": 0.18,
+     "expectedSeedMAE": 1.9920301913703247,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 24.834264500000003,
+     "logLoss": 85.69796961554991,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 2.3,
+     "seedExact": 0.18,
+     "expectedSeedMAE": 1.9705417186142473,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 24.804933000000002,
+     "logLoss": 89.67089283946733,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 2.38,
+     "seedExact": 0.16,
+     "expectedSeedMAE": 1.970986080918099,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 40.0,
+     "logLoss": 368.4443164141519,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 2.7291666666666665,
+     "seedExact": 0.16666666666666666,
+     "expectedSeedMAE": 2.7291666666666665,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 29.8197145,
+     "logLoss": 190.66070261259782,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.96,
+     "seedExact": 0.16,
+     "expectedSeedMAE": 1.812675251397388,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 22.549681999999997,
+     "logLoss": 110.42093067045906,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 1.8703703703703705,
+     "seedExact": 0.18518518518518517,
+     "expectedSeedMAE": 1.6334261338097231,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 22.556371,
+     "logLoss": 111.11030052547522,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 1.8703703703703705,
+     "seedExact": 0.18518518518518517,
+     "expectedSeedMAE": 1.6175311829874675,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 34.0,
+     "logLoss": 313.1828742122965,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9411764705882353,
+     "seedExact": 0.21568627450980393,
+     "expectedSeedMAE": 1.9411764705882353,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 9.040155500000001,
+     "logLoss": 34.77718070537254,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 1.5161290322580645,
+     "seedExact": 0.25806451612903225,
+     "expectedSeedMAE": 1.4278103220376348,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 9.040155500000001,
+     "logLoss": 34.77718070537254,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 1.5161290322580645,
+     "seedExact": 0.25806451612903225,
+     "expectedSeedMAE": 1.4278103220376348,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 9.2796155,
+     "logLoss": 36.15897693871768,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 1.5161290322580645,
+     "seedExact": 0.25806451612903225,
+     "expectedSeedMAE": 1.425918975681944,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 12.0,
+     "logLoss": 110.55758613882657,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 1.4838709677419355,
+     "seedExact": 0.2903225806451613,
+     "expectedSeedMAE": 1.4838709677419355,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2014": {
+   "feb1": {
+    "placeholder": {
+     "brier": 27.2191885,
+     "logLoss": 96.72304782055036,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.9183673469387754,
+     "seedExact": 0.22448979591836735,
+     "expectedSeedMAE": 1.5442360632759125,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 25.6536675,
+     "logLoss": 91.88520245803653,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9019607843137254,
+     "seedExact": 0.21568627450980393,
+     "expectedSeedMAE": 1.5362152873904342,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 25.7839725,
+     "logLoss": 98.21621711536417,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9411764705882353,
+     "seedExact": 0.21568627450980393,
+     "expectedSeedMAE": 1.5335560018655556,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 40.0,
+     "logLoss": 368.44471643415324,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.8541666666666667,
+     "seedExact": 0.3125,
+     "expectedSeedMAE": 1.8541666666666667,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 32.3427745,
+     "logLoss": 224.27409154042874,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.4081632653061225,
+     "seedExact": 0.2857142857142857,
+     "expectedSeedMAE": 1.3902865340604615,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 24.444224499999997,
+     "logLoss": 127.77618914130107,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.4705882352941178,
+     "seedExact": 0.23529411764705882,
+     "expectedSeedMAE": 1.244060657753814,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 24.365024,
+     "logLoss": 127.35916899057253,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.4705882352941178,
+     "seedExact": 0.23529411764705882,
+     "expectedSeedMAE": 1.2492968742088684,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 36.0,
+     "logLoss": 331.60375496624965,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.36,
+     "seedExact": 0.32,
+     "expectedSeedMAE": 1.36,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 4.966996000000001,
+     "logLoss": 16.6519924926244,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0461538461538462,
+     "seedExact": 0.36923076923076925,
+     "expectedSeedMAE": 1.085400071335295,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 4.966996000000001,
+     "logLoss": 16.6519924926244,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0461538461538462,
+     "seedExact": 0.36923076923076925,
+     "expectedSeedMAE": 1.085400071335295,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 4.966996000000001,
+     "logLoss": 16.6519924926244,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0461538461538462,
+     "seedExact": 0.36923076923076925,
+     "expectedSeedMAE": 1.085400071335295,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 6.0,
+     "logLoss": 55.29654395697244,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0461538461538462,
+     "seedExact": 0.36923076923076925,
+     "expectedSeedMAE": 1.0461538461538462,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2015": {
+   "feb1": {
+    "placeholder": {
+     "brier": 27.3087995,
+     "logLoss": 91.34805824733711,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.3617021276595744,
+     "seedExact": 0.2765957446808511,
+     "expectedSeedMAE": 1.210639411453192,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "recommended": {
+     "brier": 25.167016999999998,
+     "logLoss": 85.43097027813437,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.3541666666666667,
+     "seedExact": 0.2708333333333333,
+     "expectedSeedMAE": 1.215549201663148,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "recommendedExact": {
+     "brier": 24.972666499999995,
+     "logLoss": 84.89354459196485,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.3958333333333333,
+     "seedExact": 0.2708333333333333,
+     "expectedSeedMAE": 1.2087565080132319,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "endedToday": {
+     "brier": 50.0,
+     "logLoss": 460.5471201039123,
+     "fieldHits": 43,
+     "fieldSize": 68,
+     "seedMAE": 1.3488372093023255,
+     "seedExact": 0.23255813953488372,
+     "expectedSeedMAE": 1.3488372093023255,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 25.084812499999998,
+     "logLoss": 152.91840840142692,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 1.1666666666666667,
+     "seedExact": 0.3333333333333333,
+     "expectedSeedMAE": 1.121522064866183,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 20.393759000000003,
+     "logLoss": 92.89440461294039,
+     "fieldHits": 55,
+     "fieldSize": 68,
+     "seedMAE": 1.1272727272727272,
+     "seedExact": 0.3090909090909091,
+     "expectedSeedMAE": 1.091380469027289,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 20.486462500000002,
+     "logLoss": 92.65263624976778,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.0961538461538463,
+     "seedExact": 0.3269230769230769,
+     "expectedSeedMAE": 1.092446141671055,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 36.0,
+     "logLoss": 331.60375496624965,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.08,
+     "seedExact": 0.3,
+     "expectedSeedMAE": 1.08,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 4.7304205,
+     "logLoss": 16.286525468341203,
+     "fieldHits": 66,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3181818181818182,
+     "expectedSeedMAE": 0.9688341979014328,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 4.7304205,
+     "logLoss": 16.286525468341203,
+     "fieldHits": 66,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3181818181818182,
+     "expectedSeedMAE": 0.9688341979014328,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 4.7304205,
+     "logLoss": 16.286525468341203,
+     "fieldHits": 66,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3181818181818182,
+     "expectedSeedMAE": 0.9688341979014328,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 4.0,
+     "logLoss": 36.87606322302064,
+     "fieldHits": 66,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3181818181818182,
+     "expectedSeedMAE": 1.0,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2016": {
+   "feb1": {
+    "placeholder": {
+     "brier": 33.0876105,
+     "logLoss": 131.30066634786118,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 1.4222222222222223,
+     "seedExact": 0.2,
+     "expectedSeedMAE": 1.3517811431911806,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 30.930975,
+     "logLoss": 113.85527475990347,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.425531914893617,
+     "seedExact": 0.2127659574468085,
+     "expectedSeedMAE": 1.3866787545798178,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 31.390483,
+     "logLoss": 124.26567569538655,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.446808510638298,
+     "seedExact": 0.2127659574468085,
+     "expectedSeedMAE": 1.4119983029654548,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 50.0,
+     "logLoss": 460.54712010391233,
+     "fieldHits": 43,
+     "fieldSize": 68,
+     "seedMAE": 1.6744186046511629,
+     "seedExact": 0.27906976744186046,
+     "expectedSeedMAE": 1.6744186046511629,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 36.746688,
+     "logLoss": 248.3559245834132,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.4782608695652173,
+     "seedExact": 0.2391304347826087,
+     "expectedSeedMAE": 1.3309865575546997,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 28.775149,
+     "logLoss": 133.90878972845223,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 1.4,
+     "seedExact": 0.24444444444444444,
+     "expectedSeedMAE": 1.2062756451896441,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 29.0723005,
+     "logLoss": 137.80516297206196,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.3404255319148937,
+     "seedExact": 0.2765957446808511,
+     "expectedSeedMAE": 1.196575588631546,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 42.0,
+     "logLoss": 386.86519716810506,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.553191489361702,
+     "seedExact": 0.2553191489361702,
+     "expectedSeedMAE": 1.553191489361702,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 10.7739775,
+     "logLoss": 39.71423303816878,
+     "fieldHits": 60,
+     "fieldSize": 68,
+     "seedMAE": 1.0166666666666666,
+     "seedExact": 0.45,
+     "expectedSeedMAE": 1.057228969925407,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 10.7739775,
+     "logLoss": 39.71423303816878,
+     "fieldHits": 60,
+     "fieldSize": 68,
+     "seedMAE": 1.0166666666666666,
+     "seedExact": 0.45,
+     "expectedSeedMAE": 1.057228969925407,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 10.7739775,
+     "logLoss": 39.71423303816878,
+     "fieldHits": 60,
+     "fieldSize": 68,
+     "seedMAE": 1.0166666666666666,
+     "seedExact": 0.45,
+     "expectedSeedMAE": 1.057228969925407,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 14.0,
+     "logLoss": 128.9784668927797,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.0163934426229508,
+     "seedExact": 0.4426229508196721,
+     "expectedSeedMAE": 1.0163934426229508,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2017": {
+   "feb1": {
+    "placeholder": {
+     "brier": 23.012762000000002,
+     "logLoss": 83.52273706601456,
+     "fieldHits": 49,
+     "fieldSize": 66,
+     "seedMAE": 1.530612244897959,
+     "seedExact": 0.2653061224489796,
+     "expectedSeedMAE": 1.3257862041599662,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 22.563955,
+     "logLoss": 77.83363218974597,
+     "fieldHits": 51,
+     "fieldSize": 66,
+     "seedMAE": 1.5686274509803921,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.326434191477723,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 22.554996999999997,
+     "logLoss": 78.82695624011276,
+     "fieldHits": 51,
+     "fieldSize": 66,
+     "seedMAE": 1.607843137254902,
+     "seedExact": 0.23529411764705882,
+     "expectedSeedMAE": 1.3134249520927537,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "endedToday": {
+     "brier": 36.0,
+     "logLoss": 331.60375496624977,
+     "fieldHits": 49,
+     "fieldSize": 66,
+     "seedMAE": 1.346938775510204,
+     "seedExact": 0.3469387755102041,
+     "expectedSeedMAE": 1.346938775510204,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 23.632115,
+     "logLoss": 143.05128099928604,
+     "fieldHits": 51,
+     "fieldSize": 66,
+     "seedMAE": 1.1176470588235294,
+     "seedExact": 0.29411764705882354,
+     "expectedSeedMAE": 1.1076440668868295,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 19.352541500000005,
+     "logLoss": 82.19916451395687,
+     "fieldHits": 51,
+     "fieldSize": 66,
+     "seedMAE": 1.1568627450980393,
+     "seedExact": 0.27450980392156865,
+     "expectedSeedMAE": 1.043710232796621,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 19.513421,
+     "logLoss": 82.46387196805773,
+     "fieldHits": 53,
+     "fieldSize": 66,
+     "seedMAE": 1.1886792452830188,
+     "seedExact": 0.2641509433962264,
+     "expectedSeedMAE": 1.037932976965007,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 30.0,
+     "logLoss": 276.3423127643943,
+     "fieldHits": 52,
+     "fieldSize": 66,
+     "seedMAE": 1.1538461538461537,
+     "seedExact": 0.3269230769230769,
+     "expectedSeedMAE": 1.1538461538461537,
+     "regionProblems": 1,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 7.251576,
+     "logLoss": 28.68644450594186,
+     "fieldHits": 62,
+     "fieldSize": 66,
+     "seedMAE": 0.9354838709677419,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.9044746381464801,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 7.251576,
+     "logLoss": 28.68644450594186,
+     "fieldHits": 62,
+     "fieldSize": 66,
+     "seedMAE": 0.9354838709677419,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.9044746381464801,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 7.251576,
+     "logLoss": 28.68644450594186,
+     "fieldHits": 62,
+     "fieldSize": 66,
+     "seedMAE": 0.9354838709677419,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.9044746381464801,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 10.0,
+     "logLoss": 92.13750542487618,
+     "fieldHits": 62,
+     "fieldSize": 66,
+     "seedMAE": 0.9354838709677419,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.9354838709677419,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2018": {
+   "feb1": {
+    "placeholder": {
+     "brier": 27.717412999999997,
+     "logLoss": 89.07038975631446,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.8571428571428572,
+     "seedExact": 0.20408163265306123,
+     "expectedSeedMAE": 1.521898469396758,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 26.6678445,
+     "logLoss": 86.5485395394849,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.72,
+     "seedExact": 0.24,
+     "expectedSeedMAE": 1.4971835184855669,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 26.6488655,
+     "logLoss": 88.61799813152426,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.8461538461538463,
+     "seedExact": 0.21153846153846154,
+     "expectedSeedMAE": 1.4971605582491694,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 45.0,
+     "logLoss": 414.49591826903287,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 2.066666666666667,
+     "seedExact": 0.17777777777777778,
+     "expectedSeedMAE": 2.066666666666667,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 31.866277500000002,
+     "logLoss": 182.54211175465258,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.3541666666666667,
+     "seedExact": 0.2916666666666667,
+     "expectedSeedMAE": 1.369407439937795,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 27.354382500000003,
+     "logLoss": 125.30432846778592,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.3265306122448979,
+     "seedExact": 0.30612244897959184,
+     "expectedSeedMAE": 1.245382763922346,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 27.415604499999997,
+     "logLoss": 125.0084034315943,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.36,
+     "seedExact": 0.3,
+     "expectedSeedMAE": 1.2590582310954144,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "endedToday": {
+     "brier": 37.0,
+     "logLoss": 340.8139953332256,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.5510204081632653,
+     "seedExact": 0.24489795918367346,
+     "expectedSeedMAE": 1.5510204081632653,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 9.232396,
+     "logLoss": 28.044965541468148,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.1147540983606556,
+     "seedExact": 0.29508196721311475,
+     "expectedSeedMAE": 1.104433466354097,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 9.232396,
+     "logLoss": 28.044965541468148,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.1147540983606556,
+     "seedExact": 0.29508196721311475,
+     "expectedSeedMAE": 1.104433466354097,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 9.311814,
+     "logLoss": 28.19795052328844,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.1147540983606556,
+     "seedExact": 0.29508196721311475,
+     "expectedSeedMAE": 1.1045006305332015,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 13.0,
+     "logLoss": 119.76822652580385,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.1147540983606556,
+     "seedExact": 0.29508196721311475,
+     "expectedSeedMAE": 1.1147540983606556,
+     "regionProblems": 1,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2019": {
+   "feb1": {
+    "placeholder": {
+     "brier": 29.145166,
+     "logLoss": 98.8455350020874,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.375,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.303254585396091,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 26.358563,
+     "logLoss": 88.50754908600662,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.3673469387755102,
+     "seedExact": 0.22448979591836735,
+     "expectedSeedMAE": 1.3320631824920233,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 26.920415,
+     "logLoss": 94.66986250308105,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.3125,
+     "seedExact": 0.2916666666666667,
+     "expectedSeedMAE": 1.3247414315183703,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 44.0,
+     "logLoss": 405.2858779120576,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.6521739130434783,
+     "seedExact": 0.17391304347826086,
+     "expectedSeedMAE": 1.6521739130434783,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 24.330867500000004,
+     "logLoss": 135.90001532057522,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3333333333333333,
+     "expectedSeedMAE": 0.9977760649881708,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 23.348646000000002,
+     "logLoss": 99.49481115923055,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.0408163265306123,
+     "seedExact": 0.2857142857142857,
+     "expectedSeedMAE": 0.9880483327495924,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 23.692949499999997,
+     "logLoss": 100.61509390190426,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.0612244897959184,
+     "seedExact": 0.2653061224489796,
+     "expectedSeedMAE": 0.9733274467733227,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 36.0,
+     "logLoss": 331.60395497625024,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.16,
+     "seedExact": 0.22,
+     "expectedSeedMAE": 1.16,
+     "regionProblems": 1,
+     "linesMoved": 2
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 8.277121,
+     "logLoss": 25.782333739279032,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7903225806451613,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.8487472663153646,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 8.277121,
+     "logLoss": 25.782333739279032,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7903225806451613,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.8487472663153646,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 8.277121,
+     "logLoss": 25.782333739279032,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7903225806451613,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.8487472663153646,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 12.0,
+     "logLoss": 110.55818616882854,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7903225806451613,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.7903225806451613,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2021": {
+   "feb1": {
+    "placeholder": {
+     "brier": 33.3588335,
+     "logLoss": 118.43993934625597,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 2.272727272727273,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.6690963608809892,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 31.7607955,
+     "logLoss": 105.55952657212407,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 2.272727272727273,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.6458053808381334,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 32.9501275,
+     "logLoss": 110.33641231108116,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 2.25,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.6593541268124739,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 52.0,
+     "logLoss": 478.9672008178628,
+     "fieldHits": 42,
+     "fieldSize": 68,
+     "seedMAE": 2.2142857142857144,
+     "seedExact": 0.2857142857142857,
+     "expectedSeedMAE": 2.2142857142857144,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 33.916479,
+     "logLoss": 164.3619705090532,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.6521739130434783,
+     "seedExact": 0.34782608695652173,
+     "expectedSeedMAE": 1.7740273209616524,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 29.5897455,
+     "logLoss": 119.57088460884322,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.6521739130434783,
+     "seedExact": 0.3695652173913043,
+     "expectedSeedMAE": 1.6761785627027932,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 29.744436000000004,
+     "logLoss": 120.89433561732753,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.6041666666666667,
+     "seedExact": 0.375,
+     "expectedSeedMAE": 1.6560088857884627,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 46.0,
+     "logLoss": 423.7057586160073,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 2.022222222222222,
+     "seedExact": 0.24444444444444444,
+     "expectedSeedMAE": 2.022222222222222,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 11.1880795,
+     "logLoss": 33.77830316977538,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.6724137931034482,
+     "seedExact": 0.3103448275862069,
+     "expectedSeedMAE": 1.6164715266631895,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 11.1880795,
+     "logLoss": 33.77830316977538,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.6724137931034482,
+     "seedExact": 0.3103448275862069,
+     "expectedSeedMAE": 1.6164715266631895,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 11.100214000000001,
+     "logLoss": 33.559973340912315,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6440677966101696,
+     "seedExact": 0.3050847457627119,
+     "expectedSeedMAE": 1.6214888105158927,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 16.0,
+     "logLoss": 147.3985476067302,
+     "fieldHits": 60,
+     "fieldSize": 68,
+     "seedMAE": 1.6666666666666667,
+     "seedExact": 0.31666666666666665,
+     "expectedSeedMAE": 1.6666666666666667,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2022": {
+   "feb1": {
+    "placeholder": {
+     "brier": 28.369167,
+     "logLoss": 93.38744892707005,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.8541666666666667,
+     "seedExact": 0.1875,
+     "expectedSeedMAE": 1.43436043750264,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 27.722596499999998,
+     "logLoss": 89.03997474684667,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.816326530612245,
+     "seedExact": 0.20408163265306123,
+     "expectedSeedMAE": 1.4243596200675204,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 28.295124,
+     "logLoss": 93.97325432837782,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.7254901960784315,
+     "seedExact": 0.23529411764705882,
+     "expectedSeedMAE": 1.4153407622236296,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "endedToday": {
+     "brier": 42.0,
+     "logLoss": 386.86589720310735,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.9574468085106382,
+     "seedExact": 0.23404255319148937,
+     "expectedSeedMAE": 1.9574468085106382,
+     "regionProblems": 0,
+     "linesMoved": 2
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 25.503083,
+     "logLoss": 135.83599557870227,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.3137254901960784,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.184098423729631,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 22.3389295,
+     "logLoss": 76.6332145153685,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.4313725490196079,
+     "seedExact": 0.21568627450980393,
+     "expectedSeedMAE": 1.12471721991714,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "recommendedExact": {
+     "brier": 22.3196545,
+     "logLoss": 75.90204040024679,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.3461538461538463,
+     "seedExact": 0.28846153846153844,
+     "expectedSeedMAE": 1.1171495127001296,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
+    "endedToday": {
+     "brier": 34.0,
+     "logLoss": 313.1839742673002,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.3725490196078431,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.3725490196078431,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 11.358984,
+     "logLoss": 45.76884172787317,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.1551724137931034,
+     "seedExact": 0.3793103448275862,
+     "expectedSeedMAE": 1.1593449989699216,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 11.358984,
+     "logLoss": 45.76884172787317,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.1551724137931034,
+     "seedExact": 0.3793103448275862,
+     "expectedSeedMAE": 1.1593449989699216,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 11.358984,
+     "logLoss": 45.76884172787317,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.1551724137931034,
+     "seedExact": 0.3793103448275862,
+     "expectedSeedMAE": 1.1593449989699216,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 20.0,
+     "logLoss": 184.24060912963745,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.1551724137931034,
+     "seedExact": 0.3793103448275862,
+     "expectedSeedMAE": 1.1551724137931034,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2023": {
+   "feb1": {
+    "placeholder": {
+     "brier": 26.298257,
+     "logLoss": 89.19880130825962,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.92,
+     "seedExact": 0.28,
+     "expectedSeedMAE": 1.6103102054766045,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 27.384017,
+     "logLoss": 88.85691094216685,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.9183673469387754,
+     "seedExact": 0.24489795918367346,
+     "expectedSeedMAE": 1.6492909474023434,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 27.429382999999998,
+     "logLoss": 91.2666434229335,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.8936170212765957,
+     "seedExact": 0.2553191489361702,
+     "expectedSeedMAE": 1.6059123914942237,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 42.0,
+     "logLoss": 386.86639722810907,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 2.0851063829787235,
+     "seedExact": 0.1702127659574468,
+     "expectedSeedMAE": 2.0851063829787235,
+     "regionProblems": 0,
+     "linesMoved": 2
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 28.346505,
+     "logLoss": 150.39993775714424,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.803921568627451,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.6466258921592614,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 26.559313,
+     "logLoss": 116.79421594460372,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.8076923076923077,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.610185817859054,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 26.616546999999997,
+     "logLoss": 115.65066701379054,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.8235294117647058,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.6486164818161084,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 34.0,
+     "logLoss": 313.18447429230184,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.8235294117647058,
+     "seedExact": 0.3137254901960784,
+     "expectedSeedMAE": 1.8235294117647058,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 13.6066555,
+     "logLoss": 54.59837402021777,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6101694915254237,
+     "seedExact": 0.3220338983050847,
+     "expectedSeedMAE": 1.4691267161320163,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 13.6066555,
+     "logLoss": 54.59837402021777,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6101694915254237,
+     "seedExact": 0.3220338983050847,
+     "expectedSeedMAE": 1.4691267161320163,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 13.6066555,
+     "logLoss": 54.59837402021777,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6101694915254237,
+     "seedExact": 0.3220338983050847,
+     "expectedSeedMAE": 1.4691267161320163,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 18.0,
+     "logLoss": 165.82062842068734,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6101694915254237,
+     "seedExact": 0.3220338983050847,
+     "expectedSeedMAE": 1.6101694915254237,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2024": {
+   "feb1": {
+    "placeholder": {
+     "brier": 30.3134265,
+     "logLoss": 103.91078034901909,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 2.3191489361702127,
+     "seedExact": 0.23404255319148937,
+     "expectedSeedMAE": 1.8361406301571406,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 29.226958,
+     "logLoss": 99.39563913031695,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 2.3191489361702127,
+     "seedExact": 0.19148936170212766,
+     "expectedSeedMAE": 1.783454670533289,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 29.6679965,
+     "logLoss": 103.90591774106238,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 2.297872340425532,
+     "seedExact": 0.19148936170212766,
+     "expectedSeedMAE": 1.7753120673286946,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 48.0,
+     "logLoss": 442.12773942496415,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 2.477272727272727,
+     "seedExact": 0.1590909090909091,
+     "expectedSeedMAE": 2.477272727272727,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 29.6351975,
+     "logLoss": 161.68795462347578,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.7142857142857142,
+     "seedExact": 0.24489795918367346,
+     "expectedSeedMAE": 1.543475814820985,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 25.074269,
+     "logLoss": 100.2093746842587,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.6938775510204083,
+     "seedExact": 0.20408163265306123,
+     "expectedSeedMAE": 1.411617427417298,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 25.074173000000002,
+     "logLoss": 99.71395607402289,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.6938775510204083,
+     "seedExact": 0.20408163265306123,
+     "expectedSeedMAE": 1.401754801512765,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 40.0,
+     "logLoss": 368.4458164891569,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.7916666666666667,
+     "seedExact": 0.3125,
+     "expectedSeedMAE": 1.7916666666666667,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 6.958742999999999,
+     "logLoss": 22.085493316592682,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.6349206349206349,
+     "seedExact": 0.31746031746031744,
+     "expectedSeedMAE": 1.4242210368691548,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 6.958742999999999,
+     "logLoss": 22.085493316592682,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.6349206349206349,
+     "seedExact": 0.31746031746031744,
+     "expectedSeedMAE": 1.4242210368691548,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 6.958742999999999,
+     "logLoss": 22.085493316592682,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.6349206349206349,
+     "seedExact": 0.31746031746031744,
+     "expectedSeedMAE": 1.4242210368691548,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 10.0,
+     "logLoss": 92.13860547987973,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.6349206349206349,
+     "seedExact": 0.31746031746031744,
+     "expectedSeedMAE": 1.6349206349206349,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  },
+  "2025": {
+   "feb1": {
+    "placeholder": {
+     "brier": 27.214306500000003,
+     "logLoss": 97.2478177749057,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.3125,
+     "seedExact": 0.3125,
+     "expectedSeedMAE": 1.2194691512693916,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 25.430399499999996,
+     "logLoss": 88.6351931628493,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.28,
+     "seedExact": 0.32,
+     "expectedSeedMAE": 1.1956485420397884,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 25.4807925,
+     "logLoss": 88.97225236821716,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.32,
+     "seedExact": 0.28,
+     "expectedSeedMAE": 1.1768334898824664,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 48.0,
+     "logLoss": 442.1279394349649,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 1.5681818181818181,
+     "seedExact": 0.20454545454545456,
+     "expectedSeedMAE": 1.5681818181818181,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "confStart": {
+    "placeholder": {
+     "brier": 24.291112,
+     "logLoss": 132.56666168109018,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 0.8653846153846154,
+     "seedExact": 0.40384615384615385,
+     "expectedSeedMAE": 0.915857337612378,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 19.984365,
+     "logLoss": 90.34216845099215,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 0.8703703703703703,
+     "seedExact": 0.3888888888888889,
+     "expectedSeedMAE": 0.8739540984086123,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 19.911648999999997,
+     "logLoss": 89.47548233081633,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 0.8703703703703703,
+     "seedExact": 0.4074074074074074,
+     "expectedSeedMAE": 0.855403232634583,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 36.0,
+     "logLoss": 331.605055031254,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 0.86,
+     "seedExact": 0.34,
+     "expectedSeedMAE": 0.86,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   },
+   "selectionSunday": {
+    "placeholder": {
+     "brier": 7.210561500000001,
+     "logLoss": 22.389740022447935,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7580645161290323,
+     "seedExact": 0.43548387096774194,
+     "expectedSeedMAE": 0.7334575031756998,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommended": {
+     "brier": 7.210561500000001,
+     "logLoss": 22.389740022447935,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7580645161290323,
+     "seedExact": 0.43548387096774194,
+     "expectedSeedMAE": 0.7334575031756998,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "recommendedExact": {
+     "brier": 7.210561500000001,
+     "logLoss": 22.389740022447935,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7580645161290323,
+     "seedExact": 0.43548387096774194,
+     "expectedSeedMAE": 0.7334575031756998,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
+    "endedToday": {
+     "brier": 10.0,
+     "logLoss": 92.13880548988043,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 0.7619047619047619,
+     "seedExact": 0.42857142857142855,
+     "expectedSeedMAE": 0.7619047619047619,
+     "regionProblems": 0,
+     "linesMoved": 0
+    }
+   }
+  }
+ },
+ "recommendedModel": [
+  "ASUN",
+  "American",
+  "Big East",
+  "Big South",
+  "Big Ten",
+  "Big West",
+  "CAA",
+  "CUSA",
+  "MAC",
+  "MVC",
+  "Metro",
+  "OVC",
+  "Patriot",
+  "SEC",
+  "SWAC",
+  "Southland",
+  "Sun Belt",
+  "UAC",
+  "WCC"
+ ]
+}

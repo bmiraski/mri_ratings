@@ -1,6 +1,7 @@
 # Bracketology — status
 
-*Phase 1 (automatic bids) and Phase 2 (at-large and seeding) built 2026-09-22.
+*Phase 1 (automatic bids), Phase 2 (at-large and seeding) and Phase 3 (joint
+simulation, seed lines, regions) built 2026-09-22.
 See README's "NCAA Tournament bracketology" section for the full write-up and
 current backtest numbers, and `claude_bracketology-plan.md` in the project for
 the original plan.*
@@ -22,5 +23,18 @@ the original plan.*
   history and the fit/backtest; write `data/parquet/atlarge_history.parquet`,
   `data/atlarge_model.json`, `site/data/atlarge_backtest.json`.
 
-**Not started:** Phase 3 (joint simulation, region placement), Phase 4 (the
-pages).
+- `mri/bracket/seeding.py` — true seed list to seed lines, 68- and 76-team
+  formats (the 2027 Opening Round).
+- `mri/bracket/regions.py` — region placement by the committee's published
+  bracketing principles.
+- `mri/bracket/joint.py` — the joint simulation: rest of season, standings,
+  conference tournaments, automatic bids, at-large field and seeds, per world.
+- `scripts/backtest_bracketology.py` — graded against every real field
+  2011-2025 at three checkpoints; writes `data/bracketology_backtest.json`.
+- `scripts/build_bracketology.py` — live projection to
+  `site/data/bracketology.json` (Christmas to Selection Sunday).
+- `data/bracketology_settings.json` — per-conference automatic-bid mode (all
+  placeholder until Ben switches one), format overrides, calendar.
+
+**Not started:** Phase 4 (the pages, and wiring the live build into the daily
+run).

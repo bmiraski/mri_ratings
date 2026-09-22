@@ -49,39 +49,60 @@ def simulate(template: Template, seeds: list[str], power: dict, *, home_edge: fl
     rng = np.random.default_rng(seed)
     ratings = np.array([power[t] for t in seeds])
     wins = np.zeros(len(seeds))
-
-    # Seed index order, worst-to-best entry: template.tiers[0] is the worst seeds, who enter round one;
-    # each later tier is a better group of seeds joining with a deeper bye. Building the list in that same
-    # order needs no reversal - the worst group is already first.
-    entry_order: list[list[int]] = []
-    cursor = len(seeds)
-    for count in template.tiers:
-        entry_order.append(list(range(cursor - count, cursor)))
-        cursor -= count
-
+    order = entry_order(template)
     for run in range(sims):
-        alive = list(entry_order[0])
-        for tier in entry_order[1:]:
-            # One round happens as each later tier's byes join the survivors so far - this is why a
-            # bracket with three tiers of byes plays five rounds to crown a champion from sixteen teams,
-            # not the four a same-size bracket with no byes would need: the SEC's own tournament does
-            # exactly this, and the real game log is what this was checked against.
-            alive = _play_round(alive, ratings, rng, home_edge) + tier
-        while len(alive) > 1:
-            alive = _play_round(alive, ratings, rng, home_edge)
-        wins[alive[0]] += 1
+        wins[run_once(order, ratings, rng, home_edge)] += 1
     return {seeds[i]: float(wins[i] / sims) for i in range(len(seeds))}
 
 
-def _play_round(alive: list[int], ratings: np.ndarray, rng: np.random.Generator, home_edge: float) -> list[int]:
+def entry_order(template: Template) -> list[list[int]]:
+    """Seed indexes (0 = best seed) grouped by the round they enter, worst group first.
+
+    template.tiers[0] is the worst seeds, who enter round one; each later tier is a better group of
+    seeds joining with a deeper bye. Building the list in that same order needs no reversal - the
+    worst group is already first.
+    """
+    order: list[list[int]] = []
+    cursor = template.size
+    for count in template.tiers:
+        order.append(list(range(cursor - count, cursor)))
+        cursor -= count
+    return order
+
+
+def run_once(order: list[list[int]], ratings: np.ndarray, rng: np.random.Generator, home_edge: float = 0.0, *,
+             prob=None, record: list | None = None) -> int:
+    """Play one bracket through to a champion and return the champion's seed index.
+
+    ``prob(a, b)``, if given, is the chance the better-rated ``a`` beats ``b`` - a precomputed lookup is
+    far faster than a normal CDF per game when this runs thousands of times. ``record``, if given,
+    collects every game as ``(winner, loser, better_rated)`` so a caller can put the games on a résumé.
+    """
+    alive = list(order[0])
+    for tier in order[1:]:
+        # One round happens as each later tier's byes join the survivors so far - this is why a
+        # bracket with three tiers of byes plays five rounds to crown a champion from sixteen teams,
+        # not the four a same-size bracket with no byes would need: the SEC's own tournament does
+        # exactly this, and the real game log is what this was checked against.
+        alive = _play_round(alive, ratings, rng, home_edge, prob=prob, record=record) + tier
+    while len(alive) > 1:
+        alive = _play_round(alive, ratings, rng, home_edge, prob=prob, record=record)
+    return alive[0]
+
+
+def _play_round(alive: list[int], ratings: np.ndarray, rng: np.random.Generator, home_edge: float, *,
+                prob=None, record: list | None = None) -> list[int]:
     """One round: sort the pool by rating, best paired against worst, survivors returned in the same order."""
     ordered = sorted(alive, key=lambda i: -ratings[i])
     n = len(ordered)
     survivors = []
     for k in range(n // 2):
         a, b = ordered[k], ordered[n - 1 - k]
-        p = win_probability(ratings[a] - ratings[b], home_edge)
-        survivors.append(a if rng.random() < p else b)
+        p = prob(a, b) if prob is not None else win_probability(ratings[a] - ratings[b], home_edge)
+        winner = a if rng.random() < p else b
+        survivors.append(winner)
+        if record is not None:
+            record.append((winner, b if winner == a else a, a))
     if n % 2:
         survivors.append(ordered[n // 2])               # an odd pool: the middle seed sits out this round
     return survivors

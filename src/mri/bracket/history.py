@@ -25,7 +25,7 @@ def _canonical(frame: pd.DataFrame, season: int) -> pd.DataFrame:
 
 
 def team_ratings(season: int, *, through: str | None = None, games: pd.DataFrame | None = None,
-                 with_resume: bool = False):
+                 with_resume: bool = False, previous: pd.Series | None = None):
     """The full fit as of a point in the season - power, and résumé if asked for - not just the
     power series ``team_power`` hands back for backward compatibility.
 
@@ -35,6 +35,11 @@ def team_ratings(season: int, *, through: str | None = None, games: pd.DataFrame
     played yet at any point this is asked about). Pass ``through`` to cut off earlier than that
     - Phase 1 needs ratings from *before* the conference tournament being simulated, so it can't
     have that same tournament's own results already baked in.
+
+    ``previous`` is last season's final power ratings. Given, the fit is shrunk toward the same
+    preseason prior the live site uses (``mri.ratings.bb_priors``), which matters in December and
+    hardly at all by March; left out, it's shrunk toward zero, which is what every historical
+    backtest here does.
     """
     g = games if games is not None else cbbd.games(season)
     g = _canonical(g, season)
@@ -46,7 +51,12 @@ def team_ratings(season: int, *, through: str | None = None, games: pd.DataFrame
     teams = sorted(set(g["team1"]) | set(g["team2"]))
     d1 = [t for t in teams if bb_registry.is_d1(t, season=season)]
     profile = mri2.BASKETBALL_PROFILE
-    return mri2.fit(g, neutral=g["neutral"], anchor_teams=d1 or None, compression=profile.compression,
+    prior = None
+    if previous is not None:
+        from ..ratings import bb_priors
+
+        prior = bb_priors.for_season(season, previous, teams, d1)
+    return mri2.fit(g, prior=prior, neutral=g["neutral"], anchor_teams=d1 or None, compression=profile.compression,
                     ridge=profile.ridge, home_field_prior=profile.home_field_prior, with_resume=with_resume,
                     with_efficiency=False)
 
