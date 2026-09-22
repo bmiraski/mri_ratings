@@ -1,0 +1,97 @@
+{
+  "seasons": 14,
+  "meanSeedMAE": 1.202,
+  "meanSeedSpearman": 0.931,
+  "atLargeHitRate": 0.845,
+  "atLargeHits": 436,
+  "atLargeSlots": 516,
+  "bySeason": {
+    "2011": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.868,
+      "seedMAE": 1.28,
+      "seedSpearman": 0.927
+    },
+    "2012": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.895,
+      "seedMAE": 1.03,
+      "seedSpearman": 0.951
+    },
+    "2013": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.895,
+      "seedMAE": 1.53,
+      "seedSpearman": 0.909
+    },
+    "2014": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.892,
+      "seedMAE": 1.07,
+      "seedSpearman": 0.954
+    },
+    "2015": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.919,
+      "seedMAE": 0.88,
+      "seedSpearman": 0.955
+    },
+    "2016": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.784,
+      "seedMAE": 1.06,
+      "seedSpearman": 0.943
+    },
+    "2017": {
+      "fieldSize": 66,
+      "atLargeHitRate": 0.886,
+      "seedMAE": 0.95,
+      "seedSpearman": 0.958
+    },
+    "2018": {
+      "fieldSize": 67,
+      "atLargeHitRate": 0.833,
+      "seedMAE": 1.15,
+      "seedSpearman": 0.947
+    },
+    "2019": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.833,
+      "seedMAE": 0.79,
+      "seedSpearman": 0.973
+    },
+    "2021": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.784,
+      "seedMAE": 1.68,
+      "seedSpearman": 0.87
+    },
+    "2022": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.757,
+      "seedMAE": 1.28,
+      "seedSpearman": 0.933
+    },
+    "2023": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.757,
+      "seedMAE": 1.68,
+      "seedSpearman": 0.865
+    },
+    "2024": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.861,
+      "seedMAE": 1.65,
+      "seedSpearman": 0.872
+    },
+    "2025": {
+      "fieldSize": 68,
+      "atLargeHitRate": 0.865,
+      "seedMAE": 0.79,
+      "seedSpearman": 0.972
+    }
+  },
+  "powerOnlyBaseline": {
+    "atLargeHitRate": 0.715
+  }
+}

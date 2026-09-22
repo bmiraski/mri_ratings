@@ -157,7 +157,7 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
-### NCAA Tournament bracketology (in progress: Phase 1, automatic bids)
+### NCAA Tournament bracketology (in progress: Phase 2, at-large and seeding)
 
 Two-part model, in the plan Ben and Claude wrote together
 (`claude_bracketology-plan.md` in the project): first, who wins each conference's
@@ -222,6 +222,52 @@ read the pattern and not any one conference's exact number):
 Rerun with `PYTHONPATH=src python3 scripts/build_bracket_history.py`
 (resumable; results cache to `/tmp/bracket_history_cache.pkl` and the summary
 writes to `data/bracket_autobid_backtest.json`).
+
+#### Phase 2 — at-large selection and seeding
+
+**A team's résumé** (`mri/bracket/resume.py`) as of Selection Sunday: record,
+quadrant record (Quad 1-4, the committee's own NET-era buckets - our power rank
+stands in for NET, which has no public history to fit against), road/neutral
+wins, and schedule strength. Selection Sunday comes after the conference
+tournaments, so those games are included in both the ratings and the record;
+only the NCAA tournament itself (which hasn't happened yet at any point this
+asks about) is excluded.
+
+**The composite score** (`mri/bracket/atlarge.py`) is a ridge regression of six
+features - power rank, résumé, Quad 1 win rate, bad-loss rate, schedule
+strength, road/neutral win count - against the *actual* historical seed number,
+fit once over 2011-2025 (2020 cancelled; 2017 is missing two teams from a small
+gap in the API's own tournament data for that one season). A lower score is a
+better team; ranking by it selects the at-large field (whoever scores best among
+the teams that didn't already win an automatic bid) and seeds the whole field,
+automatic bids included - the same committee seeds an automatic qualifier by the
+same yardstick as anyone else. Filling the extra eight at-large slots the 2027
+expansion adds is exactly this: the same score, the same coefficients, a longer
+list - not a retrained model.
+
+Leave-one-season-out, against the real field, every season:
+
+| | This model | Power rank alone |
+|---|---|---|
+| At-large field, correctly identified | **84.5%** (436 of 516) | 71.5% |
+| Seed number, mean absolute error | **1.20** seed lines | — |
+| Seed number, rank correlation | **0.93** | — |
+
+`bad_loss_rate`'s fitted coefficient doesn't point the way the committee's own
+stated principles would suggest (more bad losses should hurt, not help) - most
+likely collinear with résumé and schedule strength once those are also in the
+fit, and worth a second look before this goes further, rather than something
+hand-tuned away against the data's own signal.
+
+Rerun with:
+
+```bash
+PYTHONPATH=src python3 scripts/build_atlarge_history.py   # historical features -> data/parquet/atlarge_history.parquet
+PYTHONPATH=src python3 scripts/backtest_atlarge.py        # fit + grade -> data/atlarge_model.json, site/data/atlarge_backtest.json
+```
+
+**Not started:** Phase 3 (a joint simulation tying Phase 1 and Phase 2 together,
+and region/bracket placement), Phase 4 (the pages).
 
 ### Heisman odds
 

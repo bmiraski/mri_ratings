@@ -24,14 +24,17 @@ def _canonical(frame: pd.DataFrame, season: int) -> pd.DataFrame:
     return frame
 
 
-def team_power(season: int, *, through: str | None = None, games: pd.DataFrame | None = None) -> tuple[pd.Series, float]:
-    """Power ratings as of a point in the season, and the home-court edge fit alongside them.
+def team_ratings(season: int, *, through: str | None = None, games: pd.DataFrame | None = None,
+                 with_resume: bool = False):
+    """The full fit as of a point in the season - power, and résumé if asked for - not just the
+    power series ``team_power`` hands back for backward compatibility.
 
-    Regular-season games only: the conference and NCAA tournaments are exactly what this
-    is trying to predict, so neither can be in the games the rating is fit from. The
-    home-court number is this same season's regular season, not a fixed constant - it
-    only matters to the simulation for a conference whose tournament is played on campus
-    rather than at one neutral site, but every conference gets it from the same fit.
+    Regular-season games only, meaning everything ``season_type == "regular"`` covers in this
+    feed: the ordinary schedule and every conference tournament alike (only the NCAA tournament
+    itself is filed separately, as ``postseason``, and is never in here since it hasn't been
+    played yet at any point this is asked about). Pass ``through`` to cut off earlier than that
+    - Phase 1 needs ratings from *before* the conference tournament being simulated, so it can't
+    have that same tournament's own results already baked in.
     """
     g = games if games is not None else cbbd.games(season)
     g = _canonical(g, season)
@@ -39,14 +42,23 @@ def team_power(season: int, *, through: str | None = None, games: pd.DataFrame |
     if through:
         g = g[g["start_date"] < through]
     if g.empty:
-        return pd.Series(dtype=float), 0.0
+        return None
     teams = sorted(set(g["team1"]) | set(g["team2"]))
     d1 = [t for t in teams if bb_registry.is_d1(t, season=season)]
     profile = mri2.BASKETBALL_PROFILE
-    fitted = mri2.fit(g, neutral=g["neutral"], anchor_teams=d1 or None, compression=profile.compression,
-                      ridge=profile.ridge, home_field_prior=profile.home_field_prior, with_resume=False,
-                      with_efficiency=False)
-    return fitted.power, fitted.home_field
+    return mri2.fit(g, neutral=g["neutral"], anchor_teams=d1 or None, compression=profile.compression,
+                    ridge=profile.ridge, home_field_prior=profile.home_field_prior, with_resume=with_resume,
+                    with_efficiency=False)
+
+
+def team_power(season: int, *, through: str | None = None, games: pd.DataFrame | None = None) -> tuple[pd.Series, float]:
+    """Power ratings as of a point in the season, and the home-court edge fit alongside them.
+
+    A thin, backward-compatible wrapper around :func:`team_ratings` for callers (the automatic-bid
+    simulation) that only ever wanted those two numbers.
+    """
+    fitted = team_ratings(season, through=through, games=games)
+    return (fitted.power, fitted.home_field) if fitted is not None else (pd.Series(dtype=float), 0.0)
 
 
 def conference_games(season: int, games: pd.DataFrame | None = None) -> pd.DataFrame:

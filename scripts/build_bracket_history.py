@@ -66,7 +66,12 @@ def main() -> None:
             done[season] = {}
             continue
         games = cbbd.games(season)
-        power, home_field = history.team_power(season, games=games)
+        # Ratings must stop before any conference tournament game, or a conference's own bracket
+        # partly rates the very teams whose path through it is being simulated (a hot upset winner's
+        # rating would already reflect the upset). The earliest conference tournament tip-off of the
+        # season is a safe, uniform cutoff for every conference at once.
+        conf_start = bb_bracket.conference_tournaments(season)["start_date"].min()
+        power, home_field = history.team_power(season, through=conf_start, games=games)
         season_rows = {}
         for conf, champ in autos.items():
             standings_order = history.standings(season, conf, games)

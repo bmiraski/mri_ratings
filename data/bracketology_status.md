@@ -1,8 +1,9 @@
 # Bracketology — status
 
-*Phase 1 (automatic bids) built 2026-09-22. See README's "NCAA Tournament
-bracketology" section for the full write-up and current backtest numbers, and
-`claude_bracketology-plan.md` in the project for the original plan.*
+*Phase 1 (automatic bids) and Phase 2 (at-large and seeding) built 2026-09-22.
+See README's "NCAA Tournament bracketology" section for the full write-up and
+current backtest numbers, and `claude_bracketology-plan.md` in the project for
+the original plan.*
 
 - `mri/ingest/bb_bracket.py` — NCAA and conference tournament games (seeds,
   rounds, regions) from the postseason feed.
@@ -13,6 +14,13 @@ bracketology" section for the full write-up and current backtest numbers, and
   standings, power ratings) for any past season.
 - `scripts/build_bracket_history.py` — the backtest; writes
   `data/bracket_autobid_backtest.json`.
+- `mri/bracket/resume.py` — a team's Selection Sunday résumé (record, Quad 1-4,
+  schedule strength).
+- `mri/bracket/atlarge.py` — the composite score: at-large selection and
+  seeding, fit against the real historical seed line.
+- `scripts/build_atlarge_history.py`, `scripts/backtest_atlarge.py` — feature
+  history and the fit/backtest; write `data/parquet/atlarge_history.parquet`,
+  `data/atlarge_model.json`, `site/data/atlarge_backtest.json`.
 
-**Not started:** Phase 2 (at-large selection and seeding), Phase 3 (joint
-simulation, region placement), Phase 4 (the pages).
+**Not started:** Phase 3 (joint simulation, region placement), Phase 4 (the
+pages).

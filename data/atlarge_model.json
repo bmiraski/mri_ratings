@@ -1,0 +1,23 @@
+{
+  "features": [
+    "power_rank_log",
+    "resume",
+    "quad1_win_pct",
+    "bad_loss_rate",
+    "sos_rank_log",
+    "road_neutral_wins",
+    "intercept"
+  ],
+  "coefficients": [
+    1.2601,
+    -0.4699,
+    -2.7102,
+    -1.2444,
+    3.7848,
+    0.3284,
+    -13.4133
+  ],
+  "ridge": 3.0,
+  "fitted": "2011-2025",
+  "seasons": 14
+}
