@@ -157,6 +157,72 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
+### NCAA Tournament bracketology (in progress: Phase 1, automatic bids)
+
+Two-part model, in the plan Ben and Claude wrote together
+(`claude_bracketology-plan.md` in the project): first, who wins each conference's
+automatic bid; then the at-large field and everyone's seed. Phase 1 (automatic
+bids) is built; Phase 2 (at-large and seeding) has not started.
+
+**Why a conference's own tournament isn't hand-documented.** Byes, reseeding, and
+how many teams even get invited vary conference to conference and change over
+time - the SEC and Big 12 both changed shape mid-decade just from realignment
+adding teams. `mri/bracket/template.py` infers each conference's current bracket
+shape from its own tournament games: group them by the US-arena calendar day
+(not the UTC date the API stores, which splits a late night's games across two
+days if not converted), and count how many teams are new to the bracket at each
+successive day. A team appearing for the first time on day three had a bye
+through the first two rounds; how many teams debut at each stage *is* the
+conference's bye structure, and it falls out of the schedule without needing
+anyone's seed. Checked against seven real conferences' documented formats
+(SEC, A-10, Southland, Horizon, Big 12, MAC, Ivy) and matched all of them,
+including catching the SEC's and Big 12's real membership growth as a shape
+change rather than noise.
+
+**Seeding a conference's own bracket** (`mri/bracket/history.py`) is an
+approximation: teams ranked by conference win percentage, ties broken by
+win count and then arbitrarily - the committee's real tiebreakers (head-to-head,
+common opponents) aren't reconstructable from this data. Checked by hand
+against the real 2025 SEC standings: it gets the field and the top of the
+order right and can misorder a true tie, exactly as expected.
+
+**The simulation** (`mri/bracket/simulate.py`) plays each conference's bracket
+forward: every round, the survivors are sorted by rating and paired end to end,
+best against worst, with each new tier's byes folding in as their round
+arrives. This is a reseeded bracket by construction - some conferences (the
+Horizon League among them) actually play theirs that way, but a true static
+bracket is fixed from the draw and doesn't rebuild itself around upsets. Good
+enough to estimate who wins the auto bid; not a substitute for the real bracket
+once it's drawn. Home-court is applied for conferences that play on campus
+rather than at one neutral site (detected the same way, from the game data).
+
+**The backtest** (`scripts/build_bracket_history.py`) grades the simulation
+against the placeholder that's live today (the #1 regular-season standings team
+wins the auto bid) for every conference, 2011-2025 (2020 cancelled), using
+end-of-regular-season ratings and each conference's own actual bracket that
+year. Log loss alone is a weak test here - the placeholder is a deterministic
+100%-or-nothing call, so almost any real probability model beats it on log loss
+whenever the top seed doesn't win outright every time. The switch condition asks
+for both: a real log-loss margin (>= 0.3) *and* the simulation's own top pick
+being right at least as often as the placeholder's.
+
+Current read (all 32 conferences, n=6-13 graded seasons each - small samples,
+read the pattern and not any one conference's exact number):
+
+- **24 of 32 conferences clear both bars** - Southland (91% right vs. the
+  placeholder's 55%), WCC (92% vs. 83%), Patriot (85% vs. 54%), MAC (62% vs.
+  23%) and Big Ten (54% vs. 15%) are the clearest.
+- **8 don't yet**: Am. East, A-10, Summit, Big Sky, Horizon, Mountain West,
+  MEAC, NEC - the placeholder currently calls more of these right. NEC is the
+  outlier (18% vs. 36%); worth a closer look before assuming the rest are just
+  small-sample noise.
+- Per Ben's call: whether a given conference actually switches off the
+  placeholder is a decision made from these numbers, not automatic.
+
+Rerun with `PYTHONPATH=src python3 scripts/build_bracket_history.py`
+(resumable; results cache to `/tmp/bracket_history_cache.pkl` and the summary
+writes to `data/bracket_autobid_backtest.json`).
+
 ### Heisman odds
 
 **The record.** `data/heisman_voting.json` holds every finalist 2005-2025 (the winner is certain; the Trust lists the
