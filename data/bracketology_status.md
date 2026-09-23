@@ -1,7 +1,8 @@
 # Bracketology — status
 
-*Phase 1 (automatic bids), Phase 2 (at-large and seeding) and Phase 3 (joint
-simulation, seed lines, regions) built 2026-09-22.
+*All four phases built 2026-09-22: automatic bids, at-large and seeding, the
+joint simulation with seed lines and regions, and the pages. First live season:
+2026-27, from Christmas.
 See README's "NCAA Tournament bracketology" section for the full write-up and
 current backtest numbers, and `claude_bracketology-plan.md` in the project for
 the original plan.*
@@ -39,5 +40,13 @@ the original plan.*
   reshaped (2027: Pac-12, Mountain West, SWAC, Summit announced; WCC, UAC, ASUN
   provisional - replace when their brackets are published); calendar.
 
-**Not started:** Phase 4 (the pages, and wiring the live build into the daily
-run).
+- `mri/bracket/live.py` — the live projection, shared by the daily build and
+  `scripts/build_bracketology.py` (by hand / replays).
+- `mri/export/bracketdata.py` — calendar gates, day-by-day history for movement,
+  the Selection Sunday freeze and the comparison with the real field.
+- `mri/export/bracketpages.py` — the seed list and bracket pages, and the team
+  page line.
+
+**To watch in the first live weeks:** the 76-team seed-line seam (an at-large
+team can land on 13 below weaker Opening Round 11s/12s); the WCC, UAC and ASUN
+provisional formats; the build log's `format warnings`.

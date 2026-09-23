@@ -107,6 +107,7 @@ def main() -> None:
               f"{summary['failed']} failed")
         print(f"  {basketball['gamesRated']} games, {len(basketball['teams'])} teams, "
               f"home court {basketball['homeField']:.2f}")
+        add_bracketology(basketball, data_dir)
         # The per-team detail is 4MB and is already rendered into every team page.
         files = site.build(basketball, public, publish_details=False)
         top = basketball["teams"][0]
@@ -185,6 +186,32 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
                   f"games reconstructed, {fwd['logged']} picks logged")
         except Exception as exc:  # noqa: BLE001
             print(f"  record skipped: {exc}")
+
+
+def add_bracketology(basketball: dict, data_dir: Path) -> None:
+    """The NCAA Tournament projection, Christmas to the following July.
+
+    Isolated like everything else on top of the rankings: if it fails, the pages and nav link are
+    left off rather than the basketball site. Outside its calendar window it returns nothing and
+    there is nothing to show.
+    """
+    from mri.export import bracketdata
+
+    try:
+        data = bracketdata.build(basketball, data_dir)
+    except Exception as exc:  # noqa: BLE001
+        print(f"  bracketology skipped: {exc}")
+        return
+    if not data:
+        return
+    basketball["bracketology"] = data
+    backtest = ROOT / "data" / "bracketology_backtest.json"
+    if backtest.exists():
+        basketball["bracketologyBacktest"] = json.loads(backtest.read_text())
+    field = data["projected"]["field"]
+    ones = ", ".join(f["team"] for f in field if f["seedLine"] == 1)
+    print(f"  bracketology: {'frozen' if data.get('frozen') else 'live'}, No. 1 seeds {ones}"
+          + (f"; format warnings: {len(data.get('formatWarnings') or [])}" if data.get("formatWarnings") else ""))
 
 
 def basketball_payload(data_dir):

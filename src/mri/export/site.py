@@ -234,6 +234,9 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         sim_link += f'\n      <a href="{up}gameday.html">GameDay</a>'
     if payload.get("heisman"):
         sim_link += f'\n      <a href="{up}heisman.html">Heisman</a>'
+    # Basketball, Christmas to the following July: the data exists only inside that window.
+    if payload.get("bracketology"):
+        sim_link += f'\n      <a href="{up}bracketology.html">Bracketology</a>'
     # The switch offers only sports this build actually published. The same rule
     # as the betting link above: a header link to a directory that does not exist
     # is a dead link on every page of the site, which is worse than no switch.
@@ -846,6 +849,13 @@ def team_page(team: dict, payload: dict) -> str:
     if detail.get("remainingDifficulty") is not None:
         highlights.append(f'<div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">{detail["remainingDifficulty"]:+.1f} avg opponent</span></div>')
 
+    if payload.get("bracketology"):
+        from .bracketpages import team_line
+
+        line = team_line(team["team"], payload)
+        if line:
+            highlights.append(line)
+
     candidate = ((payload.get("heisman") or {}).get("byTeam") or {}).get(team["team"])
     if candidate:
         highlights.append(f'<div class="hl" title="From the Heisman odds page: this team\'s most likely candidate."><span class="hll">Heisman</span>'
@@ -1323,7 +1333,7 @@ def _pct(value, *, signed: bool = False) -> str:
         return "&lt;0.1%"
     if v < 0.10:
         return f"{v:.1%}"
-    if v > 0.995:
+    if v >= 0.995:                       # would print as "100%", which it is not
         return "&gt;99%"
     return f"{v:.0%}"
 
@@ -2615,7 +2625,9 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     write(site_root / ".nojekyll", "")
     if CUSTOM_DOMAIN:
         write(site_root / "CNAME", CUSTOM_DOMAIN + "\n")
-    write(site_root / "styles.css", STYLES)
+    from . import bracketpages
+
+    write(site_root / "styles.css", STYLES + bracketpages.STYLES)
     written.extend(_copy_brand(site_root))
 
     write(out_dir / "index.html", rankings_page(payload))
@@ -2634,6 +2646,10 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
     if payload.get("record"):
         write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
+    if payload.get("bracketology"):
+        write(out_dir / "bracketology.html", bracketpages.list_page(payload))
+        write(out_dir / "bracket.html", bracketpages.bracket_page(payload))
+        write(out_dir / "bracketology.json", json.dumps(payload["bracketology"], indent=1))
 
     if payload.get("seasons"):
         (out_dir / "season").mkdir(exist_ok=True)
@@ -2645,7 +2661,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
-            "heisman", "heismanBacktest"} \
+            "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))

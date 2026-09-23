@@ -1,10 +1,8 @@
 """The live build's settings handling: season-keyed format overrides and the stale-format warning.
 
-Loaded from scripts/ by path (it's a script, not a package module); the tournament feed is stubbed so
-nothing here touches the API.
+The tournament feed is stubbed so nothing here touches the API.
 """
 
-import importlib.util
 import json
 from pathlib import Path
 
@@ -18,10 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def build():
-    spec = importlib.util.spec_from_file_location("build_bracketology", ROOT / "scripts" / "build_bracketology.py")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from mri.bracket import live
+
+    return live
 
 
 def _no_tournaments(season, **_):

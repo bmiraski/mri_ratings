@@ -157,7 +157,7 @@ PYTHONPATH=src python3 scripts/backtest_bb_priors.py # grade it game by game; fe
 PYTHONPATH=src python3 scripts/build_basketball.py   # rebuild the season-to-season chain
 ```
 
-### NCAA Tournament bracketology (Phases 1-3 built; Phase 4, the pages, not started)
+### NCAA Tournament bracketology (all four phases built; first live season 2026-27)
 
 Two-part model, in the plan Ben and Claude wrote together
 (`claude_bracketology-plan.md` in the project): first, who wins each conference's
@@ -432,8 +432,52 @@ PYTHONPATH=src python3 scripts/backtest_bracketology.py   # resumable; -> data/b
 PYTHONPATH=src python3 scripts/build_bracketology.py      # live; no-op outside Christmas..Selection Sunday
 ```
 
-**Not started:** Phase 4 (the pages - list/S-curve view and bracket view - and
-wiring `build_bracketology.py` into the daily build).
+#### Phase 4 — the pages
+
+Two views of one projection, linked by a toggle, under Basketball:
+
+- **Seed list** (`basketball/bracketology.html`): the projected field by seed line
+  (overall rank beside each team), with each team's bid type, region, chance to
+  make the field, a week's movement and its likeliest seed line with a range; a
+  bubble watch (the Opening Round at-large teams, first four out, next four out,
+  each with its at-large chance); everyone else outside the field with at least
+  a 5% chance; every conference's automatic-bid odds, marking any conference
+  whose tournament format is still provisional; and the backtest.
+- **Bracket** (`basketball/bracket.html`): the Opening Round games, each with its
+  winner's first-round opponent, and the four regions' first-round matchups in
+  bracket order, each with the chance to win that game. On a phone the regions
+  are tabs (radio buttons and CSS, no script).
+- **Team pages** get a line: projected seed (or "first four out" / "outside the
+  projected field") and the chance to make it, for any team above 1%.
+
+The calendar (`mri/export/bracketdata.py`, run by the daily build): no page or
+nav link before Christmas; live from Christmas to Selection Sunday, saving each
+day's odds to `site/data/bracketology_history.json` so movement is measured
+against about a week earlier; then **frozen** - the last projection made before
+the reveal, unchanged - and, once the tournament feed carries the real field,
+set beside it (teams named, at-large teams named, exact and within-one seed
+lines, and every miss). It disappears when the season rolls over in July. A
+failure anywhere in it leaves the pages off rather than stopping the build.
+
+One decision made while building this, from a backtest rather than assumption:
+the live projection rates teams with the site's own preseason-informed ratings,
+while every Phase 1-3 backtest used ratings with no preseason prior (the NET's
+own design, and what Phase 2 was fit on). Checked on 2021-2025, where the prior
+chain exists: the preseason-informed ratings give better field odds than
+prior-free ones at every checkpoint (Brier per season 31.5 against 37.6 on
+January 1, 27.3 against 28.4 on February 1, 9.0 against 10.1 on Selection
+Sunday). A split - preseason-informed ratings to simulate games, prior-free for
+the committee's side - was a hair better in early March (24.1 against 24.3) and
+clearly worse on January 1 (34.6) and Selection Sunday (10.1), so it wasn't
+worth a second set of ratings. Live runs use the site's ratings throughout, the
+same numbers the rankings page shows.
+
+The pages were designed on 2024-25 replayed as a 76-team field. To look at them
+before Christmas, render a replay:
+
+```bash
+PYTHONPATH=src python3 scripts/build_bracketology.py --season 2025 --as-of 2025-02-15 --field-size 76 --force --out /tmp/b.json
+```
 
 ### Heisman odds
 
