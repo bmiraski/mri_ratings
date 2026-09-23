@@ -45,8 +45,11 @@ def price_season(
     priced = []
     final_power = prior
 
-    for week in sorted(games["week"].unique()):
-        train = games[games["week"] < week]
+    # Postseason weeks restart at 1 in the feed; order by block, not raw week,
+    # or bowl results leak into every training set from week 2 on.
+    games = games.assign(block=cfbd.sequence(games))
+    for week in sorted(games["block"].unique()):
+        train = games[games["block"] < week]
         if len(train) < MIN_TRAIN_GAMES:
             continue
 
@@ -64,7 +67,7 @@ def price_season(
         final_power = model.power
         replacement = float(model.power.min()) - 5.0
 
-        week_games = games[games["week"] == week]
+        week_games = games[games["block"] == week]
         for row in week_games.itertuples():
             if row.game_id not in lines.index:
                 continue
