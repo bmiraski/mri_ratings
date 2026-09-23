@@ -187,3 +187,29 @@ def test_independents_get_no_automatic_bid(league):
     assert "Indep." not in res.champions
     assert res.teams["pAuto"].sum() == pytest.approx(7)
     assert res.teams["pField"].sum() == pytest.approx(68)
+
+
+def test_scheduled_conference_tournament_games_get_bid_stakes_live_only(league):
+    """A conference final on today's schedule is played as scheduled in every world, so the slate can say what it
+    does to each side's bid - and in a backtest it is not, because a scheduled final gives away the semifinals."""
+    games, power, teams = league
+    t = lambda j: f"C0-T{j}"  # noqa: E731
+    # The whole twelve-team bracket played but the final, which two weak, evenly matched teams reached: neither
+    # is getting in at large, so the automatic bid is everything.
+    bracket = [(t(11), t(4), False, 0), (t(10), t(5), False, 0), (t(9), t(6), False, 0), (t(8), t(7), False, 0),
+               (t(11), t(0), False, 1), (t(10), t(1), False, 1), (t(9), t(2), True, 1), (t(8), t(3), True, 1),
+               (t(11), t(2), False, 2), (t(10), t(3), False, 2)]
+    played = _tournament(games, "C0", bracket)
+    final = {"game_id": 200000, "season": 2025, "season_type": "regular", "start_date": "2025-03-08T19:00:00.000Z",
+             "team1": t(11), "team2": t(10), "played": False, "pts1": None, "pts2": None, "win1": 0.0, "win2": 0.0,
+             "neutral": True, "conf1": "C0", "conf2": "C0", "tournament": None, "game_type": "TRNMNT"}
+    schedule = pd.concat([played, pd.DataFrame([final])], ignore_index=True)
+
+    live = joint.run(_inputs(schedule, power, teams, sims=400, leverage_through="2025-03-09"))
+    stake = live.leverage.get("200000")
+    assert stake is not None and set(stake) >= {"home", "away", "swing"}
+    # Each finalist's bid rides on it: far more likely in with a win than without.
+    assert stake["away"]["ifWin"] - stake["away"]["ifLose"] > 0.3 and stake["swing"] >= stake["away"]["ifWin"] - stake["away"]["ifLose"]
+
+    backtest = joint.run(_inputs(schedule, power, teams, sims=400, leverage_through="2025-03-09", as_of="2025-03-08"))
+    assert "200000" not in backtest.leverage

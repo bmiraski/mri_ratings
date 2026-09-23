@@ -206,3 +206,24 @@ def test_bid_stakes_show_until_the_field_is_set() -> None:
     assert bb_slate.build(2026, payload(), board, None, now=now)["bidStakes"] is True
     frozen = {"frozen": True, "teams": [], "leverage": {}}
     assert bb_slate.build(2026, payload(frozen), board, None, now=now)["bidStakes"] is False
+
+
+def test_at_large_games_get_spots_past_the_ten_when_finals_fill_them() -> None:
+    teams = [{"team": f"T{i}", "rank": 50 + i, "power": 5.0, "conference": "X", "abbreviation": f"T{i}", "color": "#123456"}
+             for i in range(40)]
+    p = {"sport": "basketball", "season": 2026, "teams": teams}
+    games, leverage = [], {}
+    for k in range(12):                    # twelve one-bid finals: all or nothing, swing near 1
+        games.append(game(k, f"T{2 * k}", f"T{2 * k + 1}"))
+        leverage[str(k)] = {"home": {"ifWin": 1.0, "ifLose": 0.0}, "swing": 1.0}
+    for k in range(12, 18):                # six bubble games: smaller swings, but the loser can still get in
+        games.append(game(k, f"T{2 * k}", f"T{2 * k + 1}"))
+        leverage[str(k)] = {"home": {"ifWin": 0.6 + k / 100, "ifLose": 0.3}, "swing": 0.3 + k / 100}
+    games.append(game(18, "T36", "T37"))   # a small at-large swing: not enough to earn a spot
+    leverage["18"] = {"home": {"ifWin": 0.5, "ifLose": 0.45}, "swing": 0.05}
+    bracket = {"frozen": False, "teams": [], "leverage": leverage}
+    now = dt.datetime(2026, 2, 28, 11, tzinfo=dt.timezone.utc)
+    slate = bb_slate.build(2026, {**p, "bracketology": bracket}, {"games": games}, None, now=now)
+    assert slate["watch"][:10] == list(range(10))                     # the ten biggest swings, as before
+    assert slate["watch"][10:] == [17, 16, 15, 14]                    # then the four biggest at-large games
+    assert len(slate["watch"]) == 10 + bb_slate.AT_LARGE_EXTRA

@@ -234,7 +234,7 @@ def run(inputs: Inputs) -> Result:
     future_home_won = (rng.random((len(future), S)) < p_world).astype(float)
     _accumulate(features, upcoming, future_home_won, n)
 
-    champions_idx, champion_counts, status = _conference_tournaments(
+    champions_idx, champion_counts, status, ct_played = _conference_tournaments(
         inputs, results, ct_results, future, future_home_won, rank, index, features, rng, error, pos)
 
     # Score every world, then select and seed each one.
@@ -295,8 +295,13 @@ def run(inputs: Inputs) -> Result:
     with np.errstate(invalid="ignore"):
         table["expectedSeed"] = (line_counts[:, 1:] * np.arange(1, 17)).sum(axis=1) / np.where(in_field > 0, in_field, np.nan)
     champions = {c: {universe[i]: cnt / S for i, cnt in counts.items()} for c, counts in champion_counts.items()}
-    leverage = _leverage(future, future_home_won, field_world, index, inputs.leverage_through) \
-        if field_world is not None else {}
+    leverage = {}
+    if field_world is not None:
+        leverage = _leverage(future, future_home_won, field_world, index, inputs.leverage_through)
+        if ct_played:
+            ct_games = pd.DataFrame([row for row, _ in ct_played.values()])
+            leverage.update(_leverage(ct_games, np.vstack([won for _, won in ct_played.values()]), field_world, index,
+                                      inputs.leverage_through))
     return Result(teams=table.sort_values(["pField", "meanScore"], ascending=[False, True]).reset_index(drop=True),
                   champions=champions, conference_status=status, sims=S, leverage=leverage)
 
@@ -358,6 +363,15 @@ def _conference_tournaments(inputs, results, ct_results, future, future_home_won
     ct_all = g[is_conference_tournament(g)]
     pending = ct_all[~ct_all["game_id"].isin(results["game_id"])]
     remaining_ct = pending["conf1"].value_counts().to_dict()
+    # Live, with a leverage window: the conference-tournament games already on the schedule - both teams known -
+    # are played as scheduled in every world before the rest of the bracket, so the slate can say what each one
+    # does to a team's bid. Never in a backtest: there, a scheduled semifinal would give away who won the
+    # quarterfinals.
+    scheduled = pending.iloc[0:0]
+    if inputs.leverage_through and inputs.as_of is None:
+        scheduled = pending[(pending["start_date"] < inputs.leverage_through)
+                            & pending["team1"].notna() & pending["team2"].notna()].sort_values("start_date")
+    ct_played: dict[str, tuple[dict, np.ndarray]] = {}
 
     power = inputs.power
     rank_arr = rank
@@ -393,7 +407,9 @@ def _conference_tournaments(inputs, results, ct_results, future, future_home_won
         champs_local = np.empty(S, dtype=int)
         record_all: list[tuple[int, int, int, int]] = []           # (world, winner, loser, better-rated)
 
-        if not played_ct.empty:
+        forced = [r for r in scheduled[scheduled["conf1"] == conf].itertuples()
+                  if r.team1 in m_idx and r.team2 in m_idx] if tpl is not None else []
+        if not played_ct.empty or forced:
             losers = {r.team1 if r.win2 == 1.0 else r.team2 for r in played_ct.itertuples()}
             entrants = set(played_ct["team1"]) | set(played_ct["team2"])
             unbeaten = [t for t in entrants if t not in losers]
@@ -415,15 +431,30 @@ def _conference_tournaments(inputs, results, ct_results, future, future_home_won
                 status[conf] = "decided"
                 champs_local[:] = alive[0]
             else:
-                status[conf] = "underway"
-                pool = alive
-                order_once = [list(range(len(pool)))]
+                status[conf] = "underway" if not played_ct.empty else "not started"
+                won_by_home = {r.game_id: np.full(S, np.nan) for r in forced}
                 for s in range(S):
+                    pool = list(alive)
+                    for r in forced:                       # today's games as scheduled, then the rest
+                        h, a = m_idx[r.team2], m_idx[r.team1]
+                        if h not in pool or a not in pool:
+                            continue
+                        home_won = rng.random() < P[h, a, s]
+                        winner, loser = (h, a) if home_won else (a, h)
+                        better = h if world_ratings[h, s] >= world_ratings[a, s] else a
+                        record_all.append((s, winner, loser, better))
+                        pool.remove(loser)
+                        won_by_home[r.game_id][s] = float(home_won)
                     rec: list = []
-                    w = simulate.run_once(order_once, world_ratings[pool, s], rng,
-                                          prob=lambda a, b, s=s: P[pool[a], pool[b], s], record=rec)
+                    w = simulate.run_once([list(range(len(pool)))], world_ratings[pool, s], rng,
+                                          prob=lambda a, b, s=s, pool=pool: P[pool[a], pool[b], s], record=rec)
                     champs_local[s] = pool[w]
                     record_all += [(s, pool[x], pool[y], pool[z]) for x, y, z in rec]
+                for r in forced:
+                    played = won_by_home[r.game_id]
+                    if not np.isnan(played).any():
+                        ct_played[str(r.game_id)] = ({"game_id": r.game_id, "team1": r.team1, "team2": r.team2,
+                                                      "start_date": r.start_date}, played)
         elif tpl is None:
             status[conf] = "no tournament"
             champs_local[:] = order[0]
@@ -445,7 +476,7 @@ def _conference_tournaments(inputs, results, ct_results, future, future_home_won
         champions_idx[ci] = uni[champs_local]
         vals, cnts = np.unique(champions_idx[ci][champions_idx[ci] >= 0], return_counts=True)
         counts[conf] = dict(zip(vals.tolist(), cnts.tolist()))
-    return champions_idx, counts, status
+    return champions_idx, counts, status, ct_played
 
 
 def _add_tournament_games(features, record, members, ratings, hosted, inputs, rank, index) -> None:
