@@ -1518,3 +1518,21 @@ def test_basketball_slate_and_betting_page_say_a_person_decides() -> None:
     p["bbTracker"] = {"record": {"dog": {}, "fade": {}}, "todayPicks": {"dog": [], "fade": []}, "fades": {}, "rules": {}}
     section = site._bb_tracker_section(p)
     assert "A person decides, not the list." in section and "measures the rule by itself" in section
+
+
+def test_hidden_heisman_on_the_heisman_page_and_the_winners_team_page(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    team = p["teams"][5]
+    winner = {"season": p["season"], "week": 3, "player": "Hidden Guy", "team": team["team"], "conference": team["conference"],
+              "opponent": p["teams"][6]["team"], "opponentRank": 40, "points": 42, "oppPoints": 17,
+              "line": {"pass_yds": 295, "pass_td": 2, "rush_yds": 153, "rush_td": 4, "rec_yds": 2, "rec_td": 0},
+              "score": 69.8, "factor": 1.0, "adjusted": 69.8, "rarity": 0.0003, "rank": 46, "of": 140947,
+              "facts": ["6 total touchdowns, the most by any FBS player this week"], "heismanWin": None}
+    p["hiddenHeisman"] = {"season": p["season"], "winners": [winner], "latest": winner, "past": []}
+    card, listing = site._hidden_heisman_section(p, {t["team"]: t for t in p["teams"]})
+    assert "The Hidden Heisman &middot; Week 3" in card and "Hidden Guy" in card and "Top 0.03%" in card
+    assert "Receiving" not in card                                   # two yards is not part of the story
+    assert "The Hidden Heisman this season" in listing
+    page = site.team_page(team, p)
+    assert "Hidden Heisman" in page and "Hidden Guy" in page
+    assert "Hidden Heisman" not in site.team_page(p["teams"][6], p)

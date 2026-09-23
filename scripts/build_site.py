@@ -186,6 +186,16 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"  heisman skipped: {exc}")
 
+    # After the odds, which it needs: anyone the model gives more than 5% is not hidden.
+    try:
+        from mri.export import hidden_heisman
+        payload["hiddenHeisman"] = hidden_heisman.build(SEASON, payload, weekly, data_dir / "hidden_heisman.json", ROOT)
+        latest = payload["hiddenHeisman"]["latest"]
+        if latest:
+            print(f"  hidden heisman: week {latest['week']}, {latest['player']} ({latest['team']})")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  hidden heisman skipped: {exc}")
+
     if payload.get("board"):
         try:
             payload["record"] = tracker.build(
