@@ -26,7 +26,12 @@ from ..ingest import cfbd, registry
 from ..ratings import mri2, priors
 
 SIGMA = board_module.SIGMA
-WATCH = 8
+# The slate page highlights the games with the most playoff consequence: at most
+# WATCH of them, and only those that move a team's chance by KEY_SWING or more, so
+# a quiet week highlights fewer games rather than padding the list with small ones.
+# (The betting board keeps its own edge threshold; this page no longer shows it.)
+WATCH = 10
+KEY_SWING = 0.05
 
 try:
     from zoneinfo import ZoneInfo
@@ -178,7 +183,7 @@ def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.Da
     fcs_rows.sort(key=order)
 
     watch = sorted(
-        (g for g in upcoming if g.get("stake")),
+        (g for g in upcoming if g.get("stake") and g["stake"]["swing"] >= KEY_SWING),
         key=lambda g: -g["stake"]["swing"],
     )[:WATCH]
 
