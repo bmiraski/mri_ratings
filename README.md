@@ -232,8 +232,13 @@ read the pattern and not any one conference's exact number):
   24 of 32 clearing both bars) - a reminder that the earlier, better-looking
   numbers were partly measuring the model's ability to see results it was
   about to be asked to predict, not real skill.
-- Per Ben's call: whether a given conference actually switches off the
-  placeholder is a decision made from these numbers, not automatic.
+- Ben's call, once Phase 3 existed: every conference simulates its tournament,
+  and the placeholder is retired (kept only as a per-conference escape hatch and
+  as a backtest baseline). The joint simulation is what makes that the right
+  call despite the 13 above: a projection built on the placeholder is *certain*
+  of a one-bid league's standings leader, and those leaders miss the field about
+  a quarter of the time. The per-conference numbers here still say which
+  leagues' tournaments are hardest to call.
 
 Rerun with `PYTHONPATH=src python3 scripts/build_bracket_history.py`
 (resumable; results cache to `/tmp/bracket_history_cache.pkl` and the summary
@@ -303,9 +308,8 @@ conference tournaments that year - so each simulated world plays out, in order:
 the rest of the regular season, game by game; every conference's standings and
 its tournament (Phase 1's bracket engine, one run per world, the games landing on
 each team's résumé the way they do on the committee's sheet); the automatic bids
-(tournament winner for conferences switched to the model, standings leader for
-those still on the placeholder, the real champion once a tournament is actually
-over); then the at-large field and seed lines from Phase 2's score, with that
+(each world's tournament winner, or the real champion once a tournament is
+actually over); then the at-large field and seed lines from Phase 2's score, with that
 world's own draw of committee noise. Each world also draws its own rating error
 per team (shaped as in the football simulation, the single-game spread over the
 square root of games played plus the fit's prior weight; scaled 2x, which the
@@ -356,44 +360,70 @@ pairing rule, so that's an assumption.
 tournament tips off, and Selection Sunday - against the field the committee
 actually picked. Phase 2's coefficients are leave-one-season-out; conference
 tournament formats are read from each conference's three previous tournaments.
-"Model" below switches the 19 conferences Phase 1 flags to the tournament
-simulation and leaves the other 13 on the placeholder; the bar to clear is "if
-the season ended today" (games to date, standings leaders take the automatic
-bids - Phase 2's answer on the day).
+The bar to clear is "if the season ended today" (games to date, standings
+leaders take the automatic bids - Phase 2's answer on the day). Three settings
+for the automatic bids are graded: every conference's tournament simulated
+(what the live build does), every conference on the old placeholder, and a mix
+(the 19 conferences Phase 1 flags simulated, the other 13 on the placeholder).
 
 | Per season | Feb 1 | Conf. tournaments start | Selection Sunday |
 |---|---|---|---|
-| Brier score, simulation (model) | **26.6** | **24.0** | **8.5** |
-| Brier score, simulation (all placeholder) | 28.1 | 29.0 | 8.5 |
+| Brier score, all simulated (live) | **26.6** | **23.3** | **8.5** |
+| Brier score, mix | 26.6 | 23.9 | 8.5 |
+| Brier score, all placeholder | 28.1 | 29.0 | 8.5 |
 | Brier score, "if the season ended today" | 44.1 | 36.6 | 11.6 |
-| Log loss, simulation (model) vs. ended today | **90** vs. 406 | **107** vs. 338 | **31** vs. 107 |
-| Projected field: real teams named | 71.6% | 74.6% | 91.3% |
-| Seed line error, real field teams | 1.77 | 1.41 | 1.18 |
+| Log loss: all simulated / mix / ended today | **88** / 90 / 406 | **77** / 105 / 338 | **31** / 31 / 107 |
+| Projected field: real teams named (all simulated) | 70.2% | 73.7% | 91.3% |
+| Seed line error, real field teams | 1.79 | 1.44 | 1.18 |
 
-Read with three caveats. First, the 19-conference "model" setting was picked by
-Phase 1's backtest on these same seasons, so its edge over the placeholder here
-is somewhat flattering. Second, calibration: on Selection Sunday it's good in
-every band; when the conference tournaments start it's good except at the top,
-where 99% has meant 91% - and nearly all of that is the placeholder itself: a
-one-bid league's standings leader is a certainty by rule, and in a check across
-seven of these seasons those leaders missed the field 27% of the time (everyone
-else at 90%+: 4%). On February 1, the 70-90%
-band runs about ten points optimistic (75% has meant 64%, 85% has meant 77%);
-read early-season bubble odds in that band a little down. Third, region
-placement: of 42 projected brackets, 3 have a flagged rule problem, all the
-unavoidable Opening Round case above.
+All-simulated is the best-calibrated of the three at every checkpoint. When the
+conference tournaments start, the top band now means what it says (98% has meant
+98%; with the placeholder in the mix, 99% had meant 91%, because a one-bid
+league's standings leader was a certainty by rule and those leaders missed the
+field about a quarter of the time). On February 1 the 70-90% band still runs a
+little optimistic (75% has meant 69%, 85% has meant 80%). The one thing the mix
+does better is the single projected bracket: it names about one more real field
+team per season in February (48.7 vs. 47.7 of 68), because in the 13 conferences
+where the standings leader wins more often than the simulation's favourite, the
+projection's automatic bid - the simulation's most frequent champion - is a
+little likelier to be wrong. The odds are the better product; the bracket is one
+draw from them. Region placement: of the projected brackets graded, the only
+flagged rule problems are the unavoidable Opening Round case above.
 
 **Live** (`scripts/build_bracketology.py` -> `site/data/bracketology.json`):
 every team's odds of the field, the automatic bid and each seed line; each
 conference's automatic-bid odds and status (not started / underway / decided);
 one projected bracket, placed into regions, with the bubble (the Opening Round
 at-large teams, first four out, next four out). Nothing is written before
-Christmas, and the file is frozen from Selection Sunday on. Settings live in
-`data/bracketology_settings.json`: every conference is on the **placeholder**
-until Ben switches it, one line per conference; `formatOverride` gives a
-conference a hand-written tournament shape when its last three tournaments no
-longer describe it (the rebuilt Pac-12, whose last tournament was the old
-12-team league, is the obvious candidate before March). Replay any past date
+Christmas, and the file is frozen from Selection Sunday on. The projected bracket
+takes each conference's most frequent simulated champion as its automatic bid.
+
+Settings live in `data/bracketology_settings.json`. `autoBid` can put a single
+conference back on the placeholder (none are). `formatOverride` is keyed by
+season and gives a conference its tournament shape when its last three
+tournaments no longer describe it, each marked `announced` (published by the
+conference) or provisional (our guess, to replace when it is). Every other
+conference's format is still read from its own recent tournaments, and the build
+prints - and writes to `formatWarnings` - any conference whose inferred bracket
+is now bigger than its league, which is how a realignment gets noticed rather
+than silently simulated wrong. For 2026-27, realignment changed 15 conferences'
+membership, and the SWAC changed its format outright; checked against current
+rosters and announcements, seven need an override:
+
+| Conference | 2027 format | Status |
+|---|---|---|
+| Pac-12 | 9 teams: 8/9 play-in; 1-2 double bye, 3-4 single bye (Las Vegas) | announced |
+| Mountain West | 10 teams: top 6 bye to the quarterfinals (Las Vegas) | announced |
+| SWAC | top 10 of 12: 7v10, 8v9; 5-6, 3-4, 1-2 enter a round apart | announced |
+| Summit | 8 teams, straight bracket (Sioux Falls) | announced |
+| WCC | 10 teams, assumed 7-10 open, then 5-6, 3-4, 1-2 | provisional - nothing announced |
+| UAC | 9 teams, assumed 8/9 play-in (Allen, TX) | provisional - bracket "to be released" |
+| ASUN | 8 teams, assumed no byes (Jacksonville) | provisional - bracket "to be released" |
+
+The other nine that changed members (Big Sky, Big West, CUSA, Horizon, MAC, NEC,
+OVC, SoCon, Sun Belt) still fit their inferred brackets - most invite a top K that's still no bigger than the league - but a
+conference can change its format without changing size, so they're worth a look
+when brackets are published in February. Replay any past date
 with `--season 2025 --as-of 2025-02-01 --force --out /tmp/x.json`, and add
 `--field-size 76` to see it under the 2027 format.
 

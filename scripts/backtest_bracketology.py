@@ -16,11 +16,12 @@ compare what comes out to the field the committee actually picked:
 * **Region placement** - whether every projected bracket satisfies every
   committee principle :mod:`mri.bracket.regions` implements.
 
-Two settings for the automatic bid, since whether a conference leaves the
-placeholder is Ben's call: every conference on the placeholder, and every
-conference the Phase 1 backtest flags as clearing both bars switched to the
-model. The second is also run with ratings treated as exact (no per-world rating
-error), to show what the error bars are worth.
+Three settings for the automatic bid: every conference's tournament simulated
+(``allModel`` - what the live build does), every conference on the Phase 1
+placeholder (standings leader takes the bid), and a mix - the 19 conferences the
+Phase 1 backtest flags simulated, the rest on the placeholder. The mix is also run
+with ratings treated as exact (no per-world rating error), to show what the error
+bars are worth.
 
 The at-large score is fit leave-one-season-out, as in Phase 2 - a season's own
 field never trains the coefficients it's graded with. The committee-noise size
@@ -127,7 +128,9 @@ def one_season(season: int, modes: dict[str, str]) -> dict:
                       resume_sigma=ratings.sigma, conference_of=conf_of, beta=beta, fmt=fmt, as_of=as_of,
                       seed=season, committee_noise=noise)
         row = {}
-        for variant, auto_mode, uncertainty in (("placeholder", {}, joint.RATING_UNCERTAINTY),
+        everywhere = {c: "placeholder" for c in set(conf_of.values())}
+        for variant, auto_mode, uncertainty in (("allModel", {}, joint.RATING_UNCERTAINTY),
+                                                ("placeholder", everywhere, joint.RATING_UNCERTAINTY),
                                                 ("recommended", modes, joint.RATING_UNCERTAINTY),
                                                 ("recommendedExact", modes, 0.0)):
             res = joint.run(joint.Inputs(templates=templates, auto_mode=auto_mode, sims=SIMS,
@@ -147,7 +150,7 @@ def summarize(done: dict) -> dict:
     summary = {}
     for cp in CHECKPOINTS:
         summary[cp] = {}
-        for variant in ("placeholder", "recommended", "recommendedExact", "endedToday"):
+        for variant in ("allModel", "placeholder", "recommended", "recommendedExact", "endedToday"):
             rows = [done[s][cp][variant] for s in done if done[s] and cp in done[s]]
             if not rows:
                 continue

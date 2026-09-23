@@ -33,8 +33,11 @@ the original plan.*
   2011-2025 at three checkpoints; writes `data/bracketology_backtest.json`.
 - `scripts/build_bracketology.py` — live projection to
   `site/data/bracketology.json` (Christmas to Selection Sunday).
-- `data/bracketology_settings.json` — per-conference automatic-bid mode (all
-  placeholder until Ben switches one), format overrides, calendar.
+- `data/bracketology_settings.json` — every conference simulates its
+  tournament (the placeholder is retired; `autoBid` can bring it back for one
+  conference); season-keyed tournament-format overrides for leagues realignment
+  reshaped (2027: Pac-12, Mountain West, SWAC, Summit announced; WCC, UAC, ASUN
+  provisional - replace when their brackets are published); calendar.
 
 **Not started:** Phase 4 (the pages, and wiring the live build into the daily
 run).

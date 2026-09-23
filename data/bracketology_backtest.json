@@ -18,6 +18,78 @@
  "sims": 2000,
  "summary": {
   "feb1": {
+   "allModel": {
+    "seasons": 14,
+    "brierPerSeason": 26.59,
+    "logLossPerSeason": 87.64,
+    "fieldHitRate": 0.702,
+    "seedMAE": 1.79,
+    "seedExact": 0.235,
+    "regionProblems": 1,
+    "linesMoved": 6,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 2709,
+      "meanP": 0.029,
+      "madeField": 0.027
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 638,
+      "meanP": 0.144,
+      "madeField": 0.136
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 306,
+      "meanP": 0.244,
+      "madeField": 0.255
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 190,
+      "meanP": 0.346,
+      "madeField": 0.411
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 141,
+      "meanP": 0.451,
+      "madeField": 0.433
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 116,
+      "meanP": 0.55,
+      "madeField": 0.647
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 82,
+      "meanP": 0.652,
+      "madeField": 0.659
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 85,
+      "meanP": 0.753,
+      "madeField": 0.694
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 91,
+      "meanP": 0.848,
+      "madeField": 0.802
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 324,
+      "meanP": 0.982,
+      "madeField": 0.963
+     }
+    ]
+   },
    "placeholder": {
     "seasons": 14,
     "brierPerSeason": 28.13,
@@ -92,8 +164,8 @@
    },
    "recommended": {
     "seasons": 14,
-    "brierPerSeason": 26.63,
-    "logLossPerSeason": 90.29,
+    "brierPerSeason": 26.6,
+    "logLossPerSeason": 90.25,
     "fieldHitRate": 0.716,
     "seedMAE": 1.77,
     "seedExact": 0.238,
@@ -108,45 +180,45 @@
      },
      {
       "range": "0.1-0.2",
-      "n": 501,
+      "n": 502,
       "meanP": 0.144,
-      "madeField": 0.148
+      "madeField": 0.147
      },
      {
       "range": "0.2-0.3",
-      "n": 255,
+      "n": 256,
       "meanP": 0.244,
-      "madeField": 0.212
+      "madeField": 0.211
      },
      {
       "range": "0.3-0.4",
-      "n": 175,
+      "n": 176,
       "meanP": 0.346,
-      "madeField": 0.371
+      "madeField": 0.369
      },
      {
       "range": "0.4-0.5",
-      "n": 137,
+      "n": 138,
       "meanP": 0.447,
-      "madeField": 0.445
+      "madeField": 0.442
      },
      {
       "range": "0.5-0.6",
       "n": 136,
-      "meanP": 0.548,
+      "meanP": 0.549,
       "madeField": 0.61
      },
      {
       "range": "0.6-0.7",
-      "n": 85,
-      "meanP": 0.65,
-      "madeField": 0.6
+      "n": 84,
+      "meanP": 0.651,
+      "madeField": 0.607
      },
      {
       "range": "0.7-0.8",
-      "n": 91,
-      "meanP": 0.75,
-      "madeField": 0.637
+      "n": 90,
+      "meanP": 0.751,
+      "madeField": 0.644
      },
      {
       "range": "0.8-0.9",
@@ -164,8 +236,8 @@
    },
    "recommendedExact": {
     "seasons": 14,
-    "brierPerSeason": 27.01,
-    "logLossPerSeason": 94.24,
+    "brierPerSeason": 26.99,
+    "logLossPerSeason": 94.2,
     "fieldHitRate": 0.716,
     "seedMAE": 1.78,
     "seedExact": 0.237,
@@ -180,27 +252,27 @@
      },
      {
       "range": "0.1-0.2",
-      "n": 382,
-      "meanP": 0.146,
+      "n": 383,
+      "meanP": 0.147,
       "madeField": 0.149
      },
      {
       "range": "0.2-0.3",
-      "n": 210,
+      "n": 209,
       "meanP": 0.246,
-      "madeField": 0.233
+      "madeField": 0.234
      },
      {
       "range": "0.3-0.4",
-      "n": 167,
+      "n": 168,
       "meanP": 0.347,
-      "madeField": 0.341
+      "madeField": 0.339
      },
      {
       "range": "0.4-0.5",
-      "n": 121,
+      "n": 122,
       "meanP": 0.451,
-      "madeField": 0.413
+      "madeField": 0.41
      },
      {
       "range": "0.5-0.6",
@@ -216,9 +288,9 @@
      },
      {
       "range": "0.7-0.8",
-      "n": 102,
+      "n": 101,
       "meanP": 0.751,
-      "madeField": 0.608
+      "madeField": 0.614
      },
      {
       "range": "0.8-0.9",
@@ -254,6 +326,78 @@
    }
   },
   "confStart": {
+   "allModel": {
+    "seasons": 14,
+    "brierPerSeason": 23.25,
+    "logLossPerSeason": 77.11,
+    "fieldHitRate": 0.737,
+    "seedMAE": 1.44,
+    "seedExact": 0.269,
+    "regionProblems": 0,
+    "linesMoved": 2,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 2449,
+      "meanP": 0.027,
+      "madeField": 0.027
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 589,
+      "meanP": 0.143,
+      "madeField": 0.121
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 268,
+      "meanP": 0.248,
+      "madeField": 0.28
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 174,
+      "meanP": 0.347,
+      "madeField": 0.299
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 135,
+      "meanP": 0.449,
+      "madeField": 0.511
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 113,
+      "meanP": 0.549,
+      "madeField": 0.549
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 79,
+      "meanP": 0.653,
+      "madeField": 0.595
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 77,
+      "meanP": 0.747,
+      "madeField": 0.766
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 92,
+      "meanP": 0.845,
+      "madeField": 0.935
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 371,
+      "meanP": 0.983,
+      "madeField": 0.976
+     }
+    ]
+   },
    "placeholder": {
     "seasons": 14,
     "brierPerSeason": 28.98,
@@ -328,8 +472,8 @@
    },
    "recommended": {
     "seasons": 14,
-    "brierPerSeason": 24.01,
-    "logLossPerSeason": 106.5,
+    "brierPerSeason": 23.89,
+    "logLossPerSeason": 105.32,
     "fieldHitRate": 0.746,
     "seedMAE": 1.41,
     "seedExact": 0.264,
@@ -338,21 +482,21 @@
     "calibration": [
      {
       "range": "0.0-0.1",
-      "n": 1852,
+      "n": 1858,
       "meanP": 0.026,
       "madeField": 0.031
      },
      {
       "range": "0.1-0.2",
-      "n": 412,
+      "n": 417,
       "meanP": 0.144,
-      "madeField": 0.136
+      "madeField": 0.134
      },
      {
       "range": "0.2-0.3",
-      "n": 199,
+      "n": 201,
       "meanP": 0.248,
-      "madeField": 0.246
+      "madeField": 0.244
      },
      {
       "range": "0.3-0.4",
@@ -362,9 +506,9 @@
      },
      {
       "range": "0.4-0.5",
-      "n": 109,
-      "meanP": 0.452,
-      "madeField": 0.486
+      "n": 112,
+      "meanP": 0.453,
+      "madeField": 0.473
      },
      {
       "range": "0.5-0.6",
@@ -380,9 +524,9 @@
      },
      {
       "range": "0.7-0.8",
-      "n": 83,
-      "meanP": 0.753,
-      "madeField": 0.759
+      "n": 82,
+      "meanP": 0.752,
+      "madeField": 0.768
      },
      {
       "range": "0.8-0.9",
@@ -392,16 +536,16 @@
      },
      {
       "range": "0.9-1.0",
-      "n": 454,
+      "n": 452,
       "meanP": 0.986,
-      "madeField": 0.914
+      "madeField": 0.918
      }
     ]
    },
    "recommendedExact": {
     "seasons": 14,
-    "brierPerSeason": 24.14,
-    "logLossPerSeason": 106.93,
+    "brierPerSeason": 24.03,
+    "logLossPerSeason": 105.77,
     "fieldHitRate": 0.749,
     "seedMAE": 1.4,
     "seedExact": 0.28,
@@ -410,21 +554,21 @@
     "calibration": [
      {
       "range": "0.0-0.1",
-      "n": 1695,
+      "n": 1703,
       "meanP": 0.023,
       "madeField": 0.038
      },
      {
       "range": "0.1-0.2",
-      "n": 322,
+      "n": 325,
       "meanP": 0.142,
-      "madeField": 0.134
+      "madeField": 0.132
      },
      {
       "range": "0.2-0.3",
-      "n": 199,
+      "n": 200,
       "meanP": 0.248,
-      "madeField": 0.251
+      "madeField": 0.25
      },
      {
       "range": "0.3-0.4",
@@ -440,21 +584,21 @@
      },
      {
       "range": "0.5-0.6",
-      "n": 112,
+      "n": 114,
       "meanP": 0.544,
-      "madeField": 0.482
+      "madeField": 0.474
      },
      {
       "range": "0.6-0.7",
-      "n": 83,
+      "n": 84,
       "meanP": 0.65,
-      "madeField": 0.566
+      "madeField": 0.56
      },
      {
       "range": "0.7-0.8",
-      "n": 96,
+      "n": 95,
       "meanP": 0.749,
-      "madeField": 0.771
+      "madeField": 0.779
      },
      {
       "range": "0.8-0.9",
@@ -464,9 +608,9 @@
      },
      {
       "range": "0.9-1.0",
-      "n": 465,
+      "n": 463,
       "meanP": 0.985,
-      "madeField": 0.912
+      "madeField": 0.916
      }
     ]
    },
@@ -490,6 +634,78 @@
    }
   },
   "selectionSunday": {
+   "allModel": {
+    "seasons": 14,
+    "brierPerSeason": 8.48,
+    "logLossPerSeason": 30.63,
+    "fieldHitRate": 0.913,
+    "seedMAE": 1.18,
+    "seedExact": 0.35,
+    "regionProblems": 1,
+    "linesMoved": 0,
+    "calibration": [
+     {
+      "range": "0.0-0.1",
+      "n": 704,
+      "meanP": 0.017,
+      "madeField": 0.014
+     },
+     {
+      "range": "0.1-0.2",
+      "n": 104,
+      "meanP": 0.142,
+      "madeField": 0.163
+     },
+     {
+      "range": "0.2-0.3",
+      "n": 68,
+      "meanP": 0.249,
+      "madeField": 0.265
+     },
+     {
+      "range": "0.3-0.4",
+      "n": 59,
+      "meanP": 0.349,
+      "madeField": 0.322
+     },
+     {
+      "range": "0.4-0.5",
+      "n": 50,
+      "meanP": 0.451,
+      "madeField": 0.44
+     },
+     {
+      "range": "0.5-0.6",
+      "n": 58,
+      "meanP": 0.551,
+      "madeField": 0.603
+     },
+     {
+      "range": "0.6-0.7",
+      "n": 57,
+      "meanP": 0.656,
+      "madeField": 0.596
+     },
+     {
+      "range": "0.7-0.8",
+      "n": 46,
+      "meanP": 0.749,
+      "madeField": 0.739
+     },
+     {
+      "range": "0.8-0.9",
+      "n": 66,
+      "meanP": 0.849,
+      "madeField": 0.924
+     },
+     {
+      "range": "0.9-1.0",
+      "n": 710,
+      "meanP": 0.993,
+      "madeField": 0.982
+     }
+    ]
+   },
    "placeholder": {
     "seasons": 14,
     "brierPerSeason": 8.48,
@@ -729,6 +945,17 @@
  "bySeason": {
   "2011": {
    "feb1": {
+    "allModel": {
+     "brier": 27.7327885,
+     "logLoss": 89.68238853547102,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 1.9333333333333333,
+     "seedExact": 0.24444444444444444,
+     "expectedSeedMAE": 1.6131111130342806,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 31.430847,
      "logLoss": 117.13736829903219,
@@ -741,24 +968,24 @@
      "linesMoved": 0
     },
     "recommended": {
-     "brier": 27.985052500000002,
-     "logLoss": 90.35704446060461,
+     "brier": 27.923884,
+     "logLoss": 90.27530406232486,
      "fieldHits": 44,
      "fieldSize": 68,
      "seedMAE": 1.9772727272727273,
      "seedExact": 0.22727272727272727,
-     "expectedSeedMAE": 1.6261978407928501,
+     "expectedSeedMAE": 1.626587891866743,
      "regionProblems": 0,
      "linesMoved": 0
     },
     "recommendedExact": {
-     "brier": 29.657085000000002,
-     "logLoss": 96.41482065087149,
+     "brier": 29.663271,
+     "logLoss": 96.41950620489658,
      "fieldHits": 43,
      "fieldSize": 68,
      "seedMAE": 2.0,
      "seedExact": 0.23255813953488372,
-     "expectedSeedMAE": 1.627854441381558,
+     "expectedSeedMAE": 1.6278424559052316,
      "regionProblems": 0,
      "linesMoved": 0
     },
@@ -775,6 +1002,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 22.5978,
+     "logLoss": 73.8659789487664,
+     "fieldHits": 49,
+     "fieldSize": 68,
+     "seedMAE": 1.530612244897959,
+     "seedExact": 0.24489795918367346,
+     "expectedSeedMAE": 1.267491769855921,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 31.4640555,
      "logLoss": 213.4952204620231,
@@ -787,24 +1025,24 @@
      "linesMoved": 0
     },
     "recommended": {
-     "brier": 23.649534000000003,
-     "logLoss": 101.55147866893338,
+     "brier": 23.3138225,
+     "logLoss": 100.98771754387928,
      "fieldHits": 47,
      "fieldSize": 68,
      "seedMAE": 1.5106382978723405,
      "seedExact": 0.23404255319148937,
-     "expectedSeedMAE": 1.3419995601102521,
+     "expectedSeedMAE": 1.3421132356894814,
      "regionProblems": 0,
      "linesMoved": 0
     },
     "recommendedExact": {
-     "brier": 24.599171000000002,
-     "logLoss": 103.61538540909959,
+     "brier": 24.3933575,
+     "logLoss": 103.20265647870407,
      "fieldHits": 48,
      "fieldSize": 68,
      "seedMAE": 1.4166666666666667,
      "seedExact": 0.2708333333333333,
-     "expectedSeedMAE": 1.323574775012741,
+     "expectedSeedMAE": 1.3235545983824553,
      "regionProblems": 0,
      "linesMoved": 0
     },
@@ -821,6 +1059,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 7.295796000000001,
+     "logLoss": 30.916605049018305,
+     "fieldHits": 64,
+     "fieldSize": 68,
+     "seedMAE": 1.234375,
+     "seedExact": 0.34375,
+     "expectedSeedMAE": 1.1974436084457973,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 7.295796000000001,
      "logLoss": 30.916605049018305,
@@ -869,6 +1118,17 @@
   },
   "2012": {
    "feb1": {
+    "allModel": {
+     "brier": 21.731,
+     "logLoss": 72.6714037793489,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.5625,
+     "seedExact": 0.2708333333333333,
+     "expectedSeedMAE": 1.581385457571992,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
     "placeholder": {
      "brier": 23.485588,
      "logLoss": 81.12160832678735,
@@ -881,24 +1141,24 @@
      "linesMoved": 2
     },
     "recommended": {
-     "brier": 21.1773115,
-     "logLoss": 72.49166069360001,
+     "brier": 21.102932,
+     "logLoss": 72.41055380004263,
      "fieldHits": 51,
      "fieldSize": 68,
      "seedMAE": 1.4901960784313726,
      "seedExact": 0.29411764705882354,
-     "expectedSeedMAE": 1.555950867120733,
+     "expectedSeedMAE": 1.5558149911108299,
      "regionProblems": 1,
      "linesMoved": 2
     },
     "recommendedExact": {
-     "brier": 21.643428500000002,
-     "logLoss": 75.34652951368405,
+     "brier": 21.6460235,
+     "logLoss": 75.33130164581289,
      "fieldHits": 51,
      "fieldSize": 68,
      "seedMAE": 1.5098039215686274,
      "seedExact": 0.27450980392156865,
-     "expectedSeedMAE": 1.5106526654332921,
+     "expectedSeedMAE": 1.5105649342157872,
      "regionProblems": 1,
      "linesMoved": 0
     },
@@ -915,6 +1175,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 18.533697,
+     "logLoss": 63.662339366605615,
+     "fieldHits": 55,
+     "fieldSize": 68,
+     "seedMAE": 1.4545454545454546,
+     "seedExact": 0.21818181818181817,
+     "expectedSeedMAE": 1.3127685199641352,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 28.749727500000002,
      "logLoss": 175.80690038764195,
@@ -927,24 +1198,24 @@
      "linesMoved": 0
     },
     "recommended": {
-     "brier": 22.792075499999996,
-     "logLoss": 113.93477982135308,
+     "brier": 22.1094495,
+     "logLoss": 105.94256373954705,
      "fieldHits": 56,
      "fieldSize": 68,
      "seedMAE": 1.4464285714285714,
      "seedExact": 0.19642857142857142,
-     "expectedSeedMAE": 1.4000177056939678,
+     "expectedSeedMAE": 1.4008791325550094,
      "regionProblems": 0,
      "linesMoved": 0
     },
     "recommendedExact": {
-     "brier": 22.533058999999998,
-     "logLoss": 114.72214232048191,
+     "brier": 21.962220499999997,
+     "logLoss": 106.85409590526793,
      "fieldHits": 54,
      "fieldSize": 68,
      "seedMAE": 1.3888888888888888,
      "seedExact": 0.25925925925925924,
-     "expectedSeedMAE": 1.3741446257574421,
+     "expectedSeedMAE": 1.374196146000972,
      "regionProblems": 0,
      "linesMoved": 0
     },
@@ -961,6 +1232,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 6.762733,
+     "logLoss": 29.346307644525115,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0769230769230769,
+     "seedExact": 0.26153846153846155,
+     "expectedSeedMAE": 1.208929668936058,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 6.762733,
      "logLoss": 29.346307644525115,
@@ -1009,6 +1291,17 @@
   },
   "2013": {
    "feb1": {
+    "allModel": {
+     "brier": 24.6703355,
+     "logLoss": 80.40320079483593,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 2.3333333333333335,
+     "seedExact": 0.16666666666666666,
+     "expectedSeedMAE": 1.9639167725039357,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 25.8097945,
      "logLoss": 95.02836001967272,
@@ -1021,24 +1314,24 @@
      "linesMoved": 0
     },
     "recommended": {
-     "brier": 24.834264500000003,
-     "logLoss": 85.69796961554991,
+     "brier": 24.570944500000003,
+     "logLoss": 85.32722312727269,
      "fieldHits": 50,
      "fieldSize": 68,
      "seedMAE": 2.3,
      "seedExact": 0.18,
-     "expectedSeedMAE": 1.9705417186142473,
+     "expectedSeedMAE": 1.9707043485350815,
      "regionProblems": 0,
      "linesMoved": 0
     },
     "recommendedExact": {
-     "brier": 24.804933000000002,
-     "logLoss": 89.67089283946733,
+     "brier": 24.4975605,
+     "logLoss": 89.15004920876244,
      "fieldHits": 50,
      "fieldSize": 68,
      "seedMAE": 2.38,
      "seedExact": 0.16,
-     "expectedSeedMAE": 1.970986080918099,
+     "expectedSeedMAE": 1.9710009773506518,
      "regionProblems": 0,
      "linesMoved": 0
     },
@@ -1055,6 +1348,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 21.2284395,
+     "logLoss": 70.39957200246249,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9019607843137254,
+     "seedExact": 0.19607843137254902,
+     "expectedSeedMAE": 1.5624622271407536,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 29.8197145,
      "logLoss": 190.66070261259782,
@@ -1067,24 +1371,24 @@
      "linesMoved": 0
     },
     "recommended": {
-     "brier": 22.549681999999997,
-     "logLoss": 110.42093067045906,
+     "brier": 21.845736,
+     "logLoss": 102.41627947162573,
      "fieldHits": 54,
      "fieldSize": 68,
      "seedMAE": 1.8703703703703705,
      "seedExact": 0.18518518518518517,
-     "expectedSeedMAE": 1.6334261338097231,
+     "expectedSeedMAE": 1.6334665543022941,
      "regionProblems": 0,
      "linesMoved": 0
     },
     "recommendedExact": {
-     "brier": 22.556371,
-     "logLoss": 111.11030052547522,
+     "brier": 21.889829499999998,
+     "logLoss": 103.14743143216307,
      "fieldHits": 54,
      "fieldSize": 68,
      "seedMAE": 1.8703703703703705,
      "seedExact": 0.18518518518518517,
-     "expectedSeedMAE": 1.6175311829874675,
+     "expectedSeedMAE": 1.617690744568503,
      "regionProblems": 0,
      "linesMoved": 0
     },
@@ -1101,6 +1405,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 9.040155500000001,
+     "logLoss": 34.77718070537254,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 1.5161290322580645,
+     "seedExact": 0.25806451612903225,
+     "expectedSeedMAE": 1.4278103220376348,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 9.040155500000001,
      "logLoss": 34.77718070537254,
@@ -1149,6 +1464,17 @@
   },
   "2014": {
    "feb1": {
+    "allModel": {
+     "brier": 24.997464,
+     "logLoss": 84.78450793400837,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9215686274509804,
+     "seedExact": 0.19607843137254902,
+     "expectedSeedMAE": 1.5497278443238471,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 27.2191885,
      "logLoss": 96.72304782055036,
@@ -1195,6 +1521,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 22.3284565,
+     "logLoss": 75.03250100412976,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.4705882352941178,
+     "seedExact": 0.23529411764705882,
+     "expectedSeedMAE": 1.1932044103692656,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 32.3427745,
      "logLoss": 224.27409154042874,
@@ -1241,6 +1578,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 4.966996000000001,
+     "logLoss": 16.6519924926244,
+     "fieldHits": 65,
+     "fieldSize": 68,
+     "seedMAE": 1.0461538461538462,
+     "seedExact": 0.36923076923076925,
+     "expectedSeedMAE": 1.085400071335295,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 4.966996000000001,
      "logLoss": 16.6519924926244,
@@ -1289,6 +1637,17 @@
   },
   "2015": {
    "feb1": {
+    "allModel": {
+     "brier": 25.480605000000004,
+     "logLoss": 82.47310890283215,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.3404255319148937,
+     "seedExact": 0.2978723404255319,
+     "expectedSeedMAE": 1.216255695405243,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
     "placeholder": {
      "brier": 27.3087995,
      "logLoss": 91.34805824733711,
@@ -1335,6 +1694,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 20.7716195,
+     "logLoss": 70.0657072668261,
+     "fieldHits": 54,
+     "fieldSize": 68,
+     "seedMAE": 1.1481481481481481,
+     "seedExact": 0.2962962962962963,
+     "expectedSeedMAE": 1.057014416600546,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 25.084812499999998,
      "logLoss": 152.91840840142692,
@@ -1381,6 +1751,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 4.7304205,
+     "logLoss": 16.286525468341203,
+     "fieldHits": 66,
+     "fieldSize": 68,
+     "seedMAE": 1.0,
+     "seedExact": 0.3181818181818182,
+     "expectedSeedMAE": 0.9688341979014328,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 4.7304205,
      "logLoss": 16.286525468341203,
@@ -1429,6 +1810,17 @@
   },
   "2016": {
    "feb1": {
+    "allModel": {
+     "brier": 31.468359500000002,
+     "logLoss": 113.3122176581127,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.4565217391304348,
+     "seedExact": 0.1956521739130435,
+     "expectedSeedMAE": 1.3833487467208627,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 33.0876105,
      "logLoss": 131.30066634786118,
@@ -1475,6 +1867,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 28.629227999999998,
+     "logLoss": 102.50256039630956,
+     "fieldHits": 46,
+     "fieldSize": 68,
+     "seedMAE": 1.3043478260869565,
+     "seedExact": 0.2608695652173913,
+     "expectedSeedMAE": 1.139815946677505,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 36.746688,
      "logLoss": 248.3559245834132,
@@ -1521,6 +1924,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 10.7739775,
+     "logLoss": 39.71423303816878,
+     "fieldHits": 60,
+     "fieldSize": 68,
+     "seedMAE": 1.0166666666666666,
+     "seedExact": 0.45,
+     "expectedSeedMAE": 1.057228969925407,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 10.7739775,
      "logLoss": 39.71423303816878,
@@ -1569,6 +1983,17 @@
   },
   "2017": {
    "feb1": {
+    "allModel": {
+     "brier": 22.6501175,
+     "logLoss": 75.50740558890442,
+     "fieldHits": 50,
+     "fieldSize": 66,
+     "seedMAE": 1.6,
+     "seedExact": 0.24,
+     "expectedSeedMAE": 1.3044560405727053,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 23.012762000000002,
      "logLoss": 83.52273706601456,
@@ -1615,6 +2040,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 19.908918,
+     "logLoss": 66.8602619629694,
+     "fieldHits": 51,
+     "fieldSize": 66,
+     "seedMAE": 1.1568627450980393,
+     "seedExact": 0.27450980392156865,
+     "expectedSeedMAE": 1.0124099703159088,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 23.632115,
      "logLoss": 143.05128099928604,
@@ -1661,6 +2097,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 7.251576,
+     "logLoss": 28.68644450594186,
+     "fieldHits": 62,
+     "fieldSize": 66,
+     "seedMAE": 0.9354838709677419,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.9044746381464801,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 7.251576,
      "logLoss": 28.68644450594186,
@@ -1709,6 +2156,17 @@
   },
   "2018": {
    "feb1": {
+    "allModel": {
+     "brier": 25.821337,
+     "logLoss": 81.77670168070264,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.75,
+     "seedExact": 0.25,
+     "expectedSeedMAE": 1.5016730540942187,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 27.717412999999997,
      "logLoss": 89.07038975631446,
@@ -1755,6 +2213,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 25.570968,
+     "logLoss": 79.59729465062719,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.3404255319148937,
+     "seedExact": 0.2978723404255319,
+     "expectedSeedMAE": 1.1989739349882158,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 31.866277500000002,
      "logLoss": 182.54211175465258,
@@ -1801,6 +2270,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 9.232396,
+     "logLoss": 28.044965541468148,
+     "fieldHits": 61,
+     "fieldSize": 68,
+     "seedMAE": 1.1147540983606556,
+     "seedExact": 0.29508196721311475,
+     "expectedSeedMAE": 1.104433466354097,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 9.232396,
      "logLoss": 28.044965541468148,
@@ -1849,6 +2329,17 @@
   },
   "2019": {
    "feb1": {
+    "allModel": {
+     "brier": 25.5788175,
+     "logLoss": 82.97786911807644,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.44,
+     "seedExact": 0.2,
+     "expectedSeedMAE": 1.3065470961358863,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 29.145166,
      "logLoss": 98.8455350020874,
@@ -1895,6 +2386,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 22.0173015,
+     "logLoss": 72.71983435731552,
+     "fieldHits": 52,
+     "fieldSize": 68,
+     "seedMAE": 1.0576923076923077,
+     "seedExact": 0.3076923076923077,
+     "expectedSeedMAE": 0.9406904289592817,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 24.330867500000004,
      "logLoss": 135.90001532057522,
@@ -1941,6 +2443,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 8.277121,
+     "logLoss": 25.782333739279032,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7903225806451613,
+     "seedExact": 0.41935483870967744,
+     "expectedSeedMAE": 0.8487472663153646,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 8.277121,
      "logLoss": 25.782333739279032,
@@ -1989,6 +2502,17 @@
   },
   "2021": {
    "feb1": {
+    "allModel": {
+     "brier": 31.446331999999998,
+     "logLoss": 103.17075356916392,
+     "fieldHits": 44,
+     "fieldSize": 68,
+     "seedMAE": 2.25,
+     "seedExact": 0.2727272727272727,
+     "expectedSeedMAE": 1.6788572642943334,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 33.3588335,
      "logLoss": 118.43993934625597,
@@ -2035,6 +2559,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 28.255487,
+     "logLoss": 91.09055052803808,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 1.711111111111111,
+     "seedExact": 0.3333333333333333,
+     "expectedSeedMAE": 1.582936195274685,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 33.916479,
      "logLoss": 164.3619705090532,
@@ -2081,6 +2616,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 11.1880795,
+     "logLoss": 33.77830316977538,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.6724137931034482,
+     "seedExact": 0.3103448275862069,
+     "expectedSeedMAE": 1.6164715266631895,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 11.1880795,
      "logLoss": 33.77830316977538,
@@ -2129,6 +2675,17 @@
   },
   "2022": {
    "feb1": {
+    "allModel": {
+     "brier": 28.043128,
+     "logLoss": 89.06703862785348,
+     "fieldHits": 48,
+     "fieldSize": 68,
+     "seedMAE": 1.7708333333333333,
+     "seedExact": 0.22916666666666666,
+     "expectedSeedMAE": 1.4297981745756982,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
     "placeholder": {
      "brier": 28.369167,
      "logLoss": 93.38744892707005,
@@ -2175,6 +2732,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 23.449141499999996,
+     "logLoss": 74.03945821897479,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.46,
+     "seedExact": 0.22,
+     "expectedSeedMAE": 1.138774451292213,
+     "regionProblems": 0,
+     "linesMoved": 2
+    },
     "placeholder": {
      "brier": 25.503083,
      "logLoss": 135.83599557870227,
@@ -2221,6 +2789,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 11.358984,
+     "logLoss": 45.76884172787317,
+     "fieldHits": 58,
+     "fieldSize": 68,
+     "seedMAE": 1.1551724137931034,
+     "seedExact": 0.3793103448275862,
+     "expectedSeedMAE": 1.1593449989699216,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 11.358984,
      "logLoss": 45.76884172787317,
@@ -2269,6 +2848,17 @@
   },
   "2023": {
    "feb1": {
+    "allModel": {
+     "brier": 28.7388195,
+     "logLoss": 92.87442824392362,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.9361702127659575,
+     "seedExact": 0.2553191489361702,
+     "expectedSeedMAE": 1.6800548579666736,
+     "regionProblems": 1,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 26.298257,
      "logLoss": 89.19880130825962,
@@ -2315,6 +2905,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 25.428481,
+     "logLoss": 82.55679901518903,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 1.9411764705882353,
+     "seedExact": 0.2549019607843137,
+     "expectedSeedMAE": 1.5570988202116538,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 28.346505,
      "logLoss": 150.39993775714424,
@@ -2361,6 +2962,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 13.6066555,
+     "logLoss": 54.59837402021777,
+     "fieldHits": 59,
+     "fieldSize": 68,
+     "seedMAE": 1.6101694915254237,
+     "seedExact": 0.3220338983050847,
+     "expectedSeedMAE": 1.4691267161320163,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 13.6066555,
      "logLoss": 54.59837402021777,
@@ -2409,6 +3021,17 @@
   },
   "2024": {
    "feb1": {
+    "allModel": {
+     "brier": 28.924653499999998,
+     "logLoss": 94.90178270963145,
+     "fieldHits": 45,
+     "fieldSize": 68,
+     "seedMAE": 2.4444444444444446,
+     "seedExact": 0.17777777777777778,
+     "expectedSeedMAE": 1.7770190516861124,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 30.3134265,
      "logLoss": 103.91078034901909,
@@ -2455,6 +3078,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 25.028104000000003,
+     "logLoss": 84.46339080982557,
+     "fieldHits": 47,
+     "fieldSize": 68,
+     "seedMAE": 1.7872340425531914,
+     "seedExact": 0.23404255319148937,
+     "expectedSeedMAE": 1.3752554739365837,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 29.6351975,
      "logLoss": 161.68795462347578,
@@ -2501,6 +3135,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 6.958742999999999,
+     "logLoss": 22.085493316592682,
+     "fieldHits": 63,
+     "fieldSize": 68,
+     "seedMAE": 1.6349206349206349,
+     "seedExact": 0.31746031746031744,
+     "expectedSeedMAE": 1.4242210368691548,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 6.958742999999999,
      "logLoss": 22.085493316592682,
@@ -2549,6 +3194,17 @@
   },
   "2025": {
    "feb1": {
+    "allModel": {
+     "brier": 25.030054500000002,
+     "logLoss": 83.41252601880346,
+     "fieldHits": 50,
+     "fieldSize": 68,
+     "seedMAE": 1.32,
+     "seedExact": 0.3,
+     "expectedSeedMAE": 1.172163094908744,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 27.214306500000003,
      "logLoss": 97.2478177749057,
@@ -2595,6 +3251,17 @@
     }
    },
    "confStart": {
+    "allModel": {
+     "brier": 21.716934999999996,
+     "logLoss": 72.67815559844944,
+     "fieldHits": 51,
+     "fieldSize": 68,
+     "seedMAE": 0.8823529411764706,
+     "seedExact": 0.39215686274509803,
+     "expectedSeedMAE": 0.8899008372850501,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 24.291112,
      "logLoss": 132.56666168109018,
@@ -2641,6 +3308,17 @@
     }
    },
    "selectionSunday": {
+    "allModel": {
+     "brier": 7.210561500000001,
+     "logLoss": 22.389740022447935,
+     "fieldHits": 62,
+     "fieldSize": 68,
+     "seedMAE": 0.7580645161290323,
+     "seedExact": 0.43548387096774194,
+     "expectedSeedMAE": 0.7334575031756998,
+     "regionProblems": 0,
+     "linesMoved": 0
+    },
     "placeholder": {
      "brier": 7.210561500000001,
      "logLoss": 22.389740022447935,

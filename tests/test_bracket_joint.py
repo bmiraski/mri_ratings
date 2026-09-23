@@ -71,14 +71,20 @@ def test_every_world_fills_the_field_exactly(league):
 
 
 def test_placeholder_gives_the_standings_leader_the_bid(league):
-    res = joint.run(_inputs(*league))                         # whole regular season played, no tournament yet
+    res = joint.run(_inputs(*league, auto_mode={c: "placeholder" for c in CONFS}))   # season over, no tournament yet
     for c in CONFS:
         assert res.champions[c] == {f"{c}-T0": 1.0}
         assert res.conference_status[c] == "not started"
 
 
+def test_model_is_the_default(league):
+    explicit = joint.run(_inputs(*league, auto_mode={c: "model" for c in CONFS}))
+    default = joint.run(_inputs(*league))
+    assert explicit.champions == default.champions
+
+
 def test_model_mode_spreads_the_bid_but_favours_the_leader(league):
-    res = joint.run(_inputs(*league, auto_mode={c: "model" for c in CONFS}))
+    res = joint.run(_inputs(*league))
     for c in CONFS:
         odds = res.champions[c]
         assert odds[f"{c}-T0"] == max(odds.values())

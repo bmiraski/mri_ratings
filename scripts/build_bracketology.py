@@ -57,16 +57,35 @@ def start_date(season: int, settings: dict) -> dt.date:
     return dt.date(season - 1, month, day)
 
 
-def templates_for(season: int, conferences: set[str], overrides: dict) -> dict:
-    """Each conference's tournament shape from its last three tournaments (or a hand override)."""
+def templates_for(season: int, conferences: set[str], overrides: dict) -> tuple[dict, dict]:
+    """Each conference's tournament shape, and where it came from: this season's entry in
+    ``formatOverride`` if there is one ("announced" or "provisional"), otherwise inferred from the
+    conference's last three tournaments ("inferred")."""
     frames = [bb_bracket.conference_tournaments(y) for y in range(season - LOOKBACK, season) if y != 2020]
-    out = {}
+    this_season = overrides.get(str(season), {})
+    out, source = {}, {}
     for conf in conferences:
-        if conf in overrides:
-            out[conf] = template_mod.Template(tiers=tuple(overrides[conf]["tiers"]), seasons_seen=0, stable=True,
-                                              campus_hosted=bool(overrides[conf].get("campusHosted", False)))
+        if conf in this_season:
+            o = this_season[conf]
+            out[conf] = template_mod.Template(tiers=tuple(o["tiers"]), seasons_seen=0, stable=True,
+                                              campus_hosted=bool(o.get("campusHosted", False)))
+            source[conf] = "announced" if o.get("announced") else "provisional"
             continue
         out[conf] = template_mod.infer([f[f["conference"] == conf] for f in frames if not f.empty], min_seasons=1)
+        source[conf] = "inferred"
+    return out, source
+
+
+def format_warnings(templates: dict, source: dict, members: dict[str, int]) -> list[str]:
+    """Inferred formats that can't be right any more: a bracket bigger than the league now is. (One
+    smaller than the league is fine - plenty of conferences invite only their top K.)"""
+    out = []
+    for conf, tpl in sorted(templates.items()):
+        if source.get(conf) == "inferred" and tpl is not None and tpl.size > members.get(conf, 0):
+            out.append(f"{conf}: last tournaments had {tpl.size} teams, league now has {members.get(conf, 0)} - "
+                       f"add a formatOverride for this season")
+        if tpl is None:
+            out.append(f"{conf}: no recent tournament to read a format from - add a formatOverride")
     return out
 
 
@@ -91,11 +110,15 @@ def build(season: int, as_of: str | None, settings: dict, sims: int, field_size:
     conf_of = {t: bb_registry.conference_of(t, season=season) for t in ratings.power.index}
     conf_of = {t: c for t, c in conf_of.items() if c}
     conferences = set(conf_of.values())
-    templates = templates_for(season, conferences, settings.get("formatOverride", {}))
+    templates, source = templates_for(season, conferences, settings.get("formatOverride", {}))
+    members = pd.Series(list(conf_of.values())).value_counts().to_dict()
+    warnings = format_warnings(templates, source, members)
+    for w in warnings:
+        print(f"  format warning - {w}")
     model = json.loads((ROOT / "data" / "atlarge_model.json").read_text())
     beta = np.array(model["coefficients"])
     fmt = seeding.FORMATS[field_size or seeding.field_size(season)]
-    modes = {c: settings.get("autoBid", {}).get(c, "placeholder") for c in conferences}
+    modes = {c: settings.get("autoBid", {}).get(c, joint.DEFAULT_MODE) for c in conferences}
 
     res = joint.run(joint.Inputs(season=season, games=games, power=ratings.power, home_field=ratings.home_field,
                                  resume_sigma=ratings.sigma, conference_of=conf_of, templates=templates, beta=beta,
@@ -110,10 +133,12 @@ def build(season: int, as_of: str | None, settings: dict, sims: int, field_size:
     return {
         "season": season, "asOf": as_of or dt.date.today().isoformat(), "sims": sims,
         "committeeNoise": model.get("committeeNoise", 0.0),
+        "formatWarnings": warnings,
         "fieldSize": fmt.size, "automaticBids": sum(1 for c in res.champions if res.champions[c]),
         "conferences": {
-            c: {"mode": modes.get(c, "placeholder"), "status": res.conference_status.get(c),
+            c: {"mode": modes[c], "status": res.conference_status.get(c),
                 "tournamentFormat": list(templates[c].tiers) if templates.get(c) else None,
+                "formatSource": source.get(c),
                 "odds": [{"team": t, "p": _round(p)} for t, p in sorted(res.champions.get(c, {}).items(),
                                                                           key=lambda kv: -kv[1])[:6]]}
             for c in sorted(conferences)

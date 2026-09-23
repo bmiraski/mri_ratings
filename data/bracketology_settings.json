@@ -1,43 +1,80 @@
 {
-  "_about": "Bracketology (NCAA men's tournament) settings. autoBid: per conference, 'placeholder' (the regular-season standings leader takes the automatic bid) or 'model' (simulate the conference tournament). Ben's call, conference by conference, from data/bracket_autobid_backtest.json - nothing here flips on its own. formatOverride: a conference's tournament shape as bracket tiers (teams entering at each round, worst seeds first), for a league whose last three tournaments no longer describe it. selectionSunday: per season; a season not listed uses the Sunday on or after March 11.",
+  "_about": "Bracketology (NCAA men's tournament) settings. Every conference's automatic bid comes from simulating its tournament. autoBid: optional per-conference override - set a conference to 'placeholder' to give its regular-season standings leader the bid instead (kept as an escape hatch; none set). formatOverride: per season, a conference's tournament shape for a league whose last three tournaments no longer describe it - tiers are how many teams enter at each round, worst seeds first (so [2, 3, 2, 2] is an 8/9 play-in, seeds 5-7 enter next, 3-4 after that, 1-2 at the semifinals); 'announced' says whether the conference has published it or it's our provisional guess to replace once it has. selectionSunday: per season; a season not listed uses the Sunday on or after March 11.",
   "startsOn": "12-25",
   "sims": 5000,
   "selectionSunday": {
     "2027": "2027-03-14"
   },
-  "autoBid": {
-    "A-10": "placeholder",
-    "ACC": "placeholder",
-    "ASUN": "placeholder",
-    "Am. East": "placeholder",
-    "American": "placeholder",
-    "Big 12": "placeholder",
-    "Big East": "placeholder",
-    "Big Sky": "placeholder",
-    "Big South": "placeholder",
-    "Big Ten": "placeholder",
-    "Big West": "placeholder",
-    "CAA": "placeholder",
-    "CUSA": "placeholder",
-    "Horizon": "placeholder",
-    "Ivy": "placeholder",
-    "MAC": "placeholder",
-    "MEAC": "placeholder",
-    "MVC": "placeholder",
-    "Metro": "placeholder",
-    "Mountain West": "placeholder",
-    "NEC": "placeholder",
-    "OVC": "placeholder",
-    "Pac-12": "placeholder",
-    "Patriot": "placeholder",
-    "SEC": "placeholder",
-    "SWAC": "placeholder",
-    "SoCon": "placeholder",
-    "Southland": "placeholder",
-    "Summit": "placeholder",
-    "Sun Belt": "placeholder",
-    "UAC": "placeholder",
-    "WCC": "placeholder"
-  },
-  "formatOverride": {}
+  "autoBid": {},
+  "formatOverride": {
+    "2027": {
+      "ASUN": {
+        "tiers": [
+          8
+        ],
+        "campusHosted": false,
+        "announced": false,
+        "note": "Provisional: 8 teams, Jacksonville, Mar 4-7 announced; bracket to be released. Assumes all 8, no byes."
+      },
+      "Mountain West": {
+        "tiers": [
+          4,
+          6
+        ],
+        "campusHosted": false,
+        "announced": true,
+        "note": "All 10 teams, Thomas & Mack Center, Mar 10-13: top 6 bye to the quarterfinals."
+      },
+      "Pac-12": {
+        "tiers": [
+          2,
+          3,
+          2,
+          2
+        ],
+        "campusHosted": false,
+        "announced": true,
+        "note": "All 9 teams, MGM Grand Garden Arena, Mar 9-13: 8/9 play-in; 1-2 double bye, 3-4 single bye."
+      },
+      "SWAC": {
+        "tiers": [
+          4,
+          2,
+          2,
+          2
+        ],
+        "campusHosted": false,
+        "announced": true,
+        "note": "Top 10 of 12 qualify from 2027: 7v10 and 8v9; 5-6 enter round two, 3-4 the quarterfinals, 1-2 the semifinals."
+      },
+      "Summit": {
+        "tiers": [
+          8
+        ],
+        "campusHosted": false,
+        "announced": true,
+        "note": "All 8 teams (Denver left), Sioux Falls from Mar 4: opens with the quarterfinals; 14 games across the men's and women's events = 7 each, a straight 8-team bracket."
+      },
+      "UAC": {
+        "tiers": [
+          2,
+          7
+        ],
+        "campusHosted": false,
+        "announced": false,
+        "note": "Provisional: 9 teams, Allen TX, Mar 10-14 announced; bracket to be released. Assumes an 8/9 play-in."
+      },
+      "WCC": {
+        "tiers": [
+          4,
+          2,
+          2,
+          2
+        ],
+        "campusHosted": false,
+        "announced": false,
+        "note": "Provisional: 10 teams after Gonzaga, Oregon State and Washington State left; the old 12-team stepladder shortened by one tier. Nothing announced yet."
+      }
+    }
+  }
 }

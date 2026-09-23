@@ -14,11 +14,11 @@ survive on. So each simulated world here plays out, in order:
    conference tournament** in that world's seed order (Phase 1's bracket engine,
    one run per world), whose games then count on each team's résumé the way they
    do on the committee's sheet.
-3. **The automatic bids**: the tournament winner, for conferences Ben has
-   switched to the model; the standings leader, for conferences still on the
-   placeholder (Phase 1's rule - see ``data/bracketology_settings.json``). A
-   conference whose real tournament is already over has a real champion, and
-   every world uses it whatever the setting.
+3. **The automatic bids**: each world's tournament winner. (The Phase 1
+   placeholder - the standings leader takes the bid - is still available per
+   conference in ``data/bracketology_settings.json``, but nothing uses it by
+   default.) A conference whose real tournament is already over has a real
+   champion, and every world uses it.
 4. **The at-large field and the true seed list**, from Phase 2's composite score
    applied to that world's résumés - plus that world's own draw of *committee
    noise*, since the score is a model of the committee and not the committee - and
@@ -63,6 +63,9 @@ from . import atlarge, resume as resume_mod, seeding, simulate
 from .template import Template
 
 MODES = ("placeholder", "model")
+# Every conference plays its tournament out in simulation unless a setting says otherwise. The
+# placeholder (the standings leader takes the bid) is kept only as an option and as a backtest baseline.
+DEFAULT_MODE = "model"
 # Independents share a conference label in the feed and the registry in some seasons (2013, 2023-24),
 # and two of them playing each other looks like a conference game - but there's no automatic bid for
 # being the best independent. They're at-large candidates like anyone else.
@@ -335,7 +338,7 @@ def _conference_tournaments(inputs, results, ct_results, future, future_home_won
 
         tpl = inputs.templates.get(conf)
         played_ct = results[ct_results.reindex(results.index, fill_value=False) & (results["conf1"] == conf)]
-        mode = inputs.auto_mode.get(conf, "placeholder")
+        mode = inputs.auto_mode.get(conf, DEFAULT_MODE)
         ratings = power.reindex(members).to_numpy(float)
         world_ratings = ratings[:, None] + error[[pos[m] for m in members]]          # members x worlds
         hosted = bool(tpl and tpl.campus_hosted)
