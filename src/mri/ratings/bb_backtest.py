@@ -60,7 +60,8 @@ def fit_slice(
 
     return mri2.fit(
         games,
-        prior=mri2.build_prior(prior, teams, regression, centre_teams=rated or None),
+        prior=mri2.build_prior(prior, teams, regression, centre_teams=rated or None,
+                               outsiders_to_replacement=False),
         neutral=games["neutral"],
         anchor_teams=rated or None,
         with_resume=False,
