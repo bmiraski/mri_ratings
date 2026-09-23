@@ -1367,12 +1367,36 @@ def test_most_riding_on_it_reads_as_a_current_chance_and_two_outcomes(extended) 
     text = site.slate_page(p)
     panel = text[text.index("Most riding on it"):]
     panel = panel[:panel.index("</section>")]
-    assert "playoff chance: <strong>42%</strong> now, 20% in a loss vs. <strong>60%</strong> in a win" in panel
-    assert "&rarr;" not in panel                                            # no bare "20% -> 60%" to misread as a swing
-    assert "42% now" in text                                                # the table column carries it too
+    assert "playoff chance: 42% now, 20% with a loss, 60% with a win" in panel     # the whole reading, on hover
+    assert "L 20%" in panel and "now <b>42%</b>" in panel and "W 60%" in panel     # and on the bar
+    assert 'class="now"' in panel                                                  # the tick for where it stands
     del game["stake"]["now"]
     older = site.slate_page(p)
-    assert "20% &rarr;" in older                                            # an older payload without it still renders
+    assert "L 20%" in older and "W 60%" in older and 'class="now"' not in older    # an older payload still renders, nothing invented
+
+
+def test_slate_highlights_key_games_not_betting_flags(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    game = p["slate"]["days"][0]["games"][0]
+    game["flagged"] = True
+    p["slate"]["watch"] = []
+    text = site.slate_page(p)
+    assert 'class="slrow key"' not in text and "Most riding on it" not in text      # a betting flag alone is not highlighted
+    p["slate"]["watch"] = [game["id"]]
+    text = site.slate_page(p)
+    assert text.count('class="slrow key"') == 1 and 'data-id="1"' in text
+
+
+def test_slate_groups_by_kickoff_window() -> None:
+    at = lambda sort: {"sort": sort}                                                # noqa: E731
+    assert [site._slate_slot(at(t)) for t in ("1200", "1530", "1930", "2230", "9999")] == [
+        "Early", "Afternoon", "Prime time", "Late night", "Time TBD"]
+
+
+def test_slate_key_games_need_a_real_playoff_swing() -> None:
+    from mri.export import slate
+
+    assert slate.WATCH == 10 and 0 < slate.KEY_SWING <= 0.1
 
 
 def test_the_forward_log_shows_the_opening_line_and_an_edge_that_reconciles(extended) -> None:

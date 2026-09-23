@@ -1561,80 +1561,192 @@ def _matchup(g: dict, teams: dict) -> str:
     return f'<span class="mu">{side(g["away"])} <span class="muted">{joiner}</span> {side(g["home"])}</span>'
 
 
+_SLATE_SLOTS = (("Early", 1500), ("Afternoon", 1900), ("Prime time", 2200), ("Late night", 9999))
+
+
+def _slate_slot(g: dict) -> str:
+    """Kickoff window for grouping a day's games: the ledger's section headers."""
+    if g["sort"] == "9999":
+        return "Time TBD"
+    when = int(g["sort"])
+    return next(name for name, before in _SLATE_SLOTS if when < before)
+
+
+def _short_favorite(value: float | None, g: dict, teams: dict) -> str:
+    """'OSU −30.3': the favourite by abbreviation, so a line fits on one line."""
+    if value is None:
+        return '<span class="muted">&ndash;</span>'
+    if abs(value) < 0.05:
+        return "PK"
+    name = g["home"] if value > 0 else g["away"]
+    abbr = (teams.get(name) or {}).get("abbreviation") or name
+    return f'<span title="{esc(name)}">{esc(abbr)}</span>&nbsp;&minus;{abs(value):.1f}'
+
+
+def _win_bar(g: dict, teams: dict) -> str:
+    """Each side's win chance as one bar in the two teams' colours, away on the left."""
+    away_p = 1 - g["homeWinProbability"]
+    colour = lambda n: esc((teams.get(n) or {}).get("color") or "var(--muted)")   # noqa: E731
+    return (f'<div class="slwin" title="{esc(g["away"])} {_pct(away_p)} &middot; {esc(g["home"])} '
+            f'{_pct(g["homeWinProbability"])}"><i style="width:{away_p * 100:.1f}%;background:{colour(g["away"])}"></i>'
+            f'<i style="flex:1;background:{colour(g["home"])}"></i></div>')
+
+
+def _stake_bar(g: dict, teams: dict, *, short: bool) -> str:
+    """The team with the most riding on the game, drawn as the range between a loss and a win with its chance now marked.
+
+    The current chance is what makes the other two readable: "20% -> 60%" looks like a team swinging between two
+    extremes; the tick shows it is in the middle of that range. An older payload without it still gets the range.
+    """
+    s = g.get("stake")
+    if not s or s["swing"] < 0.02:
+        return '<span class="muted small">Little playoff impact</span>'
+    name = s["team"]
+    label = ((teams.get(name) or {}).get("abbreviation") or name) if short else name
+    lose, win, now = s["ifLose"], s["ifWin"], s.get("now")
+    said = (f"{name}'s playoff chance: {html.unescape(_pct(now))} now, {html.unescape(_pct(lose))} with a loss, "
+            f"{html.unescape(_pct(win))} with a win" if now is not None else
+            f"{name}'s playoff chance: {html.unescape(_pct(lose))} with a loss, {html.unescape(_pct(win))} with a win")
+    tick = f'<span class="now" style="left:calc({now * 100:.1f}% - 1px)"></span>' if now is not None else ""
+    middle = f'<span>now <b>{_pct(now)}</b></span>' if now is not None else ""
+    return (f'<div class="slstake" title="{esc(said)}"><span class="who">{esc(label)} playoff odds</span>'
+            f'<div class="rng"><span class="span" style="left:{lose * 100:.1f}%;width:{max(win - lose, 0.01) * 100:.1f}%"></span>{tick}</div>'
+            f'<span class="nums"><span>L {_pct(lose)}</span>{middle}<span>W {_pct(win)}</span></span></div>')
+
+
+_SLATE_SCRIPT = """
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
+  var count = document.getElementById('slcount'), none = document.getElementById('slnone');
+  function apply(want) {
+    var shown = 0;
+    rows.forEach(function (row) {
+      var ok = want === 'all' || row.dataset[want] === '1';
+      row.hidden = !ok;
+      if (ok) shown++;
+    });
+    document.querySelectorAll('.slslot, .slday').forEach(function (group) {
+      group.hidden = !group.querySelector('.slrow:not([hidden])');
+    });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.f === want); });
+    count.textContent = shown + (shown === 1 ? ' game' : ' games');
+    none.hidden = shown > 0;
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.f); }); });
+  apply('all');
+})();
+</script>"""
+
+
 def slate_page(payload: dict) -> str:
     slate = payload["slate"]
     teams = {t["team"]: t for t in payload["teams"]}
     by_id = {g["id"]: g for d in slate["days"] for g in d["games"]}
+    key = [i for i in slate["watch"] if i in by_id]
+    key_ids = set(key)
     # Links only to pages this build wrote, the same rule as the header.
     betting_ref = ('<a href="betting.html">betting page</a>'
                    if payload.get("betting") and payload.get("board") else "betting board")
     sim_ref = ('<a href="simulation.html">season simulation</a>'
                if payload.get("sim") else "season simulation")
 
+    def ranked(name):
+        team = teams.get(name)
+        return bool(team and team["rank"] <= 25)
+
+    def side(name, size=16):
+        team = teams.get(name)
+        rank = f'<span class="rkchip">#{team["rank"]}</span>' if ranked(name) else ""
+        mark = identity_mark(team, size) if team else ""
+        label = f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name)
+        return f'<span class="nmcell">{mark}{rank}{label}</span>'
+
     def market_cell(g):
-        if g.get("market") is None:
-            return '<span class="muted">&ndash;</span>'
-        moved = ""
-        if g.get("open") is not None and abs(g["open"] - g["market"]) >= 0.5:
-            moved = f' <span class="muted" title="Where the line opened">opened {_favorite(g["open"], g["home"], g["away"])}</span>'
-        return _favorite(g["market"], g["home"], g["away"]) + moved
+        text = _short_favorite(g.get("market"), g, teams)
+        if g.get("market") is not None and g.get("open") is not None and abs(g["open"] - g["market"]) >= 0.5:
+            text += f'<small title="Where the line opened">open {_short_favorite(g["open"], g, teams)}</small>'
+        return text
 
-    def stake_cell(g):
-        """The team with the most riding on the game: where its playoff chance is, and where a loss or a win would take it."""
-        s = g.get("stake")
-        if not s or s["swing"] < 0.02:
-            return '<span class="muted">&ndash;</span>'
-        if s.get("now") is None:
-            return (f'{esc(s["team"])} <span class="muted">{_pct(s["ifLose"])} &rarr;</span> '
-                    f'<strong>{_pct(s["ifWin"])}</strong>')
-        return (f'{esc(s["team"])} <span class="muted">{_pct(s["now"])} now &middot;</span> '
-                f'{_pct(s["ifLose"])} loss &middot; <strong>{_pct(s["ifWin"])} win</strong>')
-
-    def stake_sentence(g):
-        s = g["stake"]
-        if s.get("now") is None:
-            return stake_cell(g)
-        return (f'{esc(s["team"])}&rsquo;s playoff chance: <strong>{_pct(s["now"])}</strong> now, '
-                f'{_pct(s["ifLose"])} in a loss vs. <strong>{_pct(s["ifWin"])}</strong> in a win')
-
-    def upcoming_row(g):
-        favourite_p = g["homeWinProbability"] if g["predicted"] >= 0 else 1 - g["homeWinProbability"]
+    def edge_cell(g):
         edge = g.get("edge")
-        edge_cell = "&ndash;" if edge is None else f"{edge:+.1f}"
-        flag = ' class="flagged"' if g.get("flagged") else ""
-        return f"""<tr{flag}>
-          <td class="wk">{g['time']}</td>
-          <td class="opp">{_matchup(g, teams)}</td>
-          <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
-          <td class="num">{_pct(favourite_p)}</td>
-          <td class="num">{market_cell(g)}</td>
-          <td class="num perf {'over' if (edge or 0) > 0 else 'under'}">{edge_cell}{' &#9873;' if g.get('flagged') else ''}</td>
-          <td>{stake_cell(g)}</td>
-        </tr>"""
+        if edge is None:
+            return '<span class="muted">&ndash;</span>'
+        liked = g["home"] if edge > 0 else g["away"]
+        abbr = (teams.get(liked) or {}).get("abbreviation") or liked
+        return (f'<span class="sledge" title="The model likes {esc(liked)} by {abs(edge):.1f} more than the opening line">'
+                f'{abs(edge):.1f} &rarr; {esc(abbr)}</span>')
 
-    head = """<thead><tr><th>Time</th><th>Game</th><th class="num">Model</th><th class="num">Win</th>
-      <th class="num">Market</th><th class="num" title="Model minus the opening number">Edge</th>
-      <th title="The team with the most riding on the game: its playoff chance now, then if it loses, then if it wins">Playoff stake</th></tr></thead>"""
+    def row(g):
+        away_p = 1 - g["homeWinProbability"]
+        joiner = "vs" if g["neutral"] else "@"
+        top25 = "1" if ranked(g["home"]) or ranked(g["away"]) else "0"
+        stakes = "1" if (g.get("stake") or {}).get("swing", 0) >= 0.1 else "0"
+        cls = "slrow key" if g["id"] in key_ids else "slrow"
+        mark = ' title="Key game: one of the week&rsquo;s biggest playoff stakes"' if g["id"] in key_ids else ""
+        return f"""
+      <div class="{cls}" data-id="{g['id']}" data-top25="{top25}" data-stakes="{stakes}" data-key="{'1' if g['id'] in key_ids else '0'}"{mark}>
+        <span class="sltime">{esc(g['time'].replace(' ET', ''))}</span>
+        <div class="slgame">{side(g['away'])}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'])}</span></div>
+        <div class="slwp">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
+        <div class="slnum slmodel">{_short_favorite(g['predicted'], g, teams)}</div>
+        <div class="slnum slmarket">{market_cell(g)}</div>
+        <div class="slnum sledgec">{edge_cell(g)}</div>
+        <div class="slst">{_stake_bar(g, teams, short=True)}</div>
+      </div>"""
 
-    days = "".join(f"""
-  <h2>{esc(d['label'])}</h2>
-  <div class="tablewrap"><table class="slate">{head}<tbody>{''.join(upcoming_row(g) for g in d['games'])}</tbody></table></div>"""
-                   for d in slate["days"])
+    head = """
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r">Win</span><span class="r">Model</span>
+        <span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
+        <span title="The team with the most riding on the game: its playoff chance with a loss, now, and with a win">Playoff stake</span></div>"""
 
-    watch = "".join(f"""<li>{_matchup(by_id[i], teams)}
-        <span class="gv">{by_id[i]['dateLabel']} &middot; {stake_sentence(by_id[i])}</span></li>"""
-                    for i in slate["watch"] if i in by_id)
-    watch_panel = f"""
-  <section class="panel">
+    def day(d):
+        slots: dict[str, list] = {}
+        for g in d["games"]:
+            slots.setdefault(_slate_slot(g), []).append(g)
+        groups = "".join(f"""
+      <div class="slslot"><p class="slslothead"><b>{name}</b> <span>{len(gs)} game{'s' if len(gs) != 1 else ''}</span></p>{''.join(row(g) for g in gs)}
+      </div>""" for name, gs in slots.items())
+        return f"""
+  <section class="slday"><h2>{esc(d['label'])}</h2>
+    <div class="slledger">{head}{groups}
+    </div>
+  </section>"""
+
+    days = "".join(day(d) for d in slate["days"])
+
+    def card(g):
+        stake_team = (g.get("stake") or {}).get("team")
+        tint = esc((teams.get(stake_team) or {}).get("color") or "var(--series)")
+        return f"""
+    <article class="slcard" style="--tc:{tint}">
+      <p class="slmeta">{esc(g['dateLabel'])} &middot; {esc(g['time'])}</p>
+      <div class="slvs">{side(g['away'], 18)}{side(g['home'], 18)}</div>
+      {_win_bar(g, teams)}
+      <p class="sllines"><span>Model</span><b>{_short_favorite(g['predicted'], g, teams)}</b><span>Market</span><span>{_short_favorite(g.get('market'), g, teams)}</span></p>
+      {_stake_bar(g, teams, short=False)}
+    </article>"""
+
+    key_panel = f"""
+  <section class="slkey">
     <p class="ptitle">Most riding on it</p>
-    <ul class="list watch">{watch}</ul>
-    <p class="note">Games ranked by how much the result moves one team's playoff chance, from the
-    {sim_ref}. Each line gives that team's chance now, then where a loss would leave it and where a win would.</p>
-  </section>""" if watch else ""
+    <div class="slcards">{''.join(card(by_id[i]) for i in key)}
+    </div>
+    <p class="note">The {len(key)} game{'s' if len(key) != 1 else ''} this week that move a team&rsquo;s playoff chance most, from the
+    {sim_ref}. The bar runs from that team&rsquo;s chance with a loss to its chance with a win; the tick is where it stands now.
+    These games carry a red stripe in the lists below.</p>
+  </section>""" if key else ""
+
+    filters = f"""
+  <div class="slfilter">
+    <div class="slseg"><button type="button" data-f="all" class="on">All games</button><button type="button" data-f="top25">Top 25</button><button type="button" data-f="stakes">Playoff stakes</button>{'<button type="button" data-f="key">Key games</button>' if key else ''}</div>
+    <span id="slcount" class="muted small"></span>
+  </div>
+  <p id="slnone" class="empty" hidden>No games this week match.</p>"""
 
     def result_row(g):
         r = g["result"]
-        winner_home = r["homeScore"] > r["awayScore"]
         score = (f'{esc(g["away"])} {r["awayScore"]}, {esc(g["home"])} {r["homeScore"]}')
         mark = "&#10003;" if r["modelCorrect"] else "&#10007;"
         cls = "over" if r["modelCorrect"] else "under"
@@ -1669,12 +1781,12 @@ def slate_page(payload: dict) -> str:
   <h1>Week {slate['week']} slate</h1>
   <p class="lead">{slate['games']} games with an FBS team. The model's line and win chance for each,
   the market's number beside it (DraftKings), and what the result does to the playoff picture.</p>
-  <p class="hint"><strong>Model</strong> is the favourite and the margin the ratings predict.
-  <strong>Edge</strong> is the model minus the opening number, in points; a flag means it is large enough
-  that the {betting_ref} tracks it. These are tracked, not recommended:
-  see how that has gone on the same page.</p>
-{watch_panel}{days}{results}{fcs}
-  </article>"""
+  <p class="hint"><strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
+  is the current line, with the opener beneath it when it has moved. <strong>Edge</strong> is the gap between the model
+  and the opening number and the side the model likes more. The {betting_ref} tracks the large ones; these are
+  tracked, not recommended.</p>
+{key_panel}{filters}{days}{results}{fcs}
+  </article>{_SLATE_SCRIPT}"""
     return page(f"Week {slate['week']} slate — MRI {season_text(payload)}", body, payload,
                 description="Every game this week: model line, market line, and what rides on it.")
 
@@ -2976,8 +3088,63 @@ table.slate tr.flagged td { background:color-mix(in srgb, var(--series) 9%, tran
 table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .small { font-size:12px; line-height:1.5; }
 .panel.gd { margin-top:14px; }
-.watch li { flex-direction:column; align-items:flex-start; gap:3px; }
-.watch .gv { white-space:normal; overflow-wrap:anywhere; }
+/* slate: key-game cards, then a ledger per day grouped by kickoff window */
+.slkey { margin:18px 0 26px; }
+.slcards { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; }
+.slcard { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--tc); border-radius:12px;
+  padding:12px 14px; display:grid; gap:9px; align-content:start; min-width:0; }
+.slcard p { margin:0; }
+.slmeta { font-size:12px; color:var(--muted); }
+.slvs { display:grid; gap:4px; font-weight:600; font-size:14.5px; min-width:0; }
+.sllines { font-size:12.5px; color:var(--secondary); display:grid; grid-template-columns:1fr auto; gap:1px 8px;
+  font-variant-numeric:tabular-nums; white-space:nowrap; }
+.sllines b { color:var(--primary); }
+.slwin { display:flex; height:6px; border-radius:3px; overflow:hidden; background:var(--grid); }
+.slwin i { display:block; height:100%; }
+.slstake { display:grid; gap:3px; min-width:0; }
+.slstake .who { font-size:12px; color:var(--secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.slstake .rng { position:relative; height:6px; background:var(--grid); border-radius:3px; }
+.slstake .span { position:absolute; top:0; bottom:0; border-radius:3px; background:color-mix(in oklab, var(--series) 60%, var(--grid)); }
+.slstake .now { position:absolute; top:-3px; width:2px; height:12px; background:var(--primary); border-radius:1px; }
+.slstake .nums { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.slstake .nums b { color:var(--primary); font-weight:600; }
+.slfilter { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 4px; }
+.slseg { display:inline-flex; flex-wrap:wrap; border:1px solid var(--axis); border-radius:999px; overflow:hidden; }
+.slseg button { background:none; border:0; color:var(--secondary); font:inherit; font-size:13px; padding:6px 13px; cursor:pointer; }
+.slseg button.on { background:var(--primary); color:var(--surface); }
+.slledger { background:var(--surface); border:1px solid var(--grid); border-radius:12px; overflow:hidden; }
+.slhead, .slrow { display:grid; grid-template-columns:66px minmax(0,1.8fr) 44px 92px 104px 92px minmax(0,1.3fr);
+  gap:12px; align-items:center; padding:9px 14px; }
+.slhead { font-size:10px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); font-weight:600;
+  border-bottom:1px solid var(--axis); }
+.slhead .r { text-align:right; }
+.slslothead { margin:0; padding:7px 14px; font-size:12px; color:var(--secondary); background:var(--plane);
+  border-bottom:1px solid var(--grid); }
+.slslothead span { color:var(--muted); margin-left:6px; }
+.slslot + .slslot .slslothead { border-top:1px solid var(--grid); }
+.slrow { border-bottom:1px solid var(--grid); font-size:13.5px; }
+.slslot .slrow:last-child { border-bottom:none; }
+.slrow.key { box-shadow:inset 3px 0 0 var(--series); background:color-mix(in srgb, var(--series) 6%, transparent); }
+.sltime { color:var(--secondary); font-size:12.5px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.slgame { display:grid; gap:3px; min-width:0; }
+.slgame .nmcell { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.slhome { display:flex; align-items:center; gap:6px; min-width:0; }
+.sljoin { font-size:11px; flex:none; }
+.slwp { text-align:right; font-variant-numeric:tabular-nums; color:var(--secondary); line-height:1.55; }
+.slnum { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.slnum small { display:block; font-size:11px; color:var(--muted); }
+.sledge { display:inline-block; font-size:11.5px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis);
+  color:var(--secondary); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.slst { min-width:0; }
+@media (max-width:760px) {
+  .slhead { display:none; }
+  .slrow { grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"t t" "g w" "m k" "e s"; row-gap:7px; }
+  .sltime { grid-area:t; font-size:11.5px; color:var(--muted); }
+  .slgame { grid-area:g; } .slwp { grid-area:w; }
+  .slmodel { grid-area:m; text-align:left; } .slmarket { grid-area:k; }
+  .sledgec { grid-area:e; text-align:left; }
+  .slst { grid-area:s; min-width:140px; }
+}
 .mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
 @media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }
 """
