@@ -1446,3 +1446,39 @@ def test_football_team_pages_show_the_playoff_chance_from_the_simulation(extende
 def test_basketball_team_pages_show_the_tournament_chance_only_once_it_is_computed(bb_payload) -> None:
     team = bb_payload["teams"][0]
     assert "NCAA Tournament" not in site.team_page(team, bb_payload)
+
+
+# ---- live scores and the weekly slate archive
+
+def test_slate_page_is_ready_for_live_scores(extended) -> None:
+    text = site.slate_page(json.loads(json.dumps(extended)))
+    assert "live.json" in text and 'id="g1"' in text and 'data-kick="' in text and 'data-pre="0.7"' in text
+    assert ">Pre<" in text and ">Score<" in text and ">Live<" in text
+    assert 'id="slalerts" hidden' in text                                   # nothing to shout about until a game is on
+
+
+def test_an_archived_week_shows_finals_and_upsets_and_links_home(extended) -> None:
+    from mri.export import slatearchive
+
+    p = json.loads(json.dumps(extended))
+    game = p["slate"]["days"][0]["games"][0]                                # home favoured at 70%
+    record = slatearchive.freeze({**p["slate"], "season": 2026}, p, {1: (13, 27)}, saved="2026-09-27T11:00:00Z")
+    record["teams"][game["home"]]["rank"] = 9
+    record["teams"][game["away"]]["rank"] = 40
+    text = site.slate_page(p, archive=record, archives=[])
+    assert f"Week {p['slate']['week']} slate, 2026" in text and "live.json" not in text        # a record, not a live page
+    assert 'class="slday live"' in text and ">Final<" in text and "&#10007;" in text
+    assert f"#9 {game['home']} lost to unranked {game['away']}" in text
+    assert 'href="../slate.html">This week<' in text and 'href="../team/' in text
+
+
+def test_archived_weeks_are_rendered_by_the_build(extended, tmp_path) -> None:
+    from mri.export import slatearchive
+
+    p = json.loads(json.dumps(extended))
+    record = slatearchive.freeze({**p["slate"], "week": 3, "season": 2026}, p, {1: (27, 13)}, saved="x")
+    slatearchive.archive_path(tmp_path, 2026, 3).parent.mkdir(parents=True)
+    slatearchive.archive_path(tmp_path, 2026, 3).write_text(json.dumps(record))
+    site.build(p, tmp_path)
+    assert (tmp_path / "slate" / "2026-week-3.html").exists()
+    assert 'href="slate/2026-week-3.html">Week 3<' in (tmp_path / "slate.html").read_text()

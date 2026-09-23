@@ -194,6 +194,7 @@ def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.Da
         days[-1]["games"].append(g)
 
     return {
+        "season": year,
         "week": week,
         "days": days,
         "results": done,
