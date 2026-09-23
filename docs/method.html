@@ -190,6 +190,19 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   12 of about 130 teams make it. In Week 3 alone it was 0.050.
   Treating the ratings as exact, with no error bars, scored 0.035 overall &mdash; nearly the
   same, which is an honest finding: the uncertainty matters most in September and matters little by November.</p>
+  <h3 id="rooting">Who to root for</h3>
+  <p>Each team page lists the games this week that the team is not playing in but that move its playoff odds most,
+  and the side to cheer. For every game still to kick off, the simulation is run twice more on the same random
+  numbers: once with the home side forced to win, once with the visitor. The difference in a team&rsquo;s odds between
+  the two is that game&rsquo;s effect on it. Using the same random numbers matters: both runs share every draw except
+  that one game&rsquo;s, so what is left is the game and not simulation noise. Reading the effect off the ordinary run
+  instead &mdash; comparing the runs where the underdog happened to win with the rest &mdash; would mix in something
+  else, because those are also the runs in which the underdog was drawn stronger for the rest of its season. A forced
+  upset is drawn the way real upsets happen, usually close, not as a blowout.</p>
+  <p>The page shows at most five games, ranked by how much they move the playoff odds; anything under half a point is
+  left out as noise. When nothing moves a team&rsquo;s playoff odds that much but a game moves its conference title
+  odds, the guide switches to those and says so. A team with less than a half-percent playoff chance, or more than
+  99.5%, gets one line instead: nothing this weekend moves the needle, or its fate is in its own hands.</p>
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it

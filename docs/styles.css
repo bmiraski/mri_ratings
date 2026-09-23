@@ -318,6 +318,39 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
 .slnav b { padding:3px 10px; border-radius:999px; background:var(--primary); color:var(--surface); font-weight:600; }
+/* the rooting guide on team pages */
+.rooting { margin:18px 0 8px; background:var(--surface); border:1px solid var(--grid); border-radius:12px; padding:0 14px; }
+.rooting[open] { padding-bottom:14px; }
+.rooting summary { cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; padding:12px 0; }
+.rooting summary::-webkit-details-marker { display:none; }
+/* As big as the heading, the way the Heisman page's open-close triangle is: at a small size it reads as decoration,
+   and nobody finds the list. */
+.rooting summary::before { content:"▶"; color:var(--primary); font-size:18px; line-height:1; width:18px; transition:transform .15s; }
+.rooting[open] summary::before { transform:rotate(90deg); }
+.rooting:not([open]):hover { border-color:var(--axis); background:color-mix(in srgb, var(--primary) 4%, var(--surface)); }
+.rooting .rtteaser { flex-basis:100%; padding-left:30px; }
+.rooting summary h2 { display:inline; margin:0; font-size:18px; }
+.rtteaser { font-size:13px; color:var(--secondary); }
+.rooting[open] .rtteaser { display:none; }
+.rooting .rtlist { background:var(--plane); }
+.rooting .rtone { margin:0; }
+.rtone { background:var(--surface); border:1px solid var(--grid); border-radius:10px; padding:12px 14px; color:var(--secondary); }
+.rtlist { list-style:none; margin:0; padding:0; background:var(--surface); border:1px solid var(--grid); border-radius:12px; }
+.rtrow { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1.1fr) minmax(0,1.3fr); gap:14px; align-items:center;
+  padding:10px 14px; border-bottom:1px solid var(--grid); font-size:13.5px; }
+.rtrow:last-child { border-bottom:none; }
+.rtgame { display:flex; flex-wrap:wrap; align-items:center; gap:6px; text-decoration:none; color:inherit; min-width:0; }
+.rtgame:hover .nmcell a { text-decoration:underline; }
+.rtl { display:block; font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:var(--muted); font-weight:600; margin-bottom:2px; }
+.rtroot { display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:0; }
+.rtroot .rtl { flex-basis:100%; margin:0; }
+.rtroot .nmcell { font-weight:600; }
+.rttag { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--alert);
+  border:1px solid color-mix(in srgb, var(--alert) 60%, var(--axis)); border-radius:999px; padding:0 7px; }
+.rtodds { color:var(--secondary); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.rtodds b { color:var(--primary); }
+.rtdelta { display:inline-block; margin-left:6px; font-size:11.5px; color:var(--up); font-weight:600; }
+@media (max-width:760px) { .rtrow { grid-template-columns:1fr; gap:8px; } }
 /* the Hidden Heisman */
 .hhicon { height:28px; width:auto; color:var(--alert); flex:none; vertical-align:middle; }
 svg.hhicon { width:28px; }
