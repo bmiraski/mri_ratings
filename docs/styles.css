@@ -318,6 +318,27 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
 .slnav b { padding:3px 10px; border-radius:999px; background:var(--primary); color:var(--surface); font-weight:600; }
+/* the Hidden Heisman */
+.hhicon { height:28px; width:auto; color:var(--alert); flex:none; vertical-align:middle; }
+svg.hhicon { width:28px; }
+.hhfeature .hhhead .hhicon { height:56px; }
+.hlhh .hhicon { height:16px; margin-right:3px; vertical-align:-3px; }
+.hhteam .hhicon { height:30px; margin-right:6px; vertical-align:-6px; }
+.hhfeature { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--alert); border-radius:14px;
+  padding:16px 18px; margin:18px 0 24px; display:grid; gap:14px; }
+.hhhead { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.hhhead .ptitle { color:var(--alert); margin:0; }
+.hhsub { font-size:12.5px; color:var(--muted); flex-basis:100%; }
+.hhwho { display:flex; gap:12px; align-items:center; }
+.hhwho h3 { margin:0; font-size:22px; } .hhwho p { margin:2px 0 0; font-size:13px; }
+.hhwho .logo { width:44px; height:44px; }
+.hhtiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.hhtile { background:var(--plane); border:1px solid var(--grid); border-radius:10px; padding:10px 12px; display:grid; }
+.hhtile b { font-size:24px; font-variant-numeric:tabular-nums; } .hhtile span:last-child { color:var(--secondary); font-size:13px; }
+.hhfacts { margin:0; padding-left:18px; font-size:14px; color:var(--secondary); display:grid; gap:4px; }
+.hhfacts b { color:var(--primary); }
+.hhseason { border-top-width:4px; background:color-mix(in srgb, var(--alert) 6%, var(--surface)); }
+tr.hhaward td { background:color-mix(in srgb, var(--alert) 8%, transparent); }
 .bbhuman { border-left:3px solid var(--alert); padding:8px 12px; background:color-mix(in srgb, var(--alert) 8%, transparent);
   border-radius:0 8px 8px 0; font-size:14px; }
 .bbverdict { background:var(--surface); border:1px solid var(--grid); border-radius:12px; padding:14px 16px; margin:14px 0 20px; }
