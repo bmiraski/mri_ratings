@@ -1646,6 +1646,10 @@ def _stake_bar(g: dict, teams: dict, *, short: bool, bids: bool = False) -> str:
     Football's stakes are playoff chances; basketball's (``bids``) are chances of an NCAA Tournament bid.
     """
     s = g.get("stake")
+    if bids and not s:
+        # No figure is not the same as no stakes: the simulation gives none for conference-tournament games
+        # (where an automatic bid rides on every one), none once the NCAA field is set, none before Christmas.
+        return '<span class="muted small">&ndash;</span>'
     if not s or s["swing"] < 0.02:
         return f'<span class="muted small">Little {"bid" if bids else "playoff"} impact</span>'
     name = s["team"]
@@ -1667,14 +1671,15 @@ _SLATE_SCRIPT = """
 (function () {
   var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
-  var conf = document.getElementById('slconf');
+  var selects = Array.prototype.slice.call(document.querySelectorAll('.slfilter select[data-field]'));
   var count = document.getElementById('slcount'), none = document.getElementById('slnone');
   var want = 'all';
   function apply() {
-    var shown = 0, league = conf ? conf.value : '';
+    var shown = 0;
     rows.forEach(function (row) {
-      var ok = (want === 'all' || row.dataset[want] === '1') &&
-        (!league || ('|' + (row.dataset.conf || '') + '|').indexOf('|' + league + '|') >= 0);
+      var ok = (want === 'all' || row.dataset[want] === '1') && selects.every(function (sel) {
+        return !sel.value || ('|' + (row.dataset[sel.dataset.field] || '') + '|').indexOf('|' + sel.value + '|') >= 0;
+      });
       row.hidden = !ok;
       if (ok) shown++;
     });
@@ -1686,7 +1691,7 @@ _SLATE_SCRIPT = """
     none.hidden = shown > 0;
   }
   buttons.forEach(function (b) { b.addEventListener('click', function () { want = b.dataset.f; apply(); }); });
-  if (conf) conf.addEventListener('change', apply);
+  selects.forEach(function (sel) { sel.addEventListener('change', apply); });
   apply();
 })();
 </script>"""
@@ -1824,6 +1829,8 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     key = [i for i in slate["watch"] if i in by_id]
     key_ids = set(key)
     by_stakes = not bb or slate.get("watchKind") == "stakes"
+    # Basketball drops the Bid stake column once the NCAA field is set: nothing is left to win or lose.
+    show_stakes = not bb or slate.get("bidStakes", True)
     season = slate.get("season") or payload.get("season")
     # Links only to pages this build wrote, the same rule as the header.
     betting_ref = (f'<a href="{up}betting.html">betting page</a>'
@@ -1838,12 +1845,13 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     def abbr(name):
         return (teams.get(name) or {}).get("abbreviation") or name
 
-    def side(name, size=16):
+    def side(name, size=16, seed=None):
         team = teams.get(name)
         rank = f'<span class="rkchip">#{team["rank"]}</span>' if ranked(name) else ""
         mark = identity_mark(team, size, depth) if team else ""
         label = f'<a href="{up}team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name)
-        return f'<span class="nmcell">{mark}{rank}{label}</span>'
+        seeded = f'<span class="slseed" title="Seed">{int(seed)}</span>' if seed else ""
+        return f'<span class="nmcell">{mark}{seeded}{rank}{label}</span>'
 
     def market_cell(g):
         text = _short_favorite(g.get("market"), g, teams)
@@ -1883,8 +1891,12 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         return (f'<div class="slscore"><span class="{"up" if lead < 0 else ""}">{state["away"]}</span><br>'
                 f'<span class="{"up" if lead > 0 else ""}">{state["home"]}</span></div><div class="sllive">{mark}</div>')
 
-    def row(g):
+    def row(g, grouped=False):
         state = _final_state(g, finals, ranks, sport) if archive else None
+        seeds = g.get("seeds") or {}
+        what = g.get("event")
+        shown = (what.get("detail") if grouped else what.get("label")) if what else None
+        event_line = f'<span class="slevent">{esc(shown)}</span>' if shown else ""
         away_p = 1 - g["homeWinProbability"]
         joiner = "vs" if g["neutral"] else "@"
         tags = g.get("tracked") or {}
@@ -1897,7 +1909,8 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
             "fade": bool(tags.get("fade")),
         }
         data = " ".join(f'data-{k}="{"1" if v else "0"}"' for k, v in flags.items())
-        conf = f' data-conf="{esc("|".join(g.get("conferences") or []))}"' if bb else ""
+        conf = (f' data-conf="{esc("|".join(g.get("conferences") or []))}"'
+                f' data-event="{esc(what["name"] if what else "")}"') if bb else ""
         classes = ["slrow"] + (["key"] if g["id"] in key_ids else []) + (["final"] if state else []) \
             + (["upset"] if state and state["upset"] else [])
         mark = ""
@@ -1918,13 +1931,13 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         data-home-name="{esc(g['home'])}" data-away-name="{esc(g['away'])}" data-home-abbr="{esc(abbr(g['home']))}" data-away-abbr="{esc(abbr(g['away']))}"
         {data}{conf}{mark}>
         <span class="sltime">{esc(time_label)}</span>
-        <div class="slgame">{side(g['away'])}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'])}</span>{badge}</div>
+        <div class="slgame">{event_line}{side(g['away'], seed=seeds.get('away'))}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'], seed=seeds.get('home'))}</span>{badge}</div>
         <div class="slwp" title="The model&rsquo;s win chance before {start_word}">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
         {live_cells(g, state)}
         <div class="slnum slmodel">{_short_favorite(g['predicted'], g, teams)}</div>
         <div class="slnum slmarket">{market_cell(g)}</div>
         {middle}
-        <div class="slst">{_stake_bar(g, teams, short=True, bids=bb)}</div>
+        {f'<div class="slst">{_stake_bar(g, teams, short=True, bids=bb)}</div>' if show_stakes else ''}
       </div>"""
 
     if bb:
@@ -1940,22 +1953,33 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
       <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before {start_word}">Pre</span>
         <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
         <span class="r">Model</span><span class="r">Market</span>{third}
-        {stake_head}</div>"""
+        {stake_head if show_stakes else ''}</div>"""
 
     def day(d, i):
         slots: dict[str, list] = {}
-        for g in d["games"]:
-            name = _slate_slot(g)
-            slots.setdefault("Evening" if bb and name == "Prime time" else name, []).append(g)
+        # In tournament season a day is grouped by tournament, so it is plain which one each game is in: the NCAA
+        # Tournament first, then the NIT and the rest, then each conference's. Other days group by tip-off window,
+        # and a game that is part of an event carries its label on the row instead.
+        by_event = bb and any((g.get("event") or {}).get("kind") not in (None, "event") for g in d["games"])
+        if by_event:
+            from .bb_slate import EVENT_ORDER
+            order = lambda g: ((EVENT_ORDER.get(g["event"]["kind"], 9), g["event"]["name"]) if g.get("event")  # noqa: E731
+                               and g["event"]["kind"] != "event" else (99, "Other games"))
+            for g in sorted(d["games"], key=lambda g: (order(g), g["sort"])):
+                slots.setdefault(order(g)[1], []).append(g)
+        else:
+            for g in d["games"]:
+                name = _slate_slot(g)
+                slots.setdefault("Evening" if bb and name == "Prime time" else name, []).append(g)
         groups = "".join(f"""
-      <div class="slslot"><p class="slslothead"><b>{name}</b> <span>{len(gs)} game{'s' if len(gs) != 1 else ''}</span></p>{''.join(row(g) for g in gs)}
+      <div class="slslot"><p class="slslothead"><b>{esc(name)}</b> <span>{len(gs)} game{'s' if len(gs) != 1 else ''}</span></p>{''.join(row(g, grouped=by_event and name != "Other games") for g in gs)}
       </div>""" for name, gs in slots.items())
         played = archive and any(str(g["id"]) in finals for g in d["games"])
         label = esc(d["label"])
         if bb and not archive:
             label = f"Today &middot; {label}" if i == 0 and d["date"] == slate.get("date") else f"Tomorrow &middot; {label}"
         return f"""
-  <section class="slday{' live' if played else ''}{' bb' if bb else ''}" id="day{i + 1}"><h2>{label}</h2>
+  <section class="slday{' live' if played else ''}{' bb' if bb else ''}{'' if show_stakes else ' nostakes'}" id="day{i + 1}"><h2>{label}</h2>
     <div class="slledger">{head}{groups}
     </div>
   </section>"""
@@ -1972,11 +1996,11 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         state = _final_state(g, finals, ranks, sport) if archive else None
         result = (f'<p class="slcardlive"><b>Final</b> {esc(abbr(g["away"]))} {state["away"]}, {esc(abbr(g["home"]))} {state["home"]}</p>'
                   if state else '<p class="slcardlive" hidden></p>')
-        stake = _stake_bar(g, teams, short=False, bids=bb) if g.get("stake") or not bb else ""
+        stake = _stake_bar(g, teams, short=False, bids=bb) if show_stakes and (g.get("stake") or not bb) else ""
         return f"""
     <article class="slcard" data-id="{g['id']}" style="--tc:{tint}">
-      <p class="slmeta">{esc(g['dateLabel'])} &middot; {esc(g['time'])}</p>
-      <div class="slvs">{side(g['away'], 18)}{side(g['home'], 18)}</div>
+      <p class="slmeta">{esc(g['dateLabel'])} &middot; {esc(g['time'])}</p>{f'<p class="slevent">{esc(g["event"]["label"])}</p>' if g.get("event") else ""}
+      <div class="slvs">{side(g['away'], 18, (g.get('seeds') or {}).get('away'))}{side(g['home'], 18, (g.get('seeds') or {}).get('home'))}</div>
       {_win_bar(g, teams)}
       {result}
       <p class="sllines"><span>Model</span><b>{_short_favorite(g['predicted'], g, teams)}</b><span>Market</span><span>{_short_favorite(g.get('market'), g, teams)}</span></p>
@@ -2029,8 +2053,14 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         buttons = [("all", "All games"), ("top25", "Top 25"), ("close", "Close games"), ("dog", "Dog picks"),
                    ("fade", "Fade list")] + ([("stakes", "Bid stakes")] if any_stakes else [])
         conferences = sorted({c for g in by_id.values() for c in g.get("conferences") or []})
-        select = ('<select id="slconf" class="slconf" aria-label="Conference"><option value="">All conferences</option>'
+        select = ('<select id="slconf" class="slconf" data-field="conf" aria-label="Conference"><option value="">All conferences</option>'
                   + "".join(f'<option value="{esc(c)}">{esc(c)}</option>' for c in conferences) + "</select>")
+        from .bb_slate import EVENT_ORDER
+        events = sorted({(EVENT_ORDER.get(g["event"]["kind"], 9), g["event"]["name"]) for g in by_id.values() if g.get("event")})
+        if events:
+            select += ('<select id="slevents" class="slconf" data-field="event" aria-label="Tournament or event">'
+                       '<option value="">All events</option>'
+                       + "".join(f'<option value="{esc(n)}">{esc(n)}</option>' for _, n in events) + "</select>")
     else:
         buttons = [("all", "All games"), ("top25", "Top 25"), ("stakes", "Playoff stakes")] + \
             ([("key", "Key games")] if key else [])
@@ -3601,10 +3631,16 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 /* basketball: a Tracked column in place of Edge, a conference filter, and a day switcher */
 .slday.bb .slhead, .slday.bb .slrow { grid-template-columns:66px minmax(0,1.8fr) 44px 92px 104px minmax(0,0.9fr) minmax(0,1.2fr); }
 .slday.bb.live .slhead, .slday.bb.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px minmax(0,0.9fr) minmax(0,1fr); }
+.slday.bb.nostakes .slhead, .slday.bb.nostakes .slrow { grid-template-columns:66px minmax(0,2fr) 44px 92px 104px minmax(0,1.1fr); }
+.slday.bb.nostakes.live .slhead, .slday.bb.nostakes.live .slrow { grid-template-columns:66px minmax(0,1.9fr) 40px 36px 48px 84px 98px minmax(0,1fr); }
 .sltags { display:flex; flex-wrap:wrap; gap:4px; min-width:0; }
 .sltag { font-size:11px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis); color:var(--secondary); white-space:nowrap; }
 .sltag.dog { border-color:color-mix(in srgb, var(--up) 60%, var(--axis)); }
 .sltag.fade { border-color:color-mix(in srgb, var(--down) 60%, var(--axis)); }
+.slevent { display:block; font-size:10.5px; letter-spacing:0.04em; color:var(--secondary); text-transform:uppercase; font-weight:600;
+  margin:0 0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.slcard .slevent { margin:0; }
+.slseed { font-size:11px; font-weight:700; color:var(--secondary); min-width:14px; text-align:right; font-variant-numeric:tabular-nums; }
 .slconf { background:var(--plane); color:var(--primary); border:1px solid var(--axis); border-radius:8px; padding:5px 8px; font:inherit; font-size:13px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
@@ -3650,8 +3686,8 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
   .slst { grid-area:s; min-width:140px; }
   .slday.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"t t t" "g sc lv" "m k k" "e s s"; }
   .slday.live .slwp { display:none; }
-  .slday.bb .slrow { grid-template-columns:minmax(0,1fr) auto; }
-  .slday.bb.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
+  .slday.bb .slrow, .slday.bb.nostakes .slrow { grid-template-columns:minmax(0,1fr) auto; }
+  .slday.bb.live .slrow, .slday.bb.nostakes.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
   .sltags { grid-area:e; }
   .bbstrats { grid-template-columns:1fr; }
   .slscore { grid-area:sc; } .sllive { grid-area:lv; }

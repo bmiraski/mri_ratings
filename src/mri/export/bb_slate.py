@@ -29,6 +29,50 @@ WATCH = 10
 KEY_SWING = 0.05
 BEST = 8
 
+# Which tournament a game belongs to, in the order the slate lists them once tournament season starts.
+EVENT_ORDER = {"ncaa": 0, "nit": 1, "cbi": 2, "crown": 3, "postseason": 4, "conference": 5, "event": 6}
+NATIONAL = {"NCAA": ("ncaa", "NCAA Tournament"), "NIT": ("nit", "NIT"), "CBI": ("cbi", "CBI"),
+            "CIT": ("postseason", "CIT")}
+
+
+def event(game: dict) -> dict | None:
+    """Which tournament a game is part of, and its round: from the feed's tag, its conference, and its note.
+
+    The note is free text - "NCAA Men's Basketball Championship - South Region - Sweet 16", "Phillips 66 Big 12
+    Tournament - Semifinal", "Player Era Festival" - so it is read for the round and region only where the shape
+    is known. A conference tournament is named from the conference itself rather than the note, which carries
+    sponsors ("T. Rowe Price ACC Tournament") and a different word in every league ("ASUN Championship",
+    "America East Playoffs"). None for an ordinary game.
+    """
+    notes = (game.get("notes") or "").strip()
+    parts = [p.strip() for p in notes.split(" - ")] if notes else []
+    tag = game.get("tournament")
+    postseason = game.get("seasonType") == "postseason"
+    home_conf, away_conf = game.get("homeConference"), game.get("awayConference")
+    month = (game.get("start") or "")[5:7]
+    region = None
+    if tag in NATIONAL or (postseason and notes.startswith("NCAA")):
+        kind, name = NATIONAL.get(tag, NATIONAL["NCAA"])
+        if kind == "ncaa":
+            region = next((p.replace(" Region", "") for p in parts if p.endswith(" Region")), None)
+        rounds = [p for p in parts[1:] if not p.endswith(" Region")]
+    elif "Crown" in notes:
+        kind, name = "crown", "College Basketball Crown"
+        rest = notes.replace("College Basketball Crown", "").strip(" -")
+        rounds = [rest] if rest else []
+    elif postseason:
+        kind, name, rounds = "postseason", parts[0] if parts else "Postseason", parts[1:]
+    elif (game.get("gameType") == "TRNMNT" and home_conf and home_conf == away_conf and month in ("02", "03")):
+        kind, name, rounds = "conference", f"{home_conf} Tournament", parts[1:]
+    elif notes:
+        kind, name, rounds = "event", parts[0], parts[1:]
+    else:
+        return None
+    round_ = rounds[-1] if rounds else None
+    return {"kind": kind, "name": name, "region": region, "round": round_,
+            "label": " \u00b7 ".join(x for x in (name, region, round_) if x),
+            "detail": " \u00b7 ".join(x for x in (region, round_) if x) or None}
+
 
 def _eastern(start: str) -> dt.datetime:
     return pd.Timestamp(start).tz_convert(EASTERN).to_pydatetime()
@@ -85,6 +129,11 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
             "market": g.get("market"), "open": g.get("marketOpen"), "edge": g.get("edge"), "played": False,
             "tracked": bb_tracker.tags(g, fades),
         }
+        what = event(g)
+        if what:
+            entry["event"] = what
+        if g.get("homeSeed") or g.get("awaySeed"):
+            entry["seeds"] = {"home": g.get("homeSeed"), "away": g.get("awaySeed")}
         stake = _stake(leverage.get(str(g["id"])), entry, live_bracket)
         if stake:
             entry["stake"] = stake
@@ -105,8 +154,14 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
         watch = [g["id"] for g in sorted(todays, key=lambda g: -_quality(g, power))[:BEST]]
         watch_kind = "best"
 
+    # Once the field is set - bracketology frozen after Selection Sunday, or postseason games on the slate -
+    # there are no bids left to win or lose, and the page drops the column rather than fill it with dashes.
+    field_set = bool(bracket and bracket.get("frozen")) or any(
+        g.get("seasonType") == "postseason" for g in board.get("games", []) if g.get("start")
+        and _eastern(g["start"]).date() in days)
     label = lambda d: d.strftime("%a, %b %-d")                                 # noqa: E731
     return {
+        "bidStakes": not field_set,
         "season": season,
         "date": today.isoformat(),
         "dateLabel": today.strftime("%A, %B %-d"),

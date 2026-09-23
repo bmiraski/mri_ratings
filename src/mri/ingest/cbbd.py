@@ -163,6 +163,12 @@ def games(season: int, *, refresh_last: bool = True, completed_only: bool = True
                     "conf2": game.get("homeConference"),
                     "tournament": game.get("tournament"),
                     "game_type": game.get("gameType"),
+                    # Free text naming the event and round - "NIT - 2nd Round", "Big East Tournament -
+                    # Semifinal", "Player Era Festival" - and each side's seed where it has one. The slate
+                    # labels tournament games with them (``bb_slate.event``).
+                    "notes": game.get("gameNotes"),
+                    "seed1": game.get("awaySeed"),
+                    "seed2": game.get("homeSeed"),
                 }
             )
 

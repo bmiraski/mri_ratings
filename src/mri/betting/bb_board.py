@@ -116,6 +116,15 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
             {
                 "id": int(row.game_id),
                 "start": row.start_date,
+                # What the slate needs to say which tournament a game belongs to.
+                "notes": _text(getattr(row, "notes", None)),
+                "tournament": _text(getattr(row, "tournament", None)),
+                "seasonType": _text(getattr(row, "season_type", None)),
+                "gameType": _text(getattr(row, "game_type", None)),
+                "homeConference": _text(getattr(row, "conf2", None)),
+                "awayConference": _text(getattr(row, "conf1", None)),
+                "homeSeed": _seed(getattr(row, "seed2", None)),
+                "awaySeed": _seed(getattr(row, "seed1", None)),
                 "day": row.day.isoformat(),
                 "home": row.team2,
                 "away": row.team1,
@@ -147,6 +156,17 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
         "disagreements": disagreements,
         "priced": sum(1 for r in rows if r["market"] is not None),
     }
+
+
+def _text(value) -> str | None:
+    return value if isinstance(value, str) and value else None
+
+
+def _seed(value) -> int | None:
+    try:
+        return int(value) if value is not None and not pd.isna(value) else None
+    except (TypeError, ValueError):
+        return None
 
 
 def _empty(season: int) -> dict:

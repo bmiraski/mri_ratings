@@ -146,3 +146,63 @@ def test_bid_leverage_reads_the_worlds_where_each_side_wins() -> None:
     lev = joint._leverage(future, home_won, field, {"A": 0, "B": 1, "C": 2, "D": 3}, "2026-03-01")
     assert list(lev) == ["11"]                             # game 12 is past the window
     assert lev["11"]["home"] == {"ifWin": 0.8, "ifLose": 0.2} and lev["11"]["swing"] == 0.6
+
+
+# ---- which tournament a game is part of
+
+def test_events_are_named_from_the_feed() -> None:
+    ev = lambda **g: bb_slate.event({"start": "2026-03-19T16:00:00Z", **g})                     # noqa: E731
+    ncaa = ev(notes="NCAA Men's Basketball Championship - South Region - Sweet 16", tournament="NCAA", seasonType="postseason")
+    assert ncaa["kind"] == "ncaa" and ncaa["label"] == "NCAA Tournament · South · Sweet 16"
+    assert ncaa["detail"] == "South · Sweet 16"
+    final_four = ev(notes="NCAA Men's Basketball Championship - Final Four", tournament="NCAA", seasonType="postseason")
+    assert final_four["label"] == "NCAA Tournament · Final Four" and final_four["region"] is None
+    assert ev(notes="NIT - 2nd Round", tournament="NIT", seasonType="postseason")["label"] == "NIT · 2nd Round"
+    crown = ev(notes="College Basketball Crown Championship Game", seasonType="postseason")
+    assert crown["kind"] == "crown" and crown["label"] == "College Basketball Crown · Championship Game"
+    # A conference tournament is named from the conference, not the sponsor in the note.
+    big12 = ev(notes="Phillips 66 Big 12 Tournament - Semifinal", seasonType="regular", gameType="TRNMNT",
+               homeConference="Big 12", awayConference="Big 12", start="2026-03-13T16:00:00Z")
+    assert big12["kind"] == "conference" and big12["label"] == "Big 12 Tournament · Semifinal"
+    mte = ev(notes="Player Era Festival", seasonType="regular", gameType="TRNMNT", homeConference="SEC",
+             awayConference="Big East", start="2025-11-25T16:00:00Z")
+    assert mte["kind"] == "event" and mte["label"] == "Player Era Festival"
+    assert ev(notes=None, seasonType="regular", gameType="STD") is None
+
+
+def test_tournament_days_are_grouped_by_tournament_with_seeds() -> None:
+    from mri.export import site
+
+    teams = [{"team": n, "rank": 30 + i, "power": 10.0, "conference": "SEC", "abbreviation": n[:3].upper(), "color": "#123456"}
+             for i, n in enumerate(("Aa", "Bb", "Cc", "Dd", "Ee", "Ff"))]
+    p = {"sport": "basketball", "season": 2026, "seasonLabel": "2025-26", "periodLabel": "Final", "teams": teams,
+         "sports": ["football", "basketball"], "generated": "2026-03-19T11:00:00Z", "gamesRated": 1, "homeField": 3.0,
+         "week": 20, "conferences": []}
+    base = {"neutral": True, "predicted": 1.0, "market": None, "marketOpen": None, "edge": None, "winProbability": 0.54,
+            "day": "2026-03-19"}
+    games = [
+        {**base, "id": 1, "home": "Aa", "away": "Bb", "start": "2026-03-19T17:00:00Z", "tournament": "NIT",
+         "seasonType": "postseason", "notes": "NIT - 1st Round"},
+        {**base, "id": 2, "home": "Cc", "away": "Dd", "start": "2026-03-19T20:00:00Z", "tournament": "NCAA",
+         "seasonType": "postseason", "notes": "NCAA Men's Basketball Championship - East Region - 1st Round",
+         "homeSeed": 1, "awaySeed": 16},
+        {**base, "id": 3, "home": "Ee", "away": "Ff", "start": "2026-03-19T23:00:00Z", "seasonType": "regular", "gameType": "STD"},
+    ]
+    now = dt.datetime(2026, 3, 19, 11, tzinfo=dt.timezone.utc)
+    p["slate"] = bb_slate.build(2026, p, {"games": games}, None, now=now)
+    text = site.slate_page(p)
+    heads = [h.split("</b>")[0] for h in text.split('<p class="slslothead"><b>')[1:]]
+    assert heads == ["NCAA Tournament", "NIT", "Other games"]
+    assert "East · 1st Round" in text and '<span class="slseed" title="Seed">16</span>' in text
+    assert 'id="slevents"' in text and 'data-event="NCAA Tournament"' in text
+    # The NCAA field is set, so there are no bids left to win or lose: no stake column at all.
+    assert p["slate"]["bidStakes"] is False and ">Bid stake<" not in text and 'class="slst"' not in text
+    assert "nostakes" in text
+
+
+def test_bid_stakes_show_until_the_field_is_set() -> None:
+    board = {"games": [game(1)]}
+    now = dt.datetime(2026, 2, 28, 11, tzinfo=dt.timezone.utc)
+    assert bb_slate.build(2026, payload(), board, None, now=now)["bidStakes"] is True
+    frozen = {"frozen": True, "teams": [], "leverage": {}}
+    assert bb_slate.build(2026, payload(frozen), board, None, now=now)["bidStakes"] is False
