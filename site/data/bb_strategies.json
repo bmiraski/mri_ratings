@@ -1,0 +1,304 @@
+{
+ "breakEven": 0.5238,
+ "espn": {
+  "book": "ESPN Bet",
+  "games": 16954,
+  "seasons": [
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "underdogs": {
+   "all": {
+    "bets": 1780,
+    "wins": 907,
+    "losses": 873,
+    "ats": 0.5096,
+    "units": -48.5,
+    "p": 0.8901
+   },
+   "bySeason": {
+    "2023": {
+     "bets": 597,
+     "wins": 305,
+     "losses": 292,
+     "ats": 0.5109,
+     "units": -14.7,
+     "p": 0.7495
+    },
+    "2024": {
+     "bets": 502,
+     "wins": 255,
+     "losses": 247,
+     "ats": 0.508,
+     "units": -15.2,
+     "p": 0.7749
+    },
+    "2025": {
+     "bets": 540,
+     "wins": 264,
+     "losses": 276,
+     "ats": 0.4889,
+     "units": -36.0,
+     "p": 0.9522
+    },
+    "2026": {
+     "bets": 141,
+     "wins": 83,
+     "losses": 58,
+     "ats": 0.5887,
+     "units": 17.5,
+     "p": 0.0721
+    }
+   },
+   "bySpread": [
+    {
+     "band": "0\u20133",
+     "bets": 1227,
+     "wins": 604,
+     "losses": 623,
+     "ats": 0.4923,
+     "units": -73.9,
+     "p": 0.9874
+    },
+    {
+     "band": "3\u20136",
+     "bets": 444,
+     "wins": 232,
+     "losses": 212,
+     "ats": 0.5225,
+     "units": -1.1,
+     "p": 0.5407
+    },
+    {
+     "band": "6\u201310",
+     "bets": 82,
+     "wins": 50,
+     "losses": 32,
+     "ats": 0.6098,
+     "units": 13.5,
+     "p": 0.0733
+    },
+    {
+     "band": "10+",
+     "bets": 27,
+     "wins": 21,
+     "losses": 6,
+     "ats": 0.7778,
+     "units": 13.1,
+     "p": 0.0061
+    }
+   ]
+  },
+  "fades": {
+   "rules": [
+    {
+     "minGames": 8,
+     "maxCover": 0.35,
+     "bets": 1021,
+     "wins": 489,
+     "losses": 532,
+     "ats": 0.4789,
+     "units": -87.5,
+     "p": 0.9981
+    },
+    {
+     "minGames": 10,
+     "maxCover": 0.3,
+     "bets": 369,
+     "wins": 168,
+     "losses": 201,
+     "ats": 0.4553,
+     "units": -48.3,
+     "p": 0.9964
+    },
+    {
+     "minGames": 10,
+     "maxCover": 0.35,
+     "bets": 881,
+     "wins": 425,
+     "losses": 456,
+     "ats": 0.4824,
+     "units": -69.6,
+     "p": 0.9937
+    },
+    {
+     "minGames": 15,
+     "maxCover": 0.35,
+     "bets": 654,
+     "wins": 317,
+     "losses": 337,
+     "ats": 0.4847,
+     "units": -48.8,
+     "p": 0.9793
+    }
+   ],
+   "all": {
+    "minGames": 10,
+    "maxCover": 0.35,
+    "bets": 881,
+    "wins": 425,
+    "losses": 456,
+    "ats": 0.4824,
+    "units": -69.6,
+    "p": 0.9937
+   },
+   "bySeason": {
+    "2023": {
+     "bets": 662,
+     "wins": 325,
+     "losses": 337,
+     "ats": 0.4909,
+     "units": -41.5,
+     "p": 0.9583
+    },
+    "2024": {
+     "bets": 164,
+     "wins": 74,
+     "losses": 90,
+     "ats": 0.4512,
+     "units": -22.7,
+     "p": 0.9737
+    },
+    "2025": {
+     "bets": 55,
+     "wins": 26,
+     "losses": 29,
+     "ats": 0.4727,
+     "units": -5.4,
+     "p": 0.8142
+    }
+   }
+  }
+ },
+ "dk": {
+  "book": "DraftKings",
+  "games": 4498,
+  "seasons": [
+   2026
+  ],
+  "underdogs": {
+   "all": {
+    "bets": 461,
+    "wins": 230,
+    "losses": 231,
+    "ats": 0.4989,
+    "units": -21.9,
+    "p": 0.8679
+   },
+   "bySeason": {
+    "2026": {
+     "bets": 461,
+     "wins": 230,
+     "losses": 231,
+     "ats": 0.4989,
+     "units": -21.9,
+     "p": 0.8679
+    }
+   },
+   "bySpread": [
+    {
+     "band": "0\u20133",
+     "bets": 375,
+     "wins": 193,
+     "losses": 182,
+     "ats": 0.5147,
+     "units": -6.5,
+     "p": 0.6578
+    },
+    {
+     "band": "3\u20136",
+     "bets": 69,
+     "wins": 31,
+     "losses": 38,
+     "ats": 0.4493,
+     "units": -9.8,
+     "p": 0.913
+    },
+    {
+     "band": "6\u201310",
+     "bets": 15,
+     "wins": 4,
+     "losses": 11,
+     "ats": 0.2667,
+     "units": -7.4,
+     "p": 0.989
+    },
+    {
+     "band": "10+",
+     "bets": 2,
+     "wins": 2,
+     "losses": 0,
+     "ats": 1.0,
+     "units": 1.8,
+     "p": 0.2744
+    }
+   ]
+  },
+  "fades": {
+   "rules": [
+    {
+     "minGames": 8,
+     "maxCover": 0.35,
+     "bets": 591,
+     "wins": 281,
+     "losses": 310,
+     "ats": 0.4755,
+     "units": -54.5,
+     "p": 0.9916
+    },
+    {
+     "minGames": 10,
+     "maxCover": 0.3,
+     "bets": 217,
+     "wins": 107,
+     "losses": 110,
+     "ats": 0.4931,
+     "units": -12.7,
+     "p": 0.8349
+    },
+    {
+     "minGames": 10,
+     "maxCover": 0.35,
+     "bets": 468,
+     "wins": 230,
+     "losses": 238,
+     "ats": 0.4915,
+     "units": -28.9,
+     "p": 0.926
+    },
+    {
+     "minGames": 15,
+     "maxCover": 0.35,
+     "bets": 269,
+     "wins": 135,
+     "losses": 134,
+     "ats": 0.5019,
+     "units": -11.3,
+     "p": 0.7829
+    }
+   ],
+   "all": {
+    "minGames": 10,
+    "maxCover": 0.35,
+    "bets": 468,
+    "wins": 230,
+    "losses": 238,
+    "ats": 0.4915,
+    "units": -28.9,
+    "p": 0.926
+   },
+   "bySeason": {
+    "2026": {
+     "bets": 468,
+     "wins": 230,
+     "losses": 238,
+     "ats": 0.4915,
+     "units": -28.9,
+     "p": 0.926
+    }
+   }
+  }
+ }
+}

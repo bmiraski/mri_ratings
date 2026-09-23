@@ -1,4 +1,4 @@
-"""One tick of the live-score job: update docs/live.json while the slate's games are on.
+"""One tick of the live-score job: update each sport's live.json while its slate's games are on.
 
 Run every fifteen minutes by .github/workflows/live.yml. Spends an API call only
 while a game is about to start or in progress; otherwise it exits having read
@@ -18,4 +18,8 @@ sys.path.insert(0, str(ROOT / "src"))
 from mri.export import live  # noqa: E402
 
 if __name__ == "__main__":
-    print(live.run(ROOT / "docs"))
+    for sport, root in ((live.FOOTBALL, ROOT / "docs"), (live.BASKETBALL, ROOT / "docs" / "basketball")):
+        try:
+            print(f"{sport.name}: {live.run(root, sport=sport)}")
+        except Exception as exc:  # noqa: BLE001 - one sport's failure must not cost the other its scores
+            print(f"{sport.name}: failed - {exc}")

@@ -108,6 +108,7 @@ def main() -> None:
         print(f"  {basketball['gamesRated']} games, {len(basketball['teams'])} teams, "
               f"home court {basketball['homeField']:.2f}")
         add_bracketology(basketball, data_dir)
+        add_basketball_slate(basketball, data_dir, public / "basketball")
         # The per-team detail is 4MB and is already rendered into every team page.
         files = site.build(basketball, public, publish_details=False)
         top = basketball["teams"][0]
@@ -202,6 +203,55 @@ def _finals(week: int) -> dict[int, tuple[int, int]]:
 
     played = cfbd.games(SEASON)
     played = played[played["week"] == week]
+    return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in played.itertuples()}
+
+
+def add_basketball_slate(basketball: dict, data_dir: Path, root: Path) -> None:
+    """Today's slate, the two tracked betting habits, and yesterday's slate saved with its finals.
+
+    After bracketology, whose leverage is the slate's bid stakes from Christmas on. Isolated like the
+    rest: a failure here leaves the slate and the tracker off rather than the basketball site.
+    """
+    from mri.betting import bb_tracker
+    from mri.export import bb_slate
+
+    board = basketball.get("board") or {}
+    season = board.get("season") or basketball["season"]
+    strategies = data_dir / "bb_strategies.json"
+    if strategies.exists():
+        basketball["bbStrategies"] = json.loads(strategies.read_text())
+    try:
+        picks = data_dir / "bb_picks.json"
+        if board.get("games") or picks.exists():
+            basketball["bbTracker"] = bb_tracker.build(season, board, picks)
+            record = basketball["bbTracker"]["record"]
+            print(f"  tracker: {len(basketball['bbTracker']['fades'])} on the fade list; "
+                  f"dog picks {record['dog']['wins']}-{record['dog']['losses']}, "
+                  f"fades {record['fade']['wins']}-{record['fade']['losses']}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  tracker skipped: {exc}")
+    try:
+        slate_data = bb_slate.build(season, basketball, board, basketball.get("bbTracker"))
+        saved = bb_slate.snapshot(root, slate_data, lambda day: _bb_finals(season, day))
+        if saved:
+            print(f"  slate archive: saved {saved.relative_to(ROOT)}")
+        basketball["slate"] = slate_data
+        if slate_data:
+            print(f"  slate: {slate_data['date']}, {slate_data['games']} games, key games by {slate_data['watchKind']}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  slate skipped: {exc}")
+
+
+def _bb_finals(season: int, day: str) -> dict[int, tuple[int, int]]:
+    """Final scores for one Eastern-time day of basketball: game id -> (home points, away points)."""
+    import pandas as pd
+
+    from mri.export.live import EASTERN
+    from mri.ingest import cbbd
+
+    played = cbbd.games(season)
+    when = pd.to_datetime(played["start_date"], utc=True).dt.tz_convert(EASTERN).dt.date.astype(str)
+    played = played[when == day]
     return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in played.itertuples()}
 
 
