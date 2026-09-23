@@ -250,6 +250,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         )
         for name in published if name in CHROME
     ))
+    venue_text = (f'<a href="{up}homefield.html">{chrome.venue}</a>' if payload.get("homefield")
+                  else chrome.venue)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,7 +297,7 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     <a href="{chrome.source_url}">{chrome.source_name}</a>.
     <a href="{up}method.html">Method: how the ratings work</a>.</p>
     <p class="muted">Ratings last changed {esc(payload['generated'][:16].replace('T', ' '))} UTC
-    &middot; {payload['gamesRated']} games rated &middot; {chrome.venue} {payload['homeField']:.1f} pts</p>
+    &middot; {payload['gamesRated']} games rated &middot; {venue_text} {payload['homeField']:.1f} pts</p>
   </div>
 </footer>
 </body>
@@ -1057,7 +1059,7 @@ def team_page(team: dict, payload: dict) -> str:
     </div>
 
 {_rooting_section(team, payload)}
-    <div class="highlights">{''.join(highlights + _hidden_highlight(team, payload))}</div>
+    <div class="highlights">{''.join(highlights + _homefield_highlight(team, payload) + _hidden_highlight(team, payload))}</div>
 
     <section>
       <h2>Results</h2>
@@ -1459,6 +1461,138 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
   </article>"""
     return page(f"Betting — MRI {payload['season']}", body, payload,
                 description="What the model says about the market, and how badly it has done.")
+
+
+
+# --------------------------------------------------------------------------
+# home field, stadium by stadium
+# --------------------------------------------------------------------------
+
+def _signed(value: float) -> str:
+    return f"{value:+.1f}".replace("-", "&minus;")
+
+
+def homefield_row(team: str, payload: dict) -> dict | None:
+    """This team's stadium on the Home field page, with its total added up."""
+    for row in (payload.get("homefield") or {}).get("stadiums", []):
+        if row["team"] == team:
+            return {**row, "total": payload["homeField"] + row["adjustment"]}
+    return None
+
+
+def _homefield_highlight(team: dict, payload: dict) -> list[str]:
+    row = homefield_row(team["team"], payload)
+    if not row:
+        return []
+    count = len(payload["homefield"]["stadiums"])
+    return [f'<div class="hl" title="What a typical visit to {esc(row["venue"])} is worth to the home side: the '
+            f'league\'s home field plus the trip and the crowd there. Describes the past; the model\'s lines use '
+            f'the league number."><span class="hll">Home field</span><span class="hlv">'
+            f'<a href="../homefield.html">{_signed(row["total"])} pts</a> &middot; {row["rank"]}{_ordinal(row["rank"])} '
+            f'of {count}</span></div>']
+
+
+def _ordinal(n: int) -> str:
+    return "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+
+
+def homefield_page(payload: dict) -> str:
+    """Toughest places to play, sorted by what a visit there costs.
+
+    Led by the null result, the way the betting page is led by its verdict: no
+    single stadium's crowd can be told apart from average, and none of this moved
+    the model's lines. What does travel - altitude and distance - is why the list
+    looks the way it does.
+    """
+    data = payload["homefield"]
+    base = payload["homeField"]
+    lookup = {t["team"] for t in payload["teams"]}
+    t = data["travels"]
+
+    def interval(pair):
+        return f"{_signed(pair[0])} to {_signed(pair[1])}"
+
+    rows = []
+    for r in data["stadiums"]:
+        name = (f'<a href="team/{slug(r["team"])}.html">{esc(r["team"])}</a>' if r["team"] in lookup
+                else esc(r["team"]))
+        facts = f'{r["elevation"]:,} ft' + (" &middot; dome" if r["dome"] else "")
+        capacity = f'{r["capacity"]:,}' if r["capacity"] else "&ndash;"
+        edge = (f'<span title="80% interval {interval(r["stadiumInterval"])}">{_signed(r["stadium"])}</span>'
+                + (" *" if r["excludesZero"] else ""))
+        rows.append(f"""<tr>
+        <td class="wk">{r['rank']}</td>
+        <td class="opp">{name}<br><span class="muted" title="{esc(r['city'])}, {esc(r['state'])}">{esc(r['venue'])}</span></td>
+        <td class="num"><strong>{_signed(base + r['adjustment'])}</strong></td>
+        <td class="num">{_signed(r['conditions'])}</td>
+        <td class="num">{edge}</td>
+        <td class="num">{facts}</td>
+        <td class="num">{capacity}</td>
+        <td class="num">{r['homeWins']}&ndash;{r['homeLosses']}</td></tr>""")
+
+    top = data["stadiums"][:3]
+    lead = ("No stadium's own home field can be told apart from average." if not data["anyExcludesZero"]
+            else "A few stadiums stand out from average; they are starred below.")
+    shipped = data["shipped"]
+    body = f"""
+  <article class="prose">
+  <h1>Home field</h1>
+
+  <div class="verdict">
+    <p class="vlead">{lead}</p>
+    <p>What differs from one place to the next is the trip. The toughest visits are
+    {", ".join(esc(r["team"]) for r in top)}: a long way from anywhere, or a mile up, or both.
+    The model's home field this season is <strong>{base:.1f} points</strong>; the list below
+    is what a typical visit to each stadium has been worth on top of that.</p>
+  </div>
+
+  <p>This is a description of {data['seasons'][0]}&ndash;{data['seasons'][1]}, built from
+  {data['games']:,} games between FBS teams. {"It was tested as a change to the model and passed, so the model's lines now use it." if shipped else
+  "It was also tested as a change to the model &mdash; a different home field for every stadium and every trip &mdash; and did not predict games any better than one number for everyone, so the lines on this site still use one number."}</p>
+
+  <h2>What travels</h2>
+  <table class="compare wide">
+    <thead><tr><th>Worth to the home side</th><th class="num">Points</th><th class="num">80% range</th></tr></thead>
+    <tbody>
+      <tr><td>Per 1,000 feet of climb</td><td class="num">{_signed(t['altitude']['points'])}</td>
+        <td class="num">{interval(t['altitude']['interval80'])}</td></tr>
+      <tr><td>Per 1,000 extra miles</td><td class="num">{_signed(t['travel']['points'])}</td>
+        <td class="num">{interval(t['travel']['interval80'])}</td></tr>
+      <tr><td>Kickoff before 11am on the visitor's clock</td><td class="num">{_signed(t['bodyClock']['points'])}</td>
+        <td class="num">{interval(t['bodyClock']['interval80'])}</td></tr>
+      <tr><td>Empty stands (2020, against every other season)</td><td class="num">{_signed(t['crowd2020']['points'])}</td>
+        <td class="num">{interval(t['crowd2020']['interval80'])}</td></tr>
+    </tbody>
+  </table>
+  <p>Altitude and distance are clear. The early kickoff that is supposed to catch a West
+  Coast team asleep is not: its range runs well either side of zero. The empty stands of
+  2020 are the one clean measure of what a crowd is worth &mdash; home teams gave up about
+  {abs(t['crowd2020']['points']):.0f} points of their edge that year. Outside 2020 home field has
+  held steady, {_signed(data['trendPerDecade'])} points a decade.</p>
+
+  <h2>Every stadium</h2>
+  <p class="hint"><strong>Home field</strong> is the total a visitor faces: the model's
+  {base:.1f} points, plus <strong>trip &amp; crowd</strong> (how far and how high visitors
+  have come, and how full the stands usually are, against the average stadium), plus the
+  <strong>stadium</strong>'s own edge &mdash; how much better its team has played there than
+  on the road, beyond all that. That last number is shrunk hard toward zero: a stadium sees
+  about six FBS visitors a year, and games vary by sixteen points, so eighty games pin a
+  stadium down to within two points at best while real stadiums differ by about
+  {data['stadiumSpread']:.1f}. Hover it for the 80% range.
+  {"Starred rows are the ones whose range clears zero." if data["anyExcludesZero"] else "No range clears zero."}</p>
+  </article>
+
+  <div class="tablewrap hftable"><table>
+    <thead><tr><th>#</th><th>Team &middot; stadium</th><th class="num">Home field</th>
+    <th class="num">Trip &amp; crowd</th><th class="num">Stadium</th><th class="num">Elevation</th>
+    <th class="num">Capacity</th><th class="num">Home since {data['seasons'][0]}</th></tr></thead>
+    <tbody>{"".join(rows)}</tbody>
+  </table></div>
+  <p class="note">Teams with fewer than ten home games against FBS opponents since
+  {data['seasons'][0]} are left off. Home records count every opponent, FCS included, and run
+  through this season's games so far.</p>"""
+    return page(f"Home field — MRI {payload['season']}", body, payload,
+                description="Toughest places to play in college football: what a trip to each stadium costs.")
 
 
 
@@ -3034,6 +3168,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
 
 {_prior_method_section(payload)}
+{_homefield_method_section(payload)}
 {_sim_method_section(payload)}
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
@@ -3043,6 +3178,32 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   </article>"""
     return page(f"Method — MRI {season_text(payload)}", body, payload,
                 description="How the MRI rating system works, and how well it does.")
+
+
+def _homefield_method_section(payload: dict) -> str:
+    data = payload.get("homefield")
+    if not data:
+        return ""
+    gate = data["gate"]
+    best = max(gate.values(), key=lambda g: g["t"])
+    return f"""
+  <h2>Home field by stadium</h2>
+  <p>The model gives every home team the same {payload['homeField']:.1f} points. Tested in
+  September 2026: should that number move with the stadium, or
+  with the trip? Every FBS game from {data['seasons'][0]} was predicted from ratings that had
+  only seen earlier weeks, and what the scoreboard said beyond that prediction was split two
+  ways &mdash; into the trip (altitude, miles, time zones, early kickoffs, how full the stands
+  usually are), fitted by least squares, and into each stadium, with each stadium's average
+  shrunk toward zero by empirical Bayes: <em>n</em> / (<em>n</em> + <em>k</em>) of its raw
+  mean, where <em>k</em> is game-to-game noise over the real spread between stadiums.</p>
+  <p>Fitted only on seasons before the one being scored, neither piece, nor both, predicted
+  games better than the single number: the best variant cleared a paired
+  <em>t</em> of {best['t']:+.2f} against a bar of 2, and was better in {best['seasonsBetter']} of
+  {best['seasons']} seasons. {"No stadium's own effect can be told apart from average." if not data["anyExcludesZero"] else ""}
+  So the lines are unchanged, and the findings are published as a
+  <a href="homefield.html">description of the past</a>. The FCS games are left out of the fit:
+  the model under-rates the FBS side in them by enough to swamp everything else, which is its
+  own problem.</p>"""
 
 
 def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
@@ -3532,6 +3693,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     for entry in archives:
         write(entry["path"].with_suffix(".html"),
               slate_page(payload, archive=entry["data"], archives=archives, archive_id=entry["id"]))
+    if payload.get("homefield") and chrome.sport == "football":
+        write(out_dir / "homefield.html", homefield_page(payload))
     if payload.get("record"):
         write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
     if payload.get("bracketology"):
@@ -3550,7 +3713,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
             "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies",
-            "hiddenHeisman", "rooting"} \
+            "hiddenHeisman", "rooting", "homefield"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -3718,6 +3881,8 @@ thead th { text-align:left; font-size:10px; letter-spacing:0.09em; text-transfor
 tbody td { padding:8px 10px; border-bottom:1px solid var(--grid); }
 tbody tr:last-child td { border-bottom:none; }
 .num { text-align:right; font-variant-numeric:tabular-nums; }
+.hftable td.opp { min-width:200px; }
+.hftable td.opp .muted { font-size:12px; }
 th.num { text-align:right; }
 .wk, .rec { color:var(--secondary); font-variant-numeric:tabular-nums; }
 .site { color:var(--muted); font-size:12px; }

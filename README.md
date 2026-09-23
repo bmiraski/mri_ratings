@@ -140,6 +140,22 @@ random draw on the result and leaves every other draw alone (common random numbe
 
 The section is left off when the guide is missing or is for a different week than the slate.
 
+### Home field by stadium
+
+`homefield.html` ranks every FBS home stadium by what a typical visit there costs: the model's home field plus
+the trip (altitude, miles, time zones, early kickoffs) and the crowd, plus the stadium's own edge. It is a
+description, not a model input. `scripts/backtest_hfa.py` tested per-stadium and per-trip home field as a change
+to the lines, walk-forward on 2016-2025 FBS-vs-FBS games with the layer fitted only on earlier seasons, and no
+variant cleared the bar (better log loss in most seasons and paired t > 2), so every line still uses one number.
+Stadium effects are empirical-Bayes shrunk and none is distinguishable from average; altitude (+0.6 per 1,000 ft)
+and distance (+1.6 per 1,000 miles) are real but too small to move predictions. `src/mri/ratings/hfa.py` holds
+the features and the fit; venues come from one cached `/venues` call and team homes from one `/teams` call.
+
+- `data/hfa_backtest.json` - the full report: every variant's scores and tests, coefficients, stadium effects.
+- `data/parquet/venue_game.parquet` - one row per game with its stadium and features.
+- `site/data/homefield.json` - what the page shows. Missing, the page, the team-page line and the method section
+  are left off. Re-run the script after a season ends.
+
 ### College GameDay forecast
 
 `gameday.html` guesses where ESPN's College GameDay will be for the weeks not yet announced.
