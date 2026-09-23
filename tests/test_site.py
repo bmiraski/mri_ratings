@@ -1557,3 +1557,45 @@ def test_rooting_guide_on_team_pages_and_only_when_current(extended) -> None:
     assert "Who to root for" not in site.team_page(p["teams"][0], p)
     del p["rooting"]                                                               # missing: the page still builds
     assert "Who to root for" not in site.team_page(p["teams"][0], p)
+
+
+HOMEFIELD = DATA.parent / "homefield.json"
+
+
+def _broken_links(root: Path) -> list[str]:
+    broken = []
+    for page in root.rglob("*.html"):
+        for href in re.findall(r'href="([^"]+)"', page.read_text()):
+            if href.startswith(("http://", "https://", "#", "mailto:")):
+                continue
+            if not (page.parent / href).resolve().exists():
+                broken.append(f"{page.relative_to(root)} -> {href}")
+    return broken
+
+
+@pytest.mark.skipif(not HOMEFIELD.exists(), reason="home field data not built")
+def test_home_field_page_team_line_and_method_section(payload, tmp_path) -> None:
+    p = dict(payload, homefield=json.loads(HOMEFIELD.read_text()))
+    site.build(p, tmp_path)
+    page = (tmp_path / "homefield.html").read_text()
+    top = p["homefield"]["stadiums"][0]
+    assert top["rank"] == 1 and page.index(site.esc(top["venue"])) < page.index(site.esc(p["homefield"]["stadiums"][-1]["venue"]))
+    totals = [r["adjustment"] for r in p["homefield"]["stadiums"]]
+    assert totals == sorted(totals, reverse=True)                        # sorted by total home field
+    if not p["homefield"]["anyExcludesZero"]:
+        assert "No stadium's own home field can be told apart from average." in page
+    team = next(t for t in p["teams"] if site.homefield_row(t["team"], p))
+    assert 'href="../homefield.html"' in (tmp_path / "team" / f"{site.slug(team['team'])}.html").read_text()
+    assert "Home field by stadium" in (tmp_path / "method.html").read_text()
+    assert "homefield" not in json.loads((tmp_path / "site.json").read_text())
+    assert not _broken_links(tmp_path)
+
+
+def test_site_builds_without_home_field_data(payload, tmp_path) -> None:
+    """The page is a one-off script's output. Missing, everything that mentions it goes quietly."""
+    p = {k: v for k, v in payload.items() if k != "homefield"}
+    site.build(p, tmp_path)
+    assert not (tmp_path / "homefield.html").exists()
+    assert "homefield.html" not in "".join(f.read_text() for f in tmp_path.rglob("*.html"))
+    assert "Home field by stadium" not in (tmp_path / "method.html").read_text()
+    assert not _broken_links(tmp_path)

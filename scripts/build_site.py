@@ -125,6 +125,12 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
     """
     weekly = sitedata.weekly_ratings(SEASON)
 
+    # The Home field page: written by scripts/backtest_hfa.py, a one-off. Absent, the page, the team
+    # pages' line and the method section are simply left off.
+    homefield = data_dir / "homefield.json"
+    if homefield.exists():
+        payload["homefield"] = json.loads(homefield.read_text())
+
     model = priors.load_model()
     if model:
         payload["priorModel"] = model
