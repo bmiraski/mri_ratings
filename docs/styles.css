@@ -304,10 +304,16 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 /* basketball: a Tracked column in place of Edge, a conference filter, and a day switcher */
 .slday.bb .slhead, .slday.bb .slrow { grid-template-columns:66px minmax(0,1.8fr) 44px 92px 104px minmax(0,0.9fr) minmax(0,1.2fr); }
 .slday.bb.live .slhead, .slday.bb.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px minmax(0,0.9fr) minmax(0,1fr); }
+.slday.bb.nostakes .slhead, .slday.bb.nostakes .slrow { grid-template-columns:66px minmax(0,2fr) 44px 92px 104px minmax(0,1.1fr); }
+.slday.bb.nostakes.live .slhead, .slday.bb.nostakes.live .slrow { grid-template-columns:66px minmax(0,1.9fr) 40px 36px 48px 84px 98px minmax(0,1fr); }
 .sltags { display:flex; flex-wrap:wrap; gap:4px; min-width:0; }
 .sltag { font-size:11px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis); color:var(--secondary); white-space:nowrap; }
 .sltag.dog { border-color:color-mix(in srgb, var(--up) 60%, var(--axis)); }
 .sltag.fade { border-color:color-mix(in srgb, var(--down) 60%, var(--axis)); }
+.slevent { display:block; font-size:10.5px; letter-spacing:0.04em; color:var(--secondary); text-transform:uppercase; font-weight:600;
+  margin:0 0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.slcard .slevent { margin:0; }
+.slseed { font-size:11px; font-weight:700; color:var(--secondary); min-width:14px; text-align:right; font-variant-numeric:tabular-nums; }
 .slconf { background:var(--plane); color:var(--primary); border:1px solid var(--axis); border-radius:8px; padding:5px 8px; font:inherit; font-size:13px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
@@ -353,8 +359,8 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
   .slst { grid-area:s; min-width:140px; }
   .slday.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"t t t" "g sc lv" "m k k" "e s s"; }
   .slday.live .slwp { display:none; }
-  .slday.bb .slrow { grid-template-columns:minmax(0,1fr) auto; }
-  .slday.bb.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
+  .slday.bb .slrow, .slday.bb.nostakes .slrow { grid-template-columns:minmax(0,1fr) auto; }
+  .slday.bb.live .slrow, .slday.bb.nostakes.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
   .sltags { grid-area:e; }
   .bbstrats { grid-template-columns:1fr; }
   .slscore { grid-area:sc; } .sllive { grid-area:lv; }

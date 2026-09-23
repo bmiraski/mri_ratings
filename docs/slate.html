@@ -931,14 +931,15 @@
 (function () {
   var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
-  var conf = document.getElementById('slconf');
+  var selects = Array.prototype.slice.call(document.querySelectorAll('.slfilter select[data-field]'));
   var count = document.getElementById('slcount'), none = document.getElementById('slnone');
   var want = 'all';
   function apply() {
-    var shown = 0, league = conf ? conf.value : '';
+    var shown = 0;
     rows.forEach(function (row) {
-      var ok = (want === 'all' || row.dataset[want] === '1') &&
-        (!league || ('|' + (row.dataset.conf || '') + '|').indexOf('|' + league + '|') >= 0);
+      var ok = (want === 'all' || row.dataset[want] === '1') && selects.every(function (sel) {
+        return !sel.value || ('|' + (row.dataset[sel.dataset.field] || '') + '|').indexOf('|' + sel.value + '|') >= 0;
+      });
       row.hidden = !ok;
       if (ok) shown++;
     });
@@ -950,7 +951,7 @@
     none.hidden = shown > 0;
   }
   buttons.forEach(function (b) { b.addEventListener('click', function () { want = b.dataset.f; apply(); }); });
-  if (conf) conf.addEventListener('change', apply);
+  selects.forEach(function (sel) { sel.addEventListener('change', apply); });
   apply();
 })();
 </script>
