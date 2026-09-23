@@ -2018,7 +2018,9 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         key_title = "Most riding on it"
         key_note = (f"The {n_key} game{plural} {'that day' if archive else 'today'} that move{'d' if archive else ''} a team&rsquo;s "
                     f"chance of an NCAA Tournament bid most, from {sim_ref}. The bar runs from that team&rsquo;s chance with a "
-                    "loss to its chance with a win; the tick is where it stood before tip-off. These games carry a red stripe in the lists below.")
+                    "loss to its chance with a win; the tick is where it stood before tip-off. These games carry a red stripe in the lists below."
+                    + (" Conference finals decide automatic bids and top the list on swing alone, so the at-large games that "
+                       "move a bubble team most get spots of their own after the top ten." if n_key > 10 else ""))
     else:
         key_title = "Most riding on it"
         key_note = (f"The {n_key} game{plural} {'that week' if archive else 'this week'} that move{'d' if archive else ''} a team&rsquo;s "

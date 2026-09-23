@@ -28,6 +28,12 @@ from .live import EASTERN
 WATCH = 10
 KEY_SWING = 0.05
 BEST = 8
+# On a conference-tournament day the one-bid finals, where the winner takes the automatic bid, fill the top ten on
+# swing alone. So at-large games - a bubble team with a real chance of getting in even if it loses, whose bid still
+# moves a lot on the result - get spots of their own past the ten when they miss the cut.
+AT_LARGE_EXTRA = 4
+AT_LARGE_SWING = 0.10
+AT_LARGE_FLOOR = 0.05          # the team's bid chance with a loss: above this, it is not all-or-nothing
 
 # Which tournament a game belongs to, in the order the slate lists them once tournament season starts.
 EVENT_ORDER = {"ncaa": 0, "nit": 1, "cbi": 2, "crown": 3, "postseason": 4, "conference": 5, "event": 6}
@@ -97,6 +103,11 @@ def _stake(entry: dict | None, game: dict, bracket: dict | None) -> dict | None:
     return best
 
 
+def at_large(stake: dict) -> bool:
+    """A game that moves an at-large bid: the team could still get in with a loss, and the result moves it a lot."""
+    return stake["swing"] >= AT_LARGE_SWING and stake["ifLose"] >= AT_LARGE_FLOOR
+
+
 def _quality(game: dict, power: dict) -> float:
     """How good a game should be: the weaker side's rating, less a little for every point of expected margin."""
     return min(power.get(game["home"], -50.0), power.get(game["away"], -50.0)) - 0.6 * abs(game["predicted"])
@@ -146,8 +157,10 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
         games.sort(key=lambda g: (g["sort"], min(rank(g["home"]), rank(g["away"]))))
     todays = days.get(today, [])
 
-    staked = sorted((g for g in todays if (g.get("stake") or {}).get("swing", 0) >= KEY_SWING),
-                    key=lambda g: -g["stake"]["swing"])[:WATCH]
+    ranked = sorted((g for g in todays if (g.get("stake") or {}).get("swing", 0) >= KEY_SWING),
+                    key=lambda g: -g["stake"]["swing"])
+    staked = ranked[:WATCH]
+    staked += [g for g in ranked[WATCH:] if at_large(g["stake"])][:AT_LARGE_EXTRA]
     if staked:
         watch, watch_kind = [g["id"] for g in staked], "stakes"
     else:
