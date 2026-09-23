@@ -160,6 +160,16 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"  slate archive skipped: {exc}")
 
+    # Other teams' games that move each team's playoff odds: two forced simulations per game, about a minute.
+    try:
+        from mri.export import rooting
+        payload["rooting"] = rooting.build(SEASON, payload, data_dir / "rooting.json", data_dir / "rooting_history.json")
+        if payload["rooting"]:
+            r = payload["rooting"]
+            print(f"  rooting: week {r['week']}, {r['games']} games forced both ways in {r['seconds']:.0f}s")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  rooting skipped: {exc}")
+
     try:
         payload["gameday"] = gamedaydata.build(SEASON, payload)
         if payload["gameday"]:

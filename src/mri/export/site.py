@@ -839,6 +839,75 @@ def _history_section(team: dict, payload: dict) -> str:
     </section>"""
 
 
+def _rooting_section(team: dict, payload: dict) -> str:
+    """Who to root for this week: other teams' games that move this team's playoff odds most.
+
+    Hidden when there is no guide, or when it is for a different week than the slate (stale), so a page never
+    offers last week's advice. See ``rooting.py`` for how the numbers are made.
+    """
+    guide = payload.get("rooting")
+    slate = payload.get("slate") or {}
+    if not guide or not slate or guide.get("week") != slate.get("week"):
+        return ""
+    mine = (guide.get("teams") or {}).get(team["team"])
+    if not mine:
+        return ""
+    lookup = {t["team"]: t for t in payload["teams"]}
+
+    def side(name, size=18, link=True):
+        t = lookup.get(name)
+        mark = identity_mark(t, size, 1) if t else ""
+        label = f'<a href="{slug(name)}.html">{esc(name)}</a>' if t and link else esc(name)
+        return f'<span class="nmcell">{mark}{label}</span>'
+
+    # Closed until opened: the page is about the team, and this is about everyone else. The summary says enough
+    # - the top game, or that there is none - to decide whether to open it.
+    def head(teaser):
+        return f"""
+    <details class="rooting">
+      <summary><h2>Who to root for this week</h2><span class="rtteaser">{teaser}</span></summary>"""
+    if not mine.get("games"):
+        message = esc(mine.get("message") or "Nothing this weekend moves the needle.")
+        return head(message) + f"""
+      <p class="rtone">{message}</p>
+    </details>
+"""
+    by_title = mine.get("basis") == "conferenceTitle"
+    what = "Conference title odds" if by_title else "Playoff odds"
+    def pair(a, b):
+        """The two chances either way, with a decimal when whole numbers would print them the same."""
+        if _pct(a) != _pct(b) or not (0.10 <= a < 0.995 and 0.10 <= b < 0.995):
+            return _pct(a), _pct(b)
+        return f"{a:.1%}", f"{b:.1%}"
+
+    rows = []
+    for g in mine["games"]:
+        joiner = "vs" if g.get("neutral") else "at"
+        good, bad = pair(g["ifRoot"], g["ifNot"])
+        tag = '<span class="rttag">upset needed</span>' if g.get("upsetNeeded") else ""
+        rows.append(f"""
+        <li class="rtrow">
+          <a class="rtgame" href="../slate.html#g{g['gameId']}" title="This game on the slate">{side(g['away'], link=False)}<span class="muted">{joiner}</span>{side(g['home'], link=False)}</a>
+          <div class="rtroot"><span class="rtl">Root for</span>{side(g['rootFor'], 20)}<span class="muted small">{_pct(g['rootForWinProb'])} to win</span>{tag}</div>
+          <div class="rtodds"><span class="rtl">{what}</span><b>{good}</b> if they win &middot; {bad} if not
+            <span class="rtdelta">{_pct(g['delta'], signed=True)} pts</span></div>
+        </li>""")
+    note = ("Nothing else this week moves the playoff odds by half a point, so these are the games for the conference race."
+            if by_title else "Other teams&rsquo; games only; its own game is in the schedule below.")
+    first = mine["games"][0]
+    beaten = first["home"] if first["rootFor"] == first["away"] else first["away"]
+    count = len(mine["games"])
+    teaser = (f'{count} game{"s" if count != 1 else ""} &middot; top: {esc(first["rootFor"])} over {esc(beaten)}, '
+              f'{_pct(first["delta"], signed=True)} pts {"conference title" if by_title else "playoff"} odds')
+    return head(teaser) + f"""
+      <p class="hint">The games this week that {'move its conference title odds' if by_title else 'move its playoff odds'} most, and the side to cheer.
+      {note} <a href="../method.html#rooting">How these are worked out</a>.</p>
+      <ul class="rtlist">{''.join(rows)}
+      </ul>
+    </details>
+"""
+
+
 def _hidden_winners(team: dict, payload: dict) -> list[dict]:
     hh = payload.get("hiddenHeisman") or {}
     every = (hh.get("winners") or []) + (hh.get("past") or [])
@@ -987,6 +1056,7 @@ def team_page(team: dict, payload: dict) -> str:
       {_trend_stat(team)}
     </div>
 
+{_rooting_section(team, payload)}
     <div class="highlights">{''.join(highlights + _hidden_highlight(team, payload))}</div>
 
     <section>
@@ -2433,7 +2503,20 @@ def _sim_method_section(payload: dict) -> str:
   ranked in the top 12; the remaining places go to the highest-ranked teams left.</p>
   <p><strong>Simplifications, stated.</strong> Ties in conference wins are broken by coin flip, not head-to-head.
   Injuries are invisible until they show up in results. The committee blend was chosen using the same twelve
-  seasons it is reported on.</p>{card}"""
+  seasons it is reported on.</p>{card}
+  <h3 id="rooting">Who to root for</h3>
+  <p>Each team page lists the games this week that the team is not playing in but that move its playoff odds most,
+  and the side to cheer. For every game still to kick off, the simulation is run twice more on the same random
+  numbers: once with the home side forced to win, once with the visitor. The difference in a team&rsquo;s odds between
+  the two is that game&rsquo;s effect on it. Using the same random numbers matters: both runs share every draw except
+  that one game&rsquo;s, so what is left is the game and not simulation noise. Reading the effect off the ordinary run
+  instead &mdash; comparing the runs where the underdog happened to win with the rest &mdash; would mix in something
+  else, because those are also the runs in which the underdog was drawn stronger for the rest of its season. A forced
+  upset is drawn the way real upsets happen, usually close, not as a blowout.</p>
+  <p>The page shows at most five games, ranked by how much they move the playoff odds; anything under half a point is
+  left out as noise. When nothing moves a team&rsquo;s playoff odds that much but a game moves its conference title
+  odds, the guide switches to those and says so. A team with less than a half-percent playoff chance, or more than
+  99.5%, gets one line instead: nothing this weekend moves the needle, or its fate is in its own hands.</p>"""
 
 
 def gameday_page(payload: dict) -> str:
@@ -3467,7 +3550,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
             "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies",
-            "hiddenHeisman"} \
+            "hiddenHeisman", "rooting"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -3813,6 +3896,39 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
 .slnav b { padding:3px 10px; border-radius:999px; background:var(--primary); color:var(--surface); font-weight:600; }
+/* the rooting guide on team pages */
+.rooting { margin:18px 0 8px; background:var(--surface); border:1px solid var(--grid); border-radius:12px; padding:0 14px; }
+.rooting[open] { padding-bottom:14px; }
+.rooting summary { cursor:pointer; list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px; padding:12px 0; }
+.rooting summary::-webkit-details-marker { display:none; }
+/* As big as the heading, the way the Heisman page's open-close triangle is: at a small size it reads as decoration,
+   and nobody finds the list. */
+.rooting summary::before { content:"▶"; color:var(--primary); font-size:18px; line-height:1; width:18px; transition:transform .15s; }
+.rooting[open] summary::before { transform:rotate(90deg); }
+.rooting:not([open]):hover { border-color:var(--axis); background:color-mix(in srgb, var(--primary) 4%, var(--surface)); }
+.rooting .rtteaser { flex-basis:100%; padding-left:30px; }
+.rooting summary h2 { display:inline; margin:0; font-size:18px; }
+.rtteaser { font-size:13px; color:var(--secondary); }
+.rooting[open] .rtteaser { display:none; }
+.rooting .rtlist { background:var(--plane); }
+.rooting .rtone { margin:0; }
+.rtone { background:var(--surface); border:1px solid var(--grid); border-radius:10px; padding:12px 14px; color:var(--secondary); }
+.rtlist { list-style:none; margin:0; padding:0; background:var(--surface); border:1px solid var(--grid); border-radius:12px; }
+.rtrow { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1.1fr) minmax(0,1.3fr); gap:14px; align-items:center;
+  padding:10px 14px; border-bottom:1px solid var(--grid); font-size:13.5px; }
+.rtrow:last-child { border-bottom:none; }
+.rtgame { display:flex; flex-wrap:wrap; align-items:center; gap:6px; text-decoration:none; color:inherit; min-width:0; }
+.rtgame:hover .nmcell a { text-decoration:underline; }
+.rtl { display:block; font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:var(--muted); font-weight:600; margin-bottom:2px; }
+.rtroot { display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:0; }
+.rtroot .rtl { flex-basis:100%; margin:0; }
+.rtroot .nmcell { font-weight:600; }
+.rttag { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--alert);
+  border:1px solid color-mix(in srgb, var(--alert) 60%, var(--axis)); border-radius:999px; padding:0 7px; }
+.rtodds { color:var(--secondary); font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.rtodds b { color:var(--primary); }
+.rtdelta { display:inline-block; margin-left:6px; font-size:11.5px; color:var(--up); font-weight:600; }
+@media (max-width:760px) { .rtrow { grid-template-columns:1fr; gap:8px; } }
 /* the Hidden Heisman */
 .hhicon { height:28px; width:auto; color:var(--alert); flex:none; vertical-align:middle; }
 svg.hhicon { width:28px; }
