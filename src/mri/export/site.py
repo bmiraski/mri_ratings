@@ -839,6 +839,58 @@ def _history_section(team: dict, payload: dict) -> str:
     </section>"""
 
 
+def _hidden_winners(team: dict, payload: dict) -> list[dict]:
+    hh = payload.get("hiddenHeisman") or {}
+    every = (hh.get("winners") or []) + (hh.get("past") or [])
+    return sorted((w for w in every if w["team"] == team["team"]), key=lambda w: (-w["season"], -w["week"]))
+
+
+def _hidden_awards(team: dict, payload: dict) -> list[dict]:
+    hh = payload.get("hiddenHeisman") or {}
+    return sorted((a for a in hh.get("awards") or [] if a["team"] == team["team"]), key=lambda a: -a["season"])
+
+
+def _hidden_highlight(team: dict, payload: dict) -> list[str]:
+    awards = _hidden_awards(team, payload)
+    if awards:
+        a = awards[0]
+        return [f'<div class="hl hlhh"><span class="hll">{_hidden_icon("../", 14)} Hidden Heisman</span>'
+                f'<span class="hlv">{esc(a["player"])} &middot; {a["season"]} season winner</span></div>']
+    wins = _hidden_winners(team, payload)
+    if not wins:
+        return []
+    w = wins[0]
+    label = f"{esc(w['player'])} &middot; {'Week ' + str(w['week']) if w['season'] == payload.get('season') else str(w['season'])}"
+    more = f" &middot; {len(wins)} in all" if len(wins) > 1 else ""
+    return [f'<div class="hl hlhh"><span class="hll">{_hidden_icon("../", 14)} Hidden Heisman</span>'
+            f'<span class="hlv">{label}{more}</span></div>']
+
+
+def _hidden_team_section(team: dict, payload: dict) -> str:
+    wins = _hidden_winners(team, payload)
+    awards = _hidden_awards(team, payload)
+    if not wins and not awards:
+        return ""
+    rows = "".join(
+        f'<tr class="hhaward"><td class="wk">{a["season"]}</td><td class="wk">Season</td><td class="opp"><strong>{esc(a["player"])}</strong></td>'
+        f'<td class="opp muted">{a["games"]} games</td>'
+        f'<td>{" &middot; ".join(f"{y:,} {k.lower()[:4]}, {t} TD" for k, y, t in _hidden_line(a["line"]))}</td></tr>'
+        for a in awards) + "".join(
+        f'<tr><td class="wk">{w["season"]}</td><td class="wk">{w["week"]}</td><td class="opp">{esc(w["player"])}</td>'
+        f'<td class="opp">vs {esc(w.get("opponent") or "")}</td>'
+        f'<td>{" &middot; ".join(f"{y:,} {k.lower()[:4]}, {t} TD" for k, y, t in _hidden_line(w["line"]))}</td></tr>'
+        for w in wins)
+    return f"""
+    <section>
+      <h2 class="hhteam">{_hidden_icon("../", 22)} Hidden Heisman</h2>
+      <p class="hint">The week&rsquo;s biggest game from outside the power conferences, from a player the Heisman odds were
+      not talking about. <a href="../heisman.html">How it is picked</a>.</p>
+      <div class="tablewrap"><table><thead><tr><th>Season</th><th>Wk</th><th>Player</th><th>Opponent</th><th>Line</th></tr></thead>
+        <tbody>{rows}</tbody></table></div>
+    </section>
+"""
+
+
 def team_page(team: dict, payload: dict) -> str:
     chrome = chrome_for(payload)
     detail = payload["details"].get(team["team"], {"played": [], "upcoming": []})
@@ -935,7 +987,7 @@ def team_page(team: dict, payload: dict) -> str:
       {_trend_stat(team)}
     </div>
 
-    <div class="highlights">{''.join(highlights)}</div>
+    <div class="highlights">{''.join(highlights + _hidden_highlight(team, payload))}</div>
 
     <section>
       <h2>Results</h2>
@@ -957,7 +1009,7 @@ def team_page(team: dict, payload: dict) -> str:
         <tbody>{upcoming}</tbody>
       </table></div>
     </section>
-{_history_section(team, payload)}
+{_hidden_team_section(team, payload)}{_history_section(team, payload)}
   </article>"""
     return page(f"{team['team']} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{team['team']} MRI rating, schedule and game-by-game performance.")
@@ -2532,6 +2584,116 @@ def gameday_page(payload: dict) -> str:
                 description="Where will ESPN's College GameDay be? A forecast for the weeks not yet announced.")
 
 
+# The award's mark is site/assets/brand/hidden-heisman.png, derived for the web by scripts/build_brand_assets.py and
+# copied to docs/assets with the rest of the brand. This star half in shadow is only the fallback for a build without it.
+HIDDEN_HEISMAN_SVG = (
+    '<svg class="hhicon" viewBox="0 0 48 48" aria-hidden="true"><defs><clipPath id="hhl"><rect width="24" height="48"/></clipPath></defs>'
+    '<circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" opacity=".55"/>'
+    '<path d="M24 9l4.4 9 9.9 1.4-7.2 7 1.7 9.8L24 31.6l-8.8 4.6 1.7-9.8-7.2-7 9.9-1.4z" fill="currentColor" opacity=".28"/>'
+    '<path clip-path="url(#hhl)" d="M24 9l4.4 9 9.9 1.4-7.2 7 1.7 9.8L24 31.6l-8.8 4.6 1.7-9.8-7.2-7 9.9-1.4z" fill="currentColor"/></svg>')
+HIDDEN_HEISMAN_ICON_FILE = "assets/hidden-heisman.png"
+
+
+def _hidden_icon(up: str = "", size: int = 28) -> str:
+    """The award's mark: the artwork when it is in the build, the stand-in otherwise."""
+    art = BRAND_WEB / "hidden-heisman.png"
+    if art.exists():
+        return f'<img class="hhicon" src="{up}{HIDDEN_HEISMAN_ICON_FILE}" alt="The Hidden Heisman" height="{size}">'
+    return HIDDEN_HEISMAN_SVG
+
+
+def _hidden_line(line: dict) -> list[tuple[str, int, int]]:
+    parts = []
+    for label, yds, td in (("Passing", "pass_yds", "pass_td"), ("Rushing", "rush_yds", "rush_td"),
+                           ("Receiving", "rec_yds", "rec_td")):
+        if line.get(yds, 0) >= 20 or line.get(td, 0):        # a two-yard catch is not part of the story
+            parts.append((label, line.get(yds, 0), line.get(td, 0)))
+    return parts
+
+
+def _hidden_heisman_section(payload: dict, teams: dict) -> tuple[str, str]:
+    """(the feature card for the latest week, the season's list) for the Heisman page."""
+    hh = payload.get("hiddenHeisman") or {}
+    latest = hh.get("latest")
+    if not latest:
+        return "", ""
+    award = hh.get("award")
+
+    def team_link(name):
+        return f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if name in teams else esc(name)
+
+    w = latest
+    won = w.get("points") is not None and w.get("oppPoints") is not None
+    result = (f'{"W" if w["points"] > w["oppPoints"] else "L" if w["points"] < w["oppPoints"] else "T"} '
+              f'{int(w["points"])}&ndash;{int(w["oppPoints"])} ' if won else "")
+    opp = f'{team_link(w["opponent"])}' + (f' <span class="muted">(MRI #{w["opponentRank"]})</span>' if w.get("opponentRank") else
+                                          ' <span class="muted">(FCS)</span>')
+    tiles = "".join(f'<div class="hhtile"><span class="statl">{k}</span><b>{y:,} yds</b><span>{t} TD</span></div>'
+                    for k, y, t in _hidden_line(w["line"]))
+    facts = []
+    if w.get("rarity") is not None:
+        facts.append(f'<b>Top {max(w["rarity"], 0.0001):.2%}</b> of every FBS player-game since 2012 &mdash; '
+                     f'#{w["rank"]:,} of {w["of"]:,}')
+    facts += [esc(f) for f in w.get("facts", [])]
+    heis = w.get("heismanWin")
+    listed = len((payload.get("heisman") or {}).get("players") or [])
+    facts.append(f'Heisman odds that week: <b>{_pct(heis)}</b>. A game like this is how a name starts climbing.' if heis is not None
+                 else f'Not among the top {listed} in the Heisman odds that week. A game like this is how a name gets onto the list.'
+                 if listed else "Not on the Heisman board. A game like this is how a name gets onto it.")
+    mark = identity_mark(teams[w["team"]], 44) if w["team"] in teams else ""
+    card = f"""
+  <section class="hhfeature">
+    <div class="hhhead">{_hidden_icon()}<p class="ptitle">The Hidden Heisman &middot; Week {w['week']}</p>
+      <span class="hhsub">The biggest game this week from outside the power conferences</span></div>
+    <div class="hhwho">{mark}<div><h3>{esc(w['player'])}</h3>
+      <p class="muted">{team_link(w['team'])} &middot; {esc(w.get('conference') or '')} &middot; {result}vs {opp}</p></div></div>
+    <div class="hhtiles">{tiles}</div>
+    <ul class="hhfacts">{''.join(f'<li>{f}</li>' for f in facts)}</ul>
+  </section>"""
+
+    if award:
+        a = award
+        a_mark = identity_mark(teams[a["team"]], 44) if a["team"] in teams else ""
+        a_tiles = "".join(f'<div class="hhtile"><span class="statl">{k}</span><b>{y:,} yds</b><span>{t} TD</span></div>'
+                          for k, y, t in _hidden_line(a["line"]))
+        won = a.get("weeksWon") or []
+        a_facts = [f'{a["games"]} games' + (f' &middot; weekly winner in week{"s" if len(won) > 1 else ""} '
+                                            f'{", ".join(str(w) for w in won)}' if won else "")]
+        if a.get("runnersUp"):
+            a_facts.append("Next in line: " + ", ".join(f'{esc(r["player"])} ({team_link(r["team"])})' for r in a["runnersUp"][:3]))
+        heis_a = a.get("heismanWin")
+        a_facts.append(f'Heisman odds at season&rsquo;s end: <b>{_pct(heis_a)}</b>.' if heis_a is not None
+                       else "Never in the conversation the Heisman odds were having.")
+        card = f"""
+  <section class="hhfeature hhseason">
+    <div class="hhhead">{_hidden_icon()}<p class="ptitle">The Hidden Heisman &middot; {a['season']} season</p>
+      <span class="hhsub">The best player of the year from outside the power conferences, that the Heisman odds never took seriously</span></div>
+    <div class="hhwho">{a_mark}<div><h3>{esc(a['player'])}</h3>
+      <p class="muted">{team_link(a['team'])} &middot; {esc(a.get('conference') or '')}</p></div></div>
+    <div class="hhtiles">{a_tiles}</div>
+    <ul class="hhfacts">{''.join(f'<li>{f}</li>' for f in a_facts)}</ul>
+  </section>""" + card
+
+    rows = "".join(
+        f'<tr><td class="wk">{r["week"]}</td><td class="opp"><span class="nmcell">'
+        f'{identity_mark(teams[r["team"]], 16) if r["team"] in teams else ""}{esc(r["player"])}</span> '
+        f'<span class="muted">{team_link(r["team"])}</span></td><td class="opp">vs {team_link(r["opponent"]) if r.get("opponent") else ""}</td>'
+        f'<td>{" &middot; ".join(f"{y:,} {k.lower()[:4]}, {t} TD" for k, y, t in _hidden_line(r["line"]))}</td>'
+        f'<td class="num">{"top " + format(max(r["rarity"], 0.0001), ".2%") if r.get("rarity") is not None else "&ndash;"}</td></tr>'
+        for r in reversed(hh.get("winners", [])))
+    listing = f"""
+  <h2>The Hidden Heisman this season</h2>
+  <div class="tablewrap"><table class="slate"><thead><tr><th>Wk</th><th>Player</th><th>Opponent</th><th>Line</th>
+    <th class="num" title="Where the stat line ranks among every FBS player-game since 2012">Rarity</th></tr></thead><tbody>{rows}</tbody></table></div>
+  <p class="note">One a week, from the Group of Five and the independents (not Notre Dame), leaving out anyone the
+  Heisman odds already give more than {5}%. The game is scored on yards and touchdowns &mdash; passing yards count a
+  little less, since there are more of them &mdash; and scaled by how good the opponent was going in: up to 30% more
+  against a top team, as much as 15% less against a weak one or an FCS side. Decided once each week is final, and never revised.
+  When the regular season is over, the season award goes to the player with the most of those points across all his games,
+  under the same rules.</p>"""
+    return card, listing
+
+
 def heisman_page(payload: dict) -> str:
     h = payload["heisman"]
     teams = {t["team"]: t for t in payload["teams"]}
@@ -2681,6 +2843,7 @@ def heisman_page(payload: dict) -> str:
     <tbody>{past_rows}</tbody></table></div>
     <p class="hint">Rank among about 65 candidates, and the chance it gave him. A dash means he was not among them yet.</p></details>"""
 
+    hidden_card, hidden_list = _hidden_heisman_section(payload, teams)
     body = f"""
   <article class="prose wide">
   <h1>Heisman odds</h1>
@@ -2691,9 +2854,11 @@ def heisman_page(payload: dict) -> str:
     <tbody>{body_rows}</tbody>
     <tbody><tr class="rest"><td></td><td class="opp muted">Everyone else</td><td class="num">{_pct(h['rest'])}</td><td colspan="{6 if market else 5}"></td></tr></tbody></table></div>
   <p class="hint">Where the chance sits, by position: {position_text}. {h['candidates']} candidates were scored across {h['sims']:,} simulated seasons.</p>
+{hidden_card}
 
 {market_note}
   {reach_section}
+  {hidden_list}
   <h2>How it works</h2>
   <p>The rest of the season is played out {h['sims']:,} times with the same engine as the {sim_ref}, so a team that loses twice in November is a different
   argument from one that goes unbeaten, and each simulated season knows which it is. Each candidate's finished stat line is projected from what he has done and how many games
@@ -3301,7 +3466,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
-            "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies"} \
+            "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies",
+            "hiddenHeisman"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -3647,6 +3813,27 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
 .slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
 .slnav b { padding:3px 10px; border-radius:999px; background:var(--primary); color:var(--surface); font-weight:600; }
+/* the Hidden Heisman */
+.hhicon { height:28px; width:auto; color:var(--alert); flex:none; vertical-align:middle; }
+svg.hhicon { width:28px; }
+.hhfeature .hhhead .hhicon { height:56px; }
+.hlhh .hhicon { height:16px; margin-right:3px; vertical-align:-3px; }
+.hhteam .hhicon { height:30px; margin-right:6px; vertical-align:-6px; }
+.hhfeature { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--alert); border-radius:14px;
+  padding:16px 18px; margin:18px 0 24px; display:grid; gap:14px; }
+.hhhead { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.hhhead .ptitle { color:var(--alert); margin:0; }
+.hhsub { font-size:12.5px; color:var(--muted); flex-basis:100%; }
+.hhwho { display:flex; gap:12px; align-items:center; }
+.hhwho h3 { margin:0; font-size:22px; } .hhwho p { margin:2px 0 0; font-size:13px; }
+.hhwho .logo { width:44px; height:44px; }
+.hhtiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.hhtile { background:var(--plane); border:1px solid var(--grid); border-radius:10px; padding:10px 12px; display:grid; }
+.hhtile b { font-size:24px; font-variant-numeric:tabular-nums; } .hhtile span:last-child { color:var(--secondary); font-size:13px; }
+.hhfacts { margin:0; padding-left:18px; font-size:14px; color:var(--secondary); display:grid; gap:4px; }
+.hhfacts b { color:var(--primary); }
+.hhseason { border-top-width:4px; background:color-mix(in srgb, var(--alert) 6%, var(--surface)); }
+tr.hhaward td { background:color-mix(in srgb, var(--alert) 8%, transparent); }
 .bbhuman { border-left:3px solid var(--alert); padding:8px 12px; background:color-mix(in srgb, var(--alert) 8%, transparent);
   border-radius:0 8px 8px 0; font-size:14px; }
 .bbverdict { background:var(--surface); border:1px solid var(--grid); border-radius:12px; padding:14px 16px; margin:14px 0 20px; }

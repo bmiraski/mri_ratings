@@ -95,6 +95,20 @@ def share_card(tagline: Image.Image) -> Image.Image:
     return card
 
 
+# The Hidden Heisman mark renders at 14-44px tall; this is a little over 2x the largest, for retina.
+AWARD_HEIGHT = 128
+
+
+def hidden_heisman() -> None:
+    """The award's mark, trimmed to the art and fitted to the height the pages use. Its own transparency and
+    gold outline carry it on both themes, so nothing is recoloured."""
+    art = Image.open(SRC / "hidden-heisman.png").convert("RGBA")
+    alpha = np.array(art)[..., 3]
+    rows, cols = np.where(alpha > 16)                     # ignore the faint haze a generator leaves at the edges
+    art = art.crop((cols.min(), rows.min(), cols.max() + 1, rows.max() + 1))
+    _save(_fit(art, AWARD_HEIGHT), "hidden-heisman.png")
+
+
 def main() -> None:
     lockup = Image.open(SRC / "mri-lockup.png").convert("RGBA")
     tagline = Image.open(SRC / "mri-lockup-with-tagline.png").convert("RGBA")
@@ -112,6 +126,7 @@ def main() -> None:
         _save(icon.resize((size, size), Image.LANCZOS), name)
 
     _save(share_card(tagline), "mri-card.png")
+    hidden_heisman()
 
     (OUT / "favicon.ico").write_bytes((SRC / "favicon.ico").read_bytes())
     print(f"  favicon.ico: {(OUT / 'favicon.ico').stat().st_size / 1024:.0f} KB (copied)")
