@@ -114,6 +114,8 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
 
         rows.append(
             {
+                "id": int(row.game_id),
+                "start": row.start_date,
                 "day": row.day.isoformat(),
                 "home": row.team2,
                 "away": row.team1,

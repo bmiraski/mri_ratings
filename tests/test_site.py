@@ -1482,3 +1482,39 @@ def test_archived_weeks_are_rendered_by_the_build(extended, tmp_path) -> None:
     site.build(p, tmp_path)
     assert (tmp_path / "slate" / "2026-week-3.html").exists()
     assert 'href="slate/2026-week-3.html">Week 3<' in (tmp_path / "slate.html").read_text()
+
+
+def test_clashing_team_colours_give_the_underdog_its_alternate() -> None:
+    teams = {"Utah": {"color": "#be0000", "altColor": "#ffffff"}, "Iowa State": {"color": "#c8102e", "altColor": "#f1be48"},
+             "Texas": {"color": "#bf5700", "altColor": "#ffffff"}, "Tennessee": {"color": "#ff8200", "altColor": "#ffffff"},
+             "Ohio State": {"color": "#ba0c2f"}, "Michigan": {"color": "#00274c"}}
+    game = lambda away, home, p: {"away": away, "home": home, "homeWinProbability": p}          # noqa: E731
+    assert site._matchup_colours(game("Utah", "Iowa State", 0.2), teams) == ("#be0000", "#f1be48")
+    assert site._matchup_colours(game("Iowa State", "Utah", 0.8), teams) == ("#f1be48", "#be0000")
+    # the alternate is white, which vanishes on a light page: neutral grey instead
+    assert site._matchup_colours(game("Texas", "Tennessee", 0.32), teams) == ("#bf5700", "var(--muted)")
+    # no clash, nothing changes
+    assert site._matchup_colours(game("Michigan", "Ohio State", 0.6), teams) == ("#00274c", "#ba0c2f")
+
+
+def test_basketball_slate_and_betting_page_say_a_person_decides() -> None:
+    from mri.export import bb_slate
+
+    teams = [{"team": n, "rank": r, "power": 10.0, "conference": "Big East", "abbreviation": n[:3].upper(),
+              "color": "#123456", "wins": 1, "losses": 1} for n, r in (("Hosts", 5), ("Visitors", 50))]
+    p = {"sport": "basketball", "season": 2026, "seasonLabel": "2025-26", "periodLabel": "Week 17", "teams": teams,
+         "sports": ["football", "basketball"], "generated": "2026-02-28T11:00:00Z", "gamesRated": 100, "homeField": 3.0,
+         "week": 17, "conferences": []}
+    board = {"games": [{"id": 1, "home": "Hosts", "away": "Visitors", "neutral": False, "predicted": -2.0, "market": 3.0,
+                        "marketOpen": None, "edge": None, "winProbability": 0.43, "start": "2026-02-28T19:00:00Z",
+                        "day": "2026-02-28"}]}
+    now = __import__("datetime").datetime(2026, 2, 28, 11, tzinfo=__import__("datetime").timezone.utc)
+    p["slate"] = bb_slate.build(2026, p, board, {"fades": {}}, now=now)
+    text = site.slate_page(p)
+    assert "Saturday&rsquo;s slate" in text and ">Tracked<" in text and ">Bid stake<" in text and "Edge" not in text.split("<article")[1][:3000]
+    assert "Dog pick: VIS" in text and 'id="slconf"' in text and 'data-conf="Big East"' in text
+    assert "starting point for human judgement" in text
+    assert 'data-key="2026-02-28"' in text
+    p["bbTracker"] = {"record": {"dog": {}, "fade": {}}, "todayPicks": {"dog": [], "fade": []}, "fades": {}, "rules": {}}
+    section = site._bb_tracker_section(p)
+    assert "A person decides, not the list." in section and "measures the rule by itself" in section

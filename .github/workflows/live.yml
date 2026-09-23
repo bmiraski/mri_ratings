@@ -1,9 +1,9 @@
 name: Live scores
 
-# Every fifteen minutes through the football season, but it only spends a CFBD
-# call while one of the slate's games is about to start or in progress; the rest
-# of the time it reads docs/slate.json and docs/live.json and exits. Once every
-# game that has started today is final, it stops calling until the next kickoff.
+# Every fifteen minutes through both seasons, but it only spends an API call
+# while one of a slate's games is about to start or in progress; the rest of the
+# time it reads each sport's slate.json and live.json and exits. Once every game
+# that has started is final, it stops calling until the next kickoff or tip.
 #
 # Standard library only, on the runner's own Python: no setup or installs, so a
 # tick takes seconds. GitHub starts scheduled runs late when it is busy, so in
@@ -11,7 +11,7 @@ name: Live scores
 
 on:
   schedule:
-    - cron: "*/15 * * 8-12,1 *"   # August to January
+    - cron: "*/15 * * 1-4,8-12 *"   # football August to January, basketball November to April
   workflow_dispatch:
 
 concurrency:
@@ -36,13 +36,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/live.json 2>/dev/null || true
+          for f in docs/live.json docs/basketball/live.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           if git diff --staged --quiet; then
             echo "Nothing new."
             exit 0
           fi
           git commit -m "Live scores ($(date -u '+%Y-%m-%d %H:%M'))"
-          # The daily build may have pushed meanwhile; it never touches live.json, so a rebase is clean.
+          # The daily build may have pushed meanwhile; it never touches a live.json, so a rebase is clean.
           for attempt in 1 2 3; do
             git pull --rebase --quiet && git push && exit 0
             sleep 5

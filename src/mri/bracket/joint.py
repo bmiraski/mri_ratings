@@ -102,6 +102,9 @@ class Inputs:
     game_sigma: float = simulate.SIGMA
     committee_noise: float = 0.0                     # score units; see scripts/backtest_atlarge.py
     rating_uncertainty: float = RATING_UNCERTAINTY   # multiplier on rating error; 0 treats ratings as exact
+    # Upcoming games starting before this ISO date get a leverage entry: each side's chance of making the
+    # field in the worlds where it wins that game against the worlds where it loses. The slate's bid stakes.
+    leverage_through: str | None = None
 
 
 @dataclass
@@ -110,6 +113,7 @@ class Result:
     champions: dict[str, dict[str, float]]           # conference -> team -> P(automatic bid)
     conference_status: dict[str, str]                # conference -> not started / underway / decided
     sims: int
+    leverage: dict[str, dict] = field(default_factory=dict)   # game id -> bid chance if each side wins or loses
 
 
 def is_conference_tournament(g: pd.DataFrame) -> pd.Series:
@@ -250,6 +254,7 @@ def run(inputs: Inputs) -> Result:
         score = score + rng.normal(0.0, inputs.committee_noise, score.shape)
 
     in_field = np.zeros(n)
+    field_world = np.zeros((n, S), dtype=bool) if inputs.leverage_through else None
     auto = np.zeros(n)
     opening = np.zeros(n)
     line_counts = np.zeros((n, 17))
@@ -266,6 +271,8 @@ def run(inputs: Inputs) -> Result:
         chosen = chosen[np.argsort(score[chosen, s], kind="stable")]
         seed_line, plays_in = seeding.lines(is_auto_team[chosen], fmt)
         in_field[chosen] += 1
+        if field_world is not None:
+            field_world[chosen, s] = True
         auto[autos] += 1
         opening[chosen[plays_in]] += 1
         line_counts[chosen, seed_line] += 1
@@ -288,8 +295,46 @@ def run(inputs: Inputs) -> Result:
     with np.errstate(invalid="ignore"):
         table["expectedSeed"] = (line_counts[:, 1:] * np.arange(1, 17)).sum(axis=1) / np.where(in_field > 0, in_field, np.nan)
     champions = {c: {universe[i]: cnt / S for i, cnt in counts.items()} for c, counts in champion_counts.items()}
+    leverage = _leverage(future, future_home_won, field_world, index, inputs.leverage_through) \
+        if field_world is not None else {}
     return Result(teams=table.sort_values(["pField", "meanScore"], ascending=[False, True]).reset_index(drop=True),
-                  champions=champions, conference_status=status, sims=S)
+                  champions=champions, conference_status=status, sims=S, leverage=leverage)
+
+
+# Below this many worlds on either side of a game, "what a loss would do" is a guess: the same floor football uses.
+MIN_WORLDS = 30
+
+
+def _leverage(future: pd.DataFrame, home_won: np.ndarray, field_world: np.ndarray, index: dict[str, int],
+              through: str) -> dict[str, dict]:
+    """For each upcoming game before ``through``: each side's bid chance with a win and with a loss.
+
+    Read straight off the joint simulation - the worlds in which the home side won that game against the
+    worlds in which it lost - so it carries everything else the season does in those worlds, as football's
+    playoff leverage does. Only teams in the selection universe get an entry, and a game too lopsided to
+    have ``MIN_WORLDS`` of each result gets none.
+    """
+    out = {}
+    soon = (future["start_date"] < through).to_numpy()
+    for j in np.flatnonzero(soon):
+        row = future.iloc[j]
+        won = home_won[j].astype(bool)
+        n_won, n_lost = int(won.sum()), int((~won).sum())
+        if n_won < MIN_WORLDS or n_lost < MIN_WORLDS:
+            continue
+        entry, swing = {}, 0.0
+        for side, team, wins_when in (("home", row["team2"], won), ("away", row["team1"], ~won)):
+            i = index.get(team)
+            if i is None:
+                continue
+            if_win = float(field_world[i, wins_when].mean())
+            if_lose = float(field_world[i, ~wins_when].mean())
+            entry[side] = {"ifWin": round(if_win, 4), "ifLose": round(if_lose, 4)}
+            swing = max(swing, if_win - if_lose)
+        if entry:
+            entry["swing"] = round(swing, 4)
+            out[str(int(row["game_id"]))] = entry
+    return out
 
 
 def _conference_tournaments(inputs, results, ct_results, future, future_home_won, rank, index, features, rng,

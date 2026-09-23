@@ -17,6 +17,7 @@ beside the name.
 
 from __future__ import annotations
 
+import datetime as dt
 import hashlib
 import html
 import json
@@ -1583,33 +1584,80 @@ def _short_favorite(value: float | None, g: dict, teams: dict) -> str:
     return f'<span title="{esc(name)}">{esc(abbr)}</span>&nbsp;&minus;{abs(value):.1f}'
 
 
+def _lab(hex_colour: str) -> tuple[float, float, float] | None:
+    """CIE L*a*b* for a '#rrggbb' colour, the space in which distance matches what the eye sees."""
+    h = (hex_colour or "").lstrip("#")
+    if len(h) != 6:
+        return None
+    try:
+        rgb = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    except ValueError:
+        return None
+    r, g, b = (((c + 0.055) / 1.055) ** 2.4 if c > 0.04045 else c / 12.92 for c in rgb)
+    x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047
+    y = r * 0.2126 + g * 0.7152 + b * 0.0722
+    z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883
+    f = lambda t: t ** (1 / 3) if t > 0.008856 else 7.787 * t + 16 / 116          # noqa: E731
+    return 116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z))
+
+
+def _colour_distance(a: str, b: str) -> float:
+    la, lb = _lab(a), _lab(b)
+    if la is None or lb is None:
+        return 100.0
+    return sum((i - j) ** 2 for i, j in zip(la, lb)) ** 0.5
+
+
+# Two team colours closer than this read as one bar - Utah and Iowa State are both about #c00 red.
+COLOUR_CLASH = 28.0
+
+
+def _matchup_colours(g: dict, teams: dict) -> tuple[str, str]:
+    """(away, home) bar colours. When the two clash, the underdog switches to its alternate colour -
+    or to neutral grey when the alternate is also too close, or is near-white or near-black and so
+    would vanish into the page in one theme or the other."""
+    team = lambda n: teams.get(n) or {}                                             # noqa: E731
+    away, home = team(g["away"]).get("color"), team(g["home"]).get("color")
+    if not away or not home or _colour_distance(away, home) >= COLOUR_CLASH:
+        return away or "var(--muted)", home or "var(--muted)"
+    dog_is_home = g["homeWinProbability"] < 0.5
+    favourite = away if dog_is_home else home
+    alternate = team(g["home"] if dog_is_home else g["away"]).get("altColor")
+    lab = _lab(alternate) if alternate else None
+    usable = lab is not None and 12 <= lab[0] <= 92 and _colour_distance(alternate, favourite) >= COLOUR_CLASH
+    swapped = alternate if usable else "var(--muted)"
+    return (away, swapped) if dog_is_home else (swapped, home)
+
+
 def _win_bar(g: dict, teams: dict) -> str:
     """Each side's win chance as one bar in the two teams' colours, away on the left."""
     away_p = 1 - g["homeWinProbability"]
-    colour = lambda n: esc((teams.get(n) or {}).get("color") or "var(--muted)")   # noqa: E731
+    away_colour, home_colour = (esc(c) for c in _matchup_colours(g, teams))
     return (f'<div class="slwin" title="{esc(g["away"])} {_pct(away_p)} &middot; {esc(g["home"])} '
-            f'{_pct(g["homeWinProbability"])}"><i style="width:{away_p * 100:.1f}%;background:{colour(g["away"])}"></i>'
-            f'<i style="flex:1;background:{colour(g["home"])}"></i></div>')
+            f'{_pct(g["homeWinProbability"])}"><i style="width:{away_p * 100:.1f}%;background:{away_colour}"></i>'
+            f'<i style="flex:1;background:{home_colour}"></i></div>')
 
 
-def _stake_bar(g: dict, teams: dict, *, short: bool) -> str:
+def _stake_bar(g: dict, teams: dict, *, short: bool, bids: bool = False) -> str:
     """The team with the most riding on the game, drawn as the range between a loss and a win with its chance now marked.
 
     The current chance is what makes the other two readable: "20% -> 60%" looks like a team swinging between two
     extremes; the tick shows it is in the middle of that range. An older payload without it still gets the range.
+    Football's stakes are playoff chances; basketball's (``bids``) are chances of an NCAA Tournament bid.
     """
     s = g.get("stake")
     if not s or s["swing"] < 0.02:
-        return '<span class="muted small">Little playoff impact</span>'
+        return f'<span class="muted small">Little {"bid" if bids else "playoff"} impact</span>'
     name = s["team"]
     label = ((teams.get(name) or {}).get("abbreviation") or name) if short else name
     lose, win, now = s["ifLose"], s["ifWin"], s.get("now")
-    said = (f"{name}'s playoff chance: {html.unescape(_pct(now))} now, {html.unescape(_pct(lose))} with a loss, "
+    what = "chance of an NCAA bid" if bids else "playoff chance"
+    said = (f"{name}'s {what}: {html.unescape(_pct(now))} now, {html.unescape(_pct(lose))} with a loss, "
             f"{html.unescape(_pct(win))} with a win" if now is not None else
-            f"{name}'s playoff chance: {html.unescape(_pct(lose))} with a loss, {html.unescape(_pct(win))} with a win")
+            f"{name}'s {what}: {html.unescape(_pct(lose))} with a loss, {html.unescape(_pct(win))} with a win")
     tick = f'<span class="now" style="left:calc({now * 100:.1f}% - 1px)"></span>' if now is not None else ""
     middle = f'<span>now <b>{_pct(now)}</b></span>' if now is not None else ""
-    return (f'<div class="slstake" title="{esc(said)}"><span class="who">{esc(label)} playoff odds</span>'
+    return (f'<div class="slstake" title="{esc(said)}"><span class="who">{esc(label)} {"bid" if bids else "playoff"} odds</span>'
             f'<div class="rng"><span class="span" style="left:{lose * 100:.1f}%;width:{max(win - lose, 0.01) * 100:.1f}%"></span>{tick}</div>'
             f'<span class="nums"><span>L {_pct(lose)}</span>{middle}<span>W {_pct(win)}</span></span></div>')
 
@@ -1619,11 +1667,14 @@ _SLATE_SCRIPT = """
 (function () {
   var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
   var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
+  var conf = document.getElementById('slconf');
   var count = document.getElementById('slcount'), none = document.getElementById('slnone');
-  function apply(want) {
-    var shown = 0;
+  var want = 'all';
+  function apply() {
+    var shown = 0, league = conf ? conf.value : '';
     rows.forEach(function (row) {
-      var ok = want === 'all' || row.dataset[want] === '1';
+      var ok = (want === 'all' || row.dataset[want] === '1') &&
+        (!league || ('|' + (row.dataset.conf || '') + '|').indexOf('|' + league + '|') >= 0);
       row.hidden = !ok;
       if (ok) shown++;
     });
@@ -1634,8 +1685,9 @@ _SLATE_SCRIPT = """
     count.textContent = shown + (shown === 1 ? ' game' : ' games');
     none.hidden = shown > 0;
   }
-  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.f); }); });
-  apply('all');
+  buttons.forEach(function (b) { b.addEventListener('click', function () { want = b.dataset.f; apply(); }); });
+  if (conf) conf.addEventListener('change', apply);
+  apply();
 })();
 </script>"""
 
@@ -1646,7 +1698,7 @@ _SLATE_LIVE_SCRIPT = """
 <script>
 (function () {
   var root = document.getElementById('slate');
-  var week = +root.dataset.week, season = +root.dataset.season;
+  var key = root.dataset.key;
   var stamp = document.getElementById('slstamp'), alerts = document.getElementById('slalerts');
   var list = document.getElementById('slalertlist');
   var EVERY = 5 * 60 * 1000;
@@ -1685,7 +1737,7 @@ _SLATE_LIVE_SCRIPT = """
     }
   }
   function show(data) {
-    if (!data || data.week !== week || (data.season && data.season !== season)) return;
+    if (!data || data.key !== key) return;
     var upsets = [];
     Object.keys(data.games).forEach(function (id) {
       var row = document.getElementById('g' + id), s = data.games[id];
@@ -1719,7 +1771,7 @@ _SLATE_LIVE_SCRIPT = """
 </script>"""
 
 
-def _final_state(g: dict, finals: dict, ranks: dict) -> dict | None:
+def _final_state(g: dict, finals: dict, ranks: dict, sport=None) -> dict | None:
     """An archived game's result in the shape live.json gives a finished one."""
     from . import live
 
@@ -1729,24 +1781,39 @@ def _final_state(g: dict, finals: dict, ranks: dict) -> dict | None:
     home, away = int(score["home"]), int(score["away"])
     return {"status": "completed", "label": "Final", "home": home, "away": away,
             "homeWinProbability": 1.0 if home > away else 0.0,
-            "upset": live.upset(g, home, away, None, True, ranks)}
+            "upset": live.upset(g, home, away, None, True, ranks, sport=sport or live.FOOTBALL)}
 
 
-def slate_archives(site_root: Path) -> list[dict]:
-    """Every archived week on disk, newest first, as small records for links and rendering."""
-    folder = site_root / "slate"
+# How many past slates the page links to. Every archived page is still there; basketball keeps one a day.
+ARCHIVE_LINKS = 10
+
+
+def slate_archives(sport_root: Path) -> list[dict]:
+    """Every archived slate on disk, newest first: football's weeks, or basketball's days."""
+    folder = sport_root / "slate"
     entries = []
-    for path in folder.glob("*-week-*.json") if folder.exists() else []:
+    for path in sorted(folder.glob("*.json")) if folder.exists() else []:
         data = json.loads(path.read_text())
-        entries.append({"season": data["season"], "week": data["week"], "path": path,
+        if data.get("week") is not None:
+            order, label = (data["season"], data["week"]), f"Week {data['week']}"
+        elif data.get("date"):
+            day = dt.date.fromisoformat(data["date"])
+            order, label = (data["season"], data["date"]), day.strftime("%a, %b %-d")
+        else:
+            continue
+        entries.append({"season": data["season"], "order": order, "label": label, "id": path.stem, "path": path,
                         "href": f"slate/{path.stem}.html", "data": data})
-    return sorted(entries, key=lambda e: (e["season"], e["week"]), reverse=True)
+    return sorted(entries, key=lambda e: e["order"], reverse=True)
 
 
-def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None) -> str:
-    """This week's slate, or with ``archive`` a finished week as it stood before the Sunday refresh, with finals."""
+def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None,
+               archive_id: str | None = None) -> str:
+    """This week's (football) or today's (basketball) slate, or with ``archive`` a finished one with finals."""
     from . import live
 
+    bb = chrome_for(payload).sport == "basketball"
+    sport = live.BASKETBALL if bb else live.FOOTBALL
+    start_word = "tip-off" if bb else "kickoff"
     slate = archive or payload["slate"]
     depth = 1 if archive else 0
     up = "../" * depth
@@ -1756,12 +1823,14 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     by_id = {g["id"]: g for d in slate["days"] for g in d["games"]}
     key = [i for i in slate["watch"] if i in by_id]
     key_ids = set(key)
+    by_stakes = not bb or slate.get("watchKind") == "stakes"
     season = slate.get("season") or payload.get("season")
     # Links only to pages this build wrote, the same rule as the header.
     betting_ref = (f'<a href="{up}betting.html">betting page</a>'
                    if payload.get("betting") and payload.get("board") else "betting board")
-    sim_ref = (f'<a href="{up}simulation.html">season simulation</a>'
-               if payload.get("sim") else "season simulation")
+    sim_ref = ((f'<a href="{up}bracketology.html">bracketology</a>' if payload.get("bracketology") else "bracketology")
+               if bb else (f'<a href="{up}simulation.html">season simulation</a>'
+                           if payload.get("sim") else "season simulation"))
 
     def ranked(name):
         return ranks.get(name, 999) <= 25
@@ -1790,6 +1859,19 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         return (f'<span class="sledge" title="The model likes {esc(liked)} by {abs(edge):.1f} more than the opening line">'
                 f'{abs(edge):.1f} &rarr; {esc(abbr(liked))}</span>')
 
+    def tracked_cell(g):
+        tags = g.get("tracked") or {}
+        out = []
+        if tags.get("dog"):
+            out.append(f'<span class="sltag dog" title="The model has the market underdog, {esc(tags["dog"])}, winning outright">'
+                       f'Dog pick: {esc(abbr(tags["dog"]))}</span>')
+        fades = slate.get("fades") or {}
+        for team in tags.get("fade", []):
+            rec = fades.get(team) or {}
+            said = f'{team} has covered {rec.get("covers", "?")} of {rec.get("covers", 0) + rec.get("misses", 0)} this season'
+            out.append(f'<span class="sltag fade" title="{esc(said)}">Fade {esc(abbr(team))}</span>')
+        return "".join(out) or '<span class="muted small">&ndash;</span>'
+
     def live_cells(g, state):
         """Score and live cells, filled for an archived final and left for the live script otherwise."""
         if not state:
@@ -1802,62 +1884,95 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                 f'<span class="{"up" if lead > 0 else ""}">{state["home"]}</span></div><div class="sllive">{mark}</div>')
 
     def row(g):
-        state = _final_state(g, finals, ranks) if archive else None
+        state = _final_state(g, finals, ranks, sport) if archive else None
         away_p = 1 - g["homeWinProbability"]
         joiner = "vs" if g["neutral"] else "@"
-        top25 = "1" if ranked(g["home"]) or ranked(g["away"]) else "0"
-        stakes = "1" if (g.get("stake") or {}).get("swing", 0) >= 0.1 else "0"
+        tags = g.get("tracked") or {}
+        flags = {
+            "top25": ranked(g["home"]) or ranked(g["away"]),
+            "stakes": (g.get("stake") or {}).get("swing", 0) >= 0.1,
+            "key": g["id"] in key_ids,
+            "close": abs(g["predicted"]) <= 5,
+            "dog": bool(tags.get("dog")),
+            "fade": bool(tags.get("fade")),
+        }
+        data = " ".join(f'data-{k}="{"1" if v else "0"}"' for k, v in flags.items())
+        conf = f' data-conf="{esc("|".join(g.get("conferences") or []))}"' if bb else ""
         classes = ["slrow"] + (["key"] if g["id"] in key_ids else []) + (["final"] if state else []) \
             + (["upset"] if state and state["upset"] else [])
-        mark = ' title="Key game: one of the week&rsquo;s biggest playoff stakes"' if g["id"] in key_ids else ""
+        mark = ""
+        if g["id"] in key_ids:
+            what = ("the day&rsquo;s biggest tournament-bid stakes" if bb else "the week&rsquo;s biggest playoff stakes") \
+                if by_stakes else "the day&rsquo;s best games"
+            mark = f' title="Key game: one of {what}"'
         start = live.kickoff(g)
         kick = int(start.timestamp() * 1000) if start else 0
         upset_text = state["upset"] if state and state["upset"] else ""
         badge = (f'<span class="slupset" title="{esc(upset_text)}">Upset</span>' if upset_text
                  else '<span class="slupset" hidden></span>')
         time_label = state["label"] if state else g["time"].replace(" ET", "")
+        middle = (f'<div class="sltags">{tracked_cell(g)}</div>' if bb
+                  else f'<div class="slnum sledgec">{edge_cell(g)}</div>')
         return f"""
       <div class="{' '.join(classes)}" id="g{g['id']}" data-id="{g['id']}" data-kick="{kick}" data-pre="{g['homeWinProbability']}"
         data-home-name="{esc(g['home'])}" data-away-name="{esc(g['away'])}" data-home-abbr="{esc(abbr(g['home']))}" data-away-abbr="{esc(abbr(g['away']))}"
-        data-top25="{top25}" data-stakes="{stakes}" data-key="{'1' if g['id'] in key_ids else '0'}"{mark}>
+        {data}{conf}{mark}>
         <span class="sltime">{esc(time_label)}</span>
         <div class="slgame">{side(g['away'])}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'])}</span>{badge}</div>
-        <div class="slwp" title="The model&rsquo;s win chance before kickoff">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
+        <div class="slwp" title="The model&rsquo;s win chance before {start_word}">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
         {live_cells(g, state)}
         <div class="slnum slmodel">{_short_favorite(g['predicted'], g, teams)}</div>
         <div class="slnum slmarket">{market_cell(g)}</div>
-        <div class="slnum sledgec">{edge_cell(g)}</div>
-        <div class="slst">{_stake_bar(g, teams, short=True)}</div>
+        {middle}
+        <div class="slst">{_stake_bar(g, teams, short=True, bids=bb)}</div>
       </div>"""
 
-    head = """
-      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before kickoff">Pre</span>
+    if bb:
+        third = ('<span title="The betting habits this game falls under: the model picking the market underdog to win, '
+                 'or a team on the fade list">Tracked</span>')
+        stake_head = ('<span title="The team with the most riding on the game: its chance of an NCAA bid with a loss, now, '
+                      'and with a win">Bid stake</span>')
+    else:
+        third = '<span class="r" title="Model minus the opening number, and the side it favours">Edge</span>'
+        stake_head = ('<span title="The team with the most riding on the game: its playoff chance with a loss, now, '
+                      'and with a win">Playoff stake</span>')
+    head = f"""
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before {start_word}">Pre</span>
         <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
-        <span class="r">Model</span><span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
-        <span title="The team with the most riding on the game: its playoff chance with a loss, now, and with a win">Playoff stake</span></div>"""
+        <span class="r">Model</span><span class="r">Market</span>{third}
+        {stake_head}</div>"""
 
-    def day(d):
+    def day(d, i):
         slots: dict[str, list] = {}
         for g in d["games"]:
-            slots.setdefault(_slate_slot(g), []).append(g)
+            name = _slate_slot(g)
+            slots.setdefault("Evening" if bb and name == "Prime time" else name, []).append(g)
         groups = "".join(f"""
       <div class="slslot"><p class="slslothead"><b>{name}</b> <span>{len(gs)} game{'s' if len(gs) != 1 else ''}</span></p>{''.join(row(g) for g in gs)}
       </div>""" for name, gs in slots.items())
         played = archive and any(str(g["id"]) in finals for g in d["games"])
+        label = esc(d["label"])
+        if bb and not archive:
+            label = f"Today &middot; {label}" if i == 0 and d["date"] == slate.get("date") else f"Tomorrow &middot; {label}"
         return f"""
-  <section class="slday{' live' if played else ''}"><h2>{esc(d['label'])}</h2>
+  <section class="slday{' live' if played else ''}{' bb' if bb else ''}" id="day{i + 1}"><h2>{label}</h2>
     <div class="slledger">{head}{groups}
     </div>
   </section>"""
 
-    days = "".join(day(d) for d in slate["days"])
+    days = "".join(day(d, i) for i, d in enumerate(slate["days"]))
 
     def card(g):
         stake_team = (g.get("stake") or {}).get("team")
-        tint = esc((teams.get(stake_team) or {}).get("color") or "var(--series)")
-        state = _final_state(g, finals, ranks) if archive else None
+        if stake_team:
+            tint = (teams.get(stake_team) or {}).get("color") or "var(--series)"
+        else:
+            tint = _matchup_colours(g, teams)[1] if bb else "var(--series)"
+        tint = esc(tint)
+        state = _final_state(g, finals, ranks, sport) if archive else None
         result = (f'<p class="slcardlive"><b>Final</b> {esc(abbr(g["away"]))} {state["away"]}, {esc(abbr(g["home"]))} {state["home"]}</p>'
                   if state else '<p class="slcardlive" hidden></p>')
+        stake = _stake_bar(g, teams, short=False, bids=bb) if g.get("stake") or not bb else ""
         return f"""
     <article class="slcard" data-id="{g['id']}" style="--tc:{tint}">
       <p class="slmeta">{esc(g['dateLabel'])} &middot; {esc(g['time'])}</p>
@@ -1865,21 +1980,36 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
       {_win_bar(g, teams)}
       {result}
       <p class="sllines"><span>Model</span><b>{_short_favorite(g['predicted'], g, teams)}</b><span>Market</span><span>{_short_favorite(g.get('market'), g, teams)}</span></p>
-      {_stake_bar(g, teams, short=False)}
+      {stake}
     </article>"""
 
+    n_key = len(key)
+    plural = "s" if n_key != 1 else ""
+    if bb and not by_stakes:
+        key_title = "Best games today" if not archive else "Best games"
+        key_note = (f"Picked for quality and closeness: both teams highly rated and the model&rsquo;s line within a few points. "
+                    f"From Christmas, when {sim_ref} starts, these become the games that move NCAA Tournament bids most. "
+                    "They carry a red stripe in the lists below.")
+    elif bb:
+        key_title = "Most riding on it"
+        key_note = (f"The {n_key} game{plural} {'that day' if archive else 'today'} that move{'d' if archive else ''} a team&rsquo;s "
+                    f"chance of an NCAA Tournament bid most, from {sim_ref}. The bar runs from that team&rsquo;s chance with a "
+                    "loss to its chance with a win; the tick is where it stood before tip-off. These games carry a red stripe in the lists below.")
+    else:
+        key_title = "Most riding on it"
+        key_note = (f"The {n_key} game{plural} {'that week' if archive else 'this week'} that move{'d' if archive else ''} a team&rsquo;s "
+                    f"playoff chance most, from the {sim_ref}. The bar runs from that team&rsquo;s chance with a loss to its chance "
+                    "with a win; the tick is where it stood before kickoff. These games carry a red stripe in the lists below.")
     key_panel = f"""
   <section class="slkey">
-    <p class="ptitle">Most riding on it</p>
+    <p class="ptitle">{key_title}</p>
     <div class="slcards">{''.join(card(by_id[i]) for i in key)}
     </div>
-    <p class="note">The {len(key)} game{'s' if len(key) != 1 else ''} {'that week' if archive else 'this week'} that move{'d' if archive else ''} a team&rsquo;s playoff chance most, from the
-    {sim_ref}. The bar runs from that team&rsquo;s chance with a loss to its chance with a win; the tick is where it stood before kickoff.
-    These games carry a red stripe in the lists below.</p>
+    <p class="note">{key_note}</p>
   </section>""" if key else ""
 
     if archive:
-        upsets = [(g, s) for g in by_id.values() if (s := _final_state(g, finals, ranks)) and s["upset"]]
+        upsets = [(g, s) for g in by_id.values() if (s := _final_state(g, finals, ranks, sport)) and s["upset"]]
         alert_items = "".join(
             f'<li><a href="#g{g["id"]}">{esc(g["away"])} {s["away"]}, {esc(g["home"])} {s["home"]}</a>'
             f'<span class="why">{esc(s["upset"])}</span></li>' for g, s in upsets)
@@ -1894,13 +2024,24 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     <p class="note">From the second half on: a team the model gave 25% or less is leading, or a Top 25 team is trailing an unranked one.</p>
   </section>"""
 
+    any_stakes = any((g.get("stake") or {}).get("swing", 0) >= 0.1 for g in by_id.values())
+    if bb:
+        buttons = [("all", "All games"), ("top25", "Top 25"), ("close", "Close games"), ("dog", "Dog picks"),
+                   ("fade", "Fade list")] + ([("stakes", "Bid stakes")] if any_stakes else [])
+        conferences = sorted({c for g in by_id.values() for c in g.get("conferences") or []})
+        select = ('<select id="slconf" class="slconf" aria-label="Conference"><option value="">All conferences</option>'
+                  + "".join(f'<option value="{esc(c)}">{esc(c)}</option>' for c in conferences) + "</select>")
+    else:
+        buttons = [("all", "All games"), ("top25", "Top 25"), ("stakes", "Playoff stakes")] + \
+            ([("key", "Key games")] if key else [])
+        select = ""
     filters = f"""
   <div class="slfilter">
-    <div class="slseg"><button type="button" data-f="all" class="on">All games</button><button type="button" data-f="top25">Top 25</button><button type="button" data-f="stakes">Playoff stakes</button>{'<button type="button" data-f="key">Key games</button>' if key else ''}</div>
-    <span id="slcount" class="muted small"></span>
+    <div class="slseg">{''.join(f'<button type="button" data-f="{k}"{" class=on" if k == "all" else ""}>{v}</button>' for k, v in buttons)}</div>
+    {select}<span id="slcount" class="muted small"></span>
   </div>
   <p id="slstamp" class="slstamp" hidden></p>
-  <p id="slnone" class="empty" hidden>No games this week match.</p>"""
+  <p id="slnone" class="empty" hidden>No games match.</p>"""
 
     def result_row(g):
         r = g["result"]
@@ -1913,7 +2054,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
           <td class="num {cls}">{mark}</td><td class="num">{r['modelError']:.1f}</td><td class="num">{market}</td></tr>"""
 
     results = ""
-    if slate["results"]:
+    if slate.get("results"):
         results = f"""
   <h2>{'Played before this page was saved' if archive else 'Already played this week'}</h2>
   <div class="tablewrap"><table class="slate">
@@ -1922,7 +2063,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     <tbody>{''.join(result_row(g) for g in slate['results'])}</tbody></table></div>"""
 
     fcs = ""
-    if slate["fcs"]:
+    if slate.get("fcs"):
         rows = "".join(f"""<tr><td class="wk">{esc(g['dateLabel'])} &middot; {g['time']}</td>
           <td class="opp">{_matchup(g, teams, up)}</td>
           <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
@@ -1933,40 +2074,68 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
   <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
     <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody>{rows}</tbody></table></div>"""
 
-    past = [e for e in (archives or []) if not archive or (e["season"], e["week"]) != (archive["season"], archive["week"])]
+    past = [e for e in (archives or []) if e["id"] != archive_id][:ARCHIVE_LINKS]
+    current_word = "Today" if bb else "This week"
+    current = f'<a href="{up}slate.html">{current_word}</a>' if archive and payload.get("slate") else ""
     past_links = ""
-    current = f'<a href="{up}slate.html">This week</a>' if archive and payload.get("slate") else ""
     if past or current:
         links = [current] if current else []
-        links += [f'<a href="{up}{e["href"]}">{"" if e["season"] == season else str(e["season"]) + " "}Week {e["week"]}</a>'
+        links += [f'<a href="{up}{e["href"]}">{"" if e["season"] == season else str(e["season"]) + " "}{esc(e["label"])}</a>'
                   for e in past]
         past_links = f'\n  <p class="slpast"><span class="muted">Slates:</span> {" &middot; ".join(links)}</p>'
+    day_nav = ""
+    if bb and not archive:
+        yesterday = next((e for e in (archives or []) if e["data"].get("date", "") < slate["date"]), None)
+        prev = f'<a href="{yesterday["href"]}">&lsaquo; {esc(yesterday["label"])}</a>' if yesterday else ""
+        nxt = f'<a href="#day2">{esc(slate["days"][1]["label"])} &rsaquo;</a>' if len(slate["days"]) > 1 else ""
+        day_nav = f'\n  <nav class="slnav">{prev}<b>Today</b>{nxt}</nav>'
 
-    if archive:
-        heading = f"Week {slate['week']} slate, {season}"
-        lead = (f"The slate as it stood before the Sunday refresh, with final scores. {slate['games']} games with an FBS team; "
-                "the model&rsquo;s line and win chance for each were set before kickoff.")
+    if bb:
+        when = dt.date.fromisoformat(slate["date"])
+        if archive:
+            heading = f"Slate for {when.strftime('%A, %B %-d, %Y')}"
+            lead = (f"The day&rsquo;s games as the page stood that morning, with final scores. {slate['games']} Division I games; "
+                    "the model&rsquo;s line and win chance for each were set before tip-off.")
+        else:
+            heading = f"{when.strftime('%A')}&rsquo;s slate"
+            lead = (f"{slate['games']} Division I games today. The model&rsquo;s line and win chance for each, the market&rsquo;s number "
+                    "beside it (DraftKings), and scores with live win chances while games are on.")
+        hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before tip-off; <strong>Live</strong> is its chance now,
+  from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
+  is the current line, with the opener beneath it when it has moved. <strong>Tracked</strong> marks the games two betting habits
+  would take: a <em>dog pick</em>, where the model has the market underdog winning outright, and a <em>fade</em>, against a team
+  that keeps failing to cover. They come from a fixed rule, not a person: each one is a starting point for human judgement
+  before any bet, never a bet on its own. The {betting_ref} keeps the rule&rsquo;s record; these are tracked, not recommended.""")
+        title = (f"Slate, {when.strftime('%b %-d, %Y')} — MRI Basketball" if archive
+                 else f"Today's slate — MRI Basketball {season_text(payload)}")
+        description = "Every Division I game today: model line, market line, live scores, and what rides on it."
     else:
-        heading = f"Week {slate['week']} slate"
-        lead = (f"{slate['games']} games with an FBS team. The model's line and win chance for each, the market's number "
-                "beside it (DraftKings), and what the result does to the playoff picture. Scores and live win chances appear "
-                "while games are on.")
-
-    body = f"""
-  <article class="prose wide" id="slate" data-week="{slate['week']}" data-season="{season}">
-  <h1>{heading}</h1>
-  <p class="lead">{lead}</p>
-  <p class="hint"><strong>Pre</strong> is the model&rsquo;s win chance before kickoff; <strong>Live</strong> is its chance now,
+        if archive:
+            heading = f"Week {slate['week']} slate, {season}"
+            lead = (f"The slate as it stood before the Sunday refresh, with final scores. {slate['games']} games with an FBS team; "
+                    "the model&rsquo;s line and win chance for each were set before kickoff.")
+        else:
+            heading = f"Week {slate['week']} slate"
+            lead = (f"{slate['games']} games with an FBS team. The model's line and win chance for each, the market's number "
+                    "beside it (DraftKings), and what the result does to the playoff picture. Scores and live win chances appear "
+                    "while games are on.")
+        hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before kickoff; <strong>Live</strong> is its chance now,
   from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
   is the current line, with the opener beneath it when it has moved. <strong>Edge</strong> is the gap between the model
   and the opening number and the side the model likes more. The {betting_ref} tracks the large ones; these are
-  tracked, not recommended.</p>{past_links}
+  tracked, not recommended.""")
+        title = (f"Week {slate['week']} slate, {season} — MRI" if archive
+                 else f"Week {slate['week']} slate — MRI {season_text(payload)}")
+        description = "Every game this week: model line, market line, live scores, and what rides on it."
+
+    body = f"""
+  <article class="prose wide" id="slate" data-key="{esc(live.slate_key({**slate, 'season': season}))}">{day_nav}
+  <h1>{heading}</h1>
+  <p class="lead">{lead}</p>
+  <p class="hint">{hint}</p>{past_links}
 {alerts}{key_panel}{filters}{days}{results}{fcs}
   </article>{_SLATE_SCRIPT}{'' if archive else _SLATE_LIVE_SCRIPT}"""
-    title = (f"Week {slate['week']} slate, {season} — MRI" if archive
-             else f"Week {slate['week']} slate — MRI {season_text(payload)}")
-    return page(title, body, payload, depth=depth,
-                description="Every game this week: model line, market line, live scores, and what rides on it.")
+    return page(title, body, payload, depth=depth, description=description)
 
 
 def _record_section(record: dict) -> str:
@@ -2664,6 +2833,7 @@ def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
   card to bet.</strong> It is published because the comparison is interesting and
   because a system that only shows you its good weeks is not telling you anything.</p>
 
+{_bb_tracker_section(payload)}
   <h2>The market is the better predictor</h2>
   <table class="compare">
     <thead><tr><th></th><th>MRI 2.0</th><th>Market</th></tr></thead>
@@ -2724,6 +2894,113 @@ def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
                 description="Where the MRI basketball model disagrees with the market, "
                             "and why that has not made money.")
 
+
+
+def _bb_tracker_section(payload: dict) -> str:
+    """The two basketball habits: what the backtest says, this season's record, and today's picks.
+
+    The verdict comes first and says the habits have not made money, for the same reason the rest of this
+    page leads with its finding. The record is kept anyway, because a forward log is the honest test.
+    """
+    tracker, backtest = payload.get("bbTracker"), payload.get("bbStrategies") or {}
+    if not tracker and not backtest:
+        return ""
+    espn, dk = backtest.get("espn") or {}, backtest.get("dk") or {}
+    break_even = backtest.get("breakEven", 0.5238)
+    teams = {t["team"]: t for t in payload.get("teams", [])}
+
+    def tile(title, espn_rec, dk_rec, words):
+        if not espn_rec:
+            return ""
+        cls = "over" if (espn_rec["ats"] or 0) >= break_even else "under"
+        dk_text = (f" {dk_rec['ats']:.1%} on DraftKings last season ({dk_rec['wins']}&ndash;{dk_rec['losses']})."
+                   if dk_rec and dk_rec.get("ats") is not None else "")
+        return f"""
+    <div class="stat"><span class="statl">{title}</span><b class="{cls}">{espn_rec['ats']:.1%} ATS</b>
+      <span class="statn">{espn_rec['wins']:,}&ndash;{espn_rec['losses']:,} over {len(espn.get('seasons', []))} seasons (ESPN Bet),
+      {espn_rec['units']:+.1f} units.{dk_text} {words}</span></div>"""
+
+    dog = (espn.get("underdogs") or {}).get("all")
+    fade = (espn.get("fades") or {}).get("all")
+    tiles = (tile("Model picks the underdog to win", dog, ((dk.get("underdogs") or {}).get("all")),
+                  "Bet the underdog with the points.")
+             + tile("Fade teams that keep failing to cover", fade, ((dk.get("fades") or {}).get("all")),
+                    "They tend to start covering: the market has already adjusted."))
+    big = next((b for b in (espn.get("underdogs") or {}).get("bySpread", []) if b["band"].endswith("+")), None)
+    corner = (f"""<p class="note">One corner looks alive: underdog picks getting {big['band'].rstrip('+')} or more points went
+    {big['wins']}&ndash;{big['losses']}. Almost all are November games where the model barely knows one team, the same
+    failure the disagreement table below describes, and it did not hold on DraftKings. Worth watching, not betting.</p>"""
+              if big and big["bets"] else "")
+    verdict = f"""
+  <section class="bbverdict"><p class="ptitle">What the backtest says</p>
+  <div class="bbstrats">{tiles}
+  </div>
+  <p class="note">Break-even at &minus;110 is {break_even:.2%}. Graded on the model as it stood the morning of each game,
+  and each team&rsquo;s cover record from earlier games only.</p>{corner}
+  </section>""" if tiles else ""
+
+    rec_rows, picks_html, fade_html = "", "", ""
+    if tracker:
+        record = tracker["record"]
+        names = {"dog": "Underdog picks", "fade": "Fade list"}
+        for key, name in names.items():
+            r = record.get(key) or {}
+            ats = f"{r['ats']:.1%}" if r.get("ats") is not None else "&ndash;"
+            clv = f"{r['clv']:+.1f}" if r.get("clv") is not None else "&ndash;"
+            cls = "" if r.get("ats") is None else ("over" if r["ats"] >= break_even else "under")
+            rec_rows += (f'<tr><td>{name}</td><td class="num">{r.get("graded", 0)}</td>'
+                         f'<td class="num">{r.get("wins", 0)}&ndash;{r.get("losses", 0)}{"&ndash;" + str(r["pushes"]) if r.get("pushes") else ""}</td>'
+                         f'<td class="num {cls}">{ats}</td><td class="num">{r.get("units", 0):+.1f}</td><td class="num">{clv}</td></tr>')
+
+        def line(g, side):
+            taken = g["market"] if side == "home" else -g["market"]
+            return f'{esc(g[side])} {"+" if taken < 0 else "&minus;" if taken > 0 else ""}{abs(taken):.1f}' if taken else f"{esc(g[side])} PK"
+
+        dogs = tracker["todayPicks"].get("dog", [])
+        fades_today = tracker["todayPicks"].get("fade", [])
+        game = lambda g: f'{esc(g["away"])} {"vs" if g["neutral"] else "at"} {esc(g["home"])}'          # noqa: E731
+        dog_rows = "".join(f'<tr><td class="opp">{game(g)}</td><td class="num">{_favorite(g["market"], g["home"], g["away"])}</td>'
+                           f'<td class="num">{_favorite(g["predicted"], g["home"], g["away"])}</td><td>{line(g, g["side"])}</td></tr>'
+                           for g in dogs)
+        fade_rows = "".join(f'<tr><td class="opp">{game(g)}</td><td>{esc(g["faded"])}</td><td>{line(g, g["side"])}</td></tr>'
+                            for g in fades_today)
+        picks_html = f"""
+  <h3>Today&rsquo;s underdog picks</h3>
+  {f'<div class="tablewrap"><table><thead><tr><th>Game</th><th class="num">Market</th><th class="num">Model</th><th>Pick</th></tr></thead><tbody>{dog_rows}</tbody></table></div>' if dog_rows else '<p class="empty">None today.</p>'}
+  <h3>Today&rsquo;s fades</h3>
+  {f'<div class="tablewrap"><table><thead><tr><th>Game</th><th>Fading</th><th>Pick</th></tr></thead><tbody>{fade_rows}</tbody></table></div>' if fade_rows else '<p class="empty">None today.</p>'}"""
+        rules = tracker.get("rules") or {}
+        listed = tracker.get("fades") or {}
+        rows = "".join(
+            f'<tr><td class="opp"><span class="nmcell">{identity_mark(teams[t], 16) if t in teams else ""}{esc(t)}</span></td>'
+            f'<td class="num">{r["covers"]}&ndash;{r["misses"]}</td><td class="num">{r["coverRate"]:.0%}</td>'
+            f'<td class="num">{r["againstSpread"]:+.1f}</td></tr>' for t, r in listed.items())
+        fade_html = f"""
+  <h3>The fade list</h3>
+  <p class="hint">Teams covering {rules.get('fadeMaxCover', 0.35):.0%} or less of their games after
+  {rules.get('fadeMinGames', 10)} or more against the spread. The pick is their opponent.</p>
+  {f'<div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">ATS</th><th class="num">Cover</th><th class="num" title="Average margin against the spread">vs spread</th></tr></thead><tbody>{rows}</tbody></table></div>' if rows else '<p class="empty">Nobody yet: it takes ten games against the spread to qualify.</p>'}"""
+
+    record_html = f"""
+  <h3>This season&rsquo;s record</h3>
+  <div class="tablewrap"><table><thead><tr><th>Habit</th><th class="num">Graded</th><th class="num">Record</th>
+    <th class="num">ATS</th><th class="num">Units</th><th class="num" title="Average closing line value, in points">CLV</th></tr></thead>
+    <tbody>{rec_rows}</tbody></table></div>
+  <p class="note">Logged the morning of each game at the DraftKings line then available, graded against the result
+  and the closing line, and never edited.</p>""" if rec_rows else ""
+
+    return f"""
+  <h2>Two habits, tracked</h2>
+  <p>Two ways these games have been bet for years: taking the underdog when the model has them winning outright,
+  and betting against teams the market keeps getting wrong. Both are tracked here from the first game of the season.
+  Tracked, not recommended.</p>
+  <p class="bbhuman"><strong>A person decides, not the list.</strong> Every pick below comes from a fixed rule applied
+  to the model and the market, and nothing more. It is a starting point for human judgement, never a bet on its own:
+  before any money goes down, someone reads the game &mdash; injuries, lineups, travel, motivation, whatever the numbers
+  cannot see &mdash; and makes the call. The record logs every pick the rule makes, whether or not anyone bet it, so it
+  measures the rule by itself rather than those decisions.</p>
+  {verdict}{record_html}{picks_html}{fade_html}
+"""
 
 
 def _bb_prior_section(payload: dict) -> str:
@@ -2962,8 +3239,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         renderer = bb_betting_page if chrome.sport == "basketball" else betting_page
         write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
-    # Football only, and only when the build produced them.
-    archives = slate_archives(out_dir) if chrome.sport == "football" else []
+    # Only when the build produced them. The slate is both sports'; the rest are football's.
+    archives = slate_archives(out_dir)
     slate_with_archives = lambda p: slate_page(p, archives=archives)                    # noqa: E731
     for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_with_archives),
                                 ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page)):
@@ -2973,7 +3250,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # Past weeks' slates are re-rendered from their saved data on every build, so a change to the page
     # reaches them too. The data itself is written once, by slatearchive.snapshot, and never again.
     for entry in archives:
-        write(entry["path"].with_suffix(".html"), slate_page(payload, archive=entry["data"], archives=archives))
+        write(entry["path"].with_suffix(".html"),
+              slate_page(payload, archive=entry["data"], archives=archives, archive_id=entry["id"]))
     if payload.get("record"):
         write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
     if payload.get("bracketology"):
@@ -2991,7 +3269,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # published JSON as well would roughly double it for no reader.
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
-            "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest"} \
+            "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))
@@ -3320,6 +3598,23 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .sledge { display:inline-block; font-size:11.5px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis);
   color:var(--secondary); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .slst { min-width:0; }
+/* basketball: a Tracked column in place of Edge, a conference filter, and a day switcher */
+.slday.bb .slhead, .slday.bb .slrow { grid-template-columns:66px minmax(0,1.8fr) 44px 92px 104px minmax(0,0.9fr) minmax(0,1.2fr); }
+.slday.bb.live .slhead, .slday.bb.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px minmax(0,0.9fr) minmax(0,1fr); }
+.sltags { display:flex; flex-wrap:wrap; gap:4px; min-width:0; }
+.sltag { font-size:11px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis); color:var(--secondary); white-space:nowrap; }
+.sltag.dog { border-color:color-mix(in srgb, var(--up) 60%, var(--axis)); }
+.sltag.fade { border-color:color-mix(in srgb, var(--down) 60%, var(--axis)); }
+.slconf { background:var(--plane); color:var(--primary); border:1px solid var(--axis); border-radius:8px; padding:5px 8px; font:inherit; font-size:13px; }
+.slnav { display:flex; gap:16px; align-items:center; font-size:13px; margin:0 0 10px; }
+.slnav a { color:var(--secondary); text-decoration:none; } .slnav a:hover { color:var(--primary); }
+.slnav b { padding:3px 10px; border-radius:999px; background:var(--primary); color:var(--surface); font-weight:600; }
+.bbhuman { border-left:3px solid var(--alert); padding:8px 12px; background:color-mix(in srgb, var(--alert) 8%, transparent);
+  border-radius:0 8px 8px 0; font-size:14px; }
+.bbverdict { background:var(--surface); border:1px solid var(--grid); border-radius:12px; padding:14px 16px; margin:14px 0 20px; }
+.bbstrats { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.bbstrats b { display:block; font-size:22px; margin:4px 0; }
+.bbstrats b.under { color:var(--down); } .bbstrats b.over { color:var(--up); }
 /* live: the Score and Live columns appear on a day once any of its games has started */
 .slx, .slscore, .sllive { display:none; }
 .slday.live .slx, .slday.live .slscore, .slday.live .sllive { display:block; }
@@ -3355,6 +3650,10 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
   .slst { grid-area:s; min-width:140px; }
   .slday.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"t t t" "g sc lv" "m k k" "e s s"; }
   .slday.live .slwp { display:none; }
+  .slday.bb .slrow { grid-template-columns:minmax(0,1fr) auto; }
+  .slday.bb.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
+  .sltags { grid-area:e; }
+  .bbstrats { grid-template-columns:1fr; }
   .slscore { grid-area:sc; } .sllive { grid-area:lv; }
 }
 .mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }

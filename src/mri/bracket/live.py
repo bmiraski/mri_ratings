@@ -23,6 +23,10 @@ SETTINGS = ROOT / "data" / "bracketology_settings.json"
 LOOKBACK = 3
 
 
+# How far ahead the slate's bid stakes are computed: today's games and the next two days'.
+LEVERAGE_DAYS = 3
+
+
 def season_for(today: dt.date) -> int:
     """The men's basketball season in progress, named for the year it ends in (2026-27 is 2027)."""
     return today.year + 1 if today.month >= 7 else today.year
@@ -109,7 +113,9 @@ def build(season: int, as_of: str | None, settings: dict, sims: int, field_size:
     res = joint.run(joint.Inputs(season=season, games=games, power=ratings.power, home_field=ratings.home_field,
                                  resume_sigma=ratings.sigma, conference_of=conf_of, templates=templates, beta=beta,
                                  fmt=fmt, auto_mode=modes, as_of=as_of, sims=sims, seed=0,
-                                 committee_noise=model.get("committeeNoise", 0.0)))
+                                 committee_noise=model.get("committeeNoise", 0.0),
+                                 leverage_through=((dt.date.fromisoformat(as_of[:10]) if as_of else dt.date.today())
+                                                   + dt.timedelta(days=LEVERAGE_DAYS)).isoformat()))
     projected, bubble = joint.projected_field(res, fmt)
     meetings = regions.meetings_from_games(games[games["season_type"] == "regular"])
     placement = regions.place(projected, meetings)
@@ -120,6 +126,7 @@ def build(season: int, as_of: str | None, settings: dict, sims: int, field_size:
         "season": season, "asOf": as_of or dt.date.today().isoformat(), "sims": sims,
         "committeeNoise": model.get("committeeNoise", 0.0),
         "formatWarnings": warnings,
+        "leverage": res.leverage,
         "fieldSize": fmt.size, "automaticBids": sum(1 for c in res.champions if res.champions[c]),
         "conferences": {
             c: {"mode": modes[c], "status": res.conference_status.get(c),
