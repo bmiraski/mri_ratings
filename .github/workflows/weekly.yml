@@ -62,5 +62,11 @@ jobs:
             echo "No new games since the last run."
           else
             git commit -m "Refresh ratings ($(date -u '+%Y-%m-%d'))"
-            git push
+            # The live-score job commits docs/live.json during games, so main may
+            # have moved during a long build. The two never touch the same file.
+            for attempt in 1 2 3; do
+              git pull --rebase --quiet && git push && exit 0
+              sleep 5
+            done
+            exit 1
           fi

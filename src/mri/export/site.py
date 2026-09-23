@@ -1550,12 +1550,12 @@ def _favorite(predicted: float | None, home: str, away: str) -> str:
     return f"{esc(team)}&nbsp;&minus;{abs(predicted):.1f}"
 
 
-def _matchup(g: dict, teams: dict) -> str:
+def _matchup(g: dict, teams: dict, up: str = "") -> str:
     def side(name):
         team = teams.get(name)
         rank = f'<span class="rkchip">#{team["rank"]}</span> ' if team and team["rank"] <= 25 else ""
-        mark = identity_mark(team, 16) if team else ""
-        label = (f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name))
+        mark = identity_mark(team, 16, up.count("../")) if team else ""
+        label = (f'<a href="{up}team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name))
         return f'<span class="nmcell">{mark}{rank}{label}</span>'
     joiner = "vs" if g["neutral"] else "at"
     return f'<span class="mu">{side(g["away"])} <span class="muted">{joiner}</span> {side(g["home"])}</span>'
@@ -1639,28 +1639,141 @@ _SLATE_SCRIPT = """
 })();
 </script>"""
 
+# Reads docs/live.json, which the live-score Action rewrites every fifteen minutes while games are on,
+# and paints it into the rows the build rendered. It checks every five minutes while the page is open
+# and stops once nothing on the slate is due to start or still being played.
+_SLATE_LIVE_SCRIPT = """
+<script>
+(function () {
+  var root = document.getElementById('slate');
+  var week = +root.dataset.week, season = +root.dataset.season;
+  var stamp = document.getElementById('slstamp'), alerts = document.getElementById('slalerts');
+  var list = document.getElementById('slalertlist');
+  var EVERY = 5 * 60 * 1000;
+  function pct(p) { return p < 0.005 ? '&lt;1%' : p > 0.995 ? '&gt;99%' : Math.round(p * 100) + '%'; }
+  function paint(row, s) {
+    var pre = +row.dataset.pre, final = s.status === 'completed';
+    var ball = function (side) { return !final && s.possession === side ? ' <i class="ball" title="Has the ball"></i>' : ''; };
+    var lead = s.home - s.away;
+    row.querySelector('.sltime').textContent = s.label;
+    row.querySelector('.slscore').innerHTML =
+      '<span class="' + (lead < 0 ? 'up' : '') + '">' + s.away + ball('away') + '</span><br>' +
+      '<span class="' + (lead > 0 ? 'up' : '') + '">' + s.home + ball('home') + '</span>';
+    var live = row.querySelector('.sllive');
+    if (final) {
+      var right = (pre >= 0.5) === (lead > 0);
+      live.innerHTML = '<span class="' + (right ? 'hit' : 'miss') + '" title="' +
+        (right ? 'The model&rsquo;s pick won' : 'The model&rsquo;s pick lost') + '">' + (right ? '&#10003;' : '&#10007;') + '</span>';
+    } else {
+      live.innerHTML = pct(1 - s.homeWinProbability) + '<br>' + pct(s.homeWinProbability);
+    }
+    row.classList.toggle('playing', !final);
+    row.classList.toggle('final', final);
+    row.classList.toggle('upset', !!s.upset);
+    var badge = row.querySelector('.slupset');
+    badge.hidden = !s.upset;
+    badge.textContent = final ? 'Upset' : 'Upset alert';
+    badge.title = s.upset || '';
+    var day = row.closest('.slday');
+    if (day) day.classList.add('live');
+    var card = document.querySelector('.slcard[data-id="' + row.dataset.id + '"] .slcardlive');
+    if (card) {
+      card.hidden = false;
+      card.innerHTML = '<b>' + s.label + '</b> ' + row.dataset.awayAbbr + ' ' + s.away + ', ' + row.dataset.homeAbbr +
+        ' ' + s.home + (final ? '' : ' &middot; ' + (pre >= 0.5 ? row.dataset.homeAbbr : row.dataset.awayAbbr) + ' ' +
+        pct(pre >= 0.5 ? s.homeWinProbability : 1 - s.homeWinProbability) + ' to win');
+    }
+  }
+  function show(data) {
+    if (!data || data.week !== week || (data.season && data.season !== season)) return;
+    var upsets = [];
+    Object.keys(data.games).forEach(function (id) {
+      var row = document.getElementById('g' + id), s = data.games[id];
+      if (!row) return;
+      paint(row, s);
+      if (s.upset) upsets.push({ id: id, s: s, row: row });
+    });
+    stamp.hidden = false;
+    stamp.textContent = 'Live scores updated ' + data.updatedLabel + '; they refresh about every 15 minutes while games are on.';
+    alerts.hidden = !upsets.length;
+    list.innerHTML = upsets.map(function (u) {
+      var s = u.s, r = u.row.dataset;
+      return '<li><a href="#g' + u.id + '">' + r.awayName + ' ' + s.away + ', ' + r.homeName + ' ' + s.home +
+        '</a> <span class="muted">' + s.label + '</span><span class="why">' + s.upset + '</span></li>';
+    }).join('');
+  }
+  function pending() {
+    var now = Date.now();
+    return document.querySelectorAll('.slrow').length && Array.prototype.some.call(document.querySelectorAll('.slrow:not(.final)'),
+      function (row) { var k = +row.dataset.kick; return k && k - 12 * 3600e3 < now && now < k + 5 * 3600e3; });
+  }
+  function load() {
+    fetch('live.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(show)
+      .catch(function () {})
+      .then(function () { if (pending()) setTimeout(load, EVERY); });
+  }
+  load();
+})();
+</script>"""
 
-def slate_page(payload: dict) -> str:
-    slate = payload["slate"]
-    teams = {t["team"]: t for t in payload["teams"]}
+
+def _final_state(g: dict, finals: dict, ranks: dict) -> dict | None:
+    """An archived game's result in the shape live.json gives a finished one."""
+    from . import live
+
+    score = finals.get(str(g["id"]))
+    if not score:
+        return None
+    home, away = int(score["home"]), int(score["away"])
+    return {"status": "completed", "label": "Final", "home": home, "away": away,
+            "homeWinProbability": 1.0 if home > away else 0.0,
+            "upset": live.upset(g, home, away, None, True, ranks)}
+
+
+def slate_archives(site_root: Path) -> list[dict]:
+    """Every archived week on disk, newest first, as small records for links and rendering."""
+    folder = site_root / "slate"
+    entries = []
+    for path in folder.glob("*-week-*.json") if folder.exists() else []:
+        data = json.loads(path.read_text())
+        entries.append({"season": data["season"], "week": data["week"], "path": path,
+                        "href": f"slate/{path.stem}.html", "data": data})
+    return sorted(entries, key=lambda e: (e["season"], e["week"]), reverse=True)
+
+
+def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None) -> str:
+    """This week's slate, or with ``archive`` a finished week as it stood before the Sunday refresh, with finals."""
+    from . import live
+
+    slate = archive or payload["slate"]
+    depth = 1 if archive else 0
+    up = "../" * depth
+    teams = archive["teams"] if archive else {t["team"]: t for t in payload["teams"]}
+    ranks = {n: t["rank"] for n, t in teams.items()}
+    finals = (archive or {}).get("finals") or {}
     by_id = {g["id"]: g for d in slate["days"] for g in d["games"]}
     key = [i for i in slate["watch"] if i in by_id]
     key_ids = set(key)
+    season = slate.get("season") or payload.get("season")
     # Links only to pages this build wrote, the same rule as the header.
-    betting_ref = ('<a href="betting.html">betting page</a>'
+    betting_ref = (f'<a href="{up}betting.html">betting page</a>'
                    if payload.get("betting") and payload.get("board") else "betting board")
-    sim_ref = ('<a href="simulation.html">season simulation</a>'
+    sim_ref = (f'<a href="{up}simulation.html">season simulation</a>'
                if payload.get("sim") else "season simulation")
 
     def ranked(name):
-        team = teams.get(name)
-        return bool(team and team["rank"] <= 25)
+        return ranks.get(name, 999) <= 25
+
+    def abbr(name):
+        return (teams.get(name) or {}).get("abbreviation") or name
 
     def side(name, size=16):
         team = teams.get(name)
         rank = f'<span class="rkchip">#{team["rank"]}</span>' if ranked(name) else ""
-        mark = identity_mark(team, size) if team else ""
-        label = f'<a href="team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name)
+        mark = identity_mark(team, size, depth) if team else ""
+        label = f'<a href="{up}team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name)
         return f'<span class="nmcell">{mark}{rank}{label}</span>'
 
     def market_cell(g):
@@ -1674,22 +1787,43 @@ def slate_page(payload: dict) -> str:
         if edge is None:
             return '<span class="muted">&ndash;</span>'
         liked = g["home"] if edge > 0 else g["away"]
-        abbr = (teams.get(liked) or {}).get("abbreviation") or liked
         return (f'<span class="sledge" title="The model likes {esc(liked)} by {abs(edge):.1f} more than the opening line">'
-                f'{abs(edge):.1f} &rarr; {esc(abbr)}</span>')
+                f'{abs(edge):.1f} &rarr; {esc(abbr(liked))}</span>')
+
+    def live_cells(g, state):
+        """Score and live cells, filled for an archived final and left for the live script otherwise."""
+        if not state:
+            return '<div class="slscore"></div><div class="sllive"></div>'
+        lead = state["home"] - state["away"]
+        right = (g["homeWinProbability"] >= 0.5) == (lead > 0)
+        mark = (f'<span class="{"hit" if right else "miss"}" title="The model&rsquo;s pick {"won" if right else "lost"}">'
+                f'{"&#10003;" if right else "&#10007;"}</span>')
+        return (f'<div class="slscore"><span class="{"up" if lead < 0 else ""}">{state["away"]}</span><br>'
+                f'<span class="{"up" if lead > 0 else ""}">{state["home"]}</span></div><div class="sllive">{mark}</div>')
 
     def row(g):
+        state = _final_state(g, finals, ranks) if archive else None
         away_p = 1 - g["homeWinProbability"]
         joiner = "vs" if g["neutral"] else "@"
         top25 = "1" if ranked(g["home"]) or ranked(g["away"]) else "0"
         stakes = "1" if (g.get("stake") or {}).get("swing", 0) >= 0.1 else "0"
-        cls = "slrow key" if g["id"] in key_ids else "slrow"
+        classes = ["slrow"] + (["key"] if g["id"] in key_ids else []) + (["final"] if state else []) \
+            + (["upset"] if state and state["upset"] else [])
         mark = ' title="Key game: one of the week&rsquo;s biggest playoff stakes"' if g["id"] in key_ids else ""
+        start = live.kickoff(g)
+        kick = int(start.timestamp() * 1000) if start else 0
+        upset_text = state["upset"] if state and state["upset"] else ""
+        badge = (f'<span class="slupset" title="{esc(upset_text)}">Upset</span>' if upset_text
+                 else '<span class="slupset" hidden></span>')
+        time_label = state["label"] if state else g["time"].replace(" ET", "")
         return f"""
-      <div class="{cls}" data-id="{g['id']}" data-top25="{top25}" data-stakes="{stakes}" data-key="{'1' if g['id'] in key_ids else '0'}"{mark}>
-        <span class="sltime">{esc(g['time'].replace(' ET', ''))}</span>
-        <div class="slgame">{side(g['away'])}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'])}</span></div>
-        <div class="slwp">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
+      <div class="{' '.join(classes)}" id="g{g['id']}" data-id="{g['id']}" data-kick="{kick}" data-pre="{g['homeWinProbability']}"
+        data-home-name="{esc(g['home'])}" data-away-name="{esc(g['away'])}" data-home-abbr="{esc(abbr(g['home']))}" data-away-abbr="{esc(abbr(g['away']))}"
+        data-top25="{top25}" data-stakes="{stakes}" data-key="{'1' if g['id'] in key_ids else '0'}"{mark}>
+        <span class="sltime">{esc(time_label)}</span>
+        <div class="slgame">{side(g['away'])}<span class="slhome"><span class="muted sljoin">{joiner}</span>{side(g['home'])}</span>{badge}</div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">{_pct(away_p)}<br>{_pct(g['homeWinProbability'])}</div>
+        {live_cells(g, state)}
         <div class="slnum slmodel">{_short_favorite(g['predicted'], g, teams)}</div>
         <div class="slnum slmarket">{market_cell(g)}</div>
         <div class="slnum sledgec">{edge_cell(g)}</div>
@@ -1697,8 +1831,9 @@ def slate_page(payload: dict) -> str:
       </div>"""
 
     head = """
-      <div class="slhead"><span>Time</span><span>Game</span><span class="r">Win</span><span class="r">Model</span>
-        <span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before kickoff">Pre</span>
+        <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
+        <span class="r">Model</span><span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
         <span title="The team with the most riding on the game: its playoff chance with a loss, now, and with a win">Playoff stake</span></div>"""
 
     def day(d):
@@ -1708,8 +1843,9 @@ def slate_page(payload: dict) -> str:
         groups = "".join(f"""
       <div class="slslot"><p class="slslothead"><b>{name}</b> <span>{len(gs)} game{'s' if len(gs) != 1 else ''}</span></p>{''.join(row(g) for g in gs)}
       </div>""" for name, gs in slots.items())
+        played = archive and any(str(g["id"]) in finals for g in d["games"])
         return f"""
-  <section class="slday"><h2>{esc(d['label'])}</h2>
+  <section class="slday{' live' if played else ''}"><h2>{esc(d['label'])}</h2>
     <div class="slledger">{head}{groups}
     </div>
   </section>"""
@@ -1719,11 +1855,15 @@ def slate_page(payload: dict) -> str:
     def card(g):
         stake_team = (g.get("stake") or {}).get("team")
         tint = esc((teams.get(stake_team) or {}).get("color") or "var(--series)")
+        state = _final_state(g, finals, ranks) if archive else None
+        result = (f'<p class="slcardlive"><b>Final</b> {esc(abbr(g["away"]))} {state["away"]}, {esc(abbr(g["home"]))} {state["home"]}</p>'
+                  if state else '<p class="slcardlive" hidden></p>')
         return f"""
-    <article class="slcard" style="--tc:{tint}">
+    <article class="slcard" data-id="{g['id']}" style="--tc:{tint}">
       <p class="slmeta">{esc(g['dateLabel'])} &middot; {esc(g['time'])}</p>
       <div class="slvs">{side(g['away'], 18)}{side(g['home'], 18)}</div>
       {_win_bar(g, teams)}
+      {result}
       <p class="sllines"><span>Model</span><b>{_short_favorite(g['predicted'], g, teams)}</b><span>Market</span><span>{_short_favorite(g.get('market'), g, teams)}</span></p>
       {_stake_bar(g, teams, short=False)}
     </article>"""
@@ -1733,16 +1873,33 @@ def slate_page(payload: dict) -> str:
     <p class="ptitle">Most riding on it</p>
     <div class="slcards">{''.join(card(by_id[i]) for i in key)}
     </div>
-    <p class="note">The {len(key)} game{'s' if len(key) != 1 else ''} this week that move a team&rsquo;s playoff chance most, from the
-    {sim_ref}. The bar runs from that team&rsquo;s chance with a loss to its chance with a win; the tick is where it stands now.
+    <p class="note">The {len(key)} game{'s' if len(key) != 1 else ''} {'that week' if archive else 'this week'} that move{'d' if archive else ''} a team&rsquo;s playoff chance most, from the
+    {sim_ref}. The bar runs from that team&rsquo;s chance with a loss to its chance with a win; the tick is where it stood before kickoff.
     These games carry a red stripe in the lists below.</p>
   </section>""" if key else ""
+
+    if archive:
+        upsets = [(g, s) for g in by_id.values() if (s := _final_state(g, finals, ranks)) and s["upset"]]
+        alert_items = "".join(
+            f'<li><a href="#g{g["id"]}">{esc(g["away"])} {s["away"]}, {esc(g["home"])} {s["home"]}</a>'
+            f'<span class="why">{esc(s["upset"])}</span></li>' for g, s in upsets)
+        alerts = f"""
+  <section class="slalerts" id="slalerts"{'' if upsets else ' hidden'}>
+    <p class="ptitle">Upsets</p><ul id="slalertlist">{alert_items}</ul>
+  </section>"""
+    else:
+        alerts = """
+  <section class="slalerts" id="slalerts" hidden>
+    <p class="ptitle">Upset watch</p><ul id="slalertlist"></ul>
+    <p class="note">From the second half on: a team the model gave 25% or less is leading, or a Top 25 team is trailing an unranked one.</p>
+  </section>"""
 
     filters = f"""
   <div class="slfilter">
     <div class="slseg"><button type="button" data-f="all" class="on">All games</button><button type="button" data-f="top25">Top 25</button><button type="button" data-f="stakes">Playoff stakes</button>{'<button type="button" data-f="key">Key games</button>' if key else ''}</div>
     <span id="slcount" class="muted small"></span>
   </div>
+  <p id="slstamp" class="slstamp" hidden></p>
   <p id="slnone" class="empty" hidden>No games this week match.</p>"""
 
     def result_row(g):
@@ -1758,7 +1915,7 @@ def slate_page(payload: dict) -> str:
     results = ""
     if slate["results"]:
         results = f"""
-  <h2>Already played this week</h2>
+  <h2>{'Played before this page was saved' if archive else 'Already played this week'}</h2>
   <div class="tablewrap"><table class="slate">
     <thead><tr><th>Day</th><th>Final</th><th class="num">Model (entering the week)</th><th class="num">Called it</th>
     <th class="num">Model miss</th><th class="num">Market miss</th></tr></thead>
@@ -1767,7 +1924,7 @@ def slate_page(payload: dict) -> str:
     fcs = ""
     if slate["fcs"]:
         rows = "".join(f"""<tr><td class="wk">{esc(g['dateLabel'])} &middot; {g['time']}</td>
-          <td class="opp">{_matchup(g, teams)}</td>
+          <td class="opp">{_matchup(g, teams, up)}</td>
           <td class="num">{_favorite(g['predicted'], g['home'], g['away'])}</td>
           <td class="num">{_pct(g['homeWinProbability'] if g['predicted'] >= 0 else 1 - g['homeWinProbability'])}</td></tr>"""
                        for g in slate["fcs"])
@@ -1776,19 +1933,40 @@ def slate_page(payload: dict) -> str:
   <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
     <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody>{rows}</tbody></table></div>"""
 
+    past = [e for e in (archives or []) if not archive or (e["season"], e["week"]) != (archive["season"], archive["week"])]
+    past_links = ""
+    current = f'<a href="{up}slate.html">This week</a>' if archive and payload.get("slate") else ""
+    if past or current:
+        links = [current] if current else []
+        links += [f'<a href="{up}{e["href"]}">{"" if e["season"] == season else str(e["season"]) + " "}Week {e["week"]}</a>'
+                  for e in past]
+        past_links = f'\n  <p class="slpast"><span class="muted">Slates:</span> {" &middot; ".join(links)}</p>'
+
+    if archive:
+        heading = f"Week {slate['week']} slate, {season}"
+        lead = (f"The slate as it stood before the Sunday refresh, with final scores. {slate['games']} games with an FBS team; "
+                "the model&rsquo;s line and win chance for each were set before kickoff.")
+    else:
+        heading = f"Week {slate['week']} slate"
+        lead = (f"{slate['games']} games with an FBS team. The model's line and win chance for each, the market's number "
+                "beside it (DraftKings), and what the result does to the playoff picture. Scores and live win chances appear "
+                "while games are on.")
+
     body = f"""
-  <article class="prose wide">
-  <h1>Week {slate['week']} slate</h1>
-  <p class="lead">{slate['games']} games with an FBS team. The model's line and win chance for each,
-  the market's number beside it (DraftKings), and what the result does to the playoff picture.</p>
-  <p class="hint"><strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
+  <article class="prose wide" id="slate" data-week="{slate['week']}" data-season="{season}">
+  <h1>{heading}</h1>
+  <p class="lead">{lead}</p>
+  <p class="hint"><strong>Pre</strong> is the model&rsquo;s win chance before kickoff; <strong>Live</strong> is its chance now,
+  from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
   is the current line, with the opener beneath it when it has moved. <strong>Edge</strong> is the gap between the model
   and the opening number and the side the model likes more. The {betting_ref} tracks the large ones; these are
-  tracked, not recommended.</p>
-{key_panel}{filters}{days}{results}{fcs}
-  </article>{_SLATE_SCRIPT}"""
-    return page(f"Week {slate['week']} slate — MRI {season_text(payload)}", body, payload,
-                description="Every game this week: model line, market line, and what rides on it.")
+  tracked, not recommended.</p>{past_links}
+{alerts}{key_panel}{filters}{days}{results}{fcs}
+  </article>{_SLATE_SCRIPT}{'' if archive else _SLATE_LIVE_SCRIPT}"""
+    title = (f"Week {slate['week']} slate, {season} — MRI" if archive
+             else f"Week {slate['week']} slate — MRI {season_text(payload)}")
+    return page(title, body, payload, depth=depth,
+                description="Every game this week: model line, market line, live scores, and what rides on it.")
 
 
 def _record_section(record: dict) -> str:
@@ -2785,11 +2963,17 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         write(out_dir / "betting.html", renderer(payload, payload["betting"], payload["board"]))
 
     # Football only, and only when the build produced them.
-    for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_page),
+    archives = slate_archives(out_dir) if chrome.sport == "football" else []
+    slate_with_archives = lambda p: slate_page(p, archives=archives)                    # noqa: E731
+    for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_with_archives),
                                 ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page)):
         if payload.get(key):
             write(out_dir / f"{name}.html", renderer(payload))
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
+    # Past weeks' slates are re-rendered from their saved data on every build, so a change to the page
+    # reaches them too. The data itself is written once, by slatearchive.snapshot, and never again.
+    for entry in archives:
+        write(entry["path"].with_suffix(".html"), slate_page(payload, archive=entry["data"], archives=archives))
     if payload.get("record"):
         write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
     if payload.get("bracketology"):
@@ -2837,14 +3021,14 @@ STYLES = """
 :root {
   --surface:#1a1a19; --plane:#0d0d0d; --primary:#ffffff; --secondary:#c3c2b7;
   --muted:#898781; --grid:#2c2c2a; --axis:#383835;
-  --up:#0ca30c; --down:#d03b3b; --series:#AB011B;
+  --up:#0ca30c; --down:#d03b3b; --series:#AB011B; --alert:#f0a202;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --surface:#fcfcfb; --plane:#f9f9f7; --primary:#0b0b0b; --secondary:#52514e;
     --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
-    --up:#006300; --down:#d03b3b; --series:#AB011B;
+    --up:#006300; --down:#d03b3b; --series:#AB011B; --alert:#b86e00;
     color-scheme: light;
   }
 }
@@ -3136,6 +3320,31 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .sledge { display:inline-block; font-size:11.5px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis);
   color:var(--secondary); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .slst { min-width:0; }
+/* live: the Score and Live columns appear on a day once any of its games has started */
+.slx, .slscore, .sllive { display:none; }
+.slday.live .slx, .slday.live .slscore, .slday.live .sllive { display:block; }
+.slday.live .slhead, .slday.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px 84px minmax(0,1.1fr); }
+.slscore, .sllive { text-align:right; font-variant-numeric:tabular-nums; line-height:1.55; }
+.slscore span { color:var(--secondary); } .slscore span.up { color:var(--primary); font-weight:700; }
+.sllive { color:var(--primary); }
+.sllive .hit { color:var(--up); } .sllive .miss { color:var(--down); }
+.slscore .ball { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--alert); vertical-align:middle; margin-left:3px; }
+.slrow.playing .sltime { color:var(--primary); font-weight:600; }
+.slrow.final .sltime { color:var(--muted); }
+.slupset { justify-self:start; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--plane); background:var(--alert); border-radius:3px; padding:1px 6px; margin-top:2px; }
+.slrow.upset { box-shadow:inset 3px 0 0 var(--alert); background:color-mix(in srgb, var(--alert) 9%, transparent); }
+.slalerts { background:color-mix(in srgb, var(--alert) 10%, var(--surface)); border:1px solid color-mix(in srgb, var(--alert) 55%, var(--grid));
+  border-radius:12px; padding:12px 16px; margin:16px 0; }
+.slalerts .ptitle { color:var(--alert); }
+.slalerts ul { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.slalerts li { font-size:14px; }
+.slalerts li a { font-weight:600; text-decoration:none; } .slalerts li a:hover { text-decoration:underline; }
+.slalerts .why { display:block; font-size:12.5px; color:var(--secondary); }
+.slcardlive { font-size:12.5px; color:var(--secondary); font-variant-numeric:tabular-nums; }
+.slcardlive b { color:var(--primary); }
+.slstamp { font-size:12px; color:var(--muted); margin:4px 0 0; }
+.slpast { font-size:13px; margin:6px 0 0; }
 @media (max-width:760px) {
   .slhead { display:none; }
   .slrow { grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"t t" "g w" "m k" "e s"; row-gap:7px; }
@@ -3144,6 +3353,9 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
   .slmodel { grid-area:m; text-align:left; } .slmarket { grid-area:k; }
   .sledgec { grid-area:e; text-align:left; }
   .slst { grid-area:s; min-width:140px; }
+  .slday.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; grid-template-areas:"t t t" "g sc lv" "m k k" "e s s"; }
+  .slday.live .slwp { display:none; }
+  .slscore { grid-area:sc; } .sllive { grid-area:lv; }
 }
 .mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
 @media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }

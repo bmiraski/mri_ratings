@@ -1,0 +1,50 @@
+name: Live scores
+
+# Every fifteen minutes through the football season, but it only spends a CFBD
+# call while one of the slate's games is about to start or in progress; the rest
+# of the time it reads docs/slate.json and docs/live.json and exits. Once every
+# game that has started today is final, it stops calling until the next kickoff.
+#
+# Standard library only, on the runner's own Python: no setup or installs, so a
+# tick takes seconds. GitHub starts scheduled runs late when it is busy, so in
+# practice the scores move every 15-30 minutes.
+
+on:
+  schedule:
+    - cron: "*/15 * * 8-12,1 *"   # August to January
+  workflow_dispatch:
+
+concurrency:
+  group: live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Update live scores
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+        run: PYTHONPATH=src python3 scripts/live_scores.py
+
+      - name: Commit the scores
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/live.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "Nothing new."
+            exit 0
+          fi
+          git commit -m "Live scores ($(date -u '+%Y-%m-%d %H:%M'))"
+          # The daily build may have pushed meanwhile; it never touches live.json, so a rebase is clean.
+          for attempt in 1 2 3; do
+            git pull --rebase --quiet && git push && exit 0
+            sleep 5
+          done
+          exit 1

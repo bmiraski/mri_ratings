@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
-from mri.export import gamedaydata, heismandata, logos, simdata, site, sitedata, slate  # noqa: E402
+from mri.export import gamedaydata, heismandata, logos, simdata, site, sitedata, slate, slatearchive  # noqa: E402
 from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
@@ -151,6 +151,14 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"  slate skipped: {exc}")
 
+    # Before this build overwrites docs/slate.json, keep the outgoing week if the slate has moved on.
+    try:
+        saved = slatearchive.snapshot(ROOT / "docs", payload.get("slate"), SEASON, _finals)
+        if saved:
+            print(f"  slate archive: saved {saved.relative_to(ROOT)}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  slate archive skipped: {exc}")
+
     try:
         payload["gameday"] = gamedaydata.build(SEASON, payload)
         if payload["gameday"]:
@@ -186,6 +194,15 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
                   f"games reconstructed, {fwd['logged']} picks logged")
         except Exception as exc:  # noqa: BLE001
             print(f"  record skipped: {exc}")
+
+
+def _finals(week: int) -> dict[int, tuple[int, int]]:
+    """Final scores for a week of this season, keyed by game id: (home points, away points)."""
+    from mri.ingest import cfbd
+
+    played = cfbd.games(SEASON)
+    played = played[played["week"] == week]
+    return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in played.itertuples()}
 
 
 def add_bracketology(basketball: dict, data_dir: Path) -> None:
