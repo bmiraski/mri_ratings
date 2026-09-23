@@ -360,6 +360,46 @@ def fbs_teams(year: int, *, refresh: bool = False) -> pd.DataFrame:
     )
 
 
+def venues(*, refresh: bool = False) -> pd.DataFrame:
+    """Every stadium the API knows: where it is, how high, how big, and whether
+    it has a roof. One call covers every season, so it is cached for good."""
+    raw = request("/venues", refresh=refresh)
+    rows = []
+    for v in raw:
+        rows.append(
+            {
+                "venue_id": v["id"],
+                "name": v.get("name"),
+                "city": v.get("city"),
+                "state": v.get("state"),
+                "latitude": _number(v.get("latitude")),
+                "longitude": _number(v.get("longitude")),
+                "elevation": _number(v.get("elevation")),
+                "capacity": _number(v.get("capacity")),
+                "dome": bool(v.get("dome")),
+                "grass": bool(v.get("grass")),
+                "timezone": v.get("timezone"),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def team_homes(*, refresh: bool = False) -> pd.DataFrame:
+    """Each team's listed home stadium, FCS included.
+
+    The games feed only shows an FCS team at home when it hosts an FBS side,
+    which some never do. This is where their travel starts from."""
+    raw = request("/teams", refresh=refresh)
+    rows = []
+    for t in raw:
+        loc = t.get("location") or {}
+        if loc.get("id") is None:
+            continue
+        rows.append({"team": t["school"], "team_id": t["id"], "venue_id": loc["id"],
+                     "classification": t.get("classification")})
+    return pd.DataFrame(rows)
+
+
 def calendar(year: int, *, refresh: bool = False) -> pd.DataFrame:
     return pd.DataFrame(request("/calendar", year=year, refresh=refresh))
 

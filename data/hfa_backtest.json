@@ -1,0 +1,3759 @@
+{
+  "seasons": [
+    2013,
+    2025
+  ],
+  "seasonHomeField": {
+    "2013": 3.88,
+    "2014": 2.8,
+    "2015": 2.61,
+    "2016": 3.02,
+    "2017": 3.08,
+    "2018": 2.87,
+    "2019": 3.37,
+    "2020": 1.25,
+    "2021": 2.32,
+    "2022": 2.5,
+    "2023": 3.06,
+    "2024": 3.75,
+    "2025": 3.94
+  },
+  "crowd2020": -1.85,
+  "crowd2020Error": 0.7,
+  "trendPerDecade": 0.22,
+  "scored": [
+    2016,
+    2025
+  ],
+  "games": 9822,
+  "fcsSetAside": {
+    "games": 1399,
+    "meanResidual": 10.01,
+    "note": "FBS-vs-FCS games are left out: the pregame line under-rates the FBS side by this much on average, which would swamp every home-field term."
+  },
+  "baseResidual": {
+    "hosted": -0.266,
+    "neutral": 1.162,
+    "hfaBaseMean": 2.523
+  },
+  "situational": {
+    "hosted": {
+      "coef": -1.184,
+      "se": 0.266,
+      "interval80": [
+        -1.525,
+        -0.843
+      ]
+    },
+    "climb": {
+      "coef": 0.576,
+      "se": 0.162,
+      "interval80": [
+        0.369,
+        0.783
+      ]
+    },
+    "travel": {
+      "coef": 1.625,
+      "se": 0.523,
+      "interval80": [
+        0.955,
+        2.295
+      ]
+    },
+    "tz_east": {
+      "coef": -0.83,
+      "se": 0.401,
+      "interval80": [
+        -1.344,
+        -0.317
+      ]
+    },
+    "tz_west": {
+      "coef": -0.385,
+      "se": 0.406,
+      "interval80": [
+        -0.905,
+        0.136
+      ]
+    },
+    "body_clock": {
+      "coef": -0.333,
+      "se": 1.483,
+      "interval80": [
+        -2.233,
+        1.568
+      ]
+    },
+    "late_clock": {
+      "coef": -0.13,
+      "se": 2.169,
+      "interval80": [
+        -2.91,
+        2.651
+      ]
+    },
+    "crowd": {
+      "coef": 0.959,
+      "se": 0.983,
+      "interval80": [
+        -0.3,
+        2.219
+      ]
+    },
+    "trend": {
+      "coef": 0.388,
+      "se": 0.451,
+      "interval80": [
+        -0.191,
+        0.966
+      ]
+    },
+    "covid_2020": {
+      "coef": 0.059,
+      "se": 0.762,
+      "interval80": [
+        -0.917,
+        1.036
+      ]
+    }
+  },
+  "stadiums": {
+    "tau2": 2.228,
+    "sigma2": 264.12,
+    "k": 118.6,
+    "detectable": true,
+    "roadTau2": 0.821,
+    "venue": [
+      {
+        "venueId": 3772,
+        "name": "Jack Trice Stadium",
+        "effect": 1.802,
+        "raw": 4.77,
+        "interval80": [
+          0.293,
+          3.311
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3651,
+        "name": "Bridgeforth Stadium",
+        "effect": 1.464,
+        "raw": 9.727,
+        "interval80": [
+          -0.299,
+          3.227
+        ],
+        "games": 21
+      },
+      {
+        "venueId": 3825,
+        "name": "DATCU Stadium",
+        "effect": 1.438,
+        "raw": 4.021,
+        "interval80": [
+          -0.095,
+          2.971
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3830,
+        "name": "Memorial Stadium (Bloomington, IN)",
+        "effect": 1.411,
+        "raw": 3.673,
+        "interval80": [
+          -0.089,
+          2.912
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3608,
+        "name": "Allen E. Paulson Stadium",
+        "effect": 1.351,
+        "raw": 4.113,
+        "interval80": [
+          -0.216,
+          2.919
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3965,
+        "name": "UB Stadium",
+        "effect": 1.326,
+        "raw": 3.862,
+        "interval80": [
+          -0.224,
+          2.876
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3636,
+        "name": "Bill Snyder Family Stadium",
+        "effect": 1.237,
+        "raw": 3.191,
+        "interval80": [
+          -0.261,
+          2.734
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3876,
+        "name": "Peden Stadium",
+        "effect": 1.186,
+        "raw": 3.418,
+        "interval80": [
+          -0.36,
+          2.732
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3662,
+        "name": "AmFirst Stadium",
+        "effect": 1.073,
+        "raw": 8.556,
+        "interval80": [
+          -0.716,
+          2.862
+        ],
+        "games": 17
+      },
+      {
+        "venueId": 3793,
+        "name": "Kinnick Stadium",
+        "effect": 1.038,
+        "raw": 2.576,
+        "interval80": [
+          -0.44,
+          2.516
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 3683,
+        "name": "Kroger Field",
+        "effect": 0.978,
+        "raw": 2.409,
+        "interval80": [
+          -0.496,
+          2.452
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 4729,
+        "name": "Yulman Stadium",
+        "effect": 0.94,
+        "raw": 2.628,
+        "interval80": [
+          -0.593,
+          2.473
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3873,
+        "name": "L&N Federal Credit Union Stadium",
+        "effect": 0.913,
+        "raw": 2.375,
+        "interval80": [
+          -0.588,
+          2.414
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3861,
+        "name": "Ohio Stadium",
+        "effect": 0.909,
+        "raw": 2.162,
+        "interval80": [
+          -0.547,
+          2.365
+        ],
+        "games": 86
+      },
+      {
+        "venueId": 3735,
+        "name": "Gerald J. Ford Stadium",
+        "effect": 0.891,
+        "raw": 2.443,
+        "interval80": [
+          -0.634,
+          2.415
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3724,
+        "name": "Floyd Casey Stadium",
+        "effect": 0.874,
+        "raw": 18.152,
+        "interval80": [
+          -0.992,
+          2.741
+        ],
+        "games": 6
+      },
+      {
+        "venueId": 3803,
+        "name": "Legion Field",
+        "effect": 0.823,
+        "raw": 4.077,
+        "interval80": [
+          -0.886,
+          2.532
+        ],
+        "games": 30
+      },
+      {
+        "venueId": 3842,
+        "name": "Milan Puskar Stadium",
+        "effect": 0.813,
+        "raw": 2.253,
+        "interval80": [
+          -0.716,
+          2.342
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3796,
+        "name": "Houchens Industries-L.T. Smith Stadium",
+        "effect": 0.801,
+        "raw": 2.261,
+        "interval80": [
+          -0.737,
+          2.338
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3806,
+        "name": "Lincoln Financial Field",
+        "effect": 0.787,
+        "raw": 2.14,
+        "interval80": [
+          -0.734,
+          2.308
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3699,
+        "name": "Dowdy-Ficklen Stadium",
+        "effect": 0.748,
+        "raw": 2.091,
+        "interval80": [
+          -0.785,
+          2.281
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3820,
+        "name": "Gesa Field",
+        "effect": 0.742,
+        "raw": 2.075,
+        "interval80": [
+          -0.791,
+          2.275
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3738,
+        "name": "Gillette Stadium",
+        "effect": 0.706,
+        "raw": 6.291,
+        "interval80": [
+          -1.096,
+          2.509
+        ],
+        "games": 15
+      },
+      {
+        "venueId": 4899,
+        "name": "Fifth Third Stadium",
+        "effect": 0.675,
+        "raw": 8.674,
+        "interval80": [
+          -1.162,
+          2.512
+        ],
+        "games": 10
+      },
+      {
+        "venueId": 3886,
+        "name": "Raymond James Stadium",
+        "effect": 0.671,
+        "raw": 1.878,
+        "interval80": [
+          -0.862,
+          2.205
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3918,
+        "name": "S.B. Ballard Stadium",
+        "effect": 0.668,
+        "raw": 2.035,
+        "interval80": [
+          -0.899,
+          2.236
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3953,
+        "name": "Huntington Bank Stadium",
+        "effect": 0.618,
+        "raw": 1.533,
+        "interval80": [
+          -0.861,
+          2.096
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 7220,
+        "name": "Clarence T.C. Ching Athletics Complex",
+        "effect": 0.617,
+        "raw": 3.431,
+        "interval80": [
+          -1.115,
+          2.349
+        ],
+        "games": 26
+      },
+      {
+        "venueId": 3984,
+        "name": "War Memorial Stadium",
+        "effect": 0.614,
+        "raw": 1.733,
+        "interval80": [
+          -0.924,
+          2.151
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 218,
+        "name": "FIU Stadium",
+        "effect": 0.59,
+        "raw": 1.818,
+        "interval80": [
+          -0.982,
+          2.162
+        ],
+        "games": 57
+      },
+      {
+        "venueId": 3765,
+        "name": "Husky Stadium",
+        "effect": 0.576,
+        "raw": 1.486,
+        "interval80": [
+          -0.921,
+          2.073
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3630,
+        "name": "Allegacy Federal Credit Union Stadium",
+        "effect": 0.549,
+        "raw": 1.492,
+        "interval80": [
+          -0.972,
+          2.07
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3619,
+        "name": "Arizona Stadium",
+        "effect": 0.493,
+        "raw": 1.329,
+        "interval80": [
+          -1.023,
+          2.01
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3776,
+        "name": "Joe Aillet Stadium",
+        "effect": 0.481,
+        "raw": 1.447,
+        "interval80": [
+          -1.082,
+          2.044
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3786,
+        "name": "Kelly/Shorts Stadium",
+        "effect": 0.449,
+        "raw": 1.352,
+        "interval80": [
+          -1.114,
+          2.012
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3996,
+        "name": "Yager Stadium",
+        "effect": 0.448,
+        "raw": 1.364,
+        "interval80": [
+          -1.119,
+          2.016
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3852,
+        "name": "Navy-Marine Corps Memorial Stadium",
+        "effect": 0.446,
+        "raw": 1.298,
+        "interval80": [
+          -1.104,
+          1.996
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3601,
+        "name": "Aggie Memorial Stadium",
+        "effect": 0.441,
+        "raw": 1.357,
+        "interval80": [
+          -1.131,
+          2.013
+        ],
+        "games": 57
+      },
+      {
+        "venueId": 3805,
+        "name": "Simmons Bank Liberty Stadium",
+        "effect": 0.439,
+        "raw": 1.132,
+        "interval80": [
+          -1.058,
+          1.936
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3832,
+        "name": "Memorial Stadium (Champaign, IL)",
+        "effect": 0.436,
+        "raw": 1.098,
+        "interval80": [
+          -1.05,
+          1.921
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 3958,
+        "name": "Tiger Stadium (LA)",
+        "effect": 0.429,
+        "raw": 1.088,
+        "interval80": [
+          -1.061,
+          1.918
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3892,
+        "name": "Pratt & Whitney Stadium",
+        "effect": 0.411,
+        "raw": 1.185,
+        "interval80": [
+          -1.135,
+          1.957
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3670,
+        "name": "Carter-Finley Stadium",
+        "effect": 0.394,
+        "raw": 1.001,
+        "interval80": [
+          -1.095,
+          1.883
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3838,
+        "name": "Memorial Stadium",
+        "effect": 0.394,
+        "raw": 1.0,
+        "interval80": [
+          -1.096,
+          1.883
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3558,
+        "name": "Michigan Stadium",
+        "effect": 0.394,
+        "raw": 0.924,
+        "interval80": [
+          -1.055,
+          1.843
+        ],
+        "games": 88
+      },
+      {
+        "venueId": 7311,
+        "name": "Snapdragon Stadium",
+        "effect": 0.388,
+        "raw": 2.48,
+        "interval80": [
+          -1.369,
+          2.145
+        ],
+        "games": 22
+      },
+      {
+        "venueId": 3833,
+        "name": "Memorial Stadium",
+        "effect": 0.386,
+        "raw": 1.09,
+        "interval80": [
+          -1.151,
+          1.923
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3695,
+        "name": "Delaware Stadium",
+        "effect": 0.375,
+        "raw": 9.258,
+        "interval80": [
+          -1.499,
+          2.248
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3947,
+        "name": "Mountain America Stadium",
+        "effect": 0.34,
+        "raw": 0.891,
+        "interval80": [
+          -1.165,
+          1.844
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3761,
+        "name": "Sonny Lubick Field at Hughes Stadium",
+        "effect": 0.332,
+        "raw": 2.302,
+        "interval80": [
+          -1.437,
+          2.102
+        ],
+        "games": 20
+      },
+      {
+        "venueId": 5960,
+        "name": "Lanny and Sharon Martin Stadium",
+        "effect": 0.331,
+        "raw": 10.136,
+        "interval80": [
+          -1.551,
+          2.212
+        ],
+        "games": 4
+      },
+      {
+        "venueId": 3831,
+        "name": "California Memorial Stadium",
+        "effect": 0.32,
+        "raw": 0.885,
+        "interval80": [
+          -1.209,
+          1.849
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3797,
+        "name": "Ladd Peebles Stadium",
+        "effect": 0.315,
+        "raw": 1.35,
+        "interval80": [
+          -1.361,
+          1.99
+        ],
+        "games": 36
+      },
+      {
+        "venueId": 3784,
+        "name": "Jones AT&T Stadium",
+        "effect": 0.308,
+        "raw": 0.845,
+        "interval80": [
+          -1.217,
+          1.833
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3493,
+        "name": "Caesars Superdome",
+        "effect": 0.267,
+        "raw": 6.61,
+        "interval80": [
+          -1.606,
+          2.141
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3625,
+        "name": "Centennial Bank Stadium",
+        "effect": 0.254,
+        "raw": 0.731,
+        "interval80": [
+          -1.292,
+          1.799
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3785,
+        "name": "Jordan-Hare Stadium",
+        "effect": 0.252,
+        "raw": 0.621,
+        "interval80": [
+          -1.222,
+          1.727
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 3854,
+        "name": "Nippert Stadium",
+        "effect": 0.249,
+        "raw": 0.696,
+        "interval80": [
+          -1.284,
+          1.782
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3974,
+        "name": "Vaught-Hemingway Stadium",
+        "effect": 0.247,
+        "raw": 0.618,
+        "interval80": [
+          -1.235,
+          1.729
+        ],
+        "games": 79
+      },
+      {
+        "venueId": 3726,
+        "name": "Folsom Field",
+        "effect": 0.238,
+        "raw": 0.653,
+        "interval80": [
+          -1.287,
+          1.763
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3992,
+        "name": "Williams Stadium (VA)",
+        "effect": 0.223,
+        "raw": 0.885,
+        "interval80": [
+          -1.431,
+          1.877
+        ],
+        "games": 40
+      },
+      {
+        "venueId": 3616,
+        "name": "Amon G. Carter Stadium",
+        "effect": 0.215,
+        "raw": 0.579,
+        "interval80": [
+          -1.302,
+          1.732
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3835,
+        "name": "Memorial Stadium (Norman, OK)",
+        "effect": 0.203,
+        "raw": 0.515,
+        "interval80": [
+          -1.287,
+          1.692
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3752,
+        "name": "Acrisure Stadium",
+        "effect": 0.201,
+        "raw": 0.523,
+        "interval80": [
+          -1.3,
+          1.702
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 7221,
+        "name": "Protective Stadium",
+        "effect": 0.187,
+        "raw": 1.198,
+        "interval80": [
+          -1.569,
+          1.944
+        ],
+        "games": 22
+      },
+      {
+        "venueId": 3923,
+        "name": "Scott Stadium",
+        "effect": 0.183,
+        "raw": 0.481,
+        "interval80": [
+          -1.321,
+          1.688
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3905,
+        "name": "Maverik Stadium",
+        "effect": 0.16,
+        "raw": 0.456,
+        "interval80": [
+          -1.382,
+          1.701
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3604,
+        "name": "Alamodome",
+        "effect": 0.138,
+        "raw": 0.369,
+        "interval80": [
+          -1.374,
+          1.651
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3715,
+        "name": "FAU Stadium",
+        "effect": 0.137,
+        "raw": 0.372,
+        "interval80": [
+          -1.384,
+          1.658
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 587,
+        "name": "Rice-Eccles Stadium",
+        "effect": 0.127,
+        "raw": 0.344,
+        "interval80": [
+          -1.394,
+          1.647
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3657,
+        "name": "Bryant-Denny Stadium",
+        "effect": 0.111,
+        "raw": 0.283,
+        "interval80": [
+          -1.378,
+          1.601
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3911,
+        "name": "Ryan Field",
+        "effect": 0.094,
+        "raw": 0.268,
+        "interval80": [
+          -1.447,
+          1.636
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3932,
+        "name": "Qualcomm Stadium",
+        "effect": 0.087,
+        "raw": 0.311,
+        "interval80": [
+          -1.537,
+          1.71
+        ],
+        "games": 46
+      },
+      {
+        "venueId": 4738,
+        "name": "Levi's Stadium",
+        "effect": 0.061,
+        "raw": 7.296,
+        "interval80": [
+          -1.844,
+          1.966
+        ],
+        "games": 1
+      },
+      {
+        "venueId": 3985,
+        "name": "Warren McGuirk Alumni Stadium",
+        "effect": 0.058,
+        "raw": 0.214,
+        "interval80": [
+          -1.576,
+          1.692
+        ],
+        "games": 44
+      },
+      {
+        "venueId": 3725,
+        "name": "Johnny \"Red\" Floyd Stadium",
+        "effect": 0.042,
+        "raw": 0.124,
+        "interval80": [
+          -1.512,
+          1.596
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3615,
+        "name": "Alumni Stadium (Chestnut Hill, MA)",
+        "effect": 0.031,
+        "raw": 0.083,
+        "interval80": [
+          -1.477,
+          1.54
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 347,
+        "name": "Camp Randall Stadium",
+        "effect": 0.028,
+        "raw": 0.069,
+        "interval80": [
+          -1.442,
+          1.499
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 3693,
+        "name": "Davis Wade Stadium",
+        "effect": 0.014,
+        "raw": 0.036,
+        "interval80": [
+          -1.475,
+          1.504
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3634,
+        "name": "Ben Hill Griffin Stadium",
+        "effect": 0.009,
+        "raw": 0.026,
+        "interval80": [
+          -1.511,
+          1.53
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3791,
+        "name": "Kibbie Dome",
+        "effect": 0.006,
+        "raw": 0.037,
+        "interval80": [
+          -1.744,
+          1.757
+        ],
+        "games": 23
+      },
+      {
+        "venueId": 3632,
+        "name": "Beaver Stadium",
+        "effect": 0.005,
+        "raw": 0.013,
+        "interval80": [
+          -1.451,
+          1.462
+        ],
+        "games": 86
+      },
+      {
+        "venueId": 3855,
+        "name": "Notre Dame Stadium",
+        "effect": 0.003,
+        "raw": 0.006,
+        "interval80": [
+          -1.468,
+          1.473
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 3647,
+        "name": "Elliott T. Bowers Stadium",
+        "effect": -0.028,
+        "raw": -0.403,
+        "interval80": [
+          -1.873,
+          1.816
+        ],
+        "games": 9
+      },
+      {
+        "venueId": 3878,
+        "name": "Plaster Sports Complex",
+        "effect": -0.043,
+        "raw": -1.06,
+        "interval80": [
+          -1.917,
+          1.831
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3787,
+        "name": "Kenan Stadium",
+        "effect": -0.05,
+        "raw": -0.136,
+        "interval80": [
+          -1.574,
+          1.475
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3646,
+        "name": "Boone Pickens Stadium",
+        "effect": -0.083,
+        "raw": -0.218,
+        "interval80": [
+          -1.588,
+          1.422
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3983,
+        "name": "War Memorial Stadium (AR)",
+        "effect": -0.083,
+        "raw": -2.057,
+        "interval80": [
+          -1.957,
+          1.79
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3910,
+        "name": "DKR-Texas Memorial Stadium",
+        "effect": -0.097,
+        "raw": -0.241,
+        "interval80": [
+          -1.575,
+          1.381
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 3673,
+        "name": "Lumen Field",
+        "effect": -0.107,
+        "raw": -12.756,
+        "interval80": [
+          -2.011,
+          1.798
+        ],
+        "games": 1
+      },
+      {
+        "venueId": 3946,
+        "name": "Sun Bowl",
+        "effect": -0.12,
+        "raw": -0.35,
+        "interval80": [
+          -1.67,
+          1.43
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3994,
+        "name": "Williams-Brice Stadium",
+        "effect": -0.134,
+        "raw": -0.343,
+        "interval80": [
+          -1.627,
+          1.359
+        ],
+        "games": 76
+      },
+      {
+        "venueId": 6501,
+        "name": "Allegiant Stadium",
+        "effect": -0.138,
+        "raw": -0.701,
+        "interval80": [
+          -1.852,
+          1.577
+        ],
+        "games": 29
+      },
+      {
+        "venueId": 3810,
+        "name": "Nissan Stadium",
+        "effect": -0.145,
+        "raw": -17.339,
+        "interval80": [
+          -2.05,
+          1.76
+        ],
+        "games": 1
+      },
+      {
+        "venueId": 5388,
+        "name": "Canvas Stadium",
+        "effect": -0.149,
+        "raw": -0.558,
+        "interval80": [
+          -1.787,
+          1.49
+        ],
+        "games": 43
+      },
+      {
+        "venueId": 3839,
+        "name": "MetLife Stadium",
+        "effect": -0.155,
+        "raw": -18.567,
+        "interval80": [
+          -2.06,
+          1.75
+        ],
+        "games": 1
+      },
+      {
+        "venueId": 477,
+        "name": "Los Angeles Memorial Coliseum",
+        "effect": -0.158,
+        "raw": -0.387,
+        "interval80": [
+          -1.629,
+          1.312
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 3660,
+        "name": "Valley Children's Stadium",
+        "effect": -0.161,
+        "raw": -0.465,
+        "interval80": [
+          -1.707,
+          1.384
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3799,
+        "name": "Lane Stadium",
+        "effect": -0.162,
+        "raw": -0.433,
+        "interval80": [
+          -1.675,
+          1.351
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3495,
+        "name": "Georgia Dome",
+        "effect": -0.165,
+        "raw": -1.197,
+        "interval80": [
+          -1.941,
+          1.61
+        ],
+        "games": 19
+      },
+      {
+        "venueId": 538,
+        "name": "StubHub Center",
+        "effect": -0.201,
+        "raw": -8.127,
+        "interval80": [
+          -2.09,
+          1.689
+        ],
+        "games": 3
+      },
+      {
+        "venueId": 4013,
+        "name": "Camping World Stadium",
+        "effect": -0.203,
+        "raw": -24.237,
+        "interval80": [
+          -2.108,
+          1.702
+        ],
+        "games": 1
+      },
+      {
+        "venueId": 3973,
+        "name": "FirstBank Stadium",
+        "effect": -0.221,
+        "raw": -0.575,
+        "interval80": [
+          -1.722,
+          1.28
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3893,
+        "name": "Reser Stadium",
+        "effect": -0.222,
+        "raw": -0.598,
+        "interval80": [
+          -1.739,
+          1.295
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3697,
+        "name": "Doak Campbell Stadium",
+        "effect": -0.223,
+        "raw": -0.584,
+        "interval80": [
+          -1.728,
+          1.282
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3817,
+        "name": "Malone Stadium",
+        "effect": -0.241,
+        "raw": -0.727,
+        "interval80": [
+          -1.804,
+          1.322
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3874,
+        "name": "Paul Brown Stadium",
+        "effect": -0.26,
+        "raw": -4.672,
+        "interval80": [
+          -2.119,
+          1.598
+        ],
+        "games": 7
+      },
+      {
+        "venueId": 3739,
+        "name": "Glass Bowl",
+        "effect": -0.267,
+        "raw": -0.753,
+        "interval80": [
+          -1.804,
+          1.271
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3919,
+        "name": "Scheumann Stadium",
+        "effect": -0.269,
+        "raw": -0.81,
+        "interval80": [
+          -1.832,
+          1.294
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3816,
+        "name": "Mackay Stadium",
+        "effect": -0.281,
+        "raw": -0.793,
+        "interval80": [
+          -1.818,
+          1.256
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3696,
+        "name": "Dix Stadium",
+        "effect": -0.286,
+        "raw": -0.927,
+        "interval80": [
+          -1.877,
+          1.304
+        ],
+        "games": 53
+      },
+      {
+        "venueId": 3775,
+        "name": "Joan C. Edwards Stadium",
+        "effect": -0.292,
+        "raw": -0.794,
+        "interval80": [
+          -1.813,
+          1.229
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 6526,
+        "name": "Hancock Whitney Stadium",
+        "effect": -0.304,
+        "raw": -1.394,
+        "interval80": [
+          -1.995,
+          1.388
+        ],
+        "games": 33
+      },
+      {
+        "venueId": 2031,
+        "name": "Pitbull Stadium",
+        "effect": -0.31,
+        "raw": -7.656,
+        "interval80": [
+          -2.184,
+          1.564
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 4728,
+        "name": "TDECU Stadium",
+        "effect": -0.32,
+        "raw": -0.87,
+        "interval80": [
+          -1.841,
+          1.201
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3895,
+        "name": "Rice Stadium",
+        "effect": -0.362,
+        "raw": -1.013,
+        "interval80": [
+          -1.896,
+          1.171
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3980,
+        "name": "Waldo Stadium",
+        "effect": -0.387,
+        "raw": -1.164,
+        "interval80": [
+          -1.95,
+          1.176
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3917,
+        "name": "Sanford Stadium",
+        "effect": -0.397,
+        "raw": -1.08,
+        "interval80": [
+          -1.918,
+          1.124
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3644,
+        "name": "Bobcat Stadium (TX)",
+        "effect": -0.429,
+        "raw": -1.189,
+        "interval80": [
+          -1.958,
+          1.1
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3653,
+        "name": "Albertsons Stadium",
+        "effect": -0.495,
+        "raw": -1.278,
+        "interval80": [
+          -1.992,
+          1.002
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3912,
+        "name": "Rynearson Stadium",
+        "effect": -0.496,
+        "raw": -1.461,
+        "interval80": [
+          -2.051,
+          1.058
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3626,
+        "name": "Autzen Stadium",
+        "effect": -0.502,
+        "raw": -1.317,
+        "interval80": [
+          -2.007,
+          1.003
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 4727,
+        "name": "McLane Stadium",
+        "effect": -0.51,
+        "raw": -1.454,
+        "interval80": [
+          -2.051,
+          1.032
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3940,
+        "name": "Stanford Stadium",
+        "effect": -0.517,
+        "raw": -1.37,
+        "interval80": [
+          -2.026,
+          0.991
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3795,
+        "name": "Kyle Field",
+        "effect": -0.518,
+        "raw": -1.316,
+        "interval80": [
+          -2.007,
+          0.971
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3834,
+        "name": "Memorial Stadium (Lincoln, NE)",
+        "effect": -0.576,
+        "raw": -1.419,
+        "interval80": [
+          -2.05,
+          0.898
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 3652,
+        "name": "FBC Mortgage Stadium",
+        "effect": -0.576,
+        "raw": -1.525,
+        "interval80": [
+          -2.085,
+          0.933
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3666,
+        "name": "Cajun Field",
+        "effect": -0.594,
+        "raw": -1.694,
+        "interval80": [
+          -2.135,
+          0.948
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3935,
+        "name": "CEFCU Stadium",
+        "effect": -0.601,
+        "raw": -1.732,
+        "interval80": [
+          -2.147,
+          0.945
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3907,
+        "name": "Ross-Ade Stadium",
+        "effect": -0.601,
+        "raw": -1.527,
+        "interval80": [
+          -2.091,
+          0.888
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3610,
+        "name": "Aloha Stadium",
+        "effect": -0.619,
+        "raw": -2.148,
+        "interval80": [
+          -2.233,
+          0.995
+        ],
+        "games": 48
+      },
+      {
+        "venueId": 3654,
+        "name": "Brooks Stadium (SC)",
+        "effect": -0.662,
+        "raw": -2.299,
+        "interval80": [
+          -2.276,
+          0.951
+        ],
+        "games": 48
+      },
+      {
+        "venueId": 1964,
+        "name": "JMA Wireless Dome",
+        "effect": -0.668,
+        "raw": -1.782,
+        "interval80": [
+          -2.18,
+          0.845
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3948,
+        "name": "Hard Rock Stadium",
+        "effect": -0.689,
+        "raw": -1.794,
+        "interval80": [
+          -2.19,
+          0.812
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3853,
+        "name": "Neyland Stadium",
+        "effect": -0.697,
+        "raw": -1.744,
+        "interval80": [
+          -2.179,
+          0.784
+        ],
+        "games": 79
+      },
+      {
+        "venueId": 3971,
+        "name": "University Stadium (NM)",
+        "effect": -0.715,
+        "raw": -1.999,
+        "interval80": [
+          -2.248,
+          0.818
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 721,
+        "name": "Bobby Dodd Stadium",
+        "effect": -0.719,
+        "raw": -1.992,
+        "interval80": [
+          -2.248,
+          0.81
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 4246,
+        "name": "Center Parc Stadium",
+        "effect": -0.755,
+        "raw": -2.7,
+        "interval80": [
+          -2.378,
+          0.869
+        ],
+        "games": 46
+      },
+      {
+        "venueId": 3713,
+        "name": "Falcon Stadium",
+        "effect": -0.766,
+        "raw": -2.185,
+        "interval80": [
+          -2.308,
+          0.775
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 6577,
+        "name": "SHI Stadium",
+        "effect": -0.817,
+        "raw": -3.753,
+        "interval80": [
+          -2.509,
+          0.875
+        ],
+        "games": 33
+      },
+      {
+        "venueId": 3815,
+        "name": "M. M. Roberts Stadium",
+        "effect": -0.824,
+        "raw": -2.303,
+        "interval80": [
+          -2.357,
+          0.71
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3936,
+        "name": "Spartan Stadium",
+        "effect": -0.852,
+        "raw": -2.147,
+        "interval80": [
+          -2.338,
+          0.634
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 3914,
+        "name": "Sam Boyd Stadium",
+        "effect": -0.863,
+        "raw": -3.705,
+        "interval80": [
+          -2.538,
+          0.812
+        ],
+        "games": 36
+      },
+      {
+        "venueId": 3975,
+        "name": "Veterans Memorial Stadium (AL)",
+        "effect": -0.889,
+        "raw": -2.563,
+        "interval80": [
+          -2.435,
+          0.657
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3836,
+        "name": "Memorial Stadium (Clemson, SC)",
+        "effect": -0.911,
+        "raw": -2.351,
+        "interval80": [
+          -2.408,
+          0.586
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3700,
+        "name": "Doyt L. Perry Stadium",
+        "effect": -0.946,
+        "raw": -2.816,
+        "interval80": [
+          -2.505,
+          0.613
+        ],
+        "games": 60
+      },
+      {
+        "venueId": 3801,
+        "name": "LaVell Edwards Stadium",
+        "effect": -1.003,
+        "raw": -2.777,
+        "interval80": [
+          -2.532,
+          0.526
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3982,
+        "name": "Wallace Wade Stadium",
+        "effect": -1.09,
+        "raw": -2.937,
+        "interval80": [
+          -2.607,
+          0.427
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3887,
+        "name": "Razorback Stadium",
+        "effect": -1.097,
+        "raw": -2.929,
+        "interval80": [
+          -2.61,
+          0.416
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3754,
+        "name": "High Point Solutions Stadium",
+        "effect": -1.137,
+        "raw": -4.273,
+        "interval80": [
+          -2.776,
+          0.501
+        ],
+        "games": 43
+      },
+      {
+        "venueId": 3674,
+        "name": "Chapman Stadium",
+        "effect": -1.204,
+        "raw": -3.305,
+        "interval80": [
+          -2.729,
+          0.32
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3768,
+        "name": "InfoCision Stadium",
+        "effect": -1.254,
+        "raw": -3.732,
+        "interval80": [
+          -2.813,
+          0.305
+        ],
+        "games": 60
+      },
+      {
+        "venueId": 4418,
+        "name": "Jerry Richardson Stadium",
+        "effect": -1.255,
+        "raw": -4.117,
+        "interval80": [
+          -2.85,
+          0.34
+        ],
+        "games": 52
+      },
+      {
+        "venueId": 3792,
+        "name": "Kidd Brewer Stadium",
+        "effect": -1.29,
+        "raw": -3.796,
+        "interval80": [
+          -2.844,
+          0.265
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3764,
+        "name": "Huskie Stadium",
+        "effect": -1.346,
+        "raw": -4.051,
+        "interval80": [
+          -2.909,
+          0.217
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 1056,
+        "name": "Rose Bowl",
+        "effect": -1.57,
+        "raw": -3.957,
+        "interval80": [
+          -3.056,
+          -0.084
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 3665,
+        "name": "SECU Stadium",
+        "effect": -1.825,
+        "raw": -4.916,
+        "interval80": [
+          -3.342,
+          -0.308
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3841,
+        "name": "Michie Stadium",
+        "effect": -1.918,
+        "raw": -6.053,
+        "interval80": [
+          -3.499,
+          -0.337
+        ],
+        "games": 55
+      }
+    ]
+  },
+  "homeEdge": {
+    "tau2": 0.87,
+    "detectable": true,
+    "venues": [
+      {
+        "venueId": 3608,
+        "name": "Allen E. Paulson Stadium",
+        "effect": 0.718,
+        "raw": 7.15,
+        "interval80": [
+          -0.416,
+          1.851
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3825,
+        "name": "DATCU Stadium",
+        "effect": 0.616,
+        "raw": 5.61,
+        "interval80": [
+          -0.512,
+          1.743
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3735,
+        "name": "Gerald J. Ford Stadium",
+        "effect": 0.577,
+        "raw": 5.276,
+        "interval80": [
+          -0.551,
+          1.705
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3873,
+        "name": "L&N Federal Credit Union Stadium",
+        "effect": 0.562,
+        "raw": 4.933,
+        "interval80": [
+          -0.563,
+          1.687
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3772,
+        "name": "Jack Trice Stadium",
+        "effect": 0.523,
+        "raw": 4.772,
+        "interval80": [
+          -0.605,
+          1.65
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3965,
+        "name": "UB Stadium",
+        "effect": 0.504,
+        "raw": 4.873,
+        "interval80": [
+          -0.628,
+          1.636
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3842,
+        "name": "Milan Puskar Stadium",
+        "effect": 0.474,
+        "raw": 4.408,
+        "interval80": [
+          -0.655,
+          1.603
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3806,
+        "name": "Lincoln Financial Field",
+        "effect": 0.439,
+        "raw": 4.065,
+        "interval80": [
+          -0.69,
+          1.567
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 477,
+        "name": "Los Angeles Memorial Coliseum",
+        "effect": 0.413,
+        "raw": 3.477,
+        "interval80": [
+          -0.709,
+          1.535
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 3625,
+        "name": "Centennial Bank Stadium",
+        "effect": 0.402,
+        "raw": 3.737,
+        "interval80": [
+          -0.727,
+          1.531
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 4729,
+        "name": "Yulman Stadium",
+        "effect": 0.379,
+        "raw": 3.606,
+        "interval80": [
+          -0.752,
+          1.509
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3854,
+        "name": "Nippert Stadium",
+        "effect": 0.348,
+        "raw": 3.382,
+        "interval80": [
+          -0.784,
+          1.48
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3805,
+        "name": "Simmons Bank Liberty Stadium",
+        "effect": 0.332,
+        "raw": 2.958,
+        "interval80": [
+          -0.795,
+          1.458
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3726,
+        "name": "Folsom Field",
+        "effect": 0.32,
+        "raw": 2.999,
+        "interval80": [
+          -0.81,
+          1.449
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3724,
+        "name": "Floyd Casey Stadium",
+        "effect": 0.301,
+        "raw": 30.867,
+        "interval80": [
+          -0.888,
+          1.49
+        ],
+        "games": 6
+      },
+      {
+        "venueId": 3725,
+        "name": "Johnny \"Red\" Floyd Stadium",
+        "effect": 0.299,
+        "raw": 2.816,
+        "interval80": [
+          -0.831,
+          1.429
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3776,
+        "name": "Joe Aillet Stadium",
+        "effect": 0.296,
+        "raw": 2.8,
+        "interval80": [
+          -0.835,
+          1.426
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3699,
+        "name": "Dowdy-Ficklen Stadium",
+        "effect": 0.294,
+        "raw": 2.788,
+        "interval80": [
+          -0.836,
+          1.425
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3697,
+        "name": "Doak Campbell Stadium",
+        "effect": 0.292,
+        "raw": 2.65,
+        "interval80": [
+          -0.835,
+          1.419
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 218,
+        "name": "FIU Stadium",
+        "effect": 0.285,
+        "raw": 3.028,
+        "interval80": [
+          -0.853,
+          1.422
+        ],
+        "games": 57
+      },
+      {
+        "venueId": 7221,
+        "name": "Protective Stadium",
+        "effect": 0.273,
+        "raw": 7.75,
+        "interval80": [
+          -0.901,
+          1.447
+        ],
+        "games": 20
+      },
+      {
+        "venueId": 3739,
+        "name": "Glass Bowl",
+        "effect": 0.272,
+        "raw": 2.505,
+        "interval80": [
+          -0.857,
+          1.4
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3803,
+        "name": "Legion Field",
+        "effect": 0.27,
+        "raw": 4.716,
+        "interval80": [
+          -0.891,
+          1.43
+        ],
+        "games": 30
+      },
+      {
+        "venueId": 3558,
+        "name": "Michigan Stadium",
+        "effect": 0.253,
+        "raw": 2.128,
+        "interval80": [
+          -0.869,
+          1.375
+        ],
+        "games": 88
+      },
+      {
+        "venueId": 3974,
+        "name": "Vaught-Hemingway Stadium",
+        "effect": 0.253,
+        "raw": 2.281,
+        "interval80": [
+          -0.874,
+          1.38
+        ],
+        "games": 79
+      },
+      {
+        "venueId": 3797,
+        "name": "Ladd Peebles Stadium",
+        "effect": 0.25,
+        "raw": 4.13,
+        "interval80": [
+          -0.909,
+          1.408
+        ],
+        "games": 36
+      },
+      {
+        "venueId": 3636,
+        "name": "Bill Snyder Family Stadium",
+        "effect": 0.247,
+        "raw": 2.218,
+        "interval80": [
+          -0.879,
+          1.374
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3634,
+        "name": "Ben Hill Griffin Stadium",
+        "effect": 0.245,
+        "raw": 2.222,
+        "interval80": [
+          -0.883,
+          1.372
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 7220,
+        "name": "Clarence T.C. Ching Athletics Complex",
+        "effect": 0.243,
+        "raw": 6.683,
+        "interval80": [
+          -0.93,
+          1.416
+        ],
+        "games": 24
+      },
+      {
+        "venueId": 3619,
+        "name": "Arizona Stadium",
+        "effect": 0.221,
+        "raw": 2.082,
+        "interval80": [
+          -0.909,
+          1.351
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3662,
+        "name": "AmFirst Stadium",
+        "effect": 0.213,
+        "raw": 6.972,
+        "interval80": [
+          -0.964,
+          1.39
+        ],
+        "games": 17
+      },
+      {
+        "venueId": 3670,
+        "name": "Carter-Finley Stadium",
+        "effect": 0.208,
+        "raw": 1.867,
+        "interval80": [
+          -0.918,
+          1.335
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3604,
+        "name": "Alamodome",
+        "effect": 0.207,
+        "raw": 1.856,
+        "interval80": [
+          -0.919,
+          1.334
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3715,
+        "name": "FAU Stadium",
+        "effect": 0.206,
+        "raw": 1.908,
+        "interval80": [
+          -0.923,
+          1.335
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3861,
+        "name": "Ohio Stadium",
+        "effect": 0.197,
+        "raw": 1.601,
+        "interval80": [
+          -0.922,
+          1.316
+        ],
+        "games": 86
+      },
+      {
+        "venueId": 3683,
+        "name": "Kroger Field",
+        "effect": 0.191,
+        "raw": 1.748,
+        "interval80": [
+          -0.938,
+          1.319
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 3958,
+        "name": "Tiger Stadium (LA)",
+        "effect": 0.184,
+        "raw": 1.621,
+        "interval80": [
+          -0.941,
+          1.309
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3601,
+        "name": "Aggie Memorial Stadium",
+        "effect": 0.17,
+        "raw": 1.708,
+        "interval80": [
+          -0.964,
+          1.304
+        ],
+        "games": 57
+      },
+      {
+        "venueId": 3696,
+        "name": "Dix Stadium",
+        "effect": 0.17,
+        "raw": 1.753,
+        "interval80": [
+          -0.966,
+          1.306
+        ],
+        "games": 53
+      },
+      {
+        "venueId": 3835,
+        "name": "Memorial Stadium (Norman, OK)",
+        "effect": 0.16,
+        "raw": 1.342,
+        "interval80": [
+          -0.962,
+          1.281
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3817,
+        "name": "Malone Stadium",
+        "effect": 0.147,
+        "raw": 1.426,
+        "interval80": [
+          -0.985,
+          1.279
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 4899,
+        "name": "Fifth Third Stadium",
+        "effect": 0.138,
+        "raw": 7.345,
+        "interval80": [
+          -1.046,
+          1.322
+        ],
+        "games": 10
+      },
+      {
+        "venueId": 3786,
+        "name": "Kelly/Shorts Stadium",
+        "effect": 0.134,
+        "raw": 1.297,
+        "interval80": [
+          -0.997,
+          1.266
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3796,
+        "name": "Houchens Industries-L.T. Smith Stadium",
+        "effect": 0.132,
+        "raw": 1.177,
+        "interval80": [
+          -0.993,
+          1.258
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3892,
+        "name": "Pratt & Whitney Stadium",
+        "effect": 0.13,
+        "raw": 1.307,
+        "interval80": [
+          -1.004,
+          1.264
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3876,
+        "name": "Peden Stadium",
+        "effect": 0.13,
+        "raw": 1.222,
+        "interval80": [
+          -1.0,
+          1.26
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3905,
+        "name": "Maverik Stadium",
+        "effect": 0.126,
+        "raw": 1.17,
+        "interval80": [
+          -1.002,
+          1.255
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3632,
+        "name": "Beaver Stadium",
+        "effect": 0.121,
+        "raw": 1.02,
+        "interval80": [
+          -1.001,
+          1.243
+        ],
+        "games": 86
+      },
+      {
+        "venueId": 3799,
+        "name": "Lane Stadium",
+        "effect": 0.12,
+        "raw": 1.076,
+        "interval80": [
+          -1.006,
+          1.247
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3919,
+        "name": "Scheumann Stadium",
+        "effect": 0.112,
+        "raw": 1.103,
+        "interval80": [
+          -1.021,
+          1.245
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3693,
+        "name": "Davis Wade Stadium",
+        "effect": 0.103,
+        "raw": 0.926,
+        "interval80": [
+          -1.023,
+          1.23
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3935,
+        "name": "CEFCU Stadium",
+        "effect": 0.095,
+        "raw": 0.912,
+        "interval80": [
+          -1.036,
+          1.226
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3657,
+        "name": "Bryant-Denny Stadium",
+        "effect": 0.085,
+        "raw": 0.701,
+        "interval80": [
+          -1.035,
+          1.205
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3695,
+        "name": "Delaware Stadium",
+        "effect": 0.082,
+        "raw": 8.695,
+        "interval80": [
+          -1.107,
+          1.272
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3940,
+        "name": "Stanford Stadium",
+        "effect": 0.081,
+        "raw": 0.724,
+        "interval80": [
+          -1.045,
+          1.207
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3947,
+        "name": "Mountain America Stadium",
+        "effect": 0.081,
+        "raw": 0.737,
+        "interval80": [
+          -1.047,
+          1.209
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3787,
+        "name": "Kenan Stadium",
+        "effect": 0.079,
+        "raw": 0.726,
+        "interval80": [
+          -1.049,
+          1.207
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 7311,
+        "name": "Snapdragon Stadium",
+        "effect": 0.076,
+        "raw": 2.088,
+        "interval80": [
+          -1.097,
+          1.249
+        ],
+        "games": 22
+      },
+      {
+        "venueId": 3833,
+        "name": "Memorial Stadium",
+        "effect": 0.074,
+        "raw": 0.713,
+        "interval80": [
+          -1.057,
+          1.206
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3765,
+        "name": "Husky Stadium",
+        "effect": 0.073,
+        "raw": 0.653,
+        "interval80": [
+          -1.054,
+          1.199
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3651,
+        "name": "Bridgeforth Stadium",
+        "effect": 0.07,
+        "raw": 1.907,
+        "interval80": [
+          -1.103,
+          1.243
+        ],
+        "games": 21
+      },
+      {
+        "venueId": 3738,
+        "name": "Gillette Stadium",
+        "effect": 0.067,
+        "raw": 2.376,
+        "interval80": [
+          -1.111,
+          1.245
+        ],
+        "games": 14
+      },
+      {
+        "venueId": 3996,
+        "name": "Yager Stadium",
+        "effect": 0.065,
+        "raw": 0.628,
+        "interval80": [
+          -1.066,
+          1.197
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3616,
+        "name": "Amon G. Carter Stadium",
+        "effect": 0.059,
+        "raw": 0.528,
+        "interval80": [
+          -1.068,
+          1.186
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3832,
+        "name": "Memorial Stadium (Champaign, IL)",
+        "effect": 0.048,
+        "raw": 0.437,
+        "interval80": [
+          -1.081,
+          1.176
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 5960,
+        "name": "Lanny and Sharon Martin Stadium",
+        "effect": 0.035,
+        "raw": 4.075,
+        "interval80": [
+          -1.155,
+          1.225
+        ],
+        "games": 4
+      },
+      {
+        "venueId": 3910,
+        "name": "DKR-Texas Memorial Stadium",
+        "effect": 0.034,
+        "raw": 0.281,
+        "interval80": [
+          -1.087,
+          1.154
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 3793,
+        "name": "Kinnick Stadium",
+        "effect": 0.03,
+        "raw": 0.261,
+        "interval80": [
+          -1.094,
+          1.154
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 3647,
+        "name": "Elliott T. Bowers Stadium",
+        "effect": 0.025,
+        "raw": 1.155,
+        "interval80": [
+          -1.157,
+          1.207
+        ],
+        "games": 9
+      },
+      {
+        "venueId": 3830,
+        "name": "Memorial Stadium (Bloomington, IN)",
+        "effect": 0.02,
+        "raw": 0.187,
+        "interval80": [
+          -1.107,
+          1.148
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3785,
+        "name": "Jordan-Hare Stadium",
+        "effect": 0.02,
+        "raw": 0.183,
+        "interval80": [
+          -1.106,
+          1.147
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 3761,
+        "name": "Sonny Lubick Field at Hughes Stadium",
+        "effect": 0.02,
+        "raw": 0.545,
+        "interval80": [
+          -1.152,
+          1.193
+        ],
+        "games": 20
+      },
+      {
+        "venueId": 3895,
+        "name": "Rice Stadium",
+        "effect": 0.019,
+        "raw": 0.182,
+        "interval80": [
+          -1.11,
+          1.149
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3838,
+        "name": "Memorial Stadium",
+        "effect": 0.019,
+        "raw": 0.168,
+        "interval80": [
+          -1.108,
+          1.145
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3795,
+        "name": "Kyle Field",
+        "effect": 0.017,
+        "raw": 0.157,
+        "interval80": [
+          -1.11,
+          1.144
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3878,
+        "name": "Plaster Sports Complex",
+        "effect": 0.016,
+        "raw": 1.657,
+        "interval80": [
+          -1.174,
+          1.205
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3652,
+        "name": "FBC Mortgage Stadium",
+        "effect": 0.014,
+        "raw": 0.127,
+        "interval80": [
+          -1.113,
+          1.141
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 1964,
+        "name": "JMA Wireless Dome",
+        "effect": 0.014,
+        "raw": 0.129,
+        "interval80": [
+          -1.115,
+          1.143
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3493,
+        "name": "Caesars Superdome",
+        "effect": 0.013,
+        "raw": 1.363,
+        "interval80": [
+          -1.177,
+          1.202
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3984,
+        "name": "War Memorial Stadium",
+        "effect": 0.011,
+        "raw": 0.108,
+        "interval80": [
+          -1.119,
+          1.142
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3820,
+        "name": "Gesa Field",
+        "effect": 0.004,
+        "raw": 0.041,
+        "interval80": [
+          -1.126,
+          1.135
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3775,
+        "name": "Joan C. Edwards Stadium",
+        "effect": -0.001,
+        "raw": -0.008,
+        "interval80": [
+          -1.128,
+          1.126
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 5388,
+        "name": "Canvas Stadium",
+        "effect": -0.004,
+        "raw": -0.054,
+        "interval80": [
+          -1.156,
+          1.148
+        ],
+        "games": 43
+      },
+      {
+        "venueId": 3646,
+        "name": "Boone Pickens Stadium",
+        "effect": -0.005,
+        "raw": -0.044,
+        "interval80": [
+          -1.13,
+          1.121
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3644,
+        "name": "Bobcat Stadium (TX)",
+        "effect": -0.005,
+        "raw": -0.05,
+        "interval80": [
+          -1.135,
+          1.124
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3893,
+        "name": "Reser Stadium",
+        "effect": -0.007,
+        "raw": -0.067,
+        "interval80": [
+          -1.138,
+          1.124
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3946,
+        "name": "Sun Bowl",
+        "effect": -0.008,
+        "raw": -0.08,
+        "interval80": [
+          -1.14,
+          1.123
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3660,
+        "name": "Valley Children's Stadium",
+        "effect": -0.015,
+        "raw": -0.137,
+        "interval80": [
+          -1.144,
+          1.114
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 347,
+        "name": "Camp Randall Stadium",
+        "effect": -0.02,
+        "raw": -0.17,
+        "interval80": [
+          -1.143,
+          1.103
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 3784,
+        "name": "Jones AT&T Stadium",
+        "effect": -0.029,
+        "raw": -0.264,
+        "interval80": [
+          -1.157,
+          1.1
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3985,
+        "name": "Warren McGuirk Alumni Stadium",
+        "effect": -0.03,
+        "raw": -0.461,
+        "interval80": [
+          -1.186,
+          1.125
+        ],
+        "games": 36
+      },
+      {
+        "venueId": 3953,
+        "name": "Huntington Bank Stadium",
+        "effect": -0.037,
+        "raw": -0.332,
+        "interval80": [
+          -1.163,
+          1.088
+        ],
+        "games": 80
+      },
+      {
+        "venueId": 3992,
+        "name": "Williams Stadium (VA)",
+        "effect": -0.039,
+        "raw": -0.574,
+        "interval80": [
+          -1.193,
+          1.115
+        ],
+        "games": 40
+      },
+      {
+        "venueId": 3626,
+        "name": "Autzen Stadium",
+        "effect": -0.043,
+        "raw": -0.377,
+        "interval80": [
+          -1.168,
+          1.082
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3918,
+        "name": "S.B. Ballard Stadium",
+        "effect": -0.044,
+        "raw": -0.469,
+        "interval80": [
+          -1.182,
+          1.094
+        ],
+        "games": 58
+      },
+      {
+        "venueId": 3831,
+        "name": "California Memorial Stadium",
+        "effect": -0.056,
+        "raw": -0.54,
+        "interval80": [
+          -1.187,
+          1.075
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 3852,
+        "name": "Navy-Marine Corps Memorial Stadium",
+        "effect": -0.058,
+        "raw": -0.533,
+        "interval80": [
+          -1.186,
+          1.071
+        ],
+        "games": 62
+      },
+      {
+        "venueId": 3653,
+        "name": "Albertsons Stadium",
+        "effect": -0.06,
+        "raw": -0.516,
+        "interval80": [
+          -1.183,
+          1.063
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 3754,
+        "name": "High Point Solutions Stadium",
+        "effect": -0.07,
+        "raw": -1.13,
+        "interval80": [
+          -1.228,
+          1.087
+        ],
+        "games": 43
+      },
+      {
+        "venueId": 3752,
+        "name": "Acrisure Stadium",
+        "effect": -0.071,
+        "raw": -0.63,
+        "interval80": [
+          -1.197,
+          1.056
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3816,
+        "name": "Mackay Stadium",
+        "effect": -0.071,
+        "raw": -0.668,
+        "interval80": [
+          -1.201,
+          1.059
+        ],
+        "games": 65
+      },
+      {
+        "venueId": 3886,
+        "name": "Raymond James Stadium",
+        "effect": -0.074,
+        "raw": -0.701,
+        "interval80": [
+          -1.204,
+          1.056
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3713,
+        "name": "Falcon Stadium",
+        "effect": -0.077,
+        "raw": -0.734,
+        "interval80": [
+          -1.208,
+          1.053
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3834,
+        "name": "Memorial Stadium (Lincoln, NE)",
+        "effect": -0.078,
+        "raw": -0.707,
+        "interval80": [
+          -1.205,
+          1.05
+        ],
+        "games": 81
+      },
+      {
+        "venueId": 3994,
+        "name": "Williams-Brice Stadium",
+        "effect": -0.089,
+        "raw": -0.813,
+        "interval80": [
+          -1.217,
+          1.039
+        ],
+        "games": 76
+      },
+      {
+        "venueId": 538,
+        "name": "StubHub Center",
+        "effect": -0.091,
+        "raw": -13.992,
+        "interval80": [
+          -1.283,
+          1.1
+        ],
+        "games": 3
+      },
+      {
+        "venueId": 4728,
+        "name": "TDECU Stadium",
+        "effect": -0.098,
+        "raw": -0.888,
+        "interval80": [
+          -1.225,
+          1.029
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3874,
+        "name": "Paul Brown Stadium",
+        "effect": -0.102,
+        "raw": -9.751,
+        "interval80": [
+          -1.291,
+          1.087
+        ],
+        "games": 6
+      },
+      {
+        "venueId": 6526,
+        "name": "Hancock Whitney Stadium",
+        "effect": -0.113,
+        "raw": -2.133,
+        "interval80": [
+          -1.276,
+          1.05
+        ],
+        "games": 31
+      },
+      {
+        "venueId": 3630,
+        "name": "Allegacy Federal Credit Union Stadium",
+        "effect": -0.126,
+        "raw": -1.166,
+        "interval80": [
+          -1.255,
+          1.003
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3948,
+        "name": "Hard Rock Stadium",
+        "effect": -0.14,
+        "raw": -1.235,
+        "interval80": [
+          -1.265,
+          0.986
+        ],
+        "games": 74
+      },
+      {
+        "venueId": 3855,
+        "name": "Notre Dame Stadium",
+        "effect": -0.141,
+        "raw": -1.161,
+        "interval80": [
+          -1.261,
+          0.98
+        ],
+        "games": 82
+      },
+      {
+        "venueId": 2031,
+        "name": "Pitbull Stadium",
+        "effect": -0.145,
+        "raw": -15.251,
+        "interval80": [
+          -1.334,
+          1.045
+        ],
+        "games": 5
+      },
+      {
+        "venueId": 3911,
+        "name": "Ryan Field",
+        "effect": -0.148,
+        "raw": -1.458,
+        "interval80": [
+          -1.281,
+          0.984
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3853,
+        "name": "Neyland Stadium",
+        "effect": -0.153,
+        "raw": -1.387,
+        "interval80": [
+          -1.28,
+          0.975
+        ],
+        "games": 79
+      },
+      {
+        "venueId": 3615,
+        "name": "Alumni Stadium (Chestnut Hill, MA)",
+        "effect": -0.166,
+        "raw": -1.519,
+        "interval80": [
+          -1.294,
+          0.961
+        ],
+        "games": 72
+      },
+      {
+        "venueId": 3923,
+        "name": "Scott Stadium",
+        "effect": -0.168,
+        "raw": -1.586,
+        "interval80": [
+          -1.298,
+          0.963
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3917,
+        "name": "Sanford Stadium",
+        "effect": -0.17,
+        "raw": -1.459,
+        "interval80": [
+          -1.293,
+          0.953
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 6501,
+        "name": "Allegiant Stadium",
+        "effect": -0.174,
+        "raw": -3.405,
+        "interval80": [
+          -1.339,
+          0.99
+        ],
+        "games": 29
+      },
+      {
+        "venueId": 3980,
+        "name": "Waldo Stadium",
+        "effect": -0.176,
+        "raw": -1.683,
+        "interval80": [
+          -1.307,
+          0.955
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 587,
+        "name": "Rice-Eccles Stadium",
+        "effect": -0.203,
+        "raw": -1.842,
+        "interval80": [
+          -1.33,
+          0.925
+        ],
+        "games": 69
+      },
+      {
+        "venueId": 3768,
+        "name": "InfoCision Stadium",
+        "effect": -0.213,
+        "raw": -2.087,
+        "interval80": [
+          -1.346,
+          0.919
+        ],
+        "games": 60
+      },
+      {
+        "venueId": 4727,
+        "name": "McLane Stadium",
+        "effect": -0.23,
+        "raw": -2.247,
+        "interval80": [
+          -1.362,
+          0.902
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3792,
+        "name": "Kidd Brewer Stadium",
+        "effect": -0.241,
+        "raw": -2.358,
+        "interval80": [
+          -1.373,
+          0.892
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3932,
+        "name": "Qualcomm Stadium",
+        "effect": -0.241,
+        "raw": -3.398,
+        "interval80": [
+          -1.393,
+          0.911
+        ],
+        "games": 42
+      },
+      {
+        "venueId": 3791,
+        "name": "Kibbie Dome",
+        "effect": -0.262,
+        "raw": -6.158,
+        "interval80": [
+          -1.432,
+          0.907
+        ],
+        "games": 23
+      },
+      {
+        "venueId": 3666,
+        "name": "Cajun Field",
+        "effect": -0.279,
+        "raw": -2.523,
+        "interval80": [
+          -1.406,
+          0.848
+        ],
+        "games": 64
+      },
+      {
+        "venueId": 3654,
+        "name": "Brooks Stadium (SC)",
+        "effect": -0.288,
+        "raw": -3.69,
+        "interval80": [
+          -1.435,
+          0.86
+        ],
+        "games": 47
+      },
+      {
+        "venueId": 3907,
+        "name": "Ross-Ade Stadium",
+        "effect": -0.292,
+        "raw": -2.696,
+        "interval80": [
+          -1.42,
+          0.837
+        ],
+        "games": 77
+      },
+      {
+        "venueId": 3700,
+        "name": "Doyt L. Perry Stadium",
+        "effect": -0.294,
+        "raw": -2.812,
+        "interval80": [
+          -1.425,
+          0.837
+        ],
+        "games": 60
+      },
+      {
+        "venueId": 3665,
+        "name": "SECU Stadium",
+        "effect": -0.295,
+        "raw": -2.775,
+        "interval80": [
+          -1.425,
+          0.835
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 721,
+        "name": "Bobby Dodd Stadium",
+        "effect": -0.313,
+        "raw": -2.912,
+        "interval80": [
+          -1.442,
+          0.816
+        ],
+        "games": 67
+      },
+      {
+        "venueId": 6577,
+        "name": "SHI Stadium",
+        "effect": -0.324,
+        "raw": -6.221,
+        "interval80": [
+          -1.488,
+          0.839
+        ],
+        "games": 33
+      },
+      {
+        "venueId": 4246,
+        "name": "Center Parc Stadium",
+        "effect": -0.333,
+        "raw": -4.31,
+        "interval80": [
+          -1.481,
+          0.816
+        ],
+        "games": 46
+      },
+      {
+        "venueId": 3495,
+        "name": "Georgia Dome",
+        "effect": -0.342,
+        "raw": -10.157,
+        "interval80": [
+          -1.517,
+          0.833
+        ],
+        "games": 19
+      },
+      {
+        "venueId": 3610,
+        "name": "Aloha Stadium",
+        "effect": -0.354,
+        "raw": -4.456,
+        "interval80": [
+          -1.501,
+          0.793
+        ],
+        "games": 48
+      },
+      {
+        "venueId": 3914,
+        "name": "Sam Boyd Stadium",
+        "effect": -0.354,
+        "raw": -5.862,
+        "interval80": [
+          -1.513,
+          0.804
+        ],
+        "games": 36
+      },
+      {
+        "venueId": 4418,
+        "name": "Jerry Richardson Stadium",
+        "effect": -0.356,
+        "raw": -4.106,
+        "interval80": [
+          -1.498,
+          0.786
+        ],
+        "games": 52
+      },
+      {
+        "venueId": 3815,
+        "name": "M. M. Roberts Stadium",
+        "effect": -0.365,
+        "raw": -3.406,
+        "interval80": [
+          -1.494,
+          0.764
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3973,
+        "name": "FirstBank Stadium",
+        "effect": -0.381,
+        "raw": -3.584,
+        "interval80": [
+          -1.511,
+          0.749
+        ],
+        "games": 73
+      },
+      {
+        "venueId": 3971,
+        "name": "University Stadium (NM)",
+        "effect": -0.386,
+        "raw": -3.669,
+        "interval80": [
+          -1.516,
+          0.745
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3982,
+        "name": "Wallace Wade Stadium",
+        "effect": -0.386,
+        "raw": -3.461,
+        "interval80": [
+          -1.512,
+          0.741
+        ],
+        "games": 70
+      },
+      {
+        "venueId": 3801,
+        "name": "LaVell Edwards Stadium",
+        "effect": -0.399,
+        "raw": -3.606,
+        "interval80": [
+          -1.526,
+          0.728
+        ],
+        "games": 66
+      },
+      {
+        "venueId": 3912,
+        "name": "Rynearson Stadium",
+        "effect": -0.43,
+        "raw": -4.138,
+        "interval80": [
+          -1.562,
+          0.701
+        ],
+        "games": 61
+      },
+      {
+        "venueId": 3764,
+        "name": "Huskie Stadium",
+        "effect": -0.474,
+        "raw": -4.473,
+        "interval80": [
+          -1.604,
+          0.656
+        ],
+        "games": 59
+      },
+      {
+        "venueId": 3936,
+        "name": "Spartan Stadium",
+        "effect": -0.532,
+        "raw": -4.767,
+        "interval80": [
+          -1.658,
+          0.595
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 3674,
+        "name": "Chapman Stadium",
+        "effect": -0.56,
+        "raw": -5.172,
+        "interval80": [
+          -1.688,
+          0.569
+        ],
+        "games": 68
+      },
+      {
+        "venueId": 3836,
+        "name": "Memorial Stadium (Clemson, SC)",
+        "effect": -0.561,
+        "raw": -4.737,
+        "interval80": [
+          -1.683,
+          0.561
+        ],
+        "games": 75
+      },
+      {
+        "venueId": 1056,
+        "name": "Rose Bowl",
+        "effect": -0.588,
+        "raw": -5.211,
+        "interval80": [
+          -1.714,
+          0.537
+        ],
+        "games": 78
+      },
+      {
+        "venueId": 3975,
+        "name": "Veterans Memorial Stadium (AL)",
+        "effect": -0.591,
+        "raw": -5.512,
+        "interval80": [
+          -1.72,
+          0.539
+        ],
+        "games": 63
+      },
+      {
+        "venueId": 3887,
+        "name": "Razorback Stadium",
+        "effect": -0.702,
+        "raw": -6.683,
+        "interval80": [
+          -1.833,
+          0.428
+        ],
+        "games": 71
+      },
+      {
+        "venueId": 3841,
+        "name": "Michie Stadium",
+        "effect": -0.9,
+        "raw": -9.068,
+        "interval80": [
+          -2.034,
+          0.234
+        ],
+        "games": 55
+      }
+    ]
+  },
+  "variants": {
+    "overall": {
+      "games": 7560,
+      "a": {
+        "abs_err": 12.84867,
+        "log_loss": 0.53296,
+        "brier": 0.18005
+      },
+      "b": {
+        "abs_err": 12.86357,
+        "log_loss": 0.53322,
+        "brier": 0.1802
+      },
+      "b2": {
+        "abs_err": 12.8656,
+        "log_loss": 0.53331,
+        "brier": 0.18021
+      },
+      "baseline": {
+        "abs_err": 12.85823,
+        "log_loss": 0.53299,
+        "brier": 0.18016
+      },
+      "c": {
+        "abs_err": 12.85662,
+        "log_loss": 0.53313,
+        "brier": 0.18007
+      },
+      "c2": {
+        "abs_err": 12.85989,
+        "log_loss": 0.53318,
+        "brier": 0.18007
+      }
+    },
+    "hosted": {
+      "games": 6961,
+      "a": {
+        "abs_err": 12.84529,
+        "log_loss": 0.52554,
+        "brier": 0.17683
+      },
+      "b": {
+        "abs_err": 12.86,
+        "log_loss": 0.52582,
+        "brier": 0.17697
+      },
+      "b2": {
+        "abs_err": 12.86182,
+        "log_loss": 0.52599,
+        "brier": 0.17701
+      },
+      "baseline": {
+        "abs_err": 12.85419,
+        "log_loss": 0.52557,
+        "brier": 0.17693
+      },
+      "c": {
+        "abs_err": 12.85393,
+        "log_loss": 0.52572,
+        "brier": 0.17685
+      },
+      "c2": {
+        "abs_err": 12.85707,
+        "log_loss": 0.52585,
+        "brier": 0.17687
+      }
+    },
+    "neutral": {
+      "games": 599,
+      "a": {
+        "abs_err": 12.88796,
+        "log_loss": 0.61918,
+        "brier": 0.21754
+      },
+      "b": {
+        "abs_err": 12.90511,
+        "log_loss": 0.61925,
+        "brier": 0.21769
+      },
+      "b2": {
+        "abs_err": 12.90955,
+        "log_loss": 0.61843,
+        "brier": 0.21736
+      },
+      "baseline": {
+        "abs_err": 12.90511,
+        "log_loss": 0.61925,
+        "brier": 0.21769
+      },
+      "c": {
+        "abs_err": 12.88796,
+        "log_loss": 0.61918,
+        "brier": 0.21754
+      },
+      "c2": {
+        "abs_err": 12.89266,
+        "log_loss": 0.6183,
+        "brier": 0.21721
+      }
+    }
+  },
+  "tests": {
+    "a": {
+      "windows": 50,
+      "logLossGain": 8.7e-05,
+      "t": 0.17,
+      "seasonsBetter": 4,
+      "seasons": 10,
+      "maeGain": 0.0104,
+      "maeT": 0.88,
+      "bySeason": {
+        "2016": -0.00124,
+        "2017": -0.00289,
+        "2018": 0.00262,
+        "2019": -0.00068,
+        "2020": 0.00185,
+        "2021": 0.00256,
+        "2022": -0.00081,
+        "2023": 0.00073,
+        "2024": -0.00026,
+        "2025": -0.001
+      },
+      "passes": false
+    },
+    "b": {
+      "windows": 50,
+      "logLossGain": -0.000232,
+      "t": -0.88,
+      "seasonsBetter": 3,
+      "seasons": 10,
+      "maeGain": -0.0057,
+      "maeT": -1.03,
+      "bySeason": {
+        "2016": 2e-05,
+        "2017": -0.00073,
+        "2018": -0.00045,
+        "2019": 0.00051,
+        "2020": -0.00013,
+        "2021": -0.00119,
+        "2022": -0.00069,
+        "2023": -0.00034,
+        "2024": -0.00063,
+        "2025": 0.0013
+      },
+      "passes": false
+    },
+    "b2": {
+      "windows": 50,
+      "logLossGain": -0.000357,
+      "t": -1.19,
+      "seasonsBetter": 3,
+      "seasons": 10,
+      "maeGain": -0.0078,
+      "maeT": -1.29,
+      "bySeason": {
+        "2016": 7e-05,
+        "2017": -0.00114,
+        "2018": -0.00026,
+        "2019": 0.00037,
+        "2020": -0.00134,
+        "2021": -0.00139,
+        "2022": -0.00045,
+        "2023": -0.00055,
+        "2024": -0.00088,
+        "2025": 0.00198
+      },
+      "passes": false
+    },
+    "c": {
+      "windows": 50,
+      "logLossGain": -8.6e-05,
+      "t": -0.16,
+      "seasonsBetter": 5,
+      "seasons": 10,
+      "maeGain": 0.002,
+      "maeT": 0.15,
+      "bySeason": {
+        "2016": -0.00111,
+        "2017": -0.00301,
+        "2018": 0.00218,
+        "2019": -0.00015,
+        "2020": 0.00153,
+        "2021": 0.00148,
+        "2022": -0.00162,
+        "2023": 0.00028,
+        "2024": -0.00068,
+        "2025": 0.00026
+      },
+      "passes": false
+    },
+    "c2": {
+      "windows": 50,
+      "logLossGain": -0.000167,
+      "t": -0.32,
+      "seasonsBetter": 5,
+      "seasons": 10,
+      "maeGain": -0.0012,
+      "maeT": -0.1,
+      "bySeason": {
+        "2016": -0.00093,
+        "2017": -0.0033,
+        "2018": 0.00243,
+        "2019": -7e-05,
+        "2020": 0.00049,
+        "2021": 0.00122,
+        "2022": -0.00157,
+        "2023": 0.00014,
+        "2024": -0.00094,
+        "2025": 0.00086
+      },
+      "passes": false
+    }
+  }
+}
