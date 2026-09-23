@@ -215,3 +215,13 @@ def test_frozen_after_selection_sunday(tmp_path, bb_payload):
 
 def test_frozen_with_no_saved_projection_shows_nothing(tmp_path):
     assert bracketdata.build({}, tmp_path, today=dt.date(2027, 3, 20), season=2027, settings=SETTINGS) is None
+
+
+def test_team_page_tile_carries_the_tournament_chance(bb_payload, built):
+    from mri.export import site
+
+    top = bb_payload["bracketology"]["projected"]["field"][0]["team"]
+    team = next(t for t in bb_payload["teams"] if t["team"] == top)
+    text = site.team_page(team, bb_payload)
+    assert "NCAA Tournament" in text and "projected No. 1 seed" in text and "../bracketology.html" in text
+    assert "Playoff chance" not in text

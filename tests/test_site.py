@@ -1097,6 +1097,17 @@ def test_the_gameday_page_says_what_is_confirmed_and_what_is_a_guess(with_gameda
     assert "42%" in text and "Some Stadium" in text
     assert "9 of them" in text                        # the games it left out are counted, not hidden
     assert "Week 1 is the current example" in text     # the announced week the model ranked sixth
+    assert "Hosts at least once, Weeks 8&ndash;14" in text   # the span follows the open weeks
+
+
+def test_the_gameday_misses_section_appears_only_when_the_model_missed(with_gameday) -> None:
+    right = json.loads(json.dumps(with_gameday))
+    right["gameday"]["check"][0]["rank"] = 1
+    right["gameday"]["weeks"].insert(0, {**right["gameday"]["weeks"][0], "week": 5})
+    text = site.gameday_page(right)
+    assert "Where it has been wrong" not in text and "Our first choice" not in text
+    assert "Hosts at least once, Weeks 5&ndash;14" in text
+    assert "Where it has been wrong" in site.gameday_page(with_gameday)
 
 
 def test_the_gameday_page_links_only_to_pages_that_exist(with_gameday) -> None:
@@ -1395,3 +1406,19 @@ def test_method_lives_in_the_footer_not_the_header(built) -> None:
         assert 'href="method.html"' in footer and "Method: how the ratings work" in footer
     team = next((built / "team").glob("*.html")).read_text()
     assert 'href="../method.html"' in team[team.index('<footer class="site">'):]           # the link is right one level down too
+
+
+# ---- the postseason tile on team pages
+
+def test_football_team_pages_show_the_playoff_chance_from_the_simulation(extended, payload) -> None:
+    team = extended["teams"][0]
+    odds = extended["sim"]["teams"][team["team"]]
+    text = site.team_page(team, extended)
+    assert "Playoff chance" in text and 'href="../simulation.html"' in text
+    assert site._pct(odds["playoff"]) in text
+    assert "Playoff chance" not in site.team_page(payload["teams"][0], payload)   # no simulation, no tile
+
+
+def test_basketball_team_pages_show_the_tournament_chance_only_once_it_is_computed(bb_payload) -> None:
+    team = bb_payload["teams"][0]
+    assert "NCAA Tournament" not in site.team_page(team, bb_payload)

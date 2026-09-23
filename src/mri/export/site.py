@@ -514,6 +514,36 @@ def _conference_bar(conference: dict, among: list[dict]) -> str:
 # team pages
 # --------------------------------------------------------------------------
 
+def _postseason_stat(team: dict, payload: dict) -> str:
+    """The team's chance at the postseason: the College Football Playoff from the season
+    simulation, or the NCAA Tournament from bracketology. Nothing until that is computed."""
+    if payload.get("bracketology"):
+        from .bracketpages import team_status
+
+        status = team_status(team["team"], payload)
+        if status is None:
+            return ""
+        p_field, where = status
+        frozen = " as frozen on Selection Sunday" if payload["bracketology"].get("frozen") else ""
+        return (f'<div class="stat" title="Chance to make the NCAA Tournament, from the bracketology page{frozen}.">'
+                '<span class="statl">NCAA Tournament</span>'
+                f'<span class="statv"><a href="../bracketology.html">{_pct(p_field)}</a></span>'
+                f'<span class="statn">{where}</span></div>')
+    sim = payload.get("sim")
+    odds = (sim or {}).get("teams", {}).get(team["team"])
+    if not odds:
+        return ""
+    ahead = sum(1 for o in sim["teams"].values() if o["playoff"] > odds["playoff"])
+    note = f'#{ahead + 1} most likely' if odds["playoff"] >= 0.0005 else "out of the picture"
+    change = odds.get("playoffChange")
+    if change is not None and abs(change) >= 0.0005:
+        note += f' &middot; {_pct(change, signed=True)} pts this week'
+    return (f'<div class="stat" title="Chance to make the {sim.get("fieldSize", 12)}-team College Football Playoff, from the season simulation.">'
+            '<span class="statl">Playoff chance</span>'
+            f'<span class="statv"><a href="../simulation.html">{_pct(odds["playoff"])}</a></span>'
+            f'<span class="statn">{note}</span></div>')
+
+
 def _trend_stat(team: dict) -> str:
     """A trend tile once there is a trend; until then, say where the team moved.
 
@@ -849,13 +879,6 @@ def team_page(team: dict, payload: dict) -> str:
     if detail.get("remainingDifficulty") is not None:
         highlights.append(f'<div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">{detail["remainingDifficulty"]:+.1f} avg opponent</span></div>')
 
-    if payload.get("bracketology"):
-        from .bracketpages import team_line
-
-        line = team_line(team["team"], payload)
-        if line:
-            highlights.append(line)
-
     candidate = ((payload.get("heisman") or {}).get("byTeam") or {}).get(team["team"])
     if candidate:
         highlights.append(f'<div class="hl" title="From the Heisman odds page: this team\'s most likely candidate."><span class="hll">Heisman</span>'
@@ -907,6 +930,7 @@ def team_page(team: dict, payload: dict) -> str:
     <div class="stats">
       <div class="stat"><span class="statl">Power</span><span class="statv">{team['power']:+.1f}</span><span class="statn">#{team['rank']} of {len(payload['teams'])}</span></div>
       <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">{team['resume']:+.2f}</span><span class="statn">#{team['resumeRank']} &middot; wins above average</span></div>
+      {_postseason_stat(team, payload)}
       {_trend_stat(team)}
     </div>
 
@@ -1935,12 +1959,18 @@ def gameday_page(payload: dict) -> str:
     repeats = [t for t, n in visits.items() if n > 1]
     repeat_text = (f" &mdash; it has already been back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} this year"
                    if repeats else "")
-    misses = [c["week"] for c in g["check"] if c["rank"] is None or c["rank"] > 3]
-    if misses:
-        miss_text = ("Week " if len(misses) == 1 else "Weeks ") + " and ".join(str(w) for w in misses) + (
-            " is the current example." if len(misses) == 1 else " are the current examples.")
+    open_weeks = [w["week"] for w in g["weeks"]]
+    if not open_weeks:
+        span = "the rest of the season"
+    elif len(open_weeks) == 1:
+        span = "Week " + str(open_weeks[0])
     else:
-        miss_text = "None of the announced weeks so far has been a surprise to it."
+        span = f"Weeks {open_weeks[0]}&ndash;{open_weeks[-1]}"
+    # The live test only earns space on the page once it has something to say: a week the model
+    # missed. While every announced week has been among its top three, the section stays off.
+    misses = [c["week"] for c in g["check"] if c["host"] and (c["rank"] is None or c["rank"] > 3)]
+    miss_text = ("Week " if len(misses) == 1 else "Weeks ") + " and ".join(str(w) for w in misses) + (
+        " is the current example." if len(misses) == 1 else " are the current examples.")
     check_rows = "".join(f"""<tr><td class="wk">{c['week']}</td><td class="opp">{' at '.join(chip(t) for t in ([x for x in c['teams'] if x != c['host']] + [c['host']]))}</td>
           <td class="num">{_pct(c['probability']) if c['probability'] is not None else '&ndash;'}</td>
           <td class="num">{('#' + str(c['rank'])) if c['rank'] else '&ndash;'}</td>
@@ -1963,6 +1993,13 @@ def gameday_page(payload: dict) -> str:
   season, and forecast every stop from Week 8 to the championship game. Across {ahead['stops']} stops, the real site was the model's first choice {ahead['top1']:.0%} of the time,
   in its top three {ahead['top3']:.0%}, and in its top five {ahead['top5']:.0%}.</p>"""
 
+    wrong = f"""
+  <p><strong>Where it has been wrong:</strong> games that are big for reasons the ratings cannot see. {miss_text}</p>
+  <div class="tablewrap"><table><thead><tr><th>Wk</th><th>Announced</th><th class="num">Our chance</th><th class="num">Our rank</th><th>Our first choice</th></tr></thead>
+    <tbody>{check_rows}</tbody></table></div>
+  <p class="muted">Those weeks were announced before this page existed and were not used to fit anything, which makes them the one live test. Early-season stops
+  lean on preseason reputation more than the model does; it was built for Week 8 on.</p>""" if misses else ""
+
     body = f"""
   <article class="prose wide">
   <h1>Where will College GameDay be?</h1>
@@ -1981,7 +2018,7 @@ def gameday_page(payload: dict) -> str:
   {blocks}
 
   <h2>Who is likely to host from here</h2>
-  <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Hosts at least once, Weeks 8&ndash;14</th>
+  <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Hosts at least once, {span}</th>
     <th class="num">Plays in a stop at least once</th></tr></thead><tbody>{sites}</tbody></table></div>
 
   <h2>Army&ndash;Navy</h2>
@@ -1997,11 +2034,8 @@ def gameday_page(payload: dict) -> str:
   <p>What did not help, once the rankings were known: whether GameDay had already been to the host this season, how recently the host had hosted, how
   close the game is expected to be, and whether the host is in the SEC or Big Ten. The rule of thumb that the show does not come back to the same place is not visible
   in the picks{repeat_text}.</p>{grade}
-  <p><strong>Where it has been wrong:</strong> games that are big for reasons the ratings cannot see. {miss_text}</p>
-  <div class="tablewrap"><table><thead><tr><th>Wk</th><th>Announced</th><th class="num">Our chance</th><th class="num">Our rank</th><th>Our first choice</th></tr></thead>
-    <tbody>{check_rows}</tbody></table></div>
-  <p class="muted">Those weeks were announced before this page existed and were not used to fit anything, which makes them the one live test. Early-season stops
-  lean on preseason reputation more than the model does; it was built for Week 8 on. Past locations from NCAA.com's history of the show; announcements from ESPN.</p>
+{wrong}
+  <p class="muted">Past locations from NCAA.com's history of the show; announcements from ESPN.</p>
   </article>"""
     return page(f"College GameDay forecast — MRI {season_text(payload)}", body, payload,
                 description="Where will ESPN's College GameDay be? A forecast for the weeks not yet announced.")
@@ -2810,7 +2844,8 @@ h2 { font-size:17px; margin:26px 0 8px; }
 .teamhead { display:flex; align-items:center; gap:14px; padding-bottom:14px;
   border-bottom:3px solid var(--team); margin-bottom:18px; }
 .teamsub { color:var(--secondary); font-size:13px; margin:0 0 16px; }
-.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
+.statv a { color:inherit; text-decoration:none; }
 .stat { background:var(--surface); border:1px solid var(--grid); border-radius:10px; padding:12px; }
 .statl { display:block; font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:var(--muted); }
 .statv { display:block; font-size:26px; font-weight:700; line-height:1.25; }
@@ -2942,6 +2977,7 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .small { font-size:12px; line-height:1.5; }
 .panel.gd { margin-top:14px; }
 .watch li { flex-direction:column; align-items:flex-start; gap:3px; }
+.watch .gv { white-space:normal; overflow-wrap:anywhere; }
 .mu { display:inline-flex; align-items:center; gap:6px; flex-wrap:wrap; }
 @media (max-width:900px) { .grid.two { grid-template-columns:1fr; } }
 """

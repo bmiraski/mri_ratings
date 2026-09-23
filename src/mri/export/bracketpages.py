@@ -375,13 +375,13 @@ def bracket_page(payload: dict) -> str:
                 description="The projected NCAA Tournament bracket: every first-round matchup and the Opening Round.")
 
 
-def team_line(team: str, payload: dict) -> str | None:
-    """The one-line summary for a basketball team page, or None if the team isn't close to the field."""
+def team_status(team: str, payload: dict) -> tuple[float, str] | None:
+    """A team's chance to make the field and where the projection has it, or None before bracketology runs."""
     b = payload.get("bracketology")
     if not b:
         return None
     row = next((t for t in b["teams"] if t["team"] == team), None)
-    if not row or row["pField"] < 0.01:
+    if not row:
         return None
     projected = next((f for f in b["projected"]["field"] if f["team"] == team), None)
     if projected:
@@ -392,8 +392,17 @@ def team_line(team: str, payload: dict) -> str | None:
         where = "first four out"
     else:
         where = "outside the projected field"
-    verb = "was" if b.get("frozen") else ""
-    chance = f'{_pct(row["pField"])} to make the field'
+    return row["pField"], where
+
+
+def team_line(team: str, payload: dict) -> str | None:
+    """The one-line summary for a basketball team page, or None if the team isn't close to the field."""
+    status = team_status(team, payload)
+    if not status or status[0] < 0.01:
+        return None
+    p_field, where = status
+    verb = "was" if payload["bracketology"].get("frozen") else ""
+    chance = f'{_pct(p_field)} to make the field'
     return (f'<div class="hl" title="From the bracketology page{", as frozen on Selection Sunday" if verb else ""}."><span class="hll">Bracketology</span>'
             f'<span class="hlv"><a href="../bracketology.html">{where}</a> &middot; {chance}</span></div>')
 
