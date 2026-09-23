@@ -261,6 +261,25 @@ def games(
     return frame[keep].sort_values(["week", "game_id"]).reset_index(drop=True)
 
 
+# What the site calls the snapshot after the postseason block. Its number is the
+# block's (last regular week + 1), so "the week before" arithmetic still works;
+# only the label a reader sees differs.
+POSTSEASON_LABEL = "Bowls"
+
+
+def sequence(games: pd.DataFrame) -> pd.Series:
+    """Chronological block for each game: regular-season weeks in order, then
+    the postseason as one block after them.
+
+    The feed numbers postseason weeks from 1 again, so filtering on ``week``
+    alone would train September's ratings on January's bowl results. Walk
+    forward on this instead.
+    """
+    regular = games["season_type"] == "regular"
+    last = int(games.loc[regular, "week"].max()) if regular.any() else 0
+    return games["week"].where(regular, last + 1).astype(int)
+
+
 def team_box_scores(year: int, week: int, *, season_type: str = "regular", refresh: bool = False):
     """Per-team rushing, passing and turnovers for one week.
 

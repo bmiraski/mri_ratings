@@ -120,6 +120,11 @@ def period_text(payload: dict) -> str:
     return payload.get("periodLabel") or f"Week {payload['week']}"
 
 
+def week_heading(label) -> str:
+    """'Wk 7' for a numbered week, the label itself for one that has a name."""
+    return f"Wk {label}" if isinstance(label, int) else esc(str(label))
+
+
 def slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
@@ -1166,7 +1171,8 @@ def archive_page(payload: dict) -> str:
     # three days of November play is noise, so those weeks are never published
     # and the column headings have to say which weeks these actually are.
     labels = payload.get("weeks") or list(range(1, weeks + 1))
-    header = "".join(f"<th>Wk {labels[w] if w < len(labels) else w + 1}</th>" for w in range(weeks))
+    # Football's last column, once the bowls are played, is labelled rather than numbered.
+    header = "".join(f"<th>{week_heading(labels[w] if w < len(labels) else w + 1)}</th>" for w in range(weeks))
     rows = []
     for spot in range(min(25, len(payload["teams"]))):
         cells = []
@@ -2310,7 +2316,7 @@ def _record_section(record: dict) -> str:
         gap_text = (f"That is {abs(gap):.1f} points {'worse' if worse else 'better'} than the market "
                     f"(&plusmn;{s['maeGapError']:.1f}).")
 
-    weeks = "".join(f"""<tr><td>{w['week']}</td><td class="num">{w['games']}</td>
+    weeks = "".join(f"""<tr><td>{esc(w.get('label') or w['week'])}</td><td class="num">{w['games']}</td>
         <td class="num">{w['accuracy']:.0%}</td><td class="num">{w['mae']:.1f}</td>
         <td class="num">{f"{w['marketMae']:.1f}" if w.get('marketMae') is not None else '&ndash;'}</td>
         <td class="num">{w['record']}</td>
