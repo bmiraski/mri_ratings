@@ -42,7 +42,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from scipy.special import ndtr
+from scipy.special import ndtr, ndtri
 
 POWER_FOUR = ("ACC", "Big 12", "Big Ten", "SEC")
 GROUP_OF_SIX = ("American", "Conference USA", "MAC", "Mountain West", "Pac-12", "Sun Belt")
@@ -68,6 +68,19 @@ DEFAULT_SEED = 2026
 CHUNK = 2_000
 
 
+def _force(mu: np.ndarray, noise: np.ndarray, sign) -> np.ndarray:
+    """Margins conditioned on a result, from the same standard-normal draws the unforced run uses.
+
+    Each draw's quantile is mapped into the part of the margin distribution that gives the forced result - a home
+    win is the upper ``1 - P(away)`` of it - so the mapping is monotone (a draw that was a big win stays the biggest
+    of the forced wins) and a forced upset is as close as real upsets are.
+    """
+    p_away = ndtr(-mu / SIGMA_GAME)
+    u = ndtr(noise)
+    q = np.where(np.asarray(sign) > 0, p_away + u * (1.0 - p_away), u * p_away)
+    return mu + ndtri(np.clip(q, 1e-12, 1 - 1e-12)) * SIGMA_GAME
+
+
 def simulate(
     teams: list[dict],
     schedule: pd.DataFrame,
@@ -79,6 +92,7 @@ def simulate(
     championships: dict[str, dict] | None = None,
     rules: dict | None = None,
     observe=None,
+    forced: dict[int, str] | None = None,
 ) -> dict:
     """Simulate the rest of the season.
 
@@ -101,6 +115,14 @@ def simulate(
                   team's finish in each run). It receives a dict of ``rank`` (1 = best,
                   the committee blend *without* the committee's noise), ``losses``,
                   ``wins`` and ``made_cg``, each shaped (runs, teams).
+    ``forced``    game id -> ``"home"`` or ``"away"``: that side wins that game in every run, and
+                  nothing else changes. Every random draw is the one the unforced run makes;
+                  the forced game's own draw is mapped, quantile for quantile, into the margins
+                  that give that result (see ``_force``), so a forced upset is a realistic upset
+                  and not a blowout, and two runs on one seed that differ only in ``forced``
+                  differ only through that game (common random numbers). What the rooting guide measures. Covers unplayed
+                  regular-season games and, through their ``game_id``, title games in
+                  ``championships``.
     ``rules``     overrides ``power_four``, ``group_of_six`` and ``top_seed_hosts``
                   (tuples of conference names), ``uncertainty`` (a multiplier on
                   rating error) and ``committee_noise``. Only the historical backtest needs this: the
@@ -187,6 +209,19 @@ def simulate(
             tracked.append((int(gid), k, int(home[g]), int(away[g])))
     lever = {gid: np.zeros(6) for gid, *_ in tracked}
 
+    force_cols, force_sign = [], []
+    if forced:
+        position = {int(sched.loc[g, "game_id"]): k for k, g in enumerate(unplayed)}
+        for gid, side in forced.items():
+            k = position.get(int(gid))
+            if k is not None:
+                force_cols.append(k)
+                force_sign.append(1.0 if side == "home" else -1.0)
+    force_cols_arr, force_sign_arr = np.array(force_cols, dtype=int), np.array(force_sign)
+    forced_title = {c: (1.0 if forced.get(int(e["game_id"])) == "home" else -1.0)
+                    for c, e in (championships or {}).items()
+                    if forced and e.get("game_id") is not None and int(e["game_id"]) in {int(k) for k in forced}}
+
     rng = np.random.default_rng(seed)
     acc = {key: np.zeros(T) for key in (
         "cg", "champ", "field", "bye", "quarter", "semi", "final", "title",
@@ -208,7 +243,10 @@ def simulate(
         hu, au = home[unplayed], away[unplayed]
         edge_u = np.where(neutral[unplayed], 0.0, home_field)
         mu = true[:, hu] - true[:, au] + edge_u
-        margin = mu + rng.standard_normal((B, U)) * SIGMA_GAME
+        noise = rng.standard_normal((B, U))
+        margin = mu + noise * SIGMA_GAME
+        if len(force_cols_arr):
+            margin[:, force_cols_arr] = _force(mu[:, force_cols_arr], noise[:, force_cols_arr], force_sign_arr)
         hw = margin > 0
         hwf = hw.astype(np.float32)
         expected = power[hu] - power[au] + edge_u
@@ -248,7 +286,11 @@ def simulate(
                 top = np.argsort(-key, axis=1)[:, :2]
                 ta, tb = idx[top[:, 0]], idx[top[:, 1]]
                 hfa = home_field if c in hosts else 0.0
-            m = true[rows, ta] - true[rows, tb] + hfa + rng.standard_normal(B) * SIGMA_GAME
+            cg_mu = true[rows, ta] - true[rows, tb] + hfa
+            cg_noise = rng.standard_normal(B)
+            m = cg_mu + cg_noise * SIGMA_GAME
+            if c in forced_title:                 # "a" is the title game's home side
+                m = _force(cg_mu, cg_noise, forced_title[c])
             a_won = m > 0
             winner = np.where(a_won, ta, tb)
             champ[rows, winner] = True

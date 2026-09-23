@@ -58,6 +58,7 @@ def championships(schedule: pd.DataFrame, conference: dict[str, str]):
             continue
         seen[c] = seen.get(c, 0) + 1
         entries[c] = {
+            "game_id": int(row.game_id),
             "a": row.team2, "b": row.team1, "neutral": bool(row.neutral),
             "played": bool(row.played),
             "a_won": bool(row.pts2 > row.pts1) if row.played else False,

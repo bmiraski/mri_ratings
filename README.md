@@ -125,6 +125,21 @@ PYTHONPATH=src python3 scripts/build_current.py    # rebuild the season-to-seaso
 Talent and returning production are fetched once per season and cached in `data/raw`. If either
 is missing the old prior is used and the build carries on.
 
+### Rooting guide
+
+Each football team page has a "Who to root for this week" section: the games this week the team is not
+playing in that move its playoff odds most, and which side to cheer. `mri/export/rooting.py` runs the season
+simulation twice more for every game still to kick off - home side forced to win, then visitor - on the
+baseline's seed, and compares every other team's odds between the two. That takes the optional `forced`
+argument to `mri.sim.season.simulate` (`{game_id: "home" | "away"}`), which conditions that one game's own
+random draw on the result and leaves every other draw alone (common random numbers). About a minute a day.
+
+- `site/data/rooting.json` - this week's guide: per team, up to five games with `rootFor`, its win chance,
+  `upsetNeeded`, the odds either way and the playoff, conference-title and bye deltas.
+- `site/data/rooting_history.json` - each week's guide kept by season and week, for a later "did it pay off".
+
+The section is left off when the guide is missing or is for a different week than the slate.
+
 ### College GameDay forecast
 
 `gameday.html` guesses where ESPN's College GameDay will be for the weeks not yet announced.

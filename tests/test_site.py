@@ -1536,3 +1536,24 @@ def test_hidden_heisman_on_the_heisman_page_and_the_winners_team_page(extended) 
     page = site.team_page(team, p)
     assert "Hidden Heisman" in page and "Hidden Guy" in page
     assert "Hidden Heisman" not in site.team_page(p["teams"][6], p)
+
+
+def test_rooting_guide_on_team_pages_and_only_when_current(extended) -> None:
+    p = json.loads(json.dumps(extended))
+    us, them, other = (t["team"] for t in p["teams"][:3])
+    entry = {"gameId": 77, "home": them, "away": other, "neutral": False, "kickoff": "", "rootFor": other,
+             "rootForWinProb": 0.3, "upsetNeeded": True, "ifRoot": 0.66, "ifNot": 0.60, "delta": 0.06,
+             "playoffDelta": 0.06, "confTitleDelta": 0.02, "byeDelta": 0.01}
+    p["rooting"] = {"season": p["season"], "week": p["slate"]["week"], "teams": {
+        us: {"playoff": 0.62, "basis": "playoff", "games": [entry], "message": None},
+        them: {"playoff": 0.999, "basis": None, "games": [], "message": "Your fate is in your own hands this week."}}}
+    page = site.team_page(p["teams"][0], p)
+    assert "Who to root for this week" in page and 'href="../slate.html#g77"' in page
+    assert '<details class="rooting">' in page and "<details class=\"rooting\" open" not in page     # closed until opened
+    assert f"top: {other} over {them}" in page
+    assert "upset needed" in page and "66%</b> if they win" in page and "+6.0 pts" in page
+    assert "Your fate is in your own hands this week." in site.team_page(p["teams"][1], p)
+    p["rooting"]["week"] = p["slate"]["week"] - 1                                  # stale: last week's advice
+    assert "Who to root for" not in site.team_page(p["teams"][0], p)
+    del p["rooting"]                                                               # missing: the page still builds
+    assert "Who to root for" not in site.team_page(p["teams"][0], p)
