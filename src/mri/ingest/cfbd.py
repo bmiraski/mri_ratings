@@ -385,6 +385,45 @@ def calendar(year: int, *, refresh: bool = False) -> pd.DataFrame:
     return pd.DataFrame(request("/calendar", year=year, refresh=refresh))
 
 
+def coaches(min_year: int, max_year: int, *, refresh: bool | None = None) -> pd.DataFrame:
+    """Every FBS head coach's season-by-school record, one call for the whole range.
+
+    ``/coaches`` returns one JSON object per coach with a nested ``seasons``
+    list (one entry per year they coached, at whichever school); this flattens
+    it to one row per coach-school-season. The API's own coach ``id`` is kept
+    as ``coach_key`` - a join key within this one response, not a durable
+    identity across calls or seasons, which is why the site builds its own
+    ``coach_id`` from the name and hire year (see ``mri.coaches.ids``).
+    """
+    if refresh is None:
+        refresh = max_year >= current_season()
+    raw = request("/coaches", minYear=min_year, maxYear=max_year, refresh=refresh)
+    rows = []
+    for coach in raw:
+        name = f"{coach.get('firstName', '')} {coach.get('lastName', '')}".strip()
+        for s in coach.get("seasons", []):
+            rows.append(
+                {
+                    "coach_key": coach.get("id"),
+                    "coach_name": name,
+                    "hire_date": coach.get("hireDate"),
+                    "school": s["school"],
+                    "conference": s.get("conference"),
+                    "season": s["year"],
+                    "games": s.get("games"),
+                    "wins": s.get("wins"),
+                    "losses": s.get("losses"),
+                    "ties": s.get("ties") or 0,
+                    "srs": _number(s.get("srs")),
+                    "sp_overall": _number(s.get("spOverall")),
+                }
+            )
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return frame
+    return frame.sort_values(["coach_key", "season"]).reset_index(drop=True)
+
+
 def pool_non_fbs(frame: pd.DataFrame) -> pd.DataFrame:
     """Collapse every non-FBS opponent into one team, the way Classic expects."""
     frame = frame.copy()
