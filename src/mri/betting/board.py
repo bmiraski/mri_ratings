@@ -42,13 +42,18 @@ def build_board(year: int, ratings: mri2.Ratings | None = None, *, week: int | N
     if schedule.empty:
         return {"week": None, "games": []}
 
+    # Weeks are chronological blocks (``cfbd.sequence``): the feed restarts the
+    # postseason at week 1, and picking the lowest raw week would skip Army-Navy
+    # for the bowls and call them week 1.
+    schedule["block"] = cfbd.sequence(schedule)
     played = schedule[schedule["played"]]
     upcoming = schedule[~schedule["played"]]
     if upcoming.empty:
         return {"week": None, "games": []}
 
-    target = week or int(upcoming["week"].min())
-    slate = upcoming[upcoming["week"] == target]
+    target = week or int(upcoming["block"].min())
+    slate = upcoming[upcoming["block"] == target]
+    label = cfbd.POSTSEASON_LABEL if (slate["season_type"] != "regular").any() else None
 
     if ratings is None:
         ratings = _rate(year, played)
@@ -95,7 +100,8 @@ def build_board(year: int, ratings: mri2.Ratings | None = None, *, week: int | N
 
         rows.append(
             {
-                "week": int(row.week),
+                "week": target,
+                **({"label": label} if label else {}),
                 "home": row.team2,
                 "away": row.team1,
                 "neutral": bool(row.neutral),
@@ -116,7 +122,7 @@ def build_board(year: int, ratings: mri2.Ratings | None = None, *, week: int | N
         r for r in rows
         if r["edge"] is not None and abs(r["edge"]) >= MIN_EDGE_TO_SHOW and r["confident"]
     ]
-    return {"week": target, "games": rows, "flagged": flagged}
+    return {"week": target, **({"label": label} if label else {}), "games": rows, "flagged": flagged}
 
 
 def _rate(year: int, played: pd.DataFrame) -> mri2.Ratings:

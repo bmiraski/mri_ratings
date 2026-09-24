@@ -369,6 +369,11 @@ def team_details(year: int, payload: dict) -> dict:
     from scipy.stats import norm
 
     schedule = _canonical(cfbd.games(year, completed_only=False))
+    if not schedule.empty:
+        # In the order played: the feed calls the postseason week 1 again, which
+        # filed a bowl between a team's first and second games.
+        schedule["block"] = cfbd.sequence(schedule)
+        schedule = schedule.sort_values(["block", "start_date", "game_id"], kind="stable", na_position="last")
     power = {t["team"]: t["power"] for t in payload["teams"]}
     home_field = payload["homeField"]
     sigma = 16.5
@@ -390,7 +395,8 @@ def team_details(year: int, payload: dict) -> dict:
             if team not in details:
                 continue
             entry = {
-                "week": int(row.week),
+                "week": int(row.block),
+                **({"label": cfbd.POSTSEASON_LABEL} if row.season_type != "regular" else {}),
                 "opponent": opponent,
                 "opponentRank": next(
                     (t["rank"] for t in payload["teams"] if t["team"] == opponent), None

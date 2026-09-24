@@ -88,11 +88,15 @@ def _stake(entry: dict | None, home: str, away: str, sim: dict | None) -> dict |
 def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.DataFrame, *,
           now: dt.datetime | None = None) -> dict | None:
     schedule = _canonical(cfbd.games(year, completed_only=False))
+    # A chronological block, the weekly ratings' numbering: the feed restarts the
+    # postseason at week 1, so the lowest raw week would skip Army-Navy for the bowls.
+    schedule["block"] = cfbd.sequence(schedule)
     unplayed = schedule[~schedule["played"]]
     if unplayed.empty:
         return None
-    week = int(unplayed["week"].min())
-    games = schedule[schedule["week"] == week].copy()
+    week = int(unplayed["block"].min())
+    games = schedule[schedule["block"] == week].copy()
+    label = cfbd.POSTSEASON_LABEL if (games["season_type"] != "regular").any() else None
 
     teams = {t["team"]: t for t in payload["teams"]}
     power = {n: float(t["power"]) for n, t in teams.items()}
@@ -196,6 +200,7 @@ def build(year: int, payload: dict, board: dict, sim: dict | None, weekly: pd.Da
     return {
         "season": year,
         "week": week,
+        **({"label": label} if label else {}),
         "days": days,
         "results": done,
         "fcs": fcs_rows,
