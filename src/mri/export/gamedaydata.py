@@ -83,11 +83,16 @@ def build(year: int, payload: dict, *, sims: int = forecast.DEFAULT_SIMS) -> dic
         announced.append({**a, "teams": [registry.resolve(n, n) for n in a["teams"]],
                           "host": registry.resolve(a["host"], a["host"]) if a.get("host") else None})
     done = {a["week"] for a in announced}
-    unplayed = schedule[~schedule["played"]]
-    if unplayed.empty:
+    if schedule[~schedule["played"]].empty:
         return None
-    first_open = int(unplayed["week"].min())
+    # GameDay's forecast is a regular-season one. The feed numbers the postseason
+    # from week 1 again, so left in, unplayed bowls would count as games played
+    # before every target week and pull January into week 1's date.
+    if "season_type" in schedule.columns:
+        schedule = schedule[schedule["season_type"] == "regular"].reset_index(drop=True)
+    unplayed = schedule[~schedule["played"]]
     last = season.CHAMPIONSHIP_WEEK
+    first_open = int(unplayed["week"].min()) if not unplayed.empty else last + 1
     dates = _week_dates(schedule)
     dates.setdefault(last, dates.get(last - 1, dates[max(dates)]) + dt.timedelta(days=7))
 

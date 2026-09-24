@@ -227,9 +227,7 @@ def _finals(week: int) -> dict[int, tuple[int, int]]:
     """Final scores for a week of this season, keyed by game id: (home points, away points)."""
     from mri.ingest import cfbd
 
-    played = cfbd.games(SEASON)
-    played = played[played["week"] == week]
-    return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in played.itertuples()}
+    return slatearchive.finals(cfbd.games(SEASON, completed_only=False), week)
 
 
 def add_basketball_slate(basketball: dict, data_dir: Path, root: Path) -> None:

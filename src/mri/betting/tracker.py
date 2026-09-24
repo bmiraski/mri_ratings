@@ -234,7 +234,8 @@ def update_log(year: int, board: dict, path: Path, *, now: dt.datetime | None = 
         if taken is None:
             continue
         log["picks"].append({
-            "game_id": int(gid), "week": game["week"], "home": game["home"], "away": game["away"],
+            "game_id": int(gid), "week": game["week"], **({"label": game["label"]} if game.get("label") else {}),
+            "home": game["home"], "away": game["away"],
             "neutral": game["neutral"], "kickoff": kickoff,
             "side": "home" if game["edge"] > 0 else "away",
             "predicted": game["predicted"], "open": game["marketOpen"], "taken": taken,
@@ -295,8 +296,16 @@ def _slope(predicted: pd.Series, actual: pd.Series) -> float | None:
 
 
 def _game_id(schedule: pd.DataFrame, game: dict) -> int | None:
+    """The schedule's id for a board game.
+
+    The board's week is a chronological block (``cfbd.sequence``). For the regular
+    season that is the feed's own week, so picks logged before the board used
+    blocks match the same way; only the postseason, which the feed calls week 1,
+    needed the change.
+    """
+    block = cfbd.sequence(schedule) if "season_type" in schedule.columns else schedule["week"]
     match = schedule[(schedule["team2"] == game["home"]) & (schedule["team1"] == game["away"])
-                     & (schedule["week"] == game["week"])]
+                     & (block == game["week"])]
     return int(match.index[0]) if len(match) else None
 
 
