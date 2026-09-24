@@ -293,18 +293,6 @@ def _lagged_crowd(frame: pd.DataFrame) -> np.ndarray:
 
 # --------------------------------------------------------------------------- stage 1
 
-def _sequence(games: pd.DataFrame) -> pd.Series:
-    """Chronological block for each game: regular-season weeks in order, then
-    the postseason as one block after them.
-
-    The feed numbers postseason weeks from 1 again, so filtering on ``week``
-    alone would train September's ratings on January's bowl results.
-    """
-    regular = games["season_type"] == "regular"
-    last = int(games.loc[regular, "week"].max()) if regular.any() else 0
-    return pd.Series(np.where(regular, games["week"], last + 1), index=games.index)
-
-
 def walk_forward(seasons, warmup: int | None = None) -> pd.DataFrame:
     """Pregame predictions for every game, from ratings that had not seen it.
 
@@ -329,7 +317,7 @@ def walk_forward(seasons, warmup: int | None = None) -> pd.DataFrame:
     rows = []
     for season in seasons:
         games = canonical(cfbd.games(season)).reset_index(drop=True)
-        games["seq"] = _sequence(games)
+        games["seq"] = cfbd.sequence(games)
         teams = sorted(set(games["team1"]) | set(games["team2"]))
         fbs = [t for t in teams if registry.is_fbs(t)]
         prior = priors.for_season(season, previous, teams, fbs)

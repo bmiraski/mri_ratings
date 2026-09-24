@@ -81,7 +81,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     <li><strong>Ratings are pulled toward a prior</strong> carried from last season, so the
     first month is signal rather than noise. The pull fades on its own as games accumulate.</li>
     <li><strong>Home field is estimated</strong> from the games themselves rather than assumed,
-    and neutral sites are excluded. It currently sits at 3.1 points.</li>
+    and neutral sites are excluded. It currently sits at 2.9 points.</li>
     <li><strong>FCS opponents are rated individually.</strong> Classic pooled every non-FBS
     team into a single 7&ndash;105 entity, so beating North Dakota State and beating Mercer
     scored identically.</li>
@@ -153,6 +153,24 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   In testing, most of the improvement came from talent; returning production adds a smaller one on average, and matters most
   for the few teams that lose nearly everyone.</p>
 
+  <h2>Home field by stadium</h2>
+  <p>The model gives every home team the same 2.9 points. Tested in
+  September 2026: should that number move with the stadium, or
+  with the trip? Every FBS game from 2013 was predicted from ratings that had
+  only seen earlier weeks, and what the scoreboard said beyond that prediction was split two
+  ways &mdash; into the trip (altitude, miles, time zones, early kickoffs, how full the stands
+  usually are), fitted by least squares, and into each stadium, with each stadium's average
+  shrunk toward zero by empirical Bayes: <em>n</em> / (<em>n</em> + <em>k</em>) of its raw
+  mean, where <em>k</em> is game-to-game noise over the real spread between stadiums.</p>
+  <p>Fitted only on seasons before the one being scored, neither piece, nor both, predicted
+  games better than the single number: the best variant cleared a paired
+  <em>t</em> of +0.17 against a bar of 2, and was better in 4 of
+  10 seasons. No stadium's own effect can be told apart from average.
+  So the lines are unchanged, and the findings are published as a
+  <a href="homefield.html">description of the past</a>. The FCS games are left out of the fit:
+  the model under-rates the FBS side in them by enough to swamp everything else, which is its
+  own problem.</p>
+
   <h2 id="simulation">Simulation and the playoff</h2>
   <p>The <a href="simulation.html">simulation page</a> plays the rest of the season 10,000
   times. Each run first draws every team's true strength around its rating, with a spread that shrinks as games
@@ -215,8 +233,8 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-20 21:41 UTC
-    &middot; 260 games rated &middot; home field 3.1 pts</p>
+    <p class="muted">Ratings last changed 2026-09-24 00:14 UTC
+    &middot; 260 games rated &middot; <a href="homefield.html">home field</a> 2.9 pts</p>
   </div>
 </footer>
 </body>

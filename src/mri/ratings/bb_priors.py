@@ -148,7 +148,8 @@ def preseason_prior(previous: pd.Series | None, teams: list[str], d1: list[str],
                     model: dict | None) -> pd.Series:
     """The regression's prior where it applies and the old rule everywhere else."""
     profile = mri2.BASKETBALL_PROFILE
-    old = mri2.build_prior(previous, teams, profile.prior_regression, centre_teams=d1 or None)
+    old = mri2.build_prior(previous, teams, profile.prior_regression, centre_teams=d1 or None,
+                           outsiders_to_replacement=False)
     if model is None or feats is None or previous is None or previous.empty:
         return old
     replaced, values = [], []
@@ -202,7 +203,8 @@ def for_season(season: int, previous: pd.Series | None, teams: list[str], d1: li
     model = load_model()
     tables = _tables()
     if model is None or tables is None or previous is None:
-        return mri2.build_prior(previous, teams, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=d1 or None)
+        return mri2.build_prior(previous, teams, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=d1 or None,
+                               outsiders_to_replacement=False)
     feats = features(season, d1, *tables, roster=rosters_for(season, d1))
     return preseason_prior(previous, teams, d1, feats, model)
 

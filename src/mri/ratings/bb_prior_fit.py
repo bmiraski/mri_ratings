@@ -56,7 +56,8 @@ def old_chain() -> dict[int, pd.Series]:
         games = season_games(season)
         d1 = division_one(season, games)
         teams = sorted(set(games["team1"]) | set(games["team2"]))
-        prior = mri2.build_prior(previous, teams, p.prior_regression, centre_teams=d1) if previous is not None else None
+        prior = mri2.build_prior(previous, teams, p.prior_regression, centre_teams=d1,
+                                 outsiders_to_replacement=False) if previous is not None else None
         ratings = fit_season(games, prior, d1)
         previous = ratings.power
         chain[season] = ratings.power[ratings.power.index.isin(d1)]

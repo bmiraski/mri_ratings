@@ -192,3 +192,25 @@ def test_prior_centre_ignores_teams_outside_the_pool() -> None:
     centred = mri2.build_prior(previous, teams, regression=1.0, centre_teams=teams)
     assert naive["FbsA"] < -30, "median of a mostly-FCS pool is an FCS team"
     assert centred["FbsA"] == pytest.approx(0.0)
+
+
+def test_fcs_teams_regress_toward_replacement_not_the_fbs_average() -> None:
+    """An FCS team's rating comes from one or two games a year. Pulling it
+    toward the FBS average every offseason lifted FCS priors about seven points
+    too high, and FBS hosts beat them by ten more than predicted."""
+    previous = pd.Series({"FbsA": 12.0, "FbsB": -12.0, "Fcs": -30.0})
+    fbs = ["FbsA", "FbsB"]
+    prior = mri2.build_prior(previous, fbs + ["Fcs", "NewFcs"], regression=0.3, centre_teams=fbs)
+    assert prior["FbsA"] == pytest.approx(0.7 * 12.0)
+    assert prior["Fcs"] == pytest.approx(0.7 * -30.0 + 0.3 * mri2.REPLACEMENT_PRIOR)
+    assert prior["NewFcs"] == pytest.approx(mri2.REPLACEMENT_PRIOR)
+
+
+def test_the_old_outsider_rule_is_still_there_for_basketball() -> None:
+    previous = pd.Series({"FbsA": 12.0, "FbsB": -12.0, "Fcs": -30.0})
+    fbs = ["FbsA", "FbsB"]
+    old = mri2.build_prior(previous, fbs + ["Fcs", "NewFcs"], regression=0.3, centre_teams=fbs,
+                           outsiders_to_replacement=False)
+    assert old["Fcs"] == pytest.approx(0.7 * -30.0)
+    assert old["NewFcs"] == pytest.approx(0.7 * mri2.REPLACEMENT_PRIOR)
+    assert old[fbs].equals(mri2.build_prior(previous, fbs, regression=0.3, centre_teams=fbs)[fbs])

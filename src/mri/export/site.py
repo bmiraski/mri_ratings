@@ -120,6 +120,21 @@ def period_text(payload: dict) -> str:
     return payload.get("periodLabel") or f"Week {payload['week']}"
 
 
+def week_cell(item: dict) -> str:
+    """A game's or a slate's week for a table cell: its number, or its label when it has one ("Bowls")."""
+    return esc(item.get("label") or item["week"])
+
+
+def week_name(item: dict) -> str:
+    """'Week 7', or the label of a week that has one ("Bowls")."""
+    return esc(item["label"]) if item.get("label") else f"Week {item['week']}"
+
+
+def week_heading(label) -> str:
+    """'Wk 7' for a numbered week, the label itself for one that has a name."""
+    return f"Wk {label}" if isinstance(label, int) else esc(str(label))
+
+
 def slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 
@@ -974,7 +989,7 @@ def team_page(team: dict, payload: dict) -> str:
 
     played = "".join(f"""
       <tr>
-        <td class="wk">{g['week']}</td>
+        <td class="wk">{week_cell(g)}</td>
         <td class="site">{'at' if g['site'] == 'at' else ('vs' if g['site'] == 'vs' else 'N')}</td>
         <td class="opp">{opponent_link(g['opponent'])}</td>
         <td class="res"><span class="{'w' if g['won'] else 'l'}">{'W' if g['won'] else 'L'}</span> {g['scored']}&ndash;{g['allowed']}</td>
@@ -984,7 +999,7 @@ def team_page(team: dict, payload: dict) -> str:
 
     upcoming = "".join(f"""
       <tr>
-        <td class="wk">{g['week']}</td>
+        <td class="wk">{week_cell(g)}</td>
         <td class="site">{'at' if g['site'] == 'at' else ('vs' if g['site'] == 'vs' else 'N')}</td>
         <td class="opp">{opponent_link(g['opponent'])}</td>
         <td class="num">{g['expected']:+.1f}</td>
@@ -1168,7 +1183,8 @@ def archive_page(payload: dict) -> str:
     # three days of November play is noise, so those weeks are never published
     # and the column headings have to say which weeks these actually are.
     labels = payload.get("weeks") or list(range(1, weeks + 1))
-    header = "".join(f"<th>Wk {labels[w] if w < len(labels) else w + 1}</th>" for w in range(weeks))
+    # Football's last column, once the bowls are played, is labelled rather than numbered.
+    header = "".join(f"<th>{week_heading(labels[w] if w < len(labels) else w + 1)}</th>" for w in range(weeks))
     rows = []
     for spot in range(min(25, len(payload["teams"]))):
         cells = []
@@ -1367,7 +1383,7 @@ def betting_page(payload: dict, betting: dict, board: dict) -> str:
 
     flagged = board.get("flagged", [])
     card = "".join(f"""<tr>
-        <td class="wk">{g['week']}</td>
+        <td class="wk">{week_cell(g)}</td>
         <td class="opp">{esc(g['away'])} {'vs' if g['neutral'] else 'at'} {esc(g['home'])}</td>
         <td class="num">{g['predicted']:+.1f}</td>
         <td class="num">{(g['marketOpen'] if g['marketOpen'] is not None else g['market']):+.1f}</td>
@@ -2056,7 +2072,7 @@ def slate_archives(sport_root: Path) -> list[dict]:
     for path in sorted(folder.glob("*.json")) if folder.exists() else []:
         data = json.loads(path.read_text())
         if data.get("week") is not None:
-            order, label = (data["season"], data["week"]), f"Week {data['week']}"
+            order, label = (data["season"], data["week"]), week_name(data)
         elif data.get("date"):
             day = dt.date.fromisoformat(data["date"])
             order, label = (data["season"], data["date"]), day.strftime("%a, %b %-d")
@@ -2399,11 +2415,11 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
         description = "Every Division I game today: model line, market line, live scores, and what rides on it."
     else:
         if archive:
-            heading = f"Week {slate['week']} slate, {season}"
+            heading = f"{week_name(slate)} slate, {season}"
             lead = (f"The slate as it stood before the Sunday refresh, with final scores. {slate['games']} games with an FBS team; "
                     "the model&rsquo;s line and win chance for each were set before kickoff.")
         else:
-            heading = f"Week {slate['week']} slate"
+            heading = f"{week_name(slate)} slate"
             lead = (f"{slate['games']} games with an FBS team. The model's line and win chance for each, the market's number "
                     "beside it (DraftKings), and what the result does to the playoff picture. Scores and live win chances appear "
                     "while games are on.")
@@ -2412,8 +2428,8 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
   is the current line, with the opener beneath it when it has moved. <strong>Edge</strong> is the gap between the model
   and the opening number and the side the model likes more. The {betting_ref} tracks the large ones; these are
   tracked, not recommended.""")
-        title = (f"Week {slate['week']} slate, {season} — MRI" if archive
-                 else f"Week {slate['week']} slate — MRI {season_text(payload)}")
+        title = (f"{week_name(slate)} slate, {season} — MRI" if archive
+                 else f"{week_name(slate)} slate — MRI {season_text(payload)}")
         description = "Every game this week: model line, market line, live scores, and what rides on it."
 
     body = f"""
@@ -2444,7 +2460,7 @@ def _record_section(record: dict) -> str:
         gap_text = (f"That is {abs(gap):.1f} points {'worse' if worse else 'better'} than the market "
                     f"(&plusmn;{s['maeGapError']:.1f}).")
 
-    weeks = "".join(f"""<tr><td>{w['week']}</td><td class="num">{w['games']}</td>
+    weeks = "".join(f"""<tr><td>{esc(w.get('label') or w['week'])}</td><td class="num">{w['games']}</td>
         <td class="num">{w['accuracy']:.0%}</td><td class="num">{w['mae']:.1f}</td>
         <td class="num">{f"{w['marketMae']:.1f}" if w.get('marketMae') is not None else '&ndash;'}</td>
         <td class="num">{w['record']}</td>
@@ -2469,7 +2485,7 @@ def _record_section(record: dict) -> str:
                "and returning production, so they were made by the earlier model; they stay as written."
                if fwd.get("earlier") else "")
     if fwd["logged"]:
-        picks = "".join(f"""<tr><td class="wk">{p['week']}</td>
+        picks = "".join(f"""<tr><td class="wk">{week_cell(p)}</td>
           <td class="opp">{esc(p['away'])} {'vs' if p['neutral'] else 'at'} {esc(p['home'])}</td>
           <td>{esc(p['home'] if p['side'] == 'home' else p['away'])}</td>
           <td class="num">{p['predicted']:+.1f}</td>

@@ -19,6 +19,20 @@ from pathlib import Path
 TEAM_FIELDS = ("rank", "abbreviation", "color", "logo")
 
 
+def finals(schedule, week: int) -> dict[int, tuple[int, int]]:
+    """Final scores for one of the slate's weeks, keyed by game id: (home points, away points).
+
+    ``week`` is the slate's chronological block (``cfbd.sequence``), not the feed's
+    week, which restarts the postseason at 1.
+    """
+    from ..ingest import cfbd
+
+    if schedule.empty:
+        return {}
+    done = schedule[(cfbd.sequence(schedule) == week) & schedule["played"]]
+    return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in done.itertuples()}
+
+
 def archive_path(docs: Path, season: int, week: int) -> Path:
     return docs / "slate" / f"{season}-week-{week}.json"
 
