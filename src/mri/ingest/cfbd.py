@@ -261,6 +261,12 @@ def games(
     return frame[keep].sort_values(["week", "game_id"]).reset_index(drop=True)
 
 
+# What the site calls the snapshot after the postseason block. Its number is the
+# block's (last regular week + 1), so "the week before" arithmetic still works;
+# only the label a reader sees differs.
+POSTSEASON_LABEL = "Bowls"
+
+
 def sequence(games: pd.DataFrame) -> pd.Series:
     """Chronological block for each game: regular-season weeks in order, then
     the postseason as one block after them.

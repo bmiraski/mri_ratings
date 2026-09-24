@@ -53,17 +53,23 @@ def team_identities(year: int) -> dict[str, TeamIdentity]:
 
 
 def weekly_ratings(year: int) -> pd.DataFrame:
-    """MRI 2.0 as of the end of each completed week."""
-    games = _canonical(cfbd.games(year))
+    """MRI 2.0 as of the end of each completed week.
+
+    ``week`` is the chronological block from ``cfbd.sequence``, not the feed's
+    week: the postseason restarts at week 1, and a week-1 snapshot of a finished
+    season must not know how the bowls went. The postseason is one snapshot,
+    numbered after the last regular week and flagged ``postseason``.
+    """
+    games = _sequenced(year)
     if games.empty:
         return pd.DataFrame()
 
     prior = _prior_for(year)
-    weeks = sorted(games["week"].unique())
+    weeks = sorted(games["block"].unique())
     frames = []
 
     for week in weeks:
-        so_far = games[games["week"] <= week]
+        so_far = games[games["block"] <= week]
         teams = sorted(set(so_far["team1"]) | set(so_far["team2"]))
         fbs = [t for t in teams if registry.is_fbs(t)]
         model = mri2.fit(
@@ -75,9 +81,25 @@ def weekly_ratings(year: int) -> pd.DataFrame:
         table = model.table()
         table = table[table["team"].map(registry.is_fbs)].copy()
         table["rank"] = range(1, len(table) + 1)
-        frames.append(table.assign(week=int(week), home_field=model.home_field))
+        postseason = bool((so_far.loc[so_far["block"] == week, "season_type"] != "regular").any())
+        frames.append(table.assign(week=int(week), home_field=model.home_field, postseason=postseason))
 
     return pd.concat(frames, ignore_index=True)
+
+
+def _sequenced(year: int) -> pd.DataFrame:
+    """Completed games with their chronological ``block``.
+
+    The block is numbered against the whole schedule, played or not, so the
+    postseason keeps the same number from its first bowl to the title game -
+    numbering it from completed games alone would move it the day the last
+    regular-season game went final.
+    """
+    schedule = cfbd.games(year, completed_only=False)
+    if schedule.empty:
+        return schedule
+    schedule = schedule.assign(block=cfbd.sequence(schedule))
+    return _canonical(schedule[schedule["played"]].reset_index(drop=True))
 
 
 def weekly_classic(year: int) -> pd.DataFrame:
@@ -98,9 +120,13 @@ def weekly_classic(year: int) -> pd.DataFrame:
     if table.empty:
         return pd.DataFrame()
 
+    block = _sequenced(year).set_index("game_id")["block"]
+    table = table.assign(block=table["game_id"].map(block))
+    table = table[table["block"].notna()]
+
     frames = []
-    for week in sorted(table["week"].unique()):
-        so_far = table[table["week"] <= week]
+    for week in sorted(int(w) for w in table["block"].unique()):
+        so_far = table[table["block"] <= week]
         teams = sorted({t for t in set(so_far["team1"]) | set(so_far["team2"])})
         result = classic.compute(so_far, teams)
         result = result[result["team"] != classic.POOLED_FCS].copy()
@@ -201,12 +227,16 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
 
     conferences = common.conference_strength(teams_payload)
 
+    labels = [cfbd.POSTSEASON_LABEL if post else int(w)
+              for w, post in modern.groupby("week")["postseason"].any().items()]
     payload = {
         "season": year,
         "week": latest_week,
+        "weeks": labels,
         "generated": pd.Timestamp.utcnow().isoformat(),
         "homeField": round(float(current["home_field"].iloc[0]), 2),
         "gamesRated": int(len(games)),
+        **({"periodLabel": cfbd.POSTSEASON_LABEL} if bool(current["postseason"].iloc[0]) else {}),
         "teams": sorted(teams_payload, key=lambda t: t["rank"]),
         "conferences": conferences,
     }

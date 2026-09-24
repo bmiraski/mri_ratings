@@ -82,6 +82,11 @@ def closing_value(side: str, taken: float, closing: float) -> float:
 def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
     """What the model would have said before each game already played."""
     schedule = _canonical(cfbd.games(year, completed_only=False))
+    # Weeks here are chronological blocks, the same numbering the weekly ratings
+    # use: the feed restarts the postseason at week 1, and a bowl priced from the
+    # preseason ratings - or a thin-team count that ignores the regular season -
+    # would be wrong.
+    schedule["block"] = cfbd.sequence(schedule)
     played = schedule[schedule["played"]].copy()
     fbs = {t["team"] for t in payload["teams"]}
     played = played[played["team1"].isin(fbs) & played["team2"].isin(fbs)]
@@ -96,7 +101,7 @@ def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
 
     rows = []
     for row in played.itertuples():
-        week = int(row.week)
+        week = int(row.block)
         if week > 1:
             rated = weekly[weekly["week"] == week - 1]
             if rated.empty:
@@ -112,7 +117,7 @@ def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
             continue
         actual = float(row.pts2 - row.pts1)
 
-        before = played[played["week"] < week]
+        before = played[played["block"] < week]
         seen = pd.concat([before["team1"], before["team2"]]).value_counts()
         thin = [t for t in (row.team1, row.team2) if t not in known and int(seen.get(t, 0)) < 4]
 
@@ -127,7 +132,7 @@ def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
         rows.append({
             "week": week, "game_id": int(row.game_id), "home": row.team2, "away": row.team1,
             "predicted": predicted, "actual": actual, "market": market, "open": opening,
-            "confident": not thin,
+            "confident": not thin, "postseason": row.season_type != "regular",
         })
 
     frame = pd.DataFrame(rows)
@@ -193,6 +198,7 @@ def reconstruct(year: int, payload: dict, weekly: pd.DataFrame) -> dict:
         wb = [b for b in bets if b["week"] == week]
         weeks.append({
             "week": int(week), "games": int(len(g)),
+            **({"label": cfbd.POSTSEASON_LABEL} if g["postseason"].any() else {}),
             "accuracy": round(float(g["correct"].mean()), 4),
             "mae": round(float(g["model_error"].mean()), 2),
             "marketMae": round(float(p["market_error"].mean()), 2) if len(p) else None,

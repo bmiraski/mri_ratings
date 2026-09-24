@@ -26,10 +26,16 @@ REFRESH_WEEKS = 2
 
 
 def season_weeks(year: int) -> list[tuple[str, int]]:
-    """Weeks with completed games, as (season_type, week) pairs."""
+    """Weeks with completed games, as (season_type, week) pairs, in the order played.
+
+    The feed numbers the postseason from week 1 again, so ordering on the week
+    alone would file the bowls beside September - and the "most recent weeks"
+    the refresh relies on would never include them.
+    """
     games = cfbd.games(year)
     if games.empty:
         return []
+    games = games.assign(block=cfbd.sequence(games)).sort_values(["block", "week"], kind="stable")
     pairs = games[["season_type", "week"]].drop_duplicates()
     return [(row.season_type, int(row.week)) for row in pairs.itertuples()]
 

@@ -32,6 +32,8 @@ def _prepare(schedule: pd.DataFrame) -> pd.DataFrame:
         frame[column] = [registry.resolve(n, n) for n in frame[column]]
     if "conference_game" not in frame.columns:
         frame["conference_game"] = frame["conf1"] == frame["conf2"]
+    # The weekly ratings' numbering: the feed restarts the postseason at week 1.
+    frame["block"] = cfbd.sequence(frame) if "season_type" in frame.columns else frame["week"]
     return frame
 
 
@@ -73,9 +75,14 @@ def championships(schedule: pd.DataFrame, conference: dict[str, str]):
 
 
 def _as_of(schedule: pd.DataFrame, week: int) -> pd.DataFrame:
-    """The schedule as it stood at the end of ``week``: later results hidden."""
+    """The schedule as it stood at the end of ``week``: later results hidden.
+
+    ``week`` is a chronological block (see ``cfbd.sequence``), so a bowl - week 1
+    in the feed - stays hidden from every regular-season snapshot.
+    """
     frame = schedule.copy()
-    frame["played"] = frame["played"] & (frame["week"] <= week)
+    block = frame["block"] if "block" in frame.columns else frame["week"]
+    frame["played"] = frame["played"] & (block <= week)
     frame.loc[~frame["played"], ["pts1", "pts2"]] = float("nan")
     return frame
 
@@ -97,10 +104,10 @@ def build(year: int, payload: dict, weekly: pd.DataFrame, history_path: Path, *,
     latest = int(payload["week"])
 
     unplayed = schedule[~schedule["played"]]
-    slate_week = int(unplayed["week"].min()) if not unplayed.empty else None
+    slate_week = int(unplayed["block"].min()) if not unplayed.empty else None
     track = []
     if slate_week is not None:
-        slate = unplayed[unplayed["week"] == slate_week]
+        slate = unplayed[unplayed["block"] == slate_week]
         track = [int(g) for g, a, h in zip(slate["game_id"], slate["team1"], slate["team2"])
                  if a in conference or h in conference]
 
