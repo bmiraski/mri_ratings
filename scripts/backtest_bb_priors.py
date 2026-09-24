@@ -57,7 +57,8 @@ def main() -> None:
         for kind in KINDS:
             previous = state[kind]
             if kind == "old":
-                prior = mri2.build_prior(previous, teams, profile.prior_regression, centre_teams=d1)
+                prior = mri2.build_prior(previous, teams, profile.prior_regression, centre_teams=d1,
+                                             outsiders_to_replacement=False)
             else:
                 prior = bb_priors.preseason_prior(previous, teams, d1, with_roster if kind == "with a roster" else without, model)
             for lo, hi in BINS:

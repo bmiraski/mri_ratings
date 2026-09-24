@@ -84,7 +84,8 @@ def price_season(
         d1 = [t for t in teams if registry.is_d1(t, season=year)]
         model = mri2.fit(
             train,
-            prior=mri2.build_prior(prior, teams, profile.prior_regression, centre_teams=d1 or None),
+            prior=mri2.build_prior(prior, teams, profile.prior_regression, centre_teams=d1 or None,
+                                   outsiders_to_replacement=False),
             neutral=train["neutral"],
             anchor_teams=d1 or None,
             compression=profile.compression,

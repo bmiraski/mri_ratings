@@ -420,6 +420,8 @@ def build_prior(
     teams: list[str],
     regression: float = DEFAULT_PRIOR_REGRESSION,
     centre_teams: list[str] | None = None,
+    *,
+    outsiders_to_replacement: bool = True,
 ) -> pd.Series:
     """Carry last season's ratings forward, regressed toward the mean.
 
@@ -431,6 +433,17 @@ def build_prior(
     it looks: API data names every FCS opponent individually, so a plain median
     over all teams is a median over mostly-FCS teams, and regressing toward it
     drags the entire FBS field down a little more each season.
+
+    Teams outside ``centre_teams`` - FCS opponents - regress toward replacement
+    level instead, and a newcomer starts there. Pulling them toward the FBS
+    average lifted every FCS prior by about seven points a season, and one or
+    two games a year against FBS sides never pulled them back down: walked
+    forward over 2014-2025, FBS hosts beat FCS visitors by 9.7 points more than
+    predicted. Regressed toward replacement, that bias is under a point, and
+    FBS-vs-FBS lines improve too, because FBS teams stop being credited for
+    routine blowouts (``scripts/backtest_fcs_prior.py``).
+    ``outsiders_to_replacement=False`` keeps the old rule, which basketball
+    still uses until it is tested there.
     """
     if previous is None or previous.empty:
         return pd.Series(0.0, index=teams)
@@ -442,5 +455,10 @@ def build_prior(
             pool = previous[present]
     centre = pool.median()
 
-    carried = previous.reindex(teams).fillna(REPLACEMENT_PRIOR + centre)
-    return (1.0 - regression) * carried + regression * centre
+    floor = REPLACEMENT_PRIOR + centre
+    carried = previous.reindex(teams)
+    prior = (1.0 - regression) * carried.fillna(floor) + regression * centre
+    if centre_teams and outsiders_to_replacement:
+        outside = ~prior.index.isin(centre_teams)
+        prior[outside] = ((1.0 - regression) * carried[outside] + regression * floor).fillna(floor)
+    return prior

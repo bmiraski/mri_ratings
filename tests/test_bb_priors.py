@@ -96,7 +96,8 @@ def test_the_level_is_kept_and_the_spread_is_pulled_in() -> None:
     previous = pd.Series({"Duke": 20.0, "Kansas": 10.0, "Kentucky": 0.0, "Gonzaga": -10.0})
     base = {"in_ws": 0.0, "frosh": 0.0, "vet_min": 0.0, "draft_min": 0.0, "has_roster": True, "ret_ws": 0.5}
     feats = pd.DataFrame({t: base for t in D1}).T
-    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1)
+    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1,
+                           outsiders_to_replacement=False)
     new = bb_priors.preseason_prior(previous, D1, D1, feats, MODEL)
     assert new.mean() == pytest.approx(old.mean())                   # not a point off the old level
     assert new.std() == pytest.approx(0.7 * 0.8 * previous.std(), rel=1e-6)   # 0.8 on last season, then 70% of it
@@ -105,18 +106,21 @@ def test_the_level_is_kept_and_the_spread_is_pulled_in() -> None:
 def test_teams_the_model_cannot_speak_for_keep_the_old_prior() -> None:
     previous = pd.Series({"Duke": 10.0, "Kansas": 5.0})
     feats = pd.DataFrame({"Duke": {"ret_ws": 0.5, "in_ws": 1.0, "frosh": 0.1, "vet_min": 0.1, "draft_min": 0.0, "has_roster": True}}).T
-    old = mri2.build_prior(previous, ["Duke", "Kansas", "Newcomer"], mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1)
+    old = mri2.build_prior(previous, ["Duke", "Kansas", "Newcomer"], mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1,
+                           outsiders_to_replacement=False)
     out = bb_priors.preseason_prior(previous, ["Duke", "Kansas", "Newcomer"], D1, feats, MODEL)
     assert out["Kansas"] == pytest.approx(old["Kansas"]) and out["Newcomer"] == pytest.approx(old["Newcomer"])
 
 
 def test_no_model_or_no_last_season_is_the_old_rule() -> None:
     previous = pd.Series({t: 10.0 for t in D1})
-    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1)
+    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1,
+                           outsiders_to_replacement=False)
     feats = pd.DataFrame(index=D1)
     assert bb_priors.preseason_prior(previous, D1, D1, feats, None).equals(old)
     assert bb_priors.preseason_prior(None, D1, D1, feats, MODEL).equals(
-        mri2.build_prior(None, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1))
+        mri2.build_prior(None, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1,
+                           outsiders_to_replacement=False))
 
 
 # ---- where rosters come from
@@ -161,7 +165,8 @@ def test_status_says_which_version_is_in_use(monkeypatch) -> None:
 
 def test_a_data_gap_costs_accuracy_and_never_the_build(monkeypatch) -> None:
     previous = pd.Series({t: 10.0 for t in D1})
-    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1)
+    old = mri2.build_prior(previous, D1, mri2.BASKETBALL_PROFILE.prior_regression, centre_teams=D1,
+                           outsiders_to_replacement=False)
     monkeypatch.setattr(bb_priors, "load_model", lambda *a, **k: None)
     assert bb_priors.for_season(2027, previous, D1, D1).equals(old)
     monkeypatch.setattr(bb_priors, "load_model", lambda *a, **k: MODEL)
