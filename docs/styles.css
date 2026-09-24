@@ -140,6 +140,8 @@ thead th { text-align:left; font-size:10px; letter-spacing:0.09em; text-transfor
 tbody td { padding:8px 10px; border-bottom:1px solid var(--grid); }
 tbody tr:last-child td { border-bottom:none; }
 .num { text-align:right; font-variant-numeric:tabular-nums; }
+.hftable td.opp { min-width:200px; }
+.hftable td.opp .muted { font-size:12px; }
 th.num { text-align:right; }
 .wk, .rec { color:var(--secondary); font-variant-numeric:tabular-nums; }
 .site { color:var(--muted); font-size:12px; }

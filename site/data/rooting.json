@@ -1,14 +1,166 @@
 {
  "season": 2026,
  "week": 4,
- "generated": "2026-09-23T15:13:21Z",
+ "generated": "2026-09-24T00:14:24Z",
  "sims": 10000,
  "games": 71,
- "seconds": 134.4,
+ "seconds": 102.5,
  "teams": {
+  "Ohio State": {
+   "playoff": 0.8062,
+   "conferenceTitle": 0.4504,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.815,
+     "ifNot": 0.8055,
+     "delta": 0.0095,
+     "playoffDelta": 0.0095,
+     "confTitleDelta": 0.0335,
+     "byeDelta": 0.0169
+    },
+    {
+     "gameId": 401858462,
+     "home": "Maryland",
+     "away": "UCLA",
+     "kickoff": "2026-09-26T17:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Maryland",
+     "rootForWinProb": 0.465,
+     "upsetNeeded": true,
+     "ifRoot": 0.8094,
+     "ifNot": 0.803,
+     "delta": 0.0064,
+     "playoffDelta": 0.0064,
+     "confTitleDelta": 0.0045,
+     "byeDelta": 0.0077
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.8114,
+     "ifNot": 0.806,
+     "delta": 0.0054,
+     "playoffDelta": 0.0054,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0197
+    }
+   ],
+   "message": null
+  },
+  "Notre Dame": {
+   "playoff": 0.8507,
+   "conferenceTitle": 0.0,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.8593,
+     "ifNot": 0.8498,
+     "delta": 0.0095,
+     "playoffDelta": 0.0095,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0124
+    },
+    {
+     "gameId": 401856805,
+     "home": "Texas Tech",
+     "away": "Sam Houston",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Sam Houston",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.8563,
+     "ifNot": 0.8506,
+     "delta": 0.0057,
+     "playoffDelta": 0.0057,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0034
+    },
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.8552,
+     "ifNot": 0.8498,
+     "delta": 0.0054,
+     "playoffDelta": 0.0054,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0075
+    }
+   ],
+   "message": null
+  },
+  "Texas": {
+   "playoff": 0.921,
+   "conferenceTitle": 0.27,
+   "basis": "conferenceTitle",
+   "games": [
+    {
+     "gameId": 401856700,
+     "home": "Georgia",
+     "away": "Oklahoma",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Oklahoma",
+     "rootForWinProb": 0.171,
+     "upsetNeeded": true,
+     "ifRoot": 0.3009,
+     "ifNot": 0.2652,
+     "delta": 0.0357,
+     "playoffDelta": 0.0015,
+     "confTitleDelta": 0.0357,
+     "byeDelta": 0.0139
+    },
+    {
+     "gameId": 401856696,
+     "home": "Alabama",
+     "away": "South Carolina",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "South Carolina",
+     "rootForWinProb": 0.147,
+     "upsetNeeded": true,
+     "ifRoot": 0.2986,
+     "ifNot": 0.2683,
+     "delta": 0.0303,
+     "playoffDelta": 0.0013,
+     "confTitleDelta": 0.0303,
+     "byeDelta": 0.014
+    }
+   ],
+   "message": null
+  },
   "Georgia": {
-   "playoff": 0.855,
-   "conferenceTitle": 0.3415,
+   "playoff": 0.8103,
+   "conferenceTitle": 0.3007,
    "basis": "playoff",
    "games": [
     {
@@ -20,12 +172,28 @@
      "rootFor": "Missouri",
      "rootForWinProb": 0.344,
      "upsetNeeded": true,
-     "ifRoot": 0.8594,
-     "ifNot": 0.8541,
-     "delta": 0.0053,
-     "playoffDelta": 0.0053,
-     "confTitleDelta": 0.0001,
-     "byeDelta": 0.0071
+     "ifRoot": 0.8151,
+     "ifNot": 0.8072,
+     "delta": 0.0079,
+     "playoffDelta": 0.0079,
+     "confTitleDelta": 0.0006,
+     "byeDelta": 0.0089
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.8173,
+     "ifNot": 0.81,
+     "delta": 0.0073,
+     "playoffDelta": 0.0073,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0187
     },
     {
      "gameId": 401856696,
@@ -34,111 +202,15 @@
      "kickoff": "2026-09-26T23:00:00.000Z",
      "neutral": false,
      "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
+     "rootForWinProb": 0.147,
      "upsetNeeded": true,
-     "ifRoot": 0.8593,
-     "ifNot": 0.8541,
-     "delta": 0.0052,
-     "playoffDelta": 0.0052,
-     "confTitleDelta": 0.0329,
-     "byeDelta": 0.0236
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.8601,
-     "ifNot": 0.855,
-     "delta": 0.0051,
-     "playoffDelta": 0.0051,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0174
-    }
-   ],
-   "message": null
-  },
-  "Ohio State": {
-   "playoff": 0.8195,
-   "conferenceTitle": 0.4586,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.8266,
-     "ifNot": 0.8189,
-     "delta": 0.0077,
-     "playoffDelta": 0.0077,
-     "confTitleDelta": 0.0285,
-     "byeDelta": 0.0144
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.8269,
-     "ifNot": 0.8194,
-     "delta": 0.0075,
-     "playoffDelta": 0.0075,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0186
-    },
-    {
-     "gameId": 401858462,
-     "home": "Maryland",
-     "away": "UCLA",
-     "kickoff": "2026-09-26T17:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Maryland",
-     "rootForWinProb": 0.493,
-     "upsetNeeded": true,
-     "ifRoot": 0.8234,
-     "ifNot": 0.8174,
-     "delta": 0.006,
-     "playoffDelta": 0.006,
-     "confTitleDelta": 0.0043,
-     "byeDelta": 0.0079
-    },
-    {
-     "gameId": 401858466,
-     "home": "Penn State",
-     "away": "Wisconsin",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
-     "upsetNeeded": true,
-     "ifRoot": 0.8249,
-     "ifNot": 0.819,
+     "ifRoot": 0.8156,
+     "ifNot": 0.8097,
      "delta": 0.0059,
      "playoffDelta": 0.0059,
-     "confTitleDelta": 0.0187,
-     "byeDelta": 0.005
-    }
-   ],
-   "message": null
-  },
-  "Notre Dame": {
-   "playoff": 0.8341,
-   "conferenceTitle": 0.0,
-   "basis": "playoff",
-   "games": [
+     "confTitleDelta": 0.0279,
+     "byeDelta": 0.0247
+    },
     {
      "gameId": 401858466,
      "home": "Penn State",
@@ -146,127 +218,39 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
+     "rootForWinProb": 0.154,
      "upsetNeeded": true,
-     "ifRoot": 0.8433,
-     "ifNot": 0.8327,
-     "delta": 0.0106,
-     "playoffDelta": 0.0106,
+     "ifRoot": 0.8154,
+     "ifNot": 0.8101,
+     "delta": 0.0053,
+     "playoffDelta": 0.0053,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0123
-    },
-    {
-     "gameId": 401856704,
-     "home": "Tennessee",
-     "away": "Texas",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Texas",
-     "rootForWinProb": 0.682,
-     "upsetNeeded": false,
-     "ifRoot": 0.8353,
-     "ifNot": 0.8285,
-     "delta": 0.0068,
-     "playoffDelta": 0.0068,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0109
-    },
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.8385,
-     "ifNot": 0.8317,
-     "delta": 0.0068,
-     "playoffDelta": 0.0068,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0122
-    },
-    {
-     "gameId": 401858464,
-     "home": "Michigan State",
-     "away": "Nebraska",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Michigan State",
-     "rootForWinProb": 0.352,
-     "upsetNeeded": true,
-     "ifRoot": 0.8383,
-     "ifNot": 0.832,
-     "delta": 0.0063,
-     "playoffDelta": 0.0063,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0091
-    },
-    {
-     "gameId": 401856805,
-     "home": "Texas Tech",
-     "away": "Sam Houston",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Sam Houston",
-     "rootForWinProb": 0.015,
-     "upsetNeeded": true,
-     "ifRoot": 0.8401,
-     "ifNot": 0.8341,
-     "delta": 0.006,
-     "playoffDelta": 0.006,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0033
-    }
-   ],
-   "message": null
-  },
-  "Texas": {
-   "playoff": 0.9098,
-   "conferenceTitle": 0.2406,
-   "basis": "conferenceTitle",
-   "games": [
-    {
-     "gameId": 401856700,
-     "home": "Georgia",
-     "away": "Oklahoma",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Oklahoma",
-     "rootForWinProb": 0.139,
-     "upsetNeeded": true,
-     "ifRoot": 0.2709,
-     "ifNot": 0.2351,
-     "delta": 0.0358,
-     "playoffDelta": 0.0003,
-     "confTitleDelta": 0.0358,
-     "byeDelta": 0.0183
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.2662,
-     "ifNot": 0.2383,
-     "delta": 0.0279,
-     "playoffDelta": 0.0016,
-     "confTitleDelta": 0.0279,
-     "byeDelta": 0.0148
+     "byeDelta": 0.0016
     }
    ],
    "message": null
   },
   "Alabama": {
-   "playoff": 0.7964,
-   "conferenceTitle": 0.192,
+   "playoff": 0.7995,
+   "conferenceTitle": 0.1958,
    "basis": "playoff",
    "games": [
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.8058,
+     "ifNot": 0.7994,
+     "delta": 0.0064,
+     "playoffDelta": 0.0064,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0176
+    },
     {
      "gameId": 401858237,
      "home": "Florida State",
@@ -276,28 +260,12 @@
      "rootFor": "Florida State",
      "rootForWinProb": 0.998,
      "upsetNeeded": false,
-     "ifRoot": 0.7965,
-     "ifNot": 0.7893,
-     "delta": 0.0072,
-     "playoffDelta": 0.0072,
+     "ifRoot": 0.7995,
+     "ifNot": 0.7932,
+     "delta": 0.0063,
+     "playoffDelta": 0.0063,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0092
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.8034,
-     "ifNot": 0.7962,
-     "delta": 0.0072,
-     "playoffDelta": 0.0072,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.017
+     "byeDelta": 0.0119
     },
     {
      "gameId": 401862781,
@@ -308,35 +276,35 @@
      "rootFor": "East Carolina",
      "rootForWinProb": 0.976,
      "upsetNeeded": false,
-     "ifRoot": 0.7966,
-     "ifNot": 0.7904,
-     "delta": 0.0062,
-     "playoffDelta": 0.0062,
+     "ifRoot": 0.7996,
+     "ifNot": 0.7941,
+     "delta": 0.0055,
+     "playoffDelta": 0.0055,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0069
+     "byeDelta": 0.0089
     },
     {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
      "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
      "upsetNeeded": true,
-     "ifRoot": 0.8018,
-     "ifNot": 0.7957,
-     "delta": 0.0061,
-     "playoffDelta": 0.0061,
+     "ifRoot": 0.8036,
+     "ifNot": 0.7985,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0061
+     "byeDelta": 0.0081
     }
    ],
    "message": null
   },
   "Miami (FL)": {
-   "playoff": 0.7971,
-   "conferenceTitle": 0.6833,
+   "playoff": 0.7494,
+   "conferenceTitle": 0.6369,
    "basis": "playoff",
    "games": [
     {
@@ -346,23 +314,39 @@
      "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
      "rootFor": "Wake Forest",
-     "rootForWinProb": 0.163,
+     "rootForWinProb": 0.181,
      "upsetNeeded": true,
-     "ifRoot": 0.8135,
-     "ifNot": 0.7941,
-     "delta": 0.0194,
-     "playoffDelta": 0.0194,
-     "confTitleDelta": 0.0287,
-     "byeDelta": 0.0092
+     "ifRoot": 0.7705,
+     "ifNot": 0.7476,
+     "delta": 0.0229,
+     "playoffDelta": 0.0229,
+     "confTitleDelta": 0.0336,
+     "byeDelta": 0.0085
     }
    ],
    "message": null
   },
   "Texas A&M": {
-   "playoff": 0.2526,
-   "conferenceTitle": 0.0222,
+   "playoff": 0.2835,
+   "conferenceTitle": 0.0295,
    "basis": "playoff",
    "games": [
+    {
+     "gameId": 401856696,
+     "home": "Alabama",
+     "away": "South Carolina",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "South Carolina",
+     "rootForWinProb": 0.147,
+     "upsetNeeded": true,
+     "ifRoot": 0.2902,
+     "ifNot": 0.2824,
+     "delta": 0.0078,
+     "playoffDelta": 0.0078,
+     "confTitleDelta": 0.0047,
+     "byeDelta": 0.006
+    },
     {
      "gameId": 401858467,
      "home": "Purdue",
@@ -372,12 +356,12 @@
      "rootFor": "Purdue",
      "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.2626,
-     "ifNot": 0.2523,
-     "delta": 0.0103,
-     "playoffDelta": 0.0103,
+     "ifRoot": 0.2909,
+     "ifNot": 0.2831,
+     "delta": 0.0078,
+     "playoffDelta": 0.0078,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0042
+     "byeDelta": 0.0071
     },
     {
      "gameId": 401858461,
@@ -386,30 +370,14 @@
      "kickoff": "2026-09-26T00:00:00.000Z",
      "neutral": false,
      "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
+     "rootForWinProb": 0.162,
      "upsetNeeded": true,
-     "ifRoot": 0.26,
-     "ifNot": 0.2514,
-     "delta": 0.0086,
-     "playoffDelta": 0.0086,
+     "ifRoot": 0.2896,
+     "ifNot": 0.2821,
+     "delta": 0.0075,
+     "playoffDelta": 0.0075,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0018
-    },
-    {
-     "gameId": 401856703,
-     "home": "Mississippi State",
-     "away": "Missouri",
-     "kickoff": "2026-09-26T23:45:00.000Z",
-     "neutral": false,
-     "rootFor": "Missouri",
-     "rootForWinProb": 0.344,
-     "upsetNeeded": true,
-     "ifRoot": 0.2583,
-     "ifNot": 0.2507,
-     "delta": 0.0076,
-     "playoffDelta": 0.0076,
-     "confTitleDelta": 0.0014,
-     "byeDelta": 0.0028
+     "byeDelta": 0.0017
     },
     {
      "gameId": 401858241,
@@ -418,55 +386,39 @@
      "kickoff": "2026-09-27T01:00:00.000Z",
      "neutral": false,
      "rootFor": "Missouri State",
-     "rootForWinProb": 0.017,
+     "rootForWinProb": 0.025,
      "upsetNeeded": true,
-     "ifRoot": 0.2592,
-     "ifNot": 0.2524,
-     "delta": 0.0068,
-     "playoffDelta": 0.0068,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0022
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.2575,
-     "ifNot": 0.2508,
+     "ifRoot": 0.2899,
+     "ifNot": 0.2832,
      "delta": 0.0067,
      "playoffDelta": 0.0067,
-     "confTitleDelta": 0.0034,
-     "byeDelta": 0.0052
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0015
+    },
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.2889,
+     "ifNot": 0.2825,
+     "delta": 0.0064,
+     "playoffDelta": 0.0064,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0005
     }
    ],
    "message": null
   },
-  "Oregon": {
-   "playoff": 0.3527,
-   "conferenceTitle": 0.1308,
+  "Ole Miss": {
+   "playoff": 0.4982,
+   "conferenceTitle": 0.0622,
    "basis": "playoff",
    "games": [
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.3752,
-     "ifNot": 0.3519,
-     "delta": 0.0233,
-     "playoffDelta": 0.0233,
-     "confTitleDelta": 0.0389,
-     "byeDelta": 0.0161
-    },
     {
      "gameId": 401858461,
      "home": "Indiana",
@@ -474,14 +426,14 @@
      "kickoff": "2026-09-26T00:00:00.000Z",
      "neutral": false,
      "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
+     "rootForWinProb": 0.162,
      "upsetNeeded": true,
-     "ifRoot": 0.3699,
-     "ifNot": 0.3515,
-     "delta": 0.0184,
-     "playoffDelta": 0.0184,
-     "confTitleDelta": 0.0158,
-     "byeDelta": 0.0073
+     "ifRoot": 0.5058,
+     "ifNot": 0.497,
+     "delta": 0.0088,
+     "playoffDelta": 0.0088,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0036
     },
     {
      "gameId": 401858467,
@@ -492,12 +444,12 @@
      "rootFor": "Purdue",
      "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.3629,
-     "ifNot": 0.3525,
-     "delta": 0.0104,
-     "playoffDelta": 0.0104,
+     "ifRoot": 0.5067,
+     "ifNot": 0.4979,
+     "delta": 0.0088,
+     "playoffDelta": 0.0088,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0087
+     "byeDelta": 0.0145
     },
     {
      "gameId": 401858466,
@@ -506,37 +458,53 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
+     "rootForWinProb": 0.154,
      "upsetNeeded": true,
-     "ifRoot": 0.3606,
-     "ifNot": 0.3507,
-     "delta": 0.0099,
-     "playoffDelta": 0.0099,
-     "confTitleDelta": 0.0098,
-     "byeDelta": 0.0007
+     "ifRoot": 0.5047,
+     "ifNot": 0.4974,
+     "delta": 0.0073,
+     "playoffDelta": 0.0073,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0015
     },
     {
-     "gameId": 401856881,
-     "home": "West Virginia",
-     "away": "Oklahoma State",
-     "kickoff": "2026-09-26T23:00:00.000Z",
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
      "neutral": false,
-     "rootFor": "Oklahoma State",
-     "rootForWinProb": 0.277,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
      "upsetNeeded": true,
-     "ifRoot": 0.3574,
-     "ifNot": 0.3511,
-     "delta": 0.0063,
-     "playoffDelta": 0.0063,
+     "ifRoot": 0.5043,
+     "ifNot": 0.4975,
+     "delta": 0.0068,
+     "playoffDelta": 0.0068,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0029
+     "byeDelta": 0.0054
+    },
+    {
+     "gameId": 401856704,
+     "home": "Tennessee",
+     "away": "Texas",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Texas",
+     "rootForWinProb": 0.717,
+     "upsetNeeded": false,
+     "ifRoot": 0.5,
+     "ifNot": 0.4935,
+     "delta": 0.0065,
+     "playoffDelta": 0.0065,
+     "confTitleDelta": 0.0066,
+     "byeDelta": 0.006
     }
    ],
    "message": null
   },
   "Indiana": {
-   "playoff": 0.3838,
-   "conferenceTitle": 0.1445,
+   "playoff": 0.3787,
+   "conferenceTitle": 0.145,
    "basis": "playoff",
    "games": [
     {
@@ -548,12 +516,12 @@
      "rootFor": "Purdue",
      "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.4018,
-     "ifNot": 0.3836,
-     "delta": 0.0182,
-     "playoffDelta": 0.0182,
+     "ifRoot": 0.3966,
+     "ifNot": 0.3785,
+     "delta": 0.0181,
+     "playoffDelta": 0.0181,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0138
+     "byeDelta": 0.0134
     },
     {
      "gameId": 401858465,
@@ -562,14 +530,14 @@
      "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
      "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
+     "rootForWinProb": 0.04,
      "upsetNeeded": true,
-     "ifRoot": 0.3963,
-     "ifNot": 0.3833,
-     "delta": 0.013,
-     "playoffDelta": 0.013,
-     "confTitleDelta": 0.0439,
-     "byeDelta": 0.0173
+     "ifRoot": 0.3931,
+     "ifNot": 0.3779,
+     "delta": 0.0152,
+     "playoffDelta": 0.0152,
+     "confTitleDelta": 0.0364,
+     "byeDelta": 0.0125
     },
     {
      "gameId": 401858466,
@@ -578,14 +546,14 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
+     "rootForWinProb": 0.154,
      "upsetNeeded": true,
-     "ifRoot": 0.3935,
-     "ifNot": 0.3826,
-     "delta": 0.0109,
-     "playoffDelta": 0.0109,
-     "confTitleDelta": 0.0094,
-     "byeDelta": 0.0017
+     "ifRoot": 0.3875,
+     "ifNot": 0.3772,
+     "delta": 0.0103,
+     "playoffDelta": 0.0103,
+     "confTitleDelta": 0.0089,
+     "byeDelta": 0.0026
     },
     {
      "gameId": 401862783,
@@ -596,812 +564,12 @@
      "rootFor": "North Texas",
      "rootForWinProb": 0.987,
      "upsetNeeded": false,
-     "ifRoot": 0.384,
-     "ifNot": 0.375,
-     "delta": 0.009,
-     "playoffDelta": 0.009,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0055
-    },
-    {
-     "gameId": 401858469,
-     "home": "USC",
-     "away": "Oregon",
-     "kickoff": "2026-09-26T23:30:00.000Z",
-     "neutral": false,
-     "rootFor": "USC",
-     "rootForWinProb": 0.484,
-     "upsetNeeded": true,
-     "ifRoot": 0.3909,
-     "ifNot": 0.3827,
-     "delta": 0.0082,
-     "playoffDelta": 0.0082,
-     "confTitleDelta": 0.0119,
-     "byeDelta": 0.0077
-    }
-   ],
-   "message": null
-  },
-  "Utah": {
-   "playoff": 0.5115,
-   "conferenceTitle": 0.3549,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401856814,
-     "home": "Cincinnati",
-     "away": "Kansas State",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Cincinnati",
-     "rootForWinProb": 0.24,
-     "upsetNeeded": true,
-     "ifRoot": 0.5308,
-     "ifNot": 0.5069,
-     "delta": 0.0239,
-     "playoffDelta": 0.0239,
-     "confTitleDelta": 0.0231,
-     "byeDelta": 0.0065
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.5201,
-     "ifNot": 0.5113,
-     "delta": 0.0088,
-     "playoffDelta": 0.0088,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0139
-    },
-    {
-     "gameId": 401856813,
-     "home": "Baylor",
-     "away": "Colorado",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Colorado",
-     "rootForWinProb": 0.207,
-     "upsetNeeded": true,
-     "ifRoot": 0.5187,
-     "ifNot": 0.5111,
-     "delta": 0.0076,
-     "playoffDelta": 0.0076,
-     "confTitleDelta": 0.0036,
-     "byeDelta": 0.0047
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.5163,
-     "ifNot": 0.5107,
-     "delta": 0.0056,
-     "playoffDelta": 0.0056,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0042
-    },
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.5167,
-     "ifNot": 0.5113,
-     "delta": 0.0054,
-     "playoffDelta": 0.0054,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0134
-    }
-   ],
-   "message": null
-  },
-  "LSU": {
-   "playoff": 0.3297,
-   "conferenceTitle": 0.0251,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.3382,
-     "ifNot": 0.3293,
+     "ifRoot": 0.3788,
+     "ifNot": 0.3699,
      "delta": 0.0089,
      "playoffDelta": 0.0089,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0056
-    },
-    {
-     "gameId": 401856704,
-     "home": "Tennessee",
-     "away": "Texas",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Texas",
-     "rootForWinProb": 0.682,
-     "upsetNeeded": false,
-     "ifRoot": 0.3322,
-     "ifNot": 0.3257,
-     "delta": 0.0065,
-     "playoffDelta": 0.0065,
-     "confTitleDelta": 0.0058,
-     "byeDelta": 0.0057
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.335,
-     "ifNot": 0.3288,
-     "delta": 0.0062,
-     "playoffDelta": 0.0062,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0018
-    },
-    {
-     "gameId": 401858463,
-     "home": "Michigan",
-     "away": "Iowa",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa",
-     "rootForWinProb": 0.325,
-     "upsetNeeded": true,
-     "ifRoot": 0.3345,
-     "ifNot": 0.3285,
-     "delta": 0.006,
-     "playoffDelta": 0.006,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0022
-    },
-    {
-     "gameId": 401858466,
-     "home": "Penn State",
-     "away": "Wisconsin",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
-     "upsetNeeded": true,
-     "ifRoot": 0.334,
-     "ifNot": 0.3283,
-     "delta": 0.0057,
-     "playoffDelta": 0.0057,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0009
-    }
-   ],
-   "message": null
-  },
-  "Ole Miss": {
-   "playoff": 0.4685,
-   "conferenceTitle": 0.0507,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.4803,
-     "ifNot": 0.4683,
-     "delta": 0.012,
-     "playoffDelta": 0.012,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0101
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.4766,
-     "ifNot": 0.468,
-     "delta": 0.0086,
-     "playoffDelta": 0.0086,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0024
-    },
-    {
-     "gameId": 401858466,
-     "home": "Penn State",
-     "away": "Wisconsin",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
-     "upsetNeeded": true,
-     "ifRoot": 0.4757,
-     "ifNot": 0.4677,
-     "delta": 0.008,
-     "playoffDelta": 0.008,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0005
-    },
-    {
-     "gameId": 401858463,
-     "home": "Michigan",
-     "away": "Iowa",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa",
-     "rootForWinProb": 0.325,
-     "upsetNeeded": true,
-     "ifRoot": 0.473,
-     "ifNot": 0.4664,
-     "delta": 0.0066,
-     "playoffDelta": 0.0066,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0026
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.4739,
-     "ifNot": 0.4675,
-     "delta": 0.0064,
-     "playoffDelta": 0.0064,
-     "confTitleDelta": 0.0103,
-     "byeDelta": 0.0106
-    }
-   ],
-   "message": null
-  },
-  "Tennessee": {
-   "playoff": 0.3114,
-   "conferenceTitle": 0.0378,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.3214,
-     "ifNot": 0.3113,
-     "delta": 0.0101,
-     "playoffDelta": 0.0101,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0075
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.3171,
-     "ifNot": 0.3101,
-     "delta": 0.007,
-     "playoffDelta": 0.007,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0021
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.3161,
-     "ifNot": 0.31,
-     "delta": 0.0061,
-     "playoffDelta": 0.0061,
-     "confTitleDelta": 0.0058,
-     "byeDelta": 0.0067
-    },
-    {
-     "gameId": 401858240,
-     "home": "Stanford",
-     "away": "Georgia Tech",
-     "kickoff": "2026-09-27T02:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Georgia Tech",
-     "rootForWinProb": 0.686,
-     "upsetNeeded": false,
-     "ifRoot": 0.3131,
-     "ifNot": 0.3071,
-     "delta": 0.006,
-     "playoffDelta": 0.006,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0023
-    },
-    {
-     "gameId": 401864576,
-     "home": "Kentucky",
-     "away": "South Alabama",
-     "kickoff": "2026-09-26T16:45:00.000Z",
-     "neutral": false,
-     "rootFor": "Kentucky",
-     "rootForWinProb": 0.876,
-     "upsetNeeded": false,
-     "ifRoot": 0.3121,
-     "ifNot": 0.307,
-     "delta": 0.0051,
-     "playoffDelta": 0.0051,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.002
-    }
-   ],
-   "message": null
-  },
-  "Florida": {
-   "playoff": 0.3607,
-   "conferenceTitle": 0.0437,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858237,
-     "home": "Florida State",
-     "away": "Central Arkansas",
-     "kickoff": "2026-09-26T19:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Florida State",
-     "rootForWinProb": 0.998,
-     "upsetNeeded": false,
-     "ifRoot": 0.3607,
-     "ifNot": 0.3494,
-     "delta": 0.0113,
-     "playoffDelta": 0.0113,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0041
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.3679,
-     "ifNot": 0.3594,
-     "delta": 0.0085,
-     "playoffDelta": 0.0085,
-     "confTitleDelta": 0.0062,
-     "byeDelta": 0.0129
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.3686,
-     "ifNot": 0.3602,
-     "delta": 0.0084,
-     "playoffDelta": 0.0084,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0083
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.3663,
-     "ifNot": 0.3583,
-     "delta": 0.008,
-     "playoffDelta": 0.008,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0022
-    },
-    {
-     "gameId": 401856703,
-     "home": "Mississippi State",
-     "away": "Missouri",
-     "kickoff": "2026-09-26T23:45:00.000Z",
-     "neutral": false,
-     "rootFor": "Missouri",
-     "rootForWinProb": 0.344,
-     "upsetNeeded": true,
-     "ifRoot": 0.3651,
-     "ifNot": 0.3574,
-     "delta": 0.0077,
-     "playoffDelta": 0.0077,
-     "confTitleDelta": 0.001,
-     "byeDelta": 0.0032
-    }
-   ],
-   "message": null
-  },
-  "USC": {
-   "playoff": 0.2916,
-   "conferenceTitle": 0.0581,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.301,
-     "ifNot": 0.2912,
-     "delta": 0.0098,
-     "playoffDelta": 0.0098,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.007
-    },
-    {
-     "gameId": 401858466,
-     "home": "Penn State",
-     "away": "Wisconsin",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
-     "upsetNeeded": true,
-     "ifRoot": 0.2997,
-     "ifNot": 0.2912,
-     "delta": 0.0085,
-     "playoffDelta": 0.0085,
-     "confTitleDelta": 0.0053,
-     "byeDelta": 0.0015
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.2981,
-     "ifNot": 0.2907,
-     "delta": 0.0074,
-     "playoffDelta": 0.0074,
-     "confTitleDelta": 0.0052,
-     "byeDelta": 0.0005
-    },
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.2993,
-     "ifNot": 0.292,
-     "delta": 0.0073,
-     "playoffDelta": 0.0073,
-     "confTitleDelta": 0.022,
-     "byeDelta": 0.0086
-    },
-    {
-     "gameId": 401860891,
-     "home": "Fresno State",
-     "away": "Rice",
-     "kickoff": "2026-09-27T02:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Fresno State",
-     "rootForWinProb": 0.86,
-     "upsetNeeded": false,
-     "ifRoot": 0.2936,
-     "ifNot": 0.2864,
-     "delta": 0.0072,
-     "playoffDelta": 0.0072,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0024
-    }
-   ],
-   "message": null
-  },
-  "Oklahoma": {
-   "playoff": 0.1748,
-   "conferenceTitle": 0.0172,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.1813,
-     "ifNot": 0.1744,
-     "delta": 0.0069,
-     "playoffDelta": 0.0069,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0042
-    },
-    {
-     "gameId": 401856696,
-     "home": "Alabama",
-     "away": "South Carolina",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "South Carolina",
-     "rootForWinProb": 0.141,
-     "upsetNeeded": true,
-     "ifRoot": 0.1798,
-     "ifNot": 0.173,
-     "delta": 0.0068,
-     "playoffDelta": 0.0068,
-     "confTitleDelta": 0.0036,
-     "byeDelta": 0.0048
-    },
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.179,
-     "ifNot": 0.1735,
-     "delta": 0.0055,
-     "playoffDelta": 0.0055,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0018
-    }
-   ],
-   "message": null
-  },
-  "Penn State": {
-   "playoff": 0.2267,
-   "conferenceTitle": 0.0885,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.247,
-     "ifNot": 0.2263,
-     "delta": 0.0207,
-     "playoffDelta": 0.0207,
-     "confTitleDelta": 0.0378,
-     "byeDelta": 0.011
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.2428,
-     "ifNot": 0.2254,
-     "delta": 0.0174,
-     "playoffDelta": 0.0174,
-     "confTitleDelta": 0.0099,
-     "byeDelta": 0.0019
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.2405,
-     "ifNot": 0.2264,
-     "delta": 0.0141,
-     "playoffDelta": 0.0141,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0066
-    },
-    {
-     "gameId": 401858469,
-     "home": "USC",
-     "away": "Oregon",
-     "kickoff": "2026-09-26T23:30:00.000Z",
-     "neutral": false,
-     "rootFor": "USC",
-     "rootForWinProb": 0.484,
-     "upsetNeeded": true,
-     "ifRoot": 0.2303,
-     "ifNot": 0.2249,
-     "delta": 0.0054,
-     "playoffDelta": 0.0054,
-     "confTitleDelta": 0.0062,
-     "byeDelta": 0.0011
-    },
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.2312,
-     "ifNot": 0.2258,
-     "delta": 0.0054,
-     "playoffDelta": 0.0054,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0015
-    }
-   ],
-   "message": null
-  },
-  "BYU": {
-   "playoff": 0.3193,
-   "conferenceTitle": 0.1963,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.3441,
-     "ifNot": 0.3143,
-     "delta": 0.0298,
-     "playoffDelta": 0.0298,
-     "confTitleDelta": 0.0411,
-     "byeDelta": 0.0044
-    },
-    {
-     "gameId": 401856814,
-     "home": "Cincinnati",
-     "away": "Kansas State",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Cincinnati",
-     "rootForWinProb": 0.24,
-     "upsetNeeded": true,
-     "ifRoot": 0.3323,
-     "ifNot": 0.3167,
-     "delta": 0.0156,
-     "playoffDelta": 0.0156,
-     "confTitleDelta": 0.0175,
-     "byeDelta": 0.0045
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.3249,
-     "ifNot": 0.3191,
-     "delta": 0.0058,
-     "playoffDelta": 0.0058,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0032
-    }
-   ],
-   "message": null
-  },
-  "Michigan": {
-   "playoff": 0.2581,
-   "conferenceTitle": 0.0418,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.2643,
-     "ifNot": 0.2576,
-     "delta": 0.0067,
-     "playoffDelta": 0.0067,
-     "confTitleDelta": 0.0122,
-     "byeDelta": 0.0069
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.2644,
-     "ifNot": 0.2578,
-     "delta": 0.0066,
-     "playoffDelta": 0.0066,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0055
-    },
-    {
-     "gameId": 401856704,
-     "home": "Tennessee",
-     "away": "Texas",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Texas",
-     "rootForWinProb": 0.682,
-     "upsetNeeded": false,
-     "ifRoot": 0.2609,
-     "ifNot": 0.2543,
-     "delta": 0.0066,
-     "playoffDelta": 0.0066,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0019
     },
     {
      "gameId": 401858468,
@@ -1410,93 +578,21 @@
      "kickoff": "2026-09-25T23:00:00.000Z",
      "neutral": false,
      "rootFor": "Rutgers",
-     "rootForWinProb": 0.968,
+     "rootForWinProb": 0.971,
      "upsetNeeded": false,
-     "ifRoot": 0.2581,
-     "ifNot": 0.2518,
-     "delta": 0.0063,
-     "playoffDelta": 0.0063,
+     "ifRoot": 0.3787,
+     "ifNot": 0.3719,
+     "delta": 0.0068,
+     "playoffDelta": 0.0068,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0035
-    },
-    {
-     "gameId": 401858470,
-     "home": "Washington",
-     "away": "Minnesota",
-     "kickoff": "2026-09-27T03:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Minnesota",
-     "rootForWinProb": 0.287,
-     "upsetNeeded": true,
-     "ifRoot": 0.2622,
-     "ifNot": 0.2563,
-     "delta": 0.0059,
-     "playoffDelta": 0.0059,
-     "confTitleDelta": 0.0001,
-     "byeDelta": 0.003
+     "byeDelta": 0.0044
     }
    ],
    "message": null
   },
-  "Texas Tech": {
-   "playoff": 0.3348,
-   "conferenceTitle": 0.2426,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.3669,
-     "ifNot": 0.3262,
-     "delta": 0.0407,
-     "playoffDelta": 0.0407,
-     "confTitleDelta": 0.0521,
-     "byeDelta": 0.0014
-    },
-    {
-     "gameId": 401856814,
-     "home": "Cincinnati",
-     "away": "Kansas State",
-     "kickoff": "2026-09-26T23:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Cincinnati",
-     "rootForWinProb": 0.24,
-     "upsetNeeded": true,
-     "ifRoot": 0.3471,
-     "ifNot": 0.3321,
-     "delta": 0.015,
-     "playoffDelta": 0.015,
-     "confTitleDelta": 0.0117,
-     "byeDelta": 0.0015
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.3403,
-     "ifNot": 0.3346,
-     "delta": 0.0057,
-     "playoffDelta": 0.0057,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0036
-    }
-   ],
-   "message": null
-  },
-  "Mississippi State": {
-   "playoff": 0.2033,
-   "conferenceTitle": 0.0178,
+  "LSU": {
+   "playoff": 0.3468,
+   "conferenceTitle": 0.0273,
    "basis": "playoff",
    "games": [
     {
@@ -1508,44 +604,12 @@
      "rootFor": "Purdue",
      "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.2095,
-     "ifNot": 0.203,
-     "delta": 0.0065,
-     "playoffDelta": 0.0065,
+     "ifRoot": 0.3559,
+     "ifNot": 0.3468,
+     "delta": 0.0091,
+     "playoffDelta": 0.0091,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.004
-    },
-    {
-     "gameId": 401858470,
-     "home": "Washington",
-     "away": "Minnesota",
-     "kickoff": "2026-09-27T03:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Minnesota",
-     "rootForWinProb": 0.287,
-     "upsetNeeded": true,
-     "ifRoot": 0.2077,
-     "ifNot": 0.2017,
-     "delta": 0.006,
-     "playoffDelta": 0.006,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0009
-    },
-    {
-     "gameId": 401856704,
-     "home": "Tennessee",
-     "away": "Texas",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Texas",
-     "rootForWinProb": 0.682,
-     "upsetNeeded": false,
-     "ifRoot": 0.2052,
-     "ifNot": 0.1997,
-     "delta": 0.0055,
-     "playoffDelta": 0.0055,
-     "confTitleDelta": 0.0032,
-     "byeDelta": 0.0014
+     "byeDelta": 0.0077
     },
     {
      "gameId": 401858461,
@@ -1554,137 +618,12 @@
      "kickoff": "2026-09-26T00:00:00.000Z",
      "neutral": false,
      "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
+     "rootForWinProb": 0.162,
      "upsetNeeded": true,
-     "ifRoot": 0.2077,
-     "ifNot": 0.2026,
-     "delta": 0.0051,
-     "playoffDelta": 0.0051,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0014
-    }
-   ],
-   "message": null
-  },
-  "SMU": {
-   "playoff": 0.1285,
-   "conferenceTitle": 0.1068,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858243,
-     "home": "Louisville",
-     "away": "Wake Forest",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Wake Forest",
-     "rootForWinProb": 0.163,
-     "upsetNeeded": true,
-     "ifRoot": 0.148,
-     "ifNot": 0.1266,
-     "delta": 0.0214,
-     "playoffDelta": 0.0214,
-     "confTitleDelta": 0.0222,
-     "byeDelta": 0.0007
-    }
-   ],
-   "message": null
-  },
-  "South Carolina": {
-   "playoff": 0.047,
-   "conferenceTitle": 0.0031,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Louisville": {
-   "playoff": 0.1663,
-   "conferenceTitle": 0.1097,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Missouri": {
-   "playoff": 0.0687,
-   "conferenceTitle": 0.0055,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Kansas State": {
-   "playoff": 0.1548,
-   "conferenceTitle": 0.1022,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401856816,
-     "home": "Iowa State",
-     "away": "Utah",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
-     "upsetNeeded": true,
-     "ifRoot": 0.1731,
-     "ifNot": 0.1509,
-     "delta": 0.0222,
-     "playoffDelta": 0.0222,
-     "confTitleDelta": 0.0249,
-     "byeDelta": 0.0023
-    }
-   ],
-   "message": null
-  },
-  "Iowa": {
-   "playoff": 0.0769,
-   "conferenceTitle": 0.0239,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401858465,
-     "home": "Ohio State",
-     "away": "Illinois",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
-     "upsetNeeded": true,
-     "ifRoot": 0.0846,
-     "ifNot": 0.0764,
-     "delta": 0.0082,
-     "playoffDelta": 0.0082,
-     "confTitleDelta": 0.0062,
-     "byeDelta": 0.0011
-    },
-    {
-     "gameId": 401858461,
-     "home": "Indiana",
-     "away": "Northwestern",
-     "kickoff": "2026-09-26T00:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Northwestern",
-     "rootForWinProb": 0.157,
-     "upsetNeeded": true,
-     "ifRoot": 0.0836,
-     "ifNot": 0.0767,
-     "delta": 0.0069,
-     "playoffDelta": 0.0069,
-     "confTitleDelta": 0.004,
-     "byeDelta": 0.0006
-    },
-    {
-     "gameId": 401858467,
-     "home": "Purdue",
-     "away": "Notre Dame",
-     "kickoff": "2026-09-26T18:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Purdue",
-     "rootForWinProb": 0.02,
-     "upsetNeeded": true,
-     "ifRoot": 0.0834,
-     "ifNot": 0.0768,
-     "delta": 0.0066,
-     "playoffDelta": 0.0066,
+     "ifRoot": 0.3536,
+     "ifNot": 0.3453,
+     "delta": 0.0083,
+     "playoffDelta": 0.0083,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0012
     },
@@ -1695,30 +634,15 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Wisconsin",
-     "rootForWinProb": 0.146,
+     "rootForWinProb": 0.154,
      "upsetNeeded": true,
-     "ifRoot": 0.0817,
-     "ifNot": 0.0763,
-     "delta": 0.0054,
-     "playoffDelta": 0.0054,
-     "confTitleDelta": 0.0022,
-     "byeDelta": 0.0006
-    }
-   ],
-   "message": null
-  },
-  "Nebraska": {
-   "playoff": 0.045,
-   "conferenceTitle": 0.0143,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Houston": {
-   "playoff": 0.0354,
-   "conferenceTitle": 0.0242,
-   "basis": "playoff",
-   "games": [
+     "ifRoot": 0.3532,
+     "ifNot": 0.346,
+     "delta": 0.0072,
+     "playoffDelta": 0.0072,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0008
+    },
     {
      "gameId": 401856816,
      "home": "Iowa State",
@@ -1726,28 +650,197 @@
      "kickoff": "2026-09-26T19:30:00.000Z",
      "neutral": false,
      "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
+     "rootForWinProb": 0.195,
      "upsetNeeded": true,
-     "ifRoot": 0.0405,
-     "ifNot": 0.0338,
-     "delta": 0.0067,
-     "playoffDelta": 0.0067,
-     "confTitleDelta": 0.008,
-     "byeDelta": 0.0001
+     "ifRoot": 0.3515,
+     "ifNot": 0.345,
+     "delta": 0.0065,
+     "playoffDelta": 0.0065,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.004
+    },
+    {
+     "gameId": 401856698,
+     "home": "Auburn",
+     "away": "Vanderbilt",
+     "kickoff": "2026-09-26T20:15:00.000Z",
+     "neutral": false,
+     "rootFor": "Auburn",
+     "rootForWinProb": 0.614,
+     "upsetNeeded": false,
+     "ifRoot": 0.3495,
+     "ifNot": 0.3438,
+     "delta": 0.0057,
+     "playoffDelta": 0.0057,
+     "confTitleDelta": 0.0004,
+     "byeDelta": 0.0011
     }
    ],
    "message": null
   },
-  "Auburn": {
-   "playoff": 0.0162,
-   "conferenceTitle": 0.0005,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
+  "Oregon": {
+   "playoff": 0.3051,
+   "conferenceTitle": 0.1095,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858465,
+     "home": "Ohio State",
+     "away": "Illinois",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Illinois",
+     "rootForWinProb": 0.04,
+     "upsetNeeded": true,
+     "ifRoot": 0.3211,
+     "ifNot": 0.3035,
+     "delta": 0.0176,
+     "playoffDelta": 0.0176,
+     "confTitleDelta": 0.0288,
+     "byeDelta": 0.0138
+    },
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.3185,
+     "ifNot": 0.303,
+     "delta": 0.0155,
+     "playoffDelta": 0.0155,
+     "confTitleDelta": 0.0132,
+     "byeDelta": 0.0059
+    },
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.3155,
+     "ifNot": 0.3037,
+     "delta": 0.0118,
+     "playoffDelta": 0.0118,
+     "confTitleDelta": 0.0104,
+     "byeDelta": 0.0005
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.3112,
+     "ifNot": 0.3049,
+     "delta": 0.0063,
+     "playoffDelta": 0.0063,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0077
+    },
+    {
+     "gameId": 401856704,
+     "home": "Tennessee",
+     "away": "Texas",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Texas",
+     "rootForWinProb": 0.717,
+     "upsetNeeded": false,
+     "ifRoot": 0.3069,
+     "ifNot": 0.3012,
+     "delta": 0.0057,
+     "playoffDelta": 0.0057,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0029
+    }
+   ],
+   "message": null
   },
-  "Washington": {
-   "playoff": 0.0435,
-   "conferenceTitle": 0.0067,
+  "Utah": {
+   "playoff": 0.4985,
+   "conferenceTitle": 0.3546,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856814,
+     "home": "Cincinnati",
+     "away": "Kansas State",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Cincinnati",
+     "rootForWinProb": 0.247,
+     "upsetNeeded": true,
+     "ifRoot": 0.5144,
+     "ifNot": 0.4954,
+     "delta": 0.019,
+     "playoffDelta": 0.019,
+     "confTitleDelta": 0.0237,
+     "byeDelta": 0.0059
+    },
+    {
+     "gameId": 401856813,
+     "home": "Baylor",
+     "away": "Colorado",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Colorado",
+     "rootForWinProb": 0.198,
+     "upsetNeeded": true,
+     "ifRoot": 0.5063,
+     "ifNot": 0.4976,
+     "delta": 0.0087,
+     "playoffDelta": 0.0087,
+     "confTitleDelta": 0.0039,
+     "byeDelta": 0.0028
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.5059,
+     "ifNot": 0.4984,
+     "delta": 0.0075,
+     "playoffDelta": 0.0075,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0113
+    },
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.5039,
+     "ifNot": 0.4981,
+     "delta": 0.0058,
+     "playoffDelta": 0.0058,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0035
+    }
+   ],
+   "message": null
+  },
+  "USC": {
+   "playoff": 0.3298,
+   "conferenceTitle": 0.0678,
    "basis": "playoff",
    "games": [
     {
@@ -1759,33 +852,387 @@
      "rootFor": "Purdue",
      "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.0485,
-     "ifNot": 0.0432,
-     "delta": 0.0053,
-     "playoffDelta": 0.0053,
+     "ifRoot": 0.3394,
+     "ifNot": 0.329,
+     "delta": 0.0104,
+     "playoffDelta": 0.0104,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0009
+     "byeDelta": 0.0071
+    },
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.3372,
+     "ifNot": 0.3284,
+     "delta": 0.0088,
+     "playoffDelta": 0.0088,
+     "confTitleDelta": 0.0052,
+     "byeDelta": 0.0033
+    },
+    {
+     "gameId": 401858465,
+     "home": "Ohio State",
+     "away": "Illinois",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Illinois",
+     "rootForWinProb": 0.04,
+     "upsetNeeded": true,
+     "ifRoot": 0.3373,
+     "ifNot": 0.329,
+     "delta": 0.0083,
+     "playoffDelta": 0.0083,
+     "confTitleDelta": 0.0203,
+     "byeDelta": 0.0102
+    },
+    {
+     "gameId": 401858468,
+     "home": "Rutgers",
+     "away": "Howard",
+     "kickoff": "2026-09-25T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Rutgers",
+     "rootForWinProb": 0.971,
+     "upsetNeeded": false,
+     "ifRoot": 0.33,
+     "ifNot": 0.3223,
+     "delta": 0.0077,
+     "playoffDelta": 0.0077,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0038
+    },
+    {
+     "gameId": 401860891,
+     "home": "Fresno State",
+     "away": "Rice",
+     "kickoff": "2026-09-27T02:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Fresno State",
+     "rootForWinProb": 0.852,
+     "upsetNeeded": false,
+     "ifRoot": 0.3305,
+     "ifNot": 0.3235,
+     "delta": 0.007,
+     "playoffDelta": 0.007,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0037
     }
    ],
    "message": null
   },
-  "Vanderbilt": {
-   "playoff": 0.0333,
-   "conferenceTitle": 0.0015,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
+  "Florida": {
+   "playoff": 0.335,
+   "conferenceTitle": 0.0353,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856696,
+     "home": "Alabama",
+     "away": "South Carolina",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "South Carolina",
+     "rootForWinProb": 0.147,
+     "upsetNeeded": true,
+     "ifRoot": 0.3435,
+     "ifNot": 0.3338,
+     "delta": 0.0097,
+     "playoffDelta": 0.0097,
+     "confTitleDelta": 0.0076,
+     "byeDelta": 0.0126
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.3436,
+     "ifNot": 0.3346,
+     "delta": 0.009,
+     "playoffDelta": 0.009,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0084
+    },
+    {
+     "gameId": 401858237,
+     "home": "Florida State",
+     "away": "Central Arkansas",
+     "kickoff": "2026-09-26T19:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Florida State",
+     "rootForWinProb": 0.998,
+     "upsetNeeded": false,
+     "ifRoot": 0.335,
+     "ifNot": 0.3267,
+     "delta": 0.0083,
+     "playoffDelta": 0.0083,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0039
+    },
+    {
+     "gameId": 401856703,
+     "home": "Mississippi State",
+     "away": "Missouri",
+     "kickoff": "2026-09-26T23:45:00.000Z",
+     "neutral": false,
+     "rootFor": "Missouri",
+     "rootForWinProb": 0.344,
+     "upsetNeeded": true,
+     "ifRoot": 0.3409,
+     "ifNot": 0.3333,
+     "delta": 0.0076,
+     "playoffDelta": 0.0076,
+     "confTitleDelta": 0.0011,
+     "byeDelta": 0.0032
+    },
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.3411,
+     "ifNot": 0.3341,
+     "delta": 0.007,
+     "playoffDelta": 0.007,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0019
+    }
+   ],
+   "message": null
   },
-  "Arizona": {
-   "playoff": 0.0233,
-   "conferenceTitle": 0.0119,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
+  "Tennessee": {
+   "playoff": 0.263,
+   "conferenceTitle": 0.0349,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.2682,
+     "ifNot": 0.2622,
+     "delta": 0.006,
+     "playoffDelta": 0.006,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.002
+    },
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.2678,
+     "ifNot": 0.2624,
+     "delta": 0.0054,
+     "playoffDelta": 0.0054,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0002
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.2681,
+     "ifNot": 0.2628,
+     "delta": 0.0053,
+     "playoffDelta": 0.0053,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.007
+    },
+    {
+     "gameId": 401858463,
+     "home": "Michigan",
+     "away": "Iowa",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Iowa",
+     "rootForWinProb": 0.307,
+     "upsetNeeded": true,
+     "ifRoot": 0.2673,
+     "ifNot": 0.2621,
+     "delta": 0.0052,
+     "playoffDelta": 0.0052,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0005
+    }
+   ],
+   "message": null
   },
-  "UCLA": {
-   "playoff": 0.0545,
-   "conferenceTitle": 0.0128,
+  "Oklahoma": {
+   "playoff": 0.1852,
+   "conferenceTitle": 0.0189,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856696,
+     "home": "Alabama",
+     "away": "South Carolina",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "South Carolina",
+     "rootForWinProb": 0.147,
+     "upsetNeeded": true,
+     "ifRoot": 0.1908,
+     "ifNot": 0.1843,
+     "delta": 0.0065,
+     "playoffDelta": 0.0065,
+     "confTitleDelta": 0.0018,
+     "byeDelta": 0.0044
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.1909,
+     "ifNot": 0.1851,
+     "delta": 0.0058,
+     "playoffDelta": 0.0058,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0045
+    },
+    {
+     "gameId": 401864579,
+     "home": "New Mexico State",
+     "away": "New Mexico",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "New Mexico",
+     "rootForWinProb": 0.849,
+     "upsetNeeded": false,
+     "ifRoot": 0.1856,
+     "ifNot": 0.1805,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.001
+    }
+   ],
+   "message": null
+  },
+  "Michigan": {
+   "playoff": 0.3118,
+   "conferenceTitle": 0.0514,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.3204,
+     "ifNot": 0.3116,
+     "delta": 0.0088,
+     "playoffDelta": 0.0088,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0053
+    },
+    {
+     "gameId": 401858464,
+     "home": "Michigan State",
+     "away": "Nebraska",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Michigan State",
+     "rootForWinProb": 0.374,
+     "upsetNeeded": true,
+     "ifRoot": 0.3169,
+     "ifNot": 0.3083,
+     "delta": 0.0086,
+     "playoffDelta": 0.0086,
+     "confTitleDelta": 0.0018,
+     "byeDelta": 0.003
+    },
+    {
+     "gameId": 401858468,
+     "home": "Rutgers",
+     "away": "Howard",
+     "kickoff": "2026-09-25T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Rutgers",
+     "rootForWinProb": 0.971,
+     "upsetNeeded": false,
+     "ifRoot": 0.312,
+     "ifNot": 0.3046,
+     "delta": 0.0074,
+     "playoffDelta": 0.0074,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0033
+    },
+    {
+     "gameId": 401858470,
+     "home": "Washington",
+     "away": "Minnesota",
+     "kickoff": "2026-09-27T03:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Minnesota",
+     "rootForWinProb": 0.299,
+     "upsetNeeded": true,
+     "ifRoot": 0.3172,
+     "ifNot": 0.3101,
+     "delta": 0.0071,
+     "playoffDelta": 0.0071,
+     "confTitleDelta": 0.0015,
+     "byeDelta": 0.0024
+    },
+    {
+     "gameId": 401860897,
+     "home": "Western Michigan",
+     "away": "Boise State",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Western Michigan",
+     "rootForWinProb": 0.506,
+     "upsetNeeded": false,
+     "ifRoot": 0.3145,
+     "ifNot": 0.3082,
+     "delta": 0.0063,
+     "playoffDelta": 0.0063,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0023
+    }
+   ],
+   "message": null
+  },
+  "Penn State": {
+   "playoff": 0.2455,
+   "conferenceTitle": 0.0964,
    "basis": "playoff",
    "games": [
     {
@@ -1795,151 +1242,85 @@
      "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
      "rootFor": "Illinois",
-     "rootForWinProb": 0.033,
+     "rootForWinProb": 0.04,
      "upsetNeeded": true,
-     "ifRoot": 0.0611,
-     "ifNot": 0.0539,
-     "delta": 0.0072,
-     "playoffDelta": 0.0072,
-     "confTitleDelta": 0.0061,
-     "byeDelta": 0.002
-    }
-   ],
-   "message": null
-  },
-  "USF": {
-   "playoff": 0.3346,
-   "conferenceTitle": 0.3868,
-   "basis": "playoff",
-   "games": [
+     "ifRoot": 0.2636,
+     "ifNot": 0.2448,
+     "delta": 0.0188,
+     "playoffDelta": 0.0188,
+     "confTitleDelta": 0.0324,
+     "byeDelta": 0.0102
+    },
     {
-     "gameId": 401860897,
-     "home": "Western Michigan",
-     "away": "Boise State",
-     "kickoff": "2026-09-26T19:30:00.000Z",
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
      "neutral": false,
-     "rootFor": "Western Michigan",
-     "rootForWinProb": 0.519,
-     "upsetNeeded": false,
-     "ifRoot": 0.3507,
-     "ifNot": 0.3226,
-     "delta": 0.0281,
-     "playoffDelta": 0.0281,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.2604,
+     "ifNot": 0.2446,
+     "delta": 0.0158,
+     "playoffDelta": 0.0158,
+     "confTitleDelta": 0.0079,
+     "byeDelta": 0.003
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.2559,
+     "ifNot": 0.2452,
+     "delta": 0.0107,
+     "playoffDelta": 0.0107,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0
+     "byeDelta": 0.0075
     },
     {
-     "gameId": 401869961,
-     "home": "Old Dominion",
-     "away": "James Madison",
-     "kickoff": "2026-09-26T22:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Old Dominion",
-     "rootForWinProb": 0.253,
-     "upsetNeeded": true,
-     "ifRoot": 0.3509,
-     "ifNot": 0.3313,
-     "delta": 0.0196,
-     "playoffDelta": 0.0196,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401862779,
-     "home": "Temple",
-     "away": "Army",
-     "kickoff": "2026-09-25T20:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Temple",
-     "rootForWinProb": 0.295,
-     "upsetNeeded": true,
-     "ifRoot": 0.3494,
-     "ifNot": 0.3304,
-     "delta": 0.019,
-     "playoffDelta": 0.019,
-     "confTitleDelta": 0.0385,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401856804,
-     "home": "Washington State",
-     "away": "Arizona",
+     "gameId": 401858469,
+     "home": "USC",
+     "away": "Oregon",
      "kickoff": "2026-09-26T23:30:00.000Z",
      "neutral": false,
-     "rootFor": "Arizona",
-     "rootForWinProb": 0.655,
+     "rootFor": "USC",
+     "rootForWinProb": 0.515,
      "upsetNeeded": false,
-     "ifRoot": 0.3377,
-     "ifNot": 0.3282,
-     "delta": 0.0095,
-     "playoffDelta": 0.0095,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
+     "ifRoot": 0.2517,
+     "ifNot": 0.2424,
+     "delta": 0.0093,
+     "playoffDelta": 0.0093,
+     "confTitleDelta": 0.0072,
+     "byeDelta": 0.0022
     },
     {
-     "gameId": 401860896,
-     "home": "UTSA",
-     "away": "Colorado State",
-     "kickoff": "2026-09-26T16:00:00.000Z",
+     "gameId": 401858462,
+     "home": "Maryland",
+     "away": "UCLA",
+     "kickoff": "2026-09-26T17:30:00.000Z",
      "neutral": false,
-     "rootFor": "Colorado State",
-     "rootForWinProb": 0.136,
+     "rootFor": "Maryland",
+     "rootForWinProb": 0.465,
      "upsetNeeded": true,
-     "ifRoot": 0.3428,
-     "ifNot": 0.3338,
-     "delta": 0.009,
-     "playoffDelta": 0.009,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
+     "ifRoot": 0.2499,
+     "ifNot": 0.243,
+     "delta": 0.0069,
+     "playoffDelta": 0.0069,
+     "confTitleDelta": 0.0017,
+     "byeDelta": 0.0021
     }
    ],
    "message": null
   },
-  "Northwestern": {
-   "playoff": 0.0216,
-   "conferenceTitle": 0.006,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Pittsburgh": {
-   "playoff": 0.0399,
-   "conferenceTitle": 0.0257,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Clemson": {
-   "playoff": 0.0232,
-   "conferenceTitle": 0.0104,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Florida State": {
-   "playoff": 0.0046,
-   "conferenceTitle": 0.0012,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Kentucky": {
-   "playoff": 0.0266,
-   "conferenceTitle": 0.0008,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Virginia Tech": {
-   "playoff": 0.0312,
-   "conferenceTitle": 0.0179,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Baylor": {
-   "playoff": 0.025,
-   "conferenceTitle": 0.02,
+  "BYU": {
+   "playoff": 0.2935,
+   "conferenceTitle": 0.1947,
    "basis": "playoff",
    "games": [
     {
@@ -1949,73 +1330,428 @@
      "kickoff": "2026-09-26T19:30:00.000Z",
      "neutral": false,
      "rootFor": "Iowa State",
-     "rootForWinProb": 0.196,
+     "rootForWinProb": 0.195,
      "upsetNeeded": true,
-     "ifRoot": 0.032,
-     "ifNot": 0.0243,
-     "delta": 0.0077,
-     "playoffDelta": 0.0077,
-     "confTitleDelta": 0.0077,
-     "byeDelta": 0.0003
+     "ifRoot": 0.3203,
+     "ifNot": 0.2877,
+     "delta": 0.0326,
+     "playoffDelta": 0.0326,
+     "confTitleDelta": 0.0412,
+     "byeDelta": 0.0028
+    },
+    {
+     "gameId": 401856814,
+     "home": "Cincinnati",
+     "away": "Kansas State",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Cincinnati",
+     "rootForWinProb": 0.247,
+     "upsetNeeded": true,
+     "ifRoot": 0.3072,
+     "ifNot": 0.288,
+     "delta": 0.0192,
+     "playoffDelta": 0.0192,
+     "confTitleDelta": 0.017,
+     "byeDelta": 0.0021
     }
    ],
    "message": null
   },
-  "Duke": {
-   "playoff": 0.0296,
-   "conferenceTitle": 0.0189,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "TCU": {
-   "playoff": 0.014,
-   "conferenceTitle": 0.0114,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "NC State": {
-   "playoff": 0.0102,
-   "conferenceTitle": 0.0097,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Boise State": {
-   "playoff": 0.1522,
-   "conferenceTitle": 0.4197,
+  "Mississippi State": {
+   "playoff": 0.1915,
+   "conferenceTitle": 0.0141,
    "basis": "playoff",
    "games": [
     {
-     "gameId": 401862785,
-     "home": "Bowling Green",
-     "away": "USF",
-     "kickoff": "2026-09-26T21:00:00.000Z",
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
      "neutral": false,
-     "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
      "upsetNeeded": true,
-     "ifRoot": 0.1941,
-     "ifNot": 0.1518,
-     "delta": 0.0423,
-     "playoffDelta": 0.0423,
+     "ifRoot": 0.1981,
+     "ifNot": 0.1913,
+     "delta": 0.0068,
+     "playoffDelta": 0.0068,
      "confTitleDelta": 0.0,
-     "byeDelta": 0.0
+     "byeDelta": 0.004
     },
     {
-     "gameId": 401860896,
-     "home": "UTSA",
-     "away": "Colorado State",
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.1961,
+     "ifNot": 0.191,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0007
+    },
+    {
+     "gameId": 401858470,
+     "home": "Washington",
+     "away": "Minnesota",
+     "kickoff": "2026-09-27T03:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Minnesota",
+     "rootForWinProb": 0.299,
+     "upsetNeeded": true,
+     "ifRoot": 0.195,
+     "ifNot": 0.1899,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.001
+    }
+   ],
+   "message": null
+  },
+  "Texas Tech": {
+   "playoff": 0.2954,
+   "conferenceTitle": 0.2196,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
+     "upsetNeeded": true,
+     "ifRoot": 0.3295,
+     "ifNot": 0.2891,
+     "delta": 0.0404,
+     "playoffDelta": 0.0404,
+     "confTitleDelta": 0.0513,
+     "byeDelta": 0.0009
+    },
+    {
+     "gameId": 401856814,
+     "home": "Cincinnati",
+     "away": "Kansas State",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Cincinnati",
+     "rootForWinProb": 0.247,
+     "upsetNeeded": true,
+     "ifRoot": 0.3127,
+     "ifNot": 0.2935,
+     "delta": 0.0192,
+     "playoffDelta": 0.0192,
+     "confTitleDelta": 0.0151,
+     "byeDelta": 0.0008
+    }
+   ],
+   "message": null
+  },
+  "South Carolina": {
+   "playoff": 0.0567,
+   "conferenceTitle": 0.0037,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "SMU": {
+   "playoff": 0.116,
+   "conferenceTitle": 0.1002,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858243,
+     "home": "Louisville",
+     "away": "Wake Forest",
      "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
-     "rootFor": "Colorado State",
-     "rootForWinProb": 0.136,
+     "rootFor": "Wake Forest",
+     "rootForWinProb": 0.181,
      "upsetNeeded": true,
-     "ifRoot": 0.1735,
-     "ifNot": 0.1499,
-     "delta": 0.0236,
-     "playoffDelta": 0.0236,
+     "ifRoot": 0.1295,
+     "ifNot": 0.1127,
+     "delta": 0.0168,
+     "playoffDelta": 0.0168,
+     "confTitleDelta": 0.0168,
+     "byeDelta": 0.0001
+    }
+   ],
+   "message": null
+  },
+  "Louisville": {
+   "playoff": 0.1751,
+   "conferenceTitle": 0.1236,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Kansas State": {
+   "playoff": 0.168,
+   "conferenceTitle": 0.1142,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
+     "upsetNeeded": true,
+     "ifRoot": 0.1868,
+     "ifNot": 0.1648,
+     "delta": 0.022,
+     "playoffDelta": 0.022,
+     "confTitleDelta": 0.0235,
+     "byeDelta": 0.0019
+    },
+    {
+     "gameId": 401856813,
+     "home": "Baylor",
+     "away": "Colorado",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Colorado",
+     "rootForWinProb": 0.198,
+     "upsetNeeded": true,
+     "ifRoot": 0.1731,
+     "ifNot": 0.1672,
+     "delta": 0.0059,
+     "playoffDelta": 0.0059,
+     "confTitleDelta": 0.0026,
+     "byeDelta": 0.0009
+    }
+   ],
+   "message": null
+  },
+  "Iowa": {
+   "playoff": 0.0746,
+   "conferenceTitle": 0.0215,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858461,
+     "home": "Indiana",
+     "away": "Northwestern",
+     "kickoff": "2026-09-26T00:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Northwestern",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.0814,
+     "ifNot": 0.0734,
+     "delta": 0.008,
+     "playoffDelta": 0.008,
+     "confTitleDelta": 0.003,
+     "byeDelta": 0.0002
+    },
+    {
+     "gameId": 401858465,
+     "home": "Ohio State",
+     "away": "Illinois",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Illinois",
+     "rootForWinProb": 0.04,
+     "upsetNeeded": true,
+     "ifRoot": 0.0815,
+     "ifNot": 0.074,
+     "delta": 0.0075,
+     "playoffDelta": 0.0075,
+     "confTitleDelta": 0.0074,
+     "byeDelta": 0.0027
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.0809,
+     "ifNot": 0.0744,
+     "delta": 0.0065,
+     "playoffDelta": 0.0065,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0012
+    },
+    {
+     "gameId": 401858466,
+     "home": "Penn State",
+     "away": "Wisconsin",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wisconsin",
+     "rootForWinProb": 0.154,
+     "upsetNeeded": true,
+     "ifRoot": 0.0798,
+     "ifNot": 0.0741,
+     "delta": 0.0057,
+     "playoffDelta": 0.0057,
+     "confTitleDelta": 0.001,
+     "byeDelta": 0.0001
+    }
+   ],
+   "message": null
+  },
+  "Missouri": {
+   "playoff": 0.0593,
+   "conferenceTitle": 0.0047,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Auburn": {
+   "playoff": 0.028,
+   "conferenceTitle": 0.0005,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Nebraska": {
+   "playoff": 0.0432,
+   "conferenceTitle": 0.0129,
+   "basis": "conferenceTitle",
+   "games": [
+    {
+     "gameId": 401858465,
+     "home": "Ohio State",
+     "away": "Illinois",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Illinois",
+     "rootForWinProb": 0.04,
+     "upsetNeeded": true,
+     "ifRoot": 0.018,
+     "ifNot": 0.0128,
+     "delta": 0.0052,
+     "playoffDelta": 0.0047,
+     "confTitleDelta": 0.0052,
+     "byeDelta": 0.0017
+    }
+   ],
+   "message": null
+  },
+  "Houston": {
+   "playoff": 0.032,
+   "conferenceTitle": 0.0249,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
+     "upsetNeeded": true,
+     "ifRoot": 0.0369,
+     "ifNot": 0.0306,
+     "delta": 0.0063,
+     "playoffDelta": 0.0063,
+     "confTitleDelta": 0.007,
+     "byeDelta": 0.0001
+    }
+   ],
+   "message": null
+  },
+  "Pittsburgh": {
+   "playoff": 0.0613,
+   "conferenceTitle": 0.0411,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "UCLA": {
+   "playoff": 0.0618,
+   "conferenceTitle": 0.0172,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858465,
+     "home": "Ohio State",
+     "away": "Illinois",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Illinois",
+     "rootForWinProb": 0.04,
+     "upsetNeeded": true,
+     "ifRoot": 0.0715,
+     "ifNot": 0.0615,
+     "delta": 0.01,
+     "playoffDelta": 0.01,
+     "confTitleDelta": 0.0088,
+     "byeDelta": 0.0013
+    },
+    {
+     "gameId": 401858467,
+     "home": "Purdue",
+     "away": "Notre Dame",
+     "kickoff": "2026-09-26T18:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Purdue",
+     "rootForWinProb": 0.02,
+     "upsetNeeded": true,
+     "ifRoot": 0.0667,
+     "ifNot": 0.0616,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0022
+    }
+   ],
+   "message": null
+  },
+  "Washington": {
+   "playoff": 0.0453,
+   "conferenceTitle": 0.0087,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Vanderbilt": {
+   "playoff": 0.0328,
+   "conferenceTitle": 0.0018,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Clemson": {
+   "playoff": 0.0279,
+   "conferenceTitle": 0.0136,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "USF": {
+   "playoff": 0.3355,
+   "conferenceTitle": 0.3661,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401860897,
+     "home": "Western Michigan",
+     "away": "Boise State",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Western Michigan",
+     "rootForWinProb": 0.506,
+     "upsetNeeded": false,
+     "ifRoot": 0.3505,
+     "ifNot": 0.3246,
+     "delta": 0.0259,
+     "playoffDelta": 0.0259,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2026,12 +1762,12 @@
      "kickoff": "2026-09-26T22:00:00.000Z",
      "neutral": false,
      "rootFor": "Old Dominion",
-     "rootForWinProb": 0.253,
+     "rootForWinProb": 0.263,
      "upsetNeeded": true,
-     "ifRoot": 0.1606,
-     "ifNot": 0.1496,
-     "delta": 0.011,
-     "playoffDelta": 0.011,
+     "ifRoot": 0.3533,
+     "ifNot": 0.3314,
+     "delta": 0.0219,
+     "playoffDelta": 0.0219,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2042,65 +1778,150 @@
      "kickoff": "2026-09-25T20:00:00.000Z",
      "neutral": false,
      "rootFor": "Temple",
-     "rootForWinProb": 0.295,
+     "rootForWinProb": 0.297,
      "upsetNeeded": true,
-     "ifRoot": 0.1572,
-     "ifNot": 0.1504,
-     "delta": 0.0068,
-     "playoffDelta": 0.0068,
+     "ifRoot": 0.3474,
+     "ifNot": 0.3309,
+     "delta": 0.0165,
+     "playoffDelta": 0.0165,
+     "confTitleDelta": 0.036,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860896,
+     "home": "UTSA",
+     "away": "Colorado State",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Colorado State",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.3454,
+     "ifNot": 0.3342,
+     "delta": 0.0112,
+     "playoffDelta": 0.0112,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
     {
-     "gameId": 401860891,
-     "home": "Fresno State",
-     "away": "Rice",
-     "kickoff": "2026-09-27T02:00:00.000Z",
+     "gameId": 401860892,
+     "home": "Texas State",
+     "away": "Incarnate Word",
+     "kickoff": "2026-09-26T22:00:00.000Z",
      "neutral": false,
-     "rootFor": "Fresno State",
-     "rootForWinProb": 0.86,
-     "upsetNeeded": false,
-     "ifRoot": 0.1532,
-     "ifNot": 0.1475,
-     "delta": 0.0057,
-     "playoffDelta": 0.0057,
+     "rootFor": "Incarnate Word",
+     "rootForWinProb": 0.012,
+     "upsetNeeded": true,
+     "ifRoot": 0.3436,
+     "ifNot": 0.3353,
+     "delta": 0.0083,
+     "playoffDelta": 0.0083,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
-  "Maryland": {
-   "playoff": 0.0071,
-   "conferenceTitle": 0.0041,
+  "Northwestern": {
+   "playoff": 0.0213,
+   "conferenceTitle": 0.005,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Illinois": {
-   "playoff": 0.0059,
-   "conferenceTitle": 0.0035,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Iowa State": {
-   "playoff": 0.0157,
+  "Arizona": {
+   "playoff": 0.0231,
    "conferenceTitle": 0.0143,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Virginia": {
-   "playoff": 0.0148,
-   "conferenceTitle": 0.0132,
+  "Florida State": {
+   "playoff": 0.0056,
+   "conferenceTitle": 0.002,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "UTSA": {
-   "playoff": 0.1448,
-   "conferenceTitle": 0.1862,
+  "Duke": {
+   "playoff": 0.0438,
+   "conferenceTitle": 0.0273,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401858243,
+     "home": "Louisville",
+     "away": "Wake Forest",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Wake Forest",
+     "rootForWinProb": 0.181,
+     "upsetNeeded": true,
+     "ifRoot": 0.0486,
+     "ifNot": 0.0422,
+     "delta": 0.0064,
+     "playoffDelta": 0.0064,
+     "confTitleDelta": 0.0054,
+     "byeDelta": 0.0006
+    }
+   ],
+   "message": null
+  },
+  "Kentucky": {
+   "playoff": 0.0312,
+   "conferenceTitle": 0.0006,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Virginia Tech": {
+   "playoff": 0.0337,
+   "conferenceTitle": 0.0211,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Baylor": {
+   "playoff": 0.0294,
+   "conferenceTitle": 0.0239,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401856816,
+     "home": "Iowa State",
+     "away": "Utah",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Iowa State",
+     "rootForWinProb": 0.195,
+     "upsetNeeded": true,
+     "ifRoot": 0.0349,
+     "ifNot": 0.0288,
+     "delta": 0.0061,
+     "playoffDelta": 0.0061,
+     "confTitleDelta": 0.0058,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "TCU": {
+   "playoff": 0.0179,
+   "conferenceTitle": 0.0151,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Illinois": {
+   "playoff": 0.0063,
+   "conferenceTitle": 0.0031,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Boise State": {
+   "playoff": 0.1397,
+   "conferenceTitle": 0.3867,
    "basis": "playoff",
    "games": [
     {
@@ -2110,28 +1931,28 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
+     "rootForWinProb": 0.023,
      "upsetNeeded": true,
-     "ifRoot": 0.1616,
-     "ifNot": 0.1446,
-     "delta": 0.017,
-     "playoffDelta": 0.017,
+     "ifRoot": 0.179,
+     "ifNot": 0.1386,
+     "delta": 0.0404,
+     "playoffDelta": 0.0404,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
     {
-     "gameId": 401860897,
-     "home": "Western Michigan",
-     "away": "Boise State",
-     "kickoff": "2026-09-26T19:30:00.000Z",
+     "gameId": 401860896,
+     "home": "UTSA",
+     "away": "Colorado State",
+     "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
-     "rootFor": "Western Michigan",
-     "rootForWinProb": 0.519,
-     "upsetNeeded": false,
-     "ifRoot": 0.155,
-     "ifNot": 0.1395,
-     "delta": 0.0155,
-     "playoffDelta": 0.0155,
+     "rootFor": "Colorado State",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.1602,
+     "ifNot": 0.1364,
+     "delta": 0.0238,
+     "playoffDelta": 0.0238,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2142,12 +1963,12 @@
      "kickoff": "2026-09-26T22:00:00.000Z",
      "neutral": false,
      "rootFor": "Old Dominion",
-     "rootForWinProb": 0.253,
+     "rootForWinProb": 0.263,
      "upsetNeeded": true,
-     "ifRoot": 0.1549,
-     "ifNot": 0.143,
-     "delta": 0.0119,
-     "playoffDelta": 0.0119,
+     "ifRoot": 0.1475,
+     "ifNot": 0.138,
+     "delta": 0.0095,
+     "playoffDelta": 0.0095,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2158,201 +1979,12 @@
      "kickoff": "2026-09-25T20:00:00.000Z",
      "neutral": false,
      "rootFor": "Temple",
-     "rootForWinProb": 0.295,
+     "rootForWinProb": 0.297,
      "upsetNeeded": true,
-     "ifRoot": 0.1528,
-     "ifNot": 0.1436,
-     "delta": 0.0092,
-     "playoffDelta": 0.0092,
-     "confTitleDelta": 0.0213,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401860891,
-     "home": "Fresno State",
-     "away": "Rice",
-     "kickoff": "2026-09-27T02:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Rice",
-     "rootForWinProb": 0.14,
-     "upsetNeeded": true,
-     "ifRoot": 0.1515,
-     "ifNot": 0.1444,
-     "delta": 0.0071,
-     "playoffDelta": 0.0071,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "Arizona State": {
-   "playoff": 0.0152,
-   "conferenceTitle": 0.0128,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Western Michigan": {
-   "playoff": 0.0412,
-   "conferenceTitle": 0.5304,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401862785,
-     "home": "Bowling Green",
-     "away": "USF",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
-     "upsetNeeded": true,
-     "ifRoot": 0.0599,
-     "ifNot": 0.041,
-     "delta": 0.0189,
-     "playoffDelta": 0.0189,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401860896,
-     "home": "UTSA",
-     "away": "Colorado State",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Colorado State",
-     "rootForWinProb": 0.136,
-     "upsetNeeded": true,
-     "ifRoot": 0.0483,
-     "ifNot": 0.0407,
-     "delta": 0.0076,
-     "playoffDelta": 0.0076,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "Minnesota": {
-   "playoff": 0.0045,
-   "conferenceTitle": 0.0016,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Wisconsin": {
-   "playoff": 0.0055,
-   "conferenceTitle": 0.0034,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Army": {
-   "playoff": 0.0687,
-   "conferenceTitle": 0.1627,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401862785,
-     "home": "Bowling Green",
-     "away": "USF",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
-     "upsetNeeded": true,
-     "ifRoot": 0.0806,
-     "ifNot": 0.0686,
-     "delta": 0.012,
-     "playoffDelta": 0.012,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401860897,
-     "home": "Western Michigan",
-     "away": "Boise State",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Western Michigan",
-     "rootForWinProb": 0.519,
-     "upsetNeeded": false,
-     "ifRoot": 0.0737,
-     "ifNot": 0.0665,
-     "delta": 0.0072,
-     "playoffDelta": 0.0072,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401869961,
-     "home": "Old Dominion",
-     "away": "James Madison",
-     "kickoff": "2026-09-26T22:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Old Dominion",
-     "rootForWinProb": 0.253,
-     "upsetNeeded": true,
-     "ifRoot": 0.0729,
-     "ifNot": 0.0673,
-     "delta": 0.0056,
-     "playoffDelta": 0.0056,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "James Madison": {
-   "playoff": 0.0884,
-   "conferenceTitle": 0.39,
-   "basis": "playoff",
-   "games": [
-    {
-     "gameId": 401862785,
-     "home": "Bowling Green",
-     "away": "USF",
-     "kickoff": "2026-09-26T21:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
-     "upsetNeeded": true,
-     "ifRoot": 0.1118,
-     "ifNot": 0.0881,
-     "delta": 0.0237,
-     "playoffDelta": 0.0237,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401860896,
-     "home": "UTSA",
-     "away": "Colorado State",
-     "kickoff": "2026-09-26T16:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Colorado State",
-     "rootForWinProb": 0.136,
-     "upsetNeeded": true,
-     "ifRoot": 0.0999,
-     "ifNot": 0.0878,
-     "delta": 0.0121,
-     "playoffDelta": 0.0121,
-     "confTitleDelta": 0.0,
-     "byeDelta": 0.0
-    },
-    {
-     "gameId": 401860897,
-     "home": "Western Michigan",
-     "away": "Boise State",
-     "kickoff": "2026-09-26T19:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Western Michigan",
-     "rootForWinProb": 0.519,
-     "upsetNeeded": false,
-     "ifRoot": 0.0929,
-     "ifNot": 0.0838,
-     "delta": 0.0091,
-     "playoffDelta": 0.0091,
+     "ifRoot": 0.1468,
+     "ifNot": 0.139,
+     "delta": 0.0078,
+     "playoffDelta": 0.0078,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2363,35 +1995,49 @@
      "kickoff": "2026-09-26T23:00:00.000Z",
      "neutral": false,
      "rootFor": "Southern Miss",
-     "rootForWinProb": 0.166,
+     "rootForWinProb": 0.172,
      "upsetNeeded": true,
-     "ifRoot": 0.0926,
-     "ifNot": 0.087,
-     "delta": 0.0056,
-     "playoffDelta": 0.0056,
+     "ifRoot": 0.1445,
+     "ifNot": 0.1393,
+     "delta": 0.0052,
+     "playoffDelta": 0.0052,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
-  "Michigan State": {
-   "playoff": 0.0032,
-   "conferenceTitle": 0.0013,
+  "Maryland": {
+   "playoff": 0.0059,
+   "conferenceTitle": 0.0035,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "North Carolina": {
-   "playoff": 0.0021,
-   "conferenceTitle": 0.0,
+  "NC State": {
+   "playoff": 0.0118,
+   "conferenceTitle": 0.0113,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "New Mexico": {
-   "playoff": 0.0148,
-   "conferenceTitle": 0.4423,
+  "Virginia": {
+   "playoff": 0.0193,
+   "conferenceTitle": 0.0165,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Iowa State": {
+   "playoff": 0.0127,
+   "conferenceTitle": 0.0113,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "UTSA": {
+   "playoff": 0.1423,
+   "conferenceTitle": 0.1726,
    "basis": "playoff",
    "games": [
     {
@@ -2401,42 +2047,106 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
+     "rootForWinProb": 0.023,
      "upsetNeeded": true,
-     "ifRoot": 0.0209,
-     "ifNot": 0.0148,
-     "delta": 0.0061,
-     "playoffDelta": 0.0061,
+     "ifRoot": 0.1563,
+     "ifNot": 0.1419,
+     "delta": 0.0144,
+     "playoffDelta": 0.0144,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860897,
+     "home": "Western Michigan",
+     "away": "Boise State",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Western Michigan",
+     "rootForWinProb": 0.506,
+     "upsetNeeded": false,
+     "ifRoot": 0.1509,
+     "ifNot": 0.137,
+     "delta": 0.0139,
+     "playoffDelta": 0.0139,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401869961,
+     "home": "Old Dominion",
+     "away": "James Madison",
+     "kickoff": "2026-09-26T22:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Old Dominion",
+     "rootForWinProb": 0.263,
+     "upsetNeeded": true,
+     "ifRoot": 0.1498,
+     "ifNot": 0.1402,
+     "delta": 0.0096,
+     "playoffDelta": 0.0096,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401862779,
+     "home": "Temple",
+     "away": "Army",
+     "kickoff": "2026-09-25T20:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Temple",
+     "rootForWinProb": 0.297,
+     "upsetNeeded": true,
+     "ifRoot": 0.1482,
+     "ifNot": 0.1405,
+     "delta": 0.0077,
+     "playoffDelta": 0.0077,
+     "confTitleDelta": 0.0211,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860891,
+     "home": "Fresno State",
+     "away": "Rice",
+     "kickoff": "2026-09-27T02:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Rice",
+     "rootForWinProb": 0.148,
+     "upsetNeeded": true,
+     "ifRoot": 0.1476,
+     "ifNot": 0.1406,
+     "delta": 0.007,
+     "playoffDelta": 0.007,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
-  "UCF": {
-   "playoff": 0.0056,
-   "conferenceTitle": 0.0051,
+  "Minnesota": {
+   "playoff": 0.0034,
+   "conferenceTitle": 0.0012,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Wake Forest": {
-   "playoff": 0.0013,
-   "conferenceTitle": 0.0007,
+  "Arizona State": {
+   "playoff": 0.0157,
+   "conferenceTitle": 0.014,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Georgia Tech": {
-   "playoff": 0.0012,
-   "conferenceTitle": 0.001,
+  "Wisconsin": {
+   "playoff": 0.007,
+   "conferenceTitle": 0.0047,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Washington State": {
-   "playoff": 0.0209,
-   "conferenceTitle": 0.1552,
+  "Army": {
+   "playoff": 0.0716,
+   "conferenceTitle": 0.171,
    "basis": "playoff",
    "games": [
     {
@@ -2446,43 +2156,28 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
+     "rootForWinProb": 0.023,
      "upsetNeeded": true,
-     "ifRoot": 0.0296,
-     "ifNot": 0.0207,
-     "delta": 0.0089,
-     "playoffDelta": 0.0089,
+     "ifRoot": 0.0847,
+     "ifNot": 0.0712,
+     "delta": 0.0135,
+     "playoffDelta": 0.0135,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "West Virginia": {
-   "playoff": 0.0024,
-   "conferenceTitle": 0.0019,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Fresno State": {
-   "playoff": 0.0261,
-   "conferenceTitle": 0.1226,
-   "basis": "playoff",
-   "games": [
+    },
     {
-     "gameId": 401862785,
-     "home": "Bowling Green",
-     "away": "USF",
-     "kickoff": "2026-09-26T21:00:00.000Z",
+     "gameId": 401860897,
+     "home": "Western Michigan",
+     "away": "Boise State",
+     "kickoff": "2026-09-26T19:30:00.000Z",
      "neutral": false,
-     "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
-     "upsetNeeded": true,
-     "ifRoot": 0.0363,
-     "ifNot": 0.0256,
-     "delta": 0.0107,
-     "playoffDelta": 0.0107,
+     "rootFor": "Western Michigan",
+     "rootForWinProb": 0.506,
+     "upsetNeeded": false,
+     "ifRoot": 0.0764,
+     "ifNot": 0.069,
+     "delta": 0.0074,
+     "playoffDelta": 0.0074,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     },
@@ -2493,52 +2188,21 @@
      "kickoff": "2026-09-26T16:00:00.000Z",
      "neutral": false,
      "rootFor": "Colorado State",
-     "rootForWinProb": 0.136,
+     "rootForWinProb": 0.162,
      "upsetNeeded": true,
-     "ifRoot": 0.0312,
-     "ifNot": 0.0256,
-     "delta": 0.0056,
-     "playoffDelta": 0.0056,
+     "ifRoot": 0.0771,
+     "ifNot": 0.0712,
+     "delta": 0.0059,
+     "playoffDelta": 0.0059,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
-  "Cincinnati": {
-   "playoff": 0.0011,
-   "conferenceTitle": 0.0007,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "North Texas": {
-   "playoff": 0.0113,
-   "conferenceTitle": 0.0655,
-   "basis": "conferenceTitle",
-   "games": [
-    {
-     "gameId": 401862779,
-     "home": "Temple",
-     "away": "Army",
-     "kickoff": "2026-09-25T20:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Temple",
-     "rootForWinProb": 0.295,
-     "upsetNeeded": true,
-     "ifRoot": 0.0722,
-     "ifNot": 0.0639,
-     "delta": 0.0083,
-     "playoffDelta": 0.0006,
-     "confTitleDelta": 0.0083,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "Texas State": {
-   "playoff": 0.013,
-   "conferenceTitle": 0.1157,
+  "Western Michigan": {
+   "playoff": 0.0364,
+   "conferenceTitle": 0.4925,
    "basis": "playoff",
    "games": [
     {
@@ -2548,28 +2212,286 @@
      "kickoff": "2026-09-26T21:00:00.000Z",
      "neutral": false,
      "rootFor": "Bowling Green",
-     "rootForWinProb": 0.021,
+     "rootForWinProb": 0.023,
      "upsetNeeded": true,
-     "ifRoot": 0.0183,
-     "ifNot": 0.0128,
-     "delta": 0.0055,
-     "playoffDelta": 0.0055,
+     "ifRoot": 0.0525,
+     "ifNot": 0.0359,
+     "delta": 0.0166,
+     "playoffDelta": 0.0166,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860896,
+     "home": "UTSA",
+     "away": "Colorado State",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Colorado State",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.0414,
+     "ifNot": 0.0355,
+     "delta": 0.0059,
+     "playoffDelta": 0.0059,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401869961,
+     "home": "Old Dominion",
+     "away": "James Madison",
+     "kickoff": "2026-09-26T22:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Old Dominion",
+     "rootForWinProb": 0.263,
+     "upsetNeeded": true,
+     "ifRoot": 0.0407,
+     "ifNot": 0.0356,
+     "delta": 0.0051,
+     "playoffDelta": 0.0051,
      "confTitleDelta": 0.0,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
-  "Tulane": {
-   "playoff": 0.014,
-   "conferenceTitle": 0.043,
+  "Michigan State": {
+   "playoff": 0.0059,
+   "conferenceTitle": 0.0016,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Memphis": {
-   "playoff": 0.0156,
-   "conferenceTitle": 0.0409,
+  "James Madison": {
+   "playoff": 0.0866,
+   "conferenceTitle": 0.369,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401862785,
+     "home": "Bowling Green",
+     "away": "USF",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Bowling Green",
+     "rootForWinProb": 0.023,
+     "upsetNeeded": true,
+     "ifRoot": 0.1112,
+     "ifNot": 0.0863,
+     "delta": 0.0249,
+     "playoffDelta": 0.0249,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860897,
+     "home": "Western Michigan",
+     "away": "Boise State",
+     "kickoff": "2026-09-26T19:30:00.000Z",
+     "neutral": false,
+     "rootFor": "Western Michigan",
+     "rootForWinProb": 0.506,
+     "upsetNeeded": false,
+     "ifRoot": 0.0935,
+     "ifNot": 0.0835,
+     "delta": 0.01,
+     "playoffDelta": 0.01,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401860896,
+     "home": "UTSA",
+     "away": "Colorado State",
+     "kickoff": "2026-09-26T16:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Colorado State",
+     "rootForWinProb": 0.162,
+     "upsetNeeded": true,
+     "ifRoot": 0.0953,
+     "ifNot": 0.0855,
+     "delta": 0.0098,
+     "playoffDelta": 0.0098,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401862779,
+     "home": "Temple",
+     "away": "Army",
+     "kickoff": "2026-09-25T20:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Temple",
+     "rootForWinProb": 0.297,
+     "upsetNeeded": true,
+     "ifRoot": 0.091,
+     "ifNot": 0.085,
+     "delta": 0.006,
+     "playoffDelta": 0.006,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    },
+    {
+     "gameId": 401862784,
+     "home": "Tulane",
+     "away": "Southern Miss",
+     "kickoff": "2026-09-26T23:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Southern Miss",
+     "rootForWinProb": 0.172,
+     "upsetNeeded": true,
+     "ifRoot": 0.0911,
+     "ifNot": 0.0859,
+     "delta": 0.0052,
+     "playoffDelta": 0.0052,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "Wake Forest": {
+   "playoff": 0.001,
+   "conferenceTitle": 0.0006,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "North Carolina": {
+   "playoff": 0.0018,
+   "conferenceTitle": 0.0004,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Georgia Tech": {
+   "playoff": 0.0025,
+   "conferenceTitle": 0.0024,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "New Mexico": {
+   "playoff": 0.0146,
+   "conferenceTitle": 0.4271,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401862785,
+     "home": "Bowling Green",
+     "away": "USF",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Bowling Green",
+     "rootForWinProb": 0.023,
+     "upsetNeeded": true,
+     "ifRoot": 0.0214,
+     "ifNot": 0.0146,
+     "delta": 0.0068,
+     "playoffDelta": 0.0068,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "UCF": {
+   "playoff": 0.0077,
+   "conferenceTitle": 0.0072,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "West Virginia": {
+   "playoff": 0.0035,
+   "conferenceTitle": 0.0024,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Washington State": {
+   "playoff": 0.0163,
+   "conferenceTitle": 0.1381,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401862785,
+     "home": "Bowling Green",
+     "away": "USF",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Bowling Green",
+     "rootForWinProb": 0.023,
+     "upsetNeeded": true,
+     "ifRoot": 0.0231,
+     "ifNot": 0.0163,
+     "delta": 0.0068,
+     "playoffDelta": 0.0068,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "Texas State": {
+   "playoff": 0.0168,
+   "conferenceTitle": 0.1485,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401862785,
+     "home": "Bowling Green",
+     "away": "USF",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Bowling Green",
+     "rootForWinProb": 0.023,
+     "upsetNeeded": true,
+     "ifRoot": 0.023,
+     "ifNot": 0.0164,
+     "delta": 0.0066,
+     "playoffDelta": 0.0066,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "Fresno State": {
+   "playoff": 0.0272,
+   "conferenceTitle": 0.1323,
+   "basis": "playoff",
+   "games": [
+    {
+     "gameId": 401862785,
+     "home": "Bowling Green",
+     "away": "USF",
+     "kickoff": "2026-09-26T21:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Bowling Green",
+     "rootForWinProb": 0.023,
+     "upsetNeeded": true,
+     "ifRoot": 0.0367,
+     "ifNot": 0.0269,
+     "delta": 0.0098,
+     "playoffDelta": 0.0098,
+     "confTitleDelta": 0.0,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "Cincinnati": {
+   "playoff": 0.0017,
+   "conferenceTitle": 0.0012,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "North Texas": {
+   "playoff": 0.014,
+   "conferenceTitle": 0.0766,
    "basis": "conferenceTitle",
    "games": [
     {
@@ -2579,28 +2501,73 @@
      "kickoff": "2026-09-25T20:00:00.000Z",
      "neutral": false,
      "rootFor": "Temple",
-     "rootForWinProb": 0.295,
+     "rootForWinProb": 0.297,
      "upsetNeeded": true,
-     "ifRoot": 0.0467,
-     "ifNot": 0.0401,
-     "delta": 0.0066,
-     "playoffDelta": 0.0015,
-     "confTitleDelta": 0.0066,
+     "ifRoot": 0.0862,
+     "ifNot": 0.076,
+     "delta": 0.0102,
+     "playoffDelta": 0.0012,
+     "confTitleDelta": 0.0102,
+     "byeDelta": 0.0
+    }
+   ],
+   "message": null
+  },
+  "Tulane": {
+   "playoff": 0.0181,
+   "conferenceTitle": 0.052,
+   "basis": "conferenceTitle",
+   "games": [
+    {
+     "gameId": 401862779,
+     "home": "Temple",
+     "away": "Army",
+     "kickoff": "2026-09-25T20:00:00.000Z",
+     "neutral": false,
+     "rootFor": "Temple",
+     "rootForWinProb": 0.297,
+     "upsetNeeded": true,
+     "ifRoot": 0.0562,
+     "ifNot": 0.0498,
+     "delta": 0.0064,
+     "playoffDelta": 0.0004,
+     "confTitleDelta": 0.0064,
      "byeDelta": 0.0
     }
    ],
    "message": null
   },
   "California": {
-   "playoff": 0.0014,
-   "conferenceTitle": 0.0014,
+   "playoff": 0.003,
+   "conferenceTitle": 0.0027,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Toledo": {
-   "playoff": 0.0058,
-   "conferenceTitle": 0.2558,
+   "playoff": 0.0062,
+   "conferenceTitle": 0.2737,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Kansas": {
+   "playoff": 0.0012,
+   "conferenceTitle": 0.0012,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Memphis": {
+   "playoff": 0.0163,
+   "conferenceTitle": 0.0404,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "San Diego State": {
+   "playoff": 0.007,
+   "conferenceTitle": 0.1045,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
@@ -2612,57 +2579,33 @@
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Kansas": {
-   "playoff": 0.0004,
-   "conferenceTitle": 0.0004,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "San Diego State": {
-   "playoff": 0.0056,
-   "conferenceTitle": 0.1013,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
   "Syracuse": {
-   "playoff": 0.0001,
-   "conferenceTitle": 0.0001,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Colorado": {
-   "playoff": 0.0008,
-   "conferenceTitle": 0.0007,
+   "playoff": 0.0004,
+   "conferenceTitle": 0.0003,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Navy": {
-   "playoff": 0.0071,
-   "conferenceTitle": 0.0472,
-   "basis": "conferenceTitle",
-   "games": [
-    {
-     "gameId": 401862779,
-     "home": "Temple",
-     "away": "Army",
-     "kickoff": "2026-09-25T20:00:00.000Z",
-     "neutral": false,
-     "rootFor": "Temple",
-     "rootForWinProb": 0.295,
-     "upsetNeeded": true,
-     "ifRoot": 0.0516,
-     "ifNot": 0.0464,
-     "delta": 0.0052,
-     "playoffDelta": 0.0,
-     "confTitleDelta": 0.0052,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
+   "playoff": 0.0076,
+   "conferenceTitle": 0.0475,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Colorado": {
+   "playoff": 0.0016,
+   "conferenceTitle": 0.001,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Purdue": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.0001,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
   },
   "UConn": {
    "playoff": 0.0,
@@ -2671,68 +2614,23 @@
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Purdue": {
-   "playoff": 0.0002,
-   "conferenceTitle": 0.0001,
+  "East Carolina": {
+   "playoff": 0.004,
+   "conferenceTitle": 0.0319,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Louisiana": {
-   "playoff": 0.0028,
-   "conferenceTitle": 0.1287,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "East Carolina": {
-   "playoff": 0.0034,
-   "conferenceTitle": 0.0309,
+   "playoff": 0.0031,
+   "conferenceTitle": 0.1481,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Oregon State": {
-   "playoff": 0.0023,
-   "conferenceTitle": 0.051,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "North Dakota State": {
-   "playoff": 0.0053,
-   "conferenceTitle": 0.253,
-   "basis": "conferenceTitle",
-   "games": [
-    {
-     "gameId": 401864509,
-     "home": "Nevada",
-     "away": "Air Force",
-     "kickoff": "2026-09-27T02:30:00.000Z",
-     "neutral": false,
-     "rootFor": "Nevada",
-     "rootForWinProb": 0.366,
-     "upsetNeeded": true,
-     "ifRoot": 0.2591,
-     "ifNot": 0.2512,
-     "delta": 0.0079,
-     "playoffDelta": 0.0,
-     "confTitleDelta": 0.0079,
-     "byeDelta": 0.0
-    }
-   ],
-   "message": null
-  },
-  "Tulsa": {
-   "playoff": 0.0073,
-   "conferenceTitle": 0.015,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Oklahoma State": {
-   "playoff": 0.0006,
-   "conferenceTitle": 0.0006,
+   "playoff": 0.0025,
+   "conferenceTitle": 0.0514,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
@@ -2744,107 +2642,79 @@
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "South Alabama": {
-   "playoff": 0.001,
-   "conferenceTitle": 0.0752,
+  "Tulsa": {
+   "playoff": 0.0086,
+   "conferenceTitle": 0.0182,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Louisiana Tech": {
-   "playoff": 0.0012,
-   "conferenceTitle": 0.0809,
+  "North Dakota State": {
+   "playoff": 0.0049,
+   "conferenceTitle": 0.2432,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Oklahoma State": {
+   "playoff": 0.0006,
+   "conferenceTitle": 0.0004,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "UNLV": {
    "playoff": 0.0003,
-   "conferenceTitle": 0.1218,
+   "conferenceTitle": 0.1323,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "South Alabama": {
+   "playoff": 0.0015,
+   "conferenceTitle": 0.0841,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Marshall": {
-   "playoff": 0.0024,
-   "conferenceTitle": 0.0714,
+   "playoff": 0.0032,
+   "conferenceTitle": 0.0725,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Air Force": {
-   "playoff": 0.0009,
-   "conferenceTitle": 0.0659,
+   "playoff": 0.0015,
+   "conferenceTitle": 0.0708,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Temple": {
-   "playoff": 0.0008,
-   "conferenceTitle": 0.0115,
+   "playoff": 0.0009,
+   "conferenceTitle": 0.0125,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Louisiana Tech": {
+   "playoff": 0.0015,
+   "conferenceTitle": 0.0761,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Appalachian State": {
-   "playoff": 0.0028,
-   "conferenceTitle": 0.0556,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Miami (OH)": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0835,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Liberty": {
-   "playoff": 0.0002,
-   "conferenceTitle": 0.2036,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Delaware": {
-   "playoff": 0.0004,
-   "conferenceTitle": 0.1949,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Troy": {
-   "playoff": 0.0006,
-   "conferenceTitle": 0.0452,
+   "playoff": 0.0034,
+   "conferenceTitle": 0.0575,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Colorado State": {
-   "playoff": 0.0007,
-   "conferenceTitle": 0.0188,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Ohio": {
-   "playoff": 0.0001,
-   "conferenceTitle": 0.0715,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Georgia Southern": {
-   "playoff": 0.0004,
-   "conferenceTitle": 0.0373,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Utah State": {
-   "playoff": 0.0001,
-   "conferenceTitle": 0.0157,
+   "playoff": 0.0014,
+   "conferenceTitle": 0.0253,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
@@ -2856,121 +2726,170 @@
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "FIU": {
+  "Liberty": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.1967,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Delaware": {
+   "playoff": 0.001,
+   "conferenceTitle": 0.1887,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Troy": {
+   "playoff": 0.0015,
+   "conferenceTitle": 0.0441,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Miami (OH)": {
+   "playoff": 0.0002,
+   "conferenceTitle": 0.0846,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Ohio": {
    "playoff": 0.0,
-   "conferenceTitle": 0.1414,
+   "conferenceTitle": 0.0804,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Florida Atlantic": {
-   "playoff": 0.0022,
-   "conferenceTitle": 0.006,
+   "playoff": 0.0029,
+   "conferenceTitle": 0.0078,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Georgia State": {
-   "playoff": 0.0003,
-   "conferenceTitle": 0.0241,
+  "FIU": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.1555,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Utah State": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.0132,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Georgia Southern": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.0322,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Old Dominion": {
-   "playoff": 0.0002,
-   "conferenceTitle": 0.0285,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Jacksonville State": {
-   "playoff": 0.0001,
-   "conferenceTitle": 0.1407,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Arkansas State": {
-   "playoff": 0.0001,
-   "conferenceTitle": 0.0329,
+   "playoff": 0.0,
+   "conferenceTitle": 0.031,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Hawaii": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0308,
+   "conferenceTitle": 0.0406,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Georgia State": {
+   "playoff": 0.0006,
+   "conferenceTitle": 0.0235,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Jacksonville State": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.126,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Boston College": {
-   "playoff": 0.0,
+   "playoff": 0.0001,
    "conferenceTitle": 0.0,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Coastal Carolina": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0166,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Western Kentucky": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.1059,
+  "Arkansas State": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.0259,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "UAB": {
    "playoff": 0.0001,
-   "conferenceTitle": 0.003,
+   "conferenceTitle": 0.0021,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Coastal Carolina": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.0183,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Western Kentucky": {
+   "playoff": 0.0002,
+   "conferenceTitle": 0.0982,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "San Jose State": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0582,
+   "conferenceTitle": 0.0544,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Southern Miss": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.013,
+   "playoff": 0.0001,
+   "conferenceTitle": 0.017,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Sam Houston": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0663,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Rice": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.001,
+   "conferenceTitle": 0.073,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Missouri State": {
    "playoff": 0.0,
-   "conferenceTitle": 0.054,
+   "conferenceTitle": 0.062,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Rice": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.0012,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Akron": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0169,
+   "conferenceTitle": 0.0192,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
@@ -2984,112 +2903,112 @@
   },
   "Middle Tennessee": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0355,
+   "conferenceTitle": 0.0412,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Kennesaw State": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0316,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "New Mexico State": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0261,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "UMass": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0121,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Central Michigan": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0089,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Sacramento State": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0047,
-   "basis": null,
-   "games": [],
-   "message": "Nothing this weekend moves the needle."
-  },
-  "Kent State": {
-   "playoff": 0.0,
-   "conferenceTitle": 0.0061,
+   "conferenceTitle": 0.0337,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Eastern Michigan": {
    "playoff": 0.0,
-   "conferenceTitle": 0.003,
+   "conferenceTitle": 0.0077,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
-  "Charlotte": {
+  "Central Michigan": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0003,
+   "conferenceTitle": 0.0118,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "New Mexico State": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.025,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Sacramento State": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.0056,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Kent State": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.0066,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "UMass": {
+   "playoff": 0.0001,
+   "conferenceTitle": 0.0109,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "UTEP": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0038,
+   "conferenceTitle": 0.0058,
+   "basis": null,
+   "games": [],
+   "message": "Nothing this weekend moves the needle."
+  },
+  "Charlotte": {
+   "playoff": 0.0,
+   "conferenceTitle": 0.0001,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Northern Illinois": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0051,
+   "conferenceTitle": 0.0066,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Buffalo": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0044,
+   "conferenceTitle": 0.0036,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Wyoming": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0025,
+   "conferenceTitle": 0.0026,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Louisiana-Monroe": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0006,
+   "conferenceTitle": 0.0007,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Ball State": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0021,
+   "conferenceTitle": 0.0024,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
   },
   "Bowling Green": {
    "playoff": 0.0,
-   "conferenceTitle": 0.0006,
+   "conferenceTitle": 0.001,
    "basis": null,
    "games": [],
    "message": "Nothing this weekend moves the needle."
