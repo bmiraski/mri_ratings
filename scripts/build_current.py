@@ -46,7 +46,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
 
     archive = pd.read_parquet(out / "archive_games.parquet")
-    archive_2019 = archive[archive["season"] == 2019]
+    archive_2019 = canonical(archive[archive["season"] == 2019])
     previous = mri2.fit(
         archive_2019,
         anchor_teams=[t for t in set(archive_2019["team2"]) if registry.is_fbs(t)],

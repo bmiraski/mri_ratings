@@ -1,0 +1,4 @@
+{
+  "_note": "Hand-maintained. Maps a raw coach name exactly as CFBD's /coaches endpoint gives it to the canonical spelling that mri.coaches.ids builds a coach_id from. Add an entry when the same person shows up under two spellings, or when scripts/build_coach_season.py prints a coach_id collision that turns out to be two different people (give one of them a disambiguating canonical name, e.g. a middle initial).",
+  "aliases": {}
+}
