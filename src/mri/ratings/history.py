@@ -51,7 +51,7 @@ from __future__ import annotations
 import pandas as pd
 
 from ..ingest import registry
-from . import mri2
+from . import mri2, priors
 
 ARCHIVE_SEASONS = range(2003, 2020)
 SEAM_YEAR = 2020  # first season sourced from current_ratings.parquet instead of the archive walk
@@ -66,9 +66,12 @@ def canonical_games(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def archive_walk(archive_games: pd.DataFrame, *, seasons=ARCHIVE_SEASONS) -> pd.DataFrame:
-    """Anchored MRI 2.0 Power for every team, every archive season, chained forward.
+    """Anchored MRI 2.0 Power, prior and résumé for every team, every archive season, chained forward.
 
     ``archive_games`` must already be name-canonicalized (``canonical_games``).
+    ``resume`` (wins above an average team's, against the schedule played) is
+    a pure addition to what phase 1 computed - ``with_resume=True`` doesn't
+    touch the ridge solve, so every ``power`` value is unchanged.
     """
     rows = []
     previous: pd.Series | None = None
@@ -79,10 +82,17 @@ def archive_walk(archive_games: pd.DataFrame, *, seasons=ARCHIVE_SEASONS) -> pd.
         teams = sorted(set(season_games["team1"]) | set(season_games["team2"]))
         fbs = [t for t in teams if registry.was_fbs(t, season)]
         prior = mri2.build_prior(previous, teams, centre_teams=fbs)
-        model = mri2.fit(season_games, prior=prior, anchor_teams=fbs, with_resume=False, with_efficiency=False)
-        rows.append(pd.DataFrame({"team": model.power.index, "season": season, "power": model.power.values}))
+        model = mri2.fit(season_games, prior=prior, anchor_teams=fbs, with_resume=True, with_efficiency=False)
+        rows.append(pd.DataFrame({
+            "team": model.power.index,
+            "season": season,
+            "power": model.power.values,
+            "prior": prior.reindex(model.power.index).values,
+            "resume": model.resume.reindex(model.power.index).values,
+        }))
         previous = model.power
-    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame(columns=["team", "season", "power"])
+    columns = ["team", "season", "power", "prior", "resume"]
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame(columns=columns)
 
 
 def seam_gap(archive_history: pd.DataFrame, archive_games: pd.DataFrame) -> pd.Series:
@@ -105,17 +115,81 @@ def seam_gap(archive_history: pd.DataFrame, archive_games: pd.DataFrame) -> pd.S
     return (mine[common] - reprime[common]).rename("gap")
 
 
-def build(archive_games: pd.DataFrame, current_ratings: pd.DataFrame) -> pd.DataFrame:
-    """The full 2003-present history: the anchored archive walk spliced onto the live ratings.
+def current_prior_walk(archive_2019: pd.DataFrame, current_games: pd.DataFrame) -> pd.DataFrame:
+    """The preseason prior for every team, every 2020+ season - the one thing
+    ``build_current.py``'s own loop computes and never keeps.
 
-    ``archive_games`` is read straight from archive_games.parquet (not yet
-    canonicalized - this does it). ``current_ratings`` is
-    current_ratings.parquet as-is; only its ``team``, ``season`` and ``power``
-    columns are used.
+    Deliberately a replica of that loop (canonicalized 2019 prime,
+    ``priors.for_season``, ``mri2.fit`` with ``anchor_teams`` via
+    ``registry.is_fbs`` - not the more historically-correct ``was_fbs`` this
+    module uses for the archive, because faithfully reproducing what
+    production actually did is the point) rather than a change to
+    ``build_current.py`` itself: this whole feature stays isolated from the
+    live ratings pipeline, the same way every other site feature does.
+    ``current_games`` is ``current_games.parquet`` as-is (already
+    canonicalized by ``build_current.py``); ``archive_2019`` must already be
+    canonicalized (``canonical_games``).
+
+    Returns ``team, season, prior, power`` - ``power`` is this replica's own
+    recomputation, kept so a caller can check it against
+    ``current_ratings.parquet``'s actual numbers (see
+    ``current_prior_walk_gap``) rather than trusting the replica blindly.
+    """
+    previous = mri2.fit(
+        archive_2019,
+        anchor_teams=[t for t in set(archive_2019["team2"]) if registry.is_fbs(t)],
+        with_resume=False,
+        with_efficiency=False,
+    ).power
+
+    rows = []
+    for season in sorted(current_games["season"].unique()):
+        games = current_games[current_games["season"] == season]
+        teams = sorted(set(games["team1"]) | set(games["team2"]))
+        fbs = [t for t in teams if registry.is_fbs(t)]
+        prior = priors.for_season(int(season), previous, teams, fbs)
+        model = mri2.fit(games, prior=prior, neutral=games["neutral"], anchor_teams=fbs)
+        rows.append(pd.DataFrame({
+            "team": prior.index, "season": season,
+            "prior": prior.values, "power": prior.index.map(model.power),
+        }))
+        previous = model.power
+    columns = ["team", "season", "prior", "power"]
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame(columns=columns)
+
+
+def current_prior_walk_gap(replica: pd.DataFrame, current_ratings: pd.DataFrame) -> pd.Series:
+    """Per-team-season gap between the replica's own power and current_ratings.parquet's.
+
+    Should be ~0 everywhere; a real gap means build_current.py's methodology
+    has drifted from what this replica assumes and ``current_prior_walk``
+    needs updating to match.
+    """
+    mine = replica.set_index(["team", "season"])["power"]
+    theirs = current_ratings.set_index(["team", "season"])["power"]
+    common = mine.index.intersection(theirs.index)
+    return (mine[common] - theirs[common]).rename("gap")
+
+
+def build(archive_games: pd.DataFrame, current_games: pd.DataFrame, current_ratings: pd.DataFrame) -> pd.DataFrame:
+    """The full 2003-present history: the anchored archive walk spliced onto the live ratings,
+    with a preseason ``prior`` alongside ``power`` and ``resume`` throughout.
+
+    ``archive_games`` and ``current_games`` are read straight from their
+    parquet files (not yet canonicalized for the archive side - this does
+    it; ``current_games`` already is, by ``build_current.py``).
+    ``current_ratings`` is current_ratings.parquet as-is.
     """
     archive_games = canonical_games(archive_games)
     archive_history = archive_walk(archive_games)
-    current = current_ratings[["team", "season", "power"]]
+
+    archive_2019 = archive_games[archive_games["season"] == SEAM_YEAR - 1]
+    prior_walk = current_prior_walk(archive_2019, current_games)
+    current = current_ratings[["team", "season", "power", "resume"]].merge(
+        prior_walk[["team", "season", "prior"]], on=["team", "season"], how="left"
+    )
     if not current.empty:
         assert int(current["season"].min()) == SEAM_YEAR, "current_ratings.parquet no longer starts at SEAM_YEAR"
-    return pd.concat([archive_history, current], ignore_index=True).sort_values(["season", "team"])
+
+    columns = ["team", "season", "power", "prior", "resume"]
+    return pd.concat([archive_history[columns], current[columns]], ignore_index=True).sort_values(["season", "team"])

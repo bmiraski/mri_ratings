@@ -75,8 +75,12 @@ def _is_continuing(coach_id_: str, school: str, season: int, coach_rows: pd.Data
     return not prior.empty
 
 
-def _entry_order(coach_ids_here: list[str], school: str, season: int, coach_rows: pd.DataFrame) -> list[str]:
-    """Coaches at one split school-season, ordered by when they first arrived at the school."""
+def entry_order(coach_ids_here: list[str], school: str, season: int, coach_rows: pd.DataFrame) -> list[str]:
+    """Coaches at one split school-season, ordered by when they first arrived at the school.
+
+    Public because ``mri.coaches.metrics`` reuses this exact rule to decide
+    which coach in a split needs a point-in-time ``power_end`` refit.
+    """
 
     def anchor(cid: str):
         prior = coach_rows[
@@ -99,7 +103,7 @@ def attribute_games(
     stop a whole build, since it means either the entry-order heuristic
     guessed wrong or the two data sources disagree.
     """
-    order = _entry_order(coaches_here["coach_id"].tolist(), school, season, coach_rows)
+    order = entry_order(coaches_here["coach_id"].tolist(), school, season, coach_rows)
     schedule = _order_games(school, season, games_fn)
     counts = coaches_here.set_index("coach_id")["games"].to_dict()
 
