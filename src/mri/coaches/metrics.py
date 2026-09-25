@@ -27,13 +27,17 @@ PROGRAM_PAR_SEASONS = 10
 PROGRAM_PAR_MIN_SEASONS = 3
 
 METRIC_COLUMNS = [
-    "power_end", "prior", "added", "inherited", "vs_inherited", "program_par", "vs_par", "resume",
+    "power_end", "prior", "added", "inherited", "vs_inherited", "program_par", "vs_par", "resume", "vs_talent",
 ]
 
 
-def _fbs_for(teams: list[str], season_: int) -> list[str]:
-    """The anchor set for one season, matching how coach_ratings_history was built:
-    ``was_fbs`` for the archive era, ``is_fbs`` for the bridge era (mri.ratings.history)."""
+def fbs_for(teams: list[str], season_: int) -> list[str]:
+    """The FBS subset of ``teams`` for one season, matching how coach_ratings_history was built:
+    ``was_fbs`` for the archive era, ``is_fbs`` for the bridge era (mri.ratings.history).
+
+    Public because ``mri.coaches.talent`` uses the same rule to pick which
+    team-seasons the talent regression trains and evaluates on.
+    """
     if season_ < history.SEAM_YEAR:
         return [t for t in teams if registry.was_fbs(t, season_)]
     return [t for t in teams if registry.is_fbs(t)]
@@ -106,7 +110,7 @@ def split_season_power_end(
         counts = group.set_index("coach_id")["games"]
         prior = ratings_history.loc[ratings_history["season"] == season_].set_index("team")["prior"]
         teams = sorted(set(season_games["team1"]) | set(season_games["team2"]))
-        fbs = _fbs_for(teams, season_)
+        fbs = fbs_for(teams, season_)
 
         cumulative = 0
         for i, coach_id in enumerate(order):
@@ -167,6 +171,13 @@ def coach_season_metrics(
     out["program_par"] = out.apply(lambda r: _program_par(r.school, int(r.stint_start), ratings_history), axis=1)
     out["vs_par"] = out["power_end"] - out["program_par"]
     out["resume"] = out.apply(lambda r: ratings["resume"].get((r.school, int(r.season))), axis=1)
+    if "vs_talent" in ratings.columns:
+        # Only present once mri.coaches.talent's gate has passed and
+        # scripts/fit_coach_talent.py has run - null (not a KeyError) before
+        # that, the same "not shipped yet" shape as any other missing lookup.
+        out["vs_talent"] = out.apply(lambda r: ratings["vs_talent"].get((r.school, int(r.season))), axis=1)
+    else:
+        out["vs_talent"] = None
 
     return out.drop(columns="stint_start")
 
