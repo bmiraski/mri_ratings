@@ -1,19 +1,24 @@
 name: Live scores
 
-# Every fifteen minutes through both seasons, but it only spends an API call
-# while one of a slate's games is about to start or in progress; the rest of the
-# time it reads each sport's slate.json and live.json and exits. Once every game
-# that has started is final, it stops calling until the next kickoff or tip.
+# Started every fifteen minutes by an outside cron (cron-job.org) calling this
+# workflow's dispatch API, because GitHub's own scheduler does not keep time:
+# asked for a run every fifteen minutes, it started about one in twenty. The
+# schedule below stays as a backup, off the quarter-hour where GitHub is busiest.
 #
-# Standard library only, on the runner's own Python: no setup or installs, so a
-# tick takes seconds. GitHub starts scheduled runs late when it is busy, so in
-# practice the scores move every 15-30 minutes.
+# A run that finds a game on stays up through it - reading the scoreboard every
+# five minutes and committing each change - and waits out a kickoff that is
+# close, so a single dispatch that lands covers the whole window. Otherwise it
+# reads each sport's slate.json and live.json and exits in seconds.
+#
+# Standard library only, on the runner's own Python: no setup or installs.
 
 on:
   schedule:
-    - cron: "*/15 * * 1-4,8-12 *"   # football August to January, basketball November to April
+    - cron: "7,22,37,52 * * 1-4,8-12 *"   # backup only: football August to January, basketball November to April
   workflow_dispatch:
 
+# One run at a time. A dispatch that arrives while a run is watching a game waits
+# in line, and exits at once when its turn comes if the game is over.
 concurrency:
   group: live
   cancel-in-progress: false
@@ -21,32 +26,17 @@ concurrency:
 jobs:
   live:
     runs-on: ubuntu-latest
+    timeout-minutes: 350                 # the script stops itself at 5h30, inside GitHub's six-hour limit
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Update live scores
+      - name: Watch the live window
         env:
           CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
-        run: PYTHONPATH=src python3 scripts/live_scores.py
-
-      - name: Commit the scores
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          for f in docs/live.json docs/basketball/live.json; do
-            if [ -f "$f" ]; then git add "$f"; fi
-          done
-          if git diff --staged --quiet; then
-            echo "Nothing new."
-            exit 0
-          fi
-          git commit -m "Live scores ($(date -u '+%Y-%m-%d %H:%M'))"
-          # The daily build may have pushed meanwhile; it never touches a live.json, so a rebase is clean.
-          for attempt in 1 2 3; do
-            git pull --rebase --quiet && git push && exit 0
-            sleep 5
-          done
-          exit 1
+          PYTHONPATH=src python3 scripts/live_scores.py --watch
