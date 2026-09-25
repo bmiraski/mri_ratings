@@ -6,18 +6,18 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 157,
-      "accuracy": 0.828,
-      "mae": 12.55,
-      "priced": 157,
-      "modelMaePriced": 12.55,
-      "marketMae": 10.95,
-      "marketAccuracy": 0.8344,
-      "modelAccuracyPriced": 0.828,
+      "games": 158,
+      "accuracy": 0.8291,
+      "mae": 12.57,
+      "priced": 158,
+      "modelMaePriced": 12.57,
+      "marketMae": 10.97,
+      "marketAccuracy": 0.8354,
+      "modelAccuracyPriced": 0.8291,
       "maeGap": 1.6,
-      "maeGapError": 0.91,
-      "slope": 0.84,
-      "marketSlope": 0.93,
+      "maeGapError": 0.9,
+      "slope": 0.85,
+      "marketSlope": 0.94,
       "bets": {
         "count": 72,
         "wins": 34,
@@ -58,6 +58,16 @@
         "bets": 28,
         "record": "14-12-2",
         "units": 0.73
+      },
+      {
+        "week": 4,
+        "games": 1,
+        "accuracy": 1.0,
+        "mae": 15.72,
+        "marketMae": 14.5,
+        "bets": 0,
+        "record": "0-0",
+        "units": 0
       }
     ],
     "bets": [
@@ -2392,9 +2402,24 @@
         "side": "away",
         "taken": 19.5,
         "week": 4
+      },
+      {
+        "away": "South Alabama",
+        "edge": -3.0,
+        "game_id": 401864576,
+        "home": "Kentucky",
+        "kickoff": "2026-09-26T16:45:00.000Z",
+        "loggedAt": "2026-09-25T13:28Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": 19.5,
+        "predicted": 16.5,
+        "side": "away",
+        "taken": 20.5,
+        "week": 4
       }
     ],
-    "logged": 76,
+    "logged": 77,
     "earlier": 48,
     "graded": 31,
     "wins": 16,
