@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 4,
  "date": null,
- "updated": "2026-09-26T17:31:41Z",
- "updatedLabel": "1:31 PM ET",
+ "updated": "2026-09-26T17:36:44Z",
+ "updatedLabel": "1:36 PM ET",
  "games": {
   "401869941": {
    "status": "completed",
@@ -63,24 +63,24 @@
   },
   "401856805": {
    "status": "in_progress",
-   "label": "Q2 01:54",
+   "label": "Q2 01:03",
    "period": 2,
-   "clock": "01:54",
+   "clock": "01:03",
    "home": 21,
    "away": 14,
-   "possession": null,
-   "homeWinProbability": 0.973,
+   "possession": "home",
+   "homeWinProbability": 0.972,
    "upset": null
   },
   "401856813": {
    "status": "in_progress",
-   "label": "Q2 01:26",
+   "label": "Q2 00:56",
    "period": 2,
-   "clock": "01:26",
+   "clock": "00:56",
    "home": 10,
    "away": 3,
-   "possession": null,
-   "homeWinProbability": 0.888,
+   "possession": "home",
+   "homeWinProbability": 0.887,
    "upset": null
   },
   "401858242": {
@@ -107,13 +107,13 @@
   },
   "401858243": {
    "status": "in_progress",
-   "label": "Q2 02:00",
+   "label": "Q2 01:19",
    "period": 2,
-   "clock": "02:00",
+   "clock": "01:19",
    "home": 14,
-   "away": 17,
-   "possession": "away",
-   "homeWinProbability": 0.635,
+   "away": 24,
+   "possession": null,
+   "homeWinProbability": 0.4,
    "upset": null
   },
   "401860893": {
@@ -129,13 +129,13 @@
   },
   "401860896": {
    "status": "in_progress",
-   "label": "Q2 05:22",
+   "label": "Q2 01:55",
    "period": 2,
-   "clock": "05:22",
+   "clock": "01:55",
    "home": 35,
-   "away": 14,
-   "possession": "away",
-   "homeWinProbability": 0.99,
+   "away": 21,
+   "possession": null,
+   "homeWinProbability": 0.964,
    "upset": null
   },
   "401864512": {
@@ -151,20 +151,20 @@
   },
   "401856704": {
    "status": "in_progress",
-   "label": "Q2 03:49",
+   "label": "Q2 02:00",
    "period": 2,
-   "clock": "03:49",
+   "clock": "02:00",
    "home": 3,
    "away": 10,
-   "possession": "home",
+   "possession": null,
    "homeWinProbability": 0.144,
    "upset": null
   },
   "401858465": {
    "status": "in_progress",
-   "label": "Q2 02:00",
+   "label": "Q2 01:41",
    "period": 2,
-   "clock": "02:00",
+   "clock": "01:41",
    "home": 21,
    "away": 7,
    "possession": null,
@@ -173,13 +173,24 @@
   },
   "401864576": {
    "status": "in_progress",
-   "label": "Q2 14:56",
+   "label": "Q2 14:17",
    "period": 2,
-   "clock": "14:56",
+   "clock": "14:17",
    "home": 7,
+   "away": 7,
+   "possession": null,
+   "homeWinProbability": 0.805,
+   "upset": null
+  },
+  "401858462": {
+   "status": "in_progress",
+   "label": "Q1 13:05",
+   "period": 1,
+   "clock": "13:05",
+   "home": 0,
    "away": 0,
    "possession": "away",
-   "homeWinProbability": 0.912,
+   "homeWinProbability": 0.471,
    "upset": null
   }
  }
