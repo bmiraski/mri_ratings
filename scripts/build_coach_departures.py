@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -20,6 +21,26 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.coaches import departures  # noqa: E402
+
+
+def _no_nan(value):
+    """Recursively turn float NaN into None.
+
+    ``departures.build()`` already writes ``None`` for a missing vs_par -
+    but it returns a DataFrame, and pandas silently coerces ``None`` back to
+    ``NaN`` in a float column, which ``to_dict(orient="records")`` then
+    surfaces again. Left alone, ``json.dumps`` still writes it (as the bare,
+    non-standard token ``NaN``, not valid JSON), which is exactly the kind
+    of thing a stricter JSON tool - such as whatever a hand-edit was made
+    with - can choke on.
+    """
+    if isinstance(value, float) and math.isnan(value):
+        return None
+    if isinstance(value, dict):
+        return {k: _no_nan(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_no_nan(v) for v in value]
+    return value
 
 
 def main() -> None:
@@ -39,10 +60,10 @@ def main() -> None:
 
     out = {
         "generated": dt.date.today().isoformat(),
-        "departures": table.to_dict(orient="records"),
+        "departures": _no_nan(table.to_dict(orient="records")),
     }
     out_path = ROOT / "data" / "coach_departures.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str) + "\n")
+    out_path.write_text(json.dumps(out, indent=2, default=str, allow_nan=False) + "\n")
     print(f"\nwrote {len(table)} departures to {out_path.relative_to(ROOT)}")
 
 
