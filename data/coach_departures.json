@@ -557,28 +557,12 @@
       "coach_id": "bobby-petrino-2002",
       "coach_name": "Bobby Petrino",
       "school": "Louisville",
-      "season": 2017,
-      "label": "fired_or_pushed_out",
-      "source": "manual",
-      "reason": "next job found, but program_par isn't available to compare",
-      "vs_par": null,
-      "added": 2.4920020196363755,
-      "next": {
-        "school": "Western Kentucky",
-        "season": 2018,
-        "program_par": -15.30739700597796
-      }
-    },
-    {
-      "coach_id": "bobby-petrino-2002",
-      "coach_name": "Bobby Petrino",
-      "school": "Western Kentucky",
       "season": 2018,
       "label": "fired_or_pushed_out",
       "source": "auto",
-      "reason": "below expectations (vs_par -3.7), no next job found",
-      "vs_par": -3.6891425168572116,
-      "added": -13.472206921252404,
+      "reason": "below expectations (added -17.8 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -17.80609259192309,
       "next": null
     },
     {
@@ -3975,18 +3959,6 @@
       "reason": "below expectations (added -2.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.7404673883640758,
-      "next": null
-    },
-    {
-      "coach_id": "lorenzo-ward-2018",
-      "coach_name": "Lorenzo Ward",
-      "school": "Louisville",
-      "season": 2018,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
-      "reason": "below expectations (vs_par -17.3), no next job found",
-      "vs_par": -17.274507636134985,
-      "added": -20.85193143469877,
       "next": null
     },
     {

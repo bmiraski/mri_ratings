@@ -86,6 +86,50 @@ def test_no_collisions_among_genuinely_different_ids() -> None:
 
 
 # ---------------------------------------------------------------------------
+# hand-maintained corrections for known-bad CFBD records
+# ---------------------------------------------------------------------------
+
+def _write_corrections(tmp_path, *corrections: dict):
+    path = tmp_path / "coach_season_corrections.json"
+    path.write_text(json.dumps({"corrections": list(corrections)}))
+    return path
+
+
+def test_a_correction_rewrites_the_matching_field(tmp_path) -> None:
+    raw = _coach_rows(
+        (1, "Bobby Petrino", "2002-12-01", "Western Kentucky", 2018),
+        (1, "Bobby Petrino", "2002-12-01", "Louisville", 2017),
+    )
+    path = _write_corrections(
+        tmp_path,
+        {"coach_name": "Bobby Petrino", "season": 2018, "field": "school",
+         "from": "Western Kentucky", "to": "Louisville"},
+    )
+    out = season.apply_corrections(raw, path)
+    row_2018 = out[out["season"] == 2018].iloc[0]
+    row_2017 = out[out["season"] == 2017].iloc[0]
+    assert row_2018["school"] == "Louisville"
+    assert row_2017["school"] == "Louisville"  # untouched - different season, not matched
+
+
+def test_a_correction_that_matches_nothing_raises(tmp_path) -> None:
+    raw = _coach_rows((1, "Bobby Petrino", "2002-12-01", "Louisville", 2017))
+    path = _write_corrections(
+        tmp_path,
+        {"coach_name": "Bobby Petrino", "season": 2099, "field": "school",
+         "from": "Nowhere", "to": "Somewhere"},
+    )
+    with pytest.raises(ValueError, match="no row matches"):
+        season.apply_corrections(raw, path)
+
+
+def test_no_corrections_file_is_a_no_op(tmp_path) -> None:
+    raw = _coach_rows((1, "Bobby Petrino", "2002-12-01", "Louisville", 2017))
+    out = season.apply_corrections(raw, tmp_path / "does_not_exist.json")
+    pd.testing.assert_frame_equal(out, raw)
+
+
+# ---------------------------------------------------------------------------
 # split-season game attribution
 # ---------------------------------------------------------------------------
 
