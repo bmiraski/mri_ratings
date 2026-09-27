@@ -21,12 +21,16 @@ their own (see the module tests for a worked example).
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pandas as pd
 
 from ..ingest import cfbd, registry
 from . import ids
 
 COLUMNS = ["coach_id", "coach_name", "school", "season", "games", "wins", "losses", "interim"]
+CORRECTIONS_PATH = Path(__file__).resolve().parents[3] / "data" / "coach_season_corrections.json"
 
 
 def _canonical_schools(coach_rows: pd.DataFrame) -> pd.DataFrame:
@@ -41,6 +45,36 @@ def _canonical_schools(coach_rows: pd.DataFrame) -> pd.DataFrame:
     """
     out = coach_rows.copy()
     out["school"] = [registry.resolve(s, s) for s in out["school"]]
+    return out
+
+
+def apply_corrections(coach_rows: pd.DataFrame, path: Path = CORRECTIONS_PATH) -> pd.DataFrame:
+    """Hand-maintained fixes for known-bad CFBD /coaches records (data/coach_season_corrections.json).
+
+    CFBD is occasionally just wrong about one field of one row - see that
+    file's own note for how such a case gets found (a split-season
+    validation failure whose game counts only add up once you swap in the
+    right school for one side). Each correction is matched by coach name,
+    season and the field's current value, so a correction that no longer
+    matches anything - because CFBD fixed it upstream, or the season/name
+    was mistyped here - is caught rather than silently doing nothing.
+    """
+    if not path.exists():
+        return coach_rows
+    corrections = json.loads(path.read_text()).get("corrections", [])
+    out = coach_rows.copy()
+    for c in corrections:
+        mask = (
+            (out["coach_name"] == c["coach_name"])
+            & (out["season"] == c["season"])
+            & (out[c["field"]] == c["from"])
+        )
+        if not mask.any():
+            raise ValueError(
+                f"coach_season_corrections.json: no row matches {c['coach_name']} {c['season']} "
+                f"{c['field']}={c['from']!r} - has the underlying CFBD data changed?"
+            )
+        out.loc[mask, c["field"]] = c["to"]
     return out
 
 
@@ -155,7 +189,7 @@ def build_coach_season(
 
 def build(min_year: int, max_year: int, *, validate: bool = True) -> dict:
     """Fetch, identify and validate: the coach_season table plus id collisions and split-season problems."""
-    raw = _canonical_schools(cfbd.coaches(min_year, max_year))
+    raw = apply_corrections(_canonical_schools(cfbd.coaches(min_year, max_year)))
     with_ids = ids.assign_ids(raw)
     collisions = ids.detect_collisions(with_ids)
     table, problems = build_coach_season(with_ids, validate=validate)
