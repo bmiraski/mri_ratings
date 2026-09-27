@@ -3,7 +3,7 @@
   "week": 4,
   "sims": 10000,
   "candidates": 65,
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "closed": false,
   "dates": {
     "ballotsDistributed": "2026-12-05",
@@ -17,9 +17,9 @@
       "team": "Alabama",
       "position": "QB",
       "group": "QB",
-      "win": 0.1447,
-      "finalist": 0.3713,
-      "change": 0.0514,
+      "win": 0.1436,
+      "finalist": 0.3703,
+      "change": 0.0503,
       "rankChange": 1,
       "line": {
         "passYds": 1129,
@@ -29,12 +29,12 @@
         "recYds": -10,
         "recTd": 0
       },
-      "pace": 3230,
+      "pace": 3240,
       "teamRank": 5,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.55,
-      "winIfTop4": 0.22211544214109158,
-      "winIfNot": 0.05017173992500411,
+      "teamTop4": 0.56,
+      "winIfTop4": 0.21662052534726747,
+      "winIfNot": 0.050440867505288096,
       "market": null
     },
     {
@@ -42,9 +42,9 @@
       "team": "Ohio State",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.1365,
-      "finalist": 0.5355,
-      "change": 0.0597,
+      "win": 0.1386,
+      "finalist": 0.5308,
+      "change": 0.0618,
       "rankChange": 2,
       "line": {
         "passYds": 0,
@@ -57,18 +57,46 @@
       "pace": 1470,
       "teamRank": 3,
       "teamRecord": "3\u20131",
-      "teamTop4": 0.496,
-      "winIfTop4": 0.21892844713817328,
-      "winIfNot": 0.05535623662909816,
+      "teamTop4": 0.487,
+      "winIfTop4": 0.22580873812044897,
+      "winIfNot": 0.05562121342404224,
       "market": null
+    },
+    {
+      "player": "Darian Mensah",
+      "team": "Miami (FL)",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.099,
+      "finalist": 0.2386,
+      "change": 0.0051,
+      "rankChange": -2,
+      "line": {
+        "passYds": 1211,
+        "passTd": 14,
+        "rushYds": 52,
+        "rushTd": 1,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 3250,
+      "teamRank": 7,
+      "teamRecord": "4\u20130",
+      "teamTop4": 0.133,
+      "winIfTop4": 0.17799005900414547,
+      "winIfNot": 0.086951348671807,
+      "market": {
+        "odds": 390,
+        "implied": 0.2041
+      }
     },
     {
       "player": "Julian Sayin",
       "team": "Ohio State",
       "position": "QB",
       "group": "QB",
-      "win": 0.104,
-      "finalist": 0.2623,
+      "win": 0.0971,
+      "finalist": 0.2445,
       "change": null,
       "rankChange": null,
       "line": {
@@ -82,47 +110,19 @@
       "pace": 3120,
       "teamRank": 3,
       "teamRecord": "3\u20131",
-      "teamTop4": 0.496,
-      "winIfTop4": 0.16044041559572017,
-      "winIfNot": 0.04843212980601878,
+      "teamTop4": 0.487,
+      "winIfTop4": 0.150368018721617,
+      "winIfNot": 0.046467045308599374,
       "market": null
-    },
-    {
-      "player": "Darian Mensah",
-      "team": "Miami (FL)",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.097,
-      "finalist": 0.2344,
-      "change": 0.0031,
-      "rankChange": -3,
-      "line": {
-        "passYds": 1211,
-        "passTd": 14,
-        "rushYds": 52,
-        "rushTd": 1,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 3250,
-      "teamRank": 7,
-      "teamRecord": "4\u20130",
-      "teamTop4": 0.115,
-      "winIfTop4": 0.1915387271910152,
-      "winIfNot": 0.08472088316388436,
-      "market": {
-        "odds": 390,
-        "implied": 0.2041
-      }
     },
     {
       "player": "Jadan Baugh",
       "team": "Florida",
       "position": "RB",
       "group": "RB",
-      "win": 0.0624,
-      "finalist": 0.1979,
-      "change": 0.0287,
+      "win": 0.0621,
+      "finalist": 0.1961,
+      "change": 0.0284,
       "rankChange": 7,
       "line": {
         "passYds": 0,
@@ -132,12 +132,12 @@
         "recYds": 18,
         "recTd": 0
       },
-      "pace": 1450,
+      "pace": 1440,
       "teamRank": 9,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.185,
-      "winIfTop4": 0.19596282571838938,
-      "winIfNot": 0.03207045919474703,
+      "teamTop4": 0.179,
+      "winIfTop4": 0.19511430705366314,
+      "winIfNot": 0.03312790265228507,
       "market": null
     },
     {
@@ -145,9 +145,9 @@
       "team": "LSU",
       "position": "QB",
       "group": "QB",
-      "win": 0.0591,
-      "finalist": 0.1344,
-      "change": 0.0136,
+      "win": 0.0562,
+      "finalist": 0.132,
+      "change": 0.0107,
       "rankChange": 2,
       "line": {
         "passYds": 1044,
@@ -157,12 +157,12 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3100,
+      "pace": 3110,
       "teamRank": 6,
       "teamRecord": "3\u20131",
-      "teamTop4": 0.197,
-      "winIfTop4": 0.15914279053672872,
-      "winIfNot": 0.034464325566910495,
+      "teamTop4": 0.181,
+      "winIfTop4": 0.1603997431565875,
+      "winIfNot": 0.03322053794471022,
       "market": null
     },
     {
@@ -170,9 +170,9 @@
       "team": "Mississippi State",
       "position": "QB",
       "group": "QB",
-      "win": 0.0538,
-      "finalist": 0.1352,
-      "change": -0.0082,
+      "win": 0.0536,
+      "finalist": 0.1347,
+      "change": -0.0084,
       "rankChange": -2,
       "line": {
         "passYds": 1192,
@@ -182,51 +182,26 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3300,
-      "teamRank": 21,
+      "pace": 3310,
+      "teamRank": 20,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.024,
-      "winIfTop4": 0.26195485051110623,
-      "winIfNot": 0.04867094923649347,
+      "teamTop4": 0.023,
+      "winIfTop4": 0.23516836532397045,
+      "winIfNot": 0.04934742191891382,
       "market": {
         "odds": 1100,
         "implied": 0.0833
       }
     },
     {
-      "player": "Kevin Jennings",
-      "team": "SMU",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.0416,
-      "finalist": 0.1317,
-      "change": 0.0033,
-      "rankChange": 1,
-      "line": {
-        "passYds": 1453,
-        "passTd": 12,
-        "rushYds": 76,
-        "rushTd": 1,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 3690,
-      "teamRank": 33,
-      "teamRecord": "3\u20131",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.04157281071040517,
-      "market": null
-    },
-    {
       "player": "Malachi Toney",
       "team": "Miami (FL)",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.0407,
-      "finalist": 0.1524,
-      "change": -0.0168,
-      "rankChange": -3,
+      "win": 0.0438,
+      "finalist": 0.1556,
+      "change": -0.0137,
+      "rankChange": -2,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -238,9 +213,34 @@
       "pace": 1370,
       "teamRank": 7,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.115,
-      "winIfTop4": 0.10412971919783899,
-      "winIfNot": 0.032490278301702674,
+      "teamTop4": 0.133,
+      "winIfTop4": 0.10916796996114446,
+      "winIfNot": 0.03380212741105487,
+      "market": null
+    },
+    {
+      "player": "Kevin Jennings",
+      "team": "SMU",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.0411,
+      "finalist": 0.1295,
+      "change": 0.0028,
+      "rankChange": 0,
+      "line": {
+        "passYds": 1453,
+        "passTd": 12,
+        "rushYds": 76,
+        "rushTd": 1,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 3700,
+      "teamRank": 33,
+      "teamRecord": "3\u20131",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.04105833626238317,
       "market": null
     },
     {
@@ -248,9 +248,9 @@
       "team": "Ole Miss",
       "position": "QB",
       "group": "QB",
-      "win": 0.0359,
-      "finalist": 0.114,
-      "change": -0.0456,
+      "win": 0.034,
+      "finalist": 0.1085,
+      "change": -0.0475,
       "rankChange": -7,
       "line": {
         "passYds": 1222,
@@ -260,12 +260,12 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3220,
+      "pace": 3230,
       "teamRank": 15,
       "teamRecord": "3\u20131",
-      "teamTop4": 0.021,
-      "winIfTop4": 0.204416648972545,
-      "winIfNot": 0.0323055827380278,
+      "teamTop4": 0.022,
+      "winIfTop4": 0.15281699389100034,
+      "winIfNot": 0.031324101937444206,
       "market": {
         "odds": 310,
         "implied": 0.2439
@@ -276,9 +276,9 @@
       "team": "Pittsburgh",
       "position": "QB",
       "group": "QB",
-      "win": 0.0243,
-      "finalist": 0.076,
-      "change": 0.0104,
+      "win": 0.0252,
+      "finalist": 0.0743,
+      "change": 0.0113,
       "rankChange": 7,
       "line": {
         "passYds": 1191,
@@ -288,12 +288,37 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3190,
+      "pace": 3200,
       "teamRank": 32,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.0,
+      "teamTop4": 0.001,
       "winIfTop4": null,
-      "winIfNot": 0.024329419684571838,
+      "winIfNot": 0.025064880029073797,
+      "market": null
+    },
+    {
+      "player": "Devon Dampier",
+      "team": "Utah",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.022,
+      "finalist": 0.0601,
+      "change": -0.0118,
+      "rankChange": -1,
+      "line": {
+        "passYds": 896,
+        "passTd": 9,
+        "rushYds": 136,
+        "rushTd": 2,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 2760,
+      "teamRank": 10,
+      "teamRecord": "4\u20130",
+      "teamTop4": 0.105,
+      "winIfTop4": 0.05787989497359987,
+      "winIfNot": 0.017796555904307294,
       "market": null
     },
     {
@@ -301,10 +326,10 @@
       "team": "USC",
       "position": "QB",
       "group": "QB",
-      "win": 0.0211,
-      "finalist": 0.0605,
-      "change": -0.0268,
-      "rankChange": -5,
+      "win": 0.0202,
+      "finalist": 0.0573,
+      "change": -0.0277,
+      "rankChange": -6,
       "line": {
         "passYds": 1499,
         "passTd": 14,
@@ -316,34 +341,9 @@
       "pace": 3040,
       "teamRank": 13,
       "teamRecord": "4\u20131",
-      "teamTop4": 0.022,
-      "winIfTop4": 0.14862612282358642,
-      "winIfNot": 0.01830775912258225,
-      "market": null
-    },
-    {
-      "player": "Devon Dampier",
-      "team": "Utah",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.0208,
-      "finalist": 0.0574,
-      "change": -0.013,
-      "rankChange": -2,
-      "line": {
-        "passYds": 896,
-        "passTd": 9,
-        "rushYds": 136,
-        "rushTd": 2,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 2730,
-      "teamRank": 10,
-      "teamRecord": "4\u20130",
-      "teamTop4": 0.104,
-      "winIfTop4": 0.04998245459495312,
-      "winIfNot": 0.017371259171611714,
+      "teamTop4": 0.024,
+      "winIfTop4": 0.1468982016328398,
+      "winIfNot": 0.017134381516782718,
       "market": null
     },
     {
@@ -351,8 +351,8 @@
       "team": "Utah",
       "position": "RB",
       "group": "RB",
-      "win": 0.0163,
-      "finalist": 0.07,
+      "win": 0.0164,
+      "finalist": 0.0673,
       "change": null,
       "rankChange": null,
       "line": {
@@ -366,9 +366,9 @@
       "pace": 1210,
       "teamRank": 10,
       "teamRecord": "4\u20130",
-      "teamTop4": 0.104,
-      "winIfTop4": 0.049357527133818184,
-      "winIfNot": 0.0124740462895368,
+      "teamTop4": 0.105,
+      "winIfTop4": 0.04741873194517642,
+      "winIfNot": 0.012731744001151405,
       "market": null
     },
     {
@@ -376,9 +376,9 @@
       "team": "Louisville",
       "position": "QB",
       "group": "QB",
-      "win": 0.0135,
-      "finalist": 0.0331,
-      "change": -0.0243,
+      "win": 0.0131,
+      "finalist": 0.0327,
+      "change": -0.0247,
       "rankChange": -5,
       "line": {
         "passYds": 1140,
@@ -388,80 +388,80 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3140,
-      "teamRank": 35,
+      "pace": 3150,
+      "teamRank": 34,
       "teamRecord": "2\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.013540271909352242,
+      "winIfNot": 0.01308817875874424,
       "market": null
     }
   ],
-  "rest": 0.1283,
+  "rest": 0.134,
   "byPosition": {
-    "QB": 0.66,
-    "RB": 0.125,
-    "WR/TE": 0.215
+    "QB": 0.652,
+    "RB": 0.126,
+    "WR/TE": 0.221
   },
   "byTeam": {
     "Alabama": {
       "player": "Keelon Russell",
-      "win": 0.1447,
+      "win": 0.1436,
       "position": "QB"
     },
     "Ohio State": {
       "player": "Jeremiah Smith",
-      "win": 0.1365,
+      "win": 0.1386,
       "position": "WR/TE"
     },
     "Miami (FL)": {
       "player": "Darian Mensah",
-      "win": 0.097,
+      "win": 0.099,
       "position": "QB"
     },
     "Florida": {
       "player": "Jadan Baugh",
-      "win": 0.0624,
+      "win": 0.0621,
       "position": "RB"
     },
     "LSU": {
       "player": "Sam Leavitt",
-      "win": 0.0591,
+      "win": 0.0562,
       "position": "QB"
     },
     "Mississippi State": {
       "player": "Kamario Taylor",
-      "win": 0.0538,
+      "win": 0.0536,
       "position": "QB"
     },
     "SMU": {
       "player": "Kevin Jennings",
-      "win": 0.0416,
+      "win": 0.0411,
       "position": "QB"
     },
     "Ole Miss": {
       "player": "Trinidad Chambliss",
-      "win": 0.0359,
+      "win": 0.034,
       "position": "QB"
     },
     "Pittsburgh": {
       "player": "Mason Heintschel",
-      "win": 0.0243,
-      "position": "QB"
-    },
-    "USC": {
-      "player": "Jayden Maiava",
-      "win": 0.0211,
+      "win": 0.0252,
       "position": "QB"
     },
     "Utah": {
       "player": "Devon Dampier",
-      "win": 0.0208,
+      "win": 0.022,
+      "position": "QB"
+    },
+    "USC": {
+      "player": "Jayden Maiava",
+      "win": 0.0202,
       "position": "QB"
     },
     "Louisville": {
       "player": "Lincoln Kienholz",
-      "win": 0.0135,
+      "win": 0.0131,
       "position": "QB"
     }
   },
@@ -493,60 +493,60 @@
       "player": "Jeremiah Smith",
       "team": "Ohio State",
       "position": "WR/TE",
-      "finalist": 0.5355,
-      "win": 0.1365
+      "finalist": 0.5308,
+      "win": 0.1386
     },
     {
       "player": "Keelon Russell",
       "team": "Alabama",
       "position": "QB",
-      "finalist": 0.3713,
-      "win": 0.1447
+      "finalist": 0.3703,
+      "win": 0.1436
     },
     {
       "player": "Julian Sayin",
       "team": "Ohio State",
       "position": "QB",
-      "finalist": 0.2623,
-      "win": 0.104
+      "finalist": 0.2445,
+      "win": 0.0971
     },
     {
       "player": "Darian Mensah",
       "team": "Miami (FL)",
       "position": "QB",
-      "finalist": 0.2344,
-      "win": 0.097
+      "finalist": 0.2386,
+      "win": 0.099
     },
     {
       "player": "Jadan Baugh",
       "team": "Florida",
       "position": "RB",
-      "finalist": 0.1979,
-      "win": 0.0624
+      "finalist": 0.1961,
+      "win": 0.0621
     },
     {
       "player": "Malachi Toney",
       "team": "Miami (FL)",
       "position": "WR/TE",
-      "finalist": 0.1524,
-      "win": 0.0407
+      "finalist": 0.1556,
+      "win": 0.0438
     },
     {
       "player": "Kamario Taylor",
       "team": "Mississippi State",
       "position": "QB",
-      "finalist": 0.1352,
-      "win": 0.0538
+      "finalist": 0.1347,
+      "win": 0.0536
     },
     {
       "player": "Sam Leavitt",
       "team": "LSU",
       "position": "QB",
-      "finalist": 0.1344,
-      "win": 0.0591
+      "finalist": 0.132,
+      "win": 0.0562
     }
   ],
-  "expectedFinalists": 2.95,
+  "expectedFinalists": 2.93,
   "defenders": {
     "seasons": 14,
     "count": 4,
@@ -580,12 +580,12 @@
         "interceptions": 0
       },
       {
-        "player": "Elijah Melendez",
-        "team": "Auburn",
-        "position": "LB",
-        "tackles": 34,
+        "player": "Alex McLaughlin",
+        "team": "Washington",
+        "position": "S",
+        "tackles": 25,
         "sacks": 2.0,
-        "interceptions": 0
+        "interceptions": 2
       }
     ]
   },

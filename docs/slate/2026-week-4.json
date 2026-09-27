@@ -1,0 +1,2454 @@
+{
+ "season": 2026,
+ "week": 4,
+ "days": [
+  {
+   "date": "2026-09-26",
+   "label": "Sat, Sep 26",
+   "games": [
+    {
+     "id": 401860891,
+     "week": 4,
+     "date": "2026-09-26",
+     "dateLabel": "Sat, Sep 26",
+     "time": "10:00\u202fPM ET",
+     "sort": "2200",
+     "home": "Fresno State",
+     "away": "Rice",
+     "neutral": false,
+     "predicted": 16.9,
+     "homeWinProbability": 0.847,
+     "played": false,
+     "market": 12.5,
+     "open": 13.5,
+     "total": 43.5,
+     "edge": 3.4,
+     "flagged": true,
+     "stake": {
+      "side": "home",
+      "ifWin": 0.0383,
+      "ifLose": 0.0047,
+      "swing": 0.0336,
+      "team": "Fresno State",
+      "now": 0.0326
+     }
+    },
+    {
+     "id": 401858240,
+     "week": 4,
+     "date": "2026-09-26",
+     "dateLabel": "Sat, Sep 26",
+     "time": "10:30\u202fPM ET",
+     "sort": "2230",
+     "home": "Stanford",
+     "away": "Georgia Tech",
+     "neutral": false,
+     "predicted": -5.5,
+     "homeWinProbability": 0.369,
+     "played": false,
+     "market": -3.0,
+     "open": -4.5,
+     "total": 48.5,
+     "edge": -1.0,
+     "flagged": false,
+     "stake": {
+      "side": "away",
+      "ifWin": 0.0042,
+      "ifLose": 0.0,
+      "swing": 0.0042,
+      "team": "Georgia Tech",
+      "now": 0.0026
+     }
+    },
+    {
+     "id": 401864509,
+     "week": 4,
+     "date": "2026-09-26",
+     "dateLabel": "Sat, Sep 26",
+     "time": "10:30\u202fPM ET",
+     "sort": "2230",
+     "home": "Nevada",
+     "away": "Air Force",
+     "neutral": false,
+     "predicted": -5.2,
+     "homeWinProbability": 0.376,
+     "played": false,
+     "market": -5.5,
+     "open": -4.5,
+     "total": 50.5,
+     "edge": -0.7,
+     "flagged": false,
+     "stake": {
+      "side": "away",
+      "ifWin": 0.0037,
+      "ifLose": 0.0,
+      "swing": 0.0037,
+      "team": "Air Force",
+      "now": 0.0023
+     }
+    },
+    {
+     "id": 401858470,
+     "week": 4,
+     "date": "2026-09-26",
+     "dateLabel": "Sat, Sep 26",
+     "time": "11:00\u202fPM ET",
+     "sort": "2300",
+     "home": "Washington",
+     "away": "Minnesota",
+     "neutral": false,
+     "predicted": 7.9,
+     "homeWinProbability": 0.683,
+     "played": false,
+     "market": 11.5,
+     "open": 9.5,
+     "total": 44.5,
+     "edge": -1.6,
+     "flagged": false,
+     "stake": {
+      "side": "home",
+      "ifWin": 0.0577,
+      "ifLose": 0.011,
+      "swing": 0.0467,
+      "team": "Washington",
+      "now": 0.0424
+     }
+    }
+   ]
+  }
+ ],
+ "results": [
+  {
+   "id": 401869941,
+   "week": 4,
+   "date": "2026-09-24",
+   "dateLabel": "Thu, Sep 24",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "Coastal Carolina",
+   "away": "Liberty",
+   "neutral": false,
+   "predicted": -1.3,
+   "homeWinProbability": 0.469,
+   "played": true,
+   "market": -2.5,
+   "open": 1.5,
+   "total": 50.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 34,
+    "modelCorrect": true,
+    "modelError": 15.7,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401862779,
+   "week": 4,
+   "date": "2026-09-25",
+   "dateLabel": "Fri, Sep 25",
+   "time": "4:00\u202fPM ET",
+   "sort": "1600",
+   "home": "Temple",
+   "away": "Army",
+   "neutral": false,
+   "predicted": -8.9,
+   "homeWinProbability": 0.295,
+   "played": true,
+   "market": -4.0,
+   "open": -3.0,
+   "total": 48.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 21,
+    "modelCorrect": true,
+    "modelError": 4.9,
+    "marketError": 0.0
+   }
+  },
+  {
+   "id": 401862778,
+   "week": 4,
+   "date": "2026-09-25",
+   "dateLabel": "Fri, Sep 25",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "UAB",
+   "away": "Navy",
+   "neutral": false,
+   "predicted": -4.2,
+   "homeWinProbability": 0.4,
+   "played": true,
+   "market": -6.5,
+   "open": -11.5,
+   "total": 50.5,
+   "result": {
+    "homeScore": 24,
+    "awayScore": 20,
+    "modelCorrect": false,
+    "modelError": 8.2,
+    "marketError": 10.5
+   }
+  },
+  {
+   "id": 401858461,
+   "week": 4,
+   "date": "2026-09-25",
+   "dateLabel": "Fri, Sep 25",
+   "time": "8:00\u202fPM ET",
+   "sort": "2000",
+   "home": "Indiana",
+   "away": "Northwestern",
+   "neutral": false,
+   "predicted": 14.2,
+   "homeWinProbability": 0.805,
+   "played": true,
+   "market": 20.5,
+   "open": 23.5,
+   "total": 49.5,
+   "result": {
+    "homeScore": 29,
+    "awayScore": 23,
+    "modelCorrect": true,
+    "modelError": 8.2,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401858234,
+   "week": 4,
+   "date": "2026-09-25",
+   "dateLabel": "Fri, Sep 25",
+   "time": "10:30\u202fPM ET",
+   "sort": "2230",
+   "home": "California",
+   "away": "Clemson",
+   "neutral": false,
+   "predicted": -6.8,
+   "homeWinProbability": 0.341,
+   "played": true,
+   "market": -2.5,
+   "open": -1.5,
+   "total": 52.5,
+   "result": {
+    "homeScore": 10,
+    "awayScore": 24,
+    "modelCorrect": true,
+    "modelError": 7.2,
+    "marketError": 11.5
+   }
+  },
+  {
+   "id": 401858465,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Ohio State",
+   "away": "Illinois",
+   "neutral": false,
+   "predicted": 28.2,
+   "homeWinProbability": 0.956,
+   "played": true,
+   "market": 25.5,
+   "open": 27.5,
+   "total": 53.5,
+   "result": {
+    "homeScore": 42,
+    "awayScore": 19,
+    "modelCorrect": true,
+    "modelError": 5.2,
+    "marketError": 2.5
+   }
+  },
+  {
+   "id": 401856704,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Tennessee",
+   "away": "Texas",
+   "neutral": false,
+   "predicted": -10.7,
+   "homeWinProbability": 0.258,
+   "played": true,
+   "market": -5.5,
+   "open": -6.5,
+   "total": 54.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 20,
+    "modelCorrect": true,
+    "modelError": 7.7,
+    "marketError": 2.5
+   }
+  },
+  {
+   "id": 401856805,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Texas Tech",
+   "away": "Sam Houston",
+   "neutral": false,
+   "predicted": 30.3,
+   "homeWinProbability": 0.967,
+   "played": true,
+   "market": 34.5,
+   "open": 37.5,
+   "total": 55.5,
+   "result": {
+    "homeScore": 49,
+    "awayScore": 14,
+    "modelCorrect": true,
+    "modelError": 4.7,
+    "marketError": 0.5
+   }
+  },
+  {
+   "id": 401858243,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Louisville",
+   "away": "Wake Forest",
+   "neutral": false,
+   "predicted": 13.4,
+   "homeWinProbability": 0.792,
+   "played": true,
+   "market": 11.5,
+   "open": 13.5,
+   "total": 57.5,
+   "result": {
+    "homeScore": 27,
+    "awayScore": 30,
+    "modelCorrect": false,
+    "modelError": 16.4,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401856813,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Baylor",
+   "away": "Colorado",
+   "neutral": false,
+   "predicted": 14.5,
+   "homeWinProbability": 0.81,
+   "played": true,
+   "market": 8.5,
+   "open": 8.5,
+   "total": 54.5,
+   "result": {
+    "homeScore": 23,
+    "awayScore": 13,
+    "modelCorrect": true,
+    "modelError": 4.5,
+    "marketError": 1.5
+   }
+  },
+  {
+   "id": 401860896,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "UTSA",
+   "away": "Colorado State",
+   "neutral": false,
+   "predicted": 14.5,
+   "homeWinProbability": 0.811,
+   "played": true,
+   "market": 14.5,
+   "open": 11.5,
+   "total": 56.5,
+   "result": {
+    "homeScore": 59,
+    "awayScore": 45,
+    "modelCorrect": true,
+    "modelError": 0.5,
+    "marketError": 0.5
+   }
+  },
+  {
+   "id": 401858242,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Boston College",
+   "away": "Virginia Tech",
+   "neutral": false,
+   "predicted": -14.8,
+   "homeWinProbability": 0.184,
+   "played": true,
+   "market": -14.5,
+   "open": -14.0,
+   "total": 45.5,
+   "result": {
+    "homeScore": 14,
+    "awayScore": 21,
+    "modelCorrect": true,
+    "modelError": 7.8,
+    "marketError": 7.5
+   }
+  },
+  {
+   "id": 401860893,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Toledo",
+   "away": "San Diego State",
+   "neutral": false,
+   "predicted": 3.2,
+   "homeWinProbability": 0.577,
+   "played": true,
+   "market": 2.5,
+   "open": -1.5,
+   "total": 50.5,
+   "result": {
+    "homeScore": 41,
+    "awayScore": 16,
+    "modelCorrect": true,
+    "modelError": 21.8,
+    "marketError": 22.5
+   }
+  },
+  {
+   "id": 401864512,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Akron",
+   "away": "UNLV",
+   "neutral": false,
+   "predicted": -5.7,
+   "homeWinProbability": 0.365,
+   "played": true,
+   "market": -13.5,
+   "open": -14.0,
+   "total": 52.5,
+   "result": {
+    "homeScore": 10,
+    "awayScore": 38,
+    "modelCorrect": true,
+    "modelError": 22.3,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401866425,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Kent State",
+   "away": "Ball State",
+   "neutral": false,
+   "predicted": 8.3,
+   "homeWinProbability": 0.693,
+   "played": true,
+   "market": 2.5,
+   "open": 4.5,
+   "total": 51.5,
+   "result": {
+    "homeScore": 26,
+    "awayScore": 13,
+    "modelCorrect": true,
+    "modelError": 4.7,
+    "marketError": 10.5
+   }
+  },
+  {
+   "id": 401864576,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:45\u202fPM ET",
+   "sort": "1245",
+   "home": "Kentucky",
+   "away": "South Alabama",
+   "neutral": false,
+   "predicted": 16.6,
+   "homeWinProbability": 0.842,
+   "played": true,
+   "market": 20.5,
+   "open": 19.5,
+   "total": 54.5,
+   "result": {
+    "homeScore": 45,
+    "awayScore": 21,
+    "modelCorrect": true,
+    "modelError": 7.4,
+    "marketError": 3.5
+   }
+  },
+  {
+   "id": 401858462,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "1:30\u202fPM ET",
+   "sort": "1330",
+   "home": "Maryland",
+   "away": "UCLA",
+   "neutral": false,
+   "predicted": -1.3,
+   "homeWinProbability": 0.468,
+   "played": true,
+   "market": -2.5,
+   "open": -1.5,
+   "total": 55.5,
+   "result": {
+    "homeScore": 3,
+    "awayScore": 54,
+    "modelCorrect": true,
+    "modelError": 49.7,
+    "marketError": 48.5
+   }
+  },
+  {
+   "id": 401858467,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "2:00\u202fPM ET",
+   "sort": "1400",
+   "home": "Purdue",
+   "away": "Notre Dame",
+   "neutral": false,
+   "predicted": -32.0,
+   "homeWinProbability": 0.026,
+   "played": true,
+   "market": -27.5,
+   "open": -27.5,
+   "total": 57.5,
+   "result": {
+    "homeScore": 10,
+    "awayScore": 49,
+    "modelCorrect": true,
+    "modelError": 7.0,
+    "marketError": 11.5
+   }
+  },
+  {
+   "id": 401864511,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "2:00\u202fPM ET",
+   "sort": "1400",
+   "home": "Georgia State",
+   "away": "Northern Illinois",
+   "neutral": false,
+   "predicted": 13.2,
+   "homeWinProbability": 0.788,
+   "played": true,
+   "market": 8.5,
+   "open": 8.5,
+   "total": 56.5,
+   "result": {
+    "homeScore": 35,
+    "awayScore": 14,
+    "modelCorrect": true,
+    "modelError": 7.8,
+    "marketError": 12.5
+   }
+  },
+  {
+   "id": 401864510,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:00\u202fPM ET",
+   "sort": "1500",
+   "home": "Wyoming",
+   "away": "Hawaii",
+   "neutral": false,
+   "predicted": -10.4,
+   "homeWinProbability": 0.264,
+   "played": true,
+   "market": -2.5,
+   "open": -5.5,
+   "total": 44.5,
+   "result": {
+    "homeScore": 27,
+    "awayScore": 10,
+    "modelCorrect": false,
+    "modelError": 27.4,
+    "marketError": 19.5
+   }
+  },
+  {
+   "id": 401856700,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Georgia",
+   "away": "Oklahoma",
+   "neutral": false,
+   "predicted": 14.5,
+   "homeWinProbability": 0.81,
+   "played": true,
+   "market": 11.5,
+   "open": 10.0,
+   "total": 43.5,
+   "result": {
+    "homeScore": 41,
+    "awayScore": 13,
+    "modelCorrect": true,
+    "modelError": 13.5,
+    "marketError": 16.5
+   }
+  },
+  {
+   "id": 401856699,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Florida",
+   "away": "Ole Miss",
+   "neutral": false,
+   "predicted": -0.1,
+   "homeWinProbability": 0.498,
+   "played": true,
+   "market": 4.0,
+   "open": 1.5,
+   "total": 58.5,
+   "result": {
+    "homeScore": 52,
+    "awayScore": 28,
+    "modelCorrect": false,
+    "modelError": 24.1,
+    "marketError": 20.0
+   }
+  },
+  {
+   "id": 401856816,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Iowa State",
+   "away": "Utah",
+   "neutral": false,
+   "predicted": -13.6,
+   "homeWinProbability": 0.205,
+   "played": true,
+   "market": -7.5,
+   "open": -11.5,
+   "total": 46.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 31,
+    "modelCorrect": true,
+    "modelError": 0.4,
+    "marketError": 6.5
+   }
+  },
+  {
+   "id": 401858463,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Michigan",
+   "away": "Iowa",
+   "neutral": false,
+   "predicted": 10.1,
+   "homeWinProbability": 0.73,
+   "played": true,
+   "market": 4.5,
+   "open": 4.5,
+   "total": 39.5,
+   "result": {
+    "homeScore": 19,
+    "awayScore": 20,
+    "modelCorrect": false,
+    "modelError": 11.1,
+    "marketError": 5.5
+   }
+  },
+  {
+   "id": 401860897,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Western Michigan",
+   "away": "Boise State",
+   "neutral": false,
+   "predicted": 1.3,
+   "homeWinProbability": 0.531,
+   "played": true,
+   "market": -8.5,
+   "open": -7.5,
+   "total": 50.5,
+   "result": {
+    "homeScore": 7,
+    "awayScore": 32,
+    "modelCorrect": false,
+    "modelError": 26.3,
+    "marketError": 16.5
+   }
+  },
+  {
+   "id": 401856815,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "UCF",
+   "away": "TCU",
+   "neutral": false,
+   "predicted": -1.7,
+   "homeWinProbability": 0.459,
+   "played": true,
+   "market": -3.5,
+   "open": -3.0,
+   "total": 48.5,
+   "result": {
+    "homeScore": 21,
+    "awayScore": 13,
+    "modelCorrect": false,
+    "modelError": 9.7,
+    "marketError": 11.5
+   }
+  },
+  {
+   "id": 401864579,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "New Mexico State",
+   "away": "New Mexico",
+   "neutral": false,
+   "predicted": -15.6,
+   "homeWinProbability": 0.172,
+   "played": true,
+   "market": -11.5,
+   "open": -12.5,
+   "total": 47.5,
+   "result": {
+    "homeScore": 18,
+    "awayScore": 42,
+    "modelCorrect": true,
+    "modelError": 8.4,
+    "marketError": 12.5
+   }
+  },
+  {
+   "id": 401861970,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Miami (OH)",
+   "away": "UConn",
+   "neutral": false,
+   "predicted": -1.9,
+   "homeWinProbability": 0.455,
+   "played": true,
+   "market": 2.5,
+   "open": 3.0,
+   "total": 52.5,
+   "result": {
+    "homeScore": 24,
+    "awayScore": 21,
+    "modelCorrect": false,
+    "modelError": 4.9,
+    "marketError": 0.5
+   }
+  },
+  {
+   "id": 401856806,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "4:00\u202fPM ET",
+   "sort": "1600",
+   "home": "Georgia Southern",
+   "away": "Houston",
+   "neutral": false,
+   "predicted": -17.7,
+   "homeWinProbability": 0.142,
+   "played": true,
+   "market": -17.5,
+   "open": -19.5,
+   "total": 56.5,
+   "result": {
+    "homeScore": 28,
+    "awayScore": 42,
+    "modelCorrect": true,
+    "modelError": 3.7,
+    "marketError": 3.5
+   }
+  },
+  {
+   "id": 401856698,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "4:15\u202fPM ET",
+   "sort": "1615",
+   "home": "Auburn",
+   "away": "Vanderbilt",
+   "neutral": false,
+   "predicted": 6.2,
+   "homeWinProbability": 0.646,
+   "played": true,
+   "market": 10.0,
+   "open": 8.5,
+   "total": 54.5,
+   "result": {
+    "homeScore": 21,
+    "awayScore": 15,
+    "modelCorrect": true,
+    "modelError": 0.2,
+    "marketError": 4.0
+   }
+  },
+  {
+   "id": 401858466,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "5:00\u202fPM ET",
+   "sort": "1700",
+   "home": "Penn State",
+   "away": "Wisconsin",
+   "neutral": false,
+   "predicted": 15.8,
+   "homeWinProbability": 0.831,
+   "played": true,
+   "market": 9.5,
+   "open": 11.5,
+   "total": 43.5,
+   "result": {
+    "homeScore": 20,
+    "awayScore": 24,
+    "modelCorrect": false,
+    "modelError": 19.8,
+    "marketError": 13.5
+   }
+  },
+  {
+   "id": 401858464,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "5:00\u202fPM ET",
+   "sort": "1700",
+   "home": "Michigan State",
+   "away": "Nebraska",
+   "neutral": false,
+   "predicted": -3.4,
+   "homeWinProbability": 0.419,
+   "played": true,
+   "market": -6.0,
+   "open": -5.5,
+   "total": 48.5,
+   "result": {
+    "homeScore": 13,
+    "awayScore": 31,
+    "modelCorrect": true,
+    "modelError": 14.6,
+    "marketError": 12.0
+   }
+  },
+  {
+   "id": 401862785,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "5:00\u202fPM ET",
+   "sort": "1700",
+   "home": "Bowling Green",
+   "away": "USF",
+   "neutral": false,
+   "predicted": -31.7,
+   "homeWinProbability": 0.027,
+   "played": true,
+   "market": -17.5,
+   "open": -15.5,
+   "total": 48.5,
+   "result": {
+    "homeScore": 6,
+    "awayScore": 14,
+    "modelCorrect": true,
+    "modelError": 23.7,
+    "marketError": 9.5
+   }
+  },
+  {
+   "id": 401858239,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:00\u202fPM ET",
+   "sort": "1800",
+   "home": "Virginia",
+   "away": "Delaware",
+   "neutral": false,
+   "predicted": 16.0,
+   "homeWinProbability": 0.834,
+   "played": true,
+   "market": 19.5,
+   "open": 20.5,
+   "total": 52.5,
+   "result": {
+    "homeScore": 42,
+    "awayScore": 3,
+    "modelCorrect": true,
+    "modelError": 23.0,
+    "marketError": 19.5
+   }
+  },
+  {
+   "id": 401869961,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:00\u202fPM ET",
+   "sort": "1800",
+   "home": "Old Dominion",
+   "away": "James Madison",
+   "neutral": false,
+   "predicted": -9.9,
+   "homeWinProbability": 0.275,
+   "played": true,
+   "market": -7.0,
+   "open": -4.5,
+   "total": 44.5,
+   "result": {
+    "homeScore": 20,
+    "awayScore": 46,
+    "modelCorrect": true,
+    "modelError": 16.1,
+    "marketError": 19.0
+   }
+  },
+  {
+   "id": 401858238,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:30\u202fPM ET",
+   "sort": "1830",
+   "home": "Miami (FL)",
+   "away": "Central Michigan",
+   "neutral": false,
+   "predicted": 44.7,
+   "homeWinProbability": 0.997,
+   "played": true,
+   "market": 41.5,
+   "open": 42.5,
+   "total": 52.5,
+   "result": {
+    "homeScore": 52,
+    "awayScore": 3,
+    "modelCorrect": true,
+    "modelError": 4.3,
+    "marketError": 7.5
+   }
+  },
+  {
+   "id": 401862780,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:30\u202fPM ET",
+   "sort": "1830",
+   "home": "Charlotte",
+   "away": "Louisiana",
+   "neutral": false,
+   "predicted": -12.1,
+   "homeWinProbability": 0.231,
+   "played": true,
+   "market": -9.5,
+   "open": -14.5,
+   "total": 49.5,
+   "result": {
+    "homeScore": 7,
+    "awayScore": 34,
+    "modelCorrect": true,
+    "modelError": 14.9,
+    "marketError": 17.5
+   }
+  },
+  {
+   "id": 401856696,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Alabama",
+   "away": "South Carolina",
+   "neutral": false,
+   "predicted": 16.9,
+   "homeWinProbability": 0.847,
+   "played": true,
+   "market": 12.5,
+   "open": 11.5,
+   "total": 53.5,
+   "result": {
+    "homeScore": 49,
+    "awayScore": 18,
+    "modelCorrect": true,
+    "modelError": 14.1,
+    "marketError": 18.5
+   }
+  },
+  {
+   "id": 401856814,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Cincinnati",
+   "away": "Kansas State",
+   "neutral": false,
+   "predicted": -10.7,
+   "homeWinProbability": 0.259,
+   "played": true,
+   "market": -6.0,
+   "open": -6.0,
+   "total": 55.5,
+   "result": {
+    "homeScore": 31,
+    "awayScore": 26,
+    "modelCorrect": false,
+    "modelError": 15.7,
+    "marketError": 11.0
+   }
+  },
+  {
+   "id": 401856881,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "West Virginia",
+   "away": "Oklahoma State",
+   "neutral": false,
+   "predicted": 9.1,
+   "homeWinProbability": 0.71,
+   "played": true,
+   "market": 1.5,
+   "open": -2.5,
+   "total": 60.5,
+   "result": {
+    "homeScore": 24,
+    "awayScore": 41,
+    "modelCorrect": false,
+    "modelError": 26.1,
+    "marketError": 18.5
+   }
+  },
+  {
+   "id": 401862784,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Tulane",
+   "away": "Southern Miss",
+   "neutral": false,
+   "predicted": 15.0,
+   "homeWinProbability": 0.819,
+   "played": true,
+   "market": 17.5,
+   "open": 17.5,
+   "total": 52.5,
+   "result": {
+    "homeScore": 24,
+    "awayScore": 21,
+    "modelCorrect": true,
+    "modelError": 12.0,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401871048,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Jacksonville State",
+   "away": "Middle Tennessee",
+   "neutral": false,
+   "predicted": 7.1,
+   "homeWinProbability": 0.667,
+   "played": true,
+   "market": 7.0,
+   "open": 9.5,
+   "total": 50.5,
+   "result": {
+    "homeScore": 23,
+    "awayScore": 13,
+    "modelCorrect": true,
+    "modelError": 2.9,
+    "marketError": 3.0
+   }
+  },
+  {
+   "id": 401869931,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Arkansas State",
+   "away": "Kennesaw State",
+   "neutral": false,
+   "predicted": 7.3,
+   "homeWinProbability": 0.671,
+   "played": true,
+   "market": 6.5,
+   "open": 5.5,
+   "total": 53.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 14,
+    "modelCorrect": true,
+    "modelError": 4.3,
+    "marketError": 3.5
+   }
+  },
+  {
+   "id": 401856702,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "LSU",
+   "away": "Texas A&M",
+   "neutral": false,
+   "predicted": 1.2,
+   "homeWinProbability": 0.528,
+   "played": true,
+   "market": 8.5,
+   "open": 3.0,
+   "total": 52.5,
+   "result": {
+    "homeScore": 35,
+    "awayScore": 6,
+    "modelCorrect": true,
+    "modelError": 27.8,
+    "marketError": 20.5
+   }
+  },
+  {
+   "id": 401858469,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "USC",
+   "away": "Oregon",
+   "neutral": false,
+   "predicted": 2.9,
+   "homeWinProbability": 0.57,
+   "played": true,
+   "market": -3.5,
+   "open": -5.5,
+   "total": 60.5,
+   "result": {
+    "homeScore": 27,
+    "awayScore": 41,
+    "modelCorrect": false,
+    "modelError": 16.9,
+    "marketError": 10.5
+   }
+  },
+  {
+   "id": 401856804,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "Washington State",
+   "away": "Arizona",
+   "neutral": false,
+   "predicted": -5.4,
+   "homeWinProbability": 0.372,
+   "played": true,
+   "market": -11.5,
+   "open": -13.5,
+   "total": 47.5,
+   "result": {
+    "homeScore": 24,
+    "awayScore": 34,
+    "modelCorrect": true,
+    "modelError": 4.6,
+    "marketError": 1.5
+   }
+  },
+  {
+   "id": 401864572,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "NC State",
+   "away": "Appalachian State",
+   "neutral": false,
+   "predicted": 14.6,
+   "homeWinProbability": 0.812,
+   "played": true,
+   "market": 12.5,
+   "open": 14.0,
+   "total": 56.5,
+   "result": {
+    "homeScore": 41,
+    "awayScore": 31,
+    "modelCorrect": true,
+    "modelError": 4.6,
+    "marketError": 2.5
+   }
+  },
+  {
+   "id": 401860894,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "Utah State",
+   "away": "Troy",
+   "neutral": false,
+   "predicted": 0.8,
+   "homeWinProbability": 0.519,
+   "played": true,
+   "market": 3.0,
+   "open": 2.5,
+   "total": 47.5,
+   "result": {
+    "homeScore": 21,
+    "awayScore": 10,
+    "modelCorrect": true,
+    "modelError": 10.2,
+    "marketError": 8.0
+   }
+  },
+  {
+   "id": 401856703,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:45\u202fPM ET",
+   "sort": "1945",
+   "home": "Mississippi State",
+   "away": "Missouri",
+   "neutral": false,
+   "predicted": 7.7,
+   "homeWinProbability": 0.68,
+   "played": true,
+   "market": 3.5,
+   "open": 1.5,
+   "total": 58.5,
+   "result": {
+    "homeScore": 31,
+    "awayScore": 24,
+    "modelCorrect": true,
+    "modelError": 0.7,
+    "marketError": 3.5
+   }
+  },
+  {
+   "id": 401856697,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "8:00\u202fPM ET",
+   "sort": "2000",
+   "home": "Arkansas",
+   "away": "Tulsa",
+   "neutral": false,
+   "predicted": 5.3,
+   "homeWinProbability": 0.626,
+   "played": true,
+   "market": 7.0,
+   "open": 8.5,
+   "total": 51.5,
+   "result": {
+    "homeScore": 34,
+    "awayScore": 6,
+    "modelCorrect": true,
+    "modelError": 22.7,
+    "marketError": 21.0
+   }
+  },
+  {
+   "id": 401862782,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "8:00\u202fPM ET",
+   "sort": "2000",
+   "home": "Louisiana-Monroe",
+   "away": "Florida Atlantic",
+   "neutral": false,
+   "predicted": -10.8,
+   "homeWinProbability": 0.256,
+   "played": true,
+   "market": -11.5,
+   "open": -13.5,
+   "total": 58.5,
+   "result": {
+    "homeScore": 17,
+    "awayScore": 45,
+    "modelCorrect": true,
+    "modelError": 17.2,
+    "marketError": 16.5
+   }
+  },
+  {
+   "id": 401858241,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "9:00\u202fPM ET",
+   "sort": "2100",
+   "home": "SMU",
+   "away": "Missouri State",
+   "neutral": false,
+   "predicted": 27.9,
+   "homeWinProbability": 0.955,
+   "played": true,
+   "market": 30.5,
+   "open": 34.5,
+   "total": 60.5,
+   "result": {
+    "homeScore": 34,
+    "awayScore": 24,
+    "modelCorrect": true,
+    "modelError": 17.9,
+    "marketError": 20.5
+   }
+  },
+  {
+   "id": 401860895,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "9:00\u202fPM ET",
+   "sort": "2100",
+   "home": "UTEP",
+   "away": "Oregon State",
+   "neutral": false,
+   "predicted": -11.4,
+   "homeWinProbability": 0.245,
+   "played": true,
+   "market": -11.5,
+   "open": -12.5,
+   "total": 56.5,
+   "result": {
+    "homeScore": 7,
+    "awayScore": 33,
+    "modelCorrect": true,
+    "modelError": 14.6,
+    "marketError": 14.5
+   }
+  },
+  {
+   "id": 401866429,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "9:00\u202fPM ET",
+   "sort": "2100",
+   "home": "Sacramento State",
+   "away": "UMass",
+   "neutral": false,
+   "predicted": 4.5,
+   "homeWinProbability": 0.608,
+   "played": true,
+   "market": -6.0,
+   "open": -6.0,
+   "total": 49.5,
+   "result": {
+    "homeScore": 6,
+    "awayScore": 35,
+    "modelCorrect": false,
+    "modelError": 33.5,
+    "marketError": 23.0
+   }
+  }
+ ],
+ "fcs": [
+  {
+   "id": 401858468,
+   "week": 4,
+   "date": "2026-09-25",
+   "dateLabel": "Fri, Sep 25",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Rutgers",
+   "away": "Howard",
+   "neutral": false,
+   "predicted": 31.4,
+   "homeWinProbability": 0.971,
+   "played": true
+  },
+  {
+   "id": 401858236,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "12:00\u202fPM ET",
+   "sort": "1200",
+   "home": "Pittsburgh",
+   "away": "Bucknell",
+   "neutral": false,
+   "predicted": 46.9,
+   "homeWinProbability": 0.998,
+   "played": true
+  },
+  {
+   "id": 401866427,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "1:00\u202fPM ET",
+   "sort": "1300",
+   "home": "Eastern Michigan",
+   "away": "Lindenwood",
+   "neutral": false,
+   "predicted": 19.9,
+   "homeWinProbability": 0.887,
+   "played": true
+  },
+  {
+   "id": 401858237,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:00\u202fPM ET",
+   "sort": "1500",
+   "home": "Florida State",
+   "away": "Central Arkansas",
+   "neutral": false,
+   "predicted": 45.0,
+   "homeWinProbability": 0.997,
+   "played": true
+  },
+  {
+   "id": 401858244,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Duke",
+   "away": "William & Mary",
+   "neutral": false,
+   "predicted": 44.4,
+   "homeWinProbability": 0.996,
+   "played": true
+  },
+  {
+   "id": 401866428,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Ohio",
+   "away": "Stonehill",
+   "neutral": false,
+   "predicted": 27.6,
+   "homeWinProbability": 0.953,
+   "played": true
+  },
+  {
+   "id": 401868188,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Marshall",
+   "away": "Gardner-Webb",
+   "neutral": false,
+   "predicted": 29.9,
+   "homeWinProbability": 0.965,
+   "played": true
+  },
+  {
+   "id": 401866426,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "3:30\u202fPM ET",
+   "sort": "1530",
+   "home": "Buffalo",
+   "away": "Robert Morris",
+   "neutral": false,
+   "predicted": 15.0,
+   "homeWinProbability": 0.819,
+   "played": true
+  },
+  {
+   "id": 401862781,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "4:00\u202fPM ET",
+   "sort": "1600",
+   "home": "East Carolina",
+   "away": "North Carolina Central",
+   "neutral": false,
+   "predicted": 31.3,
+   "homeWinProbability": 0.971,
+   "played": true
+  },
+  {
+   "id": 401860892,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:00\u202fPM ET",
+   "sort": "1800",
+   "home": "Texas State",
+   "away": "Incarnate Word",
+   "neutral": false,
+   "predicted": 36.6,
+   "homeWinProbability": 0.987,
+   "played": true
+  },
+  {
+   "id": 401867909,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "6:00\u202fPM ET",
+   "sort": "1800",
+   "home": "FIU",
+   "away": "Long Island University",
+   "neutral": false,
+   "predicted": 27.7,
+   "homeWinProbability": 0.953,
+   "played": true
+  },
+  {
+   "id": 401870745,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:00\u202fPM ET",
+   "sort": "1900",
+   "home": "Western Kentucky",
+   "away": "Mercyhurst",
+   "neutral": false,
+   "predicted": 23.7,
+   "homeWinProbability": 0.924,
+   "played": true
+  },
+  {
+   "id": 401862783,
+   "week": 4,
+   "date": "2026-09-26",
+   "dateLabel": "Sat, Sep 26",
+   "time": "7:30\u202fPM ET",
+   "sort": "1930",
+   "home": "North Texas",
+   "away": "Houston Christian",
+   "neutral": false,
+   "predicted": 35.2,
+   "homeWinProbability": 0.983,
+   "played": true
+  }
+ ],
+ "watch": [],
+ "flagged": 1,
+ "games": 71,
+ "saved": "2026-09-27T15:19:13Z",
+ "teams": {
+  "Georgia": {
+   "rank": 1,
+   "abbreviation": "UGA",
+   "color": "#ba0c2f",
+   "logo": "logos/c357c11c988f.png"
+  },
+  "Notre Dame": {
+   "rank": 2,
+   "abbreviation": "ND",
+   "color": "#0c2340",
+   "logo": "logos/8c731c2b08ba.png"
+  },
+  "Ohio State": {
+   "rank": 3,
+   "abbreviation": "OSU",
+   "color": "#ba0c2f",
+   "logo": "logos/9f55b0150371.png"
+  },
+  "Texas": {
+   "rank": 4,
+   "abbreviation": "TEX",
+   "color": "#bf5700",
+   "logo": "logos/b06eedb94d84.png"
+  },
+  "Alabama": {
+   "rank": 5,
+   "abbreviation": "ALA",
+   "color": "#9e1b32",
+   "logo": "logos/2d603ee1e8ee.png"
+  },
+  "LSU": {
+   "rank": 6,
+   "abbreviation": "LSU",
+   "color": "#461d7c",
+   "logo": "logos/89a0d02a8f7b.png"
+  },
+  "Miami (FL)": {
+   "rank": 7,
+   "abbreviation": "MIA",
+   "color": "#f47321",
+   "logo": "logos/2cd7252dd0c5.png"
+  },
+  "Oregon": {
+   "rank": 8,
+   "abbreviation": "ORE",
+   "color": "#007030",
+   "logo": "logos/d195ce9c4219.png"
+  },
+  "Florida": {
+   "rank": 9,
+   "abbreviation": "FLA",
+   "color": "#0021a5",
+   "logo": "logos/3fc301c741e3.png"
+  },
+  "Utah": {
+   "rank": 10,
+   "abbreviation": "UTAH",
+   "color": "#be0000",
+   "logo": "logos/d85db0b928fa.png"
+  },
+  "Indiana": {
+   "rank": 11,
+   "abbreviation": "IU",
+   "color": "#990000",
+   "logo": "logos/8ca68e2a2fb1.png"
+  },
+  "Texas A&M": {
+   "rank": 12,
+   "abbreviation": "TA&M",
+   "color": "#500000",
+   "logo": "logos/120f3b4b3325.png"
+  },
+  "USC": {
+   "rank": 13,
+   "abbreviation": "USC",
+   "color": "#990000",
+   "logo": "logos/cdb863b43bae.png"
+  },
+  "Tennessee": {
+   "rank": 14,
+   "abbreviation": "TENN",
+   "color": "#ff8200",
+   "logo": "logos/2bdf956b5d9e.png"
+  },
+  "Ole Miss": {
+   "rank": 15,
+   "abbreviation": "MISS",
+   "color": "#13294b",
+   "logo": "logos/6a4463ec9170.png"
+  },
+  "BYU": {
+   "rank": 16,
+   "abbreviation": "BYU",
+   "color": "#003da5",
+   "logo": "logos/2345af06a786.png"
+  },
+  "Michigan": {
+   "rank": 17,
+   "abbreviation": "MICH",
+   "color": "#00274c",
+   "logo": "logos/99cdad9782fd.png"
+  },
+  "Oklahoma": {
+   "rank": 18,
+   "abbreviation": "OU",
+   "color": "#841617",
+   "logo": "logos/7db05b109e32.png"
+  },
+  "Texas Tech": {
+   "rank": 19,
+   "abbreviation": "TTU",
+   "color": "#c30020",
+   "logo": "logos/2efb3535f16d.png"
+  },
+  "UCLA": {
+   "rank": 20,
+   "abbreviation": "UCLA",
+   "color": "#2774ae",
+   "logo": "logos/9864b59119cd.png"
+  },
+  "Mississippi State": {
+   "rank": 21,
+   "abbreviation": "MSST",
+   "color": "#5d1725",
+   "logo": "logos/b67abcdf2809.png"
+  },
+  "Penn State": {
+   "rank": 22,
+   "abbreviation": "PSU",
+   "color": "#001e44",
+   "logo": "logos/2b742f09826f.png"
+  },
+  "Nebraska": {
+   "rank": 23,
+   "abbreviation": "NEB",
+   "color": "#d00000",
+   "logo": "logos/325d3617539e.png"
+  },
+  "Auburn": {
+   "rank": 24,
+   "abbreviation": "AUB",
+   "color": "#0c2340",
+   "logo": "logos/f08d55d27eb6.png"
+  },
+  "Iowa": {
+   "rank": 25,
+   "abbreviation": "IOWA",
+   "color": "#000000",
+   "logo": "logos/e32569301b24.png"
+  },
+  "South Carolina": {
+   "rank": 26,
+   "abbreviation": "SC",
+   "color": "#73000a",
+   "logo": "logos/32f09449b3e0.png"
+  },
+  "Houston": {
+   "rank": 27,
+   "abbreviation": "HOU",
+   "color": "#c8102e",
+   "logo": "logos/e66993b7295c.png"
+  },
+  "Missouri": {
+   "rank": 28,
+   "abbreviation": "MIZ",
+   "color": "#f1b82d",
+   "logo": "logos/9d655386ae0d.png"
+  },
+  "Kansas State": {
+   "rank": 29,
+   "abbreviation": "KSU",
+   "color": "#512888",
+   "logo": "logos/191fef98dae7.png"
+  },
+  "Clemson": {
+   "rank": 30,
+   "abbreviation": "CLEM",
+   "color": "#f56600",
+   "logo": "logos/aff9a27ceb22.png"
+  },
+  "Northwestern": {
+   "rank": 31,
+   "abbreviation": "NU",
+   "color": "#582c83",
+   "logo": "logos/5ac34c5b94cd.png"
+  },
+  "Pittsburgh": {
+   "rank": 32,
+   "abbreviation": "PITT",
+   "color": "#003594",
+   "logo": "logos/decdbe3fb755.png"
+  },
+  "SMU": {
+   "rank": 33,
+   "abbreviation": "SMU",
+   "color": "#d70000",
+   "logo": "logos/6fb5ed8ee7ad.png"
+  },
+  "Washington": {
+   "rank": 34,
+   "abbreviation": "WASH",
+   "color": "#33006f",
+   "logo": "logos/af6a431f349a.png"
+  },
+  "Louisville": {
+   "rank": 35,
+   "abbreviation": "LOU",
+   "color": "#c9001f",
+   "logo": "logos/8fbcd8de0802.png"
+  },
+  "Boise State": {
+   "rank": 36,
+   "abbreviation": "BOIS",
+   "color": "#0033a0",
+   "logo": "logos/6b70cb57bc41.png"
+  },
+  "Kentucky": {
+   "rank": 37,
+   "abbreviation": "UK",
+   "color": "#0033a0",
+   "logo": "logos/95bf4b28bbbe.png"
+  },
+  "Arizona": {
+   "rank": 38,
+   "abbreviation": "ARIZ",
+   "color": "#cc0033",
+   "logo": "logos/ccc6b3693c32.png"
+  },
+  "Vanderbilt": {
+   "rank": 39,
+   "abbreviation": "VAN",
+   "color": "#000000",
+   "logo": "logos/7f0019dd1683.png"
+  },
+  "Duke": {
+   "rank": 40,
+   "abbreviation": "DUKE",
+   "color": "#00539b",
+   "logo": "logos/ef8d15e38a20.png"
+  },
+  "Baylor": {
+   "rank": 41,
+   "abbreviation": "BAY",
+   "color": "#154734",
+   "logo": "logos/4fe608825c29.png"
+  },
+  "Wisconsin": {
+   "rank": 42,
+   "abbreviation": "WIS",
+   "color": "#a00000",
+   "logo": "logos/e22defd128b6.png"
+  },
+  "Virginia": {
+   "rank": 43,
+   "abbreviation": "UVA",
+   "color": "#232d4b",
+   "logo": "logos/ff00557b8d81.png"
+  },
+  "Florida State": {
+   "rank": 44,
+   "abbreviation": "FSU",
+   "color": "#782f40",
+   "logo": "logos/b46e389472f9.png"
+  },
+  "Illinois": {
+   "rank": 45,
+   "abbreviation": "ILL",
+   "color": "#ff5f05",
+   "logo": "logos/ec049400b39a.png"
+  },
+  "USF": {
+   "rank": 46,
+   "abbreviation": "USF",
+   "color": "#006747",
+   "logo": "logos/88b23f5b1c28.png"
+  },
+  "UTSA": {
+   "rank": 47,
+   "abbreviation": "UTSA",
+   "color": "#0c2340",
+   "logo": "logos/48f9cb05ff05.png"
+  },
+  "Virginia Tech": {
+   "rank": 48,
+   "abbreviation": "VT",
+   "color": "#861f41",
+   "logo": "logos/34768f8678dc.png"
+  },
+  "James Madison": {
+   "rank": 49,
+   "abbreviation": "JMU",
+   "color": "#450084",
+   "logo": "logos/550ec3c81b98.png"
+  },
+  "TCU": {
+   "rank": 50,
+   "abbreviation": "TCU",
+   "color": "#4d1979",
+   "logo": "logos/9639da5cfeb8.png"
+  },
+  "Minnesota": {
+   "rank": 51,
+   "abbreviation": "MINN",
+   "color": "#7a0019",
+   "logo": "logos/2eabb1f2594c.png"
+  },
+  "NC State": {
+   "rank": 52,
+   "abbreviation": "NCSU",
+   "color": "#cc0000",
+   "logo": "logos/f992575a0c8b.png"
+  },
+  "Iowa State": {
+   "rank": 53,
+   "abbreviation": "ISU",
+   "color": "#c8102e",
+   "logo": "logos/adc15aea2554.png"
+  },
+  "Army": {
+   "rank": 54,
+   "abbreviation": "ARMY",
+   "color": "#000000",
+   "logo": "logos/0c0c6e843cdd.png"
+  },
+  "Wake Forest": {
+   "rank": 55,
+   "abbreviation": "WAKE",
+   "color": "#ceb888",
+   "logo": "logos/db3af1a37148.png"
+  },
+  "New Mexico": {
+   "rank": 56,
+   "abbreviation": "UNM",
+   "color": "#ba0c2f",
+   "logo": "logos/441f95bd96ab.png"
+  },
+  "Michigan State": {
+   "rank": 57,
+   "abbreviation": "MSU",
+   "color": "#173f35",
+   "logo": "logos/6aff470a58bb.png"
+  },
+  "Arizona State": {
+   "rank": 58,
+   "abbreviation": "ASU",
+   "color": "#ffc627",
+   "logo": "logos/5578318a7664.png"
+  },
+  "UCF": {
+   "rank": 59,
+   "abbreviation": "UCF",
+   "color": "#000000",
+   "logo": "logos/b946f9ba95cb.png"
+  },
+  "Texas State": {
+   "rank": 60,
+   "abbreviation": "TXST",
+   "color": "#501214",
+   "logo": "logos/7067b3f158fc.png"
+  },
+  "Cincinnati": {
+   "rank": 61,
+   "abbreviation": "CIN",
+   "color": "#000000",
+   "logo": "logos/da39841714bf.png"
+  },
+  "Toledo": {
+   "rank": 62,
+   "abbreviation": "TOL",
+   "color": "#0b2240",
+   "logo": "logos/c2098a933da2.png"
+  },
+  "Maryland": {
+   "rank": 63,
+   "abbreviation": "MD",
+   "color": "#ce1126",
+   "logo": "logos/f788e2b5667f.png"
+  },
+  "Arkansas": {
+   "rank": 64,
+   "abbreviation": "ARK",
+   "color": "#a32136",
+   "logo": "logos/e47cd0775201.png"
+  },
+  "North Carolina": {
+   "rank": 65,
+   "abbreviation": "UNC",
+   "color": "#7bafd4",
+   "logo": "logos/d5dfad51916b.png"
+  },
+  "Georgia Tech": {
+   "rank": 66,
+   "abbreviation": "GT",
+   "color": "#b3a369",
+   "logo": "logos/175df357796e.png"
+  },
+  "Fresno State": {
+   "rank": 67,
+   "abbreviation": "FRES",
+   "color": "#c41230",
+   "logo": "logos/97921d5098e7.png"
+  },
+  "North Texas": {
+   "rank": 68,
+   "abbreviation": "UNT",
+   "color": "#00853e",
+   "logo": "logos/59bdf32ffb97.png"
+  },
+  "Western Michigan": {
+   "rank": 69,
+   "abbreviation": "WMU",
+   "color": "#532e1f",
+   "logo": "logos/8ddfcfd88760.png"
+  },
+  "California": {
+   "rank": 70,
+   "abbreviation": "CAL",
+   "color": "#041e42",
+   "logo": "logos/f1c25e2b64bc.png"
+  },
+  "Memphis": {
+   "rank": 71,
+   "abbreviation": "MEM",
+   "color": "#00498f",
+   "logo": "logos/807f7a10b69d.png"
+  },
+  "Kansas": {
+   "rank": 72,
+   "abbreviation": "KU",
+   "color": "#0051ba",
+   "logo": "logos/64789e561cf4.png"
+  },
+  "Washington State": {
+   "rank": 73,
+   "abbreviation": "WSU",
+   "color": "#a60f2d",
+   "logo": "logos/3af5ad713c86.png"
+  },
+  "Oregon State": {
+   "rank": 74,
+   "abbreviation": "ORST",
+   "color": "#dc4405",
+   "logo": "logos/32c7569a9b7f.png"
+  },
+  "Oklahoma State": {
+   "rank": 75,
+   "abbreviation": "OKST",
+   "color": "#fe5c00",
+   "logo": "logos/1eac20c3994a.png"
+  },
+  "Louisiana": {
+   "rank": 76,
+   "abbreviation": "UL",
+   "color": "#ce181e",
+   "logo": "logos/22574438d659.png"
+  },
+  "Syracuse": {
+   "rank": 77,
+   "abbreviation": "SYR",
+   "color": "#f76900",
+   "logo": "logos/09dd36c218f7.png"
+  },
+  "Tulane": {
+   "rank": 78,
+   "abbreviation": "TULN",
+   "color": "#006747",
+   "logo": "logos/a36fd372891d.png"
+  },
+  "West Virginia": {
+   "rank": 79,
+   "abbreviation": "WVU",
+   "color": "#eaaa00",
+   "logo": "logos/51f402196f62.png"
+  },
+  "Rutgers": {
+   "rank": 80,
+   "abbreviation": "RUTG",
+   "color": "#ce0e2d",
+   "logo": "logos/ba95d659c492.png"
+  },
+  "UNLV": {
+   "rank": 81,
+   "abbreviation": "UNLV",
+   "color": "#cf0a2c",
+   "logo": "logos/ca4fb4f14600.png"
+  },
+  "San Diego State": {
+   "rank": 82,
+   "abbreviation": "SDSU",
+   "color": "#a6192e",
+   "logo": "logos/3e4ea33e647d.png"
+  },
+  "Colorado": {
+   "rank": 83,
+   "abbreviation": "COLO",
+   "color": "#cfb87c",
+   "logo": "logos/8a5c352dbea3.png"
+  },
+  "Purdue": {
+   "rank": 84,
+   "abbreviation": "PUR",
+   "color": "#ceb888",
+   "logo": "logos/7997227c8c74.png"
+  },
+  "Navy": {
+   "rank": 85,
+   "abbreviation": "NAVY",
+   "color": "#00225b",
+   "logo": "logos/a6c8845a8b63.png"
+  },
+  "East Carolina": {
+   "rank": 86,
+   "abbreviation": "ECU",
+   "color": "#592a8a",
+   "logo": "logos/b28012502d50.png"
+  },
+  "Liberty": {
+   "rank": 87,
+   "abbreviation": "LIB",
+   "color": "#0a254e",
+   "logo": "logos/63e00d21103a.png"
+  },
+  "Florida Atlantic": {
+   "rank": 88,
+   "abbreviation": "FAU",
+   "color": "#003366",
+   "logo": "logos/ebe46982b952.png"
+  },
+  "UConn": {
+   "rank": 89,
+   "abbreviation": "CONN",
+   "color": "#000e2f",
+   "logo": "logos/b5ad1440d01b.png"
+  },
+  "Air Force": {
+   "rank": 90,
+   "abbreviation": "AF",
+   "color": "#003594",
+   "logo": "logos/2a3aa9ebdfc5.png"
+  },
+  "Colorado State": {
+   "rank": 91,
+   "abbreviation": "CSU",
+   "color": "#1e4d2b",
+   "logo": "logos/5956f24cde3e.png"
+  },
+  "North Dakota State": {
+   "rank": 92,
+   "abbreviation": "NDSU",
+   "color": "#00583d",
+   "logo": "logos/cb3a5af9a31e.png"
+  },
+  "Louisiana Tech": {
+   "rank": 93,
+   "abbreviation": "LT",
+   "color": "#003087",
+   "logo": "logos/5de15f4293ee.png"
+  },
+  "Temple": {
+   "rank": 94,
+   "abbreviation": "TEM",
+   "color": "#a41e35",
+   "logo": "logos/64f63c78e303.png"
+  },
+  "Ohio": {
+   "rank": 95,
+   "abbreviation": "OHIO",
+   "color": "#024230",
+   "logo": "logos/c0442cca5834.png"
+  },
+  "Appalachian State": {
+   "rank": 96,
+   "abbreviation": "APP",
+   "color": "#000000",
+   "logo": "logos/0c434555fd6e.png"
+  },
+  "Stanford": {
+   "rank": 97,
+   "abbreviation": "STAN",
+   "color": "#8c1515",
+   "logo": "logos/692b65185973.png"
+  },
+  "South Alabama": {
+   "rank": 98,
+   "abbreviation": "USA",
+   "color": "#00205b",
+   "logo": "logos/908a8c6a2647.png"
+  },
+  "Tulsa": {
+   "rank": 99,
+   "abbreviation": "TLSA",
+   "color": "#003595",
+   "logo": "logos/fcb3921f051e.png"
+  },
+  "Miami (OH)": {
+   "rank": 100,
+   "abbreviation": "M-OH",
+   "color": "#c41230",
+   "logo": "logos/96de99fce7e7.png"
+  },
+  "Utah State": {
+   "rank": 101,
+   "abbreviation": "USU",
+   "color": "#0f2439",
+   "logo": "logos/203f84a484e5.png"
+  },
+  "Georgia State": {
+   "rank": 102,
+   "abbreviation": "GAST",
+   "color": "#0039a6",
+   "logo": "logos/f6e217804b36.png"
+  },
+  "Marshall": {
+   "rank": 103,
+   "abbreviation": "MRSH",
+   "color": "#00b140",
+   "logo": "logos/e6cd63f0c4cf.png"
+  },
+  "Boston College": {
+   "rank": 104,
+   "abbreviation": "BC",
+   "color": "#8c2232",
+   "logo": "logos/b75c1cc74d8b.png"
+  },
+  "Troy": {
+   "rank": 105,
+   "abbreviation": "TROY",
+   "color": "#862633",
+   "logo": "logos/e61fb5c43375.png"
+  },
+  "UAB": {
+   "rank": 106,
+   "abbreviation": "UAB",
+   "color": "#1a5632",
+   "logo": "logos/37691ecba063.png"
+  },
+  "Jacksonville State": {
+   "rank": 107,
+   "abbreviation": "JXST",
+   "color": "#cc0000",
+   "logo": "logos/f4c934713d6c.png"
+  },
+  "Georgia Southern": {
+   "rank": 108,
+   "abbreviation": "GASO",
+   "color": "#041e42",
+   "logo": "logos/160ac997709b.png"
+  },
+  "Western Kentucky": {
+   "rank": 109,
+   "abbreviation": "WKU",
+   "color": "#c60c30",
+   "logo": "logos/9f2216f041b7.png"
+  },
+  "FIU": {
+   "rank": 110,
+   "abbreviation": "FIU",
+   "color": "#091f3f",
+   "logo": "logos/2d3cf9e451ce.png"
+  },
+  "UMass": {
+   "rank": 111,
+   "abbreviation": "MASS",
+   "color": "#881c1c",
+   "logo": "logos/b4bfccaaf4d4.png"
+  },
+  "Delaware": {
+   "rank": 112,
+   "abbreviation": "DEL",
+   "color": "#00539f",
+   "logo": "logos/32d45dedccdb.png"
+  },
+  "Southern Miss": {
+   "rank": 113,
+   "abbreviation": "USM",
+   "color": "#ffc72c",
+   "logo": "logos/1268bb7ea657.png"
+  },
+  "Arkansas State": {
+   "rank": 114,
+   "abbreviation": "ARST",
+   "color": "#cc092f",
+   "logo": "logos/808377c3fe5d.png"
+  },
+  "Hawaii": {
+   "rank": 115,
+   "abbreviation": "HAW",
+   "color": "#024731",
+   "logo": "logos/d06adbb59ef7.png"
+  },
+  "Missouri State": {
+   "rank": 116,
+   "abbreviation": "MOST",
+   "color": "#5e0009",
+   "logo": "logos/40c7bb6ec7eb.png"
+  },
+  "San Jose State": {
+   "rank": 117,
+   "abbreviation": "SJSU",
+   "color": "#0055a2",
+   "logo": "logos/6d35ec499e04.png"
+  },
+  "Old Dominion": {
+   "rank": 118,
+   "abbreviation": "ODU",
+   "color": "#043657",
+   "logo": "logos/82ec9fd5a0cd.png"
+  },
+  "Nevada": {
+   "rank": 119,
+   "abbreviation": "NEV",
+   "color": "#041e42",
+   "logo": "logos/a231a32999d3.png"
+  },
+  "Rice": {
+   "rank": 120,
+   "abbreviation": "RICE",
+   "color": "#00205b",
+   "logo": "logos/4600f5d38f83.png"
+  },
+  "Sam Houston": {
+   "rank": 121,
+   "abbreviation": "SHSU",
+   "color": "#f56423",
+   "logo": "logos/70d65093977e.png"
+  },
+  "Kennesaw State": {
+   "rank": 122,
+   "abbreviation": "KENN",
+   "color": "#fdbb30",
+   "logo": "logos/480540eab123.png"
+  },
+  "Coastal Carolina": {
+   "rank": 123,
+   "abbreviation": "CCU",
+   "color": "#006f71",
+   "logo": "logos/29fbaca83bb9.png"
+  },
+  "Middle Tennessee": {
+   "rank": 124,
+   "abbreviation": "MTSU",
+   "color": "#036eb7",
+   "logo": "logos/3fdf449273d5.png"
+  },
+  "Eastern Michigan": {
+   "rank": 125,
+   "abbreviation": "EMU",
+   "color": "#046a38",
+   "logo": "logos/a15516101d8d.png"
+  },
+  "Central Michigan": {
+   "rank": 126,
+   "abbreviation": "CMU",
+   "color": "#6a0032",
+   "logo": "logos/d53ea52b8fb5.png"
+  },
+  "Akron": {
+   "rank": 127,
+   "abbreviation": "AKR",
+   "color": "#041e42",
+   "logo": "logos/11d90f143d8c.png"
+  },
+  "Kent State": {
+   "rank": 128,
+   "abbreviation": "KENT",
+   "color": "#002664",
+   "logo": "logos/bdede61eb71e.png"
+  },
+  "Sacramento State": {
+   "rank": 129,
+   "abbreviation": "SAC",
+   "color": "#00573c",
+   "logo": "logos/c4a035f3d925.png"
+  },
+  "Wyoming": {
+   "rank": 130,
+   "abbreviation": "WYO",
+   "color": "#492f24",
+   "logo": "logos/2956bcc4775a.png"
+  },
+  "New Mexico State": {
+   "rank": 131,
+   "abbreviation": "NMSU",
+   "color": "#8c0b42",
+   "logo": "logos/4fbf4e3ef53e.png"
+  },
+  "UTEP": {
+   "rank": 132,
+   "abbreviation": "UTEP",
+   "color": "#ff8200",
+   "logo": "logos/f04c70b65d0b.png"
+  },
+  "Northern Illinois": {
+   "rank": 133,
+   "abbreviation": "NIU",
+   "color": "#c8102e",
+   "logo": "logos/6becc26de34f.png"
+  },
+  "Charlotte": {
+   "rank": 134,
+   "abbreviation": "CLT",
+   "color": "#005035",
+   "logo": "logos/e83d09087361.png"
+  },
+  "Bowling Green": {
+   "rank": 135,
+   "abbreviation": "BGSU",
+   "color": "#fd5000",
+   "logo": "logos/a137174ebb48.png"
+  },
+  "Louisiana-Monroe": {
+   "rank": 136,
+   "abbreviation": "ULM",
+   "color": "#840029",
+   "logo": "logos/7d812cd8e00c.png"
+  },
+  "Buffalo": {
+   "rank": 137,
+   "abbreviation": "BUF",
+   "color": "#005bbb",
+   "logo": "logos/ca9250ab9758.png"
+  },
+  "Ball State": {
+   "rank": 138,
+   "abbreviation": "BALL",
+   "color": "#ba0c2f",
+   "logo": "logos/b9c006b6f60e.png"
+  }
+ },
+ "finals": {
+  "401858240": {
+   "home": 34,
+   "away": 27
+  },
+  "401858470": {
+   "home": 24,
+   "away": 27
+  },
+  "401860891": {
+   "home": 38,
+   "away": 24
+  },
+  "401864509": {
+   "home": 33,
+   "away": 36
+  }
+ }
+}
