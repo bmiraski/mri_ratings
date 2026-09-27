@@ -69,6 +69,32 @@ def test_run_features_matches_hotseat_dataset_for_a_finished_season() -> None:
         assert got[column] == pytest.approx(expected[column]), column
 
 
+def test_run_features_resets_tenure_year_after_a_return_stint() -> None:
+    """A coach who left a school and came back years later (Petrino at Louisville,
+    Rich Rodriguez at West Virginia) is evaluated on tenure at the CURRENT stint,
+    not the number of years since they first showed up at that school."""
+    coach_season = pd.DataFrame([
+        _row("a", "School A", 2003, program_par=np.nan),  # first stint - no signal to fix year1 either way
+        _row("a", "School A", 2004, program_par=np.nan),
+        _row("a", "School A", 2014,  # second stint, year 1 again, after a decade away
+             prior=2.0, program_par=1.0, inherited=-1.0, power_end=5.0, vs_par=4.0, added=3.0, vs_inherited=6.0,
+             wins=8, losses=4, conf_wins=5, conf_losses=3, games=12),
+        _row("filler", "School Z", 2015),
+    ])
+    expected = hotseat.dataset(coach_season, EMPTY_DEPARTURES).set_index(["coach_id", "season"]).loc[("a", 2014)]
+    assert expected["year1"] == 1.0  # confirms hotseat.dataset itself treats this as a fresh stint
+
+    runs = _single_run("School A", est=5.0, wins=8.0, losses=4.0, conf_wins=5.0)
+    schedule = _schedule("School A", "Opponent", n_conf=8, n_nonconf=4)
+    features = inseason.run_features(coach_season, 2014, runs, schedule)
+
+    got = features["a"].iloc[0]
+    assert got["year1"] == 1.0
+    assert got["year2"] == 0.0
+    for column in hotseat.FULL_COLUMNS:
+        assert got[column] == pytest.approx(expected[column]), column
+
+
 def test_missing_program_par_or_inherited_excludes_the_coach() -> None:
     coach_season = pd.DataFrame([
         _row("a", "School A", 2011, program_par=np.nan),

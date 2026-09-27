@@ -155,7 +155,7 @@ def coach_season_metrics(
         overrides = split_season_power_end(coach_season, ratings_history, archive_games, current_games)
 
     out = coach_season.copy()
-    out["stint_start"] = out.groupby(["coach_id", "school"])["season"].transform("min")
+    out["stint_start"] = season.stint_start(out)
 
     def power_end(row) -> float | None:
         override = overrides.get((row.coach_id, row.school, int(row.season)))
@@ -202,15 +202,18 @@ def _summarize(group: pd.DataFrame, coach_id: str, school: str | None) -> dict:
 
 
 def tenure_summaries(metrics: pd.DataFrame) -> pd.DataFrame:
-    """One row per coach (career, ``school`` null) and one row per (coach, school) stint.
+    """One row per coach (career, ``school`` null) and one row per (coach, school)
+    stint - a coach who left a school and came back later gets a separate row for
+    each stint, not one spanning the gap.
 
     Best/worst season ranks by ``vs_par`` - see the module docstring for why,
     not by ``added`` - with both values shown for whichever season is picked.
     """
     rows = [_summarize(group, coach_id, None) for coach_id, group in metrics.groupby("coach_id")]
+    stints = metrics.assign(_stint_start=season.stint_start(metrics))
     rows += [
         _summarize(group, coach_id, school)
-        for (coach_id, school), group in metrics.groupby(["coach_id", "school"])
+        for (coach_id, school, _), group in stints.groupby(["coach_id", "school", "_stint_start"])
     ]
     return pd.DataFrame(rows)
 

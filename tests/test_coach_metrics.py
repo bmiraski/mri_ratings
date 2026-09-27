@@ -138,6 +138,31 @@ def test_inherited_and_program_par_are_keyed_by_stint_not_by_coach_id() -> None:
     assert b["program_par"] == pytest.approx(-3.0)
 
 
+def test_a_returning_coach_gets_inherited_and_program_par_from_their_current_stint() -> None:
+    """Petrino at Louisville: 2003-2004, then a decade away, then back in 2014.
+    His 2014 row's inherited/program_par must come from the years right before
+    2014, not from before his original 2003 arrival."""
+    coach_season = _coach_season_rows(
+        ("petrino", "Louisville", 2003, 12),
+        ("petrino", "Louisville", 2004, 12),
+        ("petrino", "Louisville", 2014, 12),
+    )
+    ratings_history = pd.concat([
+        _flat_ratings_range("Louisville", range(1993, 2003), power=-2.0),   # before his first stint
+        _flat_ratings_range("Louisville", [2003], power=3.0),
+        _flat_ratings_range("Louisville", range(2004, 2014), power=15.0),   # 2004 onward: post-2003 program level
+    ], ignore_index=True)
+
+    table = metrics.coach_season_metrics(coach_season, ratings_history, EMPTY_GAMES, EMPTY_GAMES, overrides={})
+    first_stint = table[table["season"] == 2003].iloc[0]
+    second_stint = table[table["season"] == 2014].iloc[0]
+
+    assert first_stint["inherited"] == pytest.approx(-2.0)     # 2002, before his first stint
+    assert first_stint["program_par"] == pytest.approx(-2.0)   # 1993-2002
+    assert second_stint["inherited"] == pytest.approx(15.0)    # 2013, right before his return
+    assert second_stint["program_par"] == pytest.approx(15.0)  # 2004-2013, not 1993-2002
+
+
 def _flat_ratings_range(team: str, seasons, power: float) -> pd.DataFrame:
     return pd.DataFrame([{"team": team, "season": s, "power": power, "prior": 0.0, "resume": 0.0} for s in seasons])
 
@@ -184,3 +209,20 @@ def test_tenure_summaries_pick_best_and_worst_by_vs_par() -> None:
     assert career["worst_vs_par"] == pytest.approx(-6.0)
     assert career["mean_added"] == pytest.approx((5.0 - 2.0 + 1.0) / 3)
     assert career["mean_vs_par"] == pytest.approx((3.0 - 6.0 + 0.5) / 3)
+
+
+def test_tenure_summaries_gives_a_returning_coach_a_separate_stint_row() -> None:
+    metrics_table = pd.DataFrame([
+        {"coach_id": "petrino", "school": "Louisville", "season": 2003, "added": 3.0, "vs_par": 1.0},
+        {"coach_id": "petrino", "school": "Louisville", "season": 2004, "added": 18.0, "vs_par": 10.0},
+        {"coach_id": "petrino", "school": "Louisville", "season": 2014, "added": 2.0, "vs_par": -1.0},
+    ])
+    tenure = metrics.tenure_summaries(metrics_table)
+    per_stop = tenure[tenure["school"] == "Louisville"].sort_values("mean_added", ascending=False)
+
+    assert len(per_stop) == 2
+    first_stint, second_stint = per_stop.iloc[0], per_stop.iloc[1]
+    assert first_stint["mean_added"] == pytest.approx((3.0 + 18.0) / 2)
+    assert first_stint["seasons"] == 2
+    assert second_stint["mean_added"] == pytest.approx(2.0)
+    assert second_stint["seasons"] == 1
