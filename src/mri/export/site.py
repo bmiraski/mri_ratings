@@ -4033,9 +4033,9 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slstake .nums { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
 .slstake .nums b { color:var(--primary); font-weight:600; }
 .slfilter { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:6px 0 4px; }
-.slseg { display:inline-flex; flex-wrap:wrap; border:1px solid var(--axis); border-radius:999px; overflow:hidden; }
-.slseg button { background:none; border:0; color:var(--secondary); font:inherit; font-size:13px; padding:6px 13px; cursor:pointer; }
-.slseg button.on { background:var(--primary); color:var(--surface); }
+.slseg { display:flex; flex-wrap:wrap; gap:8px; }
+.slseg button { background:var(--surface); border:1px solid var(--axis); border-radius:999px; color:var(--secondary); font:inherit; font-size:13px; padding:6px 13px; cursor:pointer; }
+.slseg button.on { background:var(--primary); border-color:var(--primary); color:var(--surface); }
 .slledger { background:var(--surface); border:1px solid var(--grid); border-radius:12px; overflow:hidden; }
 .slhead, .slrow { display:grid; grid-template-columns:66px minmax(0,1.8fr) 44px 92px 104px 92px minmax(0,1.3fr);
   gap:12px; align-items:center; padding:9px 14px; }

@@ -9,7 +9,7 @@ name: Refresh ratings
 # would price a betting board off ratings up to three days stale - and three
 # days is a dozen games for every team in a conference.
 #
-# 11:00 UTC is 6am Eastern, 3am Pacific: after the last west-coast game has
+# 10:47 UTC is about 6am Eastern, 3am Pacific: after the last west-coast game has
 # gone final and before anyone is reading. The extra Saturday run is for
 # football, ahead of kickoff.
 #
@@ -19,8 +19,8 @@ name: Refresh ratings
 
 on:
   schedule:
-    - cron: "0 11 * * *"   # daily 11:00 UTC - last night's games are final
-    - cron: "0 15 * * 6"   # Saturday - ahead of football kickoff
+    - cron: "47 10 * * *"  # daily 10:47 UTC - last night's games are final; off the hour, where GitHub runs late
+    - cron: "47 14 * * 6"  # Saturday - ahead of football kickoff
   workflow_dispatch:        # and a button, for when you want it now
 
 concurrency:

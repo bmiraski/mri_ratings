@@ -127,3 +127,81 @@ def test_snapshot_saves_the_outgoing_week_once(tmp_path) -> None:
     assert saved["finals"] == {"1": {"home": 21, "away": 24}, "2": {"home": 35, "away": 3}}
     assert saved["teams"]["Hosts"] == {"rank": 3, "abbreviation": "HOS", "color": "#123456", "logo": "logos/h.png"}
     assert slatearchive.snapshot(tmp_path, None, 2026, finals) is None           # already saved: never rewritten
+
+
+def test_next_window_is_now_during_a_game_and_the_lead_in_before_one() -> None:
+    s = slate_of(game(1, sort="1530"), game(2, sort="1900"))
+    assert live.next_window(s, None, at(16)) == at(16)
+    assert live.next_window(s, None, at(9)) == at(15, 20)
+    done = {"season": 2026, "week": 4, "games": {"1": {"status": "completed"}}}
+    assert live.next_window(s, done, at(18, 30)) == at(18, 50)       # game 1 final: next is game 2's lead-in
+    assert live.next_window(s, None, at(23, 59, day=27)) is None       # nothing left this week
+
+
+def test_window_reads_the_folder_and_takes_the_season_from_the_site(tmp_path) -> None:
+    assert live.window(tmp_path, now=at(9)) is None
+    slate = slate_of(game(1))
+    del slate["season"]
+    (tmp_path / "slate.json").write_text(json.dumps(slate))
+    (tmp_path / "site.json").write_text(json.dumps({"season": 2026}))
+    (tmp_path / "live.json").write_text(json.dumps({"key": "2026-w4", "games": {"1": {"status": "completed"}}}))
+    assert live.window(tmp_path, now=at(16)) is None                   # final, and recognised as this week's
+
+
+def _load_script():
+    import importlib.util
+    from pathlib import Path
+    path = Path(__file__).resolve().parents[1] / "scripts" / "live_scores.py"
+    spec = importlib.util.spec_from_file_location("live_scores", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class _Clock:
+    def __init__(self, start):
+        self.now = start
+        self.slept = []
+
+    def __call__(self):
+        return self.now
+
+    def sleep(self, seconds):
+        self.slept.append(seconds)
+        self.now += dt.timedelta(seconds=seconds)
+
+
+def test_watch_stays_up_through_a_game_and_commits_each_tick() -> None:
+    script = _load_script()
+    clock = _Clock(at(15, 30))
+    ticks, saves = [], []
+    final_at = at(18, 45)
+    result = script.watch(clock=clock, sleep=clock.sleep, run_tick=ticks.append, save=saves.append, pull=lambda: None,
+                          find_window=lambda now: now if now < final_at else None)
+    assert result == "nothing on"
+    assert len(ticks) == len(saves) == 39                              # every five minutes, 3:30 to 6:40
+    assert set(clock.slept) == {300.0}
+
+
+def test_watch_waits_for_a_close_kickoff_but_not_a_distant_one() -> None:
+    script = _load_script()
+    kick = at(19, 20)
+    clock = _Clock(at(19, 5))
+    ticks = []
+    script.watch(clock=clock, sleep=clock.sleep, run_tick=ticks.append, save=lambda now: None, pull=lambda: None,
+                 find_window=lambda now: (kick if now < kick else now) if now < at(19, 40) else None)
+    assert clock.slept[0] == 15 * 60 and ticks[0] == kick              # slept to the lead-in, then polled
+
+    clock = _Clock(at(9))
+    assert script.watch(clock=clock, sleep=clock.sleep, run_tick=ticks.append, save=lambda now: None,
+                        pull=lambda: None, find_window=lambda now: at(15, 20)) == "nothing on"
+    assert clock.slept == []                                           # hours away: leave it to a later run
+
+
+def test_watch_stops_inside_its_budget() -> None:
+    script = _load_script()
+    clock = _Clock(at(12))
+    result = script.watch(clock=clock, sleep=clock.sleep, run_tick=lambda now: None, save=lambda now: None,
+                          pull=lambda: None, find_window=lambda now: now)
+    assert result == "out of time"
+    assert clock.now - at(12) <= script.BUDGET

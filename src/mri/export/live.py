@@ -181,6 +181,34 @@ def should_poll(slate: dict, live: dict | None, now: dt.datetime, *, sport: Spor
     return False
 
 
+def next_window(slate: dict, live: dict | None, now: dt.datetime, *, sport: Sport = FOOTBALL) -> dt.datetime | None:
+    """When polling is next worth doing: ``now`` if a game is on, else the soonest lead-in, else None."""
+    if should_poll(slate, live, now, sport=sport):
+        return now
+    done = {gid for gid, g in (live or {}).get("games", {}).items() if g.get("status") in FINAL} \
+        if _same(slate, live) else set()
+    upcoming = [start - LEAD_IN for game in slate_games(slate)
+                if (start := kickoff(game)) is not None and str(game["id"]) not in done and start - LEAD_IN > now]
+    return min(upcoming, default=None)
+
+
+def _read(path: Path) -> dict | None:
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def window(root: Path, *, now: dt.datetime, sport: Sport = FOOTBALL) -> dt.datetime | None:
+    """``next_window`` for one sport's folder, read from its slate.json and live.json."""
+    slate = _read(root / "slate.json")
+    if slate is None:
+        return None
+    slate.setdefault("season", (_read(root / _site_file(sport)) or {}).get("season"))
+    return next_window(slate, _read(root / "live.json"), now, sport=sport)
+
+
+def _site_file(sport: Sport) -> str:
+    return "basketball.json" if sport is BASKETBALL else "site.json"
+
+
 def merge(slate: dict, scoreboard: list[dict], previous: dict | None, ranks: dict[str, int],
           now: dt.datetime, *, sport: Sport = FOOTBALL) -> dict:
     """Fold a scoreboard reading into the live record for this slate.
@@ -248,7 +276,7 @@ def run(root: Path, *, now: dt.datetime | None = None, key: str | None = None, f
     if not slate_path.exists():
         return "no slate"
     slate = json.loads(slate_path.read_text())
-    site_file = root / ("basketball.json" if sport is BASKETBALL else "site.json")
+    site_file = root / _site_file(sport)
     site = json.loads(site_file.read_text()) if site_file.exists() else {}
     slate.setdefault("season", site.get("season"))
     previous = json.loads(live_path.read_text()) if live_path.exists() else None
