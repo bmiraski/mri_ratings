@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 4,
  "date": null,
- "updated": "2026-09-27T04:08:49Z",
- "updatedLabel": "12:08 AM ET",
+ "updated": "2026-09-27T04:13:51Z",
+ "updatedLabel": "12:13 AM ET",
  "games": {
   "401869941": {
    "status": "completed",
@@ -569,9 +569,9 @@
   },
   "401866429": {
    "status": "in_progress",
-   "label": "Q4 03:08",
+   "label": "Q4 01:48",
    "period": 4,
-   "clock": "03:08",
+   "clock": "01:48",
    "home": 6,
    "away": 35,
    "possession": "away",
@@ -580,13 +580,13 @@
   },
   "401858241": {
    "status": "in_progress",
-   "label": "Q4 04:26",
+   "label": "Q4 03:59",
    "period": 4,
-   "clock": "04:26",
-   "home": 28,
+   "clock": "03:59",
+   "home": 34,
    "away": 18,
    "possession": "away",
-   "homeWinProbability": 0.996,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "401860895": {
@@ -602,20 +602,20 @@
   },
   "401860891": {
    "status": "in_progress",
-   "label": "Q3 11:42",
+   "label": "Q3 09:47",
    "period": 3,
-   "clock": "11:42",
-   "home": 14,
+   "clock": "09:47",
+   "home": 17,
    "away": 17,
-   "possession": "home",
-   "homeWinProbability": 0.671,
-   "upset": "Rice leads; the model gave them 14% before kickoff"
+   "possession": null,
+   "homeWinProbability": 0.755,
+   "upset": null
   },
   "401858240": {
    "status": "in_progress",
-   "label": "Q2 00:14",
+   "label": "Half",
    "period": 2,
-   "clock": "00:14",
+   "clock": "00:00",
    "home": 10,
    "away": 20,
    "possession": null,
@@ -635,13 +635,13 @@
   },
   "401858470": {
    "status": "in_progress",
-   "label": "Q1 00:00",
-   "period": 1,
-   "clock": "00:00",
-   "home": 0,
-   "away": 14,
+   "label": "Q2 05:40",
+   "period": 2,
+   "clock": "05:40",
+   "home": 7,
+   "away": 21,
    "possession": null,
-   "homeWinProbability": 0.281,
+   "homeWinProbability": 0.228,
    "upset": null
   }
  }
