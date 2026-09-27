@@ -33,6 +33,10 @@ def main() -> None:
           f"{table['school'].nunique()} schools")
     print(f"  {int(table['interim'].sum())} flagged interim")
 
+    print("  computing conference records...")
+    conf = season.conference_record(table)
+    table = table.merge(conf, on=["coach_id", "school", "season"], how="left")
+
     if not collisions.empty:
         print(f"\n  {len(collisions)} coach_id collision(s) - add a canonical spelling to "
               f"data/coach_aliases.json for each real second person:")

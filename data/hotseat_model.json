@@ -1,0 +1,218 @@
+{
+  "generated": "2026-09-26",
+  "features": [
+    "vs_par",
+    "vs_par_lag",
+    "added",
+    "vs_inherited",
+    "win_pct",
+    "conf_win_pct",
+    "year1",
+    "year2",
+    "year3",
+    "power_conference",
+    "vs_talent"
+  ],
+  "minTrainSeasons": 6,
+  "penalty": 4.0,
+  "trainSeasons": [
+    2006,
+    2025
+  ],
+  "teamSeasons": 1932,
+  "positives": 235,
+  "perSeason": [
+    {
+      "season": 2012,
+      "n": 94,
+      "positives": 12,
+      "brierFull": 0.0848,
+      "brierBaseline": 0.1078,
+      "fullBetter": true
+    },
+    {
+      "season": 2013,
+      "n": 101,
+      "positives": 10,
+      "brierFull": 0.0796,
+      "brierBaseline": 0.0835,
+      "fullBetter": true
+    },
+    {
+      "season": 2014,
+      "n": 102,
+      "positives": 11,
+      "brierFull": 0.0868,
+      "brierBaseline": 0.0913,
+      "fullBetter": true
+    },
+    {
+      "season": 2015,
+      "n": 104,
+      "positives": 15,
+      "brierFull": 0.1128,
+      "brierBaseline": 0.1156,
+      "fullBetter": true
+    },
+    {
+      "season": 2016,
+      "n": 112,
+      "positives": 14,
+      "brierFull": 0.0752,
+      "brierBaseline": 0.0993,
+      "fullBetter": true
+    },
+    {
+      "season": 2017,
+      "n": 115,
+      "positives": 14,
+      "brierFull": 0.0771,
+      "brierBaseline": 0.0968,
+      "fullBetter": true
+    },
+    {
+      "season": 2018,
+      "n": 116,
+      "positives": 13,
+      "brierFull": 0.0852,
+      "brierBaseline": 0.0903,
+      "fullBetter": true
+    },
+    {
+      "season": 2019,
+      "n": 121,
+      "positives": 13,
+      "brierFull": 0.0727,
+      "brierBaseline": 0.0889,
+      "fullBetter": true
+    },
+    {
+      "season": 2020,
+      "n": 121,
+      "positives": 12,
+      "brierFull": 0.0759,
+      "brierBaseline": 0.0784,
+      "fullBetter": true
+    },
+    {
+      "season": 2021,
+      "n": 121,
+      "positives": 22,
+      "brierFull": 0.1122,
+      "brierBaseline": 0.1415,
+      "fullBetter": true
+    },
+    {
+      "season": 2022,
+      "n": 124,
+      "positives": 17,
+      "brierFull": 0.0845,
+      "brierBaseline": 0.0988,
+      "fullBetter": true
+    },
+    {
+      "season": 2023,
+      "n": 128,
+      "positives": 13,
+      "brierFull": 0.0813,
+      "brierBaseline": 0.0835,
+      "fullBetter": true
+    },
+    {
+      "season": 2024,
+      "n": 123,
+      "positives": 19,
+      "brierFull": 0.0937,
+      "brierBaseline": 0.1135,
+      "fullBetter": true
+    },
+    {
+      "season": 2025,
+      "n": 126,
+      "positives": 19,
+      "brierFull": 0.1053,
+      "brierBaseline": 0.1119,
+      "fullBetter": true
+    }
+  ],
+  "seasonsFullBetter": 14,
+  "seasonsTotal": 14,
+  "aucFull": 0.8374,
+  "aucBaseline": 0.8016,
+  "brierFull": 0.0877,
+  "brierBaseline": 0.1001,
+  "calibration": [
+    {
+      "n": 161,
+      "predicted": 0.006806052162560394,
+      "actual": 0.012422360248447204
+    },
+    {
+      "n": 161,
+      "predicted": 0.016418431277200732,
+      "actual": 0.0
+    },
+    {
+      "n": 161,
+      "predicted": 0.025886046658764976,
+      "actual": 0.043478260869565216
+    },
+    {
+      "n": 161,
+      "predicted": 0.03937078300911637,
+      "actual": 0.024844720496894408
+    },
+    {
+      "n": 161,
+      "predicted": 0.05574861452841998,
+      "actual": 0.049689440993788817
+    },
+    {
+      "n": 161,
+      "predicted": 0.07446503887271731,
+      "actual": 0.062111801242236024
+    },
+    {
+      "n": 161,
+      "predicted": 0.10403588075269941,
+      "actual": 0.11180124223602485
+    },
+    {
+      "n": 161,
+      "predicted": 0.15102932333909527,
+      "actual": 0.19875776397515527
+    },
+    {
+      "n": 160,
+      "predicted": 0.2294751081722904,
+      "actual": 0.25
+    },
+    {
+      "n": 160,
+      "predicted": 0.4271438372153418,
+      "actual": 0.51875
+    }
+  ],
+  "passed": true,
+  "coefficientsFull": {
+    "vs_par": -0.0467,
+    "vs_par_lag": -0.0238,
+    "added": -0.0188,
+    "vs_inherited": -0.0283,
+    "win_pct": -0.3197,
+    "conf_win_pct": -0.6448,
+    "year1": -1.8721,
+    "year2": -1.1072,
+    "year3": -0.2761,
+    "power_conference": 0.3117,
+    "vs_talent": -0.0534,
+    "intercept": -1.4213
+  },
+  "coefficientsBaseline": {
+    "win_pct": -2.4403,
+    "year1": -1.5344,
+    "year2": -0.7199,
+    "year3": -0.078,
+    "intercept": -0.4187
+  }
+}
