@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
-from mri.export import gamedaydata, heismandata, logos, simdata, site, sitedata, slate, slatearchive  # noqa: E402
+from mri.export import coachesdata, gamedaydata, heismandata, logos, simdata, site, sitedata, slate, slatearchive  # noqa: E402
 from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
@@ -44,7 +44,7 @@ def main() -> None:
               f"{len(payload['board']['flagged'])} flagged")
     print(f"  week {payload['week']}, {payload['gamesRated']} games, {len(payload['teams'])} teams")
 
-    add_football_extras(payload, data_dir)
+    coaches_data = add_football_extras(payload, data_dir)
 
     summary = logos.cache_logos(payload, public)
     print(f"  logos: {summary['fetched']} fetched, {summary['cached']} cached, "
@@ -72,6 +72,12 @@ def main() -> None:
     print(f"  wrote {len(files)} files to {public.relative_to(ROOT)}")
     top = payload["teams"][0]
     print(f"  #1 {top['team']} ({top['power']:+.1f})")
+
+    if coaches_data:
+        try:
+            write_coaches_pages(coaches_data, payload, public)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  coaches pages skipped: {exc}")
 
     if basketball:
         basketball["sports"] = sports
@@ -115,13 +121,18 @@ def main() -> None:
         print(f"  wrote {len(files)} files - #1 {top['team']} ({top['power']:+.1f})")
 
 
-def add_football_extras(payload: dict, data_dir: Path) -> None:
-    """The season simulation, this week's slate and the public record.
+def add_football_extras(payload: dict, data_dir: Path) -> dict | None:
+    """The season simulation, this week's slate, the public record, and the coaches data.
 
     Each is isolated the way basketball is, and for the same reason: they sit on
     top of the rankings, and a failure in one must not stop the rankings being
     published. What fails is left off - its nav link and page disappear - rather
     than rendered from stale numbers.
+
+    Returns the coaches data (or None on failure/absence), since - unlike
+    everything else here - it isn't rendered through ``site.build()``'s own
+    page-writing loop; ``main()`` writes its unlisted pages itself, after
+    ``site.build()`` returns.
     """
     weekly = sitedata.weekly_ratings(SEASON)
 
@@ -221,6 +232,41 @@ def add_football_extras(payload: dict, data_dir: Path) -> None:
                   f"games reconstructed, {fwd['logged']} picks logged")
         except Exception as exc:  # noqa: BLE001
             print(f"  record skipped: {exc}")
+
+    # Unlisted for now (see write_coaches_pages) - some of the hand-labeled
+    # departure data behind the hot-seat model is still being monitored before
+    # anything here gets linked from a page a visitor would find.
+    coaches_data = None
+    try:
+        import pandas as pd
+
+        parquet_dir = ROOT / "data" / "parquet"
+        coach_season = pd.read_parquet(parquet_dir / "coach_season.parquet")
+        coach_tenure = pd.read_parquet(parquet_dir / "coach_tenure.parquet")
+        coaches_data = coachesdata.build(
+            SEASON, payload, coach_season, coach_tenure, history_path=data_dir / "hotseat_history.json"
+        )
+        payload["coaches"] = coaches_data["byTeam"]
+        payload["coachesModel"] = coaches_data["model"]
+        active = [r for r in coaches_data["index"] if r["hotSeat"] is not None]
+        print(f"  coaches: {len(coaches_data['index'])} active, {len(active)} with hot-seat odds this week")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  coaches skipped: {exc}")
+
+    return coaches_data
+
+
+def write_coaches_pages(coaches_data: dict, payload: dict, public: Path) -> None:
+    """Written to disk, reachable by direct URL once pushed - but never linked from
+    the nav, the footer, or any other page (unlike everything site.build() writes),
+    so it stays unlisted until it's deliberately wired in. See coachesdata.py.
+    """
+    (public / "coaches.html").write_text(site.coaches_index_page(coaches_data, payload))
+    coach_dir = public / "coach"
+    coach_dir.mkdir(exist_ok=True)
+    for coach_id, coach in coaches_data["detail"].items():
+        (coach_dir / f"{coach_id}.html").write_text(site.coach_detail_page(coach, payload))
+    print(f"  coaches pages: wrote coaches.html + {len(coaches_data['detail'])} coach pages (unlisted)")
 
 
 def _finals(week: int) -> dict[int, tuple[int, int]]:

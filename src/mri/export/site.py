@@ -977,6 +977,32 @@ def _hidden_team_section(team: dict, payload: dict) -> str:
 """
 
 
+def _coaches_section(team: dict, payload: dict) -> str:
+    """Every coach this team has had since 2003, mean performance only - no hot-seat
+    number here. Names are plain text, not links: the per-coach pages exist but are
+    unlisted for now (see build_site.py), and this is a page real visitors reach."""
+    coaches = (payload.get("coaches") or {}).get(team["team"])
+    if not coaches:
+        return ""
+    rows = "".join(
+        f'<tr><td class="opp">{esc(c["name"])}</td><td class="wk">{esc(c["years"])}</td>'
+        f'<td class="res">{esc(c["record"])}</td>'
+        f'<td class="num">{c["meanAdded"]:+.1f}</td></tr>' if c["meanAdded"] is not None else
+        f'<tr><td class="opp">{esc(c["name"])}</td><td class="wk">{esc(c["years"])}</td>'
+        f'<td class="res">{esc(c["record"])}</td><td class="num">&ndash;</td></tr>'
+        for c in coaches
+    )
+    return f"""
+    <section>
+      <h2>Coaches</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Coach</th><th>Years</th><th>Record</th><th class="num">Mean added</th></tr></thead>
+        <tbody>{rows}</tbody>
+      </table></div>
+    </section>
+"""
+
+
 def team_page(team: dict, payload: dict) -> str:
     chrome = chrome_for(payload)
     detail = payload["details"].get(team["team"], {"played": [], "upcoming": []})
@@ -1096,10 +1122,164 @@ def team_page(team: dict, payload: dict) -> str:
         <tbody>{upcoming}</tbody>
       </table></div>
     </section>
-{_hidden_team_section(team, payload)}{_history_section(team, payload)}
+{_hidden_team_section(team, payload)}{_coaches_section(team, payload)}{_history_section(team, payload)}
   </article>"""
     return page(f"{team['team']} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{team['team']} MRI rating, schedule and game-by-game performance.")
+
+
+# --------------------------------------------------------------------------
+# coach pages - unlisted for now, see build_site.py. Never linked from any
+# page above (no nav entry, no cross-link), so nothing here assumes it will
+# be found except by the direct URL a build prints.
+# --------------------------------------------------------------------------
+
+def _coach_power_chart(seasons: list[dict]) -> str:
+    """This coach's own career, Power by season, with a shaded band per school -
+    "multiple stops sit on one timeline," per the plan. Same hand-built-SVG
+    technique as ``_rank_chart``, not a shared function with it: this plots Power
+    across possibly several teams, not one team's rank across its whole history.
+    """
+    points = [s for s in seasons if s["powerEnd"] is not None]
+    if len(points) < 2:
+        return ""
+    seasons_x = [p["season"] for p in points]
+    lo, hi = min(seasons_x), max(seasons_x)
+    span = (hi - lo) or 1
+    values = [p["powerEnd"] for p in points]
+    vlo, vhi = min(values + [0.0]), max(values + [0.0])
+    vspan = (vhi - vlo) or 1.0
+
+    W, H = 720, 160
+    L, R, T, B = 8, 8, 14, 22
+    px = lambda s: L + (s - lo) / span * (W - L - R)
+    py = lambda v: T + (1 - (v - vlo) / vspan) * (H - T - B)
+
+    bands, seen_schools = [], []
+    start = points[0]
+    for earlier, later in zip(points, points[1:] + [None]):
+        if later is None or earlier["school"] != later["school"]:
+            x1, x2 = px(start["season"]) - 4, px(earlier["season"]) + 4
+            shade = "var(--grid)" if len(seen_schools) % 2 == 0 else "transparent"
+            bands.append(f'<rect x="{x1:.1f}" y="{T}" width="{x2 - x1:.1f}" height="{H - T - B}" fill="{shade}">'
+                         f'<title>{esc(earlier["school"])}</title></rect>')
+            seen_schools.append(earlier["school"])
+            start = later if later is not None else start
+
+    path = " ".join(f"{'M' if i == 0 else 'L'}{px(p['season']):.1f},{py(p['powerEnd']):.1f}" for i, p in enumerate(points))
+    dots = "".join(
+        f'<circle cx="{px(p["season"]):.1f}" cy="{py(p["powerEnd"]):.1f}" r="2.6" class="pt">'
+        f'<title>{p["season"]} {esc(p["school"])}: {p["powerEnd"]:+.1f}</title></circle>'
+        for p in points
+    )
+    return f"""
+      <div class="rankchart">
+        <svg viewBox="0 0 {W} {H}" role="img" aria-label="Power rating by season, shaded by school.">
+          {"".join(bands)}
+          <path d="{path}" fill="none" stroke="var(--series)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          {dots}
+        </svg>
+        <p class="note">Power by season. Each shaded band is one school - hover it, or a point, for details.</p>
+      </div>"""
+
+
+def coaches_index_page(data: dict, payload: dict) -> str:
+    """The coaches index - every active coach, sorted by hot seat, plus the two
+    highlighted panels. Unlisted: see the module-level note above."""
+    ranked = sorted(
+        [r for r in data["index"] if r["hotSeat"] is not None], key=lambda r: -r["hotSeat"]
+    )
+    unranked = [r for r in data["index"] if r["hotSeat"] is None]
+
+    def row(r: dict) -> str:
+        change = ""
+        if r["hotSeatChange"] is not None and abs(r["hotSeatChange"]) >= 0.005:
+            change = f' <span class="muted">({r["hotSeatChange"]:+.0%})</span>'
+        seat = f'{r["hotSeat"]:.0%}{change}' if r["hotSeat"] is not None else "&ndash;"
+        added = f'{r["added"]:+.1f}' if r["added"] is not None else "&ndash;"
+        vs_par = f'{r["vsPar"]:+.1f}' if r["vsPar"] is not None else "&ndash;"
+        return (f'<tr><td class="opp">{esc(r["name"])}</td><td class="opp">{esc(r["school"])}</td>'
+                f'<td class="wk">{r["tenureYear"]}</td><td class="res">{esc(r["record"])}</td>'
+                f'<td class="num">{added}</td><td class="num">{vs_par}</td><td class="num">{seat}</td></tr>')
+
+    def panel(title: str, rows: list[dict]) -> str:
+        if not rows:
+            return ""
+        return f"""
+    <section>
+      <h2>{esc(title)}</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Coach</th><th>School</th><th>Yr</th><th>Record</th><th class="num">Added</th>
+        <th class="num">vs. par</th><th class="num">Hot seat</th></tr></thead>
+        <tbody>{"".join(row(r) for r in rows)}</tbody>
+      </table></div>
+    </section>"""
+
+    warmest = ranked[:10]
+    secure_pool = [r for r in ranked if r["tenureYear"] > 1]
+    most_secure = secure_pool[-10:][::-1] if len(secure_pool) >= 10 else []
+
+    body = f"""
+  <article>
+    <h1>Coaches</h1>
+    <p class="hint">A model estimate of a coaching change, from what's known at this point in the
+    season - not advocacy, and not a claim about what should happen. <a href="method.html">How it works</a>.</p>
+    {panel("Warmest seats", warmest)}
+    {panel("Most secure", most_secure)}
+    <section>
+      <h2>Every active coach</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Coach</th><th>School</th><th>Yr</th><th>Record</th><th class="num">Added</th>
+        <th class="num">vs. par</th><th class="num">Hot seat</th></tr></thead>
+        <tbody>{"".join(row(r) for r in ranked + unranked)}</tbody>
+      </table></div>
+    </section>
+  </article>"""
+    return page("Coaches — MRI", body, payload, description="Every active FBS head coach's hot-seat odds.")
+
+
+def coach_detail_page(coach: dict, payload: dict) -> str:
+    """One coach's career: table by season, the Power-by-season chart shaded by
+    school, and (if they're currently coaching) this week's hot-seat number.
+    Unlisted: see the module-level note above."""
+
+    def num(v, fmt: str = "{:+.1f}") -> str:
+        return fmt.format(v) if v is not None else "&ndash;"
+
+    def season_row(s: dict) -> str:
+        interim = ' <span class="muted">(interim)</span>' if s["interim"] else ""
+        return (f'<tr><td class="wk">{s["season"]}</td>'
+                f'<td class="opp">{esc(s["school"])}{interim}</td>'
+                f'<td class="res">{esc(s["record"])}</td>'
+                f'<td class="num">{num(s["powerEnd"])}</td><td class="num">{num(s["prior"])}</td>'
+                f'<td class="num">{num(s["added"])}</td><td class="num">{num(s["vsPar"])}</td>'
+                f'<td class="num">{num(s["resume"], "{:+.2f}")}</td></tr>')
+
+    seat = (f'<div class="stat"><span class="statl">Hot seat</span><span class="statv">{coach["hotSeat"]:.0%}</span></div>'
+            if coach.get("hotSeat") is not None else "")
+
+    body = f"""
+  <article>
+    <h1>{esc(coach["name"])}</h1>
+    <div class="stats">
+      <div class="stat"><span class="statl">Career mean added</span><span class="statv">{num(coach["meanAdded"])}</span></div>
+      <div class="stat"><span class="statl">Career mean vs. par</span><span class="statv">{num(coach["meanVsPar"])}</span></div>
+      {seat}
+    </div>
+    {_coach_power_chart(coach["seasons"])}
+    <section>
+      <h2>By season</h2>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Season</th><th>School</th><th>Record</th><th class="num">Power</th>
+        <th class="num">Prior</th><th class="num">Added</th><th class="num">vs. par</th><th class="num">R&eacute;sum&eacute;</th></tr></thead>
+        <tbody>{"".join(season_row(s) for s in coach["seasons"])}</tbody>
+      </table></div>
+      <p class="hint">Added is partly measured against the coach's own earlier work, since the prior is
+      built from last season - vs. par compares against the program's normal level instead, to cover that.</p>
+    </section>
+  </article>"""
+    return page(f"{coach['name']} — MRI Coaches", body, payload, depth=1,
+                description=f"{coach['name']}'s career by season: Power, added, and vs. par.")
 
 
 # --------------------------------------------------------------------------
@@ -3186,6 +3366,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
 {_prior_method_section(payload)}
 {_homefield_method_section(payload)}
 {_sim_method_section(payload)}
+{_coaches_method_section(payload)}
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
@@ -3194,6 +3375,41 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   </article>"""
     return page(f"Method — MRI {season_text(payload)}", body, payload,
                 description="How the MRI rating system works, and how well it does.")
+
+
+def _coaches_method_section(payload: dict) -> str:
+    """The hot-seat model: what it's fit on, how it validated, and what it can't see.
+    Validation numbers only - no live per-coach odds, which stay on the unlisted pages."""
+    model = payload.get("coachesModel")
+    if not model:
+        return ""
+    verdict = "cleared" if model["passed"] else "did not clear"
+    return f"""
+  <h2>Coaches: the hot-seat model</h2>
+  <p>A logistic regression for the chance a head coach is fired or pushed out at a
+  season's end, from what's known at that point: how the team did against its own
+  normal level and against its own preseason expectation, win percentage and
+  conference win percentage, tenure year, whether it's a power-conference job, and
+  (where it's measurable) how the roster's talent compares. Walked forward by
+  season - fit only on seasons before the one being scored - against a baseline of
+  win percentage and tenure year alone.</p>
+  <table class="compare">
+    <thead><tr><th></th><th>Model</th><th>Baseline</th></tr></thead>
+    <tbody>
+      <tr><td>AUC</td><td><strong>{model['aucFull']:.3f}</strong></td><td>{model['aucBaseline']:.3f}</td></tr>
+      <tr><td>Brier score</td><td><strong>{model['brierFull']:.4f}</strong></td><td>{model['brierBaseline']:.4f}</td></tr>
+    </tbody>
+  </table>
+  <p>The model {verdict} its own bar: beating the baseline on Brier score in
+  {model['seasonsFullBetter']} of {model['seasonsTotal']} held-out seasons
+  ({model['trainSeasons'][0]}&ndash;{model['trainSeasons'][1]}, {model['teamSeasons']} coach-seasons,
+  {model['positives']} of them a firing).</p>
+  <p><strong>What it can't see:</strong> buyouts, the biggest confounder, aren't in any data
+  source here - a program that can't afford to fire a coach keeps one this model would
+  otherwise flag. Athletic-director turnover and scandals aren't either. And a coach
+  leaving on their own for a better job is a real, common outcome this model was never
+  asked to predict - that's a separate label entirely, not a gap in this one.</p>
+"""
 
 
 def _homefield_method_section(payload: dict) -> str:

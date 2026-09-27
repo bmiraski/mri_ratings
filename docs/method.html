@@ -81,7 +81,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     <li><strong>Ratings are pulled toward a prior</strong> carried from last season, so the
     first month is signal rather than noise. The pull fades on its own as games accumulate.</li>
     <li><strong>Home field is estimated</strong> from the games themselves rather than assumed,
-    and neutral sites are excluded. It currently sits at 3.1 points.</li>
+    and neutral sites are excluded. It currently sits at 2.8 points.</li>
     <li><strong>FCS opponents are rated individually.</strong> Classic pooled every non-FBS
     team into a single 7&ndash;105 entity, so beating North Dakota State and beating Mercer
     scored identically.</li>
@@ -154,7 +154,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   for the few teams that lose nearly everyone.</p>
 
   <h2>Home field by stadium</h2>
-  <p>The model gives every home team the same 3.1 points. Tested in
+  <p>The model gives every home team the same 2.8 points. Tested in
   September 2026: should that number move with the stadium, or
   with the trip? Every FBS game from 2013 was predicted from ratings that had
   only seen earlier weeks, and what the scoreboard said beyond that prediction was split two
@@ -221,6 +221,32 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   left out as noise. When nothing moves a team&rsquo;s playoff odds that much but a game moves its conference title
   odds, the guide switches to those and says so. A team with less than a half-percent playoff chance, or more than
   99.5%, gets one line instead: nothing this weekend moves the needle, or its fate is in its own hands.</p>
+
+  <h2>Coaches: the hot-seat model</h2>
+  <p>A logistic regression for the chance a head coach is fired or pushed out at a
+  season's end, from what's known at that point: how the team did against its own
+  normal level and against its own preseason expectation, win percentage and
+  conference win percentage, tenure year, whether it's a power-conference job, and
+  (where it's measurable) how the roster's talent compares. Walked forward by
+  season - fit only on seasons before the one being scored - against a baseline of
+  win percentage and tenure year alone.</p>
+  <table class="compare">
+    <thead><tr><th></th><th>Model</th><th>Baseline</th></tr></thead>
+    <tbody>
+      <tr><td>AUC</td><td><strong>0.837</strong></td><td>0.802</td></tr>
+      <tr><td>Brier score</td><td><strong>0.0877</strong></td><td>0.1001</td></tr>
+    </tbody>
+  </table>
+  <p>The model cleared its own bar: beating the baseline on Brier score in
+  14 of 14 held-out seasons
+  (2006&ndash;2025, 1932 coach-seasons,
+  235 of them a firing).</p>
+  <p><strong>What it can't see:</strong> buyouts, the biggest confounder, aren't in any data
+  source here - a program that can't afford to fire a coach keeps one this model would
+  otherwise flag. Athletic-director turnover and scandals aren't either. And a coach
+  leaving on their own for a better job is a real, common outcome this model was never
+  asked to predict - that's a separate label entirely, not a gap in this one.</p>
+
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
@@ -233,8 +259,8 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-26 14:44 UTC
-    &middot; 266 games rated &middot; <a href="homefield.html">home field</a> 3.1 pts</p>
+    <p class="muted">Ratings last changed 2026-09-27 04:53 UTC
+    &middot; 327 games rated &middot; <a href="homefield.html">home field</a> 2.8 pts</p>
   </div>
 </footer>
 </body>

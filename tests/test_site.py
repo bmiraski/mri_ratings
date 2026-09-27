@@ -90,6 +90,33 @@ def test_sparkline_handles_a_flat_line() -> None:
     assert "<path" in site.sparkline([5.0, 5.0, 5.0])
 
 
+def test_coaches_section_is_absent_without_data_and_never_links_to_a_coach_page(payload) -> None:
+    """The coach pages are unlisted for now - a team page must never be the thing
+    that makes them discoverable."""
+    team = payload["teams"][0]
+    assert site._coaches_section(team, {**payload, "coaches": {}}) == ""
+
+    with_data = {**payload, "coaches": {team["team"]: [
+        {"name": "Some Coach", "years": "2020–2023", "record": "30-20", "meanAdded": 2.5},
+    ]}}
+    rendered = site._coaches_section(team, with_data)
+    assert "Some Coach" in rendered
+    assert "<a href" not in rendered
+
+
+def test_coaches_method_section_is_absent_without_a_model(payload) -> None:
+    assert site._coaches_method_section({**payload, "coachesModel": None}) == ""
+
+    model = {
+        "aucFull": 0.8, "aucBaseline": 0.7, "brierFull": 0.09, "brierBaseline": 0.10,
+        "passed": True, "seasonsFullBetter": 10, "seasonsTotal": 12,
+        "trainSeasons": [2006, 2025], "teamSeasons": 2000, "positives": 300,
+    }
+    rendered = site._coaches_method_section({**payload, "coachesModel": model})
+    assert "hot-seat" in rendered.lower()
+    assert "buyout" in rendered.lower()
+
+
 def test_every_team_row_links_to_its_page(payload, built) -> None:
     index = (built / "index.html").read_text()
     for team in payload["teams"][:25]:
