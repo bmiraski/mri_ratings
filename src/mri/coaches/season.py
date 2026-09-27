@@ -29,7 +29,7 @@ import pandas as pd
 from ..ingest import cfbd, registry
 from . import ids
 
-COLUMNS = ["coach_id", "coach_name", "school", "season", "games", "wins", "losses", "interim"]
+COLUMNS = ["coach_id", "coach_name", "school", "season", "conference", "games", "wins", "losses", "interim"]
 CORRECTIONS_PATH = Path(__file__).resolve().parents[3] / "data" / "coach_season_corrections.json"
 
 
@@ -151,6 +151,52 @@ def attribute_games(
     if pos != len(schedule):
         raise ValueError(f"{school} {season}: coach games sum to {pos}, schedule has {len(schedule)} games")
     return pd.DataFrame(assignments, columns=["game_id", "coach_id"])
+
+
+def _record(games: pd.DataFrame, school: str) -> tuple[int, int]:
+    """Wins and losses for ``school`` within one set of its own games."""
+    home = games[games["team2"] == school]
+    away = games[games["team1"] == school]
+    wins = int((home["pts2"] > home["pts1"]).sum() + (away["pts1"] > away["pts2"]).sum())
+    return wins, int(len(games) - wins)
+
+
+def conference_record(coach_season: pd.DataFrame, *, games_fn=cfbd.games) -> pd.DataFrame:
+    """Conference wins and losses for every coach-season: ``coach_id, school, season,
+    conf_wins, conf_losses``.
+
+    A non-split season is a straight filter of that school's schedule to
+    ``conference_game`` rows. A split season reuses ``attribute_games``'s
+    existing game-to-coach assignment rather than a second attribution
+    scheme - the same games, just also checked against ``conference_game``
+    and tallied. A split whose game counts don't validate (already flagged
+    elsewhere, e.g. by ``build_coach_season``'s own ``problems`` list) gets
+    zero for every coach there rather than a guess.
+    """
+    rows = []
+    for (school, season), group in coach_season.groupby(["school", "season"]):
+        season = int(season)
+        schedule = _order_games(school, season, games_fn)
+        conf_games = schedule[schedule["conference_game"]] if not schedule.empty else schedule
+
+        if len(group) < 2:
+            wins, losses = _record(conf_games, school) if not schedule.empty else (0, 0)
+            rows.append({"coach_id": group["coach_id"].iloc[0], "school": school, "season": season,
+                         "conf_wins": wins, "conf_losses": losses})
+            continue
+
+        try:
+            assignments = attribute_games(school, season, group, coach_season, games_fn)
+        except Exception:  # noqa: BLE001 - a bad split gets zeros, not a guess
+            for cid in group["coach_id"]:
+                rows.append({"coach_id": cid, "school": school, "season": season, "conf_wins": 0, "conf_losses": 0})
+            continue
+
+        for cid, game_ids in assignments.groupby("coach_id")["game_id"]:
+            wins, losses = _record(conf_games[conf_games["game_id"].isin(game_ids)], school)
+            rows.append({"coach_id": cid, "school": school, "season": season, "conf_wins": wins, "conf_losses": losses})
+
+    return pd.DataFrame(rows, columns=["coach_id", "school", "season", "conf_wins", "conf_losses"])
 
 
 def build_coach_season(
