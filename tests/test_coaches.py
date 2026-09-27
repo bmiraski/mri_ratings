@@ -208,3 +208,52 @@ def test_interim_flags_the_newcomer_in_a_split_season_and_self_corrects() -> Non
     assert row(vince_id, 2016) is False   # the incumbent who got fired is not "interim"
     assert row(ned_id, 2016) is True      # new to the school, mid-season - the proxy's best guess
     assert row(ned_id, 2017) is False     # a full season of his own: no longer flagged
+
+
+# ---------------------------------------------------------------------------
+# stint_start
+# ---------------------------------------------------------------------------
+
+def _seasons(coach_id: str, school: str, *years: int) -> pd.DataFrame:
+    return pd.DataFrame({"coach_id": [coach_id] * len(years), "school": [school] * len(years), "season": years})
+
+
+def test_a_continuous_tenure_is_one_stint() -> None:
+    rows = _seasons("kirk-ferentz", "Iowa", *range(2003, 2027))
+    starts = season.stint_start(rows)
+    assert (starts == 2003).all()
+
+
+def test_a_gap_year_starts_a_new_stint() -> None:
+    """Bobby Petrino at Louisville: 2003-2006, then Atlanta and Charlie Strong's
+    six years, then back 2014-2018 - two separate stints, not one 2003-2018 span."""
+    rows = _seasons("bobby-petrino", "Louisville", 2003, 2004, 2005, 2006, 2014, 2015, 2016, 2017, 2018)
+    starts = season.stint_start(rows)
+    expected = [2003, 2003, 2003, 2003, 2014, 2014, 2014, 2014, 2014]
+    assert starts.tolist() == expected
+
+
+def test_a_short_return_is_its_own_one_season_stint() -> None:
+    """Barry Alvarez at Wisconsin: his 1990-2005 tenure, then two separate
+    one-game bowl fill-ins (2012, 2014) after each of his successors left -
+    three stints, none of them spanning the gaps between them."""
+    rows = _seasons("barry-alvarez", "Wisconsin", 2003, 2004, 2005, 2012, 2014)
+    starts = season.stint_start(rows)
+    assert starts.tolist() == [2003, 2003, 2003, 2012, 2014]
+
+
+def test_stint_start_is_independent_per_coach_and_school() -> None:
+    rows = pd.concat([
+        _seasons("a", "School X", 2010, 2011, 2015),
+        _seasons("b", "School X", 2012, 2013),
+        _seasons("a", "School Y", 2020),
+    ], ignore_index=True)
+    starts = season.stint_start(rows)
+    assert starts.tolist() == [2010, 2010, 2015, 2012, 2012, 2020]
+
+
+def test_stint_start_preserves_the_input_order_and_index() -> None:
+    rows = _seasons("a", "School X", 2012, 2010, 2011).sample(frac=1, random_state=0)
+    starts = season.stint_start(rows)
+    assert starts.index.equals(rows.index)
+    assert (starts == 2010).all()  # 2010-2012 is one continuous stint, regardless of row order

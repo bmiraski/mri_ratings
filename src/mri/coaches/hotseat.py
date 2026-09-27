@@ -41,6 +41,7 @@ from scipy.optimize import minimize
 from scipy.stats import rankdata
 
 from ..sim.season import POWER_FOUR
+from .season import stint_start as _stint_start
 
 FIRST_LABELED_SEASON = 2004  # matches mri.coaches.departures's own cutoff
 MIN_TRAIN_SEASONS = 6        # seasons of history before the first held-out evaluation
@@ -92,8 +93,7 @@ def dataset(coach_season: pd.DataFrame, departures: pd.DataFrame) -> pd.DataFram
 
     # stint_start needs the coach's full history at the school, not just the
     # post-FIRST_LABELED_SEASON slice, so it's computed against the unfiltered table.
-    full_stint_start = coach_season.groupby(["coach_id", "school"])["season"].min()
-    rows["stint_start"] = rows.set_index(["coach_id", "school"]).index.map(full_stint_start)
+    rows["stint_start"] = _stint_start(coach_season).reindex(rows.index)
     rows["tenure_year"] = rows["season"] - rows["stint_start"] + 1
     rows["year1"] = (rows["tenure_year"] == 1).astype(float)
     rows["year2"] = (rows["tenure_year"] == 2).astype(float)

@@ -109,6 +109,23 @@ def test_tenure_year_dummies_are_keyed_by_stint() -> None:
     assert (data.loc[("School B", 2011), ["year1", "year2", "year3"]] == [1, 0, 0]).all()
 
 
+def test_tenure_year_resets_on_a_return_to_the_same_school() -> None:
+    """Petrino at Louisville: 2004-2005, a decade away, then back in 2014 -
+    year 1 again at his own return, not year 11 counted from his first arrival."""
+    coach_season = _coach_season(
+        _row("petrino", "Louisville", 2004),
+        _row("petrino", "Louisville", 2005),
+        _row("petrino", "Louisville", 2014),
+        _row("petrino", "Louisville", 2015),
+        _row("filler", "School Z", 2016),  # pushes the "most recent season" boundary
+    )
+    data = hotseat.dataset(coach_season, EMPTY_DEPARTURES).set_index("season")
+    assert (data.loc[2004, ["year1", "year2", "year3"]] == [1, 0, 0]).all()
+    assert (data.loc[2005, ["year1", "year2", "year3"]] == [0, 1, 0]).all()
+    assert (data.loc[2014, ["year1", "year2", "year3"]] == [1, 0, 0]).all()
+    assert (data.loc[2015, ["year1", "year2", "year3"]] == [0, 1, 0]).all()
+
+
 def test_vs_par_lag_is_zero_in_year_one_and_the_real_value_after() -> None:
     coach_season = _coach_season(
         _row("a", "School A", 2010, vs_par=5.0),

@@ -50,3 +50,46 @@ def test_school_missing_from_payload_is_left_alone() -> None:
     corrected = coachesdata._correct_current_season_records(coach_season, 2026, payload)
 
     assert corrected.iloc[0][["wins", "losses"]].tolist() == [0, 0]
+
+
+def _career_row(coach_id: str, school: str, season: int, wins: int, losses: int, added: float, interim: bool = False) -> dict:
+    return {"coach_id": coach_id, "coach_name": coach_id, "school": school, "season": season,
+            "wins": wins, "losses": losses, "added": added, "interim": interim}
+
+
+def test_by_team_gives_a_returning_coach_a_separate_row_per_stint() -> None:
+    """Petrino at Louisville: 2003-2006, then a decade away, then 2014-2018 - two
+    rows, each with its own years/record/mean added, not one row spanning the gap."""
+    coach_season = pd.DataFrame([
+        _career_row("petrino", "Louisville", 2003, 9, 4, 3.0),
+        _career_row("petrino", "Louisville", 2004, 11, 1, 18.0),
+        _career_row("petrino", "Louisville", 2005, 9, 3, 4.0),
+        _career_row("petrino", "Louisville", 2006, 12, 1, 9.0),
+        _career_row("petrino", "Louisville", 2014, 9, 4, 2.0),
+        _career_row("petrino", "Louisville", 2015, 8, 5, 0.0),
+        _career_row("petrino", "Louisville", 2016, 9, 4, 10.0),
+        _career_row("petrino", "Louisville", 2017, 8, 5, 2.0),
+        _career_row("petrino", "Louisville", 2018, 2, 8, -17.0),
+    ])
+
+    by_team = coachesdata._by_team(coach_season)
+
+    rows = by_team["Louisville"]
+    assert len(rows) == 2
+    assert rows[0]["years"] == "2003–2006"
+    assert rows[0]["record"] == "41-9"
+    assert rows[1]["years"] == "2014–2018"
+    assert rows[1]["record"] == "36-26"
+
+
+def test_by_team_keeps_one_row_for_a_continuous_tenure() -> None:
+    coach_season = pd.DataFrame([
+        _career_row("smart", "Georgia", 2016, 8, 5, 1.0),
+        _career_row("smart", "Georgia", 2017, 12, 1, 9.0),
+    ])
+
+    rows = coachesdata._by_team(coach_season)["Georgia"]
+
+    assert len(rows) == 1
+    assert rows[0]["years"] == "2016–2017"
+    assert rows[0]["record"] == "20-6"

@@ -109,6 +109,23 @@ def _is_continuing(coach_id_: str, school: str, season: int, coach_rows: pd.Data
     return not prior.empty
 
 
+def stint_start(coach_season: pd.DataFrame) -> pd.Series:
+    """Each row's own stint's first season - not the coach's first season ever at
+    this school. A coach who left and came back (Alvarez at Wisconsin, Petrino at
+    Louisville, Rich Rodriguez and Schiano both returning to a school years after
+    leaving it) starts a new stint wherever a gap breaks the run of consecutive
+    seasons. Needs the coach's full, unfiltered history at that school to see the
+    gap at all - a caller working from a filtered slice should compute this
+    against the unfiltered table first and reindex onto the slice.
+    """
+    key = coach_season[["coach_id", "school", "season"]].sort_values(["coach_id", "school", "season"])
+    prev_season = key.groupby(["coach_id", "school"])["season"].shift(1)
+    new_stint = prev_season.isna() | (key["season"] != prev_season + 1)
+    stint_number = new_stint.groupby([key["coach_id"], key["school"]]).cumsum()
+    start = key.groupby(["coach_id", "school", stint_number])["season"].transform("min")
+    return start.reindex(coach_season.index)
+
+
 def entry_order(coach_ids_here: list[str], school: str, season: int, coach_rows: pd.DataFrame) -> list[str]:
     """Coaches at one split school-season, ordered by when they first arrived at the school.
 

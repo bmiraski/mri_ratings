@@ -16,6 +16,7 @@ from pathlib import Path
 import pandas as pd
 
 from ..coaches import inseason
+from ..coaches.season import stint_start
 from ..ingest import cfbd
 from ..sim import season as sim_season
 from . import simdata
@@ -54,10 +55,6 @@ def _current_odds(current_season: int, payload: dict, coach_season: pd.DataFrame
     return {"current": history["weeks"].get(str(week), {}), "previous": history["weeks"].get(str(week - 1), {})}
 
 
-def _stint_start(coach_season: pd.DataFrame) -> pd.Series:
-    return coach_season.groupby(["coach_id", "school"])["season"].transform("min")
-
-
 def _correct_current_season_records(coach_season: pd.DataFrame, current_season: int, payload: dict) -> pd.DataFrame:
     """CFBD's /coaches endpoint doesn't report a season's games/wins/losses until
     that season is over, so every coach_season row for the live, in-progress season
@@ -79,7 +76,7 @@ def _correct_current_season_records(coach_season: pd.DataFrame, current_season: 
 
 def _index_rows(coach_season: pd.DataFrame, current_season: int, odds: dict) -> list[dict]:
     active = coach_season[(~coach_season["interim"]) & (coach_season["season"] == current_season)].copy()
-    active["stintStart"] = _stint_start(coach_season).reindex(active.index)
+    active["stintStart"] = stint_start(coach_season).reindex(active.index)
     rows = []
     for row in active.itertuples():
         current, previous = odds["current"].get(row.coach_id), odds["previous"].get(row.coach_id)
@@ -95,8 +92,13 @@ def _index_rows(coach_season: pd.DataFrame, current_season: int, odds: dict) -> 
 
 
 def _by_team(coach_season: pd.DataFrame) -> dict[str, list[dict]]:
+    """One row per (coach, school) stint - a coach who left and came back later
+    (Alvarez at Wisconsin, Petrino at Louisville, ...) gets a separate row for
+    each stint rather than one row spanning the years they weren't there."""
+    with_stints = coach_season.assign(_stintStart=stint_start(coach_season))
     by_team: dict[str, list[dict]] = {}
-    for (coach_id, school), group in coach_season.sort_values("season").groupby(["coach_id", "school"]):
+    grouped = with_stints.sort_values("season").groupby(["coach_id", "school", "_stintStart"])
+    for (coach_id, school, _), group in grouped:
         group = group[~group["interim"]]
         if group.empty:
             continue

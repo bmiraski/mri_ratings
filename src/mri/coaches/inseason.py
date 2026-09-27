@@ -31,6 +31,7 @@ import pandas as pd
 from ..export import simdata
 from ..sim import season
 from . import hotseat
+from .season import stint_start as _stint_start
 
 DEFAULT_MODEL_PATH = Path(__file__).resolve().parents[3] / "data" / "hotseat_model.json"
 
@@ -79,7 +80,7 @@ def run_features(coach_season: pd.DataFrame, current_season: int, runs: dict, sc
     numbers for a season that's already finished).
     """
     active = _active_coaches(coach_season, current_season)
-    stint_start = coach_season.groupby(["coach_id", "school"])["season"].min()
+    stint_start = _stint_start(coach_season)  # aligned to coach_season's own index
     prior_vs_par = coach_season.set_index(["coach_id", "school", "season"])["vs_par"]
 
     out: dict[str, pd.DataFrame] = {}
@@ -93,7 +94,7 @@ def run_features(coach_season: pd.DataFrame, current_season: int, runs: dict, sc
         games = wins + losses
         conf_games_total = _conf_games_total(schedule, row.school)
 
-        start = stint_start.get((row.coach_id, row.school), row.season)
+        start = stint_start.get(row.Index, row.season)
         tenure_year = int(row.season) - int(start) + 1
         lag = prior_vs_par.get((row.coach_id, row.school, int(row.season) - 1), 0.0)
         lag = 0.0 if pd.isna(lag) else float(lag)
