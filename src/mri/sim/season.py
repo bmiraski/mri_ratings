@@ -112,9 +112,12 @@ def simulate(
                   toward records and résumé like any other.
     ``observe``   a callable handed each chunk of runs as it finishes, for callers that
                   need more than the summary counts (the Heisman forecast needs each
-                  team's finish in each run). It receives a dict of ``rank`` (1 = best,
-                  the committee blend *without* the committee's noise), ``losses``,
-                  ``wins`` and ``made_cg``, each shaped (runs, teams).
+                  team's finish in each run; the hot-seat odds need each team's
+                  projected final record and rating). It receives a dict of ``rank``
+                  (1 = best, the committee blend *without* the committee's noise),
+                  ``losses``, ``wins``, ``made_cg``, ``est`` (final Power, post-season)
+                  and ``confWins`` (conference wins, regular season), each shaped
+                  (runs, teams).
     ``forced``    game id -> ``"home"`` or ``"away"``: that side wins that game in every run, and
                   nothing else changes. Every random draw is the one the unforced run makes;
                   the forced game's own draw is mapped, quantile for quantile, into the margins
@@ -330,7 +333,8 @@ def simulate(
             clean = np.argsort(-score, axis=1)
             clean_rank = np.empty_like(clean)
             clean_rank[rows[:, None], clean] = np.arange(1, T + 1)[None, :]
-            observe({"rank": clean_rank, "losses": reg_losses.copy(), "wins": reg_wins.copy(), "made_cg": made_cg.copy()})
+            observe({"rank": clean_rank, "losses": reg_losses.copy(), "wins": reg_wins.copy(), "made_cg": made_cg.copy(),
+                     "est": est.copy(), "confWins": conf_wins.copy()})
         score = score + float(rules.get("committee_noise", COMMITTEE_NOISE)) \
             * rng.standard_normal((B, T))
         order = np.argsort(-score, axis=1)
