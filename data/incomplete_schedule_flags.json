@@ -1,0 +1,16 @@
+{
+  "_note": "Hand-maintained list of team-seasons flagged by scripts/check_backfill_data.py's missing-game check, where the shortfall wasn't confidently explained (unlike the Ivy League's structurally shorter schedule or Navy's 2001 post-9/11 disruption, which needed no flag). Each entry is a team playing 2+ fewer games than its season's median with no verified reason yet. Not treated as a data error and not excluded from the rating - just marked so a reader can see the schedule was short. Displayed as an asterisk on archive pages (mri.export.seasons, site.py's season_page/seasons_index). Revisit and either resolve (remove the flag, note the reason above) or confirm as a real CFBD gap.",
+  "flags": [
+    {"team": "Utah", "season": 2002},
+    {"team": "Stanford", "season": 2002},
+    {"team": "Rice", "season": 2002},
+    {"team": "Utah State", "season": 2002},
+    {"team": "USF", "season": 2002},
+    {"team": "Temple", "season": 2012},
+    {"team": "Buffalo", "season": 2014},
+    {"team": "Idaho", "season": 2014},
+    {"team": "Kent State", "season": 2014},
+    {"team": "North Carolina", "season": 2018},
+    {"team": "Southern Miss", "season": 2018}
+  ]
+}
