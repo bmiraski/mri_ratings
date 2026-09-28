@@ -858,6 +858,21 @@ def test_the_banner_marks_champions_and_only_champions() -> None:
             assert "MRI Champion" not in page.read_text(), f"{name} has no titles"
 
 
+def test_title_banner_links_a_retroactive_year_to_its_season_page(tmp_path: Path) -> None:
+    """1979 has no game log (retroactive years never do), but it still has a
+    season page - the banner previously only knew about the game-log
+    fallback and left a retroactive year as plain unlinked text."""
+    from mri.export import seasons, site
+
+    payload = json.loads(DATA.read_text())
+    payload["seasons"] = seasons.football_seasons(current=payload["season"])
+    payload["history"] = seasons.team_history(payload["seasons"])
+
+    alabama = next(t for t in payload["teams"] if t["team"] == "Alabama")
+    banner = site._titles_banner(alabama, payload)
+    assert 'href="../season/1979-mri2.html">1979</a>' in banner
+
+
 def test_the_rank_chart_never_crops_a_season() -> None:
     """The axis is scaled to the team rather than the field, which is only
     honest if it still contains every point."""

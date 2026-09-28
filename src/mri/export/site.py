@@ -720,9 +720,7 @@ def _titles_banner(team: dict, payload: dict) -> str:
         return ""
     chrome = chrome_for(payload)
     years = ", ".join(
-        f'<a href="{slug(team["team"])}/{r["season"]}.html">{esc(r["label"])}</a>'
-        if (payload.get("gamelogs") or {}).get(r["season"], {}).get(team["team"])
-        else esc(r["label"])
+        f'<a href="{_season_reference(team["team"], r, payload)}">{esc(r["label"])}</a>'
         for r in sorted(won, key=lambda r: r["season"])
     )
     plural = "" if len(won) == 1 else "s"
@@ -836,6 +834,22 @@ def _rank_chart(rows: list[dict]) -> str:
       </div>"""
 
 
+def _season_reference(team_name: str, r: dict, payload: dict) -> str:
+    """The relative href for one of a team's own season rows.
+
+    That season's own game log if one exists, otherwise the season's own
+    page - used from anywhere on a team page (or historical_team_page) that
+    links out to one of that team's past seasons, so every such link shares
+    one fallback rule rather than each caller reimplementing it (and, once,
+    a title-banner year quietly not implementing it at all - retroactive
+    years, which never have a game log, fell through to plain unlinked text
+    instead of the season page). Retroactive rows never have a log - that's
+    a much bigger backfill than the season-level one this track is.
+    """
+    has_log = not r.get("retroactive") and (payload.get("gamelogs") or {}).get(r["season"], {}).get(team_name)
+    return f'{slug(team_name)}/{r["season"]}.html' if has_log else f'../season/{season_slug(r)}.html'
+
+
 def _history_section(team: dict, payload: dict) -> str:
     """Every season this team has been rated, newest first - one row per season.
 
@@ -865,9 +879,7 @@ def _history_section(team: dict, payload: dict) -> str:
                 if not r.get("retroactive") and (logs.get(r["season"]) or {}).get(team["team"])}
 
     def season_link(r: dict) -> str:
-        if not r.get("retroactive") and r["season"] in have_log:
-            return f'<a href="{slug(team["team"])}/{r["season"]}.html">#{r["rank"]}</a>'
-        return f'<a href="../season/{season_slug(r)}.html">#{r["rank"]}</a>'
+        return f'<a href="{_season_reference(team["team"], r, payload)}">#{r["rank"]}</a>'
 
     def cell(r: dict | None) -> str:
         if r is None:
