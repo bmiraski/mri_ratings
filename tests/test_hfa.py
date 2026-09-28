@@ -87,3 +87,44 @@ def test_neutral_sites_get_travel_but_no_stadium_effect() -> None:
     assert cocktail["hosted"] == 0
     assert cocktail["travel_away"] > cocktail["travel_home"] > 0
     assert cocktail["travel"] > 0
+
+
+def _synthetic_season(week_pairs: list[list[tuple[str, str, float, float]]]) -> pd.DataFrame:
+    """A tiny FBS-only season: each entry in ``week_pairs`` is one week's games as
+    (away, home, away_pts, home_pts)."""
+    rows = []
+    game_id = 1
+    for week, games in enumerate(week_pairs, start=1):
+        for away, home, pts1, pts2 in games:
+            rows.append({"game_id": game_id, "week": week, "season_type": "regular",
+                         "team1": away, "team2": home, "pts1": pts1, "pts2": pts2,
+                         "neutral": False, "class1": "fbs", "class2": "fbs"})
+            game_id += 1
+    return pd.DataFrame(rows)
+
+
+def test_walk_forward_cold_starts_when_the_warmup_season_has_no_games(monkeypatch) -> None:
+    # 1978 is the first season either CFBD or the workbook knows about, so a walk
+    # starting there has no 1977 to chain a prior from - walk_forward must start
+    # flat instead of raising "no games to fit" on an empty warmup frame.
+    season_1978 = _synthetic_season([
+        [("A", "B", 10.0, 20.0), ("C", "D", 14.0, 7.0)],
+        [("A", "C", 10.0, 24.0), ("B", "D", 30.0, 3.0)],
+    ])
+
+    def fake_games(year: int) -> pd.DataFrame:
+        return pd.DataFrame() if year == 1977 else season_1978
+
+    monkeypatch.setattr(hfa.cfbd, "games", fake_games)
+
+    frame = hfa.walk_forward([1978])
+
+    assert not frame.empty
+    assert set(frame["game_id"]) == {1, 2, 3, 4}
+
+    # Week 1 is priced from the prior alone, and the cold-start prior is flat
+    # zero for every team, so week 1's predicted margin is exactly the (neutral)
+    # home-field prior with no rating gap between the two sides.
+    week_one = frame[frame["seq"] == 1]
+    assert len(week_one) == 2
+    assert (week_one["diff"] == 0.0).all()

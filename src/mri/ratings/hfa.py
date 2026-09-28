@@ -309,10 +309,18 @@ def walk_forward(seasons, warmup: int | None = None) -> pd.DataFrame:
             frame[column] = [registry.resolve(n, n) for n in frame[column]]
         return frame
 
-    first = canonical(cfbd.games(warmup))
-    fbs = [t for t in sorted(set(first["team1"]) | set(first["team2"])) if registry.is_fbs(t)]
-    previous = mri2.fit(first, neutral=first["neutral"], anchor_teams=fbs,
-                        with_resume=False, with_efficiency=False).power
+    raw_first = cfbd.games(warmup)
+    if raw_first.empty:
+        # The warmup season is off the front of the archive - true only for a walk starting in
+        # 1978, the first season either CFBD or the workbook knows about. There is no real prior
+        # to chain from, so start flat rather than fail; priors.for_season already treats a
+        # ``None`` previous as the cold start it is.
+        previous = None
+    else:
+        first = canonical(raw_first)
+        fbs = [t for t in sorted(set(first["team1"]) | set(first["team2"])) if registry.is_fbs(t)]
+        previous = mri2.fit(first, neutral=first["neutral"], anchor_teams=fbs,
+                            with_resume=False, with_efficiency=False).power
 
     rows = []
     for season in seasons:

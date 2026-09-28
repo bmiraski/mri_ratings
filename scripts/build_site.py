@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import json  # noqa: E402
 
 from mri.betting import board, tracker  # noqa: E402
-from mri.export import coachesdata, gamedaydata, heismandata, logos, simdata, site, sitedata, slate, slatearchive  # noqa: E402
+from mri.export import chaosdata, coachesdata, gamedaydata, heismandata, logos, simdata, site, sitedata, slate, slatearchive  # noqa: E402
 from mri.ratings import priors  # noqa: E402
 
 SEASON = 2026
@@ -232,6 +232,17 @@ def add_football_extras(payload: dict, data_dir: Path) -> dict | None:
                   f"games reconstructed, {fwd['logged']} picks logged")
         except Exception as exc:  # noqa: BLE001
             print(f"  record skipped: {exc}")
+
+    # Absent until the one-off historical backfill (scripts/build_chaos_history.py) has run once;
+    # freezes this week's pregame odds either way, so nothing is lost while that's still pending.
+    try:
+        payload["chaos"] = chaosdata.build(SEASON, payload.get("slate"), weekly, data_dir)
+        if payload["chaos"]:
+            weeks = payload["chaos"]["archive"]["seasons"].get(str(SEASON), {}).get("weeks", {})
+            print(f"  chaos: {len(weeks)} week(s) frozen this season, "
+                  f"{sum(len(s['weeks']) for s in payload['chaos']['archive']['seasons'].values())} in the archive")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  chaos skipped: {exc}")
 
     # Unlisted for now (see write_coaches_pages) - some of the hand-labeled
     # departure data behind the hot-seat model is still being monitored before
