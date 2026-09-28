@@ -197,7 +197,9 @@ tr.wonit td { background:color-mix(in srgb, #c8961e 7%, transparent); }
 .rankchart { margin-top:14px; }
 .rankchart svg { width:100%; height:auto; display:block; }
 .rankchart .ct { font-size:10px; fill:var(--muted); }
+.rankchart .ct.series { fill:var(--series); }
 .rankchart .pt { fill:var(--series); }
+.rankchart .pt2 { fill:var(--muted); }
 .rankchart .champ { fill:#c8961e; stroke:var(--surface); stroke-width:1.5; }
 .sysname { font-size:11px; white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }
