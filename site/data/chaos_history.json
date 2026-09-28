@@ -30844,6 +30844,272 @@
      "z": -0.8218054026066102
     }
    }
+  },
+  "2026": {
+   "burnIn": false,
+   "weeks": {
+    "1": {
+     "expectedUpsets": 13.842514892534135,
+     "final": true,
+     "games": 99,
+     "missingPregame": 0,
+     "percentile": 58.23,
+     "reconstructed": true,
+     "shocks": [
+      {
+       "awayScore": 29,
+       "gameId": 401860880,
+       "homeScore": 17,
+       "loser": "Utah State",
+       "loserScore": 17,
+       "pregameWinProb": 0.0455748095408528,
+       "winner": "Idaho State",
+       "winnerScore": 29
+      },
+      {
+       "awayScore": 43,
+       "gameId": 401862694,
+       "homeScore": 41,
+       "loser": "Charlotte",
+       "loserScore": 41,
+       "pregameWinProb": 0.0891409953170259,
+       "winner": "The Citadel",
+       "winnerScore": 43
+      },
+      {
+       "awayScore": 37,
+       "gameId": 401858423,
+       "homeScore": 21,
+       "loser": "Rutgers",
+       "loserScore": 21,
+       "pregameWinProb": 0.10034214510786543,
+       "winner": "Massachusetts",
+       "winnerScore": 37
+      }
+     ],
+     "upsets": 14,
+     "z": 0.09354777696967288
+    },
+    "2": {
+     "expectedUpsets": 12.702737922345904,
+     "fallout": {
+      "gained": [
+       {
+        "change": 0.1464,
+        "team": "Alabama"
+       },
+       {
+        "change": 0.1366,
+        "team": "USF"
+       },
+       {
+        "change": 0.1186,
+        "team": "Tennessee"
+       }
+      ],
+      "lost": [
+       {
+        "change": -0.4274,
+        "team": "Oregon"
+       },
+       {
+        "change": -0.1128,
+        "team": "Washington"
+       },
+       {
+        "change": -0.0906,
+        "team": "Oklahoma"
+       }
+      ],
+      "moved": 1.3503
+     },
+     "final": true,
+     "games": 86,
+     "missingPregame": 0,
+     "percentile": 99.52,
+     "reconstructed": true,
+     "shocks": [
+      {
+       "awayScore": 28,
+       "gameId": 401862702,
+       "homeScore": 24,
+       "loser": "Army",
+       "loserScore": 24,
+       "pregameWinProb": 0.004207570018196494,
+       "winner": "South Florida",
+       "winnerScore": 28
+      },
+      {
+       "awayScore": 31,
+       "gameId": 401856782,
+       "homeScore": 39,
+       "loser": "Oregon",
+       "loserScore": 31,
+       "pregameWinProb": 0.0059232474222204725,
+       "winner": "Oklahoma State",
+       "winnerScore": 39
+      },
+      {
+       "awayScore": 27,
+       "gameId": 401864571,
+       "homeScore": 24,
+       "loser": "East Carolina",
+       "loserScore": 24,
+       "pregameWinProb": 0.017632909558659482,
+       "winner": "App State",
+       "winnerScore": 27
+      }
+     ],
+     "upsets": 13,
+     "z": 3.2831046881718353
+    },
+    "3": {
+     "expectedUpsets": 12.87882061332519,
+     "fallout": {
+      "gained": [
+       {
+        "change": 0.171,
+        "team": "Ole Miss"
+       },
+       {
+        "change": 0.1248,
+        "team": "Mississippi State"
+       },
+       {
+        "change": 0.1004,
+        "team": "Michigan"
+       }
+      ],
+      "lost": [
+       {
+        "change": -0.3645,
+        "team": "Texas A&M"
+       },
+       {
+        "change": -0.1326,
+        "team": "SMU"
+       },
+       {
+        "change": -0.1091,
+        "team": "Boise State"
+       }
+      ],
+      "moved": 1.4096
+     },
+     "final": true,
+     "games": 75,
+     "missingPregame": 0,
+     "percentile": 78.78,
+     "reconstructed": true,
+     "shocks": [
+      {
+       "awayScore": 33,
+       "gameId": 401858226,
+       "homeScore": 20,
+       "loser": "Wake Forest",
+       "loserScore": 20,
+       "pregameWinProb": 0.008370143599015889,
+       "winner": "Miami",
+       "winnerScore": 33
+      },
+      {
+       "awayScore": 31,
+       "gameId": 401856694,
+       "homeScore": 21,
+       "loser": "Texas A&M",
+       "loserScore": 21,
+       "pregameWinProb": 0.018975635935275403,
+       "winner": "Kentucky",
+       "winnerScore": 31
+      },
+      {
+       "awayScore": 38,
+       "gameId": 401856802,
+       "homeScore": 27,
+       "loser": "Virginia",
+       "loserScore": 27,
+       "pregameWinProb": 0.21925500376835805,
+       "winner": "West Virginia",
+       "winnerScore": 38
+      }
+     ],
+     "upsets": 11,
+     "z": 0.8246080017727923
+    },
+    "4": {
+     "expectedUpsets": 16.5434518734451,
+     "fallout": {
+      "gained": [
+       {
+        "change": 0.2892,
+        "team": "Oregon"
+       },
+       {
+        "change": 0.2582,
+        "team": "Florida"
+       },
+       {
+        "change": 0.2439,
+        "team": "LSU"
+       }
+      ],
+      "lost": [
+       {
+        "change": -0.2476,
+        "team": "Ole Miss"
+       },
+       {
+        "change": -0.2339,
+        "team": "Michigan"
+       },
+       {
+        "change": -0.1805,
+        "team": "Penn State"
+       }
+      ],
+      "moved": 1.9435
+     },
+     "final": true,
+     "games": 71,
+     "missingPregame": 0,
+     "percentile": 52.33,
+     "reconstructed": true,
+     "shocks": [
+      {
+       "awayScore": 35,
+       "gameId": 401866429,
+       "homeScore": 6,
+       "loser": "Sacramento State",
+       "loserScore": 6,
+       "pregameWinProb": 0.08198699507418994,
+       "winner": "Massachusetts",
+       "winnerScore": 35
+      },
+      {
+       "awayScore": 24,
+       "gameId": 401858466,
+       "homeScore": 20,
+       "loser": "Penn State",
+       "loserScore": 20,
+       "pregameWinProb": 0.17197476267740108,
+       "winner": "Wisconsin",
+       "winnerScore": 24
+      },
+      {
+       "awayScore": 3,
+       "gameId": 401858238,
+       "homeScore": 52,
+       "loser": "Central Michigan",
+       "loserScore": 3,
+       "pregameWinProb": 0.20649537626858472,
+       "winner": "Miami",
+       "winnerScore": 52
+      }
+     ],
+     "upsets": 16,
+     "z": -0.038956214853990596
+    }
+   }
   }
  }
 }

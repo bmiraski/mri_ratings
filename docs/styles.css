@@ -361,6 +361,52 @@ svg.hhicon { width:28px; }
 .hhfeature .hhhead .hhicon { height:56px; }
 .hlhh .hhicon { height:16px; margin-right:3px; vertical-align:-3px; }
 .hhteam .hhicon { height:30px; margin-right:6px; vertical-align:-6px; }
+.chicon { height:28px; width:auto; color:var(--series); flex:none; vertical-align:middle; }
+svg.chicon { width:28px; }
+.chaosmeter { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--series);
+  border-radius:14px; padding:16px 18px; margin:18px 0 24px; display:grid; gap:10px; }
+.chaosmeter .ptitle { color:var(--series); margin:0; display:flex; align-items:center; gap:8px; }
+.chaosmeter .chicon { height:20px; }
+.chaosbar { position:relative; height:10px; background:var(--grid); border-radius:5px; overflow:hidden; }
+.chaosbar i { display:block; height:100%; background:var(--series); border-radius:5px; }
+.chaosstats { margin:0; font-size:13.5px; }
+.chaosshocks, .chaostossups { list-style:none; margin:4px 0 0; padding:0; display:grid; gap:8px; }
+/* Each shock/toss-up stacks its label, names and numbers on their own line - the same "give a
+   wrapping cell its own row rather than let it wrap mid-line" idea as the Slate page's .slstake,
+   applied by simply not sharing a row with anything else, plus the same ellipsis discipline on a
+   long team name. */
+.chaosshocks li, .chaostossups li { display:grid; gap:2px; min-width:0; }
+.chaosshocks .who, .chaostossups .who { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.chaosshocks .nums, .chaostossups .nums { font-size:12px; color:var(--muted); }
+.chaosfallout { border-top:1px solid var(--grid); padding-top:10px; margin-top:4px; }
+.chaosfallout p { margin:0 0 6px; font-size:13.5px; }
+.chaoschips { display:flex; flex-wrap:wrap; gap:6px; }
+.chaoschip { font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+.chaoschip.up { color:var(--up); background:color-mix(in srgb, var(--up) 12%, transparent); }
+.chaoschip.down { color:var(--down); background:color-mix(in srgb, var(--down) 12%, transparent); }
+.chaospartial { font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);
+  border:1px solid var(--grid); border-radius:999px; padding:1px 7px; }
+.chaoslists { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; }
+.chaoslists .ptitle { margin-bottom:6px; }
+.chaosranked { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.chaosranked li { display:flex; justify-content:space-between; gap:10px; font-size:13px;
+  border-bottom:1px solid var(--grid); padding-bottom:5px; min-width:0; }
+.chaosranked .who { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+.chaosranked .nums { flex:none; color:var(--secondary); font-variant-numeric:tabular-nums; white-space:nowrap; }
+/* chaos.html's own "Biggest shocks ever" list reuses the Slate panel's stacked .chaosshocks/.who/.nums
+   layout above rather than this flex row - a shock line's text ("Team A over Team B - 0.4% chance -
+   1998 Week 8 - won 28-24") is long enough that a side-by-side row squeezes the team names down to
+   almost nothing; stacking avoids that instead of fighting it with a narrower ellipsis. */
+.chaoslists .chaosshocks li { border-bottom:1px solid var(--grid); padding-bottom:6px; }
+.chaosstrips { margin:24px 0; }
+.chaosstrip { display:grid; grid-template-columns:52px 1fr; align-items:center; gap:10px; padding:3px 0; }
+.chaosstripyear { font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.chaosstrip svg { width:100%; height:36px; display:block; }
+table.sortable th[data-key] { cursor:pointer; user-select:none; }
+table.sortable th[data-key]:hover { color:var(--primary); }
+table.sortable th[data-dir="asc"]::after { content:" \2191"; }
+table.sortable th[data-dir="desc"]::after { content:" \2193"; }
+@media (max-width:760px) { .chaoslists { grid-template-columns:1fr; } }
 .hhfeature { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--alert); border-radius:14px;
   padding:16px 18px; margin:18px 0 24px; display:grid; gap:14px; }
 .hhhead { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }

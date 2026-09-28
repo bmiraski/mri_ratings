@@ -30,6 +30,7 @@
       <a href="index.html">Rankings</a>
       <a href="conferences.html">Conferences</a>
       <a href="slate.html">Slate</a>
+      <a href="chaos.html">Chaos</a>
       <a href="simulation.html">Simulation</a>
       <a href="gameday.html">GameDay</a>
       <a href="heisman.html">Heisman</a>
@@ -264,6 +265,35 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   leaving on their own for a better job is a real, common outcome this model was never
   asked to predict - that's a separate label entirely, not a gap in this one.</p>
 
+
+  <h2 id="chaos">Chaos and Fallout</h2>
+  <p>The <a href="chaos.html">Chaos archive</a> measures how surprising a week's results were, against the
+  model's own pregame odds rather than a plain upset count. For each completed game, the winner's pregame
+  win probability <em>p</em> costs a surprisal of &minus;ln(<em>p</em>): a 45% underdog winning costs little,
+  a 5% underdog winning costs a great deal more. The model's own expectation for that cost &mdash; a game's
+  entropy &mdash; is &minus;[<em>p</em>&nbsp;ln&nbsp;<em>p</em> + (1&minus;<em>p</em>)&nbsp;ln(1&minus;<em>p</em>)].
+  A week's chaos is the total surprisal less the total entropy, standardised by the square root of its total
+  variance &mdash; each game contributing <em>p</em>(1&minus;<em>p</em>)&middot;(ln(<em>p</em>/(1&minus;<em>p</em>)))&sup2;
+  &mdash; into a single <em>z</em>. The published score is <em>z</em>'s percentile against every other archived
+  week: "wilder than 91% of weeks since 1978."</p>
+  <p><strong>Recalibrated first.</strong> The model's own lines run overconfident early in a season (see the
+  <a href="method.html#priors">priors above</a>), and an overconfident line makes a week look chaotic simply
+  because the model is wrong, not because the world was. Before scoring, every pregame probability is passed
+  through a logistic recalibration fit separately for three bands of the season &mdash; walked forward from
+  every archived season, never from the week it is scoring &mdash; and checked afterward: mean <em>z</em> within
+  0.1 of 0 and its standard deviation within 0.1 of 1, both overall and within each band.</p>
+  <ul><li><strong>Weeks 1&ndash;3</strong>: a=1.07, b=+0.05, fit on 7,162 games</li><li><strong>Weeks 4&ndash;7</strong>: a=0.99, b=-0.01, fit on 9,545 games</li><li><strong>Week 8 on, and Bowls</strong>: a=1.04, b=+0.05, fit on 17,033 games</li></ul>
+  <p class='muted'>Currently fitted through the 2025 season, week 17.</p>
+  <p>1978&ndash;1980 are scored and shown in the archive like any other season, flagged rather than dropped, but
+  take no part in the recalibration fit, the self-check, or the percentile ranking: the chain starts cold there
+  with no real prior, so those weeks read as more surprising than the football deserves credit for &mdash; exactly
+  what the recalibration guard exists to catch, not import.</p>
+  <p><strong>Fallout is a different question.</strong> Chaos asks how unlikely the results were; Fallout asks how
+  much they mattered, as half the sum, over every team, of the week-over-week change in its playoff odds from the
+  <a href="simulation.html">season simulation</a>. A week can be wild with little at stake &mdash; blowout losses by
+  teams already out of the race &mdash; or ordinary on the field but reshape the field, when the teams involved were
+  exactly the ones a playoff spot rode on. Fallout only exists for the current season, since the simulation's own
+  history starts with it, and is not yet percentile-ranked against anything.</p>
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
