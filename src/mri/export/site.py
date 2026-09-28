@@ -601,6 +601,7 @@ def team_season_page(team: dict, entry: dict, rows: list[dict], payload: dict) -
     """
     chrome = chrome_for(payload)
     lookup = {t["team"] for t in payload["teams"]}
+    historical = historical_team_names(payload)
     has_expected = any(r["expected"] is not None for r in rows)
     dated = any(r["when"] for r in rows)
 
@@ -608,7 +609,7 @@ def team_season_page(team: dict, entry: dict, rows: list[dict], payload: dict) -
         if row["pooled"]:
             return f'<span class="fcs">non-{chrome.field} opponent</span>'
         name = row["opponent"]
-        if name in lookup:
+        if name in lookup or name in historical:
             return f'<a href="../{slug(name)}.html">{esc(name)}</a>'
         return esc(name)
 
@@ -679,6 +680,20 @@ def titles_of(team: str, payload: dict) -> list[dict]:
     ]
 
 
+def historical_team_names(payload: dict) -> set[str]:
+    """Teams the archive remembers that aren't on the current field.
+
+    Every name in ``payload["history"]`` minus every name in
+    ``payload["teams"]`` - a program that dropped to FCS, stopped fielding a
+    team, or (the Ivy League and a dozen others) left Division I-A in 1982.
+    ``historical_team_page`` writes one of these for each, so anywhere a team
+    name would otherwise sit unlinked because it isn't in ``payload["teams"]``
+    can link here instead.
+    """
+    current = {t["team"] for t in payload["teams"]}
+    return set(payload.get("history") or {}) - current
+
+
 TROPHY = (
     '<svg class="trophy" viewBox="0 0 24 24" width="{size}" height="{size}" aria-hidden="true">'
     '<path fill="currentColor" d="M18 4V2H6v2H2v3a5 5 0 0 0 4.1 4.9A6 6 0 0 0 11 16.9V19H7v3h10v-3h-4'
@@ -728,8 +743,16 @@ def _rank_chart(rows: list[dict]) -> str:
     this chart exists at all: Classic counts cumulative points where a great
     season is 150, MRI 2.0 counts points against an average team where a great
     season is +35, and a line joining them would be a lie with a trend in it.
-    Rank is different - both formulas rank within the same field - so the line
-    is honest even across the seam, which is drawn in rather than hidden.
+    Rank is different - both formulas rank within the same field - so a line
+    is honest for either one.
+
+    Two lines, not one: the historical backfill gives 2003-2019 both a
+    Classic rank and a retroactive MRI 2.0 rank, so a single line sorted by
+    season would visit two points at the same x-position and read as a
+    zigzag. One line per system instead - MRI 2.0 continuous from 1978
+    (retroactive) through the present (live), Classic only where it ran,
+    2003-2019 - joined only across seasons that system actually rated, with
+    a legend replacing the old single seam-crossing.
 
     Inverted, because first belongs at the top. The axis runs to the largest
     field the team ever played in, so the field growing from 117 teams to 138
@@ -757,25 +780,6 @@ def _rank_chart(rows: list[dict]) -> str:
     px = lambda s: L + (s - lo) / span * (W - L - R)
     py = lambda rank: T + (rank - 1) / max(worst - 1, 1) * (H - T - B)
 
-    path = " ".join(
-        f"{'M' if i == 0 else 'L'}{px(r['season']):.1f},{py(r['rank']):.1f}"
-        for i, r in enumerate(points)
-    )
-
-    # The seam between the two ratings, where there is one.
-    seam = ""
-    for earlier, later in zip(points, points[1:]):
-        if earlier["system"] != later["system"]:
-            x = (px(earlier["season"]) + px(later["season"])) / 2
-            # Labels sit on the baseline, not at the top where the line lives.
-            seam = (
-                f'<line x1="{x:.1f}" y1="{T}" x2="{x:.1f}" y2="{H - B}" '
-                f'stroke="var(--axis)" stroke-width="1" stroke-dasharray="3 3"/>'
-                f'<text x="{x - 5:.1f}" y="{H - B - 5}" text-anchor="end" class="ct">Classic</text>'
-                f'<text x="{x + 5:.1f}" y="{H - B - 5}" text-anchor="start" class="ct">MRI 2.0</text>'
-            )
-            break
-
     # A top-25 reference line, which is the threshold anyone reading this cares
     # about, drawn only when the team's axis actually reaches it.
     top25 = ""
@@ -784,13 +788,30 @@ def _rank_chart(rows: list[dict]) -> str:
         top25 = (f'<line x1="{L}" y1="{y:.1f}" x2="{W - R}" y2="{y:.1f}" stroke="var(--grid)" '
                  f'stroke-width="1"/><text x="{L - 5}" y="{y + 3:.1f}" text-anchor="end" class="ct">25</text>')
 
-    dots = "".join(
-        f'<circle cx="{px(r["season"]):.1f}" cy="{py(r["rank"]):.1f}" '
-        f'r="{4 if r["rank"] == 1 else 2.6}" '
-        f'class="{"champ" if r["rank"] == 1 else "pt"}">'
-        f'<title>{esc(r["label"])}: #{r["rank"]} of {r["of"]} ({r["wins"]}-{r["losses"]})</title>'
-        f"</circle>"
-        for r in points
+    def series(system: str, color: str, dot_class: str) -> tuple[str, str, list[dict]]:
+        pts = [r for r in points if r["system"] == system]
+        path = " ".join(
+            f"{'M' if i == 0 else 'L'}{px(r['season']):.1f},{py(r['rank']):.1f}"
+            for i, r in enumerate(pts)
+        )
+        line = (f'<path d="{path}" fill="none" stroke="{color}" stroke-width="2" '
+                f'stroke-linejoin="round" stroke-linecap="round"/>' if len(pts) > 1 else "")
+        dots = "".join(
+            f'<circle cx="{px(r["season"]):.1f}" cy="{py(r["rank"]):.1f}" '
+            f'r="{4 if r["rank"] == 1 else 2.6}" '
+            f'class="{"champ" if r["rank"] == 1 else dot_class}">'
+            f'<title>{esc(r["label"])} ({system}): #{r["rank"]} of {r["of"]} ({r["wins"]}-{r["losses"]})</title>'
+            f"</circle>"
+            for r in pts
+        )
+        return line, dots, pts
+
+    classic_line, classic_dots, classic_pts = series("MRI Classic", "var(--muted)", "pt2")
+    modern_line, modern_dots, modern_pts = series("MRI 2.0", "var(--series)", "pt")
+
+    legend = "" if not (classic_pts and modern_pts) else (
+        f'<text x="{W - R}" y="{T + 4}" text-anchor="end" class="ct series">MRI 2.0</text>'
+        f'<text x="{W - R}" y="{T + 17}" text-anchor="end" class="ct">Classic</text>'
     )
 
     first, last = points[0], points[-1]
@@ -798,33 +819,36 @@ def _rank_chart(rows: list[dict]) -> str:
       <div class="rankchart">
         <svg viewBox="0 0 {W} {H}" role="img"
              aria-label="Finishing rank by season, best at the top.">
-          {top25}{seam}
+          {top25}
           <line x1="{L}" y1="{T}" x2="{L}" y2="{H - B}" stroke="var(--axis)" stroke-width="1"/>
           <text x="{L - 5}" y="{T + 4}" text-anchor="end" class="ct">1</text>
           <text x="{L - 5}" y="{H - B}" text-anchor="end" class="ct">{worst}</text>
-          <path d="{path}" fill="none" stroke="var(--series)" stroke-width="2"
-                stroke-linejoin="round" stroke-linecap="round"/>
-          {dots}
+          {classic_line}{modern_line}
+          {classic_dots}{modern_dots}
+          {legend}
           <text x="{px(first['season']):.1f}" y="{H - 8}" text-anchor="start" class="ct">{esc(first['label'])}</text>
           <text x="{px(last['season']):.1f}" y="{H - 8}" text-anchor="end" class="ct">{esc(last['label'])}</text>
         </svg>
         <p class="note">Finishing rank, best at the top, on an axis running to
-        {worst} &mdash; this team's own range, not the size of the field. Each row
-        below says what its rank was out of. Hover a point for the season.</p>
+        {worst} &mdash; this team's own range, not the size of the field.
+        {"Two lines where both ratings cover a season - MRI 2.0 in red, Classic in grey." if classic_pts and modern_pts else ""}
+        Hover a point for the season.</p>
       </div>"""
 
 
 def _history_section(team: dict, payload: dict) -> str:
-    """Every season this team has been rated, newest first.
+    """Every season this team has been rated, newest first - one row per season.
 
     Rank is the column that travels. Both formulas rank within the same field,
     so #4 in 2011 and #4 in 2023 mean approximately the same thing, while 143.50
     and +34.60 do not - one counts cumulative points and the other counts points
-    against an average team. So the rating is shown with the name of the system
-    beside it and never in a chart that would imply a line between them.
+    against an average team. So the two never share a column: 2003-2019, where
+    the historical backfill gives a season both a Classic answer and a
+    retroactive MRI 2.0 one, gets one row with two side-by-side cells rather
+    than two separate rows for the same year - a year is a year.
 
-    The field grew too, from 117 teams to 138, which is why each row says what
-    it was a rank of.
+    The field grew too, from 117 teams to 138, which is why each cell says
+    what it was a rank of.
     """
     rows = (payload.get("history") or {}).get(team["team"]) or []
     if len(rows) < 2:
@@ -842,34 +866,51 @@ def _history_section(team: dict, payload: dict) -> str:
 
     def season_link(r: dict) -> str:
         if not r.get("retroactive") and r["season"] in have_log:
-            return f'<a href="{slug(team["team"])}/{r["season"]}.html">{esc(r["label"])}</a>'
-        return f'<a href="../season/{season_slug(r)}.html">{esc(r["label"])}</a>'
+            return f'<a href="{slug(team["team"])}/{r["season"]}.html">#{r["rank"]}</a>'
+        return f'<a href="../season/{season_slug(r)}.html">#{r["rank"]}</a>'
 
-    body = "".join(f"""
-      <tr{' class="wonit"' if r['rank'] == 1 else ''}>
-        <td class="rk">{season_link(r)}</td>
-        <td class="num">{TROPHY.format(size=13) if r['rank'] == 1 else ''}<strong>{r['rank']}</strong><span class="of"> of {r['of']}</span></td>
-        <td class="rec">{r['wins']}&ndash;{r['losses']}</td>
-        <td class="num">{r['rating']:,.2f}</td>
-        <td class="muted sysname">{esc(r['ratingName'])}</td>
-      </tr>""" for r in rows)
+    def cell(r: dict | None) -> str:
+        if r is None:
+            return '<td class="num muted">&ndash;</td>'
+        trophy = TROPHY.format(size=13) if r["rank"] == 1 else ""
+        return (f'<td class="num">{trophy}{season_link(r)}<span class="of"> of {r["of"]}</span>'
+                f'<span class="muted"> &middot; {r["rating"]:,.2f}</span></td>')
+
+    by_season: dict[int, dict[str, dict]] = {}
+    for r in rows:
+        by_season.setdefault(r["season"], {})[r["system"]] = r
+
+    body = ""
+    for season in sorted(by_season, reverse=True):
+        modern = by_season[season].get("MRI 2.0")
+        classic = by_season[season].get("MRI Classic")
+        label = (modern or classic)["label"]
+        record_source = classic or modern
+        won_it = bool((modern and modern["rank"] == 1) or (classic and classic["rank"] == 1))
+        body += f"""
+      <tr{' class="wonit"' if won_it else ''}>
+        <td class="rk">{esc(label)}</td>
+        <td class="rec">{record_source['wins']}&ndash;{record_source['losses']}</td>
+        {cell(modern)}
+        {cell(classic)}
+      </tr>"""
 
     best = min(rows, key=lambda r: r["rank"])
     systems = {r["system"] for r in rows}
     caveat = (
-        " Two ratings appear here and their numbers are not comparable; the rank is."
+        " The two columns' numbers are not comparable; the rank within each is."
         if len(systems) > 1 else ""
     )
     return f"""
     <section>
       <h2>Season by season</h2>
       <p class="hint">Best finish: <strong>#{best['rank']}</strong> in {esc(best['label'])}.
-      {len(rows)} rated seasons.{caveat}
+      {len(by_season)} seasons rated.{caveat}
       {"Season links open that year's game log." if have_log else ""}</p>
       {_rank_chart(rows)}
       <div class="tablewrap"><table>
-        <thead><tr><th>Season</th><th class="num">Rank</th><th>Rec</th>
-        <th class="num">Rating</th><th>&nbsp;</th></tr></thead>
+        <thead><tr><th>Season</th><th>Rec</th>
+        <th class="num">MRI 2.0</th><th class="num">MRI Classic</th></tr></thead>
         <tbody>{body}</tbody>
       </table></div>
     </section>"""
@@ -1145,6 +1186,39 @@ def team_page(team: dict, payload: dict) -> str:
   </article>"""
     return page(f"{team['team']} — MRI {season_text(payload)}", body, payload, depth=1,
                 description=f"{team['team']} MRI rating, schedule and game-by-game performance.")
+
+
+def historical_team_page(name: str, payload: dict) -> str:
+    """A team the archive remembers that isn't on the current field.
+
+    Not team_page(): almost everything that function shows - live power,
+    roster, this week's schedule, betting, coaches - assumes a team playing
+    right now, which is exactly what this team isn't. What survives for a
+    program that dropped to FCS, stopped fielding one, or left Division I-A
+    outright is precisely what _history_section already builds, so this
+    wraps that rather than building a second, thinner version of it.
+    """
+    chrome = chrome_for(payload)
+    rows = (payload.get("history") or {}).get(name) or []
+    last = max(rows, key=lambda r: r["season"])
+    span = f"{min(r['season'] for r in rows)}–{last['season']}" if len(rows) > 1 else last["label"]
+
+    body = f"""
+  <article class="teampage">
+    {_titles_banner({"team": name}, payload)}
+    <div class="teamhead">
+      <div>
+        <h1>{esc(name)}</h1>
+        <p class="teamsub">Not on the current {chrome.field} field &middot; last rated {esc(last['label'])}</p>
+      </div>
+    </div>
+    <p class="hint">{esc(name)} was rated {len(rows)} season{'' if len(rows) == 1 else 's'} ({span}) and
+    hasn't appeared in the {chrome.field} field since. Nothing here updates going forward &mdash;
+    what follows is the complete record.</p>
+    {_history_section({"team": name}, payload)}
+  </article>"""
+    return page(f"{name} — MRI {chrome.noun}", body, payload, depth=1,
+                description=f"{name}'s MRI rating history: every season it was rated.")
 
 
 # --------------------------------------------------------------------------
@@ -1526,11 +1600,13 @@ def season_page(entry: dict, payload: dict) -> str:
     """One season's final ranking."""
     chrome = chrome_for(payload)
     lookup = {t["team"]: t for t in payload["teams"]}
+    historical = historical_team_names(payload)
 
     def name(team: str) -> str:
-        # Linked only where the team still exists in the current field; an
-        # archive is full of programs that have since moved or folded.
-        if team in lookup:
+        # Every team on this page has a page of its own now: the current
+        # field's own team page, or historical_team_page for a program that
+        # has since moved or folded.
+        if team in lookup or team in historical:
             return f'<a href="../team/{slug(team)}.html">{esc(team)}</a>'
         return esc(team)
 
@@ -4045,6 +4121,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
             for row in seasons_with_log:
                 write(folder / f"{row['season']}.html",
                       team_season_page(team, row, logs[row["season"]][team["team"]], payload))
+    for name in sorted(historical_team_names(payload)):
+        write(out_dir / "team" / f"{slug(name)}.html", historical_team_page(name, payload))
     for conference in payload["conferences"]:
         name = conference["conference"]
         write(out_dir / "conference" / f"{slug(name)}.html", conference_page(name, payload))
@@ -4251,7 +4329,9 @@ tr.wonit td { background:color-mix(in srgb, #c8961e 7%, transparent); }
 .rankchart { margin-top:14px; }
 .rankchart svg { width:100%; height:auto; display:block; }
 .rankchart .ct { font-size:10px; fill:var(--muted); }
+.rankchart .ct.series { fill:var(--series); }
 .rankchart .pt { fill:var(--series); }
+.rankchart .pt2 { fill:var(--muted); }
 .rankchart .champ { fill:#c8961e; stroke:var(--surface); stroke-width:1.5; }
 .sysname { font-size:11px; white-space:nowrap; }
 .compare tr.total td { color:var(--primary); font-weight:700; border-top:1px solid var(--axis); }

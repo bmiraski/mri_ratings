@@ -894,6 +894,59 @@ def test_the_rank_chart_is_suppressed_when_there_is_no_shape() -> None:
     assert site._rank_chart([row, dict(row, season=2025), dict(row, season=2023)])
 
 
+def test_rank_chart_draws_two_lines_where_both_systems_rated_a_season() -> None:
+    """2003-2019 gives a season both a Classic and a retroactive MRI 2.0
+    answer - one line each, not one line zigzagging between two points at
+    the same season."""
+    from mri.export import seasons, site
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    svg = site._rank_chart(history["Alabama"])
+    assert svg.count("<path") == 2
+    assert 'stroke="var(--series)"' in svg
+    assert 'stroke="var(--muted)"' in svg
+    assert ">MRI 2.0<" in svg and ">Classic<" in svg  # the legend, only drawn when both lines exist
+
+
+def test_history_table_shows_one_row_per_season_not_two() -> None:
+    """2003-2019 carries both a Classic and a retroactive MRI 2.0 row for the
+    same season - the table folds them into one row with two columns rather
+    than printing the season twice."""
+    from mri.export import seasons, site
+
+    history = seasons.team_history(seasons.football_seasons(current=2026))
+    rows = history["Alabama"]
+    html = site._history_section({"team": "Alabama"}, {"history": {"Alabama": rows}, "gamelogs": {}})
+    season_cells = re.findall(r'<td class="rk">(\d{4})</td>', html)
+    assert season_cells  # the section actually rendered
+    assert len(season_cells) == len({r["season"] for r in rows})
+    assert len(season_cells) == len(set(season_cells)), "a season appears in more than one row"
+
+
+def test_historical_team_pages_exist_and_are_linked_from_season_pages(tmp_path: Path) -> None:
+    """A program that dropped out of the field still gets a page, and the
+    season pages that list it link there rather than leaving it unlinked
+    text - otherwise the page has no way in from site navigation."""
+    from mri.export import seasons, site
+
+    payload = json.loads(DATA.read_text())
+    payload["seasons"] = seasons.football_seasons(current=payload["season"])
+    payload["history"] = seasons.team_history(payload["seasons"])
+
+    historical = site.historical_team_names(payload)
+    assert "Brown" in historical  # left Division I-A in 1982, a checkable case
+    assert not historical & {t["team"] for t in payload["teams"]}, "overlaps the current field"
+
+    site.build(payload, tmp_path, publish_details=False)
+    for name in ("Brown", "Idaho"):
+        page = tmp_path / "team" / f"{site.slug(name)}.html"
+        assert page.exists(), f"no page for {name}"
+        assert "Not on the current" in page.read_text()
+
+    season_1980 = (tmp_path / "season" / "1980-mri2.html").read_text()
+    assert 'href="../team/brown.html"' in season_1980
+
+
 def test_brand_assets_are_published(built: Path) -> None:
     """The header, the favicon and the share card all point at real files.
 
