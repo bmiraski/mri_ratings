@@ -846,7 +846,9 @@ def test_the_banner_marks_champions_and_only_champions() -> None:
 
     won = (docs / "alabama.html").read_text()
     assert "MRI Champion" in won
-    assert "6 football titles" in won.lower()
+    # Six real Classic-era titles plus 1979 - a retroactive #1 with no
+    # Classic rival to double up with, so it counts like a live one does.
+    assert "7 football titles" in won.lower()
     for year in ("2009", "2011", "2020"):
         assert year in won
 
