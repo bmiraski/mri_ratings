@@ -80,6 +80,70 @@ def _read(name: str) -> pd.DataFrame:
     return pd.read_parquet(path) if path.exists() else pd.DataFrame()
 
 
+def _retroactive_modern_entries(current: int | None) -> list[dict]:
+    """MRI 2.0, computed retroactively for the 1978-2019 seasons it never actually ran in.
+
+    A third track alongside the two ``football_seasons`` already keeps:
+    real-time MRI 2.0 (2020 on) and MRI Classic (2003-2019, published or
+    recomputed). This reads the persisted chain ``mri.coaches.metrics``
+    trains on (``mri2_history.parquet`` - see ``mri.ratings.history``) rather
+    than refitting anything, and is filtered to ``registry.was_fbs`` per
+    season for the same reason the real-time block already is: the field's
+    size changed every few years, and today's registry would rank teams in a
+    1985 season they weren't playing FBS football in.
+    """
+    from ..ingest import registry
+    from ..ratings import history as ratings_history
+
+    out = []
+    ratings = _read("mri2_history")
+    pre2003_games = _read("pre2003_games")
+    archive_games = _read("archive_games")
+    if ratings.empty or pre2003_games.empty or archive_games.empty:
+        return out
+
+    games = ratings_history.combine_early_games(pre2003_games, archive_games)
+    ratings = ratings[ratings["season"] < ratings_history.SEAM_YEAR]
+
+    for season, chunk in ratings.groupby("season"):
+        season = int(season)
+        if current is not None and season >= current:
+            continue
+        records = _records(games, season)
+        chunk = chunk[
+            chunk["team"].map(lambda t: registry.was_fbs(t, season))
+        ].sort_values("power", ascending=False)
+        rows = [
+            {
+                "rank": position,
+                "team": r["team"],
+                "wins": records.get(r["team"], (0, 0))[0],
+                "losses": records.get(r["team"], (0, 0))[1],
+                "rating": round(float(r["power"]), 2),
+                "secondary": round(float(r["resume"]), 2) if pd.notna(r["resume"]) else None,
+                "sosRank": None,
+                "flagged": bool(r["incomplete_schedule"]),
+            }
+            for position, (_, r) in enumerate(chunk.iterrows(), start=1)
+        ]
+        out.append(
+            {
+                "season": season,
+                "label": str(season),
+                "system": MODERN,
+                "ratingName": "Power",
+                "secondaryName": "Résumé",
+                "teams": rows,
+                "rated": len(rows),
+                "source": "computed",
+                "matchesPublished": None,
+                "retroactive": True,
+                "burnIn": season in ratings_history.BURN_IN_SEASONS,
+            }
+        )
+    return out
+
+
 def football_seasons(current: int | None = None) -> list[dict]:
     """2003 through the last completed season, Classic then MRI 2.0.
 
@@ -181,9 +245,11 @@ def football_seasons(current: int | None = None) -> list[dict]:
                     "rated": len(rows),
                     "source": "computed",
                     "matchesPublished": None,
+                    "retroactive": False,
                 }
             )
 
+    out.extend(_retroactive_modern_entries(current))
     return sorted(out, key=lambda s: -s["season"])
 
 
@@ -381,6 +447,7 @@ def team_history(entries: list[dict]) -> dict[str, list[dict]]:
                     "wins": team["wins"],
                     "losses": team["losses"],
                     "rating": team["rating"],
+                    "retroactive": entry.get("retroactive", False),
                 }
             )
     for rows in history.values():

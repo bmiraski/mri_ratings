@@ -627,12 +627,24 @@ def test_history_rows_carry_the_field_size() -> None:
 
 def test_archive_field_size_matches_the_real_one_each_season() -> None:
     """The strongest available check: the number of teams the archive rates in
-    a season should equal the number the API says were FBS that year."""
+    a season should equal the number the API says were FBS that year.
+
+    Only where both sides come from CFBD, though: 2003-2019's retroactive
+    entries are rated off Ben's workbooks, an independently-collected source
+    that was never guaranteed to list exactly the same roster CFBD does for
+    that season (the workbooks' Games sheet is missing 2 of CFBD's 119 for
+    2004, for instance) - a real gap between two historical sources, not a
+    bug in how this repo filters CFBD's own roster, which is the only thing
+    this test can actually check.
+    """
     from mri.export import seasons
     from mri.ingest import cfbd
+    from mri.ratings import history
 
     for entry in seasons.football_seasons(current=2026):
         if entry["system"] != "MRI 2.0":
+            continue
+        if entry.get("retroactive") and entry["season"] in history.ARCHIVE_SEASONS:
             continue
         try:
             actual = len(cfbd.fbs_teams(entry["season"]))
@@ -729,6 +741,66 @@ def test_a_game_log_page_states_its_season_record(built) -> None:
             assert wins == row["wins"], f"{team} {row['season']}: {wins} vs {row['wins']}"
 
 
+# --- the historical backfill's archive pages --------------------------------
+
+def test_classic_stays_primary_for_2003_through_2019() -> None:
+    """The backfill adds a retroactive MRI 2.0 track for these seasons; it
+    must never replace or crowd out Classic, which is still what the site
+    displays as the number for that year."""
+    from mri.export import seasons
+    from mri.ratings import history
+
+    entries = seasons.football_seasons(current=2026)
+    for season in history.ARCHIVE_SEASONS:
+        classic = [e for e in entries if e["season"] == season and e["system"] == "MRI Classic"]
+        assert len(classic) == 1, f"{season}: expected exactly one Classic entry, got {len(classic)}"
+        assert classic[0]["source"] in ("published", "recomputed")
+        assert not classic[0].get("retroactive")
+
+
+def test_retroactive_track_never_covers_the_live_bridge_era() -> None:
+    """1978-2019 is retroactive by construction; 2020+ already has a real,
+    contemporaneous MRI 2.0 rating and needs no retroactive answer to the
+    same question."""
+    from mri.export import seasons
+    from mri.ratings import history
+
+    for entry in seasons.football_seasons(current=2026):
+        if entry.get("retroactive"):
+            assert entry["season"] < history.SEAM_YEAR, (
+                f"{entry['season']}: retroactive entry in the live bridge era"
+            )
+
+
+def test_season_page_filenames_never_collide() -> None:
+    """Classic and the retroactive track share season numbers for 2003-2019 -
+    site.season_slug is what keeps them from both writing season/<year>.html."""
+    from collections import Counter
+
+    from mri.export import seasons, site
+
+    entries = seasons.football_seasons(current=2026)
+    slugs = Counter(site.season_slug(e) for e in entries)
+    dupes = {slug: n for slug, n in slugs.items() if n > 1}
+    assert not dupes, f"colliding season page filenames: {dupes}"
+
+
+def test_incomplete_schedule_flags_match_the_hand_maintained_list() -> None:
+    """The asterisk on a season page comes from data/incomplete_schedule_flags.json
+    via mri.ratings.history - this checks the site layer actually carries the
+    same set through, not a copy that can drift from it."""
+    from mri.export import seasons
+    from mri.ratings import history
+
+    expected = history.incomplete_schedule_flags()
+    flagged_in_entries = {
+        (t["team"], e["season"])
+        for e in seasons.football_seasons(current=2026) if e.get("retroactive")
+        for t in e["teams"] if t.get("flagged")
+    }
+    assert flagged_in_entries == expected
+
+
 # --- champions and the rank chart -------------------------------------------
 
 def test_every_completed_season_has_exactly_one_champion() -> None:
@@ -758,8 +830,10 @@ def test_titles_come_only_from_finished_seasons() -> None:
         for row in site.titles_of(team, payload):
             assert row["season"] < 2026, f"{team} credited with the live season"
 
-    # Alabama's six is the checkable case.
-    assert len(site.titles_of("Alabama", payload)) == 6
+    # Six real Classic-era titles, plus the 1979 season - a retroactive #1
+    # with no Classic rival to double up with (MRI didn't run in 1979 at
+    # all), so it counts on the same footing a live #1 finish would.
+    assert len(site.titles_of("Alabama", payload)) == 7
 
 
 def test_the_banner_marks_champions_and_only_champions() -> None:

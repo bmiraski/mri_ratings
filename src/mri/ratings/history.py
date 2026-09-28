@@ -44,17 +44,70 @@ still matches the live site. Anything computing a metric like a coach's
 "change since hire" across a tenure that crosses ``SEAM_YEAR`` should not
 treat that one step as clean signal the way every other season-to-season
 step is.
+
+The walk now starts in 1978 rather than 2003 - the historical backfill.
+``PRE2003_SEASONS`` is sourced from CFBD directly (``scripts/
+build_pre2003_games.py``: division membership and neutral-site flags came
+back clean checked against the API back to 1978, so no hand-maintained
+membership file was needed), then the chain runs straight into the
+workbook-sourced ``ARCHIVE_SEASONS`` unchanged. That makes a second seam at
+2003, the same shape as the one at ``SEAM_YEAR``: before this, ``archive_walk``
+started 2003 flat, at zero for every team; now it carries a real prior in
+from 25 more years of history, so 2003-2019 Power moves a little for every
+team (``early_seam_gap`` reports how much). That is the intended effect of
+the backfill, not a bug, and it was a deliberate call to let 2003-2019's MRI
+2.0 numbers move - Classic, the number the site actually displays for those
+years, is untouched either way. The first three seasons (``BURN_IN_SEASONS``)
+have no real prior behind them yet and are flagged ``burn_in`` rather than
+dropped, so a caller (coach-model training, chaos percentiles) can exclude
+them explicitly instead of the exclusion being silent.
 """
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pandas as pd
+
+INCOMPLETE_SCHEDULE_FLAGS_PATH = Path(__file__).resolve().parents[3] / "data" / "incomplete_schedule_flags.json"
 
 from ..ingest import registry
 from . import mri2, priors
 
-ARCHIVE_SEASONS = range(2003, 2020)
+PRE2003_SEASONS = range(1978, 2003)  # CFBD-sourced, before the workbook archive begins
+ARCHIVE_SEASONS = range(2003, 2020)  # workbook-sourced (unchanged - this is Ben's archive's own range)
+BACKFILL_SEASONS = range(1978, 2020)  # the full chain archive_walk covers by default
+BURN_IN_SEASONS = range(1978, 1981)  # cold-start seasons with no real prior behind them yet
 SEAM_YEAR = 2020  # first season sourced from current_ratings.parquet instead of the archive walk
+
+
+def is_scores_only(season: int) -> bool:
+    """Whether a season's rating comes from box-score-free data (CFBD's /games).
+
+    True for the CFBD-sourced eras - ``PRE2003_SEASONS`` and everything from
+    ``SEAM_YEAR`` on, since ``current_games.parquet`` has never carried
+    rushing/passing columns either - and False only for the workbook-sourced
+    ``ARCHIVE_SEASONS``, the one era with real box scores behind it. This
+    never actually changes Power or résumé - ``archive_walk`` fits with
+    ``with_efficiency=False`` regardless of era - it is purely informational,
+    for a reader wondering why a season has no offense/defense split.
+    """
+    return not (ARCHIVE_SEASONS.start <= season < ARCHIVE_SEASONS.stop)
+
+
+def incomplete_schedule_flags() -> set[tuple[str, int]]:
+    """Team-seasons the missing-game check flagged with no confirmed explanation yet.
+
+    Hand-maintained in ``data/incomplete_schedule_flags.json`` - see its own
+    note for what does and doesn't earn an entry (a structurally short Ivy
+    League schedule or Navy's 2001 post-9/11 disruption didn't). Not an
+    exclusion - the rating stands - just a display flag.
+    """
+    if not INCOMPLETE_SCHEDULE_FLAGS_PATH.exists():
+        return set()
+    data = json.loads(INCOMPLETE_SCHEDULE_FLAGS_PATH.read_text())
+    return {(f["team"], f["season"]) for f in data.get("flags", [])}
 
 
 def canonical_games(frame: pd.DataFrame) -> pd.DataFrame:
@@ -65,33 +118,67 @@ def canonical_games(frame: pd.DataFrame) -> pd.DataFrame:
     return frame
 
 
-def archive_walk(archive_games: pd.DataFrame, *, seasons=ARCHIVE_SEASONS) -> pd.DataFrame:
-    """Anchored MRI 2.0 Power, prior and résumé for every team, every archive season, chained forward.
+def combine_early_games(pre2003_games: pd.DataFrame, archive_games: pd.DataFrame) -> pd.DataFrame:
+    """The 1978-2019 game table ``archive_walk`` needs, from its two sources.
 
-    ``archive_games`` must already be name-canonicalized (``canonical_games``).
-    ``resume`` (wins above an average team's, against the schedule played) is
-    a pure addition to what phase 1 computed - ``with_resume=True`` doesn't
-    touch the ridge solve, so every ``power`` value is unchanged.
+    The sources don't share a column set on purpose: CFBD carries a real
+    ``neutral`` flag and no box scores; the workbooks carry rushing/passing
+    yardage (unused here - ``archive_walk`` always fits with
+    ``with_efficiency=False``) and no neutral flag at all. Rather than
+    reconcile them, this keeps only what the walk actually uses and lets
+    ``neutral`` come back NaN for the workbook rows - ``archive_walk`` already
+    knows to fall back to postseason-inference for a season that has no real
+    flag.
+    """
+    columns = ["team1", "team2", "pts1", "pts2", "win1", "win2", "season", "neutral"]
+    pre2003 = pre2003_games[[c for c in columns if c in pre2003_games.columns]]
+    combined = pd.concat([pre2003, archive_games[[c for c in columns if c in archive_games.columns]]],
+                          ignore_index=True)
+    return canonical_games(combined)
+
+
+def archive_walk(games: pd.DataFrame, *, seasons=BACKFILL_SEASONS) -> pd.DataFrame:
+    """Anchored MRI 2.0 Power, prior and résumé for every team, every season, chained forward.
+
+    ``games`` must already be name-canonicalized (``canonical_games`` or
+    ``combine_early_games``). ``resume`` (wins above an average team's,
+    against the schedule played) is a pure addition to what phase 1 computed -
+    ``with_resume=True`` doesn't touch the ridge solve, so every ``power``
+    value is unchanged.
+
+    ``seasons`` only limits which seasons this walk *considers* - a season
+    with no rows in ``games`` is skipped rather than erroring, which is what
+    lets this same function serve a caller with the full 1978-2019 table and
+    a caller (the tests) with only the 2003-2019 workbook table: the latter
+    simply starts its own chain flat, cold, in 2003, the same as it always
+    has.
     """
     rows = []
     previous: pd.Series | None = None
     for season in seasons:
-        season_games = archive_games[archive_games["season"] == season]
+        season_games = games[games["season"] == season]
         if season_games.empty:
             continue
         teams = sorted(set(season_games["team1"]) | set(season_games["team2"]))
         fbs = [t for t in teams if registry.was_fbs(t, season)]
         prior = mri2.build_prior(previous, teams, centre_teams=fbs)
-        model = mri2.fit(season_games, prior=prior, anchor_teams=fbs, with_resume=True, with_efficiency=False)
+
+        neutral = None
+        if "neutral" in season_games.columns and season_games["neutral"].notna().all():
+            neutral = season_games["neutral"].astype(bool).to_numpy()
+
+        model = mri2.fit(season_games, prior=prior, anchor_teams=fbs, neutral=neutral,
+                          with_resume=True, with_efficiency=False)
         rows.append(pd.DataFrame({
             "team": model.power.index,
             "season": season,
             "power": model.power.values,
             "prior": prior.reindex(model.power.index).values,
             "resume": model.resume.reindex(model.power.index).values,
+            "burn_in": season in BURN_IN_SEASONS,
         }))
         previous = model.power
-    columns = ["team", "season", "power", "prior", "resume"]
+    columns = ["team", "season", "power", "prior", "resume", "burn_in"]
     return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame(columns=columns)
 
 
@@ -113,6 +200,24 @@ def seam_gap(archive_history: pd.DataFrame, archive_games: pd.DataFrame) -> pd.S
     mine = archive_history[archive_history["season"] == boundary].set_index("team")["power"]
     common = mine.index.intersection(reprime.index)
     return (mine[common] - reprime[common]).rename("gap")
+
+
+def early_seam_gap(full_walk: pd.DataFrame, early_games: pd.DataFrame) -> pd.Series:
+    """Gap between the extended chain's 2003-2019 Power and the old walk's, which started 2003 flat.
+
+    ``early_games`` must already be name-canonicalized (``combine_early_games``)
+    and cover at least ``ARCHIVE_SEASONS``. The comparison walk is produced by
+    calling ``archive_walk`` on the workbook-only slice, restricted to
+    ``ARCHIVE_SEASONS`` - since that slice has no 1978-2002 rows, its own chain
+    starts flat in 2003 exactly as it always did, before this backfill. Real,
+    not noise - see the module docstring - returned as the full per-team-season
+    difference so a caller can report more than just the worst case.
+    """
+    workbook_only = early_games[early_games["season"].isin(ARCHIVE_SEASONS)]
+    old = archive_walk(workbook_only, seasons=ARCHIVE_SEASONS).set_index(["team", "season"])["power"]
+    new = full_walk[full_walk["season"].isin(ARCHIVE_SEASONS)].set_index(["team", "season"])["power"]
+    common = old.index.intersection(new.index)
+    return (new[common] - old[common]).rename("gap")
 
 
 def current_prior_walk(archive_2019: pd.DataFrame, current_games: pd.DataFrame) -> pd.DataFrame:
@@ -171,25 +276,30 @@ def current_prior_walk_gap(replica: pd.DataFrame, current_ratings: pd.DataFrame)
     return (mine[common] - theirs[common]).rename("gap")
 
 
-def build(archive_games: pd.DataFrame, current_games: pd.DataFrame, current_ratings: pd.DataFrame) -> pd.DataFrame:
-    """The full 2003-present history: the anchored archive walk spliced onto the live ratings,
-    with a preseason ``prior`` alongside ``power`` and ``resume`` throughout.
+def build(
+    pre2003_games: pd.DataFrame, archive_games: pd.DataFrame, current_games: pd.DataFrame,
+    current_ratings: pd.DataFrame,
+) -> pd.DataFrame:
+    """The full 1978-present history: the anchored archive walk spliced onto the live ratings,
+    with a preseason ``prior`` alongside ``power`` and ``resume`` throughout, and ``burn_in``
+    flagging the first three seasons that have no real prior behind them.
 
-    ``archive_games`` and ``current_games`` are read straight from their
-    parquet files (not yet canonicalized for the archive side - this does
-    it; ``current_games`` already is, by ``build_current.py``).
-    ``current_ratings`` is current_ratings.parquet as-is.
+    ``pre2003_games``, ``archive_games`` and ``current_games`` are read straight
+    from their parquet files (not yet canonicalized - ``combine_early_games``
+    does that for the first two; ``current_games`` already is, by
+    ``build_current.py``). ``current_ratings`` is current_ratings.parquet as-is.
     """
-    archive_games = canonical_games(archive_games)
-    archive_history = archive_walk(archive_games)
+    early_games = combine_early_games(pre2003_games, archive_games)
+    archive_history = archive_walk(early_games)
 
-    archive_2019 = archive_games[archive_games["season"] == SEAM_YEAR - 1]
+    archive_2019 = early_games[early_games["season"] == SEAM_YEAR - 1]
     prior_walk = current_prior_walk(archive_2019, current_games)
     current = current_ratings[["team", "season", "power", "resume"]].merge(
         prior_walk[["team", "season", "prior"]], on=["team", "season"], how="left"
     )
+    current["burn_in"] = False
     if not current.empty:
         assert int(current["season"].min()) == SEAM_YEAR, "current_ratings.parquet no longer starts at SEAM_YEAR"
 
-    columns = ["team", "season", "power", "prior", "resume"]
+    columns = ["team", "season", "power", "prior", "resume", "burn_in"]
     return pd.concat([archive_history[columns], current[columns]], ignore_index=True).sort_values(["season", "team"])

@@ -660,9 +660,23 @@ def titles_of(team: str, payload: dict) -> list[dict]:
     Finished, not led: the archive only ever holds completed seasons, so a team
     sitting top in week three of a live season is nowhere near this list. That
     is the whole point of a banner - it has to be earned all the way through.
+
+    A retroactive #1 counts, except where it would be a second opinion on a
+    season that already has a real one. 2003-2019 carries both a Classic #1
+    and a retroactive MRI 2.0 #1 for the same season, which can disagree, and
+    crediting both would let one real season buy two banner titles - so the
+    retroactive answer loses to Classic there. 1978-2002 has no such rival:
+    MRI 2.0 is the only rating those seasons ever get, computed after the
+    fact rather than live, and a #1 finish there is exactly as real as a
+    live one - there is nothing for it to double up with.
     """
+    from ..ratings.history import ARCHIVE_SEASONS
+
     rows = (payload.get("history") or {}).get(team) or []
-    return [r for r in rows if r["rank"] == 1]
+    return [
+        r for r in rows if r["rank"] == 1
+        and not (r.get("retroactive") and r["season"] in ARCHIVE_SEASONS)
+    ]
 
 
 TROPHY = (
@@ -818,13 +832,18 @@ def _history_section(team: dict, payload: dict) -> str:
 
     chrome = chrome_for(payload)
     logs = payload.get("gamelogs") or {}
+    # Retroactive rows never have a per-game log (that's a much bigger backfill
+    # than the season-level one this track is) - gated out explicitly rather
+    # than trusting logs.get(season), which is keyed by season alone and would
+    # otherwise credit a retroactive row with a log a same-numbered Classic
+    # row actually has.
     have_log = {r["season"] for r in rows
-                if (logs.get(r["season"]) or {}).get(team["team"])}
+                if not r.get("retroactive") and (logs.get(r["season"]) or {}).get(team["team"])}
 
     def season_link(r: dict) -> str:
-        if r["season"] in have_log:
+        if not r.get("retroactive") and r["season"] in have_log:
             return f'<a href="{slug(team["team"])}/{r["season"]}.html">{esc(r["label"])}</a>'
-        return f'<a href="../season/{r["season"]}.html">{esc(r["label"])}</a>'
+        return f'<a href="../season/{season_slug(r)}.html">{esc(r["label"])}</a>'
 
     body = "".join(f"""
       <tr{' class="wonit"' if r['rank'] == 1 else ''}>
@@ -1389,35 +1408,53 @@ def archive_page(payload: dict) -> str:
     return page(f"Archive — MRI {season_text(payload)}", body, payload)
 
 
+def season_slug(entry: dict) -> str:
+    """The season page's filename, distinct for the retroactive MRI 2.0 track.
+
+    2003-2019 has two ratings for the same season number - Classic (what
+    published at the time) and, since the historical backfill, a retroactive
+    MRI 2.0 calculation - so both cannot write ``season/<year>.html``. Every
+    retroactive entry gets the suffix, including 1978-2002 where there is no
+    Classic entry to collide with, so the rule stays one rule rather than
+    "only when it would collide".
+    """
+    return f"{entry['season']}-mri2" if entry.get("retroactive") else str(entry["season"])
+
+
 def seasons_index(payload: dict) -> str:
     """Every season the system has, newest first.
 
-    Deliberately two tables rather than one. The archive spans two ratings on
-    two scales - Classic counts cumulative points where 150 is a great season,
-    MRI 2.0 counts points against an average team where +35 is - and a single
-    sorted column would invite a comparison that is not available. The seam is
-    shown rather than smoothed.
+    Three tables, not one. The archive spans two ratings on two scales -
+    Classic counts cumulative points where 150 is a great season, MRI 2.0
+    counts points against an average team where +35 is - and a single sorted
+    column would invite a comparison that is not available. The seam is shown
+    rather than smoothed. The historical backfill adds a third: MRI 2.0
+    computed retroactively for 1978-2019, seasons it never actually ran in -
+    same scale as real-time MRI 2.0, so it shares that table's column
+    headings, but kept in its own table rather than merged into either,
+    because a retroactive number and a real-time one answer different
+    questions even when the formula is identical.
     """
     chrome = chrome_for(payload)
     entries = payload.get("seasons") or []
     if not entries:
         return ""
 
-    def table(rows, note):
+    def table(rows, note, heading=None):
         if not rows:
             return ""
         second = rows[0].get("secondaryName")
         body = "".join(f"""
       <tr>
-        <td class="rk"><a href="season/{s['season']}.html">{esc(s['label'])}</a></td>
-        <td class="opp">{esc(s['teams'][0]['team'])}</td>
+        <td class="rk"><a href="season/{season_slug(s)}.html">{esc(s['label'])}</a></td>
+        <td class="opp">{esc(s['teams'][0]['team'])}{'*' if s['teams'][0].get('flagged') else ''}</td>
         <td class="rec">{s['teams'][0]['wins']}&ndash;{s['teams'][0]['losses']}</td>
         <td class="num">{s['teams'][0]['rating']:,.2f}</td>
         {f'<td class="num muted">{s["teams"][0]["secondary"]:,.2f}</td>' if second and s["teams"][0].get("secondary") is not None else ('<td class="num muted">&ndash;</td>' if second else '')}
         <td class="num muted">{s['rated']}</td>
       </tr>""" for s in rows if s["teams"])
         return f"""
-  <h2>{esc(rows[0]['system'])}</h2>
+  <h2>{esc(heading or rows[0]['system'])}</h2>
   <p class="hint">{note}</p>
   <div class="tablewrap"><table>
     <thead><tr><th>Season</th><th>Number one</th><th>Rec</th>
@@ -1427,7 +1464,8 @@ def seasons_index(payload: dict) -> str:
     <tbody>{body}</tbody>
   </table></div>"""
 
-    modern = [s for s in entries if s["system"] == "MRI 2.0"]
+    modern = [s for s in entries if s["system"] == "MRI 2.0" and not s.get("retroactive")]
+    retroactive = [s for s in entries if s["system"] == "MRI 2.0" and s.get("retroactive")]
     classic = [s for s in entries if s["system"] == "MRI Classic"]
     verified = [s for s in classic if s.get("matchesPublished")]
     # The cumulative caveat applies to both sports; the 2017 example does not,
@@ -1459,6 +1497,16 @@ def seasons_index(payload: dict) -> str:
         + (" The per-game column is the comparable one."
            if any(s.get("secondaryName") for s in classic) else "")
     )
+    retro_flagged = any(t.get("flagged") for s in retroactive for t in s["teams"])
+    retro_note = (
+        "MRI 2.0 did not exist for these seasons - this is the same formula, computed "
+        "after the fact from the same game logs (Classic's own workbooks for 2003-2019, "
+        "the play-by-play feed for 1978-2002, before either existed). The first three "
+        "seasons (1978-1980) start the rating chain cold, with no real prior behind them "
+        "yet, so treat those as less settled than the rest."
+        + (" An asterisk marks a team whose season was several games shorter than that "
+           "year's typical schedule, for a reason not yet confirmed." if retro_flagged else "")
+    )
 
     body = f"""
   <h1>Seasons</h1>
@@ -1468,6 +1516,7 @@ def seasons_index(payload: dict) -> str:
   average {chrome.field} team, where a great season is around +35. A number from one
   cannot be read against a number from the other.</p>
   {table(modern, "Points against an average team &mdash; the current rating.")}
+  {table(retroactive, retro_note, heading="MRI 2.0 — Retroactive")}
   {table(classic, classic_note)}"""
     return page(f"Seasons — MRI {chrome.noun}", body, payload,
                 description=f"Every season of MRI {chrome.noun} ratings, back to the beginning.")
@@ -1489,14 +1538,22 @@ def season_page(entry: dict, payload: dict) -> str:
     rows = "".join(f"""
       <tr>
         <td class="rk">{t['rank']}</td>
-        <td class="opp">{name(t['team'])}</td>
+        <td class="opp">{name(t['team'])}{'*' if t.get('flagged') else ''}</td>
         <td class="rec">{t['wins']}&ndash;{t['losses']}</td>
         <td class="num">{t['rating']:,.2f}</td>
         {f'<td class="num muted">{t["secondary"]:,.2f}</td>' if secondary and t.get("secondary") is not None else ('<td class="num muted">&ndash;</td>' if secondary else '')}
       </tr>""" for t in entry["teams"])
 
     checked = ""
-    if entry.get("matchesPublished"):
+    if entry.get("retroactive"):
+        checked = ("""
+  <p class="note">MRI 2.0 did not exist for this season - this is the same formula that
+  rates the current one, computed after the fact from the season's game log.</p>""")
+        if entry.get("burnIn"):
+            checked += ("""
+  <p class="note">One of the rating chain's first three seasons, with no real prior
+  behind it yet - treat this one as less settled than the rest of the archive.</p>""")
+    elif entry.get("matchesPublished"):
         checked = ("""
   <p class="note">This table was recomputed from the season's game log rather than
   copied from the workbook, and it reproduces the published top 25 exactly.</p>""")
@@ -1510,6 +1567,12 @@ def season_page(entry: dict, payload: dict) -> str:
   ratings computed here from the season's box scores, so they are what MRI Classic
   says about the year rather than a record of what it said at the time.</p>""")
 
+    flagged_note = (
+        """<p class="hint">* season was several games shorter than that year's typical
+  schedule, for a reason not yet confirmed.</p>"""
+        if any(t.get("flagged") for t in entry["teams"]) else ""
+    )
+
     body = f"""
   <h1>{esc(entry['label'])}</h1>
   <p class="teamsub">{esc(entry['system'])} &middot; {entry['rated']} teams rated
@@ -1521,6 +1584,7 @@ def season_page(entry: dict, payload: dict) -> str:
     <tbody>{rows}</tbody>
   </table></div>
   {checked}
+  {flagged_note}
   <p class="hint"><a href="../seasons.html">All seasons</a></p>"""
     return page(f"{entry['label']} — MRI {chrome.noun}", body, payload, depth=1,
                 description=f"Final MRI {chrome.noun} ratings for {entry['label']}.")
@@ -3363,6 +3427,23 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   <p>MRI 2.0 wins 13 of 17 seasons. Its hyperparameters were searched on 2003&ndash;2013
   and the margin is reported on 2014&ndash;2019, which took no part in the search.</p>
 
+  <h2>The retroactive track: 1978&ndash;2019</h2>
+  <p>MRI 2.0 is also computed for every season back to 1978, the first year of the
+  Division I-A split &mdash; the seasons pages label these "retroactive" and keep them in
+  their own table, separate from both Classic and the current, real-time rating. Nothing
+  about the formula changes; only the games do. 1978 rather than further back because
+  before the split there is no consistent answer to who counts as top-division, and
+  because shorter old-time schedules leave the schedule-strength solver with less to
+  work with connecting one region to another.</p>
+  <p>1978&ndash;2002 comes straight from the game-by-game feed, the same source 2020&ndash;present
+  already uses; 2003&ndash;2019 comes from the same workbooks Classic runs on. Both leave out
+  the box-score offense/defense split Classic-era yardage makes possible &mdash; the Power
+  and r&eacute;sum&eacute; numbers never used it anyway, so nothing about the rating itself is
+  weaker for these seasons, only the extra split some seasons show and others don't. The
+  chain's first three seasons, 1978&ndash;1980, start cold with no real prior behind them
+  yet and are marked accordingly; by 1981 every rating carries as much real history as
+  any other season's does.</p>
+
 {_prior_method_section(payload)}
 {_homefield_method_section(payload)}
 {_sim_method_section(payload)}
@@ -3938,7 +4019,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         (out_dir / "season").mkdir(exist_ok=True)
         write(out_dir / "seasons.html", seasons_index(payload))
         for entry in payload["seasons"]:
-            write(out_dir / "season" / f"{entry['season']}.html", season_page(entry, payload))
+            write(out_dir / "season" / f"{season_slug(entry)}.html", season_page(entry, payload))
 
     # The season tables are rendered into their own pages; carrying them in the
     # published JSON as well would roughly double it for no reader.
