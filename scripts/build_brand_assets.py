@@ -109,6 +109,20 @@ def hidden_heisman() -> None:
     _save(_fit(art, AWARD_HEIGHT), "hidden-heisman.png")
 
 
+# The Chaos mark renders at 14-44px tall too; same margin for retina as the Heisman mark.
+CHAOS_HEIGHT = 128
+
+
+def chaos_icon() -> None:
+    """The Chaos mark, trimmed to the art and fitted to the height the pages use. It is already the brand
+    crimson with a transparent field, so nothing is recoloured."""
+    art = Image.open(SRC / "chaos-icon.png").convert("RGBA")
+    alpha = np.array(art)[..., 3]
+    rows, cols = np.where(alpha > 16)
+    art = art.crop((cols.min(), rows.min(), cols.max() + 1, rows.max() + 1))
+    _save(_fit(art, CHAOS_HEIGHT), "chaos-icon.png")
+
+
 def main() -> None:
     lockup = Image.open(SRC / "mri-lockup.png").convert("RGBA")
     tagline = Image.open(SRC / "mri-lockup-with-tagline.png").convert("RGBA")
@@ -127,6 +141,7 @@ def main() -> None:
 
     _save(share_card(tagline), "mri-card.png")
     hidden_heisman()
+    chaos_icon()
 
     (OUT / "favicon.ico").write_bytes((SRC / "favicon.ico").read_bytes())
     print(f"  favicon.ico: {(OUT / 'favicon.ico').stat().st_size / 1024:.0f} KB (copied)")

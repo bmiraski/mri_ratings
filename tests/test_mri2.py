@@ -214,3 +214,13 @@ def test_the_old_outsider_rule_is_still_there_for_basketball() -> None:
     assert old["Fcs"] == pytest.approx(0.7 * -30.0)
     assert old["NewFcs"] == pytest.approx(0.7 * mri2.REPLACEMENT_PRIOR)
     assert old[fbs].equals(mri2.build_prior(previous, fbs, regression=0.3, centre_teams=fbs)[fbs])
+
+
+def test_a_single_game_training_set_falls_back_to_the_default_sigma() -> None:
+    # A handful of early CFBD seasons open with exactly one nationally-televised game before the
+    # rest of the week kicks off - std(ddof=1) over one residual is undefined (numpy returns NaN),
+    # and NaN is truthy, so ``nan or DEFAULT_MARGIN_SIGMA`` used to return the NaN, not the default.
+    one_game = pd.DataFrame([{"team1": "Away", "team2": "Home", "pts1": 10.0, "pts2": 24.0}])
+    fitted = mri2.fit(one_game, neutral=pd.Series([False]), with_resume=False, with_efficiency=False)
+    assert np.isfinite(fitted.sigma)
+    assert fitted.sigma == mri2.DEFAULT_MARGIN_SIGMA

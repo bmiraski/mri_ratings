@@ -322,7 +322,11 @@ def fit(
             power = power - power[present].mean()
 
     residuals = residual_margin - np.where(hosted, home_field, 0.0)  # noqa: E501
-    sigma = float(np.std(residuals, ddof=1)) or DEFAULT_MARGIN_SIGMA
+    # A one-game training set (some early CFBD seasons open with a single nationally-televised
+    # game before the rest of the week kicks off) makes ddof=1 undefined, and numpy returns NaN -
+    # which is truthy, so ``nan or DEFAULT`` would return the NaN rather than falling back.
+    fitted_sigma = float(np.std(residuals, ddof=1)) if len(residuals) > 1 else float("nan")
+    sigma = fitted_sigma if fitted_sigma > 0 else DEFAULT_MARGIN_SIGMA
 
     played = pd.concat([games["team1"], games["team2"]]).value_counts()
     played = played.reindex(teams).fillna(0).astype(int)

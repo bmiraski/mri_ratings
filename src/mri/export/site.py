@@ -245,6 +245,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
     # Football only, and only when the build produced them: the same rule as the
     # betting link, for the same reason.
     slate_link = f'\n      <a href="{up}slate.html">Slate</a>' if payload.get("slate") else ""
+    if payload.get("chaos"):
+        slate_link += f'\n      <a href="{up}chaos.html">Chaos</a>'
     sim_link = f'\n      <a href="{up}simulation.html">Simulation</a>' if payload.get("sim") else ""
     if payload.get("gameday"):
         sim_link += f'\n      <a href="{up}gameday.html">GameDay</a>'
@@ -2415,6 +2417,116 @@ def slate_archives(sport_root: Path) -> list[dict]:
     return sorted(entries, key=lambda e: e["order"], reverse=True)
 
 
+def _chaos_bar(percentile: float) -> str:
+    """The week's chaos score as a horizontal bar in the brand crimson - a graphic, never the
+    number alone, per the spec: "wilder than 91% of weeks" is the point, a bare 91 is not."""
+    return f'<div class="chaosbar"><i style="width:{max(percentile, 2):.1f}%"></i></div>'
+
+
+def _chaos_shock_line(s: dict, *, label: str) -> str:
+    return (f'<li><span class="rtl">{label}</span><span class="who">{esc(s["winner"])} '
+            f'<span class="muted">over</span> {esc(s["loser"])}</span>'
+            f'<span class="nums">{_pct(s["pregameWinProb"])} chance &middot; won {s["winnerScore"]}-{s["loserScore"]}</span></li>')
+
+
+def _chaos_fallout(fallout: dict) -> str:
+    def chip(item: dict, sign: str) -> str:
+        return f'<span class="chaoschip {sign}">{esc(item["team"])} {item["change"] * 100:+.0f}</span>'
+    moved = fallout["moved"]
+    chips = "".join(chip(t, "up") for t in fallout["gained"]) + "".join(chip(t, "down") for t in fallout["lost"])
+    return f"""
+    <div class="chaosfallout">
+      <p class="rtl">Fallout</p>
+      <p>{moved:.1f} playoff spot{'s' if moved != 1 else ''}&rsquo; worth of probability changed hands.</p>
+      <div class="chaoschips">{chips}</div>
+    </div>""" if chips else ""
+
+
+def _chaos_final_panel(entry: dict) -> str:
+    """Once the week is final: the percentile bar and rank, upsets against expected, the biggest
+    shocks, and fallout."""
+    percentile = entry.get("percentile")
+    if percentile is not None:
+        header = (f'<p class="ptitle">{_chaos_icon()}Chaos {percentile:.0f}</p>'
+                   f'<p class="note">Wilder than {percentile:.0f}% of weeks in the archive.</p>{_chaos_bar(percentile)}')
+    elif entry.get("note") == "not_enough_games":
+        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not enough games to rate.</p>'
+    else:
+        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not yet ranked against the archive.</p>'
+
+    upsets, expected = entry.get("upsets"), entry.get("expectedUpsets")
+    stats = (f'<p class="chaosstats">{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> '
+             f'{expected:.1f} expected</p>') if upsets is not None else ""
+    shocks = entry.get("shocks") or []
+    shock_list = (f'<ul class="chaosshocks">' +
+                  "".join(_chaos_shock_line(s, label="Biggest shock" if i == 0 else "Runner-up")
+                          for i, s in enumerate(shocks[:3])) + "</ul>") if shocks else ""
+    fallout = _chaos_fallout(entry["fallout"]) if entry.get("fallout") else ""
+    return f"""
+  <section class="chaosmeter final">
+    {header}
+    {stats}
+    {shock_list}
+    {fallout}
+  </section>"""
+
+
+def _chaos_toss_ups(slate: dict, n: int = 3) -> list[dict]:
+    """The ``n`` upcoming games the model is least sure about - closest to a coin flip."""
+    games = [g for day in slate.get("days", []) for g in day["games"] if not g.get("played")]
+    games.sort(key=lambda g: abs(g["homeWinProbability"] - 0.5))
+    return games[:n]
+
+
+def _chaos_before_panel(current: dict, slate: dict) -> str:
+    """Before the week's games: expected upsets, and the games the model is least sure about."""
+    lines = "".join(
+        f'<li><span class="who">{esc(g["away"])} <span class="muted">at</span> {esc(g["home"])}</span>'
+        f'<span class="nums">{_pct(g["homeWinProbability"])}</span></li>'
+        for g in _chaos_toss_ups(slate)
+    )
+    return f"""
+  <section class="chaosmeter">
+    <p class="ptitle">{_chaos_icon()}Expected upsets this week: {current["expectedUpsets"]:.1f}</p>
+    <p class="note">The three games the model is least sure about:</p>
+    <ul class="chaostossups">{lines}</ul>
+  </section>"""
+
+
+def _chaos_partial_panel(current: dict) -> str:
+    """During the week: a "so far" reading, clearly labelled partial."""
+    upsets, expected = current.get("upsets"), current.get("expectedUpsets")
+    body = (f'{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> {expected:.1f} expected so far'
+            if upsets is not None else f'Expected upsets this week: {expected:.1f}')
+    return f"""
+  <section class="chaosmeter partial">
+    <p class="ptitle">{_chaos_icon()}Chaos so far <span class="chaospartial">Partial</span></p>
+    <p class="note">{body}</p>
+  </section>"""
+
+
+def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None) -> str:
+    """The Chaos meter panel atop the Slate page (live or a frozen archive page), in whichever of
+    three states the week has reached: not started, partway through, or final.
+
+    ``season`` is the caller's already-resolved season (``slate.get("season") or
+    payload.get("season")``) - the live slate dict itself carries no "season" key of its own."""
+    if not chaos:
+        return ""
+    season, week = (season if season is not None else slate.get("season")), slate.get("week")
+    season_entry = chaos.get("archive", {}).get("seasons", {}).get(str(season), {})
+    week_entry = (season_entry.get("weeks") or {}).get(str(week))
+    if week_entry and week_entry.get("final"):
+        return _chaos_final_panel(week_entry)
+
+    current = chaos.get("current")
+    if not current:
+        return ""
+    if current.get("gamesPlayed", 0) == 0:
+        return _chaos_before_panel(current, slate)
+    return _chaos_partial_panel(current)
+
+
 def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None,
                archive_id: str | None = None) -> str:
     """This week's (football) or today's (basketball) slate, or with ``archive`` a finished one with finals."""
@@ -2764,14 +2876,190 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                  else f"{week_name(slate)} slate — MRI {season_text(payload)}")
         description = "Every game this week: model line, market line, live scores, and what rides on it."
 
+    chaos_html = "" if bb else chaos_panel(payload.get("chaos"), slate, season)
+
     body = f"""
   <article class="prose wide" id="slate" data-key="{esc(live.slate_key({**slate, 'season': season}))}">{day_nav}
   <h1>{heading}</h1>
   <p class="lead">{lead}</p>
   <p class="hint">{hint}</p>{past_links}
-{alerts}{key_panel}{filters}{days}{results}{fcs}
+{chaos_html}{alerts}{key_panel}{filters}{days}{results}{fcs}
   </article>{_SLATE_SCRIPT}{'' if archive else _SLATE_LIVE_SCRIPT}"""
     return page(title, body, payload, depth=depth, description=description)
+
+
+_CHAOS_SORT_SCRIPT = """
+<script>
+document.querySelectorAll('table.sortable').forEach(function (table) {
+  var body = table.tBodies[0];
+  table.querySelectorAll('th[data-key]').forEach(function (th) {
+    th.addEventListener('click', function () {
+      var key = th.getAttribute('data-key');
+      var dir = th.getAttribute('data-dir') === 'asc' ? -1 : 1;
+      table.querySelectorAll('th[data-key]').forEach(function (other) { other.removeAttribute('data-dir'); });
+      th.setAttribute('data-dir', dir === 1 ? 'asc' : 'desc');
+      var rows = Array.prototype.slice.call(body.rows);
+      rows.sort(function (a, b) {
+        var av = a.getAttribute('data-' + key), bv = b.getAttribute('data-' + key);
+        var an = parseFloat(av), bn = parseFloat(bv);
+        var cmp = (!isNaN(an) && !isNaN(bn)) ? (an - bn) : String(av).localeCompare(String(bv));
+        return cmp * dir;
+      });
+      rows.forEach(function (row) { body.appendChild(row); });
+    });
+  });
+});
+</script>"""
+
+
+def _chaos_num(value, fmt: str = "{:.1f}") -> str:
+    return fmt.format(value) if value is not None else '<span class="muted">&ndash;</span>'
+
+
+def _chaos_week_label(week_key: str, entry: dict) -> str:
+    return entry.get("label") or f"Week {week_key}"
+
+
+def _chaos_row(season: int, week_key: str, entry: dict, burn_in: bool) -> str:
+    label = _chaos_week_label(week_key, entry)
+    pct, z = entry.get("percentile"), entry.get("z")
+    if pct is not None:
+        pct_cell = f"{pct:.0f}"
+    elif burn_in:
+        pct_cell = '<span class="muted">Burn-in</span>'
+    else:
+        pct_cell = '<span class="muted">Not rated</span>'
+    return f"""
+      <tr data-season="{season}" data-week="{int(week_key)}" data-games="{entry.get('games', 0)}"
+          data-upsets="{entry.get('upsets') if entry.get('upsets') is not None else -1}"
+          data-expected="{entry.get('expectedUpsets') if entry.get('expectedUpsets') is not None else -1}"
+          data-z="{z if z is not None else -999}" data-percentile="{pct if pct is not None else -1}">
+        <td>{season}</td><td>{esc(label)}</td><td class="num">{entry.get('games', 0)}</td>
+        <td class="num">{_chaos_num(entry.get('upsets'), '{:.0f}')}</td>
+        <td class="num">{_chaos_num(entry.get('expectedUpsets'))}</td>
+        <td class="num">{_chaos_num(z, '{:+.2f}')}</td>
+        <td class="num">{pct_cell}</td>
+      </tr>"""
+
+
+def _chaos_strip(season: int, season_entry: dict) -> str:
+    """One season's weeks as a horizontal strip: a bar per week, above or below the line by the
+    sign of its z, tall by its magnitude - the whole season's rhythm of calm and chaotic weeks
+    at a glance."""
+    points = sorted(
+        ((int(k), e) for k, e in season_entry["weeks"].items() if e.get("z") is not None),
+        key=lambda t: t[0],
+    )
+    if not points:
+        return ""
+    W, H = 640, 36
+    L, R = 4, 4
+    lo, hi = points[0][0], points[-1][0]
+    span = (hi - lo) or 1
+    px = lambda w: L + (w - lo) / span * (W - L - R)
+    zmax = max(abs(e["z"]) for _, e in points) or 1.0
+    burn_in = season_entry.get("burnIn", False)
+    color, opacity = ("var(--muted)", 0.45) if burn_in else ("var(--series)", 0.85)
+
+    def bar(week: int, entry: dict) -> str:
+        z = entry["z"]
+        height = max(abs(z) / zmax * (H / 2 - 3), 1.0)
+        y = H / 2 - height if z >= 0 else H / 2
+        label = _chaos_week_label(str(week), entry)
+        return (f'<rect x="{px(week) - 2:.1f}" y="{y:.1f}" width="4" height="{height:.1f}" '
+                f'fill="{color}" opacity="{opacity}"><title>{esc(label)}: z {z:+.2f}</title></rect>')
+
+    bars = "".join(bar(w, e) for w, e in points)
+    return f"""
+    <div class="chaosstrip">
+      <span class="chaosstripyear">{season}</span>
+      <svg viewBox="0 0 {W} {H}" role="img" aria-label="Weekly chaos, {season} season." preserveAspectRatio="none">
+        <line x1="0" y1="{H / 2}" x2="{W}" y2="{H / 2}" stroke="var(--grid)" stroke-width="1"/>
+        {bars}
+      </svg>
+    </div>"""
+
+
+def chaos_page(payload: dict) -> str:
+    """Every archived week in a sortable table, the wildest and calmest weeks ever, the biggest
+    shocks ever, and a per-season strip chart of how chaotic each week was."""
+    chaos = payload["chaos"]
+    seasons = chaos["archive"]["seasons"]
+
+    all_weeks = [
+        (int(season_key), week_key, entry, season_entry.get("burnIn", False))
+        for season_key, season_entry in seasons.items()
+        for week_key, entry in season_entry["weeks"].items()
+    ]
+    all_weeks.sort(key=lambda t: (-t[0], -int(t[1])))
+    rows = "".join(_chaos_row(season, week_key, entry, burn_in) for season, week_key, entry, burn_in in all_weeks)
+
+    ranked = [(s, w, e) for s, w, e, b in all_weeks if not b and e.get("percentile") is not None]
+
+    def mini_row(season: int, week_key: str, entry: dict) -> str:
+        label = _chaos_week_label(week_key, entry)
+        return (f'<li><span class="who">{season} {esc(label)}</span>'
+                f'<span class="nums">{entry["percentile"]:.0f} <span class="muted">&middot; z {entry["z"]:+.2f}</span></span></li>')
+
+    wildest_html = "".join(mini_row(*t) for t in sorted(ranked, key=lambda t: -t[2]["percentile"])[:10])
+    calmest_html = "".join(mini_row(*t) for t in sorted(ranked, key=lambda t: t[2]["percentile"])[:10])
+
+    all_shocks = [
+        (season, week_key, entry, shock)
+        for season, week_key, entry, _ in all_weeks
+        for shock in entry.get("shocks") or []
+    ]
+    all_shocks.sort(key=lambda t: t[3]["pregameWinProb"])
+    shocks_html = "".join(
+        f'<li><span class="who">{esc(s["winner"])} <span class="muted">over</span> {esc(s["loser"])}</span>'
+        f'<span class="nums">{_pct(s["pregameWinProb"])} chance &middot; {season} {esc(_chaos_week_label(week_key, entry))} '
+        f'&middot; won {s["winnerScore"]}-{s["loserScore"]}</span></li>'
+        for season, week_key, entry, s in all_shocks[:10]
+    )
+
+    strips = "".join(_chaos_strip(int(season_key), season_entry)
+                      for season_key, season_entry in sorted(seasons.items(), key=lambda kv: -int(kv[0])))
+
+    calibration = chaos["archive"].get("calibration") or {}
+    fitted_through = calibration.get("fittedThrough") or {}
+    first_season = min(int(k) for k in seasons) if seasons else None
+
+    body = f"""
+  <article class="prose wide" id="chaos">
+  <h1>Chaos archive</h1>
+  <p class="lead">How surprising a week's results were, scored against the model's own pregame odds rather than a
+  plain upset count - a 5% underdog winning counts far more than a coin flip going the other way. Every week since
+  {first_season} is ranked against every other; a "Bowls" entry is ranked only against past bowl seasons. See the
+  <a href="method.html#chaos">method page</a> for the maths.</p>
+
+  <section class="chaoslists">
+    <div><p class="ptitle">Wildest weeks ever</p><ul class="chaosranked">{wildest_html}</ul></div>
+    <div><p class="ptitle">Calmest weeks</p><ul class="chaosranked">{calmest_html}</ul></div>
+    <div><p class="ptitle">Biggest shocks ever</p><ul class="chaosshocks">{shocks_html}</ul></div>
+  </section>
+
+  <section class="chaosstrips">
+    <p class="ptitle">Every season</p>
+    {strips}
+  </section>
+
+  <section>
+    <p class="ptitle">Every week</p>
+    <div class="tablewrap"><table class="sortable chaostable">
+      <thead><tr>
+        <th data-key="season">Season</th><th data-key="week">Week</th><th class="num" data-key="games">Games</th>
+        <th class="num" data-key="upsets">Upsets</th><th class="num" data-key="expected">Expected</th>
+        <th class="num" data-key="z">Z</th><th class="num" data-key="percentile">Percentile</th>
+      </tr></thead>
+      <tbody>{rows}</tbody>
+    </table></div>
+    <p class="note">Click a column to sort. Burn-in seasons (1978-1980, shown but not ranked) started from a flat
+    prior with no real history behind them yet.{f" Recalibrated through the {fitted_through.get('season')} "
+    f"season, week {fitted_through.get('week')}." if fitted_through else ""}</p>
+  </section>
+  </article>{_CHAOS_SORT_SCRIPT}"""
+    return page("Chaos archive — MRI", body, payload,
+                description="Every week since 1978, ranked by how surprising its results were against the model.")
 
 
 def _record_section(record: dict) -> str:
@@ -3167,6 +3455,24 @@ def _hidden_icon(up: str = "", size: int = 28) -> str:
     return HIDDEN_HEISMAN_SVG
 
 
+# The Chaos Meter's mark is site/assets/brand/chaos-icon.png, derived for the web by
+# scripts/build_brand_assets.py and copied to docs/assets with the rest of the brand. This crimson
+# disc with a bolt-shaped crack through it is only the fallback for a build without it.
+CHAOS_SVG = (
+    '<svg class="chicon" viewBox="0 0 48 48" aria-hidden="true">'
+    '<path fill-rule="evenodd" fill="currentColor" '
+    'd="M24 2a22 22 0 1 1 0 44 22 22 0 0 1 0-44Z M26 4 6 28h14v16l20-28h-14Z"/></svg>')
+CHAOS_ICON_FILE = "assets/chaos-icon.png"
+
+
+def _chaos_icon(up: str = "", size: int = 28) -> str:
+    """The Chaos Meter's mark: the artwork when it is in the build, the stand-in otherwise."""
+    art = BRAND_WEB / "chaos-icon.png"
+    if art.exists():
+        return f'<img class="chicon" src="{up}{CHAOS_ICON_FILE}" alt="" height="{size}">'
+    return CHAOS_SVG
+
+
 def _hidden_line(line: dict) -> list[tuple[str, int, int]]:
     parts = []
     for label, yds, td in (("Passing", "pass_yds", "pass_td"), ("Rushing", "rush_yds", "rush_td"),
@@ -3536,6 +3842,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
 {_homefield_method_section(payload)}
 {_sim_method_section(payload)}
 {_coaches_method_section(payload)}
+{_chaos_method_section(payload)}
   <h2>What it cannot do</h2>
   <p>A margin error near 13 points is roughly where closing betting spreads sit. That is
   the honest signal that this model should not be expected to beat a closing line. If it
@@ -3579,6 +3886,53 @@ def _coaches_method_section(payload: dict) -> str:
   leaving on their own for a better job is a real, common outcome this model was never
   asked to predict - that's a separate label entirely, not a gap in this one.</p>
 """
+
+
+def _chaos_method_section(payload: dict) -> str:
+    chaos = payload.get("chaos")
+    if not chaos:
+        return ""
+    calibration = (chaos.get("archive") or {}).get("calibration") or {}
+    bands = calibration.get("bands") or {}
+
+    def band_line(name: str, span: str) -> str:
+        b = bands.get(name)
+        if not b:
+            return ""
+        return f"<li><strong>{span}</strong>: a={b['a']:.2f}, b={b['b']:+.2f}, fit on {b['n']:,} games</li>"
+
+    band_list = "".join(band_line(n, s) for n, s in
+                        (("early", "Weeks 1&ndash;3"), ("mid", "Weeks 4&ndash;7"), ("late", "Week 8 on, and Bowls")))
+    fitted = calibration.get("fittedThrough") or {}
+    return f"""
+  <h2 id="chaos">Chaos and Fallout</h2>
+  <p>The <a href="chaos.html">Chaos archive</a> measures how surprising a week's results were, against the
+  model's own pregame odds rather than a plain upset count. For each completed game, the winner's pregame
+  win probability <em>p</em> costs a surprisal of &minus;ln(<em>p</em>): a 45% underdog winning costs little,
+  a 5% underdog winning costs a great deal more. The model's own expectation for that cost &mdash; a game's
+  entropy &mdash; is &minus;[<em>p</em>&nbsp;ln&nbsp;<em>p</em> + (1&minus;<em>p</em>)&nbsp;ln(1&minus;<em>p</em>)].
+  A week's chaos is the total surprisal less the total entropy, standardised by the square root of its total
+  variance &mdash; each game contributing <em>p</em>(1&minus;<em>p</em>)&middot;(ln(<em>p</em>/(1&minus;<em>p</em>)))&sup2;
+  &mdash; into a single <em>z</em>. The published score is <em>z</em>'s percentile against every other archived
+  week: "wilder than 91% of weeks since 1978."</p>
+  <p><strong>Recalibrated first.</strong> The model's own lines run overconfident early in a season (see the
+  <a href="method.html#priors">priors above</a>), and an overconfident line makes a week look chaotic simply
+  because the model is wrong, not because the world was. Before scoring, every pregame probability is passed
+  through a logistic recalibration fit separately for three bands of the season &mdash; walked forward from
+  every archived season, never from the week it is scoring &mdash; and checked afterward: mean <em>z</em> within
+  0.1 of 0 and its standard deviation within 0.1 of 1, both overall and within each band.</p>
+  {f'<ul>{band_list}</ul>' if band_list else ''}
+  {f"<p class='muted'>Currently fitted through the {fitted.get('season')} season, week {fitted.get('week')}.</p>" if fitted else ''}
+  <p>1978&ndash;1980 are scored and shown in the archive like any other season, flagged rather than dropped, but
+  take no part in the recalibration fit, the self-check, or the percentile ranking: the chain starts cold there
+  with no real prior, so those weeks read as more surprising than the football deserves credit for &mdash; exactly
+  what the recalibration guard exists to catch, not import.</p>
+  <p><strong>Fallout is a different question.</strong> Chaos asks how unlikely the results were; Fallout asks how
+  much they mattered, as half the sum, over every team, of the week-over-week change in its playoff odds from the
+  <a href="simulation.html">season simulation</a>. A week can be wild with little at stake &mdash; blowout losses by
+  teams already out of the race &mdash; or ordinary on the field but reshape the field, when the teams involved were
+  exactly the ones a playoff spot rode on. Fallout only exists for the current season, since the simulation's own
+  history starts with it, and is not yet percentile-ranked against anything.</p>"""
 
 
 def _homefield_method_section(payload: dict) -> str:
@@ -4085,7 +4439,8 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     archives = slate_archives(out_dir)
     slate_with_archives = lambda p: slate_page(p, archives=archives)                    # noqa: E731
     for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_with_archives),
-                                ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page)):
+                                ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page),
+                                ("chaos", "chaos", chaos_page)):
         if payload.get(key):
             write(out_dir / f"{name}.html", renderer(payload))
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
@@ -4505,6 +4860,52 @@ svg.hhicon { width:28px; }
 .hhfeature .hhhead .hhicon { height:56px; }
 .hlhh .hhicon { height:16px; margin-right:3px; vertical-align:-3px; }
 .hhteam .hhicon { height:30px; margin-right:6px; vertical-align:-6px; }
+.chicon { height:28px; width:auto; color:var(--series); flex:none; vertical-align:middle; }
+svg.chicon { width:28px; }
+.chaosmeter { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--series);
+  border-radius:14px; padding:16px 18px; margin:18px 0 24px; display:grid; gap:10px; }
+.chaosmeter .ptitle { color:var(--series); margin:0; display:flex; align-items:center; gap:8px; }
+.chaosmeter .chicon { height:20px; }
+.chaosbar { position:relative; height:10px; background:var(--grid); border-radius:5px; overflow:hidden; }
+.chaosbar i { display:block; height:100%; background:var(--series); border-radius:5px; }
+.chaosstats { margin:0; font-size:13.5px; }
+.chaosshocks, .chaostossups { list-style:none; margin:4px 0 0; padding:0; display:grid; gap:8px; }
+/* Each shock/toss-up stacks its label, names and numbers on their own line - the same "give a
+   wrapping cell its own row rather than let it wrap mid-line" idea as the Slate page's .slstake,
+   applied by simply not sharing a row with anything else, plus the same ellipsis discipline on a
+   long team name. */
+.chaosshocks li, .chaostossups li { display:grid; gap:2px; min-width:0; }
+.chaosshocks .who, .chaostossups .who { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.chaosshocks .nums, .chaostossups .nums { font-size:12px; color:var(--muted); }
+.chaosfallout { border-top:1px solid var(--grid); padding-top:10px; margin-top:4px; }
+.chaosfallout p { margin:0 0 6px; font-size:13.5px; }
+.chaoschips { display:flex; flex-wrap:wrap; gap:6px; }
+.chaoschip { font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+.chaoschip.up { color:var(--up); background:color-mix(in srgb, var(--up) 12%, transparent); }
+.chaoschip.down { color:var(--down); background:color-mix(in srgb, var(--down) 12%, transparent); }
+.chaospartial { font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);
+  border:1px solid var(--grid); border-radius:999px; padding:1px 7px; }
+.chaoslists { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; }
+.chaoslists .ptitle { margin-bottom:6px; }
+.chaosranked { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.chaosranked li { display:flex; justify-content:space-between; gap:10px; font-size:13px;
+  border-bottom:1px solid var(--grid); padding-bottom:5px; min-width:0; }
+.chaosranked .who { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+.chaosranked .nums { flex:none; color:var(--secondary); font-variant-numeric:tabular-nums; white-space:nowrap; }
+/* chaos.html's own "Biggest shocks ever" list reuses the Slate panel's stacked .chaosshocks/.who/.nums
+   layout above rather than this flex row - a shock line's text ("Team A over Team B - 0.4% chance -
+   1998 Week 8 - won 28-24") is long enough that a side-by-side row squeezes the team names down to
+   almost nothing; stacking avoids that instead of fighting it with a narrower ellipsis. */
+.chaoslists .chaosshocks li { border-bottom:1px solid var(--grid); padding-bottom:6px; }
+.chaosstrips { margin:24px 0; }
+.chaosstrip { display:grid; grid-template-columns:52px 1fr; align-items:center; gap:10px; padding:3px 0; }
+.chaosstripyear { font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.chaosstrip svg { width:100%; height:36px; display:block; }
+table.sortable th[data-key] { cursor:pointer; user-select:none; }
+table.sortable th[data-key]:hover { color:var(--primary); }
+table.sortable th[data-dir="asc"]::after { content:" \\2191"; }
+table.sortable th[data-dir="desc"]::after { content:" \\2193"; }
+@media (max-width:760px) { .chaoslists { grid-template-columns:1fr; } }
 .hhfeature { background:var(--surface); border:1px solid var(--grid); border-top:3px solid var(--alert); border-radius:14px;
   padding:16px 18px; margin:18px 0 24px; display:grid; gap:14px; }
 .hhhead { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }

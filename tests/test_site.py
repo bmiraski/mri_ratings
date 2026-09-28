@@ -1739,7 +1739,7 @@ def _broken_links(root: Path) -> list[str]:
         for href in re.findall(r'href="([^"]+)"', page.read_text()):
             if href.startswith(("http://", "https://", "#", "mailto:")):
                 continue
-            if not (page.parent / href).resolve().exists():
+            if not (page.parent / href.split("#")[0]).resolve().exists():
                 broken.append(f"{page.relative_to(root)} -> {href}")
     return broken
 
@@ -1769,4 +1769,125 @@ def test_site_builds_without_home_field_data(payload, tmp_path) -> None:
     assert not (tmp_path / "homefield.html").exists()
     assert "homefield.html" not in "".join(f.read_text() for f in tmp_path.rglob("*.html"))
     assert "Home field by stadium" not in (tmp_path / "method.html").read_text()
+    assert not _broken_links(tmp_path)
+
+
+# ---- Chaos meter panel
+
+
+def _chaos_slate(week: int = 4) -> dict:
+    return {"season": 2026, "week": week,
+            "days": [{"date": "2026-09-26", "label": "Sat", "games": []}],
+            "results": [], "fcs": [], "watch": [], "flagged": 0, "games": 0}
+
+
+def test_chaos_panel_is_empty_without_chaos_data() -> None:
+    assert site.chaos_panel(None, _chaos_slate()) == ""
+
+
+def test_chaos_panel_before_the_weeks_games_shows_expected_upsets_and_toss_ups() -> None:
+    games = [
+        {"id": 1, "home": "A", "away": "B", "homeWinProbability": 0.51, "played": False},
+        {"id": 2, "home": "C", "away": "D", "homeWinProbability": 0.9, "played": False},
+        {"id": 3, "home": "E", "away": "F", "homeWinProbability": 0.95, "played": False},
+        {"id": 4, "home": "G", "away": "H", "homeWinProbability": 0.55, "played": False},
+    ]
+    slate = _chaos_slate()
+    slate["days"][0]["games"] = games
+    chaos = {"current": {"partial": True, "gamesPlayed": 0, "expectedUpsets": 12.3}, "archive": {"seasons": {}}}
+    html = site.chaos_panel(chaos, slate)
+    assert "Expected upsets this week: 12.3" in html
+    assert html.count("<li>") == 3
+    # The three closest to a coin flip: games 1, 4, then 2 - not game 3, the biggest lock.
+    assert "Some FCS" not in html and site.esc("F") not in html.split("<ul")[0]
+
+
+def test_chaos_panel_partway_through_is_labelled_partial() -> None:
+    chaos = {"current": {"partial": True, "gamesPlayed": 5, "upsets": 2, "expectedUpsets": 3.1},
+             "archive": {"seasons": {}}}
+    html = site.chaos_panel(chaos, _chaos_slate())
+    assert "Partial" in html
+    assert "2 upsets" in html
+
+
+def test_chaos_panel_once_final_shows_the_percentile_bar_shocks_and_fallout() -> None:
+    entry = {
+        "final": True, "percentile": 91.2, "z": 2.1, "upsets": 9, "expectedUpsets": 5.2,
+        "shocks": [
+            {"gameId": 1, "winner": "Underdog A", "loser": "Favorite A", "pregameWinProb": 0.08,
+             "winnerScore": 24, "loserScore": 17, "homeScore": 17, "awayScore": 24},
+            {"gameId": 2, "winner": "Underdog B", "loser": "Favorite B", "pregameWinProb": 0.15,
+             "winnerScore": 30, "loserScore": 28, "homeScore": 30, "awayScore": 28},
+        ],
+        "fallout": {"moved": 1.8, "gained": [{"team": "Alabama", "change": 0.12}],
+                    "lost": [{"team": "Oregon", "change": -0.09}]},
+    }
+    chaos = {"current": None, "archive": {"seasons": {"2026": {"weeks": {"4": entry}}}}}
+    html = site.chaos_panel(chaos, _chaos_slate())
+    assert "Chaos 91" in html
+    assert "Wilder than 91% of weeks in the archive." in html
+    assert "9 upsets" in html and "5.2 expected" in html
+    assert "Underdog A" in html and "Favorite A" in html
+    assert "Biggest shock" in html and "Runner-up" in html
+    assert "1.8 playoff spot" in html
+    assert "Alabama" in html and "Oregon" in html
+
+
+def test_chaos_panel_final_but_not_enough_games() -> None:
+    entry = {"final": True, "percentile": None, "note": "not_enough_games", "z": None,
+             "upsets": None, "expectedUpsets": None, "shocks": []}
+    chaos = {"current": None, "archive": {"seasons": {"2026": {"weeks": {"0": entry}}}}}
+    html = site.chaos_panel(chaos, _chaos_slate(week=0))
+    assert "Not enough games to rate." in html
+
+
+def test_slate_page_embeds_the_chaos_panel_and_nav_link_when_chaos_data_is_present(extended) -> None:
+    entry = {"final": True, "percentile": 60.0, "z": 0.4, "upsets": 3, "expectedUpsets": 4.0, "shocks": []}
+    p = dict(extended, chaos={"current": None,
+                              "archive": {"seasons": {str(extended["season"]): {"weeks": {"4": entry}}}}})
+    text = site.slate_page(p)
+    assert 'class="chaosmeter final"' in text
+    assert 'href="chaos.html">Chaos</a>' in text
+
+
+def test_slate_page_has_no_chaos_panel_or_nav_link_without_chaos_data(extended) -> None:
+    p = {k: v for k, v in extended.items() if k != "chaos"}
+    text = site.slate_page(p)
+    assert "chaosmeter" not in text
+    assert 'href="chaos.html"' not in text
+
+
+def _chaos_archive_payload(season: int) -> dict:
+    """A small, real-shaped chaos archive for build()-level tests - not the full 48-season
+    archive, just enough to exercise chaos.html, the nav link and the method section."""
+    entry = {"final": True, "percentile": 60.0, "z": 0.4, "upsets": 3, "expectedUpsets": 4.0,
+             "games": 40, "missingPregame": 0,
+             "shocks": [{"gameId": 1, "winner": "Underdog", "loser": "Favorite", "pregameWinProb": 0.1,
+                         "winnerScore": 24, "loserScore": 17, "homeScore": 17, "awayScore": 24}]}
+    calibration = {"bands": {"early": {"a": 1.0, "b": 0.0, "n": 100}, "mid": {"a": 1.0, "b": 0.0, "n": 100},
+                              "late": {"a": 1.0, "b": 0.0, "n": 100}},
+                   "fittedThrough": {"season": 2025, "week": 17}}
+    archive = {"seasons": {str(season): {"burnIn": False, "weeks": {"4": entry}}}, "calibration": calibration}
+    return {"season": season, "current": None, "archive": archive}
+
+
+def test_chaos_page_nav_link_and_method_section_when_chaos_data_is_present(extended, tmp_path) -> None:
+    p = dict(extended, chaos=_chaos_archive_payload(extended["season"]))
+    site.build(p, tmp_path)
+    assert (tmp_path / "chaos.html").exists()
+    assert (tmp_path / "chaos.json").exists()
+    assert "Chaos and Fallout" in (tmp_path / "method.html").read_text()
+    assert 'href="chaos.html">Chaos</a>' in (tmp_path / "index.html").read_text()
+    assert not _broken_links(tmp_path)
+
+
+def test_site_builds_without_a_chaos_link_or_page_when_chaos_data_is_missing(payload, tmp_path) -> None:
+    """Spec isolation test: the site still builds, and the link check still passes, when the
+    chaos files are missing - payload.get("chaos") is simply absent, same as every other
+    optional feature here."""
+    p = {k: v for k, v in payload.items() if k != "chaos"}
+    site.build(p, tmp_path)
+    assert not (tmp_path / "chaos.html").exists()
+    assert "chaos.html" not in "".join(f.read_text() for f in tmp_path.rglob("*.html"))
+    assert "Chaos and Fallout" not in (tmp_path / "method.html").read_text()
     assert not _broken_links(tmp_path)
