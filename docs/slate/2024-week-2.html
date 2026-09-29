@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 2 slate, 2024 — MRI</title>
+<meta name="description" content="Every game this week: model line, market line, live scores, and what rides on it.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#AB011B">
+<meta property="og:title" content="Week 2 slate, 2024 — MRI">
+<meta property="og:description" content="Every game this week: model line, market line, live scores, and what rides on it.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://mri.mira.ski/assets/mri-card.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="mark" href="../index.html" aria-label="The MRI, home">
+      <picture>
+        <source media="(prefers-color-scheme: light)" srcset="../assets/mri-lockup-ink.png">
+        <img src="../assets/mri-lockup.png" alt="The MRI" width="129" height="38">
+      </picture>
+    </a>
+    <div class="sports"><a href="../index.html" aria-current="page" class="on">Football</a><a href="../basketball/index.html">Basketball</a></div>
+    <nav>
+      <a href="../index.html">Rankings</a>
+      <a href="../conferences.html">Conferences</a>
+      <a href="../slate.html">Slate</a>
+      <a href="../chaos.html">Chaos</a>
+      <a href="../simulation.html">Simulation</a>
+      <a href="../gameday.html">GameDay</a>
+      <a href="../heisman.html">Heisman</a>
+
+      <a href="../betting.html">Betting</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../seasons.html">Seasons</a>
+    </nav>
+    <div class="stamp">2026 &middot; Week 4</div>
+  </div>
+</header>
+<main class="wrap">
+  <article class="prose wide" id="slate" data-key="2024-w2">
+  <h1>Week 2 slate, 2024</h1>
+  <p class="lead">The slate as it stood before the Sunday refresh, with final scores. 78 games with an FBS team; the model&rsquo;s line and win chance for each were set before kickoff.</p>
+  <p class="hint"><strong>Pre</strong> is the model&rsquo;s win chance before kickoff. <strong>Model</strong> is the
+  favourite and the margin the ratings predict, reconstructed walk-forward from ratings as they stood
+  that week - never from anything the model learned afterward.</p>
+  <p class="slpast"><span class="muted">Slates:</span> <a href="../slate.html">This week</a> &middot; <a href="../slate/2026-week-4.html">2026 Week 4</a> &middot; <a href="../slate/2026-week-3.html">2026 Week 3</a> &middot; <a href="../slate/2025-week-17.html">2025 Bowls</a> &middot; <a href="../slate/2025-week-14.html">2025 Week 14</a> &middot; <a href="../slate/2025-week-13.html">2025 Week 13</a> &middot; <a href="../slate/2025-week-12.html">2025 Week 12</a> &middot; <a href="../slate/2025-week-11.html">2025 Week 11</a> &middot; <a href="../slate/2025-week-10.html">2025 Week 10</a> &middot; <a href="../slate/2025-week-9.html">2025 Week 9</a> &middot; <a href="../slate/2025-week-8.html">2025 Week 8</a></p>
+
+  <section class="chaosmeter final">
+    <p class="ptitle"><img class="chicon" src="assets/chaos-icon.png" alt="" height="28">Chaos 94</p><p class="note">Wilder than 94% of weeks in the archive.</p><div class="chaosbar"><i style="width:94.0%"></i></div>
+    <p class="chaosstats">19 upsets <span class="muted">against</span> 13.5 expected</p>
+    <ul class="chaosshocks"><li><span class="rtl">Biggest shock</span><span class="who">Northern Illinois <span class="muted">over</span> Notre Dame</span><span class="nums">2.0% chance &middot; won 16-14</span></li><li><span class="rtl">Runner-up</span><span class="who">Southern Utah <span class="muted">over</span> UTEP</span><span class="nums">12% chance &middot; won 27-24</span></li><li><span class="rtl">Runner-up</span><span class="who">Michigan State <span class="muted">over</span> Maryland</span><span class="nums">18% chance &middot; won 27-24</span></li></ul>
+    
+  </section>
+  <section class="slalerts" id="slalerts">
+    <p class="ptitle">Upsets</p><ul id="slalertlist"><li><a href="#g401634765">BYU 18, SMU 15</a><span class="why">BYU won; the model gave them 22% before kickoff</span></li><li><a href="#g401628337">California 21, Auburn 14</a><span class="why">California won; the model gave them 20% before kickoff</span></li><li><a href="#g401628464">Iowa State 20, Iowa 19</a><span class="why">#25 Iowa lost to unranked Iowa State</span></li><li><a href="#g401628465">Michigan State 27, Maryland 24</a><span class="why">Michigan State won; the model gave them 18% before kickoff</span></li><li><a href="#g401628977">Northern Illinois 16, Notre Dame 14</a><span class="why">Northern Illinois won; the model gave them 2% before kickoff</span></li><li><a href="#g401636859">Texas Tech 16, Washington State 37</a><span class="why">#19 Texas Tech lost to unranked Washington State</span></li><li><a href="#g401628343">Mississippi State 23, Arizona State 30</a><span class="why">#20 Mississippi State lost to unranked Arizona State</span></li></ul>
+  </section>
+  <div class="slfilter">
+    <div class="slseg"><button type="button" data-f="all" class=on>All games</button><button type="button" data-f="top25">Top 25</button></div>
+    <span id="slcount" class="muted small"></span>
+  </div>
+  <p id="slstamp" class="slstamp" hidden></p>
+  <p id="slnone" class="empty" hidden>No games match.</p>
+  <section class="slday live nostakes" id="day1"><h2>Fri, Sep 6</h2>
+    <div class="slledger">
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before kickoff">Pre</span>
+        <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
+        <span class="r">Model</span><span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
+        </div>
+      <div class="slslot"><p class="slslothead"><b>Prime time</b> <span>2 games</span></p>
+      <div class="slrow final upset" id="g401634765" data-id="401634765" data-kick="1725663600000" data-pre="0.777"
+        data-home-name="SMU" data-away-name="BYU" data-home-abbr="SMU" data-away-abbr="BYU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/252.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#003da5&#x27;}))"><span class="rkchip">#16</span><a href="../team/byu.html">BYU</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2567.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#d70000&#x27;}))"><a href="../team/smu.html">SMU</a></span></span><span class="slupset" title="BYU won; the model gave them 22% before kickoff">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">22%<br>78%</div>
+        <div class="slscore"><span class="up">18</span><br><span class="">15</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="SMU">SMU</span>&nbsp;&minus;11.3</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635533" data-id="401635533" data-kick="1725670800000" data-pre="0.464"
+        data-home-name="Northwestern" data-away-name="Duke" data-home-abbr="NU" data-away-abbr="DUKE"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/150.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00539b&#x27;}))"><a href="../team/duke.html">Duke</a></span><span class="slhome"><span class="muted sljoin">vs</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/77.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#582c83&#x27;}))"><a href="../team/northwestern.html">Northwestern</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">54%<br>46%</div>
+        <div class="slscore"><span class="up">26</span><br><span class="">20</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Duke">DUKE</span>&nbsp;&minus;1.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+    </div>
+  </section>
+  <section class="slday live nostakes" id="day2"><h2>Sat, Sep 7</h2>
+    <div class="slledger">
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before kickoff">Pre</span>
+        <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
+        <span class="r">Model</span><span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
+        </div>
+      <div class="slslot"><p class="slslothead"><b>Early</b> <span>9 games</span></p>
+      <div class="slrow final" id="g401628336" data-id="401628336" data-kick="1725724800000" data-pre="0.588"
+        data-home-name="Oklahoma State" data-away-name="Arkansas" data-home-abbr="OKST" data-away-abbr="ARK"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/8.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#a32136&#x27;}))"><a href="../team/arkansas.html">Arkansas</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/197.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#fe5c00&#x27;}))"><a href="../team/oklahoma-state.html">Oklahoma State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">41%<br>59%</div>
+        <div class="slscore"><span class="">31</span><br><span class="up">39</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Oklahoma State">OKST</span>&nbsp;&minus;2.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628347" data-id="401628347" data-kick="1725724800000" data-pre="0.486"
+        data-home-name="Michigan" data-away-name="Texas" data-home-abbr="MICH" data-away-abbr="TEX"
+        data-top25="1" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/251.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#bf5700&#x27;}))"><span class="rkchip">#4</span><a href="../team/texas.html">Texas</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/130.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00274c&#x27;}))"><span class="rkchip">#17</span><a href="../team/michigan.html">Michigan</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">51%<br>49%</div>
+        <div class="slscore"><span class="up">31</span><br><span class="">12</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Texas">TEX</span>&nbsp;&minus;1.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628470" data-id="401628470" data-kick="1725724800000" data-pre="0.988"
+        data-home-name="Penn State" data-away-name="Bowling Green" data-home-abbr="PSU" data-away-abbr="BGSU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/189.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#fd5000&#x27;}))"><a href="../team/bowling-green.html">Bowling Green</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/213.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#001e44&#x27;}))"><span class="rkchip">#22</span><a href="../team/penn-state.html">Penn State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">1.2%<br>99%</div>
+        <div class="slscore"><span class="">27</span><br><span class="up">34</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Penn State">PSU</span>&nbsp;&minus;35.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628471" data-id="401628471" data-kick="1725724800000" data-pre="0.93"
+        data-home-name="Rutgers" data-away-name="Akron" data-home-abbr="RUTG" data-away-abbr="AKR"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2006.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#041e42&#x27;}))"><a href="../team/akron.html">Akron</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/164.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ce0e2d&#x27;}))"><a href="../team/rutgers.html">Rutgers</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">7.0%<br>93%</div>
+        <div class="slscore"><span class="">17</span><br><span class="up">49</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Rutgers">RUTG</span>&nbsp;&minus;22.5</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635534" data-id="401635534" data-kick="1725724800000" data-pre="0.312"
+        data-home-name="Syracuse" data-away-name="Georgia Tech" data-home-abbr="SYR" data-away-abbr="GT"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/59.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#b3a369&#x27;}))"><a href="../team/georgia-tech.html">Georgia Tech</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/183.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#f76900&#x27;}))"><a href="../team/syracuse.html">Syracuse</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">69%<br>31%</div>
+        <div class="slscore"><span class="">28</span><br><span class="up">31</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Georgia Tech">GT</span>&nbsp;&minus;8.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635538" data-id="401635538" data-kick="1725724800000" data-pre="0.312"
+        data-home-name="Cincinnati" data-away-name="Pittsburgh" data-home-abbr="CIN" data-away-abbr="PITT"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/221.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#003594&#x27;}))"><a href="../team/pittsburgh.html">Pittsburgh</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2132.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><a href="../team/cincinnati.html">Cincinnati</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">69%<br>31%</div>
+        <div class="slscore"><span class="up">28</span><br><span class="">27</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Pittsburgh">PITT</span>&nbsp;&minus;8.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401636616" data-id="401636616" data-kick="1725724800000" data-pre="0.365"
+        data-home-name="Tulane" data-away-name="Kansas State" data-home-abbr="TULN" data-away-abbr="KSU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2306.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#512888&#x27;}))"><a href="../team/kansas-state.html">Kansas State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2655.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#006747&#x27;}))"><a href="../team/tulane.html">Tulane</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">64%<br>36%</div>
+        <div class="slscore"><span class="up">34</span><br><span class="">27</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Kansas State">KSU</span>&nbsp;&minus;5.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643784" data-id="401643784" data-kick="1725724800000" data-pre="0.794"
+        data-home-name="Memphis" data-away-name="Troy" data-home-abbr="MEM" data-away-abbr="TROY"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2653.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#862633&#x27;}))"><a href="../team/troy.html">Troy</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/235.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00498f&#x27;}))"><a href="../team/memphis.html">Memphis</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">21%<br>79%</div>
+        <div class="slscore"><span class="">17</span><br><span class="up">38</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Memphis">MEM</span>&nbsp;&minus;12.2</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401645323" data-id="401645323" data-kick="1725724800000" data-pre="0.292"
+        data-home-name="Florida Atlantic" data-away-name="Army" data-home-abbr="FAU" data-away-abbr="ARMY"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/349.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><a href="../team/army.html">Army</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2226.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#003366&#x27;}))"><a href="../team/florida-atlantic.html">Florida Atlantic</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">71%<br>29%</div>
+        <div class="slscore"><span class="up">24</span><br><span class="">7</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Army">ARMY</span>&nbsp;&minus;8.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+      <div class="slslot"><p class="slslothead"><b>Afternoon</b> <span>18 games</span></p>
+      <div class="slrow final upset" id="g401628337" data-id="401628337" data-kick="1725737400000" data-pre="0.795"
+        data-home-name="Auburn" data-away-name="California" data-home-abbr="AUB" data-away-abbr="CAL"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/25.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#041e42&#x27;}))"><a href="../team/california.html">California</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0c2340&#x27;}))"><span class="rkchip">#24</span><a href="../team/auburn.html">Auburn</a></span></span><span class="slupset" title="California won; the model gave them 20% before kickoff">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">20%<br>80%</div>
+        <div class="slscore"><span class="up">21</span><br><span class="">14</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Auburn">AUB</span>&nbsp;&minus;12.3</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628340" data-id="401628340" data-kick="1725737400000" data-pre="0.716"
+        data-home-name="Kentucky" data-away-name="South Carolina" data-home-abbr="UK" data-away-abbr="SC"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2579.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#73000a&#x27;}))"><a href="../team/south-carolina.html">South Carolina</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/96.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0033a0&#x27;}))"><a href="../team/kentucky.html">Kentucky</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">28%<br>72%</div>
+        <div class="slscore"><span class="up">31</span><br><span class="">6</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Kentucky">UK</span>&nbsp;&minus;8.3</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final upset" id="g401628464" data-id="401628464" data-kick="1725737400000" data-pre="0.615"
+        data-home-name="Iowa" data-away-name="Iowa State" data-home-abbr="IOWA" data-away-abbr="ISU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/66.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c8102e&#x27;}))"><a href="../team/iowa-state.html">Iowa State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2294.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><span class="rkchip">#25</span><a href="../team/iowa.html">Iowa</a></span></span><span class="slupset" title="#25 Iowa lost to unranked Iowa State">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">38%<br>62%</div>
+        <div class="slscore"><span class="up">20</span><br><span class="">19</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Iowa">IOWA</span>&nbsp;&minus;4.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final upset" id="g401628465" data-id="401628465" data-kick="1725737400000" data-pre="0.824"
+        data-home-name="Maryland" data-away-name="Michigan State" data-home-abbr="MD" data-away-abbr="MSU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/127.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#173f35&#x27;}))"><a href="../team/michigan-state.html">Michigan State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/120.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ce1126&#x27;}))"><a href="../team/maryland.html">Maryland</a></span></span><span class="slupset" title="Michigan State won; the model gave them 18% before kickoff">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">18%<br>82%</div>
+        <div class="slscore"><span class="up">27</span><br><span class="">24</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Maryland">MD</span>&nbsp;&minus;14.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628473" data-id="401628473" data-kick="1725737400000" data-pre="0.958"
+        data-home-name="Washington" data-away-name="Eastern Michigan" data-home-abbr="WASH" data-away-abbr="EMU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2199.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#046a38&#x27;}))"><a href="../team/eastern-michigan.html">Eastern Michigan</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/264.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#33006f&#x27;}))"><a href="../team/washington.html">Washington</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">4.2%<br>96%</div>
+        <div class="slscore"><span class="">9</span><br><span class="up">30</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Washington">WASH</span>&nbsp;&minus;26.6</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final upset" id="g401628977" data-id="401628977" data-kick="1725737400000" data-pre="0.98"
+        data-home-name="Notre Dame" data-away-name="Northern Illinois" data-home-abbr="ND" data-away-abbr="NIU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2459.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c8102e&#x27;}))"><a href="../team/northern-illinois.html">Northern Illinois</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/87.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0c2340&#x27;}))"><span class="rkchip">#2</span><a href="../team/notre-dame.html">Notre Dame</a></span></span><span class="slupset" title="Northern Illinois won; the model gave them 2% before kickoff">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">2.0%<br>98%</div>
+        <div class="slscore"><span class="up">16</span><br><span class="">14</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Notre Dame">ND</span>&nbsp;&minus;31.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401629040" data-id="401629040" data-kick="1725737400000" data-pre="0.914"
+        data-home-name="Toledo" data-away-name="UMass" data-home-abbr="TOL" data-away-abbr="MASS"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/113.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#881c1c&#x27;}))"><a href="../team/umass.html">UMass</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2649.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0b2240&#x27;}))"><a href="../team/toledo.html">Toledo</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">8.6%<br>91%</div>
+        <div class="slscore"><span class="">23</span><br><span class="up">38</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Toledo">TOL</span>&nbsp;&minus;20.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635535" data-id="401635535" data-kick="1725737400000" data-pre="0.942"
+        data-home-name="Louisville" data-away-name="Jacksonville State" data-home-abbr="LOU" data-away-abbr="JXST"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/55.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cc0000&#x27;}))"><a href="../team/jacksonville-state.html">Jacksonville State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/97.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c9001f&#x27;}))"><a href="../team/louisville.html">Louisville</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">5.8%<br>94%</div>
+        <div class="slscore"><span class="">14</span><br><span class="up">49</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Louisville">LOU</span>&nbsp;&minus;24.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635537" data-id="401635537" data-kick="1725737400000" data-pre="0.935"
+        data-home-name="North Carolina" data-away-name="Charlotte" data-home-abbr="UNC" data-away-abbr="CLT"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2429.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#005035&#x27;}))"><a href="../team/charlotte.html">Charlotte</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/153.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#7bafd4&#x27;}))"><a href="../team/north-carolina.html">North Carolina</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">6.5%<br>94%</div>
+        <div class="slscore"><span class="">20</span><br><span class="up">38</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="North Carolina">UNC</span>&nbsp;&minus;23.2</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401636618" data-id="401636618" data-kick="1725737400000" data-pre="0.724"
+        data-home-name="Utah" data-away-name="Baylor" data-home-abbr="UTAH" data-away-abbr="BAY"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/239.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#154734&#x27;}))"><a href="../team/baylor.html">Baylor</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/254.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#be0000&#x27;}))"><span class="rkchip">#10</span><a href="../team/utah.html">Utah</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">28%<br>72%</div>
+        <div class="slscore"><span class="">12</span><br><span class="up">23</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Utah">UTAH</span>&nbsp;&minus;8.7</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401645324" data-id="401645324" data-kick="1725737400000" data-pre="0.829"
+        data-home-name="Navy" data-away-name="Temple" data-home-abbr="NAVY" data-away-abbr="TEM"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/218.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#a41e35&#x27;}))"><a href="../team/temple.html">Temple</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2426.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00225b&#x27;}))"><a href="../team/navy.html">Navy</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">17%<br>83%</div>
+        <div class="slscore"><span class="">11</span><br><span class="up">38</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Navy">NAVY</span>&nbsp;&minus;14.3</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643783" data-id="401643783" data-kick="1725739200000" data-pre="0.257"
+        data-home-name="Texas State" data-away-name="UTSA" data-home-abbr="TXST" data-away-abbr="UTSA"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2636.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0c2340&#x27;}))"><a href="../team/utsa.html">UTSA</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/326.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#501214&#x27;}))"><a href="../team/texas-state.html">Texas State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">74%<br>26%</div>
+        <div class="slscore"><span class="">10</span><br><span class="up">49</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="UTSA">UTSA</span>&nbsp;&minus;10.5</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628342" data-id="401628342" data-kick="1725740100000" data-pre="0.984"
+        data-home-name="Ole Miss" data-away-name="Middle Tennessee" data-home-abbr="MISS" data-away-abbr="MTSU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2393.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#036eb7&#x27;}))"><a href="../team/middle-tennessee.html">Middle Tennessee</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/145.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#13294b&#x27;}))"><span class="rkchip">#15</span><a href="../team/ole-miss.html">Ole Miss</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">1.6%<br>98%</div>
+        <div class="slscore"><span class="">3</span><br><span class="up">52</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Ole Miss">MISS</span>&nbsp;&minus;33.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635540" data-id="401635540" data-kick="1725741000000" data-pre="0.819"
+        data-home-name="Virginia Tech" data-away-name="Marshall" data-home-abbr="VT" data-away-abbr="MRSH"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/276.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00b140&#x27;}))"><a href="../team/marshall.html">Marshall</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/259.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#861f41&#x27;}))"><a href="../team/virginia-tech.html">Virginia Tech</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">18%<br>82%</div>
+        <div class="slscore"><span class="">14</span><br><span class="up">31</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Virginia Tech">VT</span>&nbsp;&minus;13.6</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401640979" data-id="401640979" data-kick="1725746400000" data-pre="0.27"
+        data-home-name="FIU" data-away-name="Central Michigan" data-home-abbr="FIU" data-away-abbr="CMU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2117.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#6a0032&#x27;}))"><a href="../team/central-michigan.html">Central Michigan</a></span><span class="slhome"><span class="muted sljoin">vs</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2229.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#091f3f&#x27;}))"><a href="../team/fiu.html">FIU</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">73%<br>27%</div>
+        <div class="slscore"><span class="">16</span><br><span class="up">52</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Central Michigan">CMU</span>&nbsp;&minus;9.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643778" data-id="401643778" data-kick="1725746400000" data-pre="0.502"
+        data-home-name="Old Dominion" data-away-name="East Carolina" data-home-abbr="ODU" data-away-abbr="ECU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/151.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#592a8a&#x27;}))"><a href="../team/east-carolina.html">East Carolina</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/295.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#043657&#x27;}))"><a href="../team/old-dominion.html">Old Dominion</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">50%<br>50%</div>
+        <div class="slscore"><span class="up">20</span><br><span class="">14</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="East Carolina">ECU</span>&nbsp;&minus;0.4</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643781" data-id="401643781" data-kick="1725746400000" data-pre="0.391"
+        data-home-name="Ohio" data-away-name="South Alabama" data-home-abbr="OHIO" data-away-abbr="USA"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/6.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00205b&#x27;}))"><a href="../team/south-alabama.html">South Alabama</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/195.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#024230&#x27;}))"><a href="../team/ohio.html">Ohio</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">61%<br>39%</div>
+        <div class="slscore"><span class="">20</span><br><span class="up">27</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="South Alabama">USA</span>&nbsp;&minus;4.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401636617" data-id="401636617" data-kick="1725748200000" data-pre="0.863"
+        data-home-name="UCF" data-away-name="Sam Houston" data-home-abbr="UCF" data-away-abbr="SHSU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2534.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#f56423&#x27;}))"><a href="../team/sam-houston.html">Sam Houston</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2116.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><a href="../team/ucf.html">UCF</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">14%<br>86%</div>
+        <div class="slscore"><span class="">14</span><br><span class="up">45</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="UCF">UCF</span>&nbsp;&minus;16.5</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+      <div class="slslot"><p class="slslothead"><b>Prime time</b> <span>13 games</span></p>
+      <div class="slrow final" id="g401628335" data-id="401628335" data-kick="1725750000000" data-pre="0.99"
+        data-home-name="Alabama" data-away-name="USF" data-home-abbr="ALA" data-away-abbr="USF"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/58.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#006747&#x27;}))"><a href="../team/usf.html">USF</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/333.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#9e1b32&#x27;}))"><span class="rkchip">#5</span><a href="../team/alabama.html">Alabama</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">1.0%<br>99%</div>
+        <div class="slscore"><span class="">16</span><br><span class="up">42</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Alabama">ALA</span>&nbsp;&minus;36.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628344" data-id="401628344" data-kick="1725750000000" data-pre="0.991"
+        data-home-name="Missouri" data-away-name="Buffalo" data-home-abbr="MIZ" data-away-abbr="BUF"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2084.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#005bbb&#x27;}))"><a href="../team/buffalo.html">Buffalo</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/142.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#f1b82d&#x27;}))"><a href="../team/missouri.html">Missouri</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">0.9%<br>99%</div>
+        <div class="slscore"><span class="">0</span><br><span class="up">38</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Missouri">MIZ</span>&nbsp;&minus;36.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628462" data-id="401628462" data-kick="1725750000000" data-pre="0.311"
+        data-home-name="Illinois" data-away-name="Kansas" data-home-abbr="ILL" data-away-abbr="KU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2305.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0051ba&#x27;}))"><a href="../team/kansas.html">Kansas</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/356.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ff5f05&#x27;}))"><a href="../team/illinois.html">Illinois</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">69%<br>31%</div>
+        <div class="slscore"><span class="">17</span><br><span class="up">23</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Kansas">KU</span>&nbsp;&minus;8.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401635639" data-id="401635639" data-kick="1725750000000" data-pre="0.549"
+        data-home-name="Wake Forest" data-away-name="Virginia" data-home-abbr="WAKE" data-away-abbr="UVA"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/258.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#232d4b&#x27;}))"><a href="../team/virginia.html">Virginia</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/154.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ceb888&#x27;}))"><a href="../team/wake-forest.html">Wake Forest</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">45%<br>55%</div>
+        <div class="slscore"><span class="up">31</span><br><span class="">30</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Wake Forest">WAKE</span>&nbsp;&minus;1.4</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401641016" data-id="401641016" data-kick="1725750000000" data-pre="0.334"
+        data-home-name="Kennesaw State" data-away-name="Louisiana" data-home-abbr="KENN" data-away-abbr="UL"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/309.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ce181e&#x27;}))"><a href="../team/louisiana.html">Louisiana</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/338.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#fdbb30&#x27;}))"><a href="../team/kennesaw-state.html">Kennesaw State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">67%<br>33%</div>
+        <div class="slscore"><span class="up">34</span><br><span class="">10</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Louisiana">UL</span>&nbsp;&minus;7.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643705" data-id="401643705" data-kick="1725750000000" data-pre="0.412"
+        data-home-name="Air Force" data-away-name="San Jose State" data-home-abbr="AF" data-away-abbr="SJSU"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/23.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0055a2&#x27;}))"><a href="../team/san-jose-state.html">San Jose State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2005.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#003594&#x27;}))"><a href="../team/air-force.html">Air Force</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">59%<br>41%</div>
+        <div class="slscore"><span class="up">17</span><br><span class="">7</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="San Jose State">SJSU</span>&nbsp;&minus;3.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643708" data-id="401643708" data-kick="1725750000000" data-pre="0.538"
+        data-home-name="Nevada" data-away-name="Georgia Southern" data-home-abbr="NEV" data-away-abbr="GASO"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/290.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#041e42&#x27;}))"><a href="../team/georgia-southern.html">Georgia Southern</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2440.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#041e42&#x27;}))"><a href="../team/nevada.html">Nevada</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">46%<br>54%</div>
+        <div class="slscore"><span class="up">20</span><br><span class="">17</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="Nevada">NEV</span>&nbsp;&minus;0.9</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643779" data-id="401643779" data-kick="1725750000000" data-pre="0.51"
+        data-home-name="Arkansas State" data-away-name="Tulsa" data-home-abbr="ARST" data-away-abbr="TLSA"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/202.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#003595&#x27;}))"><a href="../team/tulsa.html">Tulsa</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2032.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cc092f&#x27;}))"><a href="../team/arkansas-state.html">Arkansas State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">49%<br>51%</div>
+        <div class="slscore"><span class="">24</span><br><span class="up">28</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Tulsa">TLSA</span>&nbsp;&minus;0.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643780" data-id="401643780" data-kick="1725750000000" data-pre="0.285"
+        data-home-name="Louisiana-Monroe" data-away-name="UAB" data-home-abbr="ULM" data-away-abbr="UAB"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/5.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#1a5632&#x27;}))"><a href="../team/uab.html">UAB</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2433.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#840029&#x27;}))"><a href="../team/louisiana-monroe.html">Louisiana-Monroe</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">72%<br>28%</div>
+        <div class="slscore"><span class="">6</span><br><span class="up">32</span></div><div class="sllive"><span class="miss" title="The model&rsquo;s pick lost">&#10007;</span></div>
+        <div class="slnum slmodel"><span title="UAB">UAB</span>&nbsp;&minus;9.3</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628346" data-id="401628346" data-kick="1725751800000" data-pre="0.2"
+        data-home-name="NC State" data-away-name="Tennessee" data-home-abbr="NCSU" data-away-abbr="TENN"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2633.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ff8200&#x27;}))"><span class="rkchip">#14</span><a href="../team/tennessee.html">Tennessee</a></span><span class="slhome"><span class="muted sljoin">vs</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/152.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cc0000&#x27;}))"><a href="../team/nc-state.html">NC State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">80%<br>20%</div>
+        <div class="slscore"><span class="up">51</span><br><span class="">10</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Tennessee">TENN</span>&nbsp;&minus;13.5</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628467" data-id="401628467" data-kick="1725751800000" data-pre="0.753"
+        data-home-name="Nebraska" data-away-name="Colorado" data-home-abbr="NEB" data-away-abbr="COLO"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/38.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cfb87c&#x27;}))"><a href="../team/colorado.html">Colorado</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/158.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#d00000&#x27;}))"><span class="rkchip">#23</span><a href="../team/nebraska.html">Nebraska</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">25%<br>75%</div>
+        <div class="slscore"><span class="">10</span><br><span class="up">28</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Nebraska">NEB</span>&nbsp;&minus;10.1</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628468" data-id="401628468" data-kick="1725751800000" data-pre="0.987"
+        data-home-name="Ohio State" data-away-name="Western Michigan" data-home-abbr="OSU" data-away-abbr="WMU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2711.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#532e1f&#x27;}))"><a href="../team/western-michigan.html">Western Michigan</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/194.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ba0c2f&#x27;}))"><span class="rkchip">#3</span><a href="../team/ohio-state.html">Ohio State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">1.3%<br>99%</div>
+        <div class="slscore"><span class="">0</span><br><span class="up">56</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Ohio State">OSU</span>&nbsp;&minus;34.4</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628345" data-id="401628345" data-kick="1725752700000" data-pre="0.958"
+        data-home-name="Oklahoma" data-away-name="Houston" data-home-abbr="OU" data-away-abbr="HOU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/248.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c8102e&#x27;}))"><a href="../team/houston.html">Houston</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/201.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#841617&#x27;}))"><span class="rkchip">#18</span><a href="../team/oklahoma.html">Oklahoma</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">4.2%<br>96%</div>
+        <div class="slscore"><span class="">12</span><br><span class="up">16</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Oklahoma">OU</span>&nbsp;&minus;26.6</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+      <div class="slslot"><p class="slslothead"><b>Late night</b> <span>6 games</span></p>
+      <div class="slrow final" id="g401628469" data-id="401628469" data-kick="1725760800000" data-pre="0.853"
+        data-home-name="Oregon" data-away-name="Boise State" data-home-abbr="ORE" data-away-abbr="BOIS"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/68.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0033a0&#x27;}))"><a href="../team/boise-state.html">Boise State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2483.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#007030&#x27;}))"><span class="rkchip">#8</span><a href="../team/oregon.html">Oregon</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">15%<br>85%</div>
+        <div class="slscore"><span class="">34</span><br><span class="up">37</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Oregon">ORE</span>&nbsp;&minus;15.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final upset" id="g401636859" data-id="401636859" data-kick="1725760800000" data-pre="0.586"
+        data-home-name="Washington State" data-away-name="Texas Tech" data-home-abbr="WSU" data-away-abbr="TTU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2641.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c30020&#x27;}))"><span class="rkchip">#19</span><a href="../team/texas-tech.html">Texas Tech</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/265.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#a60f2d&#x27;}))"><a href="../team/washington-state.html">Washington State</a></span></span><span class="slupset" title="#19 Texas Tech lost to unranked Washington State">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">41%<br>59%</div>
+        <div class="slscore"><span class="">16</span><br><span class="up">37</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Washington State">WSU</span>&nbsp;&minus;2.8</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401640989" data-id="401640989" data-kick="1725761700000" data-pre="0.197"
+        data-home-name="New Mexico State" data-away-name="Liberty" data-home-abbr="NMSU" data-away-abbr="LIB"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2335.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0a254e&#x27;}))"><a href="../team/liberty.html">Liberty</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/166.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#8c0b42&#x27;}))"><a href="../team/new-mexico-state.html">New Mexico State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">80%<br>20%</div>
+        <div class="slscore"><span class="up">30</span><br><span class="">24</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Liberty">LIB</span>&nbsp;&minus;13.7</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final upset" id="g401628343" data-id="401628343" data-kick="1725762600000" data-pre="0.664"
+        data-home-name="Arizona State" data-away-name="Mississippi State" data-home-abbr="ASU" data-away-abbr="MSST"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/344.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#5d1725&#x27;}))"><span class="rkchip">#20</span><a href="../team/mississippi-state.html">Mississippi State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/9.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ffc627&#x27;}))"><a href="../team/arizona-state.html">Arizona State</a></span></span><span class="slupset" title="#20 Mississippi State lost to unranked Arizona State">Upset</span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">34%<br>66%</div>
+        <div class="slscore"><span class="">23</span><br><span class="up">30</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Arizona State">ASU</span>&nbsp;&minus;6.0</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401643709" data-id="401643709" data-kick="1725762600000" data-pre="0.394"
+        data-home-name="San Diego State" data-away-name="Oregon State" data-home-abbr="SDSU" data-away-abbr="ORST"
+        data-top25="0" data-stakes="0" data-key="0" data-close="1" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/204.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#dc4405&#x27;}))"><a href="../team/oregon-state.html">Oregon State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/21.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#a6192e&#x27;}))"><a href="../team/san-diego-state.html">San Diego State</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">61%<br>39%</div>
+        <div class="slscore"><span class="up">21</span><br><span class="">0</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Oregon State">ORST</span>&nbsp;&minus;4.7</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      <div class="slrow final" id="g401628472" data-id="401628472" data-kick="1725764400000" data-pre="0.957"
+        data-home-name="USC" data-away-name="Utah State" data-home-abbr="USC" data-away-abbr="USU"
+        data-top25="1" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/328.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0f2439&#x27;}))"><a href="../team/utah-state.html">Utah State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/30.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#990000&#x27;}))"><span class="rkchip">#13</span><a href="../team/usc.html">USC</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">4.3%<br>96%</div>
+        <div class="slscore"><span class="">0</span><br><span class="up">48</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="USC">USC</span>&nbsp;&minus;26.4</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+    </div>
+  </section>
+  <section class="slday live nostakes" id="day3"><h2>Sun, Sep 8</h2>
+    <div class="slledger">
+      <div class="slhead"><span>Time</span><span>Game</span><span class="r" title="The model&rsquo;s win chance before kickoff">Pre</span>
+        <span class="r slx">Score</span><span class="r slx" title="The model&rsquo;s win chance now, from the score and the time left">Live</span>
+        <span class="r">Model</span><span class="r">Market</span><span class="r" title="Model minus the opening number, and the side it favours">Edge</span>
+        </div>
+      <div class="slslot"><p class="slslothead"><b>Time TBD</b> <span>1 game</span></p>
+      <div class="slrow final" id="g401635532" data-id="401635532" data-kick="1725811200000" data-pre="0.872"
+        data-home-name="Clemson" data-away-name="Appalachian State" data-home-abbr="CLEM" data-away-abbr="APP"
+        data-top25="0" data-stakes="0" data-key="0" data-close="0" data-dog="0" data-fade="0">
+        <span class="sltime">Final</span>
+        <div class="slgame"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2026.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><a href="../team/appalachian-state.html">Appalachian State</a></span><span class="slhome"><span class="muted sljoin">@</span><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/228.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#f56600&#x27;}))"><a href="../team/clemson.html">Clemson</a></span></span><span class="slupset" hidden></span></div>
+        <div class="slwp" title="The model&rsquo;s win chance before kickoff">13%<br>87%</div>
+        <div class="slscore"><span class="">20</span><br><span class="up">66</span></div><div class="sllive"><span class="hit" title="The model&rsquo;s pick won">&#10003;</span></div>
+        <div class="slnum slmodel"><span title="Clemson">CLEM</span>&nbsp;&minus;17.2</div>
+        <div class="slnum slmarket"><span class="muted">&ndash;</span></div>
+        <div class="slnum sledgec"><span class="muted">&ndash;</span></div>
+        
+      </div>
+      </div>
+    </div>
+  </section>
+  <h2>Against FCS opponents</h2>
+  <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
+    <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Samford</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/57.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0021a5&#x27;}))"><span class="rkchip">#9</span> <a href="../team/florida.html">Florida</a></span></span></td>
+          <td class="num">Florida&nbsp;&minus;35.8</td>
+          <td class="num">99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 2:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Tennessee Tech</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/61.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ba0c2f&#x27;}))"><span class="rkchip">#1</span> <a href="../team/georgia.html">Georgia</a></span></span></td>
+          <td class="num">Georgia&nbsp;&minus;76.1</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Nicholls</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/99.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#461d7c&#x27;}))"><span class="rkchip">#6</span> <a href="../team/lsu.html">LSU</a></span></span></td>
+          <td class="num">LSU&nbsp;&minus;52.2</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 12:45 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">McNeese</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/245.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#500000&#x27;}))"><span class="rkchip">#12</span> <a href="../team/texas-a-m.html">Texas A&amp;M</a></span></span></td>
+          <td class="num">Texas A&amp;M&nbsp;&minus;50.1</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Alcorn State</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/238.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000000&#x27;}))"><a href="../team/vanderbilt.html">Vanderbilt</a></span></span></td>
+          <td class="num">Vanderbilt&nbsp;&minus;40.5</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Fri, Sep 6 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Western Illinois</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/84.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#990000&#x27;}))"><span class="rkchip">#11</span> <a href="../team/indiana.html">Indiana</a></span></span></td>
+          <td class="num">Indiana&nbsp;&minus;43.6</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 12:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Rhode Island</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/135.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#7a0019&#x27;}))"><a href="../team/minnesota.html">Minnesota</a></span></span></td>
+          <td class="num">Minnesota&nbsp;&minus;31.9</td>
+          <td class="num">98%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 3:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">South Dakota</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/275.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#a00000&#x27;}))"><a href="../team/wisconsin.html">Wisconsin</a></span></span></td>
+          <td class="num">Wisconsin&nbsp;&minus;36.8</td>
+          <td class="num">99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 6:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">UAlbany</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/277.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#eaaa00&#x27;}))"><a href="../team/west-virginia.html">West Virginia</a></span></span></td>
+          <td class="num">West Virginia&nbsp;&minus;39.2</td>
+          <td class="num">99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">William &amp; Mary</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/324.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#006f71&#x27;}))"><a href="../team/coastal-carolina.html">Coastal Carolina</a></span></span></td>
+          <td class="num">Coastal Carolina&nbsp;&minus;27.6</td>
+          <td class="num">96%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Eastern Kentucky</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/98.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c60c30&#x27;}))"><a href="../team/western-kentucky.html">Western Kentucky</a></span></span></td>
+          <td class="num">Western Kentucky&nbsp;&minus;31.1</td>
+          <td class="num">98%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 3:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Utah Tech</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2439.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cf0a2c&#x27;}))"><a href="../team/unlv.html">UNLV</a></span></span></td>
+          <td class="num">UNLV&nbsp;&minus;31.2</td>
+          <td class="num">98%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 9:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Southern Utah</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2638.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ff8200&#x27;}))"><a href="../team/utep.html">UTEP</a></span></span></td>
+          <td class="num">UTEP&nbsp;&minus;17.5</td>
+          <td class="num">88%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Chattanooga</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2247.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#0039a6&#x27;}))"><a href="../team/georgia-state.html">Georgia State</a></span></span></td>
+          <td class="num">Georgia State&nbsp;&minus;29.6</td>
+          <td class="num">97%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 2:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2623.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#5e0009&#x27;}))"><a href="../team/missouri-state.html">Missouri State</a></span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2050.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ba0c2f&#x27;}))"><a href="../team/ball-state.html">Ball State</a></span></span></td>
+          <td class="num">Missouri State&nbsp;&minus;3.5</td>
+          <td class="num">58%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 3:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Duquesne</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/103.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#8c2232&#x27;}))"><a href="../team/boston-college.html">Boston College</a></span></span></td>
+          <td class="num">Boston College&nbsp;&minus;49.2</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 6:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Florida A&amp;M</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2390.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#f47321&#x27;}))"><span class="rkchip">#7</span> <a href="../team/miami-fl.html">Miami (FL)</a></span></span></td>
+          <td class="num">Miami (FL)&nbsp;&minus;44.9</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Cal Poly</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/24.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#8c1515&#x27;}))"><a href="../team/stanford.html">Stanford</a></span></span></td>
+          <td class="num">Stanford&nbsp;&minus;37.1</td>
+          <td class="num">99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 10:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Northern Arizona</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/12.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#cc0033&#x27;}))"><a href="../team/arizona.html">Arizona</a></span></span></td>
+          <td class="num">Arizona&nbsp;&minus;40.8</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sun, Sep 8 &middot; TBD</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Long Island University</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2628.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#4d1979&#x27;}))"><a href="../team/tcu.html">TCU</a></span></span></td>
+          <td class="num">TCU&nbsp;&minus;45.2</td>
+          <td class="num">&gt;99%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 12:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Merrimack</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/41.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#000e2f&#x27;}))"><a href="../team/uconn.html">UConn</a></span></span></td>
+          <td class="num">UConn&nbsp;&minus;15.3</td>
+          <td class="num">85%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Northern Colorado</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/36.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#1e4d2b&#x27;}))"><a href="../team/colorado-state.html">Colorado State</a></span></span></td>
+          <td class="num">Colorado State&nbsp;&minus;23.9</td>
+          <td class="num">94%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 10:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/16.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00573c&#x27;}))"><a href="../team/sacramento-state.html">Sacramento State</a></span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/278.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#c41230&#x27;}))"><a href="../team/fresno-state.html">Fresno State</a></span></span></td>
+          <td class="num">Fresno State&nbsp;&minus;6.5</td>
+          <td class="num">68%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 3:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Idaho</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2751.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#492f24&#x27;}))"><a href="../team/wyoming.html">Wyoming</a></span></span></td>
+          <td class="num">Wyoming&nbsp;&minus;8.2</td>
+          <td class="num">71%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 6:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Gardner-Webb</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/256.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#450084&#x27;}))"><a href="../team/james-madison.html">James Madison</a></span></span></td>
+          <td class="num">James Madison&nbsp;&minus;27.1</td>
+          <td class="num">96%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">SE Louisiana</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2572.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#ffc72c&#x27;}))"><a href="../team/southern-miss.html">Southern Miss</a></span></span></td>
+          <td class="num">Southern Miss&nbsp;&minus;24.1</td>
+          <td class="num">94%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 2:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Saint Francis</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/2309.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#002664&#x27;}))"><a href="../team/kent-state.html">Kent State</a></span></span></td>
+          <td class="num">Kent State&nbsp;&minus;11.7</td>
+          <td class="num">78%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:30 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Stephen F. Austin</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/249.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00853e&#x27;}))"><a href="../team/north-texas.html">North Texas</a></span></span></td>
+          <td class="num">North Texas&nbsp;&minus;30.6</td>
+          <td class="num">98%</td></tr><tr><td class="wk">Sat, Sep 7 &middot; 7:00 PM ET</td>
+          <td class="opp"><span class="mu"><span class="nmcell">Texas Southern</span> <span class="muted">at</span> <span class="nmcell"><img class="logo" src="https://cdn.collegefootballdata.com/logos/500/242.png" alt="" width="16" height="16" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#00205b&#x27;}))"><a href="../team/rice.html">Rice</a></span></span></td>
+          <td class="num">Rice&nbsp;&minus;24.3</td>
+          <td class="num">94%</td></tr></tbody></table></div>
+  </article>
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
+  var selects = Array.prototype.slice.call(document.querySelectorAll('.slfilter select[data-field]'));
+  var count = document.getElementById('slcount'), none = document.getElementById('slnone');
+  var want = 'all';
+  function apply() {
+    var shown = 0;
+    rows.forEach(function (row) {
+      var ok = (want === 'all' || row.dataset[want] === '1') && selects.every(function (sel) {
+        return !sel.value || ('|' + (row.dataset[sel.dataset.field] || '') + '|').indexOf('|' + sel.value + '|') >= 0;
+      });
+      row.hidden = !ok;
+      if (ok) shown++;
+    });
+    document.querySelectorAll('.slslot, .slday').forEach(function (group) {
+      group.hidden = !group.querySelector('.slrow:not([hidden])');
+    });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.f === want); });
+    count.textContent = shown + (shown === 1 ? ' game' : ' games');
+    none.hidden = shown > 0;
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { want = b.dataset.f; apply(); }); });
+  selects.forEach(function (sel) { sel.addEventListener('change', apply); });
+  apply();
+})();
+</script></main>
+<footer class="site">
+  <div class="wrap">
+    <p>MRI &mdash; a computer rating system for college football,
+    run 2000&ndash;2019 and rebuilt for 2026. Game data from
+    <a href="https://collegefootballdata.com">CollegeFootballData</a>.
+    <a href="../method.html">Method: how the ratings work</a>.</p>
+    <p class="muted">Ratings last changed 2026-09-27 15:19 UTC
+    &middot; 331 games rated &middot; <a href="../homefield.html">home field</a> 2.8 pts</p>
+  </div>
+</footer>
+</body>
+</html>
