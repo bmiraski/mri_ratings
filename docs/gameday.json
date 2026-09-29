@@ -42,92 +42,19 @@
         "Tennessee"
       ],
       "host": "Tennessee"
+    },
+    {
+      "week": 5,
+      "date": "2026-10-03",
+      "city": "Iowa City, IA",
+      "teams": [
+        "Ohio State",
+        "Iowa"
+      ],
+      "host": "Iowa"
     }
   ],
   "weeks": [
-    {
-      "week": 5,
-      "date": "Oct 3",
-      "iso": "2026-10-03",
-      "championship": false,
-      "other": 0.0531,
-      "games": [
-        {
-          "kind": "game",
-          "home": "Mississippi State",
-          "away": "Alabama",
-          "neutral": false,
-          "venue": "Davis Wade Stadium",
-          "probability": 0.7416,
-          "rankHome": 4.0,
-          "rankAway": 2.0,
-          "bothTop10": 1.0,
-          "bothUnbeaten": 1.0
-        },
-        {
-          "kind": "game",
-          "home": "Iowa",
-          "away": "Ohio State",
-          "neutral": false,
-          "venue": "Kinnick Stadium",
-          "probability": 0.0495,
-          "rankHome": 14.0,
-          "rankAway": 18.0,
-          "bothTop10": 0.0,
-          "bothUnbeaten": 0.0
-        },
-        {
-          "kind": "game",
-          "home": "Clemson",
-          "away": "Miami (FL)",
-          "neutral": false,
-          "venue": "Memorial Stadium (Clemson, SC)",
-          "probability": 0.0368,
-          "rankHome": 22.0,
-          "rankAway": 11.0,
-          "bothTop10": 0.0,
-          "bothUnbeaten": 0.0
-        },
-        {
-          "kind": "game",
-          "home": "Virginia Tech",
-          "away": "Pittsburgh",
-          "neutral": false,
-          "venue": "Lane Stadium",
-          "probability": 0.0329,
-          "rankHome": 27.0,
-          "rankAway": 23.0,
-          "bothTop10": 0.0,
-          "bothUnbeaten": 1.0
-        },
-        {
-          "kind": "game",
-          "home": "Georgia",
-          "away": "Vanderbilt",
-          "neutral": false,
-          "venue": "Sanford Stadium",
-          "probability": 0.0167,
-          "rankHome": 5.0,
-          "rankAway": 41.0,
-          "bothTop10": 0.0,
-          "bothUnbeaten": 0.0
-        },
-        {
-          "kind": "game",
-          "home": "Missouri",
-          "away": "Florida",
-          "neutral": false,
-          "venue": "Memorial Stadium",
-          "probability": 0.0104,
-          "rankHome": 37.0,
-          "rankAway": 6.0,
-          "bothTop10": 0.0,
-          "bothUnbeaten": 0.0
-        }
-      ],
-      "covered": 0.8879,
-      "omitted": 50
-    },
     {
       "week": 6,
       "date": "Oct 10",
@@ -1182,12 +1109,29 @@
       "omitted": 4
     }
   ],
-  "check": [],
+  "check": [
+    {
+      "week": 5,
+      "date": "2026-10-03",
+      "teams": [
+        "Ohio State",
+        "Iowa"
+      ],
+      "host": "Iowa",
+      "probability": 0.0495,
+      "rank": 2,
+      "favourite": {
+        "home": "Mississippi State",
+        "away": "Alabama",
+        "probability": 0.7416
+      }
+    }
+  ],
   "sites": [
     {
       "team": "Alabama",
       "hostsAtLeastOnce": 0.8485,
-      "appearsAtLeastOnce": 0.9751
+      "appearsAtLeastOnce": 0.9036
     },
     {
       "team": "Texas",
@@ -1195,14 +1139,9 @@
       "appearsAtLeastOnce": 0.9087
     },
     {
-      "team": "Mississippi State",
-      "hostsAtLeastOnce": 0.746,
-      "appearsAtLeastOnce": 0.821
-    },
-    {
       "team": "Notre Dame",
       "hostsAtLeastOnce": 0.5589,
-      "appearsAtLeastOnce": 0.6307
+      "appearsAtLeastOnce": 0.6288
     },
     {
       "team": "LSU",
@@ -1211,38 +1150,38 @@
     },
     {
       "team": "Georgia",
-      "hostsAtLeastOnce": 0.5159,
-      "appearsAtLeastOnce": 0.9501
+      "hostsAtLeastOnce": 0.5077,
+      "appearsAtLeastOnce": 0.9492
     },
     {
       "team": "Miami (FL)",
       "hostsAtLeastOnce": 0.315,
-      "appearsAtLeastOnce": 0.6344
+      "appearsAtLeastOnce": 0.6204
     },
     {
       "team": "Ohio State",
       "hostsAtLeastOnce": 0.2188,
-      "appearsAtLeastOnce": 0.489
+      "appearsAtLeastOnce": 0.4624
     },
     {
       "team": "Michigan",
       "hostsAtLeastOnce": 0.1912,
-      "appearsAtLeastOnce": 0.3303
+      "appearsAtLeastOnce": 0.3279
     },
     {
       "team": "Indiana",
       "hostsAtLeastOnce": 0.1895,
-      "appearsAtLeastOnce": 0.3079
+      "appearsAtLeastOnce": 0.3076
     },
     {
       "team": "Texas A&M",
-      "hostsAtLeastOnce": 0.1875,
-      "appearsAtLeastOnce": 0.2379
+      "hostsAtLeastOnce": 0.1873,
+      "appearsAtLeastOnce": 0.2377
     },
     {
       "team": "BYU",
       "hostsAtLeastOnce": 0.1783,
-      "appearsAtLeastOnce": 0.2797
+      "appearsAtLeastOnce": 0.2779
     },
     {
       "team": "Utah",
@@ -1251,8 +1190,13 @@
     },
     {
       "team": "Nebraska",
-      "hostsAtLeastOnce": 0.1529,
-      "appearsAtLeastOnce": 0.2138
+      "hostsAtLeastOnce": 0.1514,
+      "appearsAtLeastOnce": 0.2124
+    },
+    {
+      "team": "Oregon",
+      "hostsAtLeastOnce": 0.1481,
+      "appearsAtLeastOnce": 0.2466
     }
   ],
   "armyNavy": {
