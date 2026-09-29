@@ -2545,8 +2545,12 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     key = [i for i in slate["watch"] if i in by_id]
     key_ids = set(key)
     by_stakes = not bb or slate.get("watchKind") == "stakes"
+    # No week before the 2026 season simulation has stake data at all - a historical archive page
+    # must drop the column entirely rather than show "Little playoff impact" on every single row.
+    any_stakes = any((g.get("stake") or {}).get("swing", 0) >= 0.1 for g in by_id.values())
+    has_any_stake_data = any("stake" in g for g in by_id.values())
     # Basketball drops the Bid stake column once the NCAA field is set: nothing is left to win or lose.
-    show_stakes = not bb or slate.get("bidStakes", True)
+    show_stakes = (not bb or slate.get("bidStakes", True)) and (bb or has_any_stake_data)
     season = slate.get("season") or payload.get("season")
     # Links only to pages this build wrote, the same rule as the header.
     betting_ref = (f'<a href="{up}betting.html">betting page</a>'
@@ -2766,7 +2770,6 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     <p class="note">From the second half on: a team the model gave 25% or less is leading, or a Top 25 team is trailing an unranked one.</p>
   </section>"""
 
-    any_stakes = any((g.get("stake") or {}).get("swing", 0) >= 0.1 for g in by_id.values())
     if bb:
         buttons = [("all", "All games"), ("top25", "Top 25"), ("close", "Close games"), ("dog", "Dog picks"),
                    ("fade", "Fade list")] + ([("stakes", "Bid stakes")] if any_stakes else [])
@@ -2780,7 +2783,8 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                        '<option value="">All events</option>'
                        + "".join(f'<option value="{esc(n)}">{esc(n)}</option>' for _, n in events) + "</select>")
     else:
-        buttons = [("all", "All games"), ("top25", "Top 25"), ("stakes", "Playoff stakes")] + \
+        buttons = [("all", "All games"), ("top25", "Top 25")] + \
+            ([("stakes", "Playoff stakes")] if any_stakes else []) + \
             ([("key", "Key games")] if key else [])
         select = ""
     filters = f"""
@@ -2867,7 +2871,15 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
             lead = (f"{slate['games']} games with an FBS team. The model's line and win chance for each, the market's number "
                     "beside it (DraftKings), and what the result does to the playoff picture. Scores and live win chances appear "
                     "while games are on.")
-        hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before kickoff; <strong>Live</strong> is its chance now,
+        has_market = any("market" in g for g in by_id.values())
+        if archive and not has_market:
+            # A season this old has no market line at all - explaining Market/Edge columns that
+            # are all dashes would be actively confusing, not just unnecessary.
+            hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before kickoff. <strong>Model</strong> is the
+  favourite and the margin the ratings predict, reconstructed walk-forward from ratings as they stood
+  that week - never from anything the model learned afterward.""")
+        else:
+            hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before kickoff; <strong>Live</strong> is its chance now,
   from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
   is the current line, with the opener beneath it when it has moved. <strong>Edge</strong> is the gap between the model
   and the opening number and the side the model likes more. The {betting_ref} tracks the large ones; these are
@@ -2920,8 +2932,9 @@ def _chaos_week_label(week_key: str, entry: dict) -> str:
     return entry.get("label") or f"Week {week_key}"
 
 
-def _chaos_row(season: int, week_key: str, entry: dict, burn_in: bool) -> str:
+def _chaos_row(season: int, week_key: str, entry: dict, burn_in: bool, href: str | None = None) -> str:
     label = _chaos_week_label(week_key, entry)
+    week_cell = f'<a href="{href}">{esc(label)}</a>' if href else esc(label)
     pct, z = entry.get("percentile"), entry.get("z")
     if pct is not None:
         pct_cell = f"{pct:.0f}"
@@ -2934,7 +2947,7 @@ def _chaos_row(season: int, week_key: str, entry: dict, burn_in: bool) -> str:
           data-upsets="{entry.get('upsets') if entry.get('upsets') is not None else -1}"
           data-expected="{entry.get('expectedUpsets') if entry.get('expectedUpsets') is not None else -1}"
           data-z="{z if z is not None else -999}" data-percentile="{pct if pct is not None else -1}">
-        <td>{season}</td><td>{esc(label)}</td><td class="num">{entry.get('games', 0)}</td>
+        <td>{season}</td><td>{week_cell}</td><td class="num">{entry.get('games', 0)}</td>
         <td class="num">{_chaos_num(entry.get('upsets'), '{:.0f}')}</td>
         <td class="num">{_chaos_num(entry.get('expectedUpsets'))}</td>
         <td class="num">{_chaos_num(z, '{:+.2f}')}</td>
@@ -2980,11 +2993,19 @@ def _chaos_strip(season: int, season_entry: dict) -> str:
     </div>"""
 
 
-def chaos_page(payload: dict) -> str:
+def chaos_page(payload: dict, *, archives: list[dict] | None = None) -> str:
     """Every archived week in a sortable table, the wildest and calmest weeks ever, the biggest
-    shocks ever, and a per-season strip chart of how chaotic each week was."""
+    shocks ever, and a per-season strip chart of how chaotic each week was.
+
+    ``archives`` is the same list ``slate_archives()`` computes once per build for the Slate
+    page's own archive nav - reused here rather than a second filesystem scan, to link each week
+    (and each shock, straight to that game) to the real page of what happened, when one exists. A
+    week with no archive - a 2026 week not yet frozen, a burn-in or not-enough-games week never
+    given a page - stays plain text rather than risking a broken link.
+    """
     chaos = payload["chaos"]
     seasons = chaos["archive"]["seasons"]
+    hrefs = {(a["season"], a["data"]["week"]): a["href"] for a in (archives or []) if "week" in a["data"]}
 
     all_weeks = [
         (int(season_key), week_key, entry, season_entry.get("burnIn", False))
@@ -2992,13 +3013,16 @@ def chaos_page(payload: dict) -> str:
         for week_key, entry in season_entry["weeks"].items()
     ]
     all_weeks.sort(key=lambda t: (-t[0], -int(t[1])))
-    rows = "".join(_chaos_row(season, week_key, entry, burn_in) for season, week_key, entry, burn_in in all_weeks)
+    rows = "".join(_chaos_row(season, week_key, entry, burn_in, hrefs.get((season, int(week_key))))
+                   for season, week_key, entry, burn_in in all_weeks)
 
     ranked = [(s, w, e) for s, w, e, b in all_weeks if not b and e.get("percentile") is not None]
 
     def mini_row(season: int, week_key: str, entry: dict) -> str:
         label = _chaos_week_label(week_key, entry)
-        return (f'<li><span class="who">{season} {esc(label)}</span>'
+        href = hrefs.get((season, int(week_key)))
+        who = f'<a href="{href}">{season} {esc(label)}</a>' if href else f'{season} {esc(label)}'
+        return (f'<li><span class="who">{who}</span>'
                 f'<span class="nums">{entry["percentile"]:.0f} <span class="muted">&middot; z {entry["z"]:+.2f}</span></span></li>')
 
     wildest_html = "".join(mini_row(*t) for t in sorted(ranked, key=lambda t: -t[2]["percentile"])[:10])
@@ -3010,12 +3034,16 @@ def chaos_page(payload: dict) -> str:
         for shock in entry.get("shocks") or []
     ]
     all_shocks.sort(key=lambda t: t[3]["pregameWinProb"])
-    shocks_html = "".join(
-        f'<li><span class="who">{esc(s["winner"])} <span class="muted">over</span> {esc(s["loser"])}</span>'
-        f'<span class="nums">{_pct(s["pregameWinProb"])} chance &middot; {season} {esc(_chaos_week_label(week_key, entry))} '
-        f'&middot; won {s["winnerScore"]}-{s["loserScore"]}</span></li>'
-        for season, week_key, entry, s in all_shocks[:10]
-    )
+
+    def shock_row(season: int, week_key: str, entry: dict, s: dict) -> str:
+        href = hrefs.get((season, int(week_key)))
+        game = f'{esc(s["winner"])} <span class="muted">over</span> {esc(s["loser"])}'
+        who = f'<a href="{href}#g{s["gameId"]}">{game}</a>' if href else game
+        return (f'<li><span class="who">{who}</span>'
+                f'<span class="nums">{_pct(s["pregameWinProb"])} chance &middot; {season} {esc(_chaos_week_label(week_key, entry))} '
+                f'&middot; won {s["winnerScore"]}-{s["loserScore"]}</span></li>')
+
+    shocks_html = "".join(shock_row(season, week_key, entry, s) for season, week_key, entry, s in all_shocks[:10])
 
     strips = "".join(_chaos_strip(int(season_key), season_entry)
                       for season_key, season_entry in sorted(seasons.items(), key=lambda kv: -int(kv[0])))
@@ -4438,9 +4466,10 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     # Only when the build produced them. The slate is both sports'; the rest are football's.
     archives = slate_archives(out_dir)
     slate_with_archives = lambda p: slate_page(p, archives=archives)                    # noqa: E731
+    chaos_with_archives = lambda p: chaos_page(p, archives=archives)                    # noqa: E731
     for key, name, renderer in (("sim", "simulation", simulation_page), ("slate", "slate", slate_with_archives),
                                 ("gameday", "gameday", gameday_page), ("heisman", "heisman", heisman_page),
-                                ("chaos", "chaos", chaos_page)):
+                                ("chaos", "chaos", chaos_with_archives)):
         if payload.get(key):
             write(out_dir / f"{name}.html", renderer(payload))
             write(out_dir / f"{name}.json", json.dumps(payload[key], indent=2))
@@ -4809,6 +4838,9 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slday.bb.live .slhead, .slday.bb.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px minmax(0,0.9fr) minmax(0,1fr); }
 .slday.bb.nostakes .slhead, .slday.bb.nostakes .slrow { grid-template-columns:66px minmax(0,2fr) 44px 92px 104px minmax(0,1.1fr); }
 .slday.bb.nostakes.live .slhead, .slday.bb.nostakes.live .slrow { grid-template-columns:66px minmax(0,1.9fr) 40px 36px 48px 84px 98px minmax(0,1fr); }
+/* football: no week before the 2026 simulation has stake data - drop the column, widen Game. */
+.slday.nostakes .slhead, .slday.nostakes .slrow { grid-template-columns:66px minmax(0,2.8fr) 44px 92px 104px 92px; }
+.slday.nostakes.live .slhead, .slday.nostakes.live .slrow { grid-template-columns:66px minmax(0,2.4fr) 40px 36px 48px 84px 98px 84px; }
 .sltags { display:flex; flex-wrap:wrap; gap:4px; min-width:0; }
 .sltag { font-size:11px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis); color:var(--secondary); white-space:nowrap; }
 .sltag.dog { border-color:color-mix(in srgb, var(--up) 60%, var(--axis)); }
@@ -4964,6 +4996,9 @@ tr.hhaward td { background:color-mix(in srgb, var(--alert) 8%, transparent); }
   .slday.live .slwp { display:none; }
   .slday.bb .slrow, .slday.bb.nostakes .slrow { grid-template-columns:minmax(0,1fr) auto; }
   .slday.bb.live .slrow, .slday.bb.nostakes.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
+  /* football: no leftover blank stakes row when the column is dropped entirely. */
+  .slday.nostakes .slrow { grid-template-areas:"t t" "g w" "m k" "e e"; }
+  .slday.nostakes.live .slrow { grid-template-areas:"t t t" "g sc lv" "m k k" "e e e"; }
   .sltags { grid-area:e; }
   .bbstrats { grid-template-columns:1fr; }
   .slscore { grid-area:sc; } .sllive { grid-area:lv; }
