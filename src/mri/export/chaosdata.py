@@ -44,6 +44,18 @@ PREGAME_PATH_NAME = "chaos_pregame.json"
 HISTORY_PATH_NAME = "chaos_history.json"
 
 
+def _canonical(frame: pd.DataFrame) -> pd.DataFrame:
+    """CFBD's feed names a team however it likes ("Miami"); the ratings this module joins against
+    are keyed by the registry's canonical spelling ("Miami (FL)") - the same mismatch ``tracker.py``,
+    ``slate.py``, ``simdata.py`` and ``hfa.py`` all guard against on their own schedule input, and
+    this module must too, or a real favourite whose raw name doesn't match its rated one prices as
+    a replacement-level unknown instead of itself."""
+    frame = frame.copy()
+    for column in ("team1", "team2"):
+        frame[column] = [registry.resolve(n, n) for n in frame[column]]
+    return frame
+
+
 def _candidate_games(slate: dict) -> dict[int, dict]:
     """Every in-scope game on the slate - both-FBS, played or not, plus FCS opponents - keyed by
     its real game id, deduplicated the way a game could otherwise appear in both ``days`` and
@@ -130,38 +142,43 @@ def save_history(path: Path, data: dict) -> None:
 
 def reconstruct_current_season(year: int, schedule: pd.DataFrame, weekly: pd.DataFrame) -> dict[int, float]:
     """Every played game's raw pregame home win probability, walked forward from ratings as of the
-    end of the previous week (or the preseason prior for week 1) - the same idea as
-    ``tracker.reconstruct``, except an FCS opponent prices off the worst-rated FBS team's floor
-    (the same convention ``slate.py``'s own display calculation uses) rather than being dropped.
-    The fallback ``_score_games`` reaches for when a game the live pregame cache never saw needs a
-    probability that does not depend on the game's own result.
+    end of the previous week - the same idea as ``tracker.reconstruct`` - falling back to the
+    preseason prior for any team missing from that snapshot.
+
+    That fallback matters more than it looks: ``weekly`` only carries a team once it has actually
+    played, so a real FBS team on a bye in week 1 is just as "missing" from a week-2 snapshot as a
+    true FCS opponent is. Treating both cases the same way - pricing the missing side at the worst
+    rated FBS team's floor, the way a genuine FCS opponent is priced elsewhere on the site - turned
+    a 21.5-point favorite on a bye into a near-certain underdog the first time this ran for real.
+    ``priors.for_season``'s prior already knows the difference (a real, regressed prior for an FBS
+    team, replacement level only for a team the prior doesn't recognize at all), so it is the right
+    fallback for every team, not just week 1's.
     """
+    schedule = _canonical(schedule)
     played = schedule[schedule["played"]]
     if played.empty:
         return {}
     teams = sorted(set(schedule["team1"]) | set(schedule["team2"]))
     fbs = sorted(t for t in teams if registry.is_fbs(t))
-    preseason = None  # computed lazily - only a week-1 game actually needs it
+    preseason = priors.for_season(year, board_module._previous_season(year), teams, fbs)
 
     out: dict[int, float] = {}
     for week, games in played.groupby("block"):
         week = int(week)
         if week > 1:
             rated = weekly[weekly["week"] == week - 1] if "week" in weekly.columns else pd.DataFrame()
-            if rated.empty:
-                continue
-            power = rated.set_index("team")["power"]
-            home_field = float(rated["home_field"].iloc[0])
+            power = rated.set_index("team")["power"] if not rated.empty else pd.Series(dtype=float)
+            home_field = float(rated["home_field"].iloc[0]) if not rated.empty else mri2.DEFAULT_HOME_FIELD_PRIOR
         else:
-            if preseason is None:
-                preseason = priors.for_season(year, board_module._previous_season(year), teams, fbs)
-            power, home_field = preseason, mri2.DEFAULT_HOME_FIELD_PRIOR
-        if power.empty:
-            continue
-        replacement = float(power.min()) - 8.0
+            power, home_field = pd.Series(dtype=float), mri2.DEFAULT_HOME_FIELD_PRIOR
+
+        def rating(team: str) -> float:
+            if team in power.index:
+                return float(power[team])
+            return float(preseason.get(team, mri2.REPLACEMENT_PRIOR))
+
         for g in games.itertuples():
-            predicted = (float(power.get(g.team2, replacement)) - float(power.get(g.team1, replacement))
-                         + (0.0 if g.neutral else home_field))
+            predicted = rating(g.team2) - rating(g.team1) + (0.0 if g.neutral else home_field)
             out[int(g.game_id)] = float(norm.cdf(predicted / board_module.SIGMA))
     return out
 
@@ -225,6 +242,7 @@ def finalize_current_season(year: int, weekly_games: pd.DataFrame, weekly: pd.Da
     moment, and stored - never recomputed as later, wilder weeks are added (spec §5: "percentiles
     drift, and the archive shouldn't").
     """
+    weekly_games = _canonical(weekly_games)
     data = load_history(history_path)
     season_key = str(year)
     burn_in = year in history.BURN_IN_SEASONS
@@ -296,6 +314,7 @@ def current_reading(games: pd.DataFrame, week: int, pregame: dict) -> dict | Non
     never written to ``chaos_history.json``. None if the week's games haven't been played at all
     yet (nothing "so far" to show beyond the pregame expectations, which the panel gets from the
     slate directly)."""
+    games = _canonical(games)
     this_week = games[games["block"] == week]
     played = this_week[this_week["played"]]
     stored = pregame.get("games", {})

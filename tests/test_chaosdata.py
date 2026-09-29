@@ -8,7 +8,9 @@ import json
 import pandas as pd
 import pytest
 
+from mri.betting import board
 from mri.export import chaosdata
+from mri.ratings import mri2
 
 KICKOFF = "2026-09-26T20:00:00.000Z"
 NOW = dt.datetime(2026, 9, 24, 11, 0, tzinfo=dt.timezone.utc)
@@ -96,10 +98,10 @@ def test_fcs_games_are_captured_too(wire, tmp_path) -> None:
 
 # ---- reconstruct_current_season (the launch catch-up fallback for a game the live cache never saw)
 
-def test_reconstruct_current_season_matches_a_hand_computed_probability() -> None:
-    from mri.betting import board
+def test_reconstruct_current_season_matches_a_hand_computed_probability(monkeypatch) -> None:
     from scipy.stats import norm
 
+    monkeypatch.setattr(chaosdata.priors, "for_season", lambda *a, **k: pd.Series(dtype=float))
     schedule = pd.DataFrame([
         {"game_id": 1, "block": 2, "season_type": "regular", "team1": "Away", "team2": "Home",
          "played": True, "pts1": 10.0, "pts2": 24.0, "neutral": False},
@@ -113,30 +115,77 @@ def test_reconstruct_current_season_matches_a_hand_computed_probability() -> Non
     assert result[1] == pytest.approx(float(norm.cdf(predicted / board.SIGMA)))
 
 
-def test_reconstruct_current_season_prices_an_fcs_opponent_off_the_floor() -> None:
-    from mri.betting import board
+def test_reconstruct_current_season_falls_back_to_the_preseason_prior_for_a_team_on_a_bye(monkeypatch) -> None:
+    """A real FBS team that simply has not played yet this season (a bye in an early week) is
+    missing from the previous week's snapshot exactly the way an FCS opponent is - but it must
+    price off its own preseason prior, not the worst-rated FBS team's floor, or a real favourite
+    on a bye reads as a near-certain underdog."""
     from scipy.stats import norm
 
+    preseason = pd.Series({"BigFavorite": 20.0, "SmallUnderdog": -2.0})
+    monkeypatch.setattr(chaosdata.priors, "for_season", lambda *a, **k: preseason)
+    schedule = pd.DataFrame([
+        {"game_id": 1, "block": 3, "season_type": "regular", "team1": "BigFavorite", "team2": "SmallUnderdog",
+         "played": True, "pts1": 33.0, "pts2": 20.0, "neutral": False},
+    ])
+    # SmallUnderdog played weeks 1-2 and has an in-season rating; BigFavorite had a bye and has none yet.
+    weekly = pd.DataFrame([{"week": 2, "team": "SmallUnderdog", "power": -2.0, "home_field": 2.5}])
+    result = chaosdata.reconstruct_current_season(2026, schedule, weekly)
+    predicted = -2.0 - 20.0 + 2.5  # home (SmallUnderdog) minus away (BigFavorite)'s preseason rating
+    assert result[1] == pytest.approx(float(norm.cdf(predicted / board.SIGMA)))
+    assert result[1] < 0.5  # SmallUnderdog (home) is the underdog here, not the near-certain winner
+                            # the old floor-based fallback made it look like
+
+
+def test_reconstruct_current_season_resolves_a_teams_raw_feed_name_to_its_rated_name(monkeypatch) -> None:
+    """The actual reported bug: CFBD's feed calls a team "Miami", but weekly_ratings (and the
+    prior) key it by the registry's canonical "Miami (FL)". Without resolving the feed's name
+    first, "Miami" never matches its own rating and prices as an unrated replacement-level team -
+    which is exactly how a 21.5-point favorite on the real slate showed up as a ~1% underdog here."""
+    from scipy.stats import norm
+
+    preseason = pd.Series({"Miami (FL)": 20.0, "Wake Forest": -2.0})
+    monkeypatch.setattr(chaosdata.priors, "for_season", lambda *a, **k: preseason)
+    schedule = pd.DataFrame([
+        {"game_id": 1, "block": 1, "season_type": "regular", "team1": "Miami", "team2": "Wake Forest",
+         "played": True, "pts1": 33.0, "pts2": 20.0, "neutral": False},
+    ])
+    result = chaosdata.reconstruct_current_season(2026, schedule, pd.DataFrame())
+    predicted = -2.0 - 20.0 + mri2.DEFAULT_HOME_FIELD_PRIOR
+    assert result[1] == pytest.approx(float(norm.cdf(predicted / board.SIGMA)))
+    assert result[1] < 0.2  # Wake Forest (home) is a big underdog to the real Miami (FL) rating
+
+
+def test_reconstruct_current_season_prices_a_true_fcs_opponent_off_its_own_prior(monkeypatch) -> None:
+    """An opponent the prior itself has never heard of (a real FCS team) still gets a sensible,
+    replacement-level number from priors.for_season - reconstruct_current_season does not need,
+    and no longer has, its own separate floor for this case."""
+    from scipy.stats import norm
+
+    preseason = pd.Series({"Home": 10.0, "Cupcake FCS": mri2.REPLACEMENT_PRIOR})
+    monkeypatch.setattr(chaosdata.priors, "for_season", lambda *a, **k: preseason)
     schedule = pd.DataFrame([
         {"game_id": 1, "block": 2, "season_type": "regular", "team1": "Cupcake FCS", "team2": "Home",
          "played": True, "pts1": 3.0, "pts2": 45.0, "neutral": False},
     ])
-    weekly = pd.DataFrame([
-        {"week": 1, "team": "Home", "power": 10.0, "home_field": 2.5},
-        {"week": 1, "team": "Someone Else", "power": -5.0, "home_field": 2.5},  # the field's floor
-    ])
+    weekly = pd.DataFrame([{"week": 1, "team": "Home", "power": 10.0, "home_field": 2.5}])
     result = chaosdata.reconstruct_current_season(2026, schedule, weekly)
-    floor = -5.0 - 8.0  # Cupcake FCS never appears in `weekly` at all
-    predicted = 10.0 - floor + 2.5
+    predicted = 10.0 - mri2.REPLACEMENT_PRIOR + 2.5
     assert result[1] == pytest.approx(float(norm.cdf(predicted / board.SIGMA)))
 
 
-def test_reconstruct_current_season_skips_a_week_with_no_prior_ratings() -> None:
+def test_reconstruct_current_season_falls_back_to_preseason_when_no_week_ratings_exist(monkeypatch) -> None:
+    from scipy.stats import norm
+
+    preseason = pd.Series({"A": 3.0, "H": -1.0})
+    monkeypatch.setattr(chaosdata.priors, "for_season", lambda *a, **k: preseason)
     schedule = pd.DataFrame([
         {"game_id": 1, "block": 5, "season_type": "regular", "team1": "A", "team2": "H",
          "played": True, "pts1": 10.0, "pts2": 20.0, "neutral": False},
     ])
-    assert chaosdata.reconstruct_current_season(2026, schedule, pd.DataFrame()) == {}
+    result = chaosdata.reconstruct_current_season(2026, schedule, pd.DataFrame())
+    predicted = -1.0 - 3.0 + mri2.DEFAULT_HOME_FIELD_PRIOR
+    assert result[1] == pytest.approx(float(norm.cdf(predicted / board.SIGMA)))
 
 
 def test_reconstruct_current_season_is_empty_when_nothing_has_been_played() -> None:
@@ -220,14 +269,18 @@ def test_a_week_under_ten_games_is_marked_not_enough_games(tmp_path) -> None:
     assert entry["final"] is True
 
 
-def test_missing_pregame_is_counted_not_silently_dropped(tmp_path) -> None:
+def test_missing_pregame_is_counted_when_reconstruction_has_nothing_either() -> None:
+    """A game missing from the live pregame cache is no longer automatically "missing" - it falls
+    back to reconstruct_current_season first (see the tests above), which post-fix almost always
+    has *something* to offer (down to the preseason prior). It's only counted in missingPregame
+    once that fallback has nothing for it either - the scenario this tests directly, at the level
+    where it's actually reachable."""
     games, pregame = _ten_game_week()
-    pregame["games"].pop("1")  # e.g. it kicked off before the feature's first build
-    history_path, sim_path = tmp_path / "chaos_history.json", tmp_path / "sim_history.json"
-    data = chaosdata.finalize_current_season(2026, games, pd.DataFrame(), pregame, None, history_path, sim_path, now=NOW)
-    entry = data["seasons"]["2026"]["weeks"]["4"]
-    assert entry["missingPregame"] == 1
-    assert entry["games"] == 9
+    pregame["games"].pop("1")
+    scored, missing, used_fallback = chaosdata._score_games(games, pregame, None, week=4, reconstructed={})
+    assert missing == 1
+    assert scored["games"] == 9
+    assert used_fallback is False
 
 
 def test_burn_in_seasons_are_flagged_on_the_season_entry(tmp_path) -> None:
