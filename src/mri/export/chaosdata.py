@@ -183,19 +183,57 @@ def reconstruct_current_season(year: int, schedule: pd.DataFrame, weekly: pd.Dat
     return out
 
 
+def archived_slate_pregame(docs_dir: Path, year: int, week: int) -> dict[int, float]:
+    """Every game's genuinely frozen-at-the-time pregame win probability from the slate archive
+    (``docs/slate/<year>-week-<n>.json``), if one exists for this week.
+
+    This is the authoritative source for a week that finished before ``chaos_pregame.json`` ever
+    captured it - it is the exact number the Slate page itself showed before kickoff, saved once by
+    ``slatearchive.snapshot`` and never touched again, not a number recomputed from today's ratings.
+    That distinction is not academic: CFBD's feed for a past week can shift slightly as it is
+    re-fetched (a late-arriving box score, a corrected classification), which nudges a from-scratch
+    walk-forward recomputation away from what the model actually said at the time - the same "wilder
+    than X% of weeks" a reader already saw on the archived page must still say wilder than X%, not a
+    different number recomputed after the fact. Falls back to nothing (an empty dict, letting the
+    caller reach for ``reconstruct_current_season`` instead) for a week the archive never saved,
+    e.g. before the archive feature had a week to freeze.
+    """
+    from . import slatearchive
+
+    path = slatearchive.archive_path(docs_dir, year, week)
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text())
+    out: dict[int, float] = {}
+    for day in data.get("days", []):
+        for g in day["games"]:
+            out[g["id"]] = g["homeWinProbability"]
+    for g in data.get("results", []):
+        out[g["id"]] = g["homeWinProbability"]
+    return out
+
+
 def _score_games(games: pd.DataFrame, pregame: dict, calibration: dict | None, week: int,
+                  archived: dict[int, float] | None = None,
                   reconstructed: dict[int, float] | None = None) -> tuple[dict, int, bool]:
-    """Score one week's completed games against their stored pregame probabilities, falling back to
-    ``reconstructed`` for a game the live cache never saw. Returns the ``chaos.week_score`` result,
-    how many completed games had no probability from either source, and whether the week needed
-    the fallback for any of its games."""
+    """Score one week's completed games against their stored pregame probabilities.
+
+    Falls back, in order, to ``archived`` (the slate archive's own frozen number for the week, when
+    one exists) and then ``reconstructed`` (a from-scratch walk-forward, for a week the archive
+    never saved). Returns the ``chaos.week_score`` result, how many completed games had no
+    probability from any source, and whether the week needed either fallback for any of its games.
+    """
     stored = pregame.get("games", {})
+    archived = archived or {}
     reconstructed = reconstructed or {}
     rows, missing, used_fallback = [], 0, False
     for g in games.itertuples():
         entry = stored.get(str(g.game_id))
         if entry is not None:
             p_raw = entry["homeWinProbability"]
+        elif g.game_id in archived:
+            p_raw = archived[g.game_id]
+            used_fallback = True
         elif g.game_id in reconstructed:
             p_raw = reconstructed[g.game_id]
             used_fallback = True
@@ -229,18 +267,20 @@ def ranking_population(history_data: dict, *, bowls: bool) -> list[float]:
 
 
 def finalize_current_season(year: int, weekly_games: pd.DataFrame, weekly: pd.DataFrame, pregame: dict,
-                             calibration: dict | None, history_path: Path,
-                             sim_history_path: Path, *, now: dt.datetime | None = None) -> dict:
+                             calibration: dict | None, history_path: Path, sim_history_path: Path,
+                             *, docs_dir: Path | None = None, now: dt.datetime | None = None) -> dict:
     """Score and freeze every week of ``year`` that is now fully complete and not already final.
 
     ``weekly_games`` is the season's full schedule (``cfbd.games(year, completed_only=False)``,
     with a ``block`` column from ``cfbd.sequence``); ``weekly`` is the week-by-week ratings table
-    (``sitedata.weekly_ratings``) ``reconstruct_current_season`` falls back to for a game the live
-    pregame cache never saw. A week already frozen is never touched again, whatever
-    ``pregame``/``calibration`` say now - the same guarantee ``simdata.build`` gives
-    ``sim_history.json``. Its percentile is computed once, against the archive as it stood at that
-    moment, and stored - never recomputed as later, wilder weeks are added (spec §5: "percentiles
-    drift, and the archive shouldn't").
+    (``sitedata.weekly_ratings``). For a game the live pregame cache never saw, ``docs_dir`` (the
+    site's published output root) is checked first for that week's own frozen slate archive - the
+    genuinely-before-kickoff number, preferred over ``reconstruct_current_season``'s from-scratch
+    recomputation, which can drift as the underlying schedule data is refreshed. A week already
+    frozen is never touched again, whatever ``pregame``/``calibration`` say now - the same guarantee
+    ``simdata.build`` gives ``sim_history.json``. Its percentile is computed once, against the
+    archive as it stood at that moment, and stored - never recomputed as later, wilder weeks are
+    added (spec §5: "percentiles drift, and the archive shouldn't").
     """
     weekly_games = _canonical(weekly_games)
     data = load_history(history_path)
@@ -258,7 +298,8 @@ def finalize_current_season(year: int, weekly_games: pd.DataFrame, weekly: pd.Da
         if not games["played"].all():
             continue  # not final yet - leave it for a future build
 
-        scored, missing, used_fallback = _score_games(games, pregame, calibration, week, reconstructed)
+        archived = archived_slate_pregame(docs_dir, year, week) if docs_dir else {}
+        scored, missing, used_fallback = _score_games(games, pregame, calibration, week, archived, reconstructed)
         entry = {**scored, "missingPregame": missing, "final": True, "reconstructed": used_fallback}
         is_bowls = (games["season_type"] != "regular").any()
         if is_bowls:
@@ -280,11 +321,14 @@ def finalize_current_season(year: int, weekly_games: pd.DataFrame, weekly: pd.Da
     return data
 
 
-def build(year: int, slate: dict | None, weekly: pd.DataFrame, data_dir: Path) -> dict | None:
+def build(year: int, slate: dict | None, weekly: pd.DataFrame, data_dir: Path,
+          docs_dir: Path | None = None) -> dict | None:
     """Everything the site needs for the Chaos Meter this build.
 
     ``weekly`` is ``sitedata.weekly_ratings(year)`` - already computed once for the rest of the
-    build - passed through to ``reconstruct_current_season``'s fallback.
+    build - passed through to ``reconstruct_current_season``'s fallback. ``docs_dir`` is the site's
+    published output root (``docs/``), where ``finalize_current_season`` looks for each week's own
+    frozen slate archive before falling back to reconstruction.
 
     Always freezes this week's pregame odds first - that costs nothing and should never wait on
     the historical archive existing. Returns None (and does nothing else) if ``chaos_history.json``
@@ -303,7 +347,7 @@ def build(year: int, slate: dict | None, weekly: pd.DataFrame, data_dir: Path) -
     schedule["block"] = cfbd.sequence(schedule)
 
     archive = finalize_current_season(year, schedule, weekly, pregame, calibration,
-                                       history_path, data_dir / "sim_history.json")
+                                       history_path, data_dir / "sim_history.json", docs_dir=docs_dir)
 
     current = current_reading(schedule, int(slate["week"]), pregame) if slate else None
     return {"season": year, "current": current, "archive": archive}
