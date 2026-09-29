@@ -3391,8 +3391,8 @@ def gameday_page(payload: dict) -> str:
     else:
         span = f"Weeks {open_weeks[0]}&ndash;{open_weeks[-1]}"
     # The live test only earns space on the page once it has something to say: a week the model
-    # missed. While every announced week has been among its top three, the section stays off.
-    misses = [c["week"] for c in g["check"] if c["host"] and (c["rank"] is None or c["rank"] > 3)]
+    # missed. While every announced week has been its first choice, the section stays off.
+    misses = [c["week"] for c in g["check"] if c["host"] and (c["rank"] is None or c["rank"] > 1)]
     miss_text = ("Week " if len(misses) == 1 else "Weeks ") + " and ".join(str(w) for w in misses) + (
         " is the current example." if len(misses) == 1 else " are the current examples.")
     check_rows = "".join(f"""<tr><td class="wk">{c['week']}</td><td class="opp">{' at '.join(chip(t) for t in ([x for x in c['teams'] if x != c['host']] + [c['host']]))}</td>
@@ -3418,7 +3418,7 @@ def gameday_page(payload: dict) -> str:
   in its top three {ahead['top3']:.0%}, and in its top five {ahead['top5']:.0%}.</p>"""
 
     wrong = f"""
-  <p><strong>Where it has been wrong:</strong> games that are big for reasons the ratings cannot see. {miss_text}</p>
+  <p><strong>What we got wrong:</strong> games that are big for reasons the ratings cannot see. {miss_text}</p>
   <div class="tablewrap"><table><thead><tr><th>Wk</th><th>Announced</th><th class="num">Our chance</th><th class="num">Our rank</th><th>Our first choice</th></tr></thead>
     <tbody>{check_rows}</tbody></table></div>
   <p class="muted">Those weeks were announced before this page existed and were not used to fit anything, which makes them the one live test. Early-season stops
