@@ -1655,6 +1655,38 @@ def test_archived_weeks_are_rendered_by_the_build(extended, tmp_path) -> None:
     assert 'href="slate/2026-week-3.html">Week 3<' in (tmp_path / "slate.html").read_text()
 
 
+def test_archived_week_with_stake_data_still_shows_the_stakes_column(extended) -> None:
+    from mri.export import slatearchive
+
+    p = json.loads(json.dumps(extended))
+    record = slatearchive.freeze({**p["slate"], "season": 2026}, p, {1: (13, 27)}, saved="2026-09-27T11:00:00Z")
+    text = site.slate_page(p, archive=record, archives=[])
+    assert "Playoff stakes" in text
+    assert 'class="slday live"' in text and "nostakes" not in text
+
+
+def test_archived_week_with_no_stake_data_hides_the_stakes_column(extended) -> None:
+    """A season before the 2026 simulation has no stake data anywhere - the column, its header and
+    its filter button must all disappear, not render "Little playoff impact" on every row."""
+    from mri.export import slatearchive
+
+    p = json.loads(json.dumps(extended))
+    bare_slate = json.loads(json.dumps(p["slate"]))
+    for day in bare_slate["days"]:
+        for g in day["games"]:
+            for key in ("stake", "market", "open", "total", "edge", "flagged"):
+                g.pop(key, None)
+    for g in bare_slate["results"]:
+        for key in ("stake", "market", "open", "total", "edge", "flagged"):
+            g.pop(key, None)
+    record = slatearchive.freeze({**bare_slate, "season": 1987}, p, {1: (13, 27)}, saved="1987-09-20T12:00:00Z")
+    text = site.slate_page(p, archive=record, archives=[])
+    assert "Little playoff impact" not in text
+    assert "Playoff stakes" not in text
+    assert "nostakes" in text
+    assert '<strong>Market</strong>' not in text  # the shorter, no-market hint
+
+
 def test_clashing_team_colours_give_the_underdog_its_alternate() -> None:
     teams = {"Utah": {"color": "#be0000", "altColor": "#ffffff"}, "Iowa State": {"color": "#c8102e", "altColor": "#f1be48"},
              "Texas": {"color": "#bf5700", "altColor": "#ffffff"}, "Tennessee": {"color": "#ff8200", "altColor": "#ffffff"},
@@ -1890,4 +1922,28 @@ def test_site_builds_without_a_chaos_link_or_page_when_chaos_data_is_missing(pay
     assert not (tmp_path / "chaos.html").exists()
     assert "chaos.html" not in "".join(f.read_text() for f in tmp_path.rglob("*.html"))
     assert "Chaos and Fallout" not in (tmp_path / "method.html").read_text()
+    assert not _broken_links(tmp_path)
+
+
+def test_chaos_page_links_a_week_with_an_archive_and_leaves_one_without_it_plain(extended, tmp_path) -> None:
+    from mri.export import slatearchive
+
+    archive = _chaos_archive_payload(extended["season"])
+    # A second, unarchived week - the chaos archive knows about it, but no slate page was ever
+    # frozen for it (e.g. a burn-in or not-enough-games week never gets a page at all).
+    archive["archive"]["seasons"][str(extended["season"])]["weeks"]["5"] = {
+        "final": True, "percentile": 10.0, "z": -1.2, "upsets": 1, "expectedUpsets": 3.0,
+        "games": 40, "missingPregame": 0, "shocks": []}
+    p = dict(extended, chaos=archive)
+
+    record = slatearchive.freeze({**p["slate"], "week": 4, "season": p["season"]}, p, {}, saved="x")
+    path = slatearchive.archive_path(tmp_path, p["season"], 4)
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(record))
+
+    site.build(p, tmp_path)
+    text = (tmp_path / "chaos.html").read_text()
+    assert f'href="slate/{p["season"]}-week-4.html">Week 4</a>' in text
+    assert f'href="slate/{p["season"]}-week-4.html#g1">' in text  # the shock links to the exact game
+    assert ">Week 5</td>" in text  # the un-archived week stays plain text, not a broken link
     assert not _broken_links(tmp_path)

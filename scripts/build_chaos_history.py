@@ -35,13 +35,19 @@ from scipy.stats import norm
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+import json  # noqa: E402
+
 from mri.betting import board  # noqa: E402
-from mri.export import chaosdata  # noqa: E402
+from mri.export import chaosdata, slatearchive  # noqa: E402
+from mri.export.slate import _eastern  # noqa: E402
 from mri.ingest import cfbd  # noqa: E402
 from mri.ratings import chaos, hfa, history  # noqa: E402
 
 LAST_SEASON = cfbd.current_season() - 1  # the backfill covers completed seasons only
 SEASONS = range(1978, LAST_SEASON + 1)
+
+DOCS_DIR = ROOT / "docs"
+SITE_JSON = ROOT / "site" / "data" / "site.json"
 
 # The live site never converts a margin to a probability with a block's own fitted sigma - slate.py,
 # board.py and tracker.py all use this fixed constant instead. That turns out to matter here: a
@@ -59,13 +65,104 @@ HISTORY_PATH = ROOT / "site" / "data" / chaosdata.HISTORY_PATH_NAME
 
 
 def _with_results(pregame: pd.DataFrame) -> pd.DataFrame:
-    """Join each game's real season type and final score back onto ``walk_forward``'s predictions -
-    it returns the pregame numbers a rating needs, not the outcome a Chaos score needs."""
+    """Join each game's real season type, final score and kickoff time back onto ``walk_forward``'s
+    predictions - it returns the pregame numbers a rating needs, not the outcome and kickoff a
+    Chaos score and a historical slate page both need. The kickoff fields only end up used by the
+    slate archive (see ``_write_slate_archives``); carrying them here costs nothing and keeps this
+    one join the single source both consumers read from, rather than a second walk-forward run."""
     frames = []
     for season, group in pregame.groupby("season"):
         schedule = cfbd.games(int(season)).set_index("game_id")
-        frames.append(group.join(schedule[["season_type", "pts1", "pts2"]], on="game_id"))
+        frames.append(group.join(
+            schedule[["season_type", "pts1", "pts2", "start_date", "start_time_tbd"]], on="game_id"))
     return pd.concat(frames, ignore_index=True)
+
+
+def _game_kickoff(start_date) -> tuple[str | None, str, str, str]:
+    """(date, dateLabel, time, sort) for one game.
+
+    Older CFBD seasons store a date-only kickoff as midnight UTC with no real time behind it -
+    every game in a week can share the exact same instant. Converting that through slate.py's
+    Eastern-time helper would both shift the calendar date back a day (midnight UTC is the
+    previous evening in Eastern) and print a specific kickoff time that was never real. Detected
+    by the UTC time itself being exactly midnight, and read straight off the UTC date instead.
+    """
+    if start_date is None or pd.isna(start_date):
+        return None, "Date unknown", "TBD", "9999"
+    ts = pd.Timestamp(start_date)
+    if ts.hour == 0 and ts.minute == 0 and ts.second == 0:
+        return ts.strftime("%Y-%m-%d"), ts.strftime("%a, %b %-d"), "TBD", "9999"
+    when = _eastern(start_date)
+    return (when.strftime("%Y-%m-%d"), when.strftime("%a, %b %-d"),
+            when.strftime("%-I:%M %p").replace(" ", " ") + " ET", when.strftime("%H%M"))
+
+
+def _slate_archive_games(games: pd.DataFrame) -> tuple[list[dict], dict[str, dict], list[dict]]:
+    """One week's games as (FBS-vs-FBS game dicts for ``days``, ``finals`` keyed by game id as a
+    string, FBS-vs-FCS game dicts for ``fcs``) - the same split ``slate.build()`` makes for the
+    live week, and the same reason: an FCS opponent's game is real and counted, but is never one of
+    the "this week's ranked matchups" cards.
+    """
+    day_games, fcs_games = [], []
+    finals: dict[str, dict] = {}
+    for g in games.itertuples():
+        date, date_label, time, sort = _game_kickoff(g.start_date)
+        entry = {
+            "id": int(g.game_id), "week": int(g.week),
+            "date": date, "dateLabel": date_label, "time": time, "sort": sort,
+            "home": g.home_team, "away": g.away_team, "neutral": bool(g.neutral),
+            "predicted": round(float(g.base_line), 1),
+            "homeWinProbability": round(float(g.home_win_prob), 3),
+            "played": True,
+        }
+        finals[str(int(g.game_id))] = {"home": int(g.pts2), "away": int(g.pts1)}
+        (day_games if g.fbs_both else fcs_games).append(entry)
+    return day_games, finals, fcs_games
+
+
+def _bucket_days(entries: list[dict]) -> list[dict]:
+    """Group games by date, in order - the same bucketing ``slate.build()`` does for the live
+    week's ``days``, reused here rather than reimplemented."""
+    days: list[dict] = []
+    for g in sorted(entries, key=lambda g: (g["date"] or "9999", g["sort"])):
+        if not days or days[-1]["date"] != g["date"]:
+            days.append({"date": g["date"], "label": g["dateLabel"], "games": []})
+        days[-1]["games"].append(g)
+    return days
+
+
+def _slate_archive_record(season: int, week: int, games: pd.DataFrame, teams_payload: list[dict]) -> dict:
+    day_entries, finals, fcs_entries = _slate_archive_games(games)
+    is_bowls = bool((games["season_type"] != "regular").any())
+    return {
+        "season": season, "week": week,
+        **({"label": cfbd.POSTSEASON_LABEL} if is_bowls else {}),
+        "days": _bucket_days(day_entries), "results": [], "fcs": fcs_entries,
+        "watch": [], "flagged": 0, "games": len(day_entries) + len(fcs_entries),
+        "saved": f"{season}-week-{week}-historical-backfill",
+        "finals": finals,
+        "teams": {t["team"]: {k: t.get(k) for k in slatearchive.TEAM_FIELDS} for t in teams_payload},
+    }
+
+
+def _write_slate_archives(pregame_scored: pd.DataFrame, docs_dir: Path, teams_payload: list[dict]) -> None:
+    """Write every week's historical slate archive, write-once, same as the live season's own
+    ``slatearchive.snapshot`` - a week already on disk is never touched again. ``slate_archives()``
+    (``site.py``) picks these up and renders them to HTML on the site's next normal build; nothing
+    here needs to render HTML itself."""
+    written = 0
+    for (season, week), games in pregame_scored.groupby(["season", "week"]):
+        season, week = int(season), int(week)
+        if len(games) < chaos.MIN_GAMES:
+            continue  # nothing worth a page for - matches the "not enough games" scoring rule
+        path = slatearchive.archive_path(docs_dir, season, week)
+        if path.exists():
+            continue
+        record = _slate_archive_record(season, week, games, teams_payload)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(record, indent=1))
+        written += 1
+    print(f"wrote {written} historical slate archive(s) to {docs_dir / 'slate'}")
 
 
 def main() -> None:
@@ -87,7 +184,12 @@ def main() -> None:
     pregame["home_win_prob"] = [chaos.apply_recalibration(p, int(w), calibration)
                                  for p, w in zip(pregame["home_win_prob_raw"], pregame["week"])]
 
-    history_data = {"seasons": {}}
+    # Load rather than start fresh: this script only ever computes 1978-LAST_SEASON, but the live
+    # site's own current-season weeks (finalize_current_season, a different write path) already
+    # live in this same file. Starting from {} would silently erase them on save - every week in
+    # SEASONS is about to be recomputed and overwritten anyway, so loading first costs nothing and
+    # only protects seasons this script has no business touching.
+    history_data = chaosdata.load_history(HISTORY_PATH)
     scored_rows = []
     for (season, week), games in pregame.groupby(["season", "week"]):
         season, week = int(season), int(week)
@@ -133,9 +235,19 @@ def main() -> None:
     # Percentiles: a regular-season/championship week ranks against every other one; a "Bowls"
     # block ranks only against past bowl seasons (spec §3/§5). Burn-in weeks are never ranked.
     # Precomputed once - unlike the live, incremental freeze, every week here is known up front.
-    regular_pop = chaosdata.ranking_population(history_data, bowls=False)
-    bowls_pop = chaosdata.ranking_population(history_data, bowls=True)
-    for season_entry in history_data["seasons"].values():
+    #
+    # Scoped to SEASONS (1978-LAST_SEASON) on both sides - the population these rank against, and
+    # which weeks get re-stamped - because history_data may also carry the live site's own current
+    # season, frozen incrementally by finalize_current_season with its own "percentile as of the
+    # moment it froze" guarantee. This script re-running to refresh the historical recalibration
+    # must not silently move a live week's already-frozen percentile, or drag a season this script
+    # has never scored into what a historical week ranks against either.
+    backfill_only = {"seasons": {k: v for k, v in history_data["seasons"].items() if int(k) in SEASONS}}
+    regular_pop = chaosdata.ranking_population(backfill_only, bowls=False)
+    bowls_pop = chaosdata.ranking_population(backfill_only, bowls=True)
+    for season_key, season_entry in history_data["seasons"].items():
+        if int(season_key) not in SEASONS:
+            continue
         for entry in season_entry["weeks"].values():
             if season_entry["burnIn"] or entry["z"] is None:
                 entry["percentile"] = None
@@ -148,6 +260,9 @@ def main() -> None:
     chaosdata.save_history(HISTORY_PATH, history_data)
     print(f"wrote {HISTORY_PATH} ({len(scored_rows)} scored weeks, "
           f"{sum(len(s['weeks']) for s in history_data['seasons'].values())} weeks total)")
+
+    teams_payload = json.loads(SITE_JSON.read_text())["teams"] if SITE_JSON.exists() else []
+    _write_slate_archives(pregame, DOCS_DIR, teams_payload)
 
 
 if __name__ == "__main__":
