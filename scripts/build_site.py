@@ -236,7 +236,7 @@ def add_football_extras(payload: dict, data_dir: Path) -> dict | None:
     # Absent until the one-off historical backfill (scripts/build_chaos_history.py) has run once;
     # freezes this week's pregame odds either way, so nothing is lost while that's still pending.
     try:
-        payload["chaos"] = chaosdata.build(SEASON, payload.get("slate"), weekly, data_dir)
+        payload["chaos"] = chaosdata.build(SEASON, payload.get("slate"), weekly, data_dir, docs_dir=ROOT / "docs")
         if payload["chaos"]:
             weeks = payload["chaos"]["archive"]["seasons"].get(str(SEASON), {}).get("weeks", {})
             print(f"  chaos: {len(weeks)} week(s) frozen this season, "

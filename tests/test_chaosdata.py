@@ -217,6 +217,67 @@ def test_finalize_current_season_falls_back_to_reconstruction_when_pregame_cache
     assert entry["reconstructed"] is True
 
 
+# ---- archived_slate_pregame (prefer the site's own frozen number over recomputing it)
+
+def test_archived_slate_pregame_reads_the_frozen_probability_by_game_id(tmp_path) -> None:
+    from mri.export import slatearchive
+
+    path = slatearchive.archive_path(tmp_path, 2026, 3)
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({
+        "days": [{"date": "2026-09-19", "label": "Sat", "games": [
+            {"id": 1, "home": "Texas A&M", "away": "Kentucky", "homeWinProbability": 0.962},
+        ]}],
+        "results": [{"id": 2, "home": "Pittsburgh", "away": "Syracuse", "homeWinProbability": 0.4}],
+    }))
+    out = chaosdata.archived_slate_pregame(tmp_path, 2026, 3)
+    assert out == {1: 0.962, 2: 0.4}
+
+
+def test_archived_slate_pregame_is_empty_when_no_archive_exists(tmp_path) -> None:
+    assert chaosdata.archived_slate_pregame(tmp_path, 2026, 1) == {}
+
+
+def test_score_games_prefers_the_archive_over_reconstruction(monkeypatch) -> None:
+    """The whole point: two sources disagreeing must not silently average out or pick the wrong
+    one - the archive's genuinely-frozen number wins whenever both are available."""
+    monkeypatch.setattr(chaosdata.chaos, "MIN_GAMES", 1)
+    games = pd.DataFrame([{"game_id": 1, "block": 3, "team1": "Kentucky", "team2": "Texas A&M",
+                            "played": True, "pts1": 31.0, "pts2": 21.0}])
+    scored, missing, used_fallback = chaosdata._score_games(
+        games, {"games": {}}, None, week=3, archived={1: 0.962}, reconstructed={1: 0.981})
+    assert missing == 0
+    assert used_fallback is True
+    # home_win_prob isn't in the summary dict directly, but the shock's winner probability is -
+    # Kentucky (away, the winner) at 1 - 0.962 = 3.8%, not 1 - 0.981 = 1.9% (the reconstructed value).
+    assert scored["shocks"][0]["pregameWinProb"] == pytest.approx(0.038)
+
+
+def test_finalize_current_season_prefers_the_slate_archive_over_reconstruction(tmp_path) -> None:
+    from mri.export import slatearchive
+
+    games, pregame = _ten_game_week(week=3, prob=0.99)  # a raw, from-scratch-style reconstruction
+    pregame["games"] = {}  # nothing captured live - forces a fallback
+    docs_dir = tmp_path / "docs"
+    path = slatearchive.archive_path(docs_dir, 2026, 3)
+    path.parent.mkdir(parents=True)
+    # The archive says these were all coin flips, in stark contrast to the 0.99 a from-scratch
+    # reconstruction would use instead if the archive weren't preferred.
+    path.write_text(json.dumps({
+        "days": [{"date": "2026-09-19", "label": "Sat",
+                  "games": [{"id": i, "homeWinProbability": 0.5} for i in range(1, 11)]}],
+        "results": [],
+    }))
+    history_path, sim_path = tmp_path / "chaos_history.json", tmp_path / "sim_history.json"
+    data = chaosdata.finalize_current_season(2026, games, pd.DataFrame(), pregame, None,
+                                              history_path, sim_path, docs_dir=docs_dir, now=NOW)
+    entry = data["seasons"]["2026"]["weeks"]["3"]
+    # Every game a coin flip pregame, all ten won by the home side: an ordinary week, not a shock
+    # (which a 0.99 pregame reconstruction would have made every one of these look like).
+    assert entry["upsets"] == 0
+    assert entry["z"] == pytest.approx(0.0)
+
+
 # ---- finalize_current_season (spec tests 3, 4, 6) and fallout
 
 def _ten_game_week(week: int = 4, prob: float = 0.7) -> tuple[pd.DataFrame, dict]:
