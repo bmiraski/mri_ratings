@@ -184,10 +184,11 @@ this one, and I did not test that either.
 * Basketball's carry-forward prior comes from `evaluate_season`'s last cutoff fit (0.8 of the season),
   not an end-of-season fit. That is existing behaviour, unchanged, and it means the basketball chain is
   evaluated with a slightly stale prior. A half-life reaches it only through that fit.
-* `mark_postseason` flags only 2, 2 and 7 games in the 2004, 2005 and 2017 workbooks (about 40-55 in
-  every other year), and those seasons hold 707, 718 and 834 games against 850-890 around them. It looks
-  like the bowls are missing from those three workbooks. That affects any season-level result using them,
-  not just this one.
+* Bowls, checked against the cached CFBD games: the 2017 workbook is missing **all 42** FBS-vs-FBS
+  bowl and playoff games (it ends at the regular season, 834 games), and 2016 is missing 3 of 41. 2004
+  and 2005 are *not* missing bowls (all 28 are present); `mark_postseason` simply fails to flag them
+  because teams had played only 11 games by then, so they are treated as home games for the second-listed
+  team rather than neutral. This affects `mri2_history` and any archive-based result for those seasons.
 * If production ever uses a half-life, `season_games` must be the scheduled season length, not the
   games played so far. Defaulting to the slice length makes the half-life shrink and grow with the
   calendar.
