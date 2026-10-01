@@ -98,3 +98,42 @@ def test_fit_is_identical_with_the_check_on_or_off() -> None:
     assert on.home_field == off.home_field and on.sigma == off.sigma
     assert on.resume.equals(off.resume)
     assert off.connectivity is None and on.connectivity is not None
+
+
+# --- build policy -------------------------------------------------------------------------
+
+
+def _stranded() -> connectivity.Connectivity:
+    return connectivity.analyze(_games(TWO_ISLANDS), rated=list("ABCDEF"))
+
+
+def test_check_warns_before_the_threshold_and_raises_after(capsys) -> None:
+    assert not connectivity.check(_stranded(), "wk3", enforce=False)
+    assert "WARNING" in capsys.readouterr().out
+    with pytest.raises(connectivity.ConnectivityError):
+        connectivity.check(_stranded(), "wk6", enforce=True)
+
+
+def test_allow_list_waves_named_teams_through(monkeypatch) -> None:
+    assert connectivity.check(_stranded(), "x", enforce=True, allow=list("ABCDEF"))
+    monkeypatch.setenv(connectivity.ALLOW_ENV, "A, B,C ,D,E,F")
+    assert connectivity.check(_stranded(), "x", enforce=True)
+
+
+def test_football_enforced_only_for_the_current_season_after_week_five() -> None:
+    early = pd.DataFrame({"week": [1, 2, 3, 4]})
+    late = pd.DataFrame({"week": [1, 2, 5]})
+    assert not connectivity.football_enforced(early, 2026, 2026)
+    assert connectivity.football_enforced(late, 2026, 2026)
+    assert not connectivity.football_enforced(late, 2020, 2026)   # finished seasons only warn
+    assert not connectivity.football_enforced(pd.DataFrame({"x": [1]}), 2026, 2026)
+
+
+def test_basketball_enforced_from_mid_december_of_the_current_season() -> None:
+    def games(date: str) -> pd.DataFrame:
+        return pd.DataFrame({"start_date": ["2026-11-10T00:00:00.000Z", date]})
+
+    assert not connectivity.basketball_enforced(games("2026-12-14T23:00:00.000Z"), 2027, 2027)
+    assert connectivity.basketball_enforced(games("2026-12-15T01:00:00.000Z"), 2027, 2027)
+    assert connectivity.basketball_enforced(games("2027-02-01T01:00:00.000Z"), 2027, 2027)
+    assert not connectivity.basketball_enforced(games("2027-02-01T01:00:00.000Z"), 2021, 2027)
