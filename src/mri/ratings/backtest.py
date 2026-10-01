@@ -42,6 +42,17 @@ def _classic_picks(train: pd.DataFrame, test: pd.DataFrame, home_edge: float) ->
     return (home + bonus) > away
 
 
+def season_neutral(games: pd.DataFrame) -> pd.Series:
+    """Neutral-site flags for a season: the table's own column when it is complete, else inferred.
+
+    Only some archive seasons carry real flags (see ``ingest.archive_fixes``); the rest keep the
+    postseason rule exactly as before.
+    """
+    if "neutral" in games.columns and games["neutral"].notna().all():
+        return games["neutral"].astype(bool)
+    return mri2.mark_postseason(games)
+
+
 def evaluate_season(
     games: pd.DataFrame,
     prior: pd.Series | None = None,
@@ -55,7 +66,7 @@ def evaluate_season(
     from scipy.stats import norm
 
     games = games.reset_index(drop=True)
-    neutral = mri2.mark_postseason(games)
+    neutral = season_neutral(games)
     n = len(games)
     rows = []
 
@@ -134,9 +145,11 @@ def evaluate_archive(
         teams = sorted(set(season_games["team1"]) | set(season_games["team2"]))
         prior = mri2.build_prior(previous, teams, prior_regression) if use_prior else None
 
+        neutral = season_neutral(season_games.reset_index(drop=True))
         if scored is not None and season not in scored:
             previous = mri2.fit(
-                season_games, prior=prior, with_resume=False, with_efficiency=False, **kwargs
+                season_games, prior=prior, neutral=neutral, with_resume=False, with_efficiency=False,
+                **kwargs
             ).power
             continue
 
@@ -145,7 +158,8 @@ def evaluate_archive(
             results.append(frame.assign(season=season))
 
         previous = mri2.fit(
-            season_games, prior=prior, with_resume=False, with_efficiency=False, **kwargs
+            season_games, prior=prior, neutral=neutral, with_resume=False, with_efficiency=False,
+            **kwargs
         ).power
 
     return pd.concat(results, ignore_index=True) if results else pd.DataFrame()

@@ -11,6 +11,7 @@ import json
 import re
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from mri.export import site
@@ -732,8 +733,14 @@ def test_a_game_log_page_states_its_season_record(built) -> None:
 
     history = seasons.team_history(seasons.football_seasons(current=2026))
     logs = gamelogs.prune(gamelogs.football(2026), history)
+    # Games added to the workbook archive before Classic has their box scores are in the log and in
+    # the MRI 2.0 record but not yet in the Classic row; the exemption lapses when Classic is rebuilt.
+    archive = pd.read_parquet(Path(__file__).resolve().parents[1] / "data" / "parquet" / "archive_games.parquet")
+    pending = set(archive.loc[~archive.get("classic_ready", True).astype(bool), "season"])
     for team, rows in list(history.items())[:20]:
         for row in rows:
+            if row["season"] in pending and row["system"] != seasons.MODERN:
+                continue
             log = (logs.get(row["season"]) or {}).get(team)
             if not log:
                 continue

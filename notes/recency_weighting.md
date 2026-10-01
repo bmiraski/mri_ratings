@@ -1,15 +1,18 @@
 # Recency weighting: results
 
+*Football figures were re-run on 2026-10-01 after the archive repairs in the last section (2017's missing
+bowls, 2004/05 neutral sites). The conclusion did not move: the holdout gain went from 0.037 to 0.034.*
+
 **Recommendation: do not ship, for either sport.** Down-weighting older games did not lower
 walk-forward error in football or basketball, at any half-life, on any block I looked at. The code is
 in and off by default; `FOOTBALL_PROFILE` and `BASKETBALL_PROFILE` are unchanged.
 
 | | Best recency setting on the tuning block | Holdout MAE gain (needs ≥ 0.05) | Seasons improved (needs ≥ 2/3) | Accuracy / Brier not worse | Verdict |
 |---|---|---|---|---|---|
-| Football (tune 2003-13, hold 2014-19) | half-life 1.0, ridge ×0.75 | **+0.037** ✗ | 4 of 6 ✓ | accuracy −0.27 pt ✗, Brier −0.0006 ✓ | **Don't ship** |
+| Football (tune 2003-13, hold 2014-19) | half-life 1.0, ridge ×0.75 | **+0.034** ✗ | 4 of 6 ✓ | accuracy −0.19 pt ✗, Brier −0.0006 ✓ | **Don't ship** |
 | Basketball (tune 2022-24, hold 2025-26) | half-life 1.0, ridge ×0.75 | **−0.014** (worse) ✗ | 0 of 2 ✗ | accuracy +0.14 pt, Brier −0.0001 | **Don't ship** |
 
-Gain is baseline MAE minus recency MAE, so positive is better. The tuning-block gains were +0.011
+Gain is baseline MAE minus recency MAE, so positive is better. The tuning-block gains were +0.012
 (football) and +0.004 (basketball): same sign as the football holdout, opposite to basketball's, and
 both far inside noise (the basketball tuner already established that 0.025 points is noise).
 
@@ -59,9 +62,9 @@ Football, 2003-2019, all five cutoffs (0.4-0.8), horizon 0.1:
 
 | Block | Accuracy | MAE | Brier |
 |---|---|---|---|
-| All 17 seasons | 73.61% | 12.956 | 0.1772 |
-| Tune 2003-13 | 73.73% | 12.692 | 0.1761 |
-| Holdout 2014-19 | 73.39% | 13.440 | 0.1792 |
+| All 17 seasons | 73.60% | 12.957 | 0.1773 |
+| Tune 2003-13 | 73.75% | 12.691 | 0.1761 |
+| Holdout 2014-19 | 73.31% | 13.445 | 0.1794 |
 
 Against the older figures (73.8% / 13.0 / 0.177), MAE and Brier are the same to rounding and accuracy has
 drifted down 0.2 points. Basketball (`BASKETBALL_PROFILE`, chain 2021-2026):
@@ -73,7 +76,7 @@ drifted down 0.2 points. Basketball (`BASKETBALL_PROFILE`, chain 2021-2026):
 
 Per cutoff and per season are in `data/recency_baseline_football.csv` and
 `data/recency_baseline_basketball.csv`. Football baseline MAE by cutoff, tune/holdout: 0.4: 13.09 /
-13.63, 0.5: 12.14 / 13.96, 0.6: 12.60 / 13.30, 0.7: 12.91 / 12.78, 0.8: 12.71 / 13.53.
+13.60, 0.5: 12.14 / 14.17, 0.6: 12.60 / 13.09, 0.7: 12.91 / 12.67, 0.8: 12.71 / 13.70.
 
 ## Grids (tuning block, MAE; `data/tuning_recency_*.csv`)
 
@@ -82,12 +85,12 @@ Football, 2003-2013. Rows are half-life as a fraction of the season (∞ is unwe
 
 | half-life | ×0.5 | ×0.75 | ×1.0 | ×1.5 |
 |---|---|---|---|---|
-| 0.15 | 13.091 | 13.231 | 13.401 | 13.710 |
-| 0.25 | 12.813 | 12.885 | 12.995 | 13.240 |
-| 0.40 | 12.722 | 12.745 | 12.818 | 13.009 |
-| 0.60 | 12.704 | 12.698 | 12.747 | 12.903 |
-| 1.00 | 12.711 | **12.681** | 12.710 | 12.834 |
-| ∞ | 12.754 | 12.695 | **12.692 (baseline)** | 12.765 |
+| 0.15 | 13.090 | 13.229 | 13.399 | 13.709 |
+| 0.25 | 12.811 | 12.882 | 12.993 | 13.237 |
+| 0.40 | 12.720 | 12.743 | 12.816 | 13.006 |
+| 0.60 | 12.702 | 12.696 | 12.745 | 12.900 |
+| 1.00 | 12.709 | **12.678** | 12.708 | 12.832 |
+| ∞ | 12.752 | 12.694 | **12.690 (baseline)** | 12.763 |
 
 Basketball, 2022-2024 (ridge ×8.0):
 
@@ -113,16 +116,16 @@ Football, 2014-2019: baseline (unweighted, ridge 4.0) vs half-life 1.0 with ridg
 
 | | Baseline | Recency | Change |
 |---|---|---|---|
-| Accuracy | 73.39% | 73.12% | −0.27 pt |
-| MAE | 13.440 | 13.403 | −0.037 |
-| Brier | 0.1792 | 0.1786 | −0.0006 |
+| Accuracy | 73.31% | 73.12% | −0.19 pt |
+| MAE | 13.445 | 13.411 | −0.034 |
+| Brier | 0.1794 | 0.1788 | −0.0006 |
 
-By cutoff (MAE change, negative is better): 0.4 −0.013, 0.5 −0.049, 0.6 −0.099, 0.7 −0.045, 0.8 +0.023.
-By season (MAE change): 2014 +0.032, 2015 +0.021, 2016 −0.068, 2017 −0.062, 2018 −0.071, 2019 −0.072.
-By season (accuracy change): 2014 −0.7 pt, 2015 −0.5, 2016 −0.5, 2017 +0.5, 2018 0.0, 2019 −0.5.
+By cutoff (MAE change, negative is better): 0.4 −0.010, 0.5 −0.030, 0.6 −0.083, 0.7 −0.053, 0.8 +0.005.
+By season (MAE change): 2014 +0.032, 2015 +0.021, 2016 −0.067, 2017 −0.046, 2018 −0.075, 2019 −0.070.
+By season (accuracy change): 2014 −0.7 pt, 2015 −0.5, 2016 −0.2, 2017 +0.7, 2018 0.0, 2019 −0.5.
 
 Fails the 0.05 bar and the accuracy condition. The gain also appears only in 2016-19 (2014 and 2015 got worse) and the
-tuning block saw just +0.011, so it looks more like a late-sample quirk than a signal. The check on 2021-25
+tuning block saw just +0.012, so it looks more like a late-sample quirk than a signal. The check on 2021-25
 below does not support it.
 
 Basketball, 2025-2026: baseline vs half-life 1.0 with ridge 6.0.
@@ -184,14 +187,41 @@ this one, and I did not test that either.
 * Basketball's carry-forward prior comes from `evaluate_season`'s last cutoff fit (0.8 of the season),
   not an end-of-season fit. That is existing behaviour, unchanged, and it means the basketball chain is
   evaluated with a slightly stale prior. A half-life reaches it only through that fit.
-* Bowls, checked against the cached CFBD games: the 2017 workbook is missing **all 42** FBS-vs-FBS
-  bowl and playoff games (it ends at the regular season, 834 games), and 2016 is missing 3 of 41. 2004
-  and 2005 are *not* missing bowls (all 28 are present); `mark_postseason` simply fails to flag them
-  because teams had played only 11 games by then, so they are treated as home games for the second-listed
-  team rather than neutral. This affects `mri2_history` and any archive-based result for those seasons.
+* The archive had two defects, both now repaired; see "Archive repairs" below.
 * If production ever uses a half-life, `season_games` must be the scheduled season length, not the
   games played so far. Defaulting to the slice length makes the half-life shrink and grow with the
   calendar.
+
+## Archive repairs (done after the analysis above)
+
+Checked against the cached CFBD games, matching on the unordered team pair and score:
+
+* **2017 workbook lacks all 40 bowl and playoff games** (it ends at the regular season, 834 games). Every
+  other season matches CFBD's postseason exactly. 2016 is complete: the three games I first reported as
+  missing were an FCS playoff game (James Madison v North Dakota State, neither FBS that year) and two
+  orientation mismatches in my own check. The 40 games are added to `archive_games.parquet` with CFBD
+  scores, dates and neutral flags, in the workbook's own team spellings.
+* **2004 and 2005 neutral sites.** `mark_postseason` flagged 2 games a year against 28 bowls. Those seasons now
+  take CFBD's flag (28-29 neutral games each, the bowls), falling back to the rule for the ~8% of games CFBD
+  cannot be matched to (mostly pooled "Non D1A" opponents). All other seasons keep the rule: it agrees with
+  CFBD's postseason flag to within 5-10 games a year, and changing it would move numbers that were tuned and
+  validated with it. 2017 uses CFBD's flags for the whole season.
+
+Effect on MRI 2.0 (`mri2_history.parquet`, regenerated): 2004 up to 0.48 points on a team (mean 0.18), 2005 up to
+0.35, 2006-2012 under 0.1, 2013-2016 unchanged, 2017 up to 2.9 (mean 0.7) because the bowls now count, and 2018-19
+up to 0.9 and 0.3 as that carries forward through the priors. The football baseline moved from 12.956 to 12.957
+MAE.
+
+**Classic is not done.** It needs rushing, passing and turnover figures for the 40 bowls, which are one box-score
+call. This session cannot reach the CFBD API (egress blocked, no key), and rebuilding them from player stats
+is not accurate enough (team rushing matches in only 14% of 2016 games). Until it is run with a key the 40 rows
+carry `classic_ready = False` and Classic's 2017 ratings are unchanged (pre-bowl, as published). To finish:
+`CFBD_API_KEY=... PYTHONPATH=src python3 scripts/build_archive.py`. The script fetches the postseason box
+scores, adds the games to Classic, and flips the flag. That path is written but untested against the live API,
+so spot-check a few 2017 bowl totals afterwards. Note that the committed `archive_ratings.parquet` was built by an
+older `classic.py` (32 columns; the current code writes 33, renaming several), so that run will change its
+schema as well as 2017. I restored it from git rather than ship an unrelated schema change; Classic's MRI and
+rank values are identical to the committed file for every season.
 
 ## Reproduce
 
