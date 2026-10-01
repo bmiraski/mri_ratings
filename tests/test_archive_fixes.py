@@ -59,3 +59,65 @@ def test_other_seasons_keep_the_inferred_rule(games: pd.DataFrame) -> None:
 def test_the_harness_uses_the_table_flags_when_complete(games: pd.DataFrame) -> None:
     season = games[games["season"] == 2004].reset_index(drop=True)
     assert backtest.season_neutral(season).sum() == season["neutral"].sum()
+
+
+# --- hand-checked score corrections ---------------------------------------------------------
+
+CORRECTED = [
+    (2003, "Arkansas State", "Mississippi", 0, 55),
+    (2004, "Cincinnati", "East Carolina", 24, 19),
+    (2004, "Arizona State", "Oregon", 28, 13),
+    (2005, "Temple", "Bowling Green", 7, 69),
+    (2009, "Southern Mississippi", "Kansas", 28, 35),
+    (2010, "UCLA", "Oregon", 13, 60),
+    # Confirmed correct in the workbook, so deliberately untouched:
+    (2003, "Cal", "Kansas State", 28, 42),
+    (2018, "Air Force", "Florida Atlantic", 27, 33),
+    (2018, "Texas State", "Georgia State", 40, 31),
+]
+
+
+@pytest.mark.parametrize("season,away,home,away_pts,home_pts", CORRECTED)
+def test_checked_scores_are_in_the_archive(games: pd.DataFrame, season, away, home, away_pts, home_pts) -> None:
+    row = games[(games["season"] == season) & (games["team1"] == away) & (games["team2"] == home)]
+    assert len(row) == 1
+    assert (row["pts1"].iloc[0], row["pts2"].iloc[0]) == (away_pts, home_pts)
+
+
+def _corrections(tmp_path, entry) -> object:
+    import json
+
+    path = tmp_path / "c.json"
+    path.write_text(json.dumps({"corrections": [entry]}))
+    return path
+
+
+def _one_game(pts1: float, pts2: float) -> pd.DataFrame:
+    return pd.DataFrame({"team1": ["A"], "team2": ["B"], "pts1": [pts1], "pts2": [pts2],
+                         "win1": [float(pts1 > pts2)], "win2": [float(pts2 > pts1)]})
+
+
+def test_a_correction_changes_only_its_game(tmp_path) -> None:
+    path = _corrections(tmp_path, {"season": 2005, "team1": "a", "team2": "B", "old": [7, 70], "new": [7, 69]})
+    fixed = archive_fixes.apply_score_corrections(2005, _one_game(7, 70), path)
+    assert (fixed["pts1"].iloc[0], fixed["pts2"].iloc[0]) == (7, 69)
+    untouched = archive_fixes.apply_score_corrections(2006, _one_game(7, 70), path)
+    assert untouched["pts2"].iloc[0] == 70
+
+
+def test_a_stale_correction_fails_loudly(tmp_path) -> None:
+    path = _corrections(tmp_path, {"season": 2005, "team1": "A", "team2": "B", "old": [7, 70], "new": [7, 69]})
+    with pytest.raises(ValueError, match="expected 1"):
+        archive_fixes.apply_score_corrections(2005, _one_game(7, 71), path)
+
+
+def test_a_correction_that_flips_the_winner_is_refused(tmp_path) -> None:
+    path = _corrections(tmp_path, {"season": 2005, "team1": "A", "team2": "B", "old": [7, 70], "new": [70, 7]})
+    with pytest.raises(ValueError, match="winner"):
+        archive_fixes.apply_score_corrections(2005, _one_game(7, 70), path)
+
+
+def test_2017_bowls_keep_their_box_scores(games: pd.DataFrame) -> None:
+    bowls = games[(games["season"] == 2017)].tail(40)
+    assert bowls["classic_ready"].all()
+    assert bowls[["rush1", "rush2", "pass1", "pass2", "to1", "to2"]].notna().all().all()

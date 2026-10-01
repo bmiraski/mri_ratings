@@ -17,7 +17,7 @@ sorted score).
 | 2013 | 855 | 848 | 7 | 0 |
 | every other season | | | 0 | 0 |
 
-Every residual falls into one of four causes. **No games are missing from any workbook.**
+Every residual falls into one of three causes. **No games are missing from any workbook.**
 
 ## 1. Transitional and mislisted FBS teams (convention, not error): 2004, 2007, 2013
 
@@ -33,22 +33,31 @@ The workbooks pool a team as "Non D1A" in its first or transitional year; CFBD's
 
 No action: the workbook treatment is deliberate and consistent.
 
-## 2. Score disagreements (8 games): the workbook and CFBD differ and I cannot say which is right
+## 2. Score disagreements (9 games): resolved
 
-| Season | Game | Workbook | CFBD |
-|---|---|---|---|
-| 2003 | Cal at Kansas State | Cal 28, KSU 42 | Cal 7, KSU 10 (dated Aug 23) |
-| 2003 | Arkansas State at Ole Miss | 0-41 | 0-55 |
-| 2004 | Cincinnati v East Carolina | 30-19 | 24-19 |
-| 2004 | Arizona State v Oregon | 28-10 | 28-13 |
-| 2005 | Temple at Bowling Green | 7-70 | 7-69 |
-| 2009 | Southern Miss at Kansas | 29-35 | 28-35 |
-| 2010 | UCLA at Oregon | 16-60 | 13-60 |
-| 2018 | Air Force v FAU; Texas State v Georgia State | 27-33; 40-31 | 26-33; 40-30 |
+The workbook and CFBD differ on nine games, and the maintainer confirmed the correct score for each. Three
+were already right in the workbook; six are corrected in `data/archive_score_corrections.json`, which
+`scripts/build_archive.py` applies before Classic and MRI 2.0 see the games (an entry that no longer matches
+exactly one row, or that would change a winner, fails the build).
 
-My recollection is that CFBD is right for UCLA-Oregon (60-13) and the workbook for Cal-Kansas State (42-28),
-but I did not check any of these against an outside source. Each is a one-to-three-point difference except the
-two 2003 games. They are worth correcting only with a source in hand.
+| Season | Game | Workbook had | Now | Verdict |
+|---|---|---|---|---|
+| 2003 | Cal at Kansas State | 28-42 | 28-42 | workbook was right (CFBD has 7-10) |
+| 2003 | Arkansas State at Ole Miss | 0-41 | 0-55 | corrected |
+| 2004 | Cincinnati v East Carolina | 30-19 | 24-19 | corrected |
+| 2004 | Arizona State v Oregon | 28-10 | 28-13 | corrected |
+| 2005 | Temple at Bowling Green | 7-70 | 7-69 | corrected |
+| 2009 | Southern Miss at Kansas | 29-35 | 28-35 | corrected |
+| 2010 | UCLA at Oregon | 16-60 | 13-60 | corrected |
+| 2018 | Air Force v FAU | 27-33 | 27-33 | workbook was right (CFBD has 26) |
+| 2018 | Texas State v Georgia State | 40-31 | 40-31 | workbook was right (CFBD has 30) |
+
+Effect. Classic caps margins at 35, so only three corrections move it: 2004 (four teams, up to 1.19 index
+points; five rank positions shift) and 2009 (two teams, up to 0.37; four rank positions shift). 2003, 2005 and
+2010 are unchanged in Classic because the corrected margins are over the cap either way. MRI 2.0 compresses
+rather than caps, so it moves a little in every season from 2003 to 2013, by at most 0.49 points on one team
+(2004), through the priors. Classic's 2004 and 2009 now differ from Ben's published figures for those teams;
+`archive_published.parquet` is untouched.
 
 ## 3. A duplicate in the CFBD feed: 2008
 
@@ -58,5 +67,4 @@ the production tables are unaffected; only a raw 2008 CFBD pull would double-cou
 
 ## Conclusion
 
-The workbooks are complete. The only real defects are the eight score disagreements, and I have not changed any
-of them.
+The workbooks are complete, and the six score errors in them are corrected.
