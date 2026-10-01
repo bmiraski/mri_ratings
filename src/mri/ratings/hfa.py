@@ -293,12 +293,17 @@ def _lagged_crowd(frame: pd.DataFrame) -> np.ndarray:
 
 # --------------------------------------------------------------------------- stage 1
 
-def walk_forward(seasons, warmup: int | None = None) -> pd.DataFrame:
+def walk_forward(seasons, warmup: int | None = None, ranks: dict | None = None) -> pd.DataFrame:
     """Pregame predictions for every game, from ratings that had not seen it.
 
     Same fit and prior as the weekly build (``priors.for_season`` chained from
     the season before), refitted before each week on the games already played.
     Week 1 is priced from the prior alone.
+
+    If ``ranks`` is a dict it is filled with ``{(season, week): {team: rank}}``: each team's Power rank, 1
+    being best, among that season's FBS field (``registry.was_fbs``) *as of the start of that week*, from the
+    same ratings that priced the week's games. This is what a historical slate page should show beside a
+    team, not today's rank.
     """
     seasons = sorted(seasons)
     warmup = warmup or seasons[0] - 1
@@ -340,6 +345,10 @@ def walk_forward(seasons, warmup: int | None = None) -> pd.DataFrame:
                                  with_resume=False, with_efficiency=False)
                 power = model.power.reindex(teams).fillna(prior)
                 home_field, sigma = model.home_field, model.sigma
+            if ranks is not None:
+                field = power[[t for t in teams if registry.was_fbs(t, season)]]
+                ordered = field.sort_values(ascending=False, kind="stable").index
+                ranks[(season, int(block))] = {t: i for i, t in enumerate(ordered, start=1)}
             for g in target.itertuples():
                 rows.append((g.game_id, season, int(block), g.team2, g.team1, bool(g.neutral),
                              g.class2 == cfbd.FBS and g.class1 == cfbd.FBS,

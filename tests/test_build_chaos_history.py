@@ -88,12 +88,14 @@ def test_bucket_days_groups_by_date_in_order() -> None:
 
 def test_slate_archive_record_shape() -> None:
     games = _week(n=12)
-    record = bch._slate_archive_record(1987, 3, games, [{"team": "Home0", "rank": 5, "color": "#fff"}])
+    record = bch._slate_archive_record(
+        1987, 3, games, [{"team": "Home0", "rank": 5, "color": "#fff"}], {(1987, 3): {"Home0": 12}}
+    )
     assert record["season"] == 1987 and record["week"] == 3
     assert "label" not in record
     assert record["watch"] == [] and record["results"] == []
     assert record["games"] == 12
-    assert record["teams"]["Home0"]["rank"] == 5
+    assert record["teams"]["Home0"]["rank"] == 12  # the rank that week, not the payload's current 5
     assert "Home1" not in record["teams"]  # not in the payload's team list - degrades to plain text
 
 
