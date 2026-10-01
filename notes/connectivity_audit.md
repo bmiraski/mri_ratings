@@ -70,6 +70,29 @@ below uses Dec 15, not Nov 30.
   nine 2026 orphans above print a warning and the build passes. If they are still there once Week 5
   games arrive, the build will fail and that is the intended behaviour.
 
+## Open item for end of season: the daily workflow does not run the enforced check
+
+`.github/workflows/weekly.yml` (the daily and Saturday refresh) runs only `scripts/build_site.py`, which rates
+the current season itself. It never calls `build_current.py` or `build_basketball.py`, so the build-time
+failure described above fires only when someone runs those scripts by hand. In the scheduled run a stranded
+team produces no failure and no warning.
+
+Decided on 2026-10-01 to leave this as is for now. Worth revisiting at the end of the season, or sooner if a
+stranded team is ever seen in the published pages. Two ways to close it:
+
+1. Add a short connectivity step to `build_site.py` for the current season, using the same thresholds
+   (`connectivity.football_enforced` after Week 5 games exist; `connectivity.basketball_enforced` from Dec 15).
+   Cheap, and it guards exactly what is published. Preferred.
+2. Add `build_current.py` (and `build_basketball.py`) to the workflow. More run time, and it would start
+   committing parquet files the workflow does not touch today.
+
+Context for deciding: the audit found one material disconnection in 49 football seasons (2020, a COVID
+conference-only schedule) and none in basketball since 2005, so the risk is low. The main thing the check would
+catch in practice is a registry name mismatch, which shows up as a zero-game team. Not a reason to act now.
+`data/parquet/current_ratings.parquet` and `current_games.parquet` are also only as fresh as the last manual
+`build_current.py` run (last committed 2026-09-27), and feed the historical pages, coach metrics and the betting
+board.
+
 ## Notes on method
 
 Slices are every 1% of a season's games (football) or every day (basketball), in row order. Row order
@@ -124,7 +147,7 @@ Strict view = FBS teams only, games between two FBS teams. `regular_season_orpha
 | 2014 | workbook | 868 | 128 | 1 | 0 | 0 | 29% | 29% | 0.29 | North Carolina, San Diego State |  | 66 | 60 | 118 | 6 | 117 | 4 | 12 | 0 | 0 | 0 |
 | 2015 | workbook | 870 | 128 | 1 | 0 | 0 | 26% | 26% | 0.26 | Arkansas, Texas Tech, Toledo |  | 68 | 58 | 121 | 4 | 121 | 1 | 10 | 0 | 0 | 0 |
 | 2016 | workbook | 873 | 128 | 1 | 0 | 0 | 29% | 29% | 0.29 | Minnesota, Oregon State |  | 65 | 60 | 124 | 1 | 120 | 1 | 9 | 0 | 0 | 0 |
-| 2017 | workbook | 834 | 130 | 1 | 0 | 0 | 32% | 32% | 0.32 | FIU, UCF |  | 63 | 64 | 115 | 12 | 123 | 2 | 23 | 0 | 0 | 0 |
+| 2017 | workbook | 874 | 130 | 1 | 0 | 0 | 30% | 30% | 0.3 | FIU, UCF |  | 67 | 60 | 118 | 9 | 123 | 2 | 13 | 0 | 0 | 0 |
 | 2018 | workbook | 884 | 130 | 1 | 0 | 0 | 26% | 26% | 0.26 | Akron, Louisiana-Monroe, Southern Miss |  | 66 | 61 | 123 | 3 | 123 | 0 | 3 | 0 | 0 | 0 |
 | 2019 | workbook | 888 | 130 | 1 | 0 | 0 | 26% | 26% | 0.26 | Air Force, Arkansas, Colorado |  | 73 | 55 | 126 | 0 | 122 | 0 | 10 | 0 | 0 | 0 |
 | 2020 | CFBD | 570 | 128 | 2 | 1 | 0 | never | never |  |  | 40.0 | 44 | 81 | 64 | 57 | 32 | 53 | 3 | 41 | 7 | 31 |
