@@ -131,7 +131,8 @@ def _bucket_days(entries: list[dict]) -> list[dict]:
     return days
 
 
-def _slate_archive_record(season: int, week: int, games: pd.DataFrame, teams_payload: list[dict]) -> dict:
+def _slate_archive_record(season: int, week: int, games: pd.DataFrame, teams_payload: list[dict],
+                          ranks: dict | None = None) -> dict:
     day_entries, finals, fcs_entries = _slate_archive_games(games)
     is_bowls = bool((games["season_type"] != "regular").any())
     return {
@@ -139,13 +140,15 @@ def _slate_archive_record(season: int, week: int, games: pd.DataFrame, teams_pay
         **({"label": cfbd.POSTSEASON_LABEL} if is_bowls else {}),
         "days": _bucket_days(day_entries), "results": [], "fcs": fcs_entries,
         "watch": [], "flagged": 0, "games": len(day_entries) + len(fcs_entries),
-        "saved": f"{season}-week-{week}-historical-backfill",
+        "saved": f"{season}-week-{week}-{slatearchive.HISTORICAL_SUFFIX}",
         "finals": finals,
-        "teams": {t["team"]: {k: t.get(k) for k in slatearchive.TEAM_FIELDS} for t in teams_payload},
+        # Ranks as of that week, not today's: see slatearchive.historical_teams.
+        "teams": slatearchive.historical_teams(teams_payload, (ranks or {}).get((season, week), {})),
     }
 
 
-def _write_slate_archives(pregame_scored: pd.DataFrame, docs_dir: Path, teams_payload: list[dict]) -> None:
+def _write_slate_archives(pregame_scored: pd.DataFrame, docs_dir: Path, teams_payload: list[dict],
+                          ranks: dict | None = None) -> None:
     """Write every week's historical slate archive, write-once, same as the live season's own
     ``slatearchive.snapshot`` - a week already on disk is never touched again. ``slate_archives()``
     (``site.py``) picks these up and renders them to HTML on the site's next normal build; nothing
@@ -158,7 +161,7 @@ def _write_slate_archives(pregame_scored: pd.DataFrame, docs_dir: Path, teams_pa
         path = slatearchive.archive_path(docs_dir, season, week)
         if path.exists():
             continue
-        record = _slate_archive_record(season, week, games, teams_payload)
+        record = _slate_archive_record(season, week, games, teams_payload, ranks)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(record, indent=1))
         written += 1
@@ -167,7 +170,8 @@ def _write_slate_archives(pregame_scored: pd.DataFrame, docs_dir: Path, teams_pa
 
 def main() -> None:
     print(f"walking forward {SEASONS.start}-{SEASONS.stop - 1} ({len(SEASONS)} seasons)...")
-    pregame = hfa.walk_forward(SEASONS)
+    ranks: dict = {}
+    pregame = hfa.walk_forward(SEASONS, ranks=ranks)
     pregame = _with_results(pregame).rename(columns={"seq": "week"})
     pregame["home_win_prob_raw"] = norm.cdf(pregame["base_line"] / SIGMA)
     pregame["home_won"] = pregame["pts2"] > pregame["pts1"]
@@ -262,7 +266,7 @@ def main() -> None:
           f"{sum(len(s['weeks']) for s in history_data['seasons'].values())} weeks total)")
 
     teams_payload = json.loads(SITE_JSON.read_text())["teams"] if SITE_JSON.exists() else []
-    _write_slate_archives(pregame, DOCS_DIR, teams_payload)
+    _write_slate_archives(pregame, DOCS_DIR, teams_payload, ranks)
 
 
 if __name__ == "__main__":
