@@ -25,8 +25,10 @@ The workbooks pool a team as "Non D1A" in its first or transitional year; CFBD's
 
 * **2004:** Florida Atlantic and Florida A&M are on CFBD's FBS list. The workbook files their games under "Non D1A".
   That is the right call (FAMU is FCS, and FAU played its first FBS season in 2005), and it explains the two
-  zero-game teams in `connectivity_audit.md`. About 24 CFBD-only rows and 10 workbook-only rows are these games
-  seen from the two sides.
+  zero-game teams in `connectivity_audit.md`. Of the 35 CFBD-only rows, 33 involve FAU or FAMU (mostly games
+  against other FCS teams, which a workbook of FBS schedules would not hold anyway); the other two are score
+  disagreements (section 2). Of the 12 workbook-only rows, 10 are FAU/FAMU games against FBS teams, filed as
+  "Non D1A", and the same two are score disagreements.
 * **2007:** Western Kentucky's 6 games; **2013:** Old Dominion's 7. Both were transitional programs.
 
 No action: the workbook treatment is deliberate and consistent.
