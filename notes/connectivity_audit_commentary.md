@@ -66,6 +66,29 @@ below uses Dec 15, not Nov 30.
   nine 2026 orphans above print a warning and the build passes. If they are still there once Week 5
   games arrive, the build will fail and that is the intended behaviour.
 
+## Open item for end of season: the daily workflow does not run the enforced check
+
+`.github/workflows/weekly.yml` (the daily and Saturday refresh) runs only `scripts/build_site.py`, which rates
+the current season itself. It never calls `build_current.py` or `build_basketball.py`, so the build-time
+failure described above fires only when someone runs those scripts by hand. In the scheduled run a stranded
+team produces no failure and no warning.
+
+Decided on 2026-10-01 to leave this as is for now. Worth revisiting at the end of the season, or sooner if a
+stranded team is ever seen in the published pages. Two ways to close it:
+
+1. Add a short connectivity step to `build_site.py` for the current season, using the same thresholds
+   (`connectivity.football_enforced` after Week 5 games exist; `connectivity.basketball_enforced` from Dec 15).
+   Cheap, and it guards exactly what is published. Preferred.
+2. Add `build_current.py` (and `build_basketball.py`) to the workflow. More run time, and it would start
+   committing parquet files the workflow does not touch today.
+
+Context for deciding: the audit found one material disconnection in 49 football seasons (2020, a COVID
+conference-only schedule) and none in basketball since 2005, so the risk is low. The main thing the check would
+catch in practice is a registry name mismatch, which shows up as a zero-game team. Not a reason to act now.
+`data/parquet/current_ratings.parquet` and `current_games.parquet` are also only as fresh as the last manual
+`build_current.py` run (last committed 2026-09-27), and feed the historical pages, coach metrics and the betting
+board.
+
 ## Notes on method
 
 Slices are every 1% of a season's games (football) or every day (basketball), in row order. Row order
