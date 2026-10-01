@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.ingest import bb_registry as registry  # noqa: E402
-from mri.ratings import bb_backtest as bb, bb_priors, mri2  # noqa: E402
+from mri.ratings import bb_backtest as bb, bb_priors, connectivity, mri2  # noqa: E402
 
 WARMUP = 2020          # 2019-20, the last season Ben ran himself
 # Through to the current season. Seasons with no games yet are skipped, so this
@@ -52,6 +52,15 @@ def main() -> None:
             ridge=mri2.BASKETBALL_PROFILE.ridge,
             home_field_prior=mri2.BASKETBALL_PROFILE.home_field_prior,
             with_efficiency=False,
+        )
+
+        # Fail the build if a D1 team is stranded or missing, but only for the
+        # current season and only once it is far enough along (see
+        # ratings/connectivity.py). Finished seasons just report.
+        connectivity.check(
+            connectivity.analyze(games, rated=rated, expected=sorted(registry.teams(season))),
+            f"basketball {season - 1}-{str(season)[2:]}",
+            enforce=connectivity.basketball_enforced(games, season, registry.CURRENT_SEASON),
         )
 
         table = model.table().assign(season=season)
