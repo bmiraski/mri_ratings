@@ -38,10 +38,13 @@ workbook, team1 is the visitor.
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass, field
 
 import numpy as np
 import pandas as pd
+
+from . import connectivity as _connectivity
 
 # Defaults tuned against the 2003-2019 archive; see scripts/tune_mri2.py.
 DEFAULT_COMPRESSION = 40.0
@@ -127,6 +130,7 @@ class Ratings:
     resume: pd.Series = field(default=None)
     adj_offense: pd.Series = field(default=None)
     adj_defense: pd.Series = field(default=None)
+    connectivity: _connectivity.Connectivity | None = field(default=None, repr=False)
 
     def table(self) -> pd.DataFrame:
         frame = pd.DataFrame(
@@ -215,6 +219,9 @@ def fit(
     home_field_ridge: float = DEFAULT_HOME_FIELD_RIDGE,
     with_resume: bool = True,
     with_efficiency: bool = True,
+    recency_half_life: float | None = None,
+    season_games: int | None = None,
+    check_connectivity: bool = True,
 ) -> Ratings:
     """Solve every game at once for a power rating in points.
 
@@ -237,6 +244,29 @@ def fit(
         mass down with them. Anchoring changes no prediction, since a uniform
         shift cancels in every rating difference, but it keeps "zero" meaning
         "an average FBS team" from one season to the next.
+    recency_half_life
+        Optional recency weighting for ``power``: the age, as a *fraction of the
+        season*, at which a game counts half as much as the latest one. ``None``
+        (the default) is the unweighted fit, bit for bit. Age is read from row
+        position, not dates - the archive has none for most seasons - so the
+        rows must be chronological, as the walk-forward already assumes.
+        ``season_games`` is the length of the full season the slice belongs to
+        (default: the slice itself); a walk-forward slice must pass it so a
+        half-life means the same thing at every cutoff.
+
+        Weighted: the solve, the ``scale`` rescale, the home-field mean and
+        ``sigma``. All four describe "how good is this team now" and are used
+        to predict games after the slice, so they should read the evidence the
+        same way. The home-field mean keeps its ridge prior at full strength
+        against the *weighted* game count, so weighting leaves that prior
+        relatively heavier - the same effect it has on the team ridge.
+
+        Not weighted: ``resume`` ("what has this team earned over the whole
+        season"), which comes from a second, unweighted solve, and the
+        yardage-efficiency layer.
+    check_connectivity
+        Store a ``Connectivity`` report on the result and warn (never raise) if
+        a rated team is stranded; see ``mri.ratings.connectivity``.
     """
     if games.empty:
         raise ValueError("no games to fit")
@@ -265,12 +295,84 @@ def fit(
     if POOLED_FCS in teams:
         prior_vector[teams.index(POOLED_FCS)] = REPLACEMENT_PRIOR
 
+    weights = None
+    if recency_half_life is not None:
+        weights = recency_weights(len(games), recency_half_life, season_games)
+
+    solve_args = (games, X, y, neutral, teams, prior_vector)
+    solve_kwargs = dict(
+        ridge=ridge,
+        home_field_prior=home_field_prior,
+        home_field_ridge=home_field_ridge,
+        anchor_teams=anchor_teams,
+    )
+    power, home_field, sigma, hosted = _solve(*solve_args, weights=weights, **solve_kwargs)
+    if weights is None or not with_resume:
+        resume_basis = (power, home_field, sigma)
+    else:
+        # Résumé is "what has this team earned over the whole season", so it is
+        # judged against an unweighted fit of the same games. Power is the
+        # "how good now" number; the two answer different questions.
+        plain = _solve(*solve_args, weights=None, **solve_kwargs)
+        resume_basis = plain[:3]
+
+    played = pd.concat([games["team1"], games["team2"]]).value_counts()
+    played = played.reindex(teams).fillna(0).astype(int)
+
+    ratings = Ratings(power=power, home_field=home_field, sigma=sigma, games_played=played)
+
+    if check_connectivity:
+        ratings.connectivity = _connectivity.analyze(games, rated=anchor_teams)
+        if not ratings.connectivity.ok:
+            warnings.warn(ratings.connectivity.summary(), _connectivity.ConnectivityWarning,
+                          stacklevel=2)
+
+    if with_resume:
+        ratings.resume = wins_above_expected(games, *resume_basis, neutral)
+
+    # Yardage lives in box scores, which the API serves a week at a time and the
+    # games feed omits entirely. The power rating never needed it, so when it is
+    # absent the efficiency layer is simply skipped rather than treated as an
+    # error - scores alone are enough to rate a season.
+    has_yardage = {"rush1", "rush2", "pass1", "pass2"} <= set(games.columns)
+    if with_efficiency and has_yardage:
+        offense, defense = _fit_efficiency(games, teams, X[:, :-1], ridge)
+        ratings.adj_offense, ratings.adj_defense = offense, defense
+    return ratings
+
+
+def recency_weights(n_games: int, half_life: float, season_games: int | None = None) -> np.ndarray:
+    """Weight per game, 0.5 ** (age / half_life), age a fraction of the season.
+
+    Age is the game's row distance from the slice's last game, divided by the
+    length of the full season. Rows must be chronological.
+    """
+    if half_life <= 0:
+        raise ValueError("recency_half_life must be positive")
+    season = season_games or n_games
+    age = (n_games - 1 - np.arange(n_games)) / float(season)
+    return 0.5 ** (age / half_life)
+
+
+def _solve(
+    games, X, y, neutral, teams, prior_vector, *,
+    ridge, home_field_prior, home_field_ridge, anchor_teams, weights,
+):
+    """One ridge solve plus everything downstream of it that depends on the weights.
+
+    ``weights=None`` is the original unweighted arithmetic, expression for
+    expression; the weighted branches reduce to it when every weight is one.
+    """
     penalty = np.full(len(teams) + 1, ridge)
     penalty[-1] = home_field_ridge
     target = np.append(prior_vector, home_field_prior)
 
-    gram = X.T @ X + np.diag(penalty)
-    rhs = X.T @ y + penalty * target
+    if weights is None:
+        gram = X.T @ X + np.diag(penalty)
+        rhs = X.T @ y + penalty * target
+    else:
+        gram = X.T @ (weights[:, None] * X) + np.diag(penalty)
+        rhs = X.T @ (weights * y) + penalty * target
     solution = np.linalg.solve(gram, rhs)
 
     raw = solution[:-1]
@@ -283,7 +385,11 @@ def fit(
     # index. Without this the model would quietly under-price every favourite.
     actual = games["pts2"].to_numpy(float) - games["pts1"].to_numpy(float)
     edge = X[:, :-1] @ raw + X[:, -1] * raw_home_field
-    scale = float(actual @ edge / (edge @ edge)) if edge @ edge > 0 else 1.0
+    if weights is None:
+        scale = float(actual @ edge / (edge @ edge)) if edge @ edge > 0 else 1.0
+    else:
+        denominator = float(edge @ (weights * edge))
+        scale = float(actual @ (weights * edge) / denominator) if denominator > 0 else 1.0
     scale = float(np.clip(scale, 0.5, 4.0))
 
     power = pd.Series(raw * scale, index=teams, name="power")
@@ -311,10 +417,17 @@ def fit(
     else:
         measurable = hosted
 
-    home_field = float(
-        (residual_margin[measurable].sum() + home_field_ridge * home_field_prior)
-        / (measurable.sum() + home_field_ridge)
-    )
+    if weights is None:
+        home_field = float(
+            (residual_margin[measurable].sum() + home_field_ridge * home_field_prior)
+            / (measurable.sum() + home_field_ridge)
+        )
+    else:
+        w_home = weights[measurable]
+        home_field = float(
+            ((w_home * residual_margin[measurable]).sum() + home_field_ridge * home_field_prior)
+            / (w_home.sum() + home_field_ridge)
+        )
 
     if anchor_teams:
         present = [t for t in anchor_teams if t in power.index]
@@ -325,26 +438,19 @@ def fit(
     # A one-game training set (some early CFBD seasons open with a single nationally-televised
     # game before the rest of the week kicks off) makes ddof=1 undefined, and numpy returns NaN -
     # which is truthy, so ``nan or DEFAULT`` would return the NaN rather than falling back.
-    fitted_sigma = float(np.std(residuals, ddof=1)) if len(residuals) > 1 else float("nan")
+    if weights is None:
+        fitted_sigma = float(np.std(residuals, ddof=1)) if len(residuals) > 1 else float("nan")
+    elif len(residuals) > 1:
+        # Reliability-weighted variance; equals the ddof=1 estimate when weights are equal.
+        v1, v2 = weights.sum(), (weights**2).sum()
+        mean = (weights * residuals).sum() / v1
+        fitted_sigma = float(
+            np.sqrt((weights * (residuals - mean) ** 2).sum() / (v1 - v2 / v1))
+        )
+    else:
+        fitted_sigma = float("nan")
     sigma = fitted_sigma if fitted_sigma > 0 else DEFAULT_MARGIN_SIGMA
-
-    played = pd.concat([games["team1"], games["team2"]]).value_counts()
-    played = played.reindex(teams).fillna(0).astype(int)
-
-    ratings = Ratings(power=power, home_field=home_field, sigma=sigma, games_played=played)
-
-    if with_resume:
-        ratings.resume = wins_above_expected(games, power, home_field, sigma, neutral)
-
-    # Yardage lives in box scores, which the API serves a week at a time and the
-    # games feed omits entirely. The power rating never needed it, so when it is
-    # absent the efficiency layer is simply skipped rather than treated as an
-    # error - scores alone are enough to rate a season.
-    has_yardage = {"rush1", "rush2", "pass1", "pass2"} <= set(games.columns)
-    if with_efficiency and has_yardage:
-        offense, defense = _fit_efficiency(games, teams, X[:, :-1], ridge)
-        ratings.adj_offense, ratings.adj_defense = offense, defense
-    return ratings
+    return power, home_field, sigma, hosted
 
 
 def wins_above_expected(

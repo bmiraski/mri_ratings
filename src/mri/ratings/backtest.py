@@ -72,6 +72,9 @@ def evaluate_season(
             neutral=neutral.iloc[:split],
             with_resume=False,
             with_efficiency=False,
+            # The slice is a prefix of the season; recency age is measured against
+            # the whole season so a half-life means the same at every cutoff.
+            season_games=n,
             **fit_kwargs,
         )
 
