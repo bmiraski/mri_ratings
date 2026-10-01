@@ -35,15 +35,22 @@ def main() -> None:
     if not seasons:
         raise SystemExit(f"no workbooks found in {archive_dir}")
 
+    # Box scores for games added from CFBD are fetched once and kept in archive_games.parquet; a rebuild
+    # without an API key reuses them instead of dropping them.
+    existing = out_dir / "archive_games.parquet"
+    known = pd.read_parquet(existing) if existing.exists() else None
+
     all_games, all_ratings, all_published = [], [], []
     for year, season in seasons.items():
-        games, teams = classic.canonicalize(season.games, season.teams)
+        # Scores checked by hand against another source (data/archive_score_corrections.json).
+        workbook = archive_fixes.apply_score_corrections(year, season.games)
+        games, teams = classic.canonicalize(workbook, season.teams)
         games = games.assign(season=year)
 
         # Postseason games the workbook lacks (all of 2017's bowls). MRI 2.0 needs only the
         # scores; Classic also needs box scores, so it gets them only when they are in hand.
-        extra = archive_fixes.missing_postseason(year, games, teams)
-        classic_games = season.games
+        extra = archive_fixes.missing_postseason(year, games, teams, known=known)
+        classic_games = workbook
         if not extra.empty:
             print(f"  {year}: {len(extra)} postseason games missing from the workbook, added from CFBD")
             ready = archive_fixes.has_stats(extra)
@@ -54,7 +61,7 @@ def main() -> None:
             )
             if ready:
                 classic_games = pd.concat(
-                    [season.games, extra.drop(columns=["neutral", "game_id", "season"])], ignore_index=True
+                    [workbook, extra.drop(columns=["neutral", "game_id", "season"])], ignore_index=True
                 )
             else:
                 print(f"  {year}: Classic left WITHOUT these games (no box scores), and they are marked "

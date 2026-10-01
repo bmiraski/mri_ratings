@@ -1,0 +1,88 @@
+{
+ "_note": "Workbook scores that disagree with CFBD, resolved by hand (the maintainer confirmed the correct score for each). Applied by scripts/build_archive.py before Classic and MRI 2.0 see the games. 'old' is what the workbook holds; build_archive fails if it no longer matches exactly one row, so a stale entry cannot silently do nothing. team1 is the visitor, team2 the host.",
+ "corrections": [
+  {
+   "season": 2003,
+   "team1": "Arkansas State",
+   "team2": "Mississippi",
+   "old": [
+    0,
+    41
+   ],
+   "new": [
+    0,
+    55
+   ]
+  },
+  {
+   "season": 2004,
+   "team1": "Cincinnati",
+   "team2": "East Carolina",
+   "old": [
+    30,
+    19
+   ],
+   "new": [
+    24,
+    19
+   ]
+  },
+  {
+   "season": 2004,
+   "team1": "Arizona State",
+   "team2": "Oregon",
+   "old": [
+    28,
+    10
+   ],
+   "new": [
+    28,
+    13
+   ]
+  },
+  {
+   "season": 2005,
+   "team1": "Temple",
+   "team2": "Bowling Green",
+   "old": [
+    7,
+    70
+   ],
+   "new": [
+    7,
+    69
+   ]
+  },
+  {
+   "season": 2009,
+   "team1": "Southern Mississippi",
+   "team2": "Kansas",
+   "old": [
+    29,
+    35
+   ],
+   "new": [
+    28,
+    35
+   ]
+  },
+  {
+   "season": 2010,
+   "team1": "UCLA",
+   "team2": "Oregon",
+   "old": [
+    16,
+    60
+   ],
+   "new": [
+    13,
+    60
+   ]
+  }
+ ],
+ "_confirmed_workbook_correct": [
+  "2003 Cal 28 at Kansas State 42 (CFBD has 7-10)",
+  "2018 Air Force 27 v FAU 33 (CFBD has 26)",
+  "2018 Texas State 40 v Georgia State 31 (CFBD has 30)"
+ ]
+}

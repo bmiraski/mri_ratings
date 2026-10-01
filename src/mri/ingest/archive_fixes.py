@@ -23,10 +23,13 @@ attaches them when they are cached or fetchable and leaves them NaN otherwise.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
-from ..ratings import mri2
+from ..ratings import classic, mri2
 from . import cfbd, registry
 
 # Seasons whose neutral flags come from CFBD. Elsewhere the rule works (it agrees
@@ -35,6 +38,37 @@ from . import cfbd, registry
 NEUTRAL_FROM_CFBD = (2004, 2005)
 
 STAT_COLUMNS = ["rush1", "rush2", "pass1", "pass2", "to1", "to2"]
+
+CORRECTIONS_PATH = Path(__file__).resolve().parents[3] / "data" / "archive_score_corrections.json"
+
+
+def apply_score_corrections(season: int, games: pd.DataFrame, path: Path = CORRECTIONS_PATH) -> pd.DataFrame:
+    """Fix workbook scores that were checked by hand against another source.
+
+    Each entry names the game, the score the workbook holds (``old``) and the right one (``new``). An entry
+    that does not match exactly one row raises, so a stale or mistyped correction cannot quietly do nothing.
+    ``games`` is the raw workbook table (visitor in ``team1``); win flags are untouched, which is right
+    because no correction changes a winner (asserted).
+    """
+    if not path.exists():
+        return games
+    games = games.copy()
+    key1 = games["team1"].map(classic._match_key)
+    key2 = games["team2"].map(classic._match_key)
+    for entry in json.loads(path.read_text())["corrections"]:
+        if entry["season"] != season:
+            continue
+        hit = (
+            (key1 == classic._match_key(entry["team1"])) & (key2 == classic._match_key(entry["team2"]))
+            & (games["pts1"] == entry["old"][0]) & (games["pts2"] == entry["old"][1])
+        )
+        if hit.sum() != 1:
+            raise ValueError(f"score correction matches {int(hit.sum())} rows, expected 1: {entry}")
+        old_winner = entry["old"][0] > entry["old"][1]
+        if old_winner != (entry["new"][0] > entry["new"][1]):
+            raise ValueError(f"score correction changes the winner, which win1/win2 would not follow: {entry}")
+        games.loc[hit, ["pts1", "pts2"]] = entry["new"]
+    return games
 
 
 def _canon(name: object) -> str:
@@ -85,7 +119,8 @@ def _archive_spelling(games: pd.DataFrame, teams: list[str] | None) -> dict[str,
 
 
 def missing_postseason(
-    season: int, games: pd.DataFrame, teams: list[str] | None = None, *, with_box_scores: bool = True
+    season: int, games: pd.DataFrame, teams: list[str] | None = None, *, with_box_scores: bool = True,
+    known: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     """Postseason games CFBD has and the workbook lacks, in the workbook's own columns.
 
@@ -133,7 +168,32 @@ def missing_postseason(
         out[column] = np.nan
     if with_box_scores:
         out = _attach_box_scores(season, out)
+    if known is not None and not has_stats(out):
+        out = _reuse_known_stats(season, out, known)
     return out
+
+
+def _reuse_known_stats(season: int, extra: pd.DataFrame, known: pd.DataFrame) -> pd.DataFrame:
+    """Fill missing box-score stats from a previously built archive table.
+
+    Lets the archive be rebuilt offline: box scores are fetched once (they need an API key) and live
+    in ``archive_games.parquet`` afterwards, so a rebuild without a key keeps them.
+    """
+    prior = known[(known["season"] == season) & known[STAT_COLUMNS].notna().all(axis=1)]
+    if prior.empty:
+        return extra
+    lookup = {_key(r.team1, r.team2, r.pts1, r.pts2): r for r in prior.itertuples()}
+    extra = extra.copy()
+    filled = 0
+    for i, row in extra.iterrows():
+        hit = lookup.get(_key(row["team1"], row["team2"], row["pts1"], row["pts2"]))
+        if hit is not None and pd.isna(row[STAT_COLUMNS]).all():
+            for column in STAT_COLUMNS:
+                extra.at[i, column] = getattr(hit, column)
+            filled += 1
+    if filled:
+        print(f"  {season}: reused box scores for {filled} games from the existing archive_games.parquet")
+    return extra
 
 
 def _attach_box_scores(season: int, extra: pd.DataFrame) -> pd.DataFrame:
