@@ -1,15 +1,28 @@
 ## Summary
 
-**Was disconnection ever a real problem? Barely, and never in a way that touched published ratings.**
-Across 49 football seasons (1978-2026) and 22 basketball seasons (2005-2026), exactly one *finished*
-season has a strict orphan (football 2020, one team). Every other finished season's rated graph is a
-single connected component. Zero-game roster teams turn up in a handful of seasons and are all
-accounted for below. Nothing here suggests the ridge solve has been quietly mis-rating a
-conference-sized island.
+**Was disconnection ever a real problem? Once, in football 2020, and it is the case the check was built for.**
+Across 49 football seasons (1978-2026) and 22 basketball seasons (2005-2026), every finished season's
+rated graph is a single connected component *except 2020*. In 2020 the regular season alone splits FBS
+into **four components**: the 12 MAC teams, the 14 SEC teams and the 14 Big Ten teams, each a closed
+conference-only schedule, and everyone else (89 teams). The 40 teams in the three islands play no one
+outside their own conference. What joins them is the 28 bowl
+and spring games, plus, in production, the 2019 prior. With those included the graph has one stray
+(New Mexico State). Nothing in the output flagged any of this, which is the failure the ridge solve hides:
+for that season the relative level of the SEC, Big Ten and MAC rests on 26 postseason games and a prior,
+not on a connected season of results.
+
+Code that fits a finished season's regular-season games with no prior inherits the islands:
+`ratings/prior_fit.py` (it fits 2020 but excludes it from its dataset, so harmless) and `heisman/teams.py`
+(`team_state` fits with no prior for a finished season, so any season-2020 call has three unanchored
+islands). Both raised the new warning during the test run. Whether the 2020 ratings in `current_ratings.parquet` are
+misplaced across conferences is worth a look, but I did not investigate it. Every other finished season
+is clean on both the all-games and the regular-season-only views. Zero-game roster teams turn up in a
+few seasons and are all accounted for below.
 
 | | Finding | Real? |
 |---|---|---|
-| Football 2020 | **New Mexico State** is a strict orphan: two games, both against FCS opponents (Tarleton State and Utah Tech), played in Feb-Mar 2021, after the fall season. It sits at its prior. | Yes, and correct to flag |
+| Football 2020, regular season | 4 components (MAC / SEC / Big Ten / rest), 40 teams outside the main one; see above. | **Yes, material** |
+| Football 2020, all games | **New Mexico State** is a strict orphan: two games, both against FCS opponents (Tarleton State and Utah Tech), played in Feb-Mar 2021, after the fall season. It sits at its prior. | Yes, and correct to flag |
 | Football 2004 | Florida Atlantic and Florida A&M are on CFBD's FBS list for 2004 but have no games in the workbook under any spelling; FAU's first workbook games are 2005 (11 of them). | Roster-source artifact; not traced further |
 | Basketball 2021 | Nine roster teams with zero games: the eight Ivy League schools (whose season was cancelled) and Maryland Eastern Shore (reason not checked). | Yes, a genuine absence |
 | Basketball 2005-13 | Abilene Christian is on the API roster with zero games; its first games in the data are 2013-14. | Roster-source artifact |
@@ -20,7 +33,7 @@ rostered team with zero games, or a rated team with games but no rated opponent)
 cases above, none of which is a spelling problem. That is the useful negative result: the registry
 and the feeds agree.
 
-The loose view differs from the strict view only in two places: 2020 and 2026 (the same teams), and
+The loose view differs from the strict view only in a few places: 2020 and 2026 (the same teams), and
 basketball 2013 and 2014, where two non-D1 programs (Faith Baptist Bible and Grinnell; Crossroads College and Grinnell) form a two-node island of their own. That is
 irrelevant to ratings, and is why the strict view exists.
 
@@ -44,7 +57,8 @@ below uses Dec 15, not Nov 30.
 * `scripts/build_current.py` and `scripts/build_basketball.py` fail the build for the **current season
   only**, once it is far enough along: football once Week 5 games exist; basketball once the latest
   game is on or after Dec 15. Finished seasons print a warning. They cannot fail, because 2020 and
-  2021 have permanent, legitimate gaps.
+  2021 have permanent, legitimate gaps. Football's check uses all games, so a repeat of 2020 would pass
+  once bowls were played but warn in the regular season, as it should.
 * `MRI_CONNECTIVITY_ALLOW="Team A,Team B"` waves named teams through, for a team that truly has no games.
 * `mri2_history.parquet` takes its 2020+ rows from `current_ratings.parquet`, so it is covered by the
   `build_current.py` check; its archive seasons are finished and only warn.

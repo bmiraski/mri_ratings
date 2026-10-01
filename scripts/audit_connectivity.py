@@ -140,6 +140,12 @@ def audit(seasons_iter, sport):
             "orphan_free_share": round(stable_strict[1] / len(games), 3) if stable_strict else None,
             "last_orphan_before": late,
         }
+        if "season_type" in games.columns:
+            # The same question for the regular season alone: bowls and playoffs can be the only
+            # thing linking conference islands (2020), and some code fits regular-season games only.
+            regular = games[games["season_type"] == "regular"]
+            reg = connectivity.analyze(regular, rated=rated)
+            row["regular_season_orphans_end"] = len(reg.strict.orphans)
         for name, rows_in in checkpoints.items():
             usable = [c for _, e, c in res if e <= rows_in]
             c = usable[-1] if usable else res[0][2]
@@ -184,7 +190,8 @@ def main() -> None:
         "`notes/connectivity_audit_commentary.md`, written by hand and spliced in._\n",
         COMMENTARY.read_text() if COMMENTARY.exists() else "",
         "## Football\n",
-        "Strict view = FBS teams only, games between two FBS teams. Roster = that season's CFBD FBS list "
+        "Strict view = FBS teams only, games between two FBS teams. `regular_season_orphans_end` repeats the "
+        "end-of-season check on regular-season games only (CFBD-sourced seasons, which carry a season type). Roster = that season's CFBD FBS list "
         "(a rostered team with no games is *zero-game*). `stable_from` is the first slice after which every "
         "later slice is fully connected with no zero-game teams.\n",
         md_table(fb), "\n### Finished seasons with orphans or zero-game teams\n", detail_block(fb_detail),

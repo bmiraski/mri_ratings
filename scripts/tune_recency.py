@@ -18,8 +18,20 @@ Football tunes on 2003-2013 and reports 2014-2019; basketball tunes on 2022-2024
 reports 2025-2026. Both walk the whole chain with the half-life applied, including the
 end-of-season rating that primes the next season.
 
+A third mode, ``basketball-extended``, is *supplementary*: the two-season basketball holdout
+cannot settle much, so it scores the whole grid on 2009-2020 from the Classic games archive
+(``bb_classic_games.parquet``; same API source, neutral-site flags from 2008 on). Those seasons are
+earlier than the tuning block, took no part in the choice, and are reported as a second opinion -
+not as a way to pick a different setting.
+
+``football-modern`` is the same kind of second opinion for football: the whole grid on 2021-2025
+from ``current_games.parquet`` (CFBD data with FCS opponents named individually; 2020 primes the
+chain), a period the workbook archive does not cover. Row order there is chronological by week.
+
 Run:  PYTHONPATH=src python3 scripts/tune_recency.py football
       PYTHONPATH=src python3 scripts/tune_recency.py basketball
+      PYTHONPATH=src python3 scripts/tune_recency.py basketball-extended
+      PYTHONPATH=src python3 scripts/tune_recency.py football-modern
 """
 
 from __future__ import annotations
@@ -83,6 +95,47 @@ def basketball_runner(chain):
     return run
 
 
+def extended_basketball() -> None:
+    chain, scored = list(range(2008, 2021)), list(range(2009, 2021))
+    classic = pd.read_parquet(ROOT / "data" / "parquet" / "bb_classic_games.parquet")
+    cache: dict[int, pd.DataFrame] = {}
+
+    def prepare(season: int) -> pd.DataFrame:
+        if season not in cache:
+            games = classic[classic["season"] == season].copy()
+            for column in ("team1", "team2"):
+                games[column] = [bb.registry.resolve(n, n, season=season) for n in games[column]]
+            cache[season] = games.sort_values("start_date", kind="stable").reset_index(drop=True)
+        return cache[season]
+
+    bb.prepare = prepare
+    started, frames = time.time(), []
+    for i, (half_life, mult) in enumerate(itertools.product(HALF_LIVES, RIDGE_MULTIPLIERS), 1):
+        ridge = BASKETBALL["ridge"] * mult
+        frame = bb.evaluate(chain, scored=scored, ridge=ridge, recency_half_life=half_life)
+        frames.append(frame.assign(half_life=half_life, ridge_mult=mult))
+        print(f"  {i}/24  hl={half_life} ridge x{mult}  mae {frame['mae'].mean():.4f}  "
+              f"({time.time() - started:.0f}s)", flush=True)
+    long = pd.concat(frames, ignore_index=True)
+    long.to_csv(ROOT / "data" / "recency_extended_basketball.csv", index=False)
+    print(f"written data/recency_extended_basketball.csv ({time.time() - started:.0f}s)")
+
+
+def modern_football() -> None:
+    games = pd.read_parquet(ROOT / "data" / "parquet" / "current_games.parquet")
+    games = games[(games["played"]) & (games["season"] <= 2025)].reset_index(drop=True)
+    started, frames = time.time(), []
+    for i, (half_life, mult) in enumerate(itertools.product(HALF_LIVES, RIDGE_MULTIPLIERS), 1):
+        frame = backtest.evaluate_archive(
+            games, seasons=list(range(2021, 2026)), with_classic=False,
+            ridge=FOOTBALL["ridge"] * mult, recency_half_life=half_life,
+        ).rename(columns={"mri2_accuracy": "accuracy", "mri2_mae": "mae", "mri2_brier": "brier"})
+        frames.append(frame.assign(half_life=half_life, ridge_mult=mult))
+        print(f"  {i}/24  hl={half_life} ridge x{mult}  mae {frame['mae'].mean():.4f}  "
+              f"({time.time() - started:.0f}s)", flush=True)
+    pd.concat(frames, ignore_index=True).to_csv(ROOT / "data" / "recency_modern_football.csv", index=False)
+
+
 def summarize(frame: pd.DataFrame) -> dict:
     out = {
         "mae": frame["mae"].mean(),
@@ -95,6 +148,10 @@ def summarize(frame: pd.DataFrame) -> dict:
 
 
 def main(sport: str) -> None:
+    if sport == "basketball-extended":
+        return extended_basketball()
+    if sport == "football-modern":
+        return modern_football()
     if sport == "football":
         cfg, run = FOOTBALL, football_runner()
     elif sport == "basketball":
