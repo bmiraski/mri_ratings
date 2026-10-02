@@ -149,6 +149,14 @@ th.num { text-align:right; }
 .fcs { font-size:10px; color:var(--muted); border:1px solid var(--axis); border-radius:3px; padding:0 4px; }
 .res .w { color:var(--up); font-weight:700; } .res .l { color:var(--down); font-weight:700; }
 .perf.over { color:var(--up); } .perf.under { color:var(--down); }
+.adds { font-weight:600; }
+tfoot td { padding:8px 10px; border-top:1px solid var(--axis); color:var(--secondary); }
+tfoot tr:last-child td { color:var(--primary); font-weight:700; }
+.buildtable td:first-child { font-weight:600; }
+.build .hint { max-width:78ch; }
+.adds[title], .buildtable td[title] { cursor:help; }
+.buildtable td.num { white-space:nowrap; }
+.results td.res { white-space:nowrap; }
 .muted { color:var(--muted); }
 .conftable .tm { display:flex; align-items:center; gap:8px; }
 .conftable .rule { width:3px; height:18px; border-radius:1px; background:var(--team); flex:none; }
@@ -230,6 +238,10 @@ footer.site .muted { color:var(--muted); }
   .panelhead { align-items:flex-start; flex-direction:column; gap:10px; }
 }
 @media (max-width:520px) {
+  /* Seven columns have to fit a phone without scrolling: the new one is the last. */
+  .results th, .results td { padding-left:5px; padding-right:5px; }
+  .results thead th { letter-spacing:0.03em; font-size:9.5px; }
+  .buildtable th, .buildtable td { padding-left:7px; padding-right:7px; }
   .stats { grid-template-columns:1fr; }
   .sp { display:none; }
   h1 { font-size:23px; }

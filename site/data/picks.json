@@ -1808,7 +1808,10 @@
    "week": 5
   },
   {
+   "actual": 21,
    "away": "Western Kentucky",
+   "close": 1.5,
+   "clv": -0.0,
    "edge": -7.7,
    "game_id": 401871049,
    "home": "New Mexico State",
@@ -1818,8 +1821,10 @@
    "neutral": false,
    "open": 1.5,
    "predicted": -6.2,
+   "result": "loss",
    "side": "away",
    "taken": 1.5,
+   "units": -1.0,
    "week": 5
   },
   {
@@ -2015,6 +2020,21 @@
    "predicted": 13.2,
    "side": "home",
    "taken": 10.0,
+   "week": 5
+  },
+  {
+   "away": "Indiana",
+   "edge": 3.0,
+   "game_id": 401858477,
+   "home": "Rutgers",
+   "kickoff": "2026-10-04T00:00:00.000Z",
+   "loggedAt": "2026-10-02T03:48Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -23.5,
+   "predicted": -20.5,
+   "side": "home",
+   "taken": -24.5,
    "week": 5
   }
  ],

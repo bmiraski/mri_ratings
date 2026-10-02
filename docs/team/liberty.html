@@ -39,7 +39,7 @@
       <a href="../archive.html">Archive</a>
       <a href="../seasons.html">Seasons</a>
     </nav>
-    <div class="stamp">2026 &middot; Week 4</div>
+    <div class="stamp">2026 &middot; Week 5</div>
   </div>
 </header>
 <main class="wrap">
@@ -51,15 +51,15 @@
         <h1>Liberty</h1>
         <p class="teamsub">Conference USA &middot; 3&ndash;1
         
-        &middot; MRI Classic #40</p>
+        &middot; MRI Classic #39</p>
       </div>
     </div>
 
     <div class="stats">
       <div class="stat"><span class="statl">Power</span><span class="statv">-5.7</span><span class="statn">#87 of 138</span></div>
-      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">-0.11</span><span class="statn">#87 &middot; wins above average</span></div>
-      <div class="stat" title="Chance to make the 12-team College Football Playoff, from the season simulation."><span class="statl">Playoff chance</span><span class="statv"><a href="../simulation.html">0.1%</a></span><span class="statn">#85 most likely</span></div>
-      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,16.3 L30.0,31.0 L60.0,13.8 L90.0,3.0" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="3.0" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
+      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">-0.10</span><span class="statn">#87 &middot; wins above average</span></div>
+      <div class="stat" title="Chance to make the 12-team College Football Playoff, from the season simulation."><span class="statl">Playoff chance</span><span class="statv"><a href="../simulation.html">0.1%</a></span><span class="statn">#84 most likely</span></div>
+      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,16.3 L22.5,31.0 L45.0,13.9 L67.5,3.1 L90.0,3.0" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="3.0" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
     </div>
 
 
@@ -68,24 +68,36 @@
       <p class="rtone">Nothing this weekend moves the needle.</p>
     </details>
 
-    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Coastal Carolina (34&ndash;17)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">James Madison (13&ndash;20)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">-17.5 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">-14.0 avg opponent</span></div><div class="hl" title="The 247Sports talent composite: roster quality built up over recruiting classes. It explains about a third of the variation in ratings, so a gap of a few points means little."><span class="hll">Roster talent</span><span class="hlv">#77 of 127 &middot; worth -2.7, rated -5.7: in line with it</span></div><div class="hl" title="The share of last season's production, by predicted points added, still on the roster."><span class="hll">Returning production</span><span class="hlv">38% of last year's &middot; #69 of 128</span></div><div class="hl" title="What a typical visit to Williams Stadium (VA) is worth to the home side: the league's home field plus the trip and the crowd there. Describes the past; the model's lines use the league number."><span class="hll">Home field</span><span class="hlv"><a href="../homefield.html">+2.5 pts</a> &middot; 87th of 131</span></div></div>
+    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Coastal Carolina (34&ndash;17)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">James Madison (13&ndash;20)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">-15.5 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">-13.9 avg opponent</span></div><div class="hl" title="The 247Sports talent composite: roster quality built up over recruiting classes. It explains about a third of the variation in ratings, so a gap of a few points means little."><span class="hll">Roster talent</span><span class="hlv">#77 of 127 &middot; worth -2.7, rated -5.7: in line with it</span></div><div class="hl" title="The share of last season's production, by predicted points added, still on the roster."><span class="hll">Returning production</span><span class="hlv">38% of last year's &middot; #69 of 128</span></div><div class="hl" title="What a typical visit to Williams Stadium (VA) is worth to the home side: the league's home field plus the trip and the crowd there. Describes the past; the model's lines use the league number."><span class="hll">Home field</span><span class="hlv"><a href="../homefield.html">+2.6 pts</a> &middot; 87th of 131</span></div></div>
+
+
+    <section class="build">
+      <h2>How this rating is built</h2>
+      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 4). After 4 games, <em>w</em> is 50%, so the preseason prior is <strong>50%</strong> of this rating &mdash; mostly preseason, for now. Every game played shrinks that share.</p>
+      <div class="tablewrap"><table class="buildtable">
+        <thead><tr><th>Part</th><th class="num">Value</th><th class="num">Weight</th><th class="num">Adds</th></tr></thead>
+        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">+13.3 avg</td><td class="num">&times; 50%</td><td class="num">+6.6</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">-15.5 avg</td><td class="num">&times; 50%</td><td class="num">-7.7</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-9.2</td><td class="num">&times; 50%</td><td class="num">-4.6</td></tr></tbody>
+        <tfoot><tr><td colspan="3">Power</td><td class="num">-5.7</td></tr></tfoot>
+      </table></div>
+      <p class="note">This explains how the model reached the number. The opponent ratings come out of
+      the same fitted model, so it is not independent proof that the rating is right.</p>
+    </section>
 
     <section>
       <h2>Results</h2>
-      <p class="hint"><strong>Expected</strong> is the margin the model's ratings imply for that
-      matchup and site. <strong>Perf</strong> is how far the actual margin beat it &mdash; the
-      number that moves a rating, rather than the win or loss alone.</p>
-      <div class="tablewrap"><table>
+      <p class="hint"><strong>Expected</strong> is the margin the model's ratings imply for that matchup and site. <strong>Perf</strong> is how far the actual margin beat it &mdash; the result against expectation. <strong>Adds</strong> is a different question: how many points of Power the game contributes, counting its margin and the strength of the opponent together. A game can beat expectation and still add little, or the reverse. Adds, plus the preseason prior, sum to Power (figures are rounded so the column adds up). Hover an Adds figure for its arithmetic.</p>
+      <div class="tablewrap"><table class="results">
         <thead><tr><th>Wk</th><th></th><th>Opponent</th><th>Result</th>
-        <th class="num">Expected</th><th class="num">Perf</th></tr></thead>
+        <th class="num">Expected</th><th class="num">Perf</th><th class="num">Adds</th></tr></thead>
         <tbody>
       <tr>
         <td class="wk">1</td>
         <td class="site">at</td>
         <td class="opp"><a href="james-madison.html">James Madison</a></td>
         <td class="res"><span class="l">L</span> 13&ndash;20</td>
-        <td class="num">-13.2</td>
-        <td class="num perf over">+6.2</td>
+        <td class="num">-13.3</td>
+        <td class="num perf over">+6.3</td>
+        <td class="num adds" title="Margin −7 counts as −7.1. Opponent rated +4.7. (−7.1 +4.7) ÷ (4 + 4) ≈ −0.30">-0.3</td>
       </tr>
       <tr>
         <td class="wk">2</td>
@@ -94,6 +106,7 @@
         <td class="res"><span class="w">W</span> 24&ndash;23</td>
         <td class="num">+30.4</td>
         <td class="num perf under">-29.4</td>
+        <td class="num adds" title="Margin +1 counts as −1.0. Opponent rated −25.2. (−1.0 −25.2) ÷ (4 + 4) ≈ −3.28">-3.3</td>
       </tr>
       <tr>
         <td class="wk">3</td>
@@ -102,15 +115,17 @@
         <td class="res"><span class="w">W</span> 51&ndash;15</td>
         <td class="num">+22.4</td>
         <td class="num perf over">+13.6</td>
+        <td class="num adds" title="Margin +36 counts as +36.9. Opponent rated −25.2. (+36.9 −25.2) ÷ (4 + 4) ≈ +1.47">+1.5</td>
       </tr>
       <tr>
         <td class="wk">4</td>
         <td class="site">at</td>
         <td class="opp"><a href="coastal-carolina.html">Coastal Carolina</a></td>
         <td class="res"><span class="w">W</span> 34&ndash;17</td>
-        <td class="num">+7.6</td>
-        <td class="num perf over">+9.4</td>
-      </tr></tbody>
+        <td class="num">+7.5</td>
+        <td class="num perf over">+9.5</td>
+        <td class="num adds" title="Margin +17 counts as +24.4. Opponent rated −16.1. (+24.4 −16.1) ÷ (4 + 4) ≈ +1.04">+1.0</td>
+      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (50% of the rating)</td><td class="num">-4.6</td></tr><tr><td colspan="6">Power</td><td class="num">-5.7</td></tr></tfoot>
       </table></div>
     </section>
 
@@ -124,21 +139,21 @@
         <td class="wk">5</td>
         <td class="site">at</td>
         <td class="opp"><a href="delaware.html">Delaware</a></td>
-        <td class="num">+3.4</td>
+        <td class="num">+3.3</td>
         <td class="num">58%</td>
       </tr>
       <tr>
         <td class="wk">6</td>
         <td class="site">vs</td>
         <td class="opp"><a href="sam-houston.html">Sam Houston</a></td>
-        <td class="num">+11.8</td>
+        <td class="num">+11.9</td>
         <td class="num">76%</td>
       </tr>
       <tr>
         <td class="wk">8</td>
         <td class="site">at</td>
         <td class="opp"><a href="kennesaw-state.html">Kennesaw State</a></td>
-        <td class="num">+6.9</td>
+        <td class="num">+6.8</td>
         <td class="num">66%</td>
       </tr>
       <tr>
@@ -152,28 +167,28 @@
         <td class="wk">10</td>
         <td class="site">at</td>
         <td class="opp"><a href="new-mexico-state.html">New Mexico State</a></td>
-        <td class="num">+11.0</td>
-        <td class="num">75%</td>
+        <td class="num">+7.5</td>
+        <td class="num">67%</td>
       </tr>
       <tr>
         <td class="wk">11</td>
         <td class="site">vs</td>
         <td class="opp"><a href="middle-tennessee.html">Middle Tennessee</a></td>
-        <td class="num">+13.3</td>
+        <td class="num">+13.4</td>
         <td class="num">79%</td>
       </tr>
       <tr>
         <td class="wk">12</td>
         <td class="site">vs</td>
         <td class="opp"><a href="western-kentucky.html">Western Kentucky</a></td>
-        <td class="num">+7.6</td>
-        <td class="num">68%</td>
+        <td class="num">+11.1</td>
+        <td class="num">75%</td>
       </tr>
       <tr>
         <td class="wk">13</td>
         <td class="site">at</td>
         <td class="opp"><a href="missouri-state.html">Missouri State</a></td>
-        <td class="num">+4.2</td>
+        <td class="num">+4.1</td>
         <td class="num">60%</td>
       </tr></tbody>
       </table></div>
@@ -272,8 +287,8 @@
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="../method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-27 15:19 UTC
-    &middot; 331 games rated &middot; <a href="../homefield.html">home field</a> 2.8 pts</p>
+    <p class="muted">Ratings last changed 2026-10-02 03:46 UTC
+    &middot; 332 games rated &middot; <a href="../homefield.html">home field</a> 2.9 pts</p>
   </div>
 </footer>
 </body>

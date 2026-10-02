@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 215,
-      "accuracy": 0.8047,
-      "mae": 12.57,
-      "priced": 215,
-      "modelMaePriced": 12.57,
-      "marketMae": 11.04,
-      "marketAccuracy": 0.8372,
-      "modelAccuracyPriced": 0.8047,
-      "maeGap": 1.52,
+      "games": 216,
+      "accuracy": 0.8009,
+      "mae": 12.63,
+      "priced": 216,
+      "modelMaePriced": 12.63,
+      "marketMae": 11.08,
+      "marketAccuracy": 0.838,
+      "modelAccuracyPriced": 0.8009,
+      "maeGap": 1.55,
       "maeGapError": 0.73,
-      "slope": 0.89,
-      "marketSlope": 1.0,
+      "slope": 0.88,
+      "marketSlope": 0.99,
       "bets": {
-        "count": 119,
+        "count": 120,
         "wins": 59,
-        "losses": 57,
+        "losses": 58,
         "pushes": 3,
-        "ats": 0.5086,
-        "units": -3.37,
+        "ats": 0.5043,
+        "units": -4.37,
         "clv": 0.53
       }
     },
@@ -68,6 +68,16 @@
         "bets": 33,
         "record": "19-13-1",
         "units": 4.27
+      },
+      {
+        "week": 5,
+        "games": 1,
+        "accuracy": 0.0,
+        "mae": 27.19,
+        "marketMae": 19.5,
+        "bets": 1,
+        "record": "0-1",
+        "units": -1.0
       }
     ],
     "bets": [
@@ -1855,6 +1865,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 3.0
+      },
+      {
+        "week": 5,
+        "home": "New Mexico State",
+        "away": "Western Kentucky",
+        "side": "away",
+        "team": "Western Kentucky",
+        "predicted": -6.2,
+        "open": 1.5,
+        "close": 1.5,
+        "edge": -7.7,
+        "actual": 21,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -0.0
       }
     ]
   },
@@ -3444,7 +3469,10 @@
         "week": 5
       },
       {
+        "actual": 21,
         "away": "Western Kentucky",
+        "close": 1.5,
+        "clv": -0.0,
         "edge": -7.7,
         "game_id": 401871049,
         "home": "New Mexico State",
@@ -3454,8 +3482,10 @@
         "neutral": false,
         "open": 1.5,
         "predicted": -6.2,
+        "result": "loss",
         "side": "away",
         "taken": 1.5,
+        "units": -1.0,
         "week": 5
       },
       {
@@ -3877,16 +3907,31 @@
         "side": "home",
         "taken": 12.5,
         "week": 5
+      },
+      {
+        "away": "Indiana",
+        "edge": 3.0,
+        "game_id": 401858477,
+        "home": "Rutgers",
+        "kickoff": "2026-10-04T00:00:00.000Z",
+        "loggedAt": "2026-10-02T03:48Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": -23.5,
+        "predicted": -20.5,
+        "side": "home",
+        "taken": -24.5,
+        "week": 5
       }
     ],
-    "logged": 112,
+    "logged": 113,
     "earlier": 48,
-    "graded": 77,
+    "graded": 78,
     "wins": 39,
-    "losses": 37,
+    "losses": 38,
     "pushes": 1,
-    "ats": 0.5132,
-    "units": -1.55,
+    "ats": 0.5065,
+    "units": -2.55,
     "clv": 0.09
   }
 }
