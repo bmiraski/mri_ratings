@@ -334,7 +334,7 @@ def fit(
         home_field_ridge=home_field_ridge,
         anchor_teams=anchor_teams,
     )
-    power, home_field, sigma, hosted = _solve(*solve_args, weights=weights, **solve_kwargs)
+    power, home_field, sigma, hosted, solved = _solve(*solve_args, weights=weights, **solve_kwargs)
     if weights is None or not with_resume:
         resume_basis = (power, home_field, sigma)
     else:
@@ -348,6 +348,19 @@ def fit(
     played = played.reindex(teams).fillna(0).astype(int)
 
     ratings = Ratings(power=power, home_field=home_field, sigma=sigma, games_played=played)
+    scale, anchor_shift, raw_home_field = solved
+    ratings.internals = FitInternals(
+        teams=teams,
+        prior=prior_vector,
+        ridge=float(ridge),
+        compression=float(compression),
+        scale=scale,
+        anchor_shift=anchor_shift,
+        raw_home_field=raw_home_field,
+        margin=y,
+        neutral=neutral,
+        recency_weighted=weights is not None,
+    )
 
     if check_connectivity:
         ratings.connectivity = _connectivity.analyze(games, rated=anchor_teams)
@@ -481,35 +494,7 @@ def _solve(
         fitted_sigma = float("nan")
     sigma = fitted_sigma if fitted_sigma > 0 else DEFAULT_MARGIN_SIGMA
 
-    played = pd.concat([games["team1"], games["team2"]]).value_counts()
-    played = played.reindex(teams).fillna(0).astype(int)
-
-    ratings = Ratings(power=power, home_field=home_field, sigma=sigma, games_played=played)
-    ratings.internals = FitInternals(
-        teams=teams,
-        prior=prior_vector,
-        ridge=float(ridge),
-        compression=float(compression),
-        scale=scale,
-        anchor_shift=anchor_shift,
-        raw_home_field=float(raw_home_field),
-        margin=y,
-        neutral=neutral,
-    )
-
-    if with_resume:
-        ratings.resume = wins_above_expected(games, power, home_field, sigma, neutral)
-
-    # Yardage lives in box scores, which the API serves a week at a time and the
-    # games feed omits entirely. The power rating never needed it, so when it is
-    # absent the efficiency layer is simply skipped rather than treated as an
-    # error - scores alone are enough to rate a season.
-    has_yardage = {"rush1", "rush2", "pass1", "pass2"} <= set(games.columns)
-    if with_efficiency and has_yardage:
-        offense, defense = _fit_efficiency(games, teams, X[:, :-1], ridge)
-        ratings.adj_offense, ratings.adj_defense = offense, defense
-    return ratings
-    return power, home_field, sigma, hosted
+    return power, home_field, sigma, hosted, (scale, anchor_shift, float(raw_home_field))
 
 
 def wins_above_expected(

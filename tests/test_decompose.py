@@ -119,3 +119,13 @@ def test_identity_on_a_real_size_season() -> None:
     err = max(abs(s.margin_term + s.opponent_term + s.prior_term - model.power[t]) for t, s in shares.items())
     assert err < 1e-9
     assert len(shares) > 100
+
+
+def test_a_real_recency_weighted_fit_is_refused(season) -> None:
+    """Recency weighting is on main now: the fit itself must flag it, not just a hand-set flag."""
+    games, prior, _ = season
+    weighted = mri2.fit(games, prior=prior, neutral=games["neutral"], anchor_teams=FBS + [IDLE],
+                        recency_half_life=0.5)
+    assert weighted.internals.recency_weighted
+    with pytest.raises(decompose.DecompositionUnavailable, match="unweighted"):
+        decompose.decompose(weighted, games)
