@@ -1847,6 +1847,12 @@ def test_chaos_panel_partway_through_is_labelled_partial() -> None:
     assert "2 upsets" in html
 
 
+def test_chaos_panel_partway_with_too_few_games_to_score_falls_back_to_expectations() -> None:
+    chaos = {"current": {"partial": True, "gamesPlayed": 1, "upsets": None, "expectedUpsets": 0.7},
+             "archive": {"seasons": {}}}
+    assert "Expected upsets this week: 0.7" in site.chaos_panel(chaos, _chaos_slate())
+
+
 def test_chaos_panel_once_final_shows_the_percentile_bar_shocks_and_fallout() -> None:
     entry = {
         "final": True, "percentile": 91.2, "z": 2.1, "upsets": 9, "expectedUpsets": 5.2,

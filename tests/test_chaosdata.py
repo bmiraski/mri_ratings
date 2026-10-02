@@ -429,6 +429,22 @@ def test_current_reading_shows_expected_upsets_before_any_games_played() -> None
     assert reading["expectedUpsets"] == pytest.approx(0.3)
 
 
+def test_current_reading_with_too_few_games_played_keeps_the_weeks_expectation() -> None:
+    """Early in a game week (a Thursday) too few games are final to score; the full-week
+    expectation must survive rather than be replaced by None."""
+    games = pd.DataFrame([
+        {"game_id": 1, "block": 5, "played": True, "pts1": 10, "pts2": 24, "team1": "A", "team2": "H",
+         "season_type": "regular"},
+        {"game_id": 2, "block": 5, "played": False, "pts1": None, "pts2": None, "team1": "B", "team2": "I",
+         "season_type": "regular"},
+    ])
+    pregame = {"games": {"1": {"homeWinProbability": 0.3, "loggedAt": "x"},
+                         "2": {"homeWinProbability": 0.4, "loggedAt": "x"}}}
+    reading = chaosdata.current_reading(games, 5, pregame)
+    assert reading["gamesPlayed"] == 1 and reading["upsets"] is None
+    assert reading["expectedUpsets"] == pytest.approx(0.3 + 0.4)
+
+
 def test_current_reading_scores_games_played_so_far() -> None:
     games, pregame = _ten_game_week(week=6)
     games.loc[games["game_id"] > 3, "played"] = False
