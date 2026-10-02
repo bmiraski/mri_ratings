@@ -372,5 +372,8 @@ def current_reading(games: pd.DataFrame, week: int, pregame: dict) -> dict | Non
         return {"partial": True, "gamesPlayed": 0, "expectedUpsets": round(expected_upsets, 2)}
 
     scored, missing, _ = _score_games(played, pregame, None, week)
-    return {"partial": True, "gamesPlayed": len(played), "missingPregame": missing,
-            "expectedUpsets": round(expected_upsets, 2), **scored}
+    # A week with too few games played to score comes back with expectedUpsets None; that
+    # must not replace the full-week expectation, which is what the panel falls back to.
+    expected_so_far = scored.get("expectedUpsets")
+    return {"partial": True, "gamesPlayed": len(played), "missingPregame": missing, **scored,
+            "expectedUpsets": round(expected_upsets, 2) if expected_so_far is None else expected_so_far}
