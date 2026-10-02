@@ -61,7 +61,8 @@ def _rows_from(games: pd.DataFrame, canonical, power: dict, home_field: float,
         if pd.isna(game.get("pts1")) or pd.isna(game.get("pts2")):
             continue
         away_pts, home_pts = float(game["pts1"]), float(game["pts2"])
-        is_neutral = bool(neutral.get(game.name, False))
+        flag = neutral.get(game.name, False)
+        is_neutral = False if pd.isna(flag) else bool(flag)  # archive seasons mostly carry no flag
         edge = 0.0 if is_neutral else home_field
 
         for team, opponent, site, scored, allowed, expected in (

@@ -97,7 +97,7 @@ def evaluate_season(
         if len(test) < 50 or train.empty:
             continue
 
-        model = fit_slice(train, prior, profile, season=season, **overrides)
+        model = fit_slice(train, prior, profile, season=season, season_games=n, **overrides)
         final = model.power
         replacement = float(model.power.min()) - 5.0
 

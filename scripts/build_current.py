@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.ingest import cfbd, registry  # noqa: E402
-from mri.ratings import mri2, priors  # noqa: E402
+from mri.ratings import connectivity, mri2, priors  # noqa: E402
 
 BRIDGE_SEASONS = range(2020, 2027)
 CURRENT_SEASON = 2026
@@ -67,6 +67,16 @@ def main() -> None:
         prior = priors.for_season(season, previous, teams, fbs_teams)
         model = mri2.fit(
             games, prior=prior, neutral=games["neutral"], anchor_teams=fbs_teams
+        )
+
+        # Fail the build if a rated team is stranded or missing, but only for the
+        # current season and only once it is far enough along (see
+        # ratings/connectivity.py). Finished seasons just report.
+        roster = sorted(registry.fbs_members(season)) or fbs_teams
+        connectivity.check(
+            connectivity.analyze(games, rated=fbs_teams, expected=roster),
+            f"football {season}",
+            enforce=connectivity.football_enforced(games, season, CURRENT_SEASON),
         )
 
         table = model.table().assign(season=season)

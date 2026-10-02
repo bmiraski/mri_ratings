@@ -11,6 +11,7 @@ import json
 import re
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from mri.export import site
@@ -1276,9 +1277,13 @@ def test_the_gameday_misses_section_appears_only_when_the_model_missed(with_game
     right["gameday"]["check"][0]["rank"] = 1
     right["gameday"]["weeks"].insert(0, {**right["gameday"]["weeks"][0], "week": 5})
     text = site.gameday_page(right)
-    assert "Where it has been wrong" not in text and "Our first choice" not in text
+    assert "What we got wrong" not in text and "Our first choice" not in text
     assert "Hosts at least once, Weeks 5&ndash;14" in text
-    assert "Where it has been wrong" in site.gameday_page(with_gameday)
+    assert "What we got wrong" in site.gameday_page(with_gameday)
+    # Second choice is still a miss: the section is for any announced week that was not our pick.
+    second = json.loads(json.dumps(right))
+    second["gameday"]["check"][0]["rank"] = 2
+    assert "What we got wrong" in site.gameday_page(second)
 
 
 def test_the_gameday_page_links_only_to_pages_that_exist(with_gameday) -> None:

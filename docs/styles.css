@@ -310,6 +310,9 @@ table.slate tr.rest td { border-top:none; font-size:12.5px; }
 .slday.bb.live .slhead, .slday.bb.live .slrow { grid-template-columns:66px minmax(0,1.6fr) 40px 36px 48px 84px 98px minmax(0,0.9fr) minmax(0,1fr); }
 .slday.bb.nostakes .slhead, .slday.bb.nostakes .slrow { grid-template-columns:66px minmax(0,2fr) 44px 92px 104px minmax(0,1.1fr); }
 .slday.bb.nostakes.live .slhead, .slday.bb.nostakes.live .slrow { grid-template-columns:66px minmax(0,1.9fr) 40px 36px 48px 84px 98px minmax(0,1fr); }
+/* football: no week before the 2026 simulation has stake data - drop the column, widen Game. */
+.slday.nostakes .slhead, .slday.nostakes .slrow { grid-template-columns:66px minmax(0,2.8fr) 44px 92px 104px 92px; }
+.slday.nostakes.live .slhead, .slday.nostakes.live .slrow { grid-template-columns:66px minmax(0,2.4fr) 40px 36px 48px 84px 98px 84px; }
 .sltags { display:flex; flex-wrap:wrap; gap:4px; min-width:0; }
 .sltag { font-size:11px; padding:1px 7px; border-radius:999px; border:1px solid var(--axis); color:var(--secondary); white-space:nowrap; }
 .sltag.dog { border-color:color-mix(in srgb, var(--up) 60%, var(--axis)); }
@@ -465,6 +468,9 @@ tr.hhaward td { background:color-mix(in srgb, var(--alert) 8%, transparent); }
   .slday.live .slwp { display:none; }
   .slday.bb .slrow, .slday.bb.nostakes .slrow { grid-template-columns:minmax(0,1fr) auto; }
   .slday.bb.live .slrow, .slday.bb.nostakes.live .slrow { grid-template-columns:minmax(0,1fr) auto auto; }
+  /* football: no leftover blank stakes row when the column is dropped entirely. */
+  .slday.nostakes .slrow { grid-template-areas:"t t" "g w" "m k" "e e"; }
+  .slday.nostakes.live .slrow { grid-template-areas:"t t t" "g sc lv" "m k k" "e e e"; }
   .sltags { grid-area:e; }
   .bbstrats { grid-template-columns:1fr; }
   .slscore { grid-area:sc; } .sllive { grid-area:lv; }
