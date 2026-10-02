@@ -21,6 +21,7 @@ import datetime as dt
 import hashlib
 import html
 import json
+import math
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -1077,6 +1078,113 @@ def _coaches_section(team: dict, payload: dict) -> str:
 """
 
 
+def _round_to_total(values: list[float], total: float, places: int = 1) -> list[float]:
+    """Round ``values`` to ``places`` decimals so that they sum to ``total`` rounded.
+
+    Largest remainder: round everything down, then hand the leftover units to the
+    values that lost the most. The parts of a rating are printed next to the rating
+    itself, and a column that is a tenth off its own total reads as an error.
+    """
+    unit = 10 ** places
+    scaled = [v * unit for v in values]
+    floors = [math.floor(x) for x in scaled]
+    target = round(total * unit)
+    leftover = target - sum(floors)
+    order = sorted(range(len(values)), key=lambda i: scaled[i] - floors[i], reverse=True)
+    if leftover < 0:
+        order = order[::-1]
+    step = 1 if leftover > 0 else -1
+    for k in range(abs(leftover)):
+        floors[order[k % len(order)]] += step if order else 0
+    return [f / unit for f in floors]
+
+
+def _minus_signed(value: float, places: int = 1) -> str:
+    """+3.2 / \u22123.2 with a real minus sign, for text a reader will do arithmetic on."""
+    return f"{value:+.{places}f}".replace("-", "\u2212")
+
+
+def _displayed_power(team: dict) -> float:
+    """The Power the page prints, to the tenth, exactly as the stat tile formats it."""
+    return float(f"{team['power']:+.1f}")
+
+
+def build_parts(team: dict, detail: dict) -> dict | None:
+    """The displayed (rounded) pieces of a team's rating, summing to its displayed Power.
+
+    ``margin``, ``opponents`` and ``prior`` sum to the Power tile. ``adds`` is one
+    value per played game, and with ``prior`` they sum to it as well.
+    """
+    block = detail.get("decomposition")
+    if not block:
+        return None
+    power = _displayed_power(team)
+    margin, opponents, prior = _round_to_total(
+        [block["marginTerm"], block["opponentTerm"], block["priorTerm"]], power
+    )
+    played = detail["played"]
+    adds = _round_to_total([g["adds"] for g in played], power - prior) if played else []
+    return {"margin": margin, "opponents": opponents, "prior": prior, "adds": adds, "power": power}
+
+
+def _decomposition_section(team: dict, detail: dict, chrome: Chrome) -> str:
+    """How the rating is built: games and the preseason prior, in the SRS article's form.
+
+    Dropped, like every section here, when there is nothing to show it from.
+    """
+    block = detail.get("decomposition")
+    parts = build_parts(team, detail)
+    if not block or not parts:
+        return ""
+    n, w, ridge = block["n"], block["w"], block["ridge"]
+    games = f"{n} game{'' if n == 1 else 's'}"
+    ridge_text = f"{ridge:g}"
+    prior_share = 1 - w
+
+    if n == 0:
+        intro = (f'<p class="hint">{esc(team["team"])} has played no games yet, so this rating is the '
+                 f'preseason prior alone.</p>')
+        rows = (f'<tr><td>Preseason prior</td><td class="num">&nbsp;</td><td class="num">&times; 100%</td>'
+                f'<td class="num">{parts["prior"]:+.1f}</td></tr>')
+    else:
+        intro = (
+            '<p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + '
+            'average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where '
+            f'<em>w</em> = games &divide; (games + {ridge_text}). After {games}, <em>w</em> is {w:.0%}, '
+            f'so the preseason prior is <strong>{prior_share:.0%}</strong> of this rating'
+            f'{" &mdash; mostly preseason, for now" if prior_share >= 0.5 else ""}. '
+            'Every game played shrinks that share.</p>'
+        )
+        tip_margin = ("A margin is counted after three adjustments: blowouts are compressed (a 56-point win "
+                      "is not worth 56), the result is put on the rating scale, and the home-field edge the "
+                      "model fitted is taken out. Hover a game's Adds below to see its numbers.")
+        tip_opp = ("The plain average of the ratings of the opponents played &mdash; the same figure as "
+                   "Schedule faced above, including opponents outside the rated field.")
+        tip_prior = ("What the model expected before a game was played, put on the same scale as the "
+                     "ratings. It counts for less with every game.")
+        rows = (
+            f'<tr><td title="{tip_margin}">Margin counted</td><td class="num">{block["avgMargin"]:+.1f} avg</td>'
+            f'<td class="num">&times; {w:.0%}</td><td class="num">{parts["margin"]:+.1f}</td></tr>'
+            f'<tr><td title="{tip_opp}">Opponents faced</td><td class="num">{block["avgOpponent"]:+.1f} avg</td>'
+            f'<td class="num">&times; {w:.0%}</td><td class="num">{parts["opponents"]:+.1f}</td></tr>'
+            f'<tr><td title="{tip_prior}">Preseason prior</td><td class="num">{block["prior"]:+.1f}</td>'
+            f'<td class="num">&times; {prior_share:.0%}</td><td class="num">{parts["prior"]:+.1f}</td></tr>'
+        )
+    return f"""
+    <section class="build">
+      <h2>How this rating is built</h2>
+      {intro}
+      <div class="tablewrap"><table class="buildtable">
+        <thead><tr><th>Part</th><th class="num">Value</th><th class="num">Weight</th><th class="num">Adds</th></tr></thead>
+        <tbody>{rows}</tbody>
+        <tfoot><tr><td colspan="3">Power</td><td class="num">{parts["power"]:+.1f}</td></tr></tfoot>
+      </table></div>
+      <p class="note">This explains how the model reached the number. The opponent ratings come out of
+      the same fitted model, so it is not independent proof that the rating is right.</p>
+    </section>
+"""
+
+
 def team_page(team: dict, payload: dict) -> str:
     chrome = chrome_for(payload)
     detail = payload["details"].get(team["team"], {"played": [], "upcoming": []})
@@ -1087,6 +1195,21 @@ def team_page(team: dict, payload: dict) -> str:
             return f'<a href="{slug(name)}.html">{esc(name)}</a>'
         return f'{esc(name)} <span class="fcs">{chrome.outsider}</span>'
 
+    parts = build_parts(team, detail)
+    block = detail.get("decomposition")
+
+    def adds_cell(g: dict, shown: float) -> str:
+        if not block:
+            return ""
+        denominator = f"{block['n']} + {block['ridge']:g}"
+        tip = (f"Margin {_minus_signed(g['margin'], 0)} counts as {_minus_signed(g['counted'])}. "
+               f"Opponent rated {_minus_signed(g['oppRating'])}. "
+               f"({_minus_signed(g['counted'])} {_minus_signed(g['oppRating'])}) \u00f7 ({denominator}) "
+               f"\u2248 {_minus_signed(g['adds'], 2)}")
+        return f'<td class="num adds" title="{esc(tip)}">{shown:+.1f}</td>'
+
+    shown_adds = parts["adds"] if parts else [None] * len(detail["played"])
+    columns = 7 if block else 6
     played = "".join(f"""
       <tr>
         <td class="wk">{week_cell(g)}</td>
@@ -1095,7 +1218,30 @@ def team_page(team: dict, payload: dict) -> str:
         <td class="res"><span class="{'w' if g['won'] else 'l'}">{'W' if g['won'] else 'L'}</span> {g['scored']}&ndash;{g['allowed']}</td>
         <td class="num">{g['expected']:+.1f}</td>
         <td class="num perf {'over' if g['performance'] > 0 else 'under'}">{g['performance']:+.1f}</td>
-      </tr>""" for g in detail["played"]) or '<tr><td colspan="6" class="empty">No games played yet.</td></tr>'
+        {adds_cell(g, shown)}
+      </tr>""" for g, shown in zip(detail["played"], shown_adds)) or f'<tr><td colspan="{columns}" class="empty">No games played yet.</td></tr>'
+    results_head = (
+        '<th class="num">Expected</th><th class="num">Perf</th>'
+        + ('<th class="num">Adds</th>' if block else "")
+    )
+    results_foot = (
+        f'<tfoot><tr><td colspan="6">Preseason prior ({1 - block["w"]:.0%} of the rating)</td>'
+        f'<td class="num">{parts["prior"]:+.1f}</td></tr>'
+        f'<tr><td colspan="6">Power</td><td class="num">{parts["power"]:+.1f}</td></tr></tfoot>'
+        if block and parts and detail["played"] else ""
+    )
+    results_hint = (
+        '<strong>Expected</strong> is the margin the model\'s ratings imply for that matchup and site. '
+        '<strong>Perf</strong> is how far the actual margin beat it &mdash; the result against '
+        'expectation. <strong>Adds</strong> is a different question: how many points of Power the game '
+        'contributes, counting its margin and the strength of the opponent together. A game can beat '
+        'expectation and still add little, or the reverse. Adds, plus the preseason prior, sum to '
+        'Power (figures are rounded so the column adds up). Hover an Adds figure for its arithmetic.'
+        if block else
+        '<strong>Expected</strong> is the margin the model\'s ratings imply for that matchup and site. '
+        '<strong>Perf</strong> is how far the actual margin beat it &mdash; the '
+        'number that moves a rating, rather than the win or loss alone.'
+    )
 
     upcoming = "".join(f"""
       <tr>
@@ -1176,15 +1322,14 @@ def team_page(team: dict, payload: dict) -> str:
 {_rooting_section(team, payload)}
     <div class="highlights">{''.join(highlights + _homefield_highlight(team, payload) + _hidden_highlight(team, payload))}</div>
 
+{_decomposition_section(team, detail, chrome)}
     <section>
       <h2>Results</h2>
-      <p class="hint"><strong>Expected</strong> is the margin the model's ratings imply for that
-      matchup and site. <strong>Perf</strong> is how far the actual margin beat it &mdash; the
-      number that moves a rating, rather than the win or loss alone.</p>
-      <div class="tablewrap"><table>
+      <p class="hint">{results_hint}</p>
+      <div class="tablewrap"><table class="results">
         <thead><tr><th>Wk</th><th></th><th>Opponent</th><th>Result</th>
-        <th class="num">Expected</th><th class="num">Perf</th></tr></thead>
-        <tbody>{played}</tbody>
+        {results_head}</tr></thead>
+        <tbody>{played}</tbody>{results_foot}
       </table></div>
     </section>
 
@@ -4677,6 +4822,14 @@ th.num { text-align:right; }
 .fcs { font-size:10px; color:var(--muted); border:1px solid var(--axis); border-radius:3px; padding:0 4px; }
 .res .w { color:var(--up); font-weight:700; } .res .l { color:var(--down); font-weight:700; }
 .perf.over { color:var(--up); } .perf.under { color:var(--down); }
+.adds { font-weight:600; }
+tfoot td { padding:8px 10px; border-top:1px solid var(--axis); color:var(--secondary); }
+tfoot tr:last-child td { color:var(--primary); font-weight:700; }
+.buildtable td:first-child { font-weight:600; }
+.build .hint { max-width:78ch; }
+.adds[title], .buildtable td[title] { cursor:help; }
+.buildtable td.num { white-space:nowrap; }
+.results td.res { white-space:nowrap; }
 .muted { color:var(--muted); }
 .conftable .tm { display:flex; align-items:center; gap:8px; }
 .conftable .rule { width:3px; height:18px; border-radius:1px; background:var(--team); flex:none; }
@@ -4758,6 +4911,10 @@ footer.site .muted { color:var(--muted); }
   .panelhead { align-items:flex-start; flex-direction:column; gap:10px; }
 }
 @media (max-width:520px) {
+  /* Seven columns have to fit a phone without scrolling: the new one is the last. */
+  .results th, .results td { padding-left:5px; padding-right:5px; }
+  .results thead th { letter-spacing:0.03em; font-size:9.5px; }
+  .buildtable th, .buildtable td { padding-left:7px; padding-right:7px; }
   .stats { grid-template-columns:1fr; }
   .sp { display:none; }
   h1 { font-size:23px; }

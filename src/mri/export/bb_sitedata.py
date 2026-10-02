@@ -33,7 +33,7 @@ import pandas as pd
 
 from ..ingest import bb_registry as registry, cbbd
 from ..ratings import bb_priors, mri2
-from . import common
+from . import common, decomposition
 
 RATINGS = Path(__file__).resolve().parents[3] / "data" / "parquet" / "bb_ratings.parquet"
 
@@ -129,8 +129,12 @@ def _prior_for(season: int, depth: int = 6) -> pd.Series | None:
     ).power
 
 
-def weekly_ratings(season: int) -> pd.DataFrame:
-    """MRI 2.0 as of the end of each week of the season."""
+def weekly_ratings(season: int, *, sink: dict | None = None) -> pd.DataFrame:
+    """MRI 2.0 as of the end of each week of the season.
+
+    ``sink``, if given, receives ``"final"``: the last published week's fitted model
+    and the games it was fitted on, which the rating decomposition must explain.
+    """
     games = _canonical(cbbd.games(season), season)
     if games.empty:
         return pd.DataFrame()
@@ -163,6 +167,8 @@ def weekly_ratings(season: int) -> pd.DataFrame:
         table = model.table()
         table = table[table["team"].map(lambda t: registry.is_d1(t, season=season))].copy()
         table["rank"] = range(1, len(table) + 1)
+        if sink is not None:
+            sink["final"] = (model, so_far)
         frames.append(table.assign(week=int(week), home_field=model.home_field))
 
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
@@ -266,9 +272,9 @@ def roster_context(season: int, names: list[str]) -> dict[str, dict]:
     return out
 
 
-def build(season: int, out_dir: Path) -> dict:
+def build(season: int, out_dir: Path, *, sink: dict | None = None) -> dict:
     """Write bb.json and return the payload."""
-    modern = weekly_ratings(season)
+    modern = weekly_ratings(season, sink=sink)
     if modern.empty:
         raise ValueError(f"no completed games for {season_label(season)}")
 
@@ -364,8 +370,13 @@ def _season_over(games: pd.DataFrame) -> bool:
     return (pd.Timestamp.utcnow().tz_localize(None) - last.tz_localize(None)).days > 14
 
 
-def team_details(season: int, payload: dict) -> dict:
-    """Per-team schedule with each game measured against expectation."""
+def team_details(season: int, payload: dict, fit: tuple | None = None) -> dict:
+    """Per-team schedule with each game measured against expectation.
+
+    ``fit`` is the ``(model, games)`` pair that published the page's Power; it lets
+    each team carry the split of its rating into games and preseason prior
+    (``ratings.decompose``). Without it the pages omit that part.
+    """
     from scipy.stats import norm
 
     schedule = _canonical(cbbd.games(season, completed_only=False), season)
@@ -410,6 +421,7 @@ def team_details(season: int, payload: dict) -> dict:
                         "won": margin > 0,
                         "margin": int(margin),
                         "performance": round(margin - expected, 1),
+                        "_gid": row.game_id,
                     }
                 )
                 details[team]["played"].append(entry)
@@ -434,6 +446,7 @@ def team_details(season: int, payload: dict) -> dict:
         detail["worstLoss"] = min(
             (g for g in played if not g["won"]), key=lambda g: g["opponentPower"], default=None
         )
+    decomposition.attach(details, decomposition.shares_for(fit), power)
     return details
 
 
@@ -445,8 +458,9 @@ def build_full(season: int | None, out_dir: Path) -> dict:
     would put a 4MB churning blob in the repository to serve no reader.
     """
     season = season or latest_playing_season()
-    payload = build(season, out_dir)
-    payload["details"] = team_details(season, payload)
+    sink: dict = {}
+    payload = build(season, out_dir, sink=sink)
+    payload["details"] = team_details(season, payload, sink.get("final"))
     return payload
 
 

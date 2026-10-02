@@ -119,6 +119,33 @@ BASKETBALL_PROFILE = Profile(
 )
 
 
+@dataclass(frozen=True)
+class FitInternals:
+    """What the solver used, kept so a rating can be explained after the fact.
+
+    Nothing here feeds back into any published number. ``raw_home_field`` is the
+    solver's own coefficient, which is not the ``home_field`` on ``Ratings``: that
+    one is re-estimated from residuals after the solve. The normal equations
+    (``ratings.decompose``) need the first.
+
+    ``recency_weighted`` and ``pace_adjusted`` exist so that a fit using either
+    can say so; the decomposition's identity holds only for the unweighted solve
+    and refuses otherwise.
+    """
+
+    teams: list[str]
+    prior: np.ndarray        # per team, in solver units
+    ridge: float
+    compression: float
+    scale: float
+    anchor_shift: float      # subtracted from scaled ratings; 0 with no anchor
+    raw_home_field: float
+    margin: np.ndarray       # compressed margin per game, host's side
+    neutral: np.ndarray      # bool per game
+    recency_weighted: bool = False
+    pace_adjusted: bool = False
+
+
 @dataclass
 class Ratings:
     """The fitted model for one season (or one slice of one)."""
@@ -130,6 +157,7 @@ class Ratings:
     resume: pd.Series = field(default=None)
     adj_offense: pd.Series = field(default=None)
     adj_defense: pd.Series = field(default=None)
+    internals: FitInternals | None = field(default=None, repr=False)
     connectivity: _connectivity.Connectivity | None = field(default=None, repr=False)
 
     def table(self) -> pd.DataFrame:
@@ -429,10 +457,12 @@ def _solve(
             / (w_home.sum() + home_field_ridge)
         )
 
+    anchor_shift = 0.0
     if anchor_teams:
         present = [t for t in anchor_teams if t in power.index]
         if present:
-            power = power - power[present].mean()
+            anchor_shift = float(power[present].mean())
+            power = power - anchor_shift
 
     residuals = residual_margin - np.where(hosted, home_field, 0.0)  # noqa: E501
     # A one-game training set (some early CFBD seasons open with a single nationally-televised
@@ -450,6 +480,35 @@ def _solve(
     else:
         fitted_sigma = float("nan")
     sigma = fitted_sigma if fitted_sigma > 0 else DEFAULT_MARGIN_SIGMA
+
+    played = pd.concat([games["team1"], games["team2"]]).value_counts()
+    played = played.reindex(teams).fillna(0).astype(int)
+
+    ratings = Ratings(power=power, home_field=home_field, sigma=sigma, games_played=played)
+    ratings.internals = FitInternals(
+        teams=teams,
+        prior=prior_vector,
+        ridge=float(ridge),
+        compression=float(compression),
+        scale=scale,
+        anchor_shift=anchor_shift,
+        raw_home_field=float(raw_home_field),
+        margin=y,
+        neutral=neutral,
+    )
+
+    if with_resume:
+        ratings.resume = wins_above_expected(games, power, home_field, sigma, neutral)
+
+    # Yardage lives in box scores, which the API serves a week at a time and the
+    # games feed omits entirely. The power rating never needed it, so when it is
+    # absent the efficiency layer is simply skipped rather than treated as an
+    # error - scores alone are enough to rate a season.
+    has_yardage = {"rush1", "rush2", "pass1", "pass2"} <= set(games.columns)
+    if with_efficiency and has_yardage:
+        offense, defense = _fit_efficiency(games, teams, X[:, :-1], ridge)
+        ratings.adj_offense, ratings.adj_defense = offense, defense
+    return ratings
     return power, home_field, sigma, hosted
 
 
