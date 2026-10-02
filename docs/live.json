@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 5,
  "date": null,
- "updated": "2026-10-02T23:00:18Z",
- "updatedLabel": "7:00 PM ET",
+ "updated": "2026-10-02T23:05:34Z",
+ "updatedLabel": "7:05 PM ET",
  "games": {
   "401871049": {
    "status": "completed",
@@ -26,6 +26,17 @@
    "away": 45,
    "possession": null,
    "homeWinProbability": 0.0,
+   "upset": null
+  },
+  "401871050": {
+   "status": "in_progress",
+   "label": "Q1 14:51",
+   "period": 1,
+   "clock": "14:51",
+   "home": 0,
+   "away": 0,
+   "possession": "away",
+   "homeWinProbability": 0.421,
    "upset": null
   }
  }
