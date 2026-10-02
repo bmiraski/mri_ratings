@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 216,
-      "accuracy": 0.8009,
-      "mae": 12.63,
-      "priced": 216,
-      "modelMaePriced": 12.63,
-      "marketMae": 11.08,
-      "marketAccuracy": 0.838,
-      "modelAccuracyPriced": 0.8009,
+      "games": 217,
+      "accuracy": 0.8018,
+      "mae": 12.59,
+      "priced": 217,
+      "modelMaePriced": 12.59,
+      "marketMae": 11.04,
+      "marketAccuracy": 0.8387,
+      "modelAccuracyPriced": 0.8018,
       "maeGap": 1.55,
       "maeGapError": 0.73,
       "slope": 0.88,
       "marketSlope": 0.99,
       "bets": {
-        "count": 120,
+        "count": 121,
         "wins": 59,
-        "losses": 58,
+        "losses": 59,
         "pushes": 3,
-        "ats": 0.5043,
-        "units": -4.37,
-        "clv": 0.53
+        "ats": 0.5,
+        "units": -5.37,
+        "clv": 0.54
       }
     },
     "weeks": [
@@ -71,13 +71,13 @@
       },
       {
         "week": 5,
-        "games": 1,
-        "accuracy": 0.0,
-        "mae": 27.19,
-        "marketMae": 19.5,
-        "bets": 1,
-        "record": "0-1",
-        "units": -1.0
+        "games": 2,
+        "accuracy": 0.5,
+        "mae": 15.38,
+        "marketMae": 10.75,
+        "bets": 2,
+        "record": "0-2",
+        "units": -2.0
       }
     ],
     "bets": [
@@ -1880,6 +1880,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": -0.0
+      },
+      {
+        "week": 5,
+        "home": "Tulsa",
+        "away": "North Texas",
+        "side": "away",
+        "team": "North Texas",
+        "predicted": -4.6,
+        "open": -1.5,
+        "close": -3.0,
+        "edge": -3.1,
+        "actual": -1,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 1.5
       }
     ]
   },
@@ -3879,7 +3894,10 @@
         "week": 5
       },
       {
+        "actual": -1,
         "away": "North Texas",
+        "close": -3.0,
+        "clv": 4.5,
         "edge": -3.1,
         "game_id": 401862786,
         "home": "Tulsa",
@@ -3889,8 +3907,10 @@
         "neutral": false,
         "open": -1.5,
         "predicted": -4.6,
+        "result": "win",
         "side": "away",
         "taken": 1.5,
+        "units": 0.909,
         "week": 5
       },
       {
@@ -3926,12 +3946,12 @@
     ],
     "logged": 113,
     "earlier": 48,
-    "graded": 78,
-    "wins": 39,
+    "graded": 79,
+    "wins": 40,
     "losses": 38,
     "pushes": 1,
-    "ats": 0.5065,
-    "units": -2.55,
-    "clv": 0.09
+    "ats": 0.5128,
+    "units": -1.64,
+    "clv": 0.15
   }
 }

@@ -187,10 +187,10 @@
   week. Nothing from the week it is predicting leaks in, but it was computed afterwards, and a record computed
   afterwards is a backtest however carefully it is done.</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>216 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
+    <thead><tr><th>217 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
     <tbody>
-      <tr><td>Picked the winner</td><td class="num">80.1%</td><td class="num">83.8%</td></tr>
-      <tr><td>Average miss, points</td><td class="num">12.63</td><td class="num">11.08</td></tr><tr><td>Size of the lines</td><td class="num">0.88</td>
+      <tr><td>Picked the winner</td><td class="num">80.2%</td><td class="num">83.9%</td></tr>
+      <tr><td>Average miss, points</td><td class="num">12.59</td><td class="num">11.04</td></tr><tr><td>Size of the lines</td><td class="num">0.88</td>
           <td class="num">0.99</td></tr>
     </tbody>
   </table></div>
@@ -200,10 +200,10 @@
   size; below it, they are too extreme &mdash; a favourite laying more points than it wins by.</p>
 
   <p>Where the model disagreed with the opening number by 3 points or more, the board's own rule:
-  <strong>59&ndash;58&ndash;3</strong> against the number
-  (50.4%; break-even is 52.4%), -4.4 units,
+  <strong>59&ndash;59&ndash;3</strong> against the number
+  (50.0%; break-even is 52.4%), -5.4 units,
   mean closing line value +0.5.
-  That is 120 bets, far too few to say whether the disagreements mean anything.</p>
+  That is 121 bets, far too few to say whether the disagreements mean anything.</p>
 
   <div class="tablewrap"><table>
     <thead><tr><th>Week</th><th class="num">Games</th><th class="num">Winners</th><th class="num">Miss</th>
@@ -224,11 +224,11 @@
         <td class="num">74%</td><td class="num">12.6</td>
         <td class="num">11.3</td>
         <td class="num">19-13-1</td>
-        <td class="num over">+4.3</td></tr><tr><td>5</td><td class="num">1</td>
-        <td class="num">0%</td><td class="num">27.2</td>
-        <td class="num">19.5</td>
-        <td class="num">0-1</td>
-        <td class="num under">-1.0</td></tr></tbody>
+        <td class="num over">+4.3</td></tr><tr><td>5</td><td class="num">2</td>
+        <td class="num">50%</td><td class="num">15.4</td>
+        <td class="num">10.8</td>
+        <td class="num">0-2</td>
+        <td class="num under">-2.0</td></tr></tbody>
   </table></div>
 
   <h3>The forward log</h3>
@@ -236,9 +236,9 @@
   the market's number at that moment, the side &mdash; and never edited afterwards. Games are flagged on the gap between the model and the
   <em>opening</em> line, but a pick is graded against the number the market was showing when it was written down, at &minus;110,
   because that is the price a bettor could actually have had. Every line is the home team's expected margin, and Edge is the model's minus the logged one. In 61 of the 113 picks the line had already moved by the time the pick was logged; the edge shown is against the line as it then stood. 48 of the picks were logged before the preseason prior began to use roster talent and returning production, so they were made by the earlier model; they stay as written.</p>
-  <p><strong>39&ndash;38&ndash;1</strong>
-  on 78 graded of 113 logged
-  (-2.5 units, mean closing line value +0.1).</p>
+  <p><strong>40&ndash;38&ndash;1</strong>
+  on 79 graded of 113 logged
+  (-1.6 units, mean closing line value +0.1).</p>
   <div class="tablewrap"><table>
     <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's expected margin for the home team">Model</th><th class="num muted" title="Where the market opened: its expected home margin. Games are flagged on the gap between this and the model">Open</th><th class="num" title="Market's expected home margin at the moment the pick was written down, which is what it is graded against">Logged</th>
     <th class="num" title="Model minus the logged line">Edge</th><th class="num">Result</th><th class="num" title="Points the line moved toward the pick between logging and kickoff">CLV</th></tr></thead>
@@ -621,6 +621,12 @@
         <td class="num perf over">+7.3</td>
         <td>New Mexico</td></tr><tr>
         <td class="wk">5</td>
+        <td class="opp">Syracuse at UConn</td>
+        <td class="num">-0.2</td>
+        <td class="num">-6.5</td>
+        <td class="num perf over">+6.3</td>
+        <td>UConn</td></tr><tr>
+        <td class="wk">5</td>
         <td class="opp">Wyoming at North Dakota State</td>
         <td class="num">+14.7</td>
         <td class="num">+21.0</td>
@@ -632,12 +638,6 @@
         <td class="num">-2.5</td>
         <td class="num perf under">-6.2</td>
         <td>Florida</td></tr><tr>
-        <td class="wk">5</td>
-        <td class="opp">Syracuse at UConn</td>
-        <td class="num">-0.3</td>
-        <td class="num">-6.5</td>
-        <td class="num perf over">+6.2</td>
-        <td>UConn</td></tr><tr>
         <td class="wk">5</td>
         <td class="opp">Penn State at Northwestern</td>
         <td class="num">-1.2</td>
@@ -652,9 +652,9 @@
         <td>Toledo</td></tr><tr>
         <td class="wk">5</td>
         <td class="opp">Notre Dame at North Carolina</td>
-        <td class="num">-29.1</td>
+        <td class="num">-29.0</td>
         <td class="num">-23.5</td>
-        <td class="num perf under">-5.6</td>
+        <td class="num perf under">-5.5</td>
         <td>Notre Dame</td></tr><tr>
         <td class="wk">5</td>
         <td class="opp">Eastern Michigan at UMass</td>
@@ -670,8 +670,8 @@
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-10-02 03:46 UTC
-    &middot; 332 games rated &middot; <a href="homefield.html">home field</a> 2.9 pts</p>
+    <p class="muted">Ratings last changed 2026-10-02 16:22 UTC
+    &middot; 333 games rated &middot; <a href="homefield.html">home field</a> 2.9 pts</p>
   </div>
 </footer>
 </body>
