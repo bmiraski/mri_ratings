@@ -1886,8 +1886,10 @@ def test_chaos_panel_final_but_not_enough_games() -> None:
 
 def test_slate_page_embeds_the_chaos_panel_and_nav_link_when_chaos_data_is_present(extended) -> None:
     entry = {"final": True, "percentile": 60.0, "z": 0.4, "upsets": 3, "expectedUpsets": 4.0, "shocks": []}
+    # Keyed by the slate's own week: the payload is the live one, and the week rolls over.
+    week = str(extended["slate"]["week"])
     p = dict(extended, chaos={"current": None,
-                              "archive": {"seasons": {str(extended["season"]): {"weeks": {"4": entry}}}}})
+                              "archive": {"seasons": {str(extended["season"]): {"weeks": {week: entry}}}}})
     text = site.slate_page(p)
     assert 'class="chaosmeter final"' in text
     assert 'href="chaos.html">Chaos</a>' in text
