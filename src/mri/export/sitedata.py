@@ -19,7 +19,7 @@ import pandas as pd
 
 from ..ingest import boxscores, cfbd, registry
 from ..ratings import classic, mri2, priors
-from . import common
+from . import common, decomposition
 
 
 @dataclass
@@ -52,13 +52,17 @@ def team_identities(year: int) -> dict[str, TeamIdentity]:
     return out
 
 
-def weekly_ratings(year: int) -> pd.DataFrame:
+def weekly_ratings(year: int, *, sink: dict | None = None) -> pd.DataFrame:
     """MRI 2.0 as of the end of each completed week.
 
     ``week`` is the chronological block from ``cfbd.sequence``, not the feed's
     week: the postseason restarts at week 1, and a week-1 snapshot of a finished
     season must not know how the bowls went. The postseason is one snapshot,
     numbered after the last regular week and flagged ``postseason``.
+
+    ``sink``, if given, receives ``"final"``: the last week's fitted model and the
+    games it was fitted on, the fit that publishes the page's Power. The rating
+    decomposition has to explain that fit and no other.
     """
     games = _sequenced(year)
     if games.empty:
@@ -82,6 +86,8 @@ def weekly_ratings(year: int) -> pd.DataFrame:
         table = table[table["team"].map(registry.is_fbs)].copy()
         table["rank"] = range(1, len(table) + 1)
         postseason = bool((so_far.loc[so_far["block"] == week, "season_type"] != "regular").any())
+        if sink is not None:
+            sink["final"] = (model, so_far)
         frames.append(table.assign(week=int(week), home_field=model.home_field, postseason=postseason))
 
     return pd.concat(frames, ignore_index=True)
@@ -135,7 +141,7 @@ def weekly_classic(year: int) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
-def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
+def build(year: int, out_dir: Path, *, write: bool = True, sink: dict | None = None) -> dict:
     """Write site.json and return the payload.
 
     ``write=False`` is for build_full, which adds the per-team detail and then
@@ -144,7 +150,7 @@ def build(year: int, out_dir: Path, *, write: bool = True) -> dict:
     written itself - never a match, and a fresh timestamp every time.
     """
     identities = team_identities(year)
-    modern = weekly_ratings(year)
+    modern = weekly_ratings(year, sink=sink)
     legacy = weekly_classic(year)
     games = _canonical(cfbd.games(year))
 
@@ -356,7 +362,7 @@ def _hex(value, fallback: str) -> str:
     return value if len(value) == 7 else fallback
 
 
-def team_details(year: int, payload: dict) -> dict:
+def team_details(year: int, payload: dict, fit: tuple | None = None) -> dict:
     """Per-team schedule with each game's performance against expectation.
 
     This is the number no other rating publishes and the most interesting thing
@@ -365,6 +371,12 @@ def team_details(year: int, payload: dict) -> dict:
     final ratings say the margin should have been, against what it was. Beating
     a good team by three is a different result from beating them by thirty, and
     this is where that shows up.
+
+    That is Perf. What a game *adds* to the rating is a separate question, and
+    it has an answer after all: the ridge solve's normal equations split a rating
+    exactly into each game's share plus the preseason prior's (``ratings.decompose``).
+    ``fit`` is the ``(model, games)`` pair that published the page's Power; without
+    it, or if the identity will not reproduce it, the pages simply omit that part.
     """
     from scipy.stats import norm
 
@@ -416,6 +428,7 @@ def team_details(year: int, payload: dict) -> dict:
                         "won": margin > 0,
                         "margin": int(margin),
                         "performance": round(margin - expected, 1),
+                        "_gid": row.game_id,
                     }
                 )
                 details[team]["played"].append(entry)
@@ -438,13 +451,15 @@ def team_details(year: int, payload: dict) -> dict:
         detail["worstLoss"] = min(
             (g for g in played if not g["won"]), key=lambda g: g["opponentPower"], default=None
         )
+    decomposition.attach(details, decomposition.shares_for(fit), power)
     return details
 
 
 def build_full(year: int, out_dir: Path) -> dict:
     """site.json plus the per-team detail the team pages need."""
-    payload = build(year, out_dir, write=False)
-    payload["details"] = team_details(year, payload)
+    sink: dict = {}
+    payload = build(year, out_dir, write=False, sink=sink)
+    payload["details"] = team_details(year, payload, sink.get("final"))
     path = out_dir / "site.json"
     common.settle_timestamp(payload, path)
     path.write_text(json.dumps(payload, indent=2))
