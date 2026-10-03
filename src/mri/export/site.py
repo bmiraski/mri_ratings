@@ -2971,13 +2971,18 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
   <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
     <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody>{rows}</tbody></table></div>"""
 
-    past = [e for e in (archives or []) if e["id"] != archive_id][:ARCHIVE_LINKS]
+    # Only the page's own season: the other seasons are reachable from the Seasons page and the nav, and a
+    # full-history list buries the weeks a reader came for. A football season is short enough to list whole;
+    # basketball's daily slates are capped to the most recent.
+    past = [e for e in (archives or []) if e["id"] != archive_id and e["season"] == season]
+    if bb:
+        past = past[:ARCHIVE_LINKS]
     current_word = "Today" if bb else "This week"
     current = f'<a href="{up}slate.html">{current_word}</a>' if archive and payload.get("slate") else ""
     past_links = ""
     if past or current:
         links = [current] if current else []
-        links += [f'<a href="{up}{e["href"]}">{"" if e["season"] == season else str(e["season"]) + " "}{esc(e["label"])}</a>'
+        links += [f'<a href="{up}{e["href"]}">{esc(e["label"])}</a>'
                   for e in past]
         past_links = f'\n  <p class="slpast"><span class="muted">Slates:</span> {" &middot; ".join(links)}</p>'
     day_nav = ""
