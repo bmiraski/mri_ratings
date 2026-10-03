@@ -1538,7 +1538,10 @@
    "week": 5
   },
   {
+   "actual": -2,
    "away": "Pittsburgh",
+   "close": 1.5,
+   "clv": 4.0,
    "edge": -7.5,
    "game_id": 401858245,
    "home": "Virginia Tech",
@@ -1548,8 +1551,10 @@
    "neutral": false,
    "open": 5.5,
    "predicted": -2.0,
+   "result": "win",
    "side": "away",
    "taken": 5.5,
+   "units": 0.909,
    "week": 5
   },
   {
@@ -1583,7 +1588,10 @@
    "week": 5
   },
   {
+   "actual": 21,
    "away": "Penn State",
+   "close": -3.0,
+   "clv": 1.5,
    "edge": 5.8,
    "game_id": 401858476,
    "home": "Northwestern",
@@ -1593,8 +1601,10 @@
    "neutral": false,
    "open": -7.0,
    "predicted": -1.2,
+   "result": "win",
    "side": "home",
    "taken": -4.5,
+   "units": 0.909,
    "week": 5
   },
   {
@@ -1733,7 +1743,10 @@
    "week": 5
   },
   {
+   "actual": -1,
    "away": "North Texas",
+   "close": -3.0,
+   "clv": 4.5,
    "edge": -3.1,
    "game_id": 401862786,
    "home": "Tulsa",
@@ -1743,8 +1756,10 @@
    "neutral": false,
    "open": -1.5,
    "predicted": -4.6,
+   "result": "win",
    "side": "away",
    "taken": 1.5,
+   "units": 0.909,
    "week": 5
   },
   {
@@ -1808,7 +1823,10 @@
    "week": 5
   },
   {
+   "actual": 21,
    "away": "Western Kentucky",
+   "close": 1.5,
+   "clv": -0.0,
    "edge": -7.7,
    "game_id": 401871049,
    "home": "New Mexico State",
@@ -1818,8 +1836,10 @@
    "neutral": false,
    "open": 1.5,
    "predicted": -6.2,
+   "result": "loss",
    "side": "away",
    "taken": 1.5,
+   "units": -1.0,
    "week": 5
   },
   {
@@ -1973,7 +1993,10 @@
    "week": 5
   },
   {
+   "actual": -16,
    "away": "Liberty",
+   "close": -7.0,
+   "clv": 0.0,
    "edge": 3.6,
    "game_id": 401871050,
    "home": "Delaware",
@@ -1983,8 +2006,10 @@
    "neutral": false,
    "open": -7.0,
    "predicted": -3.4,
+   "result": "loss",
    "side": "home",
    "taken": -7.0,
+   "units": -1.0,
    "week": 5
   },
   {
@@ -2015,6 +2040,36 @@
    "predicted": 13.2,
    "side": "home",
    "taken": 10.0,
+   "week": 5
+  },
+  {
+   "away": "Indiana",
+   "edge": 3.0,
+   "game_id": 401858477,
+   "home": "Rutgers",
+   "kickoff": "2026-10-04T00:00:00.000Z",
+   "loggedAt": "2026-10-02T03:48Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -23.5,
+   "predicted": -20.5,
+   "side": "home",
+   "taken": -24.5,
+   "week": 5
+  },
+  {
+   "away": "Michigan State",
+   "edge": -3.1,
+   "game_id": 401858479,
+   "home": "Wisconsin",
+   "kickoff": "2026-10-03T16:30:00.000Z",
+   "loggedAt": "2026-10-03T14:57Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": 10.0,
+   "predicted": 6.9,
+   "side": "away",
+   "taken": 8.5,
    "week": 5
   }
  ],
