@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 217,
-      "accuracy": 0.8018,
-      "mae": 12.59,
-      "priced": 217,
-      "modelMaePriced": 12.59,
-      "marketMae": 11.04,
-      "marketAccuracy": 0.8387,
-      "modelAccuracyPriced": 0.8018,
-      "maeGap": 1.55,
-      "maeGapError": 0.73,
+      "games": 220,
+      "accuracy": 0.8,
+      "mae": 12.58,
+      "priced": 220,
+      "modelMaePriced": 12.58,
+      "marketMae": 11.05,
+      "marketAccuracy": 0.8318,
+      "modelAccuracyPriced": 0.8,
+      "maeGap": 1.52,
+      "maeGapError": 0.72,
       "slope": 0.88,
       "marketSlope": 0.99,
       "bets": {
-        "count": 121,
-        "wins": 59,
-        "losses": 59,
+        "count": 124,
+        "wins": 61,
+        "losses": 60,
         "pushes": 3,
-        "ats": 0.5,
-        "units": -5.37,
-        "clv": 0.54
+        "ats": 0.5041,
+        "units": -4.55,
+        "clv": 0.59
       }
     },
     "weeks": [
@@ -71,13 +71,13 @@
       },
       {
         "week": 5,
-        "games": 2,
-        "accuracy": 0.5,
-        "mae": 15.38,
-        "marketMae": 10.75,
-        "bets": 2,
-        "record": "0-2",
-        "units": -2.0
+        "games": 5,
+        "accuracy": 0.6,
+        "mae": 13.13,
+        "marketMae": 11.6,
+        "bets": 5,
+        "record": "2-3",
+        "units": -1.18
       }
     ],
     "bets": [
@@ -1883,6 +1883,51 @@
       },
       {
         "week": 5,
+        "home": "Virginia Tech",
+        "away": "Pittsburgh",
+        "side": "away",
+        "team": "Pittsburgh",
+        "predicted": -2.0,
+        "open": 5.5,
+        "close": 1.5,
+        "edge": -7.5,
+        "actual": -2,
+        "result": "win",
+        "units": 0.909,
+        "clv": 4.0
+      },
+      {
+        "week": 5,
+        "home": "Northwestern",
+        "away": "Penn State",
+        "side": "home",
+        "team": "Northwestern",
+        "predicted": -1.2,
+        "open": -7.0,
+        "close": -3.0,
+        "edge": 5.8,
+        "actual": 21,
+        "result": "win",
+        "units": 0.909,
+        "clv": 4.0
+      },
+      {
+        "week": 5,
+        "home": "Delaware",
+        "away": "Liberty",
+        "side": "home",
+        "team": "Delaware",
+        "predicted": -3.4,
+        "open": -7.0,
+        "close": -7.0,
+        "edge": 3.6,
+        "actual": -16,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.0
+      },
+      {
+        "week": 5,
         "home": "Tulsa",
         "away": "North Texas",
         "side": "away",
@@ -3504,7 +3549,10 @@
         "week": 5
       },
       {
+        "actual": -2,
         "away": "Pittsburgh",
+        "close": 1.5,
+        "clv": 4.0,
         "edge": -7.5,
         "game_id": 401858245,
         "home": "Virginia Tech",
@@ -3514,8 +3562,10 @@
         "neutral": false,
         "open": 5.5,
         "predicted": -2.0,
+        "result": "win",
         "side": "away",
         "taken": 5.5,
+        "units": 0.909,
         "week": 5
       },
       {
@@ -3594,7 +3644,10 @@
         "week": 5
       },
       {
+        "actual": 21,
         "away": "Penn State",
+        "close": -3.0,
+        "clv": 1.5,
         "edge": 5.8,
         "game_id": 401858476,
         "home": "Northwestern",
@@ -3604,8 +3657,10 @@
         "neutral": false,
         "open": -7.0,
         "predicted": -1.2,
+        "result": "win",
         "side": "home",
         "taken": -4.5,
+        "units": 0.909,
         "week": 5
       },
       {
@@ -3834,7 +3889,10 @@
         "week": 5
       },
       {
+        "actual": -16,
         "away": "Liberty",
+        "close": -7.0,
+        "clv": 0.0,
         "edge": 3.6,
         "game_id": 401871050,
         "home": "Delaware",
@@ -3844,8 +3902,10 @@
         "neutral": false,
         "open": -7.0,
         "predicted": -3.4,
+        "result": "loss",
         "side": "home",
         "taken": -7.0,
+        "units": -1.0,
         "week": 5
       },
       {
@@ -3891,6 +3951,21 @@
         "predicted": 13.2,
         "side": "home",
         "taken": 10.0,
+        "week": 5
+      },
+      {
+        "away": "Michigan State",
+        "edge": -3.1,
+        "game_id": 401858479,
+        "home": "Wisconsin",
+        "kickoff": "2026-10-03T16:30:00.000Z",
+        "loggedAt": "2026-10-03T14:57Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": 10.0,
+        "predicted": 6.9,
+        "side": "away",
+        "taken": 8.5,
         "week": 5
       },
       {
@@ -3944,14 +4019,14 @@
         "week": 5
       }
     ],
-    "logged": 113,
+    "logged": 114,
     "earlier": 48,
-    "graded": 79,
-    "wins": 40,
-    "losses": 38,
+    "graded": 82,
+    "wins": 42,
+    "losses": 39,
     "pushes": 1,
-    "ats": 0.5128,
-    "units": -1.64,
-    "clv": 0.15
+    "ats": 0.5185,
+    "units": -0.82,
+    "clv": 0.21
   }
 }
