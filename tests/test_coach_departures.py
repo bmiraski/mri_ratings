@@ -140,3 +140,21 @@ def test_build_only_labels_interim_coaches_via_someone_elses_row_never_their_own
     table = departures.build(coach_season)
     assert "interim" not in set(table["coach_id"])
     assert set(table["coach_id"]) == {"a"}
+
+
+def test_keep_manual_labels_survives_a_rebuild_and_reports_orphans() -> None:
+    from mri.coaches import departures
+
+    fresh = [
+        {"coach_id": "a", "school": "X", "season": 2000, "label": "ambiguous", "source": "auto"},
+        {"coach_id": "b", "school": "Y", "season": 2001, "label": "fired_or_pushed_out", "source": "auto"},
+    ]
+    existing = [
+        {"coach_id": "a", "school": "X", "season": 2000, "label": "retired_or_other", "source": "manual"},
+        {"coach_id": "b", "school": "Y", "season": 2001, "label": "moved_up", "source": "auto"},
+        {"coach_id": "gone", "school": "Z", "season": 1999, "label": "moved_up", "source": "manual"},
+    ]
+    merged, orphans = departures.keep_manual_labels(fresh, existing)
+    assert merged[0]["label"] == "retired_or_other" and merged[0]["source"] == "manual"
+    assert merged[1]["label"] == "fired_or_pushed_out"  # an auto row is re-guessed, not carried over
+    assert [o["coach_id"] for o in orphans] == ["gone"]

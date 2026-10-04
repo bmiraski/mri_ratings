@@ -43,7 +43,7 @@ from scipy.stats import rankdata
 from ..sim.season import POWER_FOUR
 from .season import stint_start as _stint_start
 
-FIRST_LABELED_SEASON = 2004  # matches mri.coaches.departures's own cutoff
+FIRST_LABELED_SEASON = 1984  # matches mri.coaches.departures's own cutoff; widening from 2004 beat it out of sample
 MIN_TRAIN_SEASONS = 6        # seasons of history before the first held-out evaluation
 DEFAULT_PENALTY = 4.0
 
@@ -52,6 +52,20 @@ FULL_COLUMNS = [
     "vs_par", "vs_par_lag", "added", "vs_inherited", "win_pct", "conf_win_pct",
     "year1", "year2", "year3", "power_conference", "vs_talent",
 ]
+
+# What counted as a power conference changed with realignment. Judged by era, not by the
+# current four: the Pac-10/Pac-12 and the Big East were power conferences while they
+# lasted, as were the Big 8 and the Southwest Conference before the Big 12 formed.
+# (The Pac-12 name returns in 2026 for a very different league, so it only counts through 2023.)
+POWER_CONFERENCES = POWER_FOUR + ("Pac-10", "Pac-12", "Big East", "Big 8", "Southwest")
+LAST_POWER_PAC12_SEASON = 2023
+
+
+def is_power_conference(conference, season) -> bool:
+    if conference == "Pac-12":
+        return int(season) <= LAST_POWER_PAC12_SEASON
+    return conference in POWER_CONFERENCES
+
 
 TALENT_MODEL_PATH = Path(__file__).resolve().parents[3] / "data" / "talent_model.json"
 
@@ -68,10 +82,12 @@ def full_columns(talent_model_path: Path = TALENT_MODEL_PATH) -> list[str]:
     return [c for c in FULL_COLUMNS if c != "vs_talent"]
 
 
-def dataset(coach_season: pd.DataFrame, departures: pd.DataFrame) -> pd.DataFrame:
+def dataset(
+    coach_season: pd.DataFrame, departures: pd.DataFrame, *, first_season: int = FIRST_LABELED_SEASON
+) -> pd.DataFrame:
     """One row per training example: every feature, plus the label.
 
-    Every non-interim coach-season from ``FIRST_LABELED_SEASON`` through the
+    Every non-interim coach-season from ``first_season`` through the
     second-to-last season on record is a row (the last season's outcome
     isn't confirmed yet - the same reasoning ``mri.coaches.departures.
     eligible_departures`` already uses for "last season," extended to every
@@ -86,7 +102,7 @@ def dataset(coach_season: pd.DataFrame, departures: pd.DataFrame) -> pd.DataFram
     last_confirmed = int(coach_season["season"].max()) - 1
     rows = coach_season[
         (~coach_season["interim"])
-        & (coach_season["season"] >= FIRST_LABELED_SEASON)
+        & (coach_season["season"] >= first_season)
         & (coach_season["season"] <= last_confirmed)
         & (coach_season["games"] > 0)
     ].copy()
@@ -103,7 +119,7 @@ def dataset(coach_season: pd.DataFrame, departures: pd.DataFrame) -> pd.DataFram
     conf_games = rows["conf_wins"] + rows["conf_losses"]
     rows["conf_win_pct"] = np.where(conf_games > 0, rows["conf_wins"] / conf_games.replace(0, np.nan), rows["win_pct"])
 
-    rows["power_conference"] = rows["conference"].isin(POWER_FOUR).astype(float)
+    rows["power_conference"] = [float(is_power_conference(c, y)) for c, y in zip(rows["conference"], rows["season"])]
 
     by_key = coach_season.set_index(["coach_id", "school", "season"])["vs_par"]
     lag_index = pd.MultiIndex.from_arrays([rows["coach_id"], rows["school"], rows["season"] - 1])
@@ -115,6 +131,9 @@ def dataset(coach_season: pd.DataFrame, departures: pd.DataFrame) -> pd.DataFram
     dep = departures.set_index(key_cols)["label"] if not departures.empty else pd.Series(dtype=object)
     matched = dep.reindex(pd.MultiIndex.from_frame(rows[key_cols]))
     rows["label"] = (matched.to_numpy() == "fired_or_pushed_out").astype(float)
+    # A departure nobody could classify is unknown, not "kept their job" - leave it out
+    # of training rather than teach the model it was a zero.
+    rows = rows[matched.to_numpy() != "ambiguous"]
 
     rows = rows.dropna(subset=["vs_par", "vs_inherited", "added"])
     return rows.reset_index(drop=True)
