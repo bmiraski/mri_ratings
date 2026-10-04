@@ -257,3 +257,23 @@ def test_stint_start_preserves_the_input_order_and_index() -> None:
     starts = season.stint_start(rows)
     assert starts.index.equals(rows.index)
     assert (starts == 2010).all()  # 2010-2012 is one continuous stint, regardless of row order
+
+
+def test_interim_overrides_flip_the_flag_and_raise_when_nothing_matches(tmp_path) -> None:
+    import json
+    import pandas as pd
+    import pytest
+    from mri.coaches import season
+
+    path = tmp_path / "c.json"
+    path.write_text(json.dumps({"interim_overrides": [
+        {"coach_name": "A", "school": "X", "season": 2025, "interim": True}]}))
+    table = pd.DataFrame({"coach_name": ["A", "A"], "school": ["X", "X"], "season": [2024, 2025],
+                          "interim": [False, False]})
+    out = season.apply_interim_overrides(table, path)
+    assert out["interim"].tolist() == [False, True]
+
+    path.write_text(json.dumps({"interim_overrides": [
+        {"coach_name": "B", "school": "X", "season": 2025, "interim": True}]}))
+    with pytest.raises(ValueError):
+        season.apply_interim_overrides(table, path)

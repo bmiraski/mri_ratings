@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27",
+  "generated": "2026-10-03",
   "features": [
     "vs_par",
     "vs_par_lag",
@@ -16,203 +16,219 @@
   "minTrainSeasons": 6,
   "penalty": 4.0,
   "trainSeasons": [
-    2006,
+    2004,
     2025
   ],
-  "teamSeasons": 1964,
-  "positives": 239,
+  "teamSeasons": 2643,
+  "positives": 321,
   "perSeason": [
     {
+      "season": 2010,
+      "n": 115,
+      "positives": 16,
+      "brierFull": 0.1239,
+      "brierBaseline": 0.117,
+      "fullBetter": false
+    },
+    {
+      "season": 2011,
+      "n": 116,
+      "positives": 17,
+      "brierFull": 0.0793,
+      "brierBaseline": 0.1146,
+      "fullBetter": true
+    },
+    {
       "season": 2012,
-      "n": 97,
-      "positives": 12,
-      "brierFull": 0.0823,
-      "brierBaseline": 0.1049,
+      "n": 118,
+      "positives": 14,
+      "brierFull": 0.0671,
+      "brierBaseline": 0.0937,
       "fullBetter": true
     },
     {
       "season": 2013,
-      "n": 103,
-      "positives": 10,
-      "brierFull": 0.0781,
-      "brierBaseline": 0.0822,
-      "fullBetter": true
+      "n": 120,
+      "positives": 9,
+      "brierFull": 0.0652,
+      "brierBaseline": 0.0621,
+      "fullBetter": false
     },
     {
       "season": 2014,
-      "n": 106,
-      "positives": 12,
-      "brierFull": 0.0922,
-      "brierBaseline": 0.0956,
+      "n": 121,
+      "positives": 11,
+      "brierFull": 0.0694,
+      "brierBaseline": 0.0773,
       "fullBetter": true
     },
     {
       "season": 2015,
-      "n": 106,
-      "positives": 15,
-      "brierFull": 0.1104,
+      "n": 119,
+      "positives": 18,
+      "brierFull": 0.1026,
       "brierBaseline": 0.1135,
       "fullBetter": true
     },
     {
       "season": 2016,
-      "n": 114,
-      "positives": 14,
-      "brierFull": 0.0736,
-      "brierBaseline": 0.0977,
+      "n": 121,
+      "positives": 15,
+      "brierFull": 0.0757,
+      "brierBaseline": 0.0954,
       "fullBetter": true
     },
     {
       "season": 2017,
-      "n": 118,
+      "n": 123,
       "positives": 15,
-      "brierFull": 0.0803,
-      "brierBaseline": 0.1013,
+      "brierFull": 0.077,
+      "brierBaseline": 0.094,
       "fullBetter": true
     },
     {
       "season": 2018,
-      "n": 118,
+      "n": 123,
       "positives": 15,
-      "brierFull": 0.0951,
-      "brierBaseline": 0.0995,
+      "brierFull": 0.0858,
+      "brierBaseline": 0.0928,
       "fullBetter": true
     },
     {
       "season": 2019,
-      "n": 121,
+      "n": 126,
       "positives": 13,
-      "brierFull": 0.0811,
-      "brierBaseline": 0.0903,
+      "brierFull": 0.0802,
+      "brierBaseline": 0.0855,
       "fullBetter": true
     },
     {
       "season": 2020,
-      "n": 121,
+      "n": 126,
       "positives": 12,
-      "brierFull": 0.0745,
-      "brierBaseline": 0.0814,
+      "brierFull": 0.0731,
+      "brierBaseline": 0.0765,
       "fullBetter": true
     },
     {
       "season": 2021,
-      "n": 123,
-      "positives": 22,
-      "brierFull": 0.1039,
-      "brierBaseline": 0.1368,
+      "n": 127,
+      "positives": 23,
+      "brierFull": 0.1048,
+      "brierBaseline": 0.1356,
       "fullBetter": true
     },
     {
       "season": 2022,
-      "n": 125,
+      "n": 128,
       "positives": 17,
-      "brierFull": 0.0843,
-      "brierBaseline": 0.0979,
+      "brierFull": 0.0799,
+      "brierBaseline": 0.0926,
       "fullBetter": true
     },
     {
       "season": 2023,
-      "n": 129,
+      "n": 132,
       "positives": 13,
-      "brierFull": 0.0782,
-      "brierBaseline": 0.0826,
+      "brierFull": 0.0776,
+      "brierBaseline": 0.0799,
       "fullBetter": true
     },
     {
       "season": 2024,
-      "n": 124,
+      "n": 127,
       "positives": 19,
-      "brierFull": 0.0934,
-      "brierBaseline": 0.1123,
+      "brierFull": 0.0897,
+      "brierBaseline": 0.1073,
       "fullBetter": true
     },
     {
       "season": 2025,
-      "n": 128,
+      "n": 130,
       "positives": 19,
-      "brierFull": 0.1059,
-      "brierBaseline": 0.1129,
+      "brierFull": 0.0978,
+      "brierBaseline": 0.1088,
       "fullBetter": true
     }
   ],
   "seasonsFullBetter": 14,
-  "seasonsTotal": 14,
-  "aucFull": 0.8374,
-  "aucBaseline": 0.7943,
-  "brierFull": 0.0882,
-  "brierBaseline": 0.1007,
+  "seasonsTotal": 16,
+  "aucFull": 0.8439,
+  "aucBaseline": 0.8047,
+  "brierFull": 0.0843,
+  "brierBaseline": 0.0966,
   "calibration": [
     {
-      "n": 164,
-      "predicted": 0.006751632081185667,
-      "actual": 0.006097560975609756
+      "n": 198,
+      "predicted": 0.006329346196447702,
+      "actual": 0.005050505050505051
     },
     {
-      "n": 164,
-      "predicted": 0.0165768219436876,
-      "actual": 0.0
+      "n": 198,
+      "predicted": 0.014875805871086613,
+      "actual": 0.010101010101010102
     },
     {
-      "n": 164,
-      "predicted": 0.02622391975787962,
-      "actual": 0.036585365853658534
+      "n": 197,
+      "predicted": 0.025201177891097517,
+      "actual": 0.03553299492385787
     },
     {
-      "n": 163,
-      "predicted": 0.03945210970934233,
-      "actual": 0.03680981595092025
+      "n": 197,
+      "predicted": 0.038605452404475174,
+      "actual": 0.02030456852791878
     },
     {
-      "n": 163,
-      "predicted": 0.0557942189177608,
-      "actual": 0.06134969325153374
+      "n": 197,
+      "predicted": 0.055425160114280156,
+      "actual": 0.050761421319796954
     },
     {
-      "n": 163,
-      "predicted": 0.07421485323685699,
-      "actual": 0.049079754601226995
+      "n": 197,
+      "predicted": 0.07424805686731006,
+      "actual": 0.06091370558375635
     },
     {
-      "n": 163,
-      "predicted": 0.1034080037954455,
-      "actual": 0.1165644171779141
+      "n": 197,
+      "predicted": 0.10554560457093765,
+      "actual": 0.10152284263959391
     },
     {
-      "n": 163,
-      "predicted": 0.15151264319057964,
-      "actual": 0.20245398773006135
+      "n": 197,
+      "predicted": 0.1593723467556145,
+      "actual": 0.18274111675126903
     },
     {
-      "n": 163,
-      "predicted": 0.23094239694079127,
-      "actual": 0.2392638036809816
+      "n": 197,
+      "predicted": 0.25139005699739797,
+      "actual": 0.27411167512690354
     },
     {
-      "n": 163,
-      "predicted": 0.43620654515479834,
-      "actual": 0.5276073619631901
+      "n": 197,
+      "predicted": 0.48959196544978645,
+      "actual": 0.5076142131979695
     }
   ],
   "passed": true,
   "coefficientsFull": {
-    "vs_par": -0.0506,
-    "vs_par_lag": -0.0215,
-    "added": -0.0122,
-    "vs_inherited": -0.0307,
-    "win_pct": -0.3224,
-    "conf_win_pct": -0.6368,
-    "year1": -1.7907,
-    "year2": -1.1242,
-    "year3": -0.3285,
-    "power_conference": 0.3205,
-    "vs_talent": -0.0549,
-    "intercept": -1.4269
+    "vs_par": -0.0505,
+    "vs_par_lag": -0.0286,
+    "added": -0.0307,
+    "vs_inherited": -0.0304,
+    "win_pct": -0.4808,
+    "conf_win_pct": -0.8422,
+    "year1": -2.0097,
+    "year2": -1.2557,
+    "year3": -0.4921,
+    "power_conference": 0.2563,
+    "vs_talent": -0.0426,
+    "intercept": -1.1834
   },
   "coefficientsBaseline": {
-    "win_pct": -2.4824,
-    "year1": -1.4498,
-    "year2": -0.73,
-    "year3": -0.1384,
-    "intercept": -0.387
+    "win_pct": -2.9999,
+    "year1": -1.5619,
+    "year2": -0.7469,
+    "year3": -0.194,
+    "intercept": -0.1927
   }
 }

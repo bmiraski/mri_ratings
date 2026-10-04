@@ -1,4 +1,13 @@
 {
-  "_note": "Hand-maintained overrides for known-bad CFBD /coaches records. Each correction rewrites one field of one raw coach-season row - identified by coach_name + season + the field's current (wrong) value - before coach_id assignment or split-season validation runs. Add an entry when scripts/build_coach_season.py's split-season validation flags a season that turns out to be a data error rather than a real ambiguity: the tell is that the flagged coaches' game counts sum to a real schedule length once you swap in the right school for one of them, the way Bobby Petrino's did. Retired: the Bobby Petrino 2018 school fix (Western Kentucky -> Louisville) - CFBD corrected that row upstream, which this file's own matching guard caught on the 1978 backfill.",
-  "corrections": []
+  "_note": "Hand-maintained overrides for known-bad CFBD /coaches records. Each correction rewrites one field of one raw coach-season row - identified by coach_name + season + the field's current (wrong) value - before coach_id assignment or split-season validation runs. Add an entry when scripts/build_coach_season.py's split-season validation flags a season that turns out to be a data error rather than a real ambiguity: the tell is that the flagged coaches' game counts sum to a real schedule length once you swap in the right school for one of them, the way Bobby Petrino's did. Retired: the Bobby Petrino 2018 school fix (Western Kentucky -> Louisville) - CFBD corrected that row upstream, which this file's own matching guard caught on the 1978 backfill. interim_overrides: hand-set interim flags for the cases the 'new to the school' proxy in mri.coaches.season gets wrong (a coach returning as an interim at a school they once coached).",
+  "corrections": [],
+  "interim_overrides": [
+    {
+      "coach_name": "Bobby Petrino",
+      "school": "Arkansas",
+      "season": 2025,
+      "interim": true,
+      "reason": "Interim for the final 7 games after Sam Pittman was fired in September 2025. The 'new to the school' proxy misses him because he coached Arkansas 2008-2011."
+    }
+  ]
 }
