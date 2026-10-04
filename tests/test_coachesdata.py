@@ -93,3 +93,21 @@ def test_by_team_keeps_one_row_for_a_continuous_tenure() -> None:
     assert len(rows) == 1
     assert rows[0]["years"] == "2016–2017"
     assert rows[0]["record"] == "20-6"
+
+
+def test_record_shows_ties_only_when_there_were_some() -> None:
+    assert coachesdata._record(8, 3) == "8-3"
+    assert coachesdata._record(8, 3, 0) == "8-3"
+    assert coachesdata._record(8, 3, 1) == "8-3-1"
+    assert coachesdata._record(8, 3, float("nan")) == "8-3"
+
+
+def test_by_team_reaches_back_before_2003_and_sums_ties_into_the_stint_record() -> None:
+    rows = [
+        {**_row("old", "School C", s, wins=7, losses=3), "added": None, "ties": 1 if s == 1979 else 0}
+        for s in (1978, 1979)
+    ]
+    entry = coachesdata._by_team(pd.DataFrame(rows))["School C"][0]
+    assert entry["years"] == "1978–1979"
+    assert entry["record"] == "14-6-1"
+    assert entry["meanAdded"] is None

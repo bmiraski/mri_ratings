@@ -1960,3 +1960,16 @@ def test_chaos_page_links_a_week_with_an_archive_and_leaves_one_without_it_plain
     assert f'href="slate/{p["season"]}-week-4.html#g1">' in text  # the shock links to the exact game
     assert ">Week 5</td>" in text  # the un-archived week stays plain text, not a broken link
     assert not _broken_links(tmp_path)
+
+
+def test_coaches_section_explains_the_missing_early_added_only_when_it_shows_early_years(payload) -> None:
+    team = payload["teams"][0]
+    early = {**payload, "coaches": {team["team"]: [
+        {"name": "Old Coach", "years": "1978–1988", "record": "106-24-2", "meanAdded": 5.9},
+    ]}}
+    modern = {**payload, "coaches": {team["team"]: [
+        {"name": "New Coach", "years": "2012–2016", "record": "30-20", "meanAdded": 2.5},
+    ]}}
+    assert "1978&ndash;1980" in site._coaches_section(team, early)
+    assert "106-24-2" in site._coaches_section(team, early)
+    assert "1978&ndash;1980" not in site._coaches_section(team, modern)

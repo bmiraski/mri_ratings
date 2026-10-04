@@ -29,7 +29,7 @@ import pandas as pd
 from ..ingest import cfbd, registry
 from . import ids
 
-COLUMNS = ["coach_id", "coach_name", "school", "season", "conference", "games", "wins", "losses", "interim"]
+COLUMNS = ["coach_id", "coach_name", "school", "season", "conference", "games", "wins", "losses", "ties", "interim"]
 CORRECTIONS_PATH = Path(__file__).resolve().parents[3] / "data" / "coach_season_corrections.json"
 
 
@@ -75,6 +75,25 @@ def apply_corrections(coach_rows: pd.DataFrame, path: Path = CORRECTIONS_PATH) -
                 f"{c['field']}={c['from']!r} - has the underlying CFBD data changed?"
             )
         out.loc[mask, c["field"]] = c["to"]
+    return out
+
+
+def apply_interim_overrides(table: pd.DataFrame, path: Path = CORRECTIONS_PATH) -> pd.DataFrame:
+    """Hand-set ``interim`` flags (``interim_overrides`` in data/coach_season_corrections.json).
+
+    The "new to the school" proxy cannot see an interim who once coached the school
+    before. Like ``apply_corrections``, an override that matches no row raises.
+    """
+    if not path.exists():
+        return table
+    overrides = json.loads(path.read_text()).get("interim_overrides", [])
+    out = table.copy()
+    for o in overrides:
+        mask = (out["coach_name"] == o["coach_name"]) & (out["school"] == o["school"]) & (out["season"] == o["season"])
+        if not mask.any():
+            raise ValueError(f"coach_season_corrections.json interim_overrides: no row for {o['coach_name']} "
+                             f"{o['school']} {o['season']}")
+        out.loc[mask, "interim"] = bool(o["interim"])
     return out
 
 
@@ -256,4 +275,5 @@ def build(min_year: int, max_year: int, *, validate: bool = True) -> dict:
     with_ids = ids.assign_ids(raw)
     collisions = ids.detect_collisions(with_ids)
     table, problems = build_coach_season(with_ids, validate=validate)
+    table = apply_interim_overrides(table)
     return {"table": table, "collisions": collisions, "problems": problems}

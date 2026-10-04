@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-26",
+  "generated": "2026-10-03",
   "departures": [
     {
       "coach_id": "al-golden-2005",
@@ -30,7 +30,19 @@
       "next": null
     },
     {
-      "coach_id": "al-groh-2000",
+      "coach_id": "al-groh-1981",
+      "coach_name": "Al Groh",
+      "school": "Wake Forest",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.2), no next job found",
+      "vs_par": -0.2360692635777979,
+      "added": 1.3798312348306503,
+      "next": null
+    },
+    {
+      "coach_id": "al-groh-1981",
       "coach_name": "Al Groh",
       "school": "Virginia",
       "season": 2009,
@@ -39,6 +51,54 @@
       "reason": "below expectations (added -3.5 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.536528420559729,
+      "next": null
+    },
+    {
+      "coach_id": "al-kincaid-1981",
+      "coach_name": "Al Kincaid",
+      "school": "Wyoming",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.3), no next job found",
+      "vs_par": -9.300967405551816,
+      "added": -8.388506003580016,
+      "next": null
+    },
+    {
+      "coach_id": "al-kincaid-1981",
+      "coach_name": "Al Kincaid",
+      "school": "Arkansas State",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.2), no next job found",
+      "vs_par": -12.186698694681107,
+      "added": -14.097932396946543,
+      "next": null
+    },
+    {
+      "coach_id": "al-luginbill-1989",
+      "coach_name": "Al Luginbill",
+      "school": "San Diego State",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.053540594230741,
+      "added": -1.4427075470621515,
+      "next": null
+    },
+    {
+      "coach_id": "al-molde-1987",
+      "coach_name": "Al Molde",
+      "school": "Western Michigan",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.9), no next job found",
+      "vs_par": -11.914938929483938,
+      "added": -12.644558940213024,
       "next": null
     },
     {
@@ -70,15 +130,27 @@
       "next": null
     },
     {
-      "coach_id": "andy-mccollum-2003",
+      "coach_id": "andy-mccollum-1999",
       "coach_name": "Andy McCollum",
       "school": "Middle Tennessee",
       "season": 2005,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -3.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.0771946322959405,
+      "next": null
+    },
+    {
+      "coach_id": "art-baker-1978",
+      "coach_name": "Art Baker",
+      "school": "East Carolina",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.2), no next job found",
+      "vs_par": -6.19240584950928,
+      "added": 1.0290202737487748,
       "next": null
     },
     {
@@ -110,7 +182,7 @@
       "next": null
     },
     {
-      "coach_id": "barry-alvarez-2003",
+      "coach_id": "barry-alvarez-1990",
       "coach_name": "Barry Alvarez",
       "school": "Wisconsin",
       "season": 2005,
@@ -122,7 +194,7 @@
       "next": null
     },
     {
-      "coach_id": "barry-alvarez-2003",
+      "coach_id": "barry-alvarez-1990",
       "coach_name": "Barry Alvarez",
       "school": "Wisconsin",
       "season": 2012,
@@ -134,7 +206,7 @@
       "next": null
     },
     {
-      "coach_id": "barry-alvarez-2003",
+      "coach_id": "barry-alvarez-1990",
       "coach_name": "Barry Alvarez",
       "school": "Wisconsin",
       "season": 2014,
@@ -174,6 +246,30 @@
       }
     },
     {
+      "coach_id": "barry-switzer-1978",
+      "coach_name": "Barry Switzer",
+      "school": "Oklahoma",
+      "season": 1988,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +0.5 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 0.4682275487080254,
+      "next": null
+    },
+    {
+      "coach_id": "barry-wilson-1990",
+      "coach_name": "Barry Wilson",
+      "school": "Duke",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.0), no next job found",
+      "vs_par": -5.0190412225111345,
+      "added": -4.4519214734622885,
+      "next": null
+    },
+    {
       "coach_id": "biff-poggi-2022",
       "coach_name": "Biff Poggi",
       "school": "Charlotte",
@@ -183,6 +279,18 @@
       "reason": "above expectations (vs_par +4.6) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 4.589135334043213,
       "added": -6.574882765220842,
+      "next": null
+    },
+    {
+      "coach_id": "bill-arnsparger-1984",
+      "coach_name": "Bill Arnsparger",
+      "school": "LSU",
+      "season": 1986,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +8.6) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 8.633828212967789,
+      "added": 8.289394600459213,
       "next": null
     },
     {
@@ -246,6 +354,50 @@
       "next": null
     },
     {
+      "coach_id": "bill-curry-1980",
+      "coach_name": "Bill Curry",
+      "school": "Georgia Tech",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": -0.9290517231885742,
+      "next": {
+        "school": "Alabama",
+        "season": 1987,
+        "program_par": 19.425982144964017
+      }
+    },
+    {
+      "coach_id": "bill-curry-1980",
+      "coach_name": "Bill Curry",
+      "school": "Alabama",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.2), next job at Kentucky (1990) is a clearly smaller program (program_par 1.3 vs. 19.4 here)",
+      "vs_par": -1.1965218152750658,
+      "added": 7.794394388974869,
+      "next": {
+        "school": "Kentucky",
+        "season": 1990,
+        "program_par": 1.325781896598583
+      }
+    },
+    {
+      "coach_id": "bill-curry-1980",
+      "coach_name": "Bill Curry",
+      "school": "Kentucky",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.8), no next job found",
+      "vs_par": -7.837772156349218,
+      "added": -5.701137778810052,
+      "next": null
+    },
+    {
       "coach_id": "bill-doba-2002",
       "coach_name": "Bill Doba",
       "school": "Washington State",
@@ -258,7 +410,75 @@
       "next": null
     },
     {
-      "coach_id": "bill-lynch-2007",
+      "coach_id": "bill-dooley-1978",
+      "coach_name": "Bill Dooley",
+      "school": "Virginia Tech",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": 0.5818026859549636,
+      "next": {
+        "school": "Wake Forest",
+        "season": 1987,
+        "program_par": -4.56854300554054
+      }
+    },
+    {
+      "coach_id": "bill-dooley-1978",
+      "coach_name": "Bill Dooley",
+      "school": "Wake Forest",
+      "season": 1992,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.9) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.878731583993125,
+      "added": 8.32381046590701,
+      "next": null
+    },
+    {
+      "coach_id": "bill-lewis-1978",
+      "coach_name": "Bill Lewis",
+      "school": "East Carolina",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Georgia Tech (1992), program_par 3.4 vs. -3.4 here",
+      "vs_par": 10.957313289949685,
+      "added": 8.352491197938528,
+      "next": {
+        "school": "Georgia Tech",
+        "season": 1992,
+        "program_par": 3.4139107669772017
+      }
+    },
+    {
+      "coach_id": "bill-lewis-1978",
+      "coach_name": "Bill Lewis",
+      "school": "Georgia Tech",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.0), no next job found",
+      "vs_par": -3.9933666713562768,
+      "added": -1.4213387411426162,
+      "next": null
+    },
+    {
+      "coach_id": "bill-lynch-1995",
+      "coach_name": "Bill Lynch",
+      "school": "Ball State",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.9), no next job found",
+      "vs_par": -1.8510060281449316,
+      "added": -4.002030513599879,
+      "next": null
+    },
+    {
+      "coach_id": "bill-lynch-1995",
       "coach_name": "Bill Lynch",
       "school": "Indiana",
       "season": 2010,
@@ -267,6 +487,30 @@
       "reason": "above expectations (vs_par +1.7) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 1.6638295350214758,
       "added": -2.8885860830923553,
+      "next": null
+    },
+    {
+      "coach_id": "bill-mallory-1978",
+      "coach_name": "Bill Mallory",
+      "school": "Indiana",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.716093133243865,
+      "added": 4.108807647550517,
+      "next": null
+    },
+    {
+      "coach_id": "bill-mccartney-1982",
+      "coach_name": "Bill McCartney",
+      "school": "Colorado",
+      "season": 1994,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +29.2) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 29.187055204265913,
+      "added": 10.567367971150532,
       "next": null
     },
     {
@@ -282,19 +526,19 @@
       "next": null
     },
     {
-      "coach_id": "bill-snyder-2003",
+      "coach_id": "bill-snyder-1989",
       "coach_name": "Bill Snyder",
       "school": "Kansas State",
       "season": 2005,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -3.0 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.0221039136827583,
       "next": null
     },
     {
-      "coach_id": "bill-snyder-2003",
+      "coach_id": "bill-snyder-1989",
       "coach_name": "Bill Snyder",
       "school": "Kansas State",
       "season": 2018,
@@ -311,10 +555,58 @@
       "school": "West Virginia",
       "season": 2010,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (vs_par -3.1), no next job found",
       "vs_par": -3.082614194156095,
       "added": 6.186478931170509,
+      "next": null
+    },
+    {
+      "coach_id": "bill-walsh-1978",
+      "coach_name": "Bill Walsh",
+      "school": "Stanford",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.8), no next job found",
+      "vs_par": -1.8310463594264696,
+      "added": 0.5980143173094117,
+      "next": null
+    },
+    {
+      "coach_id": "bill-yeoman-1978",
+      "coach_name": "Bill Yeoman",
+      "school": "Houston",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -6.6 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -6.573152185487963,
+      "next": null
+    },
+    {
+      "coach_id": "bill-yung-1978",
+      "coach_name": "Bill Yung",
+      "school": "UTEP",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.4695824426936674,
+      "added": -4.878944933988766,
+      "next": null
+    },
+    {
+      "coach_id": "billy-brewer-1980",
+      "coach_name": "Billy Brewer",
+      "school": "Ole Miss",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +7.6) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 7.560927241282984,
+      "added": 2.472061766440725,
       "next": null
     },
     {
@@ -390,6 +682,18 @@
       "next": null
     },
     {
+      "coach_id": "bo-schembechler-1978",
+      "coach_name": "Bo Schembechler",
+      "school": "Michigan",
+      "season": 1989,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +6.3 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 6.270720607953281,
+      "next": null
+    },
+    {
       "coach_id": "bob-chesney-2023",
       "coach_name": "Bob Chesney",
       "school": "James Madison",
@@ -406,7 +710,19 @@
       }
     },
     {
-      "coach_id": "bob-davie-2011",
+      "coach_id": "bob-davie-1997",
+      "coach_name": "Bob Davie",
+      "school": "Notre Dame",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.7), no next job found",
+      "vs_par": -13.655874449888259,
+      "added": -0.42248917662314867,
+      "next": null
+    },
+    {
+      "coach_id": "bob-davie-1997",
       "coach_name": "Bob Davie",
       "school": "New Mexico",
       "season": 2019,
@@ -430,19 +746,31 @@
       "next": null
     },
     {
-      "coach_id": "bob-pruett-2003",
+      "coach_id": "bob-pruett-1997",
       "coach_name": "Bob Pruett",
       "school": "Marshall",
       "season": 2004,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -2.0 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.0273842604245598,
       "next": null
     },
     {
-      "coach_id": "bob-stoops-2003",
+      "coach_id": "bob-simmons-1995",
+      "coach_name": "Bob Simmons",
+      "school": "Oklahoma State",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.4), no next job found",
+      "vs_par": -4.443964803947859,
+      "added": -5.822616546011945,
+      "next": null
+    },
+    {
+      "coach_id": "bob-stoops-1999",
       "coach_name": "Bob Stoops",
       "school": "Oklahoma",
       "season": 2016,
@@ -454,7 +782,7 @@
       "next": null
     },
     {
-      "coach_id": "bob-stoops-2003",
+      "coach_id": "bob-stoops-1999",
       "coach_name": "Bob Stoops",
       "school": "Oklahoma",
       "season": 2021,
@@ -466,7 +794,59 @@
       "next": null
     },
     {
-      "coach_id": "bob-toledo-2006",
+      "coach_id": "bob-stull-1986",
+      "coach_name": "Bob Stull",
+      "school": "UTEP",
+      "season": 1988,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Missouri (1989), program_par 4.4 vs. -20.9 here",
+      "vs_par": 24.226777952071686,
+      "added": 5.326187603538621,
+      "next": {
+        "school": "Missouri",
+        "season": 1989,
+        "program_par": 4.406429980700112
+      }
+    },
+    {
+      "coach_id": "bob-stull-1986",
+      "coach_name": "Bob Stull",
+      "school": "Missouri",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.6), no next job found",
+      "vs_par": -7.576638316964262,
+      "added": -0.9987148603633162,
+      "next": null
+    },
+    {
+      "coach_id": "bob-sutton-1991",
+      "coach_name": "Bob Sutton",
+      "school": "Army",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.4), no next job found",
+      "vs_par": -2.404388849567483,
+      "added": -4.054197974332165,
+      "next": null
+    },
+    {
+      "coach_id": "bob-toledo-1979",
+      "coach_name": "Bob Toledo",
+      "school": "UCLA",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.1), no next job found",
+      "vs_par": -2.1449516605507366,
+      "added": 2.295104151102695,
+      "next": null
+    },
+    {
+      "coach_id": "bob-toledo-1979",
       "coach_name": "Bob Toledo",
       "school": "Tulane",
       "season": 2011,
@@ -478,7 +858,43 @@
       "next": null
     },
     {
-      "coach_id": "bobby-bowden-2003",
+      "coach_id": "bob-valesente-1986",
+      "coach_name": "Bob Valesente",
+      "school": "Kansas",
+      "season": 1987,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.7), no next job found",
+      "vs_par": -15.692065890595739,
+      "added": -9.410810942903,
+      "next": null
+    },
+    {
+      "coach_id": "bob-wagner-1987",
+      "coach_name": "Bob Wagner",
+      "school": "Hawaii",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.8), no next job found",
+      "vs_par": -11.76230786932618,
+      "added": -10.168123016491073,
+      "next": null
+    },
+    {
+      "coach_id": "bob-weber-1980",
+      "coach_name": "Bob Weber",
+      "school": "Louisville",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -6.5 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -6.4813889722945675,
+      "next": null
+    },
+    {
+      "coach_id": "bobby-bowden-1978",
       "coach_name": "Bobby Bowden",
       "school": "Florida State",
       "season": 2009,
@@ -506,11 +922,23 @@
       "coach_name": "Bobby Johnson",
       "school": "Vanderbilt",
       "season": 2009,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -6.3 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.301185579314044,
+      "next": null
+    },
+    {
+      "coach_id": "bobby-keasler-1999",
+      "coach_name": "Bobby Keasler",
+      "school": "Louisiana-Monroe",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.0), no next job found",
+      "vs_par": -0.9794860571027435,
+      "added": -3.9167132711818553,
       "next": null
     },
     {
@@ -566,19 +994,35 @@
       "next": null
     },
     {
-      "coach_id": "bobby-petrino-2002",
-      "coach_name": "Bobby Petrino",
-      "school": "Arkansas",
-      "season": 2025,
+      "coach_id": "bobby-ross-1982",
+      "coach_name": "Bobby Ross",
+      "school": "Maryland",
+      "season": 1986,
       "label": "fired_or_pushed_out",
       "source": "auto",
-      "reason": "below expectations (vs_par -0.6), no next job found",
-      "vs_par": -0.6210888025051524,
-      "added": 4.819485949802273,
+      "reason": "below expectations (vs_par -0.9), next job at Georgia Tech (1987) is a clearly smaller program (program_par 0.1 vs. 10.7 here)",
+      "vs_par": -0.8770639968093334,
+      "added": -1.8594167880939896,
+      "next": {
+        "school": "Georgia Tech",
+        "season": 1987,
+        "program_par": 0.10652815975000163
+      }
+    },
+    {
+      "coach_id": "bobby-ross-1982",
+      "coach_name": "Bobby Ross",
+      "school": "Georgia Tech",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +10.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 10.42785675954509,
+      "added": -0.519212890855913,
       "next": null
     },
     {
-      "coach_id": "bobby-ross-2003",
+      "coach_id": "bobby-ross-1982",
       "coach_name": "Bobby Ross",
       "school": "Army",
       "season": 2006,
@@ -590,7 +1034,7 @@
       "next": null
     },
     {
-      "coach_id": "bobby-wallace-2003",
+      "coach_id": "bobby-wallace-1998",
       "coach_name": "Bobby Wallace",
       "school": "Temple",
       "season": 2005,
@@ -614,6 +1058,18 @@
       "next": null
     },
     {
+      "coach_id": "bobby-williams-1999",
+      "coach_name": "Bobby Williams",
+      "school": "Michigan State",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.9), no next job found",
+      "vs_par": -10.897006115880199,
+      "added": -8.346312447244202,
+      "next": null
+    },
+    {
       "coach_id": "brad-lambert-2011",
       "coach_name": "Brad Lambert",
       "school": "Charlotte",
@@ -623,6 +1079,18 @@
       "reason": "above expectations (added +2.4 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
       "vs_par": null,
       "added": 2.3635731231217676,
+      "next": null
+    },
+    {
+      "coach_id": "brad-scott-1994",
+      "coach_name": "Brad Scott",
+      "school": "South Carolina",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.7), no next job found",
+      "vs_par": -8.694206128972487,
+      "added": -7.736410117779248,
       "next": null
     },
     {
@@ -750,6 +1218,18 @@
       "next": null
     },
     {
+      "coach_id": "brian-burke-1979",
+      "coach_name": "Brian Burke",
+      "school": "Ohio",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -4.3 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -4.257935882699488,
+      "next": null
+    },
+    {
       "coach_id": "brian-kelly-2004",
       "coach_name": "Brian Kelly",
       "school": "Central Michigan",
@@ -815,7 +1295,7 @@
       "school": "Ohio",
       "season": 2004,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -2.4 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.364222191524753,
@@ -878,6 +1358,46 @@
       }
     },
     {
+      "coach_id": "bruce-arians-1983",
+      "coach_name": "Bruce Arians",
+      "school": "Temple",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.4), no next job found",
+      "vs_par": -12.435629105857013,
+      "added": -2.1244760735227155,
+      "next": null
+    },
+    {
+      "coach_id": "bruce-snyder-1978",
+      "coach_name": "Bruce Snyder",
+      "school": "California",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Arizona State (1992), program_par 9.7 vs. -0.7 here",
+      "vs_par": 19.11863611470964,
+      "added": 13.917026665764954,
+      "next": {
+        "school": "Arizona State",
+        "season": 1992,
+        "program_par": 9.658673077862757
+      }
+    },
+    {
+      "coach_id": "bruce-snyder-1978",
+      "coach_name": "Bruce Snyder",
+      "school": "Arizona State",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.1), no next job found",
+      "vs_par": -5.078187655727644,
+      "added": 2.4711915848060317,
+      "next": null
+    },
+    {
       "coach_id": "bryan-harsin-2012",
       "coach_name": "Bryan Harsin",
       "school": "Arkansas State",
@@ -934,7 +1454,19 @@
       "next": null
     },
     {
-      "coach_id": "buddy-teevens-2002",
+      "coach_id": "buddy-teevens-1992",
+      "coach_name": "Buddy Teevens",
+      "school": "Tulane",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.0), no next job found",
+      "vs_par": -0.045736396656147704,
+      "added": 4.721466410186006,
+      "next": null
+    },
+    {
+      "coach_id": "buddy-teevens-1992",
       "coach_name": "Buddy Teevens",
       "school": "Stanford",
       "season": 2004,
@@ -946,7 +1478,19 @@
       "next": null
     },
     {
-      "coach_id": "butch-davis-2006",
+      "coach_id": "butch-davis-1995",
+      "coach_name": "Butch Davis",
+      "school": "Miami (FL)",
+      "season": 2000,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.300281720213686,
+      "added": 16.546361320845982,
+      "next": null
+    },
+    {
+      "coach_id": "butch-davis-1995",
       "coach_name": "Butch Davis",
       "school": "North Carolina",
       "season": 2010,
@@ -958,7 +1502,7 @@
       "next": null
     },
     {
-      "coach_id": "butch-davis-2006",
+      "coach_id": "butch-davis-1995",
       "coach_name": "Butch Davis",
       "school": "FIU",
       "season": 2021,
@@ -1014,6 +1558,30 @@
       "next": null
     },
     {
+      "coach_id": "cam-cameron-1997",
+      "coach_name": "Cam Cameron",
+      "school": "Indiana",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.0), no next job found",
+      "vs_par": -1.0056570689419626,
+      "added": 5.596024349299183,
+      "next": null
+    },
+    {
+      "coach_id": "carl-franks-1999",
+      "coach_name": "Carl Franks",
+      "school": "Duke",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.1), no next job found",
+      "vs_par": -4.141312992433233,
+      "added": -1.6979742587867106,
+      "next": null
+    },
+    {
       "coach_id": "carl-pelini-2011",
       "coach_name": "Carl Pelini",
       "school": "Florida Atlantic",
@@ -1023,6 +1591,18 @@
       "reason": "above expectations (vs_par +4.6) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 4.580467660468351,
       "added": 0.2171542226530967,
+      "next": null
+    },
+    {
+      "coach_id": "carl-torbush-1998",
+      "coach_name": "Carl Torbush",
+      "school": "North Carolina",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.7), no next job found",
+      "vs_par": -4.68209073801759,
+      "added": 2.952516166669459,
       "next": null
     },
     {
@@ -1102,6 +1682,42 @@
       "next": null
     },
     {
+      "coach_id": "charley-pell-1978",
+      "coach_name": "Charley Pell",
+      "school": "Florida",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (added +8.1 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 8.141292494368594,
+      "next": null
+    },
+    {
+      "coach_id": "charlie-bailey-1986",
+      "coach_name": "Charlie Bailey",
+      "school": "Memphis",
+      "season": 1988,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.9) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.913125606385284,
+      "added": 2.0561016282198343,
+      "next": null
+    },
+    {
+      "coach_id": "charlie-bailey-1986",
+      "coach_name": "Charlie Bailey",
+      "school": "UTEP",
+      "season": 1999,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.301980420649798,
+      "added": -0.26425348191837017,
+      "next": null
+    },
+    {
       "coach_id": "charlie-partridge-2013",
       "coach_name": "Charlie Partridge",
       "school": "Florida Atlantic",
@@ -1111,6 +1727,18 @@
       "reason": "below expectations (vs_par -3.7), no next job found",
       "vs_par": -3.655574432733019,
       "added": -10.162328586674612,
+      "next": null
+    },
+    {
+      "coach_id": "charlie-sadler-1991",
+      "coach_name": "Charlie Sadler",
+      "school": "Northern Illinois",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.2), no next job found",
+      "vs_par": -9.231170585956598,
+      "added": -12.59745404078986,
       "next": null
     },
     {
@@ -1158,12 +1786,40 @@
       "next": null
     },
     {
-      "coach_id": "charlie-weatherbie-2003",
+      "coach_id": "charlie-weatherbie-1992",
+      "coach_name": "Charlie Weatherbie",
+      "school": "Utah State",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Navy (1995), program_par -15.3 vs. -13.6 here",
+      "vs_par": -2.7509019361578595,
+      "added": -11.56144554493063,
+      "next": {
+        "school": "Navy",
+        "season": 1995,
+        "program_par": -15.34891505781681
+      }
+    },
+    {
+      "coach_id": "charlie-weatherbie-1992",
+      "coach_name": "Charlie Weatherbie",
+      "school": "Navy",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.1), no next job found",
+      "vs_par": -3.057026931494452,
+      "added": -7.0319982520268045,
+      "next": null
+    },
+    {
+      "coach_id": "charlie-weatherbie-1992",
       "coach_name": "Charlie Weatherbie",
       "school": "Louisiana-Monroe",
       "season": 2009,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -0.6 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -0.6104790980342489,
@@ -1242,12 +1898,24 @@
       "next": null
     },
     {
-      "coach_id": "chris-ault-2004",
+      "coach_id": "chris-ault-1992",
+      "coach_name": "Chris Ault",
+      "school": "Nevada",
+      "season": 1992,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.3550690429502836,
+      "added": -1.1092826501110817,
+      "next": null
+    },
+    {
+      "coach_id": "chris-ault-1992",
       "coach_name": "Chris Ault",
       "school": "Nevada",
       "season": 2012,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -4.0 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.9993927061878605,
@@ -1266,12 +1934,24 @@
       "next": null
     },
     {
+      "coach_id": "chris-pella-1983",
+      "coach_name": "Chris Pella",
+      "school": "Utah State",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.4), no next job found",
+      "vs_par": -14.355433197381418,
+      "added": -6.515472294617027,
+      "next": null
+    },
+    {
       "coach_id": "chris-petersen-2005",
       "coach_name": "Chris Petersen",
       "school": "Boise State",
       "season": 2013,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "moved_up",
+      "source": "manual",
       "reason": "below expectations (vs_par -4.6), next job at Washington (2014) is a clearly smaller program (program_par 0.2 vs. 14.2 here)",
       "vs_par": -4.5542862993338815,
       "added": -0.1054280132875256,
@@ -1294,7 +1974,7 @@
       "next": null
     },
     {
-      "coach_id": "chris-scelfo-2003",
+      "coach_id": "chris-scelfo-1999",
       "coach_name": "Chris Scelfo",
       "school": "Tulane",
       "season": 2006,
@@ -1303,6 +1983,18 @@
       "reason": "below expectations (added -4.2 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -4.218697031276772,
+      "next": null
+    },
+    {
+      "coach_id": "chris-tormey-1996",
+      "coach_name": "Chris Tormey",
+      "school": "Nevada",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.7), no next job found",
+      "vs_par": -1.6887422686943907,
+      "added": -4.343109007565435,
       "next": null
     },
     {
@@ -1330,6 +2022,70 @@
       "next": null
     },
     {
+      "coach_id": "chuck-reedy-1993",
+      "coach_name": "Chuck Reedy",
+      "school": "Baylor",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.8), no next job found",
+      "vs_par": -4.7739489819670515,
+      "added": -4.694395200000526,
+      "next": null
+    },
+    {
+      "coach_id": "chuck-shelton-1978",
+      "coach_name": "Chuck Shelton",
+      "school": "Utah State",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.1), next job at Pacific (1992) is a clearly smaller program (program_par -17.1 vs. -5.3 here)",
+      "vs_par": -3.095454248219868,
+      "added": -0.2347131469824113,
+      "next": {
+        "school": "Pacific",
+        "season": 1992,
+        "program_par": -17.120836034984777
+      }
+    },
+    {
+      "coach_id": "chuck-stobart-1978",
+      "coach_name": "Chuck Stobart",
+      "school": "Utah",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.5), no next job found",
+      "vs_par": -0.47872714264720084,
+      "added": 3.4475503256985203,
+      "next": null
+    },
+    {
+      "coach_id": "chuck-stobart-1978",
+      "coach_name": "Chuck Stobart",
+      "school": "Memphis",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +5.6) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 5.597223769826815,
+      "added": -3.599976583835173,
+      "next": null
+    },
+    {
+      "coach_id": "claude-gilbert-1978",
+      "coach_name": "Claude Gilbert",
+      "school": "San Jose State",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.9), no next job found",
+      "vs_par": -3.92861215898483,
+      "added": 0.34386287193104037,
+      "next": null
+    },
+    {
       "coach_id": "clay-helton-2013",
       "coach_name": "Clay Helton",
       "school": "USC",
@@ -1346,6 +2102,18 @@
       }
     },
     {
+      "coach_id": "cleve-bryant-1985",
+      "coach_name": "Cleve Bryant",
+      "school": "Ohio",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.4), no next job found",
+      "vs_par": -13.430689453005948,
+      "added": -9.037660072844705,
+      "next": null
+    },
+    {
       "coach_id": "craig-bohl-2013",
       "coach_name": "Craig Bohl",
       "school": "Wyoming",
@@ -1355,6 +2123,42 @@
       "reason": "above expectations (vs_par +5.4) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 5.37035597193394,
       "added": 4.556429476095764,
+      "next": null
+    },
+    {
+      "coach_id": "craig-cirbus-1999",
+      "coach_name": "Craig Cirbus",
+      "school": "Buffalo",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -9.3 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -9.340425407086773,
+      "next": null
+    },
+    {
+      "coach_id": "curley-hallman-1988",
+      "coach_name": "Curley Hallman",
+      "school": "Southern Miss",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.9), no next job found",
+      "vs_par": -0.8836710400240593,
+      "added": 1.7591652961333688,
+      "next": null
+    },
+    {
+      "coach_id": "curley-hallman-1988",
+      "coach_name": "Curley Hallman",
+      "school": "LSU",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.2), no next job found",
+      "vs_par": -7.18782632894758,
+      "added": 5.941143281982384,
       "next": null
     },
     {
@@ -1402,8 +2206,8 @@
       "coach_name": "Dan Enos",
       "school": "Central Michigan",
       "season": 2014,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "moved_up",
+      "source": "manual",
       "reason": "below expectations (vs_par -3.4), no next job found",
       "vs_par": -3.3992165962137966,
       "added": 1.0281239828907367,
@@ -1438,7 +2242,19 @@
       "next": null
     },
     {
-      "coach_id": "dan-mccarney-2003",
+      "coach_id": "dan-henning-1994",
+      "coach_name": "Dan Henning",
+      "school": "Boston College",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.2), no next job found",
+      "vs_par": -7.212951183512692,
+      "added": -4.848577903564997,
+      "next": null
+    },
+    {
+      "coach_id": "dan-mccarney-1995",
       "coach_name": "Dan McCarney",
       "school": "Iowa State",
       "season": 2006,
@@ -1450,7 +2266,7 @@
       "next": null
     },
     {
-      "coach_id": "dan-mccarney-2003",
+      "coach_id": "dan-mccarney-1995",
       "coach_name": "Dan McCarney",
       "school": "North Texas",
       "season": 2015,
@@ -1490,7 +2306,47 @@
       "next": null
     },
     {
-      "coach_id": "dana-dimel-2017",
+      "coach_id": "dan-simrell-1982",
+      "coach_name": "Dan Simrell",
+      "school": "Toledo",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.7), no next job found",
+      "vs_par": -9.652704975557867,
+      "added": -4.523908207785761,
+      "next": null
+    },
+    {
+      "coach_id": "dana-dimel-1997",
+      "coach_name": "Dana Dimel",
+      "school": "Wyoming",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.5), next job at Houston (2000) is a clearly smaller program (program_par -3.8 vs. 1.9 here)",
+      "vs_par": -1.4513475111339043,
+      "added": 0.2491453382620562,
+      "next": {
+        "school": "Houston",
+        "season": 2000,
+        "program_par": -3.8037388799094307
+      }
+    },
+    {
+      "coach_id": "dana-dimel-1997",
+      "coach_name": "Dana Dimel",
+      "school": "Houston",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.4), no next job found",
+      "vs_par": -7.376728186900217,
+      "added": 0.9902000019383905,
+      "next": null
+    },
+    {
+      "coach_id": "dana-dimel-1997",
       "coach_name": "Dana Dimel",
       "school": "UTEP",
       "season": 2023,
@@ -1530,6 +2386,30 @@
       "next": null
     },
     {
+      "coach_id": "danny-ford-1978",
+      "coach_name": "Danny Ford",
+      "school": "Clemson",
+      "season": 1989,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +9.3 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 9.300547579593713,
+      "next": null
+    },
+    {
+      "coach_id": "danny-ford-1978",
+      "coach_name": "Danny Ford",
+      "school": "Arkansas",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.1), no next job found",
+      "vs_par": -11.100794865252624,
+      "added": -1.1321558049638272,
+      "next": null
+    },
+    {
       "coach_id": "danny-gonzales-2020",
       "coach_name": "Danny Gonzales",
       "school": "New Mexico",
@@ -1554,12 +2434,12 @@
       "next": null
     },
     {
-      "coach_id": "darrell-dickey-2003",
+      "coach_id": "darrell-dickey-1998",
       "coach_name": "Darrell Dickey",
       "school": "North Texas",
       "season": 2006,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -6.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.8374831052658696,
@@ -1591,6 +2471,42 @@
       "reason": "below expectations (vs_par -16.6), no next job found",
       "vs_par": -16.605640469255455,
       "added": -6.992932326074349,
+      "next": null
+    },
+    {
+      "coach_id": "darryl-rogers-1978",
+      "coach_name": "Darryl Rogers",
+      "school": "Arizona State",
+      "season": 1984,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (added +1.4 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 1.3797553036886478,
+      "next": null
+    },
+    {
+      "coach_id": "dave-arslanian-1998",
+      "coach_name": "Dave Arslanian",
+      "school": "Utah State",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.2), no next job found",
+      "vs_par": -0.1561907646835312,
+      "added": -2.135878139128806,
+      "next": null
+    },
+    {
+      "coach_id": "dave-baldwin-1997",
+      "coach_name": "Dave Baldwin",
+      "school": "San Jose State",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.6) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.585117532470024,
+      "added": 5.889938647456701,
       "next": null
     },
     {
@@ -1634,6 +2550,18 @@
       "next": null
     },
     {
+      "coach_id": "dave-currey-1978",
+      "coach_name": "Dave Currey",
+      "school": "Cincinnati",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.2), no next job found",
+      "vs_par": -14.212403132468683,
+      "added": -9.495552611501582,
+      "next": null
+    },
+    {
       "coach_id": "dave-doeren-2010",
       "coach_name": "Dave Doeren",
       "school": "Northern Illinois",
@@ -1648,6 +2576,42 @@
         "season": 2013,
         "program_par": 2.3840911908004534
       }
+    },
+    {
+      "coach_id": "dave-kragthorpe-1985",
+      "coach_name": "Dave Kragthorpe",
+      "school": "Oregon State",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.4475372395570236,
+      "added": -12.52158172731078,
+      "next": null
+    },
+    {
+      "coach_id": "dave-mcclain-1978",
+      "coach_name": "Dave McClain",
+      "school": "Wisconsin",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -3.8 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -3.8146544972363836,
+      "next": null
+    },
+    {
+      "coach_id": "dave-roberts-1997",
+      "coach_name": "Dave Roberts",
+      "school": "Baylor",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.7), no next job found",
+      "vs_par": -8.707419885180416,
+      "added": 0.12854311342888725,
+      "next": null
     },
     {
       "coach_id": "dave-wannstedt-2004",
@@ -1686,7 +2650,7 @@
       "next": null
     },
     {
-      "coach_id": "david-cutcliffe-2003",
+      "coach_id": "david-cutcliffe-1998",
       "coach_name": "David Cutcliffe",
       "school": "Ole Miss",
       "season": 2004,
@@ -1698,7 +2662,7 @@
       "next": null
     },
     {
-      "coach_id": "david-cutcliffe-2003",
+      "coach_id": "david-cutcliffe-1998",
       "coach_name": "David Cutcliffe",
       "school": "Duke",
       "season": 2021,
@@ -1715,10 +2679,46 @@
       "school": "Western Kentucky",
       "season": 2009,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -13.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -13.692878455659248,
+      "next": null
+    },
+    {
+      "coach_id": "david-lee-1989",
+      "coach_name": "David Lee",
+      "school": "UTEP",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.4), no next job found",
+      "vs_par": -3.4081022843074837,
+      "added": -9.678464962551425,
+      "next": null
+    },
+    {
+      "coach_id": "david-mcwilliams-1987",
+      "coach_name": "David McWilliams",
+      "school": "Texas",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.3), no next job found",
+      "vs_par": -2.277028666810372,
+      "added": -0.24890753305557567,
+      "next": null
+    },
+    {
+      "coach_id": "david-rader-1988",
+      "coach_name": "David Rader",
+      "school": "Tulsa",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -18.1), no next job found",
+      "vs_par": -18.11494253341466,
+      "added": -11.991644983993435,
       "next": null
     },
     {
@@ -1734,7 +2734,75 @@
       "next": null
     },
     {
-      "coach_id": "dennis-erickson-2006",
+      "coach_id": "dean-pees-1998",
+      "coach_name": "Dean Pees",
+      "school": "Kent State",
+      "season": 2003,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +11.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 11.125345227205031,
+      "added": 0.28171059915101004,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-erickson-1986",
+      "coach_name": "Dennis Erickson",
+      "school": "Wyoming",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Washington State (1987), program_par 0.4 vs. -2.5 here",
+      "vs_par": 0.8257837953439764,
+      "added": 5.8682836796302675,
+      "next": {
+        "school": "Washington State",
+        "season": 1987,
+        "program_par": 0.4417007035306116
+      }
+    },
+    {
+      "coach_id": "dennis-erickson-1986",
+      "coach_name": "Dennis Erickson",
+      "school": "Washington State",
+      "season": 1988,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Miami (FL) (1989), program_par 18.0 vs. 0.4 here",
+      "vs_par": 12.136686210333616,
+      "added": 14.345514617583763,
+      "next": {
+        "school": "Miami (FL)",
+        "season": 1989,
+        "program_par": 17.99226915286474
+      }
+    },
+    {
+      "coach_id": "dennis-erickson-1986",
+      "coach_name": "Dennis Erickson",
+      "school": "Miami (FL)",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.6910734261023492,
+      "added": 8.795035970987922,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-erickson-1986",
+      "coach_name": "Dennis Erickson",
+      "school": "Oregon State",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +18.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 18.124790805835133,
+      "added": 5.9013291710828675,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-erickson-1986",
       "coach_name": "Dennis Erickson",
       "school": "Arizona State",
       "season": 2011,
@@ -1746,7 +2814,55 @@
       "next": null
     },
     {
-      "coach_id": "dennis-franchione-2002",
+      "coach_id": "dennis-franchione-1992",
+      "coach_name": "Dennis Franchione",
+      "school": "New Mexico",
+      "season": 1997,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at TCU (1998), program_par -6.2 vs. -11.3 here",
+      "vs_par": 13.004331091511768,
+      "added": 4.728965858839153,
+      "next": {
+        "school": "TCU",
+        "season": 1998,
+        "program_par": -6.228731678755095
+      }
+    },
+    {
+      "coach_id": "dennis-franchione-1992",
+      "coach_name": "Dennis Franchione",
+      "school": "TCU",
+      "season": 2000,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Alabama (2001), program_par 12.1 vs. -6.2 here",
+      "vs_par": 21.020953034096927,
+      "added": 12.576787916243592,
+      "next": {
+        "school": "Alabama",
+        "season": 2001,
+        "program_par": 12.146948154173836
+      }
+    },
+    {
+      "coach_id": "dennis-franchione-1992",
+      "coach_name": "Dennis Franchione",
+      "school": "Alabama",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Texas A&M (2003), program_par 14.2 vs. 12.1 here",
+      "vs_par": 4.888031450572337,
+      "added": 9.481767648413435,
+      "next": {
+        "school": "Texas A&M",
+        "season": 2003,
+        "program_par": 14.187670397008919
+      }
+    },
+    {
+      "coach_id": "dennis-franchione-1992",
       "coach_name": "Dennis Franchione",
       "school": "Texas A&M",
       "season": 2007,
@@ -1758,7 +2874,7 @@
       "next": null
     },
     {
-      "coach_id": "dennis-franchione-2002",
+      "coach_id": "dennis-franchione-1992",
       "coach_name": "Dennis Franchione",
       "school": "Texas State",
       "season": 2015,
@@ -1767,6 +2883,58 @@
       "reason": "below expectations (added -12.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -12.124290044892913,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-green-1981",
+      "coach_name": "Dennis Green",
+      "school": "Northwestern",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +12.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 12.446608244000346,
+      "added": -4.3369495222047725,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-green-1981",
+      "coach_name": "Dennis Green",
+      "school": "Stanford",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +9.9) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 9.939006401537274,
+      "added": 9.744869345399406,
+      "next": null
+    },
+    {
+      "coach_id": "dennis-stolz-1978",
+      "coach_name": "Dennis Stolz",
+      "school": "Bowling Green",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": 2.303540698290159,
+      "next": {
+        "school": "San Diego State",
+        "season": 1986,
+        "program_par": -3.05252529582751
+      }
+    },
+    {
+      "coach_id": "dennis-stolz-1978",
+      "coach_name": "Dennis Stolz",
+      "school": "San Diego State",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.3), no next job found",
+      "vs_par": -7.332265130647358,
+      "added": -8.257738483623157,
       "next": null
     },
     {
@@ -1834,7 +3002,123 @@
       "next": null
     },
     {
-      "coach_id": "dick-tomey-2004",
+      "coach_id": "dick-anderson-1984",
+      "coach_name": "Dick Anderson",
+      "school": "Rutgers",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.3), no next job found",
+      "vs_par": -7.3345133283743245,
+      "added": -7.697663874495462,
+      "next": null
+    },
+    {
+      "coach_id": "dick-crum-1978",
+      "coach_name": "Dick Crum",
+      "school": "North Carolina",
+      "season": 1987,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": 1.565408758627156,
+      "next": {
+        "school": "Kent State",
+        "season": 1988,
+        "program_par": -16.56516821445733
+      }
+    },
+    {
+      "coach_id": "dick-crum-1978",
+      "coach_name": "Dick Crum",
+      "school": "Kent State",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.35097338497918,
+      "added": -7.9637292955731525,
+      "next": null
+    },
+    {
+      "coach_id": "dick-flynn-1994",
+      "coach_name": "Dick Flynn",
+      "school": "Central Michigan",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.5), no next job found",
+      "vs_par": -12.45080031946371,
+      "added": -6.963501811549184,
+      "next": null
+    },
+    {
+      "coach_id": "dick-macpherson-1981",
+      "coach_name": "Dick MacPherson",
+      "school": "Syracuse",
+      "season": 1990,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +13.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 13.125711949801085,
+      "added": 6.673337835720927,
+      "next": null
+    },
+    {
+      "coach_id": "dick-scesniak-1983",
+      "coach_name": "Dick Scesniak",
+      "school": "Kent State",
+      "season": 1985,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.0886582481631972,
+      "added": -4.999364385211097,
+      "next": null
+    },
+    {
+      "coach_id": "dick-sheridan-1978",
+      "coach_name": "Dick Sheridan",
+      "school": "NC State",
+      "season": 1992,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +8.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 8.716628892327387,
+      "added": 6.2446468918950995,
+      "next": null
+    },
+    {
+      "coach_id": "dick-tomey-1978",
+      "coach_name": "Dick Tomey",
+      "school": "Hawaii",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": -0.15728041626218348,
+      "next": {
+        "school": "Arizona",
+        "season": 1987,
+        "program_par": 6.831454970827829
+      }
+    },
+    {
+      "coach_id": "dick-tomey-1978",
+      "coach_name": "Dick Tomey",
+      "school": "Arizona",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.1181359169166454,
+      "added": 4.562775973108197,
+      "next": null
+    },
+    {
+      "coach_id": "dick-tomey-1978",
       "coach_name": "Dick Tomey",
       "school": "San Jose State",
       "season": 2009,
@@ -1874,7 +3158,23 @@
       "next": null
     },
     {
-      "coach_id": "dirk-koetter-2000",
+      "coach_id": "dirk-koetter-1998",
+      "coach_name": "Dirk Koetter",
+      "school": "Boise State",
+      "season": 2000,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Arizona State (2001), program_par 8.8 vs. -26.3 here",
+      "vs_par": 33.22917417085104,
+      "added": 9.382133098815821,
+      "next": {
+        "school": "Arizona State",
+        "season": 2001,
+        "program_par": 8.812728062113155
+      }
+    },
+    {
+      "coach_id": "dirk-koetter-1998",
       "coach_name": "Dirk Koetter",
       "school": "Arizona State",
       "season": 2006,
@@ -1910,6 +3210,58 @@
       "next": null
     },
     {
+      "coach_id": "don-james-1978",
+      "coach_name": "Don James",
+      "school": "Washington",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -1.2 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -1.2125294118505359,
+      "next": null
+    },
+    {
+      "coach_id": "don-morton-1985",
+      "coach_name": "Don Morton",
+      "school": "Tulsa",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Wisconsin (1987), program_par 0.3 vs. 2.5 here",
+      "vs_par": -2.8797787205406356,
+      "added": 2.750149948604004,
+      "next": {
+        "school": "Wisconsin",
+        "season": 1987,
+        "program_par": 0.2519155199368825
+      }
+    },
+    {
+      "coach_id": "don-morton-1985",
+      "coach_name": "Don Morton",
+      "school": "Wisconsin",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.5), no next job found",
+      "vs_par": -11.517371059996714,
+      "added": -1.2283980418142164,
+      "next": null
+    },
+    {
+      "coach_id": "don-nehlen-1980",
+      "coach_name": "Don Nehlen",
+      "school": "West Virginia",
+      "season": 2000,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +1.9 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 1.9224608092376836,
+      "next": null
+    },
+    {
       "coach_id": "don-strock-2000",
       "coach_name": "Don Strock",
       "school": "FIU",
@@ -1934,6 +3286,18 @@
       "next": null
     },
     {
+      "coach_id": "doug-graber-1990",
+      "coach_name": "Doug Graber",
+      "school": "Rutgers",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.7), no next job found",
+      "vs_par": -5.656571091990337,
+      "added": -5.95777626158705,
+      "next": null
+    },
+    {
       "coach_id": "doug-marrone-2008",
       "coach_name": "Doug Marrone",
       "school": "Syracuse",
@@ -1950,8 +3314,8 @@
       "coach_name": "Doug Martin",
       "school": "Kent State",
       "season": 2010,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -2.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.6863416432054574,
@@ -1967,6 +3331,66 @@
       "reason": "below expectations (vs_par -6.0), no next job found",
       "vs_par": -6.0462716056179815,
       "added": -5.8036703367791205,
+      "next": null
+    },
+    {
+      "coach_id": "doug-scovil-1981",
+      "coach_name": "Doug Scovil",
+      "school": "San Diego State",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +6.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 6.385046448531748,
+      "added": 3.051281700956057,
+      "next": null
+    },
+    {
+      "coach_id": "dwight-wallace-1978",
+      "coach_name": "Dwight Wallace",
+      "school": "Ball State",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -8.1 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -8.122511698458073,
+      "next": null
+    },
+    {
+      "coach_id": "earle-bruce-1978",
+      "coach_name": "Earle Bruce",
+      "school": "Ohio State",
+      "season": 1987,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -0.8 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -0.7906598758675383,
+      "next": null
+    },
+    {
+      "coach_id": "earle-bruce-1978",
+      "coach_name": "Earle Bruce",
+      "school": "Colorado State",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.4008126942826653,
+      "added": -2.5072799356904483,
+      "next": null
+    },
+    {
+      "coach_id": "ed-emory-1980",
+      "coach_name": "Ed Emory",
+      "school": "East Carolina",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -10.8 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -10.801323774789754,
       "next": null
     },
     {
@@ -1994,6 +3418,30 @@
       "next": null
     },
     {
+      "coach_id": "ed-zaunbrecher-1994",
+      "coach_name": "Ed Zaunbrecher",
+      "school": "Louisiana-Monroe",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.344597763026268,
+      "added": -5.533385557721823,
+      "next": null
+    },
+    {
+      "coach_id": "elliot-uzelac-1978",
+      "coach_name": "Elliot Uzelac",
+      "school": "Navy",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.6), no next job found",
+      "vs_par": -15.582584075308194,
+      "added": -5.943282251049709,
+      "next": null
+    },
+    {
       "coach_id": "ellis-johnson-2011",
       "coach_name": "Ellis Johnson",
       "school": "Southern Miss",
@@ -2003,6 +3451,18 @@
       "reason": "below expectations (vs_par -18.3), no next job found",
       "vs_par": -18.27625689148509,
       "added": -22.607857666517944,
+      "next": null
+    },
+    {
+      "coach_id": "emory-bellard-1978",
+      "coach_name": "Emory Bellard",
+      "school": "Mississippi State",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -0.4 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -0.404977585334203,
       "next": null
     },
     {
@@ -2046,7 +3506,7 @@
       "next": null
     },
     {
-      "coach_id": "fisher-deberry-2003",
+      "coach_id": "fisher-deberry-1984",
       "coach_name": "Fisher DeBerry",
       "school": "Air Force",
       "season": 2006,
@@ -2070,7 +3530,43 @@
       "next": null
     },
     {
-      "coach_id": "frank-beamer-2003",
+      "coach_id": "foge-fazio-1982",
+      "coach_name": "Foge Fazio",
+      "school": "Pittsburgh",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.9), no next job found",
+      "vs_par": -15.889541256032233,
+      "added": 0.7878039844897016,
+      "next": null
+    },
+    {
+      "coach_id": "forrest-gregg-1989",
+      "coach_name": "Forrest Gregg",
+      "school": "SMU",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -30.4), no next job found",
+      "vs_par": -30.392232405304973,
+      "added": -3.8472943808656392,
+      "next": null
+    },
+    {
+      "coach_id": "francis-peay-1986",
+      "coach_name": "Francis Peay",
+      "school": "Northwestern",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +10.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 10.777199062148062,
+      "added": -1.1449487700171677,
+      "next": null
+    },
+    {
+      "coach_id": "frank-beamer-1987",
       "coach_name": "Frank Beamer",
       "school": "Virginia Tech",
       "season": 2015,
@@ -2106,12 +3602,24 @@
       "next": null
     },
     {
-      "coach_id": "frank-solich-2003",
+      "coach_id": "frank-solich-1998",
+      "coach_name": "Frank Solich",
+      "school": "Nebraska",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.1), no next job found",
+      "vs_par": -14.051555846688368,
+      "added": 5.479119036899579,
+      "next": null
+    },
+    {
+      "coach_id": "frank-solich-1998",
       "coach_name": "Frank Solich",
       "school": "Ohio",
       "season": 2020,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -0.9 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -0.9303164672852313,
@@ -2139,6 +3647,98 @@
       "reason": "below expectations (vs_par -9.4), no next job found",
       "vs_par": -9.37426148783382,
       "added": -7.851368479027467,
+      "next": null
+    },
+    {
+      "coach_id": "fred-akers-1978",
+      "coach_name": "Fred Akers",
+      "school": "Texas",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": -1.5712552772748114,
+      "next": {
+        "school": "Purdue",
+        "season": 1987,
+        "program_par": 2.084088259822826
+      }
+    },
+    {
+      "coach_id": "fred-akers-1978",
+      "coach_name": "Fred Akers",
+      "school": "Purdue",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.0), no next job found",
+      "vs_par": -10.012539111948769,
+      "added": -3.5565099803063056,
+      "next": null
+    },
+    {
+      "coach_id": "fred-goldsmith-1989",
+      "coach_name": "Fred Goldsmith",
+      "school": "Rice",
+      "season": 1993,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Duke (1994), program_par -4.2 vs. -13.2 here",
+      "vs_par": 9.837680686302187,
+      "added": -2.490188431676283,
+      "next": {
+        "school": "Duke",
+        "season": 1994,
+        "program_par": -4.2249713757091705
+      }
+    },
+    {
+      "coach_id": "fred-goldsmith-1989",
+      "coach_name": "Fred Goldsmith",
+      "school": "Duke",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.1), no next job found",
+      "vs_par": -3.149154659426352,
+      "added": -1.4897838672230534,
+      "next": null
+    },
+    {
+      "coach_id": "fred-vonappen-1996",
+      "coach_name": "Fred Vonappen",
+      "school": "Hawaii",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -24.6), no next job found",
+      "vs_par": -24.566916219737518,
+      "added": -14.385940807344301,
+      "next": null
+    },
+    {
+      "coach_id": "fred-zechman-1983",
+      "coach_name": "Fred Zechman",
+      "school": "New Mexico State",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.420567411500365,
+      "added": -9.449519058866544,
+      "next": null
+    },
+    {
+      "coach_id": "galen-hall-1985",
+      "coach_name": "Galen Hall",
+      "school": "Florida",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.4), no next job found",
+      "vs_par": -1.3852824675228526,
+      "added": 5.097560732696165,
       "next": null
     },
     {
@@ -2210,7 +3810,23 @@
       "next": null
     },
     {
-      "coach_id": "gary-barnett-2003",
+      "coach_id": "gary-barnett-1992",
+      "coach_name": "Gary Barnett",
+      "school": "Northwestern",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Colorado (1999), program_par 18.4 vs. -13.2 here",
+      "vs_par": 9.159426887136872,
+      "added": -7.642970534781634,
+      "next": {
+        "school": "Colorado",
+        "season": 1999,
+        "program_par": 18.398712585412262
+      }
+    },
+    {
+      "coach_id": "gary-barnett-1992",
       "coach_name": "Gary Barnett",
       "school": "Colorado",
       "season": 2005,
@@ -2222,7 +3838,31 @@
       "next": null
     },
     {
-      "coach_id": "gary-crowton-2000",
+      "coach_id": "gary-blackney-1991",
+      "coach_name": "Gary Blackney",
+      "school": "Bowling Green",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.1), no next job found",
+      "vs_par": -7.069865025712351,
+      "added": -8.14155590385355,
+      "next": null
+    },
+    {
+      "coach_id": "gary-crowton-1996",
+      "coach_name": "Gary Crowton",
+      "school": "Louisiana Tech",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +10.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 9.95671016404464,
+      "added": 1.3746117103266444,
+      "next": null
+    },
+    {
+      "coach_id": "gary-crowton-1996",
       "coach_name": "Gary Crowton",
       "school": "BYU",
       "season": 2004,
@@ -2234,7 +3874,7 @@
       "next": null
     },
     {
-      "coach_id": "gary-darnell-2003",
+      "coach_id": "gary-darnell-1989",
       "coach_name": "Gary Darnell",
       "school": "Western Michigan",
       "season": 2004,
@@ -2243,6 +3883,42 @@
       "reason": "below expectations (added -12.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -12.84520321910803,
+      "next": null
+    },
+    {
+      "coach_id": "gary-gibbs-1989",
+      "coach_name": "Gary Gibbs",
+      "school": "Oklahoma",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.9), no next job found",
+      "vs_par": -14.887489714516875,
+      "added": -5.418468589513506,
+      "next": null
+    },
+    {
+      "coach_id": "gary-moeller-1978",
+      "coach_name": "Gary Moeller",
+      "school": "Michigan",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.1), no next job found",
+      "vs_par": -0.10688102968398994,
+      "added": 3.9366871020442513,
+      "next": null
+    },
+    {
+      "coach_id": "gary-nord-1999",
+      "coach_name": "Gary Nord",
+      "school": "UTEP",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.4), no next job found",
+      "vs_par": -11.418643518766586,
+      "added": -10.420250644366103,
       "next": null
     },
     {
@@ -2258,15 +3934,43 @@
       "next": null
     },
     {
-      "coach_id": "gary-pinkel-2000",
+      "coach_id": "gary-pinkel-1991",
+      "coach_name": "Gary Pinkel",
+      "school": "Toledo",
+      "season": 2000,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Missouri (2001), program_par -1.8 vs. -9.1 here",
+      "vs_par": 16.968365411576833,
+      "added": 11.77503857609493,
+      "next": {
+        "school": "Missouri",
+        "season": 2001,
+        "program_par": -1.8310626198540674
+      }
+    },
+    {
+      "coach_id": "gary-pinkel-1991",
       "coach_name": "Gary Pinkel",
       "school": "Missouri",
       "season": 2015,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -7.4 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -7.350459663215295,
+      "next": null
+    },
+    {
+      "coach_id": "gary-tranquill-1982",
+      "coach_name": "Gary Tranquill",
+      "school": "Navy",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -17.8), no next job found",
+      "vs_par": -17.810124167571086,
+      "added": -12.383748848931996,
       "next": null
     },
     {
@@ -2298,6 +4002,30 @@
       "next": null
     },
     {
+      "coach_id": "gene-mcdowell-1996",
+      "coach_name": "Gene McDowell",
+      "school": "UCF",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +22.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 22.75812738388048,
+      "added": 8.5539760306315,
+      "next": null
+    },
+    {
+      "coach_id": "gene-stallings-1990",
+      "coach_name": "Gene Stallings",
+      "school": "Alabama",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.0), no next job found",
+      "vs_par": -3.951911718655296,
+      "added": 6.5773632825163535,
+      "next": null
+    },
+    {
       "coach_id": "geoff-collins-2016",
       "coach_name": "Geoff Collins",
       "school": "Temple",
@@ -2326,7 +4054,55 @@
       "next": null
     },
     {
-      "coach_id": "george-o-leary-2003",
+      "coach_id": "george-chaump-1990",
+      "coach_name": "George Chaump",
+      "school": "Navy",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.4), no next job found",
+      "vs_par": -14.41000043420171,
+      "added": -7.436374523440316,
+      "next": null
+    },
+    {
+      "coach_id": "george-henshaw-1987",
+      "coach_name": "George Henshaw",
+      "school": "Tulsa",
+      "season": 1987,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.6), no next job found",
+      "vs_par": -13.633046907401663,
+      "added": -11.90805763483227,
+      "next": null
+    },
+    {
+      "coach_id": "george-macintyre-1979",
+      "coach_name": "George MacIntyre",
+      "school": "Vanderbilt",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -9.4 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -9.399277184085841,
+      "next": null
+    },
+    {
+      "coach_id": "george-o-leary-1994",
+      "coach_name": "George O'Leary",
+      "school": "Georgia Tech",
+      "season": 2001,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +6.2) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 6.190735512040662,
+      "added": -0.264512612132755,
+      "next": null
+    },
+    {
+      "coach_id": "george-o-leary-1994",
       "coach_name": "George O'Leary",
       "school": "UCF",
       "season": 2015,
@@ -2338,7 +4114,59 @@
       "next": null
     },
     {
-      "coach_id": "gerry-dinardo-2002",
+      "coach_id": "george-perles-1983",
+      "coach_name": "George Perles",
+      "school": "Michigan State",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.997266055740062,
+      "added": 5.152807197743565,
+      "next": null
+    },
+    {
+      "coach_id": "george-welsh-1978",
+      "coach_name": "George Welsh",
+      "school": "Virginia",
+      "season": 2000,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.710027100117907,
+      "added": -2.2838229630199245,
+      "next": null
+    },
+    {
+      "coach_id": "gerry-dinardo-1991",
+      "coach_name": "Gerry DiNardo",
+      "school": "Vanderbilt",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at LSU (1995), program_par 7.1 vs. -4.9 here",
+      "vs_par": 1.712687044501684,
+      "added": 1.3246990117755306,
+      "next": {
+        "school": "LSU",
+        "season": 1995,
+        "program_par": 7.070173069435549
+      }
+    },
+    {
+      "coach_id": "gerry-dinardo-1991",
+      "coach_name": "Gerry DiNardo",
+      "school": "LSU",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.0), no next job found",
+      "vs_par": -6.036624321711205,
+      "added": -5.791446034678268,
+      "next": null
+    },
+    {
+      "coach_id": "gerry-dinardo-1991",
       "coach_name": "Gerry DiNardo",
       "school": "Indiana",
       "season": 2004,
@@ -2350,15 +4178,95 @@
       "next": null
     },
     {
-      "coach_id": "glen-mason-2003",
+      "coach_id": "gerry-faust-1981",
+      "coach_name": "Gerry Faust",
+      "school": "Notre Dame",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.5), no next job found",
+      "vs_par": -3.515268922312581,
+      "added": 3.1665832783285683,
+      "next": null
+    },
+    {
+      "coach_id": "gerry-faust-1981",
+      "coach_name": "Gerry Faust",
+      "school": "Akron",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.1), no next job found",
+      "vs_par": -10.138279226379897,
+      "added": -20.08460295320851,
+      "next": null
+    },
+    {
+      "coach_id": "glen-mason-1986",
+      "coach_name": "Glen Mason",
+      "school": "Kent State",
+      "season": 1987,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Kansas (1988), program_par -7.1 vs. -17.0 here",
+      "vs_par": 5.764608071259788,
+      "added": 2.1008592665227024,
+      "next": {
+        "school": "Kansas",
+        "season": 1988,
+        "program_par": -7.142589205459288
+      }
+    },
+    {
+      "coach_id": "glen-mason-1986",
+      "coach_name": "Glen Mason",
+      "school": "Kansas",
+      "season": 1996,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Minnesota (1997), program_par -3.3 vs. -7.1 here",
+      "vs_par": 11.707649930711689,
+      "added": -2.3982755440106045,
+      "next": {
+        "school": "Minnesota",
+        "season": 1997,
+        "program_par": -3.2732330044257596
+      }
+    },
+    {
+      "coach_id": "glen-mason-1986",
       "coach_name": "Glen Mason",
       "school": "Minnesota",
       "season": 2006,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -2.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.6865197250265913,
+      "next": null
+    },
+    {
+      "coach_id": "grant-teaff-1978",
+      "coach_name": "Grant Teaff",
+      "school": "Baylor",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -0.0 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -0.0034697427330394603,
+      "next": null
+    },
+    {
+      "coach_id": "greg-davis-1988",
+      "coach_name": "Greg Davis",
+      "school": "Tulane",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.2), no next job found",
+      "vs_par": -13.171774070843211,
+      "added": -12.248996393033334,
       "next": null
     },
     {
@@ -2398,7 +4306,7 @@
       "next": null
     },
     {
-      "coach_id": "greg-schiano-2003",
+      "coach_id": "greg-schiano-2001",
       "coach_name": "Greg Schiano",
       "school": "Rutgers",
       "season": 2011,
@@ -2466,7 +4374,23 @@
       "next": null
     },
     {
-      "coach_id": "guy-morriss-2002",
+      "coach_id": "guy-morriss-2001",
+      "coach_name": "Guy Morriss",
+      "school": "Kentucky",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +7.0) but next job at Baylor (2003) is a clearly smaller program (program_par -6.8 vs. -2.4 here) - ambiguous, per the plan's own example",
+      "vs_par": 7.043702779362347,
+      "added": 6.492440037627662,
+      "next": {
+        "school": "Baylor",
+        "season": 2003,
+        "program_par": -6.836140840572609
+      }
+    },
+    {
+      "coach_id": "guy-morriss-2001",
       "coach_name": "Guy Morriss",
       "school": "Baylor",
       "season": 2007,
@@ -2478,7 +4402,19 @@
       "next": null
     },
     {
-      "coach_id": "hal-mumme-2004",
+      "coach_id": "hal-mumme-1997",
+      "coach_name": "Hal Mumme",
+      "school": "Kentucky",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.6), no next job found",
+      "vs_par": -2.6355525930249,
+      "added": -6.748759649203905,
+      "next": null
+    },
+    {
+      "coach_id": "hal-mumme-1997",
       "coach_name": "Hal Mumme",
       "school": "New Mexico State",
       "season": 2008,
@@ -2487,6 +4423,42 @@
       "reason": "below expectations (added -6.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.788619034782377,
+      "next": null
+    },
+    {
+      "coach_id": "harvey-hyde-1982",
+      "coach_name": "Harvey Hyde",
+      "school": "UNLV",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -11.2), no next job found",
+      "vs_par": -11.189761557391485,
+      "added": -11.059472592573766,
+      "next": null
+    },
+    {
+      "coach_id": "hayden-fry-1978",
+      "coach_name": "Hayden Fry",
+      "school": "Iowa",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -12.9 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -12.940632298462615,
+      "next": null
+    },
+    {
+      "coach_id": "herb-deromedi-1978",
+      "coach_name": "Herb Deromedi",
+      "school": "Central Michigan",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -6.5 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -6.48981510519876,
       "next": null
     },
     {
@@ -2502,11 +4474,27 @@
       "next": null
     },
     {
-      "coach_id": "houston-nutt-2003",
+      "coach_id": "houston-nutt-1997",
+      "coach_name": "Houston Nutt",
+      "school": "Boise State",
+      "season": 1997,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Arkansas (1998), program_par 2.9 vs. -27.1 here",
+      "vs_par": 6.225869782552472,
+      "added": 0.44337298378111,
+      "next": {
+        "school": "Arkansas",
+        "season": 1998,
+        "program_par": 2.9272053912688465
+      }
+    },
+    {
+      "coach_id": "houston-nutt-1997",
       "coach_name": "Houston Nutt",
       "school": "Arkansas",
       "season": 2007,
-      "label": "fired_or_pushed_out",
+      "label": "moved_up",
       "source": "manual",
       "reason": "next job found, but program_par isn't available to compare",
       "vs_par": null,
@@ -2518,7 +4506,7 @@
       }
     },
     {
-      "coach_id": "houston-nutt-2003",
+      "coach_id": "houston-nutt-1997",
       "coach_name": "Houston Nutt",
       "school": "Ole Miss",
       "season": 2011,
@@ -2530,7 +4518,35 @@
       "next": null
     },
     {
-      "coach_id": "howard-schnellenberger-1999",
+      "coach_id": "howard-schnellenberger-1979",
+      "coach_name": "Howard Schnellenberger",
+      "school": "Louisville",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Oklahoma (1995), program_par 19.2 vs. -5.4 here",
+      "vs_par": 6.90894232464672,
+      "added": -5.572123918033306,
+      "next": {
+        "school": "Oklahoma",
+        "season": 1995,
+        "program_par": 19.235407820705653
+      }
+    },
+    {
+      "coach_id": "howard-schnellenberger-1979",
+      "coach_name": "Howard Schnellenberger",
+      "school": "Oklahoma",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -18.1), no next job found",
+      "vs_par": -18.067878351652205,
+      "added": -3.966702326307538,
+      "next": null
+    },
+    {
+      "coach_id": "howard-schnellenberger-1979",
       "coach_name": "Howard Schnellenberger",
       "school": "Florida Atlantic",
       "season": 2011,
@@ -2603,14 +4619,26 @@
       "school": "Akron",
       "season": 2009,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -9.3 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -9.300216780663956,
       "next": null
     },
     {
-      "coach_id": "jack-bicknell-2003",
+      "coach_id": "jack-bicknell-1981",
+      "coach_name": "Jack Bicknell",
+      "school": "Boston College",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.3248389229291284,
+      "added": -3.4092963109926524,
+      "next": null
+    },
+    {
+      "coach_id": "jack-bicknell-1981",
       "coach_name": "Jack Bicknell",
       "school": "Louisiana Tech",
       "season": 2006,
@@ -2619,6 +4647,78 @@
       "reason": "below expectations (added -18.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -18.659836495173327,
+      "next": null
+    },
+    {
+      "coach_id": "jack-crowe-1990",
+      "coach_name": "Jack Crowe",
+      "school": "Arkansas",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.8), no next job found",
+      "vs_par": -12.757841344797653,
+      "added": -2.041486035646904,
+      "next": null
+    },
+    {
+      "coach_id": "jack-elway-1979",
+      "coach_name": "Jack Elway",
+      "school": "Stanford",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.4130847616696167,
+      "added": 5.140558859241789,
+      "next": null
+    },
+    {
+      "coach_id": "jack-harbaugh-1982",
+      "coach_name": "Jack Harbaugh",
+      "school": "Western Michigan",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.0), no next job found",
+      "vs_par": -14.987886809122841,
+      "added": -7.7151142533807215,
+      "next": null
+    },
+    {
+      "coach_id": "jack-pardee-1987",
+      "coach_name": "Jack Pardee",
+      "school": "Houston",
+      "season": 1989,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +22.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 21.97316179231935,
+      "added": 16.119953971943794,
+      "next": null
+    },
+    {
+      "coach_id": "jackie-sherrill-1978",
+      "coach_name": "Jackie Sherrill",
+      "school": "Texas A&M",
+      "season": 1988,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.4848054091224387,
+      "added": 0.09468114267363248,
+      "next": null
+    },
+    {
+      "coach_id": "jackie-sherrill-1978",
+      "coach_name": "Jackie Sherrill",
+      "school": "Mississippi State",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.4), no next job found",
+      "vs_par": -14.422845343097169,
+      "added": -9.732820856385365,
       "next": null
     },
     {
@@ -2782,7 +4882,7 @@
       }
     },
     {
-      "coach_id": "jeff-bower-2003",
+      "coach_id": "jeff-bower-1990",
       "coach_name": "Jeff Bower",
       "school": "Southern Miss",
       "season": 2007,
@@ -2831,7 +4931,7 @@
       "school": "Eastern Michigan",
       "season": 2008,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -7.5 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -7.492139637003765,
@@ -2850,12 +4950,40 @@
       "next": null
     },
     {
+      "coach_id": "jeff-horton-1993",
+      "coach_name": "Jeff Horton",
+      "school": "Nevada",
+      "season": 1993,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at UNLV (1994), program_par -14.9 vs. -15.7 here",
+      "vs_par": 6.712355499947005,
+      "added": -0.16455182020635029,
+      "next": {
+        "school": "UNLV",
+        "season": 1994,
+        "program_par": -14.921960644205573
+      }
+    },
+    {
+      "coach_id": "jeff-horton-1993",
+      "coach_name": "Jeff Horton",
+      "school": "UNLV",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.0), no next job found",
+      "vs_par": -2.9909768358515905,
+      "added": -7.9418550011397375,
+      "next": null
+    },
+    {
       "coach_id": "jeff-jagodzinski-2006",
       "coach_name": "Jeff Jagodzinski",
       "school": "Boston College",
       "season": 2008,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (vs_par -1.1), no next job found",
       "vs_par": -1.0523613834788552,
       "added": 0.4694441050524558,
@@ -2922,6 +5050,30 @@
       "next": null
     },
     {
+      "coach_id": "jeff-tisdel-1996",
+      "coach_name": "Jeff Tisdel",
+      "school": "Nevada",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.0), no next job found",
+      "vs_par": -2.045618126841253,
+      "added": -10.091236949164909,
+      "next": null
+    },
+    {
+      "coach_id": "jeff-woodruff-1999",
+      "coach_name": "Jeff Woodruff",
+      "school": "Eastern Michigan",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.8), no next job found",
+      "vs_par": -8.827498340085082,
+      "added": -5.169096807801484,
+      "next": null
+    },
+    {
       "coach_id": "jeremy-pruitt-2017",
       "coach_name": "Jeremy Pruitt",
       "school": "Tennessee",
@@ -2931,6 +5083,58 @@
       "reason": "below expectations (vs_par -3.8), no next job found",
       "vs_par": -3.831687982314237,
       "added": -3.5194555920562345,
+      "next": null
+    },
+    {
+      "coach_id": "jerry-baldwin-1999",
+      "coach_name": "Jerry Baldwin",
+      "school": "Louisiana",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.9), no next job found",
+      "vs_par": -10.885028864745232,
+      "added": -4.418466865097457,
+      "next": null
+    },
+    {
+      "coach_id": "jerry-berndt-1981",
+      "coach_name": "Jerry Berndt",
+      "school": "Rice",
+      "season": 1988,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Temple (1989), program_par 1.2 vs. -12.5 here",
+      "vs_par": -1.7327030698034704,
+      "added": -2.0877073758692006,
+      "next": {
+        "school": "Temple",
+        "season": 1989,
+        "program_par": 1.1869780063090918
+      }
+    },
+    {
+      "coach_id": "jerry-berndt-1981",
+      "coach_name": "Jerry Berndt",
+      "school": "Temple",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -18.6), no next job found",
+      "vs_par": -18.636951488174233,
+      "added": -9.98574663577959,
+      "next": null
+    },
+    {
+      "coach_id": "jerry-claiborne-1978",
+      "coach_name": "Jerry Claiborne",
+      "school": "Kentucky",
+      "season": 1989,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.543929397405508,
+      "added": -0.5785395890918608,
       "next": null
     },
     {
@@ -2974,7 +5178,159 @@
       "next": null
     },
     {
-      "coach_id": "jim-grobe-2000",
+      "coach_id": "jerry-moore-1979",
+      "coach_name": "Jerry Moore",
+      "school": "Texas Tech",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.3), no next job found",
+      "vs_par": -4.3301915367136665,
+      "added": 0.644756122667552,
+      "next": null
+    },
+    {
+      "coach_id": "jerry-pettibone-1985",
+      "coach_name": "Jerry Pettibone",
+      "school": "Northern Illinois",
+      "season": 1990,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.9) but next job at Oregon State (1991) is a clearly smaller program (program_par -11.3 vs. -8.2 here) - ambiguous, per the plan's own example",
+      "vs_par": 3.914348577460971,
+      "added": 1.8445343826298517,
+      "next": {
+        "school": "Oregon State",
+        "season": 1991,
+        "program_par": -11.334378891566251
+      }
+    },
+    {
+      "coach_id": "jerry-pettibone-1985",
+      "coach_name": "Jerry Pettibone",
+      "school": "Oregon State",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.0), no next job found",
+      "vs_par": -1.0404588618302117,
+      "added": -7.220920774855545,
+      "next": null
+    },
+    {
+      "coach_id": "jim-caldwell-1993",
+      "coach_name": "Jim Caldwell",
+      "school": "Wake Forest",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.1), no next job found",
+      "vs_par": -7.058541462112952,
+      "added": -14.546318488755526,
+      "next": null
+    },
+    {
+      "coach_id": "jim-carmody-1982",
+      "coach_name": "Jim Carmody",
+      "school": "Southern Miss",
+      "season": 1987,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.7), no next job found",
+      "vs_par": -15.699674200968367,
+      "added": -2.334143944771088,
+      "next": null
+    },
+    {
+      "coach_id": "jim-colletto-1978",
+      "coach_name": "Jim Colletto",
+      "school": "Purdue",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +5.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 5.389576397581411,
+      "added": -4.8338404557852535,
+      "next": null
+    },
+    {
+      "coach_id": "jim-corrigall-1994",
+      "coach_name": "Jim Corrigall",
+      "school": "Kent State",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.5), no next job found",
+      "vs_par": -5.484341295928868,
+      "added": -4.270481860516561,
+      "next": null
+    },
+    {
+      "coach_id": "jim-criner-1983",
+      "coach_name": "Jim Criner",
+      "school": "Iowa State",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.2), no next job found",
+      "vs_par": -4.1680365521112215,
+      "added": 4.432552381905499,
+      "next": null
+    },
+    {
+      "coach_id": "jim-dickey-1978",
+      "coach_name": "Jim Dickey",
+      "school": "Kansas State",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -12.9 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -12.937215289630323,
+      "next": null
+    },
+    {
+      "coach_id": "jim-donnan-1996",
+      "coach_name": "Jim Donnan",
+      "school": "Georgia",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.7096014237398123,
+      "added": 6.903874460929548,
+      "next": null
+    },
+    {
+      "coach_id": "jim-fassel-1985",
+      "coach_name": "Jim Fassel",
+      "school": "Utah",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.0), no next job found",
+      "vs_par": -12.001362366375277,
+      "added": -7.056160299361535,
+      "next": null
+    },
+    {
+      "coach_id": "jim-grobe-1995",
+      "coach_name": "Jim Grobe",
+      "school": "Ohio",
+      "season": 2000,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Wake Forest (2001), program_par -9.8 vs. -24.1 here",
+      "vs_par": 21.5569346861682,
+      "added": 4.620772410540404,
+      "next": {
+        "school": "Wake Forest",
+        "season": 2001,
+        "program_par": -9.812291546699068
+      }
+    },
+    {
+      "coach_id": "jim-grobe-1995",
       "coach_name": "Jim Grobe",
       "school": "Wake Forest",
       "season": 2013,
@@ -2986,7 +5342,7 @@
       "next": null
     },
     {
-      "coach_id": "jim-grobe-2000",
+      "coach_id": "jim-grobe-1995",
       "coach_name": "Jim Grobe",
       "school": "Baylor",
       "season": 2016,
@@ -3022,6 +5378,42 @@
       "next": null
     },
     {
+      "coach_id": "jim-harkema-1983",
+      "coach_name": "Jim Harkema",
+      "school": "Eastern Michigan",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.7), no next job found",
+      "vs_par": -0.7452546499293469,
+      "added": -12.104201937368583,
+      "next": null
+    },
+    {
+      "coach_id": "jim-hess-1990",
+      "coach_name": "Jim Hess",
+      "school": "New Mexico State",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.3), no next job found",
+      "vs_par": -3.3449169959175933,
+      "added": -16.052524595942316,
+      "next": null
+    },
+    {
+      "coach_id": "jim-hilles-1986",
+      "coach_name": "Jim Hilles",
+      "school": "Wisconsin",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.4), no next job found",
+      "vs_par": -3.388495285658302,
+      "added": -3.3131171477371626,
+      "next": null
+    },
+    {
       "coach_id": "jim-hofher-2000",
       "coach_name": "Jim Hofher",
       "school": "Buffalo",
@@ -3031,6 +5423,18 @@
       "reason": "below expectations (added -10.6 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -10.623531309302502,
+      "next": null
+    },
+    {
+      "coach_id": "jim-lambright-1993",
+      "coach_name": "Jim Lambright",
+      "school": "Washington",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.4), no next job found",
+      "vs_par": -8.40301362357298,
+      "added": -7.60419110836318,
       "next": null
     },
     {
@@ -3114,6 +5518,30 @@
       }
     },
     {
+      "coach_id": "jim-strong-1990",
+      "coach_name": "Jim Strong",
+      "school": "UNLV",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.8), no next job found",
+      "vs_par": -10.794108971342094,
+      "added": -6.510913551122405,
+      "next": null
+    },
+    {
+      "coach_id": "jim-sweeney-1980",
+      "coach_name": "Jim Sweeney",
+      "school": "Fresno State",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -6.1 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -6.118033385026479,
+      "next": null
+    },
+    {
       "coach_id": "jim-tressel-2001",
       "coach_name": "Jim Tressel",
       "school": "Ohio State",
@@ -3126,12 +5554,80 @@
       "next": null
     },
     {
+      "coach_id": "jim-wacker-1983",
+      "coach_name": "Jim Wacker",
+      "school": "TCU",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Minnesota (1992), program_par -4.1 vs. -7.1 here",
+      "vs_par": 6.659607403838467,
+      "added": 1.838455044776697,
+      "next": {
+        "school": "Minnesota",
+        "season": 1992,
+        "program_par": -4.131835889982687
+      }
+    },
+    {
+      "coach_id": "jim-wacker-1983",
+      "coach_name": "Jim Wacker",
+      "school": "Minnesota",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.475272806000766,
+      "added": -0.3892048602383882,
+      "next": null
+    },
+    {
+      "coach_id": "jim-walden-1978",
+      "coach_name": "Jim Walden",
+      "school": "Washington State",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": -3.880461971348974,
+      "next": {
+        "school": "Iowa State",
+        "season": 1987,
+        "program_par": -3.2418306123396543
+      }
+    },
+    {
+      "coach_id": "jim-walden-1978",
+      "coach_name": "Jim Walden",
+      "school": "Iowa State",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.1), no next job found",
+      "vs_par": -9.11235900820363,
+      "added": -9.23443895827026,
+      "next": null
+    },
+    {
+      "coach_id": "jim-young-1978",
+      "coach_name": "Jim Young",
+      "school": "Army",
+      "season": 1990,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.9797287920151039,
+      "added": -8.846947879352983,
+      "next": null
+    },
+    {
       "coach_id": "jimbo-fisher-2010",
       "coach_name": "Jimbo Fisher",
       "school": "Florida State",
       "season": 2017,
       "label": "moved_up",
-      "source": "auto",
+      "source": "manual",
       "reason": "next job at Texas A&M (2018), program_par 11.0 vs. 11.7 here",
       "vs_par": -0.6417630772867629,
       "added": -1.3517822181897436,
@@ -3154,6 +5650,18 @@
       "next": null
     },
     {
+      "coach_id": "jimmy-johnson-1979",
+      "coach_name": "Jimmy Johnson",
+      "school": "Miami (FL)",
+      "season": 1988,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +20.6) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 20.621517239882586,
+      "added": 11.590120812180004,
+      "next": null
+    },
+    {
       "coach_id": "jimmy-lake-2019",
       "coach_name": "Jimmy Lake",
       "school": "Washington",
@@ -3166,6 +5674,18 @@
       "next": null
     },
     {
+      "coach_id": "joe-avezzano-1980",
+      "coach_name": "Joe Avezzano",
+      "school": "Oregon State",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (added +0.8 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 0.8313772632283012,
+      "next": null
+    },
+    {
       "coach_id": "joe-glenn-2002",
       "coach_name": "Joe Glenn",
       "school": "Wyoming",
@@ -3175,6 +5695,66 @@
       "reason": "below expectations (added -12.0 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -11.974537250443927,
+      "next": null
+    },
+    {
+      "coach_id": "joe-hollis-1997",
+      "coach_name": "Joe Hollis",
+      "school": "Arkansas State",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.6), no next job found",
+      "vs_par": -6.550742257148393,
+      "added": -15.953920970013021,
+      "next": null
+    },
+    {
+      "coach_id": "joe-kapp-1982",
+      "coach_name": "Joe Kapp",
+      "school": "California",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.7), no next job found",
+      "vs_par": -7.684357016143309,
+      "added": -5.781396025252183,
+      "next": null
+    },
+    {
+      "coach_id": "joe-krivak-1987",
+      "coach_name": "Joe Krivak",
+      "school": "Maryland",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -18.2), no next job found",
+      "vs_par": -18.18221949071895,
+      "added": -8.386202033573532,
+      "next": null
+    },
+    {
+      "coach_id": "joe-lee-dunn-1983",
+      "coach_name": "Joe Lee Dunn",
+      "school": "New Mexico",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.7), no next job found",
+      "vs_par": -5.7448278818739045,
+      "added": 0.5047867614179955,
+      "next": null
+    },
+    {
+      "coach_id": "joe-lee-dunn-1983",
+      "coach_name": "Joe Lee Dunn",
+      "school": "Ole Miss",
+      "season": 1994,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.286059060028422,
+      "added": -0.6309967627342159,
       "next": null
     },
     {
@@ -3202,7 +5782,19 @@
       "next": null
     },
     {
-      "coach_id": "joe-novak-2003",
+      "coach_id": "joe-morrison-1978",
+      "coach_name": "Joe Morrison",
+      "school": "South Carolina",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.0), no next job found",
+      "vs_par": -1.963126950393363,
+      "added": -5.443411256754525,
+      "next": null
+    },
+    {
+      "coach_id": "joe-novak-1996",
       "coach_name": "Joe Novak",
       "school": "Northern Illinois",
       "season": 2007,
@@ -3214,7 +5806,7 @@
       "next": null
     },
     {
-      "coach_id": "joe-paterno-2003",
+      "coach_id": "joe-paterno-1978",
       "coach_name": "Joe Paterno",
       "school": "Penn State",
       "season": 2011,
@@ -3226,12 +5818,40 @@
       "next": null
     },
     {
-      "coach_id": "joe-tiller-2003",
+      "coach_id": "joe-peace-1988",
+      "coach_name": "Joe Peace",
+      "school": "Louisiana Tech",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.7), no next job found",
+      "vs_par": -4.74767680140301,
+      "added": -2.3317997694285744,
+      "next": null
+    },
+    {
+      "coach_id": "joe-tiller-1991",
+      "coach_name": "Joe Tiller",
+      "school": "Wyoming",
+      "season": 1996,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +5.7) but next job at Purdue (1997) is a clearly smaller program (program_par -2.4 vs. 0.7 here) - ambiguous, per the plan's own example",
+      "vs_par": 5.652437262066666,
+      "added": 4.837375953233597,
+      "next": {
+        "school": "Purdue",
+        "season": 1997,
+        "program_par": -2.3798253087754744
+      }
+    },
+    {
+      "coach_id": "joe-tiller-1991",
       "coach_name": "Joe Tiller",
       "school": "Purdue",
       "season": 2008,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -2.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.7577084271029584,
@@ -3247,6 +5867,30 @@
       "reason": "below expectations (added -6.0 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -5.954775768545511,
+      "next": null
+    },
+    {
+      "coach_id": "john-blake-1996",
+      "coach_name": "John Blake",
+      "school": "Oklahoma",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -18.9), no next job found",
+      "vs_par": -18.85712083915787,
+      "added": 1.130073135620965,
+      "next": null
+    },
+    {
+      "coach_id": "john-bobo-1993",
+      "coach_name": "John Bobo",
+      "school": "Arkansas State",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.7), no next job found",
+      "vs_par": -1.6976482302392952,
+      "added": -5.057964649095561,
       "next": null
     },
     {
@@ -3274,19 +5918,183 @@
       "next": null
     },
     {
-      "coach_id": "john-robinson-2003",
+      "coach_id": "john-cooper-1978",
+      "coach_name": "John Cooper",
+      "school": "Tulsa",
+      "season": 1984,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": -1.1994107388199418,
+      "next": {
+        "school": "Arizona State",
+        "season": 1985,
+        "program_par": 12.360781893297087
+      }
+    },
+    {
+      "coach_id": "john-cooper-1978",
+      "coach_name": "John Cooper",
+      "school": "Arizona State",
+      "season": 1987,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Ohio State (1988), program_par 15.4 vs. 12.4 here",
+      "vs_par": 0.6675043097937472,
+      "added": -1.2176583737482929,
+      "next": {
+        "school": "Ohio State",
+        "season": 1988,
+        "program_par": 15.383589989582557
+      }
+    },
+    {
+      "coach_id": "john-cooper-1978",
+      "coach_name": "John Cooper",
+      "school": "Ohio State",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.10458057323375414,
+      "added": 6.726613505010992,
+      "next": null
+    },
+    {
+      "coach_id": "john-gutekunst-1986",
+      "coach_name": "John Gutekunst",
+      "school": "Minnesota",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.6), no next job found",
+      "vs_par": -2.569492472190916,
+      "added": -7.312105099387859,
+      "next": null
+    },
+    {
+      "coach_id": "john-jenkins-1990",
+      "coach_name": "John Jenkins",
+      "school": "Houston",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.8), no next job found",
+      "vs_par": -2.844652197570928,
+      "added": -3.9300997395320105,
+      "next": null
+    },
+    {
+      "coach_id": "john-mackovic-1978",
+      "coach_name": "John Mackovic",
+      "school": "Illinois",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Texas (1992), program_par 8.6 vs. 0.5 here",
+      "vs_par": 9.474996867445286,
+      "added": 3.233326108434097,
+      "next": {
+        "school": "Texas",
+        "season": 1992,
+        "program_par": 8.56996336351827
+      }
+    },
+    {
+      "coach_id": "john-mackovic-1978",
+      "coach_name": "John Mackovic",
+      "school": "Texas",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.8), no next job found",
+      "vs_par": -7.816359172185392,
+      "added": -11.240628316849294,
+      "next": null
+    },
+    {
+      "coach_id": "john-mackovic-1978",
+      "coach_name": "John Mackovic",
+      "school": "Arizona",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -20.5), no next job found",
+      "vs_par": -20.513388733977358,
+      "added": -9.099897694707472,
+      "next": null
+    },
+    {
+      "coach_id": "john-ralston-1993",
+      "coach_name": "John Ralston",
+      "school": "San Jose State",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -19.1), no next job found",
+      "vs_par": -19.088987033622004,
+      "added": -7.269856534775842,
+      "next": null
+    },
+    {
+      "coach_id": "john-robinson-1978",
+      "coach_name": "John Robinson",
+      "school": "USC",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.5), no next job found",
+      "vs_par": -2.4629918564934705,
+      "added": 1.530463919805161,
+      "next": null
+    },
+    {
+      "coach_id": "john-robinson-1978",
       "coach_name": "John Robinson",
       "school": "UNLV",
       "season": 2004,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -9.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -9.060947060896915,
       "next": null
     },
     {
-      "coach_id": "john-smith-2002",
+      "coach_id": "john-smith-1995",
+      "coach_name": "John Smith",
+      "school": "Utah State",
+      "season": 1997,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Louisville (1998), program_par -1.1 vs. -13.2 here",
+      "vs_par": 9.664010358636979,
+      "added": 2.7672945030847362,
+      "next": {
+        "school": "Louisville",
+        "season": 1998,
+        "program_par": -1.130882253665693
+      }
+    },
+    {
+      "coach_id": "john-smith-1995",
+      "coach_name": "John Smith",
+      "school": "Louisville",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Michigan State (2003), program_par 8.8 vs. -1.1 here",
+      "vs_par": 5.162357056420284,
+      "added": -3.5304361130950923,
+      "next": {
+        "school": "Michigan State",
+        "season": 2003,
+        "program_par": 8.81304140790655
+      }
+    },
+    {
+      "coach_id": "john-smith-1995",
       "coach_name": "John Smith",
       "school": "Michigan State",
       "season": 2006,
@@ -3298,7 +6106,7 @@
       "next": null
     },
     {
-      "coach_id": "john-smith-2002",
+      "coach_id": "john-smith-1995",
       "coach_name": "John Smith",
       "school": "Arkansas",
       "season": 2012,
@@ -3319,6 +6127,34 @@
       "reason": "below expectations (added -6.9 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.868821371244071,
+      "next": null
+    },
+    {
+      "coach_id": "johnny-majors-1978",
+      "coach_name": "Johnny Majors",
+      "school": "Tennessee",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": 3.0060190376141414,
+      "next": {
+        "school": "Pittsburgh",
+        "season": 1993,
+        "program_par": 5.840313769063508
+      }
+    },
+    {
+      "coach_id": "johnny-majors-1978",
+      "coach_name": "Johnny Majors",
+      "school": "Pittsburgh",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.8), no next job found",
+      "vs_par": -15.784252024579605,
+      "added": -5.817033436602017,
       "next": null
     },
     {
@@ -3422,7 +6258,7 @@
       }
     },
     {
-      "coach_id": "june-jones-2003",
+      "coach_id": "june-jones-1999",
       "coach_name": "June Jones",
       "school": "Hawaii",
       "season": 2007,
@@ -3438,7 +6274,7 @@
       }
     },
     {
-      "coach_id": "june-jones-2003",
+      "coach_id": "june-jones-1999",
       "coach_name": "June Jones",
       "school": "SMU",
       "season": 2014,
@@ -3574,7 +6410,31 @@
       "next": null
     },
     {
-      "coach_id": "keith-gilbertson-2003",
+      "coach_id": "keith-burns-1999",
+      "coach_name": "Keith Burns",
+      "school": "Tulsa",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.3), no next job found",
+      "vs_par": -13.283386744074011,
+      "added": -8.258304665778475,
+      "next": null
+    },
+    {
+      "coach_id": "keith-gilbertson-1992",
+      "coach_name": "Keith Gilbertson",
+      "school": "California",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.5), no next job found",
+      "vs_par": -2.517554276868369,
+      "added": -3.9369746440705993,
+      "next": null
+    },
+    {
+      "coach_id": "keith-gilbertson-1992",
       "coach_name": "Keith Gilbertson",
       "school": "Washington",
       "season": 2004,
@@ -3586,7 +6446,39 @@
       "next": null
     },
     {
-      "coach_id": "ken-hatfield-2003",
+      "coach_id": "ken-hatfield-1979",
+      "coach_name": "Ken Hatfield",
+      "school": "Arkansas",
+      "season": 1989,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Clemson (1990), program_par 13.8 vs. 12.8 here",
+      "vs_par": 3.22768936108956,
+      "added": 6.135304535120188,
+      "next": {
+        "school": "Clemson",
+        "season": 1990,
+        "program_par": 13.750539229044676
+      }
+    },
+    {
+      "coach_id": "ken-hatfield-1979",
+      "coach_name": "Ken Hatfield",
+      "school": "Clemson",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.9), next job at Rice (1994) is a clearly smaller program (program_par -9.5 vs. 13.8 here)",
+      "vs_par": -12.87324407140229,
+      "added": -2.85608913287485,
+      "next": {
+        "school": "Rice",
+        "season": 1994,
+        "program_par": -9.5159960365268
+      }
+    },
+    {
+      "coach_id": "ken-hatfield-1979",
       "coach_name": "Ken Hatfield",
       "school": "Rice",
       "season": 2005,
@@ -3603,7 +6495,7 @@
       "school": "Navy",
       "season": 2022,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (vs_par -2.8), no next job found",
       "vs_par": -2.767286114096697,
       "added": 2.8582421076022553,
@@ -3631,6 +6523,18 @@
       "reason": "below expectations (vs_par -16.3), no next job found",
       "vs_par": -16.344140713719348,
       "added": -14.378957431112504,
+      "next": null
+    },
+    {
+      "coach_id": "kevin-steele-1999",
+      "coach_name": "Kevin Steele",
+      "school": "Baylor",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -20.4), no next job found",
+      "vs_par": -20.4451817766538,
+      "added": -8.99736242725038,
       "next": null
     },
     {
@@ -3699,6 +6603,18 @@
       "reason": "below expectations (vs_par -15.5), no next job found",
       "vs_par": -15.496827503170184,
       "added": -14.27458435308447,
+      "next": null
+    },
+    {
+      "coach_id": "kim-helton-1993",
+      "coach_name": "Kim Helton",
+      "school": "Houston",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.3), no next job found",
+      "vs_par": -5.250792544708875,
+      "added": 4.174243101954935,
       "next": null
     },
     {
@@ -3822,8 +6738,8 @@
       "coach_name": "Larry Blakeney",
       "school": "Troy",
       "season": 2014,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -13.5 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -13.526136449037185,
@@ -3859,7 +6775,7 @@
       "school": "Southern Miss",
       "season": 2011,
       "label": "moved_up",
-      "source": "auto",
+      "source": "manual",
       "reason": "next job at North Carolina (2012), program_par 0.3 vs. 1.8 here",
       "vs_par": 7.302825621901642,
       "added": 7.631419768264497,
@@ -3882,6 +6798,18 @@
       "next": null
     },
     {
+      "coach_id": "larry-marmie-1988",
+      "coach_name": "Larry Marmie",
+      "school": "Arizona State",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.7), no next job found",
+      "vs_par": -6.687454243918609,
+      "added": 3.9073192016353557,
+      "next": null
+    },
+    {
       "coach_id": "larry-porter-2009",
       "coach_name": "Larry Porter",
       "school": "Memphis",
@@ -3891,6 +6819,106 @@
       "reason": "below expectations (vs_par -20.6), no next job found",
       "vs_par": -20.602484407004056,
       "added": -9.01815371007531,
+      "next": null
+    },
+    {
+      "coach_id": "larry-smith-1978",
+      "coach_name": "Larry Smith",
+      "school": "Arizona",
+      "season": 1986,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "next job found, but program_par isn't available to compare",
+      "vs_par": null,
+      "added": 8.772333896778903,
+      "next": {
+        "school": "USC",
+        "season": 1987,
+        "program_par": 15.63747762523877
+      }
+    },
+    {
+      "coach_id": "larry-smith-1978",
+      "coach_name": "Larry Smith",
+      "school": "USC",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.2), no next job found",
+      "vs_par": -4.2180944026529765,
+      "added": 4.315474925279822,
+      "next": null
+    },
+    {
+      "coach_id": "larry-smith-1978",
+      "coach_name": "Larry Smith",
+      "school": "Missouri",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.1), no next job found",
+      "vs_par": -0.11064023600792927,
+      "added": -3.1469351806001926,
+      "next": null
+    },
+    {
+      "coach_id": "lavell-edwards-1978",
+      "coach_name": "LaVell Edwards",
+      "school": "BYU",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -3.4 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -3.354297514051288,
+      "next": null
+    },
+    {
+      "coach_id": "lee-corso-1978",
+      "coach_name": "Lee Corso",
+      "school": "Northern Illinois",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -2.5), no next job found",
+      "vs_par": -2.4701235941709703,
+      "added": -8.80121485950824,
+      "next": null
+    },
+    {
+      "coach_id": "lee-owens-1995",
+      "coach_name": "Lee Owens",
+      "school": "Akron",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +9.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 9.712094903944035,
+      "added": 0.9965180785099825,
+      "next": null
+    },
+    {
+      "coach_id": "leon-burtnett-1982",
+      "coach_name": "Leon Burtnett",
+      "school": "Purdue",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.4), no next job found",
+      "vs_par": -15.449665629816462,
+      "added": -10.170091009999808,
+      "next": null
+    },
+    {
+      "coach_id": "leon-fuller-1982",
+      "coach_name": "Leon Fuller",
+      "school": "Colorado State",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.6), no next job found",
+      "vs_par": -4.6125464301808385,
+      "added": -7.39649857884459,
       "next": null
     },
     {
@@ -3915,7 +6943,7 @@
       "school": "LSU",
       "season": 2016,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -0.4 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -0.4355777265252403,
@@ -3950,7 +6978,7 @@
       }
     },
     {
-      "coach_id": "lloyd-carr-2003",
+      "coach_id": "lloyd-carr-1995",
       "coach_name": "Lloyd Carr",
       "school": "Michigan",
       "season": 2007,
@@ -3962,7 +6990,35 @@
       "next": null
     },
     {
-      "coach_id": "lou-holtz-2003",
+      "coach_id": "lou-holtz-1978",
+      "coach_name": "Lou Holtz",
+      "school": "Minnesota",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Notre Dame (1986), program_par 12.5 vs. -5.6 here",
+      "vs_par": 8.19601319931765,
+      "added": 8.47463005325411,
+      "next": {
+        "school": "Notre Dame",
+        "season": 1986,
+        "program_par": 12.54065538805653
+      }
+    },
+    {
+      "coach_id": "lou-holtz-1978",
+      "coach_name": "Lou Holtz",
+      "school": "Notre Dame",
+      "season": 1996,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +10.3) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 10.287553762486459,
+      "added": 8.099346399513697,
+      "next": null
+    },
+    {
+      "coach_id": "lou-holtz-1978",
       "coach_name": "Lou Holtz",
       "school": "South Carolina",
       "season": 2004,
@@ -3971,6 +7027,18 @@
       "reason": "above expectations (added +2.9 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
       "vs_par": null,
       "added": 2.945844944381953,
+      "next": null
+    },
+    {
+      "coach_id": "lou-tepper-1992",
+      "coach_name": "Lou Tepper",
+      "school": "Illinois",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.1), no next job found",
+      "vs_par": -10.101981413947223,
+      "added": -10.108594759918747,
       "next": null
     },
     {
@@ -4014,7 +7082,39 @@
       }
     },
     {
-      "coach_id": "mack-brown-2003",
+      "coach_id": "mack-brown-1985",
+      "coach_name": "Mack Brown",
+      "school": "Tulane",
+      "season": 1987,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at North Carolina (1988), program_par 9.2 vs. 1.2 here",
+      "vs_par": -3.6432879334935393,
+      "added": 6.273527644452226,
+      "next": {
+        "school": "North Carolina",
+        "season": 1988,
+        "program_par": 9.20428974027767
+      }
+    },
+    {
+      "coach_id": "mack-brown-1985",
+      "coach_name": "Mack Brown",
+      "school": "North Carolina",
+      "season": 1997,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Texas (1998), program_par 7.5 vs. 9.2 here",
+      "vs_par": 10.793979796169243,
+      "added": 6.390435293078005,
+      "next": {
+        "school": "Texas",
+        "season": 1998,
+        "program_par": 7.45370459247013
+      }
+    },
+    {
+      "coach_id": "mack-brown-1985",
       "coach_name": "Mack Brown",
       "school": "Texas",
       "season": 2013,
@@ -4026,7 +7126,7 @@
       "next": null
     },
     {
-      "coach_id": "mack-brown-2003",
+      "coach_id": "mack-brown-1985",
       "coach_name": "Mack Brown",
       "school": "North Carolina",
       "season": 2024,
@@ -4130,6 +7230,18 @@
       "next": null
     },
     {
+      "coach_id": "mark-duffner-1992",
+      "coach_name": "Mark Duffner",
+      "school": "Maryland",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.3), no next job found",
+      "vs_par": -12.2794423884488,
+      "added": -4.240995855712796,
+      "next": null
+    },
+    {
       "coach_id": "mark-helfrich-2013",
       "coach_name": "Mark Helfrich",
       "school": "Oregon",
@@ -4158,8 +7270,8 @@
       "coach_name": "Mark Mangino",
       "school": "Kansas",
       "season": 2009,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -2.6 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.630651444788409,
@@ -4314,6 +7426,18 @@
       "next": null
     },
     {
+      "coach_id": "matt-simon-1995",
+      "coach_name": "Matt Simon",
+      "school": "North Texas",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.9) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.8758812396522266,
+      "added": -3.9678419475846134,
+      "next": null
+    },
+    {
       "coach_id": "matt-viator-2015",
       "coach_name": "Matt Viator",
       "school": "Louisiana-Monroe",
@@ -4418,7 +7542,19 @@
       "next": null
     },
     {
-      "coach_id": "mike-bellotti-2003",
+      "coach_id": "mike-archer-1987",
+      "coach_name": "Mike Archer",
+      "school": "LSU",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.6), no next job found",
+      "vs_par": -8.64116571738218,
+      "added": -6.822290023149055,
+      "next": null
+    },
+    {
+      "coach_id": "mike-bellotti-1995",
       "coach_name": "Mike Bellotti",
       "school": "Oregon",
       "season": 2008,
@@ -4454,6 +7590,42 @@
       "next": null
     },
     {
+      "coach_id": "mike-cavan-1997",
+      "coach_name": "Mike Cavan",
+      "school": "SMU",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.751640359194111,
+      "added": -0.700677651380925,
+      "next": null
+    },
+    {
+      "coach_id": "mike-debord-1999",
+      "coach_name": "Mike DeBord",
+      "school": "Central Michigan",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.404682337384699,
+      "added": -9.61145723134989,
+      "next": null
+    },
+    {
+      "coach_id": "mike-dubose-1997",
+      "coach_name": "Mike DuBose",
+      "school": "Alabama",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.4), no next job found",
+      "vs_par": -8.449531206192152,
+      "added": -4.432212617303424,
+      "next": null
+    },
+    {
       "coach_id": "mike-elko-2021",
       "coach_name": "Mike Elko",
       "school": "Duke",
@@ -4468,6 +7640,34 @@
         "season": 2024,
         "program_par": 13.277715687360873
       }
+    },
+    {
+      "coach_id": "mike-gottfried-1981",
+      "coach_name": "Mike Gottfried",
+      "school": "Kansas",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Pittsburgh (1986), program_par 15.1 vs. -6.3 here",
+      "vs_par": 6.4022203520953305,
+      "added": 1.8075435953492542,
+      "next": {
+        "school": "Pittsburgh",
+        "season": 1986,
+        "program_par": 15.057821967205914
+      }
+    },
+    {
+      "coach_id": "mike-gottfried-1981",
+      "coach_name": "Mike Gottfried",
+      "school": "Pittsburgh",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.1), no next job found",
+      "vs_par": -5.1068946711336665,
+      "added": 2.161620818802012,
+      "next": null
     },
     {
       "coach_id": "mike-gundy-2005",
@@ -4503,6 +7703,30 @@
       "reason": "below expectations (vs_par -16.7), no next job found",
       "vs_par": -16.724623638656254,
       "added": -10.330247314759658,
+      "next": null
+    },
+    {
+      "coach_id": "mike-knoll-1986",
+      "coach_name": "Mike Knoll",
+      "school": "New Mexico State",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.2), no next job found",
+      "vs_par": -14.156686146896792,
+      "added": -9.894884855862113,
+      "next": null
+    },
+    {
+      "coach_id": "mike-kruczek-1998",
+      "coach_name": "Mike Kruczek",
+      "school": "UCF",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.7405138561905495,
+      "added": -17.12019808000675,
       "next": null
     },
     {
@@ -4638,19 +7862,43 @@
       }
     },
     {
-      "coach_id": "mike-price-2003",
+      "coach_id": "mike-o-cain-1993",
+      "coach_name": "Mike O'Cain",
+      "school": "NC State",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.4), no next job found",
+      "vs_par": -1.3911237186604544,
+      "added": -3.704042787668569,
+      "next": null
+    },
+    {
+      "coach_id": "mike-price-1989",
+      "coach_name": "Mike Price",
+      "school": "Washington State",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +12.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 12.447210024547498,
+      "added": 6.0424532495277425,
+      "next": null
+    },
+    {
+      "coach_id": "mike-price-1989",
       "coach_name": "Mike Price",
       "school": "UTEP",
       "season": 2012,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -4.9 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -4.864946902152827,
       "next": null
     },
     {
-      "coach_id": "mike-price-2003",
+      "coach_id": "mike-price-1989",
       "coach_name": "Mike Price",
       "school": "UTEP",
       "season": 2017,
@@ -4662,7 +7910,19 @@
       "next": null
     },
     {
-      "coach_id": "mike-riley-2003",
+      "coach_id": "mike-riley-1997",
+      "coach_name": "Mike Riley",
+      "school": "Oregon State",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +8.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 8.45080383267086,
+      "added": 6.025388650164859,
+      "next": null
+    },
+    {
+      "coach_id": "mike-riley-1997",
       "coach_name": "Mike Riley",
       "school": "Oregon State",
       "season": 2014,
@@ -4678,7 +7938,7 @@
       }
     },
     {
-      "coach_id": "mike-riley-2003",
+      "coach_id": "mike-riley-1997",
       "coach_name": "Mike Riley",
       "school": "Nebraska",
       "season": 2017,
@@ -4707,10 +7967,22 @@
       "school": "UNLV",
       "season": 2009,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -2.5 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.519397191356063,
+      "next": null
+    },
+    {
+      "coach_id": "mike-sheppard-1984",
+      "coach_name": "Mike Sheppard",
+      "school": "New Mexico",
+      "season": 1991,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.8), no next job found",
+      "vs_par": -14.824493912732924,
+      "added": -9.985447719090233,
       "next": null
     },
     {
@@ -4747,6 +8019,30 @@
       "reason": "below expectations (added -5.9 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -5.931991654786724,
+      "next": null
+    },
+    {
+      "coach_id": "mike-white-1980",
+      "coach_name": "Mike White",
+      "school": "Illinois",
+      "season": 1987,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -1.5 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -1.474478996284841,
+      "next": null
+    },
+    {
+      "coach_id": "moe-ankney-1986",
+      "coach_name": "Moe Ankney",
+      "school": "Bowling Green",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.1), no next job found",
+      "vs_par": -13.104874766702666,
+      "added": -1.146155638190777,
       "next": null
     },
     {
@@ -4790,6 +8086,18 @@
       "next": null
     },
     {
+      "coach_id": "nelson-stokley-1986",
+      "coach_name": "Nelson Stokley",
+      "school": "Louisiana",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -17.4), no next job found",
+      "vs_par": -17.368202673761353,
+      "added": -7.008756669209529,
+      "next": null
+    },
+    {
       "coach_id": "nick-holt-2003",
       "coach_name": "Nick Holt",
       "school": "Idaho",
@@ -4830,7 +8138,35 @@
       "next": null
     },
     {
-      "coach_id": "nick-saban-1999",
+      "coach_id": "nick-saban-1990",
+      "coach_name": "Nick Saban",
+      "school": "Toledo",
+      "season": 1990,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.7) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.6970725756019194,
+      "added": 3.824676312568587,
+      "next": null
+    },
+    {
+      "coach_id": "nick-saban-1990",
+      "coach_name": "Nick Saban",
+      "school": "Michigan State",
+      "season": 1999,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +8.0) but next job at LSU (2000) is a clearly smaller program (program_par 4.7 vs. 9.4 here) - ambiguous, per the plan's own example",
+      "vs_par": 8.044197507067135,
+      "added": 10.07223389657467,
+      "next": {
+        "school": "LSU",
+        "season": 2000,
+        "program_par": 4.714568637903219
+      }
+    },
+    {
+      "coach_id": "nick-saban-1990",
       "coach_name": "Nick Saban",
       "school": "LSU",
       "season": 2004,
@@ -4842,7 +8178,7 @@
       "next": null
     },
     {
-      "coach_id": "nick-saban-1999",
+      "coach_id": "nick-saban-1990",
       "coach_name": "Nick Saban",
       "school": "Alabama",
       "season": 2023,
@@ -4894,6 +8230,18 @@
       }
     },
     {
+      "coach_id": "pat-dye-1978",
+      "coach_name": "Pat Dye",
+      "school": "Auburn",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.2), no next job found",
+      "vs_par": -5.233358141090119,
+      "added": -2.439835962519485,
+      "next": null
+    },
+    {
       "coach_id": "pat-fitzgerald-2006",
       "coach_name": "Pat Fitzgerald",
       "school": "Northwestern",
@@ -4906,7 +8254,7 @@
       "next": null
     },
     {
-      "coach_id": "pat-hill-2003",
+      "coach_id": "pat-hill-1997",
       "coach_name": "Pat Hill",
       "school": "Fresno State",
       "season": 2011,
@@ -4915,6 +8263,30 @@
       "reason": "below expectations (added -6.5 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.481885043739748,
+      "next": null
+    },
+    {
+      "coach_id": "pat-jones-1984",
+      "coach_name": "Pat Jones",
+      "school": "Oklahoma State",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.2), no next job found",
+      "vs_par": -7.211026564324126,
+      "added": -2.22381966266994,
+      "next": null
+    },
+    {
+      "coach_id": "pat-sullivan-1992",
+      "coach_name": "Pat Sullivan",
+      "school": "TCU",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.1), no next job found",
+      "vs_par": -12.079639009902582,
+      "added": -9.482315960505618,
       "next": null
     },
     {
@@ -4943,6 +8315,30 @@
       "reason": "below expectations (vs_par -5.5), no next job found",
       "vs_par": -5.489676392241638,
       "added": -4.216621107569585,
+      "next": null
+    },
+    {
+      "coach_id": "paul-hackett-1990",
+      "coach_name": "Paul Hackett",
+      "school": "Pittsburgh",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -20.8), no next job found",
+      "vs_par": -20.811327316895138,
+      "added": -10.217288206208856,
+      "next": null
+    },
+    {
+      "coach_id": "paul-hackett-1990",
+      "coach_name": "Paul Hackett",
+      "school": "USC",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.5), no next job found",
+      "vs_par": -12.511719224430406,
+      "added": -2.7963381753595264,
       "next": null
     },
     {
@@ -4986,7 +8382,7 @@
       "next": null
     },
     {
-      "coach_id": "paul-pasqualoni-2003",
+      "coach_id": "paul-pasqualoni-1991",
       "coach_name": "Paul Pasqualoni",
       "school": "Syracuse",
       "season": 2004,
@@ -4998,7 +8394,7 @@
       "next": null
     },
     {
-      "coach_id": "paul-pasqualoni-2003",
+      "coach_id": "paul-pasqualoni-1991",
       "coach_name": "Paul Pasqualoni",
       "school": "UConn",
       "season": 2013,
@@ -5022,6 +8418,30 @@
       "next": null
     },
     {
+      "coach_id": "paul-roach-1987",
+      "coach_name": "Paul Roach",
+      "school": "Wyoming",
+      "season": 1990,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.7848872418332573,
+      "added": -2.383344808900645,
+      "next": null
+    },
+    {
+      "coach_id": "paul-schudel-1985",
+      "coach_name": "Paul Schudel",
+      "school": "Ball State",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.3), no next job found",
+      "vs_par": -6.293999952862239,
+      "added": -5.687949377306059,
+      "next": null
+    },
+    {
       "coach_id": "paul-wulff-2007",
       "coach_name": "Paul Wulff",
       "school": "Washington State",
@@ -5038,11 +8458,23 @@
       "coach_name": "Pete Carroll",
       "school": "USC",
       "season": 2009,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "moved_up",
+      "source": "manual",
       "reason": "below expectations (added -7.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -7.084527781916634,
+      "next": null
+    },
+    {
+      "coach_id": "pete-cordelli-1991",
+      "coach_name": "Pete Cordelli",
+      "school": "Kent State",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.373412865974995,
+      "added": -12.176310468049248,
       "next": null
     },
     {
@@ -5082,7 +8514,7 @@
       "next": null
     },
     {
-      "coach_id": "phillip-fulmer-2003",
+      "coach_id": "phillip-fulmer-1992",
       "coach_name": "Phillip Fulmer",
       "school": "Tennessee",
       "season": 2008,
@@ -5091,6 +8523,18 @@
       "reason": "below expectations (added -3.4 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.439627230589565,
+      "next": null
+    },
+    {
+      "coach_id": "r-c-slocum-1989",
+      "coach_name": "R.C. Slocum",
+      "school": "Texas A&M",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.1), no next job found",
+      "vs_par": -0.10704944365932612,
+      "added": 1.4328814257150082,
       "next": null
     },
     {
@@ -5106,7 +8550,7 @@
       "next": null
     },
     {
-      "coach_id": "randy-edsall-2003",
+      "coach_id": "randy-edsall-2000",
       "coach_name": "Randy Edsall",
       "school": "UConn",
       "season": 2010,
@@ -5122,7 +8566,7 @@
       }
     },
     {
-      "coach_id": "randy-edsall-2003",
+      "coach_id": "randy-edsall-2000",
       "coach_name": "Randy Edsall",
       "school": "Maryland",
       "season": 2015,
@@ -5134,7 +8578,7 @@
       "next": null
     },
     {
-      "coach_id": "randy-edsall-2003",
+      "coach_id": "randy-edsall-2000",
       "coach_name": "Randy Edsall",
       "school": "UConn",
       "season": 2021,
@@ -5158,7 +8602,23 @@
       "next": null
     },
     {
-      "coach_id": "randy-walker-2003",
+      "coach_id": "randy-walker-1990",
+      "coach_name": "Randy Walker",
+      "school": "Miami (OH)",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Northwestern (1999), program_par -3.2 vs. -7.9 here",
+      "vs_par": 13.591670877730726,
+      "added": 0.7275488803567631,
+      "next": {
+        "school": "Northwestern",
+        "season": 1999,
+        "program_par": -3.2314714390105004
+      }
+    },
+    {
+      "coach_id": "randy-walker-1990",
       "coach_name": "Randy Walker",
       "school": "Northwestern",
       "season": 2005,
@@ -5170,7 +8630,67 @@
       "next": null
     },
     {
-      "coach_id": "rich-brooks-2002",
+      "coach_id": "ray-goff-1989",
+      "coach_name": "Ray Goff",
+      "school": "Georgia",
+      "season": 1995,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.2), no next job found",
+      "vs_par": -10.18953403070184,
+      "added": -1.2455872604191622,
+      "next": null
+    },
+    {
+      "coach_id": "ray-perkins-1983",
+      "coach_name": "Ray Perkins",
+      "school": "Alabama",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.2), no next job found",
+      "vs_par": -0.24099879153681414,
+      "added": 9.722287761798482,
+      "next": null
+    },
+    {
+      "coach_id": "ray-perkins-1983",
+      "coach_name": "Ray Perkins",
+      "school": "Arkansas State",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.8), no next job found",
+      "vs_par": -12.803751986407114,
+      "added": -10.876054197085622,
+      "next": null
+    },
+    {
+      "coach_id": "rey-dempsey-1978",
+      "coach_name": "Rey Dempsey",
+      "school": "Memphis",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +6.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 5.965662963222517,
+      "added": -4.137663467639117,
+      "next": null
+    },
+    {
+      "coach_id": "rich-brooks-1978",
+      "coach_name": "Rich Brooks",
+      "school": "Oregon",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (added +8.5 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 8.46362761510862,
+      "next": null
+    },
+    {
+      "coach_id": "rich-brooks-1978",
       "coach_name": "Rich Brooks",
       "school": "Kentucky",
       "season": 2009,
@@ -5250,7 +8770,47 @@
       }
     },
     {
-      "coach_id": "rick-neuheisel-2007",
+      "coach_id": "rick-minter-1994",
+      "coach_name": "Rick Minter",
+      "school": "Cincinnati",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +9.2) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 9.232049384496948,
+      "added": -7.309411557692305,
+      "next": null
+    },
+    {
+      "coach_id": "rick-neuheisel-1995",
+      "coach_name": "Rick Neuheisel",
+      "school": "Colorado",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Washington (1999), program_par 19.7 vs. 14.8 here",
+      "vs_par": -5.534352561268671,
+      "added": 0.13218392598055395,
+      "next": {
+        "school": "Washington",
+        "season": 1999,
+        "program_par": 19.662097524607088
+      }
+    },
+    {
+      "coach_id": "rick-neuheisel-1995",
+      "coach_name": "Rick Neuheisel",
+      "school": "Washington",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.7), no next job found",
+      "vs_par": -10.703483504160278,
+      "added": 1.9026153885227162,
+      "next": null
+    },
+    {
+      "coach_id": "rick-neuheisel-1995",
       "coach_name": "Rick Neuheisel",
       "school": "UCLA",
       "season": 2011,
@@ -5262,12 +8822,24 @@
       "next": null
     },
     {
+      "coach_id": "rick-rasnick-1995",
+      "coach_name": "Rick Rasnick",
+      "school": "Eastern Michigan",
+      "season": 1999,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.45058731461977786,
+      "added": -1.7765076016844308,
+      "next": null
+    },
+    {
       "coach_id": "rick-stockstill-2005",
       "coach_name": "Rick Stockstill",
       "school": "Middle Tennessee",
       "season": 2023,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (vs_par -0.2), no next job found",
       "vs_par": -0.15163398748201296,
       "added": -3.136333506731054,
@@ -5283,6 +8855,18 @@
       "reason": "below expectations (added -10.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -10.780094932659567,
+      "next": null
+    },
+    {
+      "coach_id": "rip-scherer-1995",
+      "coach_name": "Rip Scherer",
+      "school": "Memphis",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -0.4), no next job found",
+      "vs_par": -0.39038941362510426,
+      "added": -4.938639191685193,
       "next": null
     },
     {
@@ -5310,19 +8894,31 @@
       "next": null
     },
     {
-      "coach_id": "rocky-long-2003",
+      "coach_id": "rockey-felker-1986",
+      "coach_name": "Rockey Felker",
+      "school": "Mississippi State",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.2), no next job found",
+      "vs_par": -5.197074139614763,
+      "added": 0.3957728334563228,
+      "next": null
+    },
+    {
+      "coach_id": "rocky-long-1998",
       "coach_name": "Rocky Long",
       "school": "New Mexico",
       "season": 2008,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -3.7 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.7439356803004475,
       "next": null
     },
     {
-      "coach_id": "rocky-long-2003",
+      "coach_id": "rocky-long-1998",
       "coach_name": "Rocky Long",
       "school": "San Diego State",
       "season": 2019,
@@ -5374,6 +8970,58 @@
       "next": null
     },
     {
+      "coach_id": "ron-cooper-1993",
+      "coach_name": "Ron Cooper",
+      "school": "Eastern Michigan",
+      "season": 1994,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Louisville (1995), program_par -6.3 vs. -17.0 here",
+      "vs_par": 1.7274822502056395,
+      "added": -0.21571224905631148,
+      "next": {
+        "school": "Louisville",
+        "season": 1995,
+        "program_par": -6.323927038926862
+      }
+    },
+    {
+      "coach_id": "ron-cooper-1993",
+      "coach_name": "Ron Cooper",
+      "school": "Louisville",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -6.5), no next job found",
+      "vs_par": -6.5142213918259975,
+      "added": -12.950326901640933,
+      "next": null
+    },
+    {
+      "coach_id": "ron-dickerson-1993",
+      "coach_name": "Ron Dickerson",
+      "school": "Temple",
+      "season": 1997,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.3), no next job found",
+      "vs_par": -8.327955431818998,
+      "added": -5.283837919134095,
+      "next": null
+    },
+    {
+      "coach_id": "ron-dowhower-1979",
+      "coach_name": "Ron Dowhower",
+      "school": "Vanderbilt",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.1) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.06581119060687168,
+      "added": -1.5221554401937265,
+      "next": null
+    },
+    {
       "coach_id": "ron-english-2008",
       "coach_name": "Ron English",
       "school": "Eastern Michigan",
@@ -5383,6 +9031,18 @@
       "reason": "below expectations (vs_par -12.0), no next job found",
       "vs_par": -11.954730797966064,
       "added": -14.271780771586371,
+      "next": null
+    },
+    {
+      "coach_id": "ron-mcbride-1990",
+      "coach_name": "Ron McBride",
+      "school": "Utah",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +3.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 3.7662480458650407,
+      "added": -5.178575091748822,
       "next": null
     },
     {
@@ -5398,7 +9058,19 @@
       "next": null
     },
     {
-      "coach_id": "ron-turner-2003",
+      "coach_id": "ron-turner-1992",
+      "coach_name": "Ron Turner",
+      "school": "San Jose State",
+      "season": 1992,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.5), no next job found",
+      "vs_par": -3.468599277378215,
+      "added": -6.413562896532129,
+      "next": null
+    },
+    {
+      "coach_id": "ron-turner-1992",
       "coach_name": "Ron Turner",
       "school": "Illinois",
       "season": 2004,
@@ -5410,7 +9082,7 @@
       "next": null
     },
     {
-      "coach_id": "ron-turner-2003",
+      "coach_id": "ron-turner-1992",
       "coach_name": "Ron Turner",
       "school": "FIU",
       "season": 2016,
@@ -5419,6 +9091,18 @@
       "reason": "below expectations (vs_par -3.4), no next job found",
       "vs_par": -3.3514744733484836,
       "added": -9.250227543251437,
+      "next": null
+    },
+    {
+      "coach_id": "ron-vanderlinden-1997",
+      "coach_name": "Ron Vanderlinden",
+      "school": "Maryland",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "manual",
+      "reason": "above expectations (vs_par +2.2) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 2.154426378708858,
+      "added": -0.294364890768974,
       "next": null
     },
     {
@@ -5443,7 +9127,7 @@
       "school": "Illinois",
       "season": 2011,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -3.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.1066578298611316,
@@ -5499,6 +9183,18 @@
       "reason": "above expectations (vs_par +1.3) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 1.2515569417438037,
       "added": 1.7328046313801782,
+      "next": null
+    },
+    {
+      "coach_id": "sam-robertson-1980",
+      "coach_name": "Sam Robertson",
+      "school": "Louisiana",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -11.5 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -11.507295577838942,
       "next": null
     },
     {
@@ -5770,7 +9466,7 @@
       }
     },
     {
-      "coach_id": "sonny-lubick-2003",
+      "coach_id": "sonny-lubick-1993",
       "coach_name": "Sonny Lubick",
       "school": "Colorado State",
       "season": 2007,
@@ -5779,6 +9475,30 @@
       "reason": "below expectations (added -2.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.12910112384899,
+      "next": null
+    },
+    {
+      "coach_id": "sparky-woods-1989",
+      "coach_name": "Sparky Woods",
+      "school": "South Carolina",
+      "season": 1993,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.9), no next job found",
+      "vs_par": -5.880622900174359,
+      "added": 1.0111775213636012,
+      "next": null
+    },
+    {
+      "coach_id": "spike-dykes-1986",
+      "coach_name": "Spike Dykes",
+      "school": "Texas Tech",
+      "season": 1999,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (vs_par +0.9) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 0.9081763369977522,
+      "added": -4.019352164024273,
       "next": null
     },
     {
@@ -5806,7 +9526,19 @@
       "next": null
     },
     {
-      "coach_id": "stan-parrish-2008",
+      "coach_id": "stan-parrish-1986",
+      "coach_name": "Stan Parrish",
+      "school": "Kansas State",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.3), no next job found",
+      "vs_par": -15.305786799831656,
+      "added": -7.750837908311066,
+      "next": null
+    },
+    {
+      "coach_id": "stan-parrish-1986",
       "coach_name": "Stan Parrish",
       "school": "Ball State",
       "season": 2010,
@@ -5914,12 +9646,36 @@
       "next": null
     },
     {
+      "coach_id": "steve-logan-1992",
+      "coach_name": "Steve Logan",
+      "school": "East Carolina",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -1.5), no next job found",
+      "vs_par": -1.4793456221876378,
+      "added": -9.310835445225358,
+      "next": null
+    },
+    {
+      "coach_id": "steve-mariucci-1996",
+      "coach_name": "Steve Mariucci",
+      "school": "California",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.3), no next job found",
+      "vs_par": -3.3472633075351985,
+      "added": 1.6745608968909966,
+      "next": null
+    },
+    {
       "coach_id": "steve-roberts-2001",
       "coach_name": "Steve Roberts",
       "school": "Arkansas State",
       "season": 2010,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -2.1 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.0560178216010128,
@@ -5954,7 +9710,47 @@
       "next": null
     },
     {
-      "coach_id": "steve-spurrier-2004",
+      "coach_id": "steve-sloan-1978",
+      "coach_name": "Steve Sloan",
+      "school": "Duke",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -5.4), no next job found",
+      "vs_par": -5.426577110477373,
+      "added": -3.9943536555720653,
+      "next": null
+    },
+    {
+      "coach_id": "steve-spurrier-1987",
+      "coach_name": "Steve Spurrier",
+      "school": "Duke",
+      "season": 1989,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Florida (1990), program_par 14.1 vs. -4.9 here",
+      "vs_par": 9.116118451422151,
+      "added": 5.5418943051448855,
+      "next": {
+        "school": "Florida",
+        "season": 1990,
+        "program_par": 14.053624675009877
+      }
+    },
+    {
+      "coach_id": "steve-spurrier-1987",
+      "coach_name": "Steve Spurrier",
+      "school": "Florida",
+      "season": 2001,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +15.0) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 15.012245591316391,
+      "added": 13.692760125588075,
+      "next": null
+    },
+    {
+      "coach_id": "steve-spurrier-1987",
       "coach_name": "Steve Spurrier",
       "school": "South Carolina",
       "season": 2015,
@@ -5990,7 +9786,55 @@
       "next": null
     },
     {
-      "coach_id": "terry-bowden-2011",
+      "coach_id": "ted-tollner-1983",
+      "coach_name": "Ted Tollner",
+      "school": "USC",
+      "season": 1986,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.6), no next job found",
+      "vs_par": -9.56539164394892,
+      "added": 5.976004738468662,
+      "next": null
+    },
+    {
+      "coach_id": "ted-tollner-1983",
+      "coach_name": "Ted Tollner",
+      "school": "San Diego State",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -9.9), no next job found",
+      "vs_par": -9.938488573568897,
+      "added": -6.917802506279625,
+      "next": null
+    },
+    {
+      "coach_id": "terry-allen-1997",
+      "coach_name": "Terry Allen",
+      "school": "Kansas",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -7.1), no next job found",
+      "vs_par": -7.125323211303504,
+      "added": -7.650202703271635,
+      "next": null
+    },
+    {
+      "coach_id": "terry-bowden-1993",
+      "coach_name": "Terry Bowden",
+      "school": "Auburn",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.8), no next job found",
+      "vs_par": -10.760311738223297,
+      "added": -5.658064894947331,
+      "next": null
+    },
+    {
+      "coach_id": "terry-bowden-1993",
       "coach_name": "Terry Bowden",
       "school": "Akron",
       "season": 2018,
@@ -6002,7 +9846,7 @@
       "next": null
     },
     {
-      "coach_id": "terry-bowden-2011",
+      "coach_id": "terry-bowden-1993",
       "coach_name": "Terry Bowden",
       "school": "Louisiana-Monroe",
       "season": 2023,
@@ -6014,7 +9858,19 @@
       "next": null
     },
     {
-      "coach_id": "terry-hoeppner-2003",
+      "coach_id": "terry-donahue-1978",
+      "coach_name": "Terry Donahue",
+      "school": "UCLA",
+      "season": 1995,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +4.7 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 4.7073768967422644,
+      "next": null
+    },
+    {
+      "coach_id": "terry-hoeppner-1999",
       "coach_name": "Terry Hoeppner",
       "school": "Miami (OH)",
       "season": 2004,
@@ -6030,7 +9886,7 @@
       }
     },
     {
-      "coach_id": "terry-hoeppner-2003",
+      "coach_id": "terry-hoeppner-1999",
       "coach_name": "Terry Hoeppner",
       "school": "Indiana",
       "season": 2006,
@@ -6039,6 +9895,30 @@
       "reason": "below expectations (added -2.2 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -2.2153705355714344,
+      "next": null
+    },
+    {
+      "coach_id": "terry-shea-1990",
+      "coach_name": "Terry Shea",
+      "school": "San Jose State",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +4.4) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 4.411422543331053,
+      "added": -3.008183769115787,
+      "next": null
+    },
+    {
+      "coach_id": "terry-shea-1990",
+      "coach_name": "Terry Shea",
+      "school": "Rutgers",
+      "season": 2000,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.4), no next job found",
+      "vs_par": -13.403427560432522,
+      "added": -3.064990235058005,
       "next": null
     },
     {
@@ -6142,6 +10022,30 @@
       "next": null
     },
     {
+      "coach_id": "tim-murphy-1989",
+      "coach_name": "Tim Murphy",
+      "school": "Cincinnati",
+      "season": 1993,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +8.8) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 8.813394251316737,
+      "added": 6.295807424995371,
+      "next": null
+    },
+    {
+      "coach_id": "tim-rose-1983",
+      "coach_name": "Tim Rose",
+      "school": "Miami (OH)",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -26.7), no next job found",
+      "vs_par": -26.747379951886803,
+      "added": -7.920339083600201,
+      "next": null
+    },
+    {
       "coach_id": "tim-skipper-2024",
       "coach_name": "Tim Skipper",
       "school": "Fresno State",
@@ -6151,6 +10055,18 @@
       "reason": "below expectations (vs_par -0.4), no next job found",
       "vs_par": -0.3565428799258421,
       "added": -1.3272495129732516,
+      "next": null
+    },
+    {
+      "coach_id": "todd-berry-1999",
+      "coach_name": "Todd Berry",
+      "school": "Army",
+      "season": 2003,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -17.8), no next job found",
+      "vs_par": -17.807879183123895,
+      "added": -9.637757319906449,
       "next": null
     },
     {
@@ -6183,7 +10099,7 @@
       "school": "Rice",
       "season": 2006,
       "label": "moved_up",
-      "source": "auto",
+      "source": "manual",
       "reason": "next job at Tulsa (2007), program_par -1.1 vs. -12.9 here",
       "vs_par": 2.4779390081041246,
       "added": 3.059574274376324,
@@ -6298,6 +10214,18 @@
       "next": null
     },
     {
+      "coach_id": "tom-coughlin-1991",
+      "coach_name": "Tom Coughlin",
+      "school": "Boston College",
+      "season": 1993,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +9.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 9.481169296805664,
+      "added": 8.143947036889369,
+      "next": null
+    },
+    {
       "coach_id": "tom-craft-2001",
       "coach_name": "Tom Craft",
       "school": "San Diego State",
@@ -6350,7 +10278,31 @@
       "next": null
     },
     {
-      "coach_id": "tom-o-brien-2003",
+      "coach_id": "tom-holmoe-1997",
+      "coach_name": "Tom Holmoe",
+      "school": "California",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.3), no next job found",
+      "vs_par": -15.34618344955156,
+      "added": -11.178672518358201,
+      "next": null
+    },
+    {
+      "coach_id": "tom-lichtenberg-1990",
+      "coach_name": "Tom Lichtenberg",
+      "school": "Ohio",
+      "season": 1994,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.440210441192463,
+      "added": -12.382611533303344,
+      "next": null
+    },
+    {
+      "coach_id": "tom-o-brien-1997",
       "coach_name": "Tom O'Brien",
       "school": "Boston College",
       "season": 2006,
@@ -6366,7 +10318,7 @@
       }
     },
     {
-      "coach_id": "tom-o-brien-2003",
+      "coach_id": "tom-o-brien-1997",
       "coach_name": "Tom O'Brien",
       "school": "NC State",
       "season": 2012,
@@ -6378,19 +10330,87 @@
       "next": null
     },
     {
-      "coach_id": "tommy-bowden-2003",
+      "coach_id": "tom-osborne-1978",
+      "coach_name": "Tom Osborne",
+      "school": "Nebraska",
+      "season": 1997,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +8.8 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 8.838121163475066,
+      "next": null
+    },
+    {
+      "coach_id": "tom-reed-1978",
+      "coach_name": "Tom Reed",
+      "school": "NC State",
+      "season": 1985,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -15.8), no next job found",
+      "vs_par": -15.766334532065349,
+      "added": -7.040274730531403,
+      "next": null
+    },
+    {
+      "coach_id": "tom-rossley-1991",
+      "coach_name": "Tom Rossley",
+      "school": "SMU",
+      "season": 1996,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -10.4), no next job found",
+      "vs_par": -10.400065381906778,
+      "added": 5.128731843338,
+      "next": null
+    },
+    {
+      "coach_id": "tommy-bowden-1997",
+      "coach_name": "Tommy Bowden",
+      "school": "Tulane",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Clemson (1999), program_par 7.1 vs. -11.5 here",
+      "vs_par": 23.637338301501877,
+      "added": 8.284695055952318,
+      "next": {
+        "school": "Clemson",
+        "season": 1999,
+        "program_par": 7.122123962081038
+      }
+    },
+    {
+      "coach_id": "tommy-bowden-1997",
       "coach_name": "Tommy Bowden",
       "school": "Clemson",
       "season": 2008,
-      "label": "fired_or_pushed_out",
-      "source": "auto",
+      "label": "retired_or_other",
+      "source": "manual",
       "reason": "below expectations (added -3.8 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -3.8144262408918337,
       "next": null
     },
     {
-      "coach_id": "tommy-tuberville-2003",
+      "coach_id": "tommy-tuberville-1995",
+      "coach_name": "Tommy Tuberville",
+      "school": "Ole Miss",
+      "season": 1998,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Auburn (1999), program_par 10.9 vs. 2.5 here",
+      "vs_par": -0.7202922467437722,
+      "added": -1.899570197181497,
+      "next": {
+        "school": "Auburn",
+        "season": 1999,
+        "program_par": 10.94142650479307
+      }
+    },
+    {
+      "coach_id": "tommy-tuberville-1995",
       "coach_name": "Tommy Tuberville",
       "school": "Auburn",
       "season": 2008,
@@ -6402,7 +10422,7 @@
       "next": null
     },
     {
-      "coach_id": "tommy-tuberville-2003",
+      "coach_id": "tommy-tuberville-1995",
       "coach_name": "Tommy Tuberville",
       "school": "Texas Tech",
       "season": 2012,
@@ -6418,7 +10438,7 @@
       }
     },
     {
-      "coach_id": "tommy-tuberville-2003",
+      "coach_id": "tommy-tuberville-1995",
       "coach_name": "Tommy Tuberville",
       "school": "Cincinnati",
       "season": 2016,
@@ -6430,7 +10450,19 @@
       "next": null
     },
     {
-      "coach_id": "tommy-west-2000",
+      "coach_id": "tommy-west-1993",
+      "coach_name": "Tommy West",
+      "school": "Clemson",
+      "season": 1998,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -13.6), no next job found",
+      "vs_par": -13.628704047956305,
+      "added": -5.337811217237118,
+      "next": null
+    },
+    {
+      "coach_id": "tommy-west-1993",
       "coach_name": "Tommy West",
       "school": "Memphis",
       "season": 2009,
@@ -6454,12 +10486,12 @@
       "next": null
     },
     {
-      "coach_id": "tony-samuel-2003",
+      "coach_id": "tony-samuel-1997",
       "coach_name": "Tony Samuel",
       "school": "New Mexico State",
       "season": 2004,
       "label": "fired_or_pushed_out",
-      "source": "auto",
+      "source": "manual",
       "reason": "below expectations (added -4.6 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -4.558261472985523,
@@ -6578,7 +10610,23 @@
       "next": null
     },
     {
-      "coach_id": "tyrone-willingham-2001",
+      "coach_id": "tyrone-willingham-1995",
+      "coach_name": "Tyrone Willingham",
+      "school": "Stanford",
+      "season": 2001,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Notre Dame (2002), program_par 16.3 vs. 7.5 here",
+      "vs_par": 4.532645352053131,
+      "added": 7.973026473199542,
+      "next": {
+        "school": "Notre Dame",
+        "season": 2002,
+        "program_par": 16.278654008041258
+      }
+    },
+    {
+      "coach_id": "tyrone-willingham-1995",
       "coach_name": "Tyrone Willingham",
       "school": "Notre Dame",
       "season": 2004,
@@ -6594,7 +10642,7 @@
       }
     },
     {
-      "coach_id": "tyrone-willingham-2001",
+      "coach_id": "tyrone-willingham-1995",
       "coach_name": "Tyrone Willingham",
       "school": "Washington",
       "season": 2008,
@@ -6618,7 +10666,23 @@
       "next": null
     },
     {
-      "coach_id": "urban-meyer-2002",
+      "coach_id": "urban-meyer-2000",
+      "coach_name": "Urban Meyer",
+      "school": "Bowling Green",
+      "season": 2002,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Utah (2003), program_par 4.2 vs. -7.7 here",
+      "vs_par": 9.47618708461146,
+      "added": 1.1381370140908373,
+      "next": {
+        "school": "Utah",
+        "season": 2003,
+        "program_par": 4.191985646086737
+      }
+    },
+    {
+      "coach_id": "urban-meyer-2000",
       "coach_name": "Urban Meyer",
       "school": "Utah",
       "season": 2004,
@@ -6634,7 +10698,7 @@
       }
     },
     {
-      "coach_id": "urban-meyer-2002",
+      "coach_id": "urban-meyer-2000",
       "coach_name": "Urban Meyer",
       "school": "Florida",
       "season": 2010,
@@ -6646,7 +10710,7 @@
       "next": null
     },
     {
-      "coach_id": "urban-meyer-2002",
+      "coach_id": "urban-meyer-2000",
       "coach_name": "Urban Meyer",
       "school": "Ohio State",
       "season": 2018,
@@ -6655,6 +10719,42 @@
       "reason": "above expectations (vs_par +3.2) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 3.174086643029515,
       "added": 1.230603896612351,
+      "next": null
+    },
+    {
+      "coach_id": "vic-koenning-1999",
+      "coach_name": "Vic Koenning",
+      "school": "Wyoming",
+      "season": 2002,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -14.9), no next job found",
+      "vs_par": -14.926276966213143,
+      "added": -3.5666628618168428,
+      "next": null
+    },
+    {
+      "coach_id": "vince-dooley-1978",
+      "coach_name": "Vince Dooley",
+      "school": "Georgia",
+      "season": 1988,
+      "label": "retired_or_other",
+      "source": "manual",
+      "reason": "above expectations (added +4.3 vs. its own preseason prior (program_par unavailable)) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": null,
+      "added": 4.34890651704495,
+      "next": null
+    },
+    {
+      "coach_id": "wally-english-1983",
+      "coach_name": "Wally English",
+      "school": "Tulane",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -4.3), no next job found",
+      "vs_par": -4.260674835670239,
+      "added": -0.05769102989349251,
       "next": null
     },
     {
@@ -6670,11 +10770,23 @@
       "next": null
     },
     {
-      "coach_id": "walt-harris-2003",
+      "coach_id": "walt-harris-1989",
+      "coach_name": "Walt Harris",
+      "school": "Pacific",
+      "season": 1991,
+      "label": "moved_up",
+      "source": "manual",
+      "reason": "above expectations (vs_par +1.5) but no next job found - ambiguous, per the plan's own example",
+      "vs_par": 1.4560643749314046,
+      "added": -1.2134269363572159,
+      "next": null
+    },
+    {
+      "coach_id": "walt-harris-1989",
       "coach_name": "Walt Harris",
       "school": "Pittsburgh",
       "season": 2004,
-      "label": "fired_or_pushed_out",
+      "label": "moved_up",
       "source": "manual",
       "reason": "next job found, but program_par isn't available to compare",
       "vs_par": null,
@@ -6686,7 +10798,7 @@
       }
     },
     {
-      "coach_id": "walt-harris-2003",
+      "coach_id": "walt-harris-1989",
       "coach_name": "Walt Harris",
       "school": "Stanford",
       "season": 2006,
@@ -6698,7 +10810,47 @@
       "next": null
     },
     {
-      "coach_id": "watson-brown-2003",
+      "coach_id": "warren-powers-1978",
+      "coach_name": "Warren Powers",
+      "school": "Missouri",
+      "season": 1984,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (added -0.8 vs. its own preseason prior (program_par unavailable)), no next job found",
+      "vs_par": null,
+      "added": -0.8088389444633659,
+      "next": null
+    },
+    {
+      "coach_id": "watson-brown-1983",
+      "coach_name": "Watson Brown",
+      "school": "Rice",
+      "season": 1985,
+      "label": "moved_up",
+      "source": "auto",
+      "reason": "next job at Vanderbilt (1986), program_par -7.7 vs. -12.0 here",
+      "vs_par": -0.8086351372406213,
+      "added": -2.4457601034668706,
+      "next": {
+        "school": "Vanderbilt",
+        "season": 1986,
+        "program_par": -7.728654148927543
+      }
+    },
+    {
+      "coach_id": "watson-brown-1983",
+      "coach_name": "Watson Brown",
+      "school": "Vanderbilt",
+      "season": 1990,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -8.7), no next job found",
+      "vs_par": -8.720797810475911,
+      "added": -10.902552475542553,
+      "next": null
+    },
+    {
+      "coach_id": "watson-brown-1983",
       "coach_name": "Watson Brown",
       "school": "UAB",
       "season": 2006,
@@ -6707,6 +10859,18 @@
       "reason": "below expectations (added -6.6 vs. its own preseason prior (program_par unavailable)), no next job found",
       "vs_par": null,
       "added": -6.620905252021235,
+      "next": null
+    },
+    {
+      "coach_id": "wayne-nunnely-1986",
+      "coach_name": "Wayne Nunnely",
+      "school": "UNLV",
+      "season": 1989,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -17.5), no next job found",
+      "vs_par": -17.476737623069084,
+      "added": -5.921354234898869,
       "next": null
     },
     {
@@ -6859,6 +11023,30 @@
       "reason": "above expectations (vs_par +6.2) but no next job found - ambiguous, per the plan's own example",
       "vs_par": 6.221719266694162,
       "added": -3.6846844894529163,
+      "next": null
+    },
+    {
+      "coach_id": "woody-widenhofer-1985",
+      "coach_name": "Woody Widenhofer",
+      "school": "Missouri",
+      "season": 1988,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -12.2), no next job found",
+      "vs_par": -12.170818513640864,
+      "added": -2.229676723953896,
+      "next": null
+    },
+    {
+      "coach_id": "woody-widenhofer-1985",
+      "coach_name": "Woody Widenhofer",
+      "school": "Vanderbilt",
+      "season": 2001,
+      "label": "fired_or_pushed_out",
+      "source": "auto",
+      "reason": "below expectations (vs_par -3.2), no next job found",
+      "vs_par": -3.2326823939446783,
+      "added": -6.7042138121161985,
       "next": null
     },
     {
