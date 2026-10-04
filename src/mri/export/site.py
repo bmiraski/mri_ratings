@@ -2591,17 +2591,17 @@ def _chaos_fallout(fallout: dict) -> str:
     </div>""" if chips else ""
 
 
-def _chaos_final_panel(entry: dict) -> str:
+def _chaos_final_panel(entry: dict, up: str = "") -> str:
     """Once the week is final: the percentile bar and rank, upsets against expected, the biggest
     shocks, and fallout."""
     percentile = entry.get("percentile")
     if percentile is not None:
-        header = (f'<p class="ptitle">{_chaos_icon()}Chaos {percentile:.0f}</p>'
+        header = (f'<p class="ptitle">{_chaos_icon(up)}Chaos {percentile:.0f}</p>'
                    f'<p class="note">Wilder than {percentile:.0f}% of weeks in the archive.</p>{_chaos_bar(percentile)}')
     elif entry.get("note") == "not_enough_games":
-        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not enough games to rate.</p>'
+        header = f'<p class="ptitle">{_chaos_icon(up)}Chaos</p><p class="note">Not enough games to rate.</p>'
     else:
-        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not yet ranked against the archive.</p>'
+        header = f'<p class="ptitle">{_chaos_icon(up)}Chaos</p><p class="note">Not yet ranked against the archive.</p>'
 
     upsets, expected = entry.get("upsets"), entry.get("expectedUpsets")
     stats = (f'<p class="chaosstats">{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> '
@@ -2627,7 +2627,7 @@ def _chaos_toss_ups(slate: dict, n: int = 3) -> list[dict]:
     return games[:n]
 
 
-def _chaos_before_panel(current: dict, slate: dict) -> str:
+def _chaos_before_panel(current: dict, slate: dict, up: str = "") -> str:
     """Before the week's games: expected upsets, and the games the model is least sure about."""
     lines = "".join(
         f'<li><span class="who">{esc(g["away"])} <span class="muted">at</span> {esc(g["home"])}</span>'
@@ -2636,25 +2636,25 @@ def _chaos_before_panel(current: dict, slate: dict) -> str:
     )
     return f"""
   <section class="chaosmeter">
-    <p class="ptitle">{_chaos_icon()}Expected upsets this week: {current["expectedUpsets"]:.1f}</p>
+    <p class="ptitle">{_chaos_icon(up)}Expected upsets this week: {current["expectedUpsets"]:.1f}</p>
     <p class="note">The three games the model is least sure about:</p>
     <ul class="chaostossups">{lines}</ul>
   </section>"""
 
 
-def _chaos_partial_panel(current: dict) -> str:
+def _chaos_partial_panel(current: dict, up: str = "") -> str:
     """During the week: a "so far" reading, clearly labelled partial."""
     upsets, expected = current.get("upsets"), current.get("expectedUpsets")
     body = (f'{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> {expected:.1f} expected so far'
             if upsets is not None else f'Expected upsets this week: {expected:.1f}')
     return f"""
   <section class="chaosmeter partial">
-    <p class="ptitle">{_chaos_icon()}Chaos so far <span class="chaospartial">Partial</span></p>
+    <p class="ptitle">{_chaos_icon(up)}Chaos so far <span class="chaospartial">Partial</span></p>
     <p class="note">{body}</p>
   </section>"""
 
 
-def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None) -> str:
+def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None, up: str = "") -> str:
     """The Chaos meter panel atop the Slate page (live or a frozen archive page), in whichever of
     three states the week has reached: not started, partway through, or final.
 
@@ -2666,14 +2666,14 @@ def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None) -> s
     season_entry = chaos.get("archive", {}).get("seasons", {}).get(str(season), {})
     week_entry = (season_entry.get("weeks") or {}).get(str(week))
     if week_entry and week_entry.get("final"):
-        return _chaos_final_panel(week_entry)
+        return _chaos_final_panel(week_entry, up)
 
     current = chaos.get("current")
     if not current:
         return ""
     if current.get("gamesPlayed", 0) == 0:
-        return _chaos_before_panel(current, slate)
-    return _chaos_partial_panel(current)
+        return _chaos_before_panel(current, slate, up)
+    return _chaos_partial_panel(current, up)
 
 
 def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None,
@@ -3042,7 +3042,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                  else f"{week_name(slate)} slate — MRI {season_text(payload)}")
         description = "Every game this week: model line, market line, live scores, and what rides on it."
 
-    chaos_html = "" if bb else chaos_panel(payload.get("chaos"), slate, season)
+    chaos_html = "" if bb else chaos_panel(payload.get("chaos"), slate, season, up)
 
     body = f"""
   <article class="prose wide" id="slate" data-key="{esc(live.slate_key({**slate, 'season': season}))}">{day_nav}
