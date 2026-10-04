@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ..betting.board import MIN_EDGE_TO_SHOW as MIN_EDGE
+from ..ratings import history
 from ..sim import season as sim_season
 from . import common
 
@@ -1053,7 +1054,7 @@ def _hidden_team_section(team: dict, payload: dict) -> str:
 
 
 def _coaches_section(team: dict, payload: dict) -> str:
-    """Every coach this team has had since 2003, mean performance only - no hot-seat
+    """Every coach this team has had since 1978, mean performance only - no hot-seat
     number here. Names are plain text, not links: the per-coach pages exist but are
     unlisted for now (see build_site.py), and this is a page real visitors reach."""
     coaches = (payload.get("coaches") or {}).get(team["team"])
@@ -1067,9 +1068,12 @@ def _coaches_section(team: dict, payload: dict) -> str:
         f'<td class="res">{esc(c["record"])}</td><td class="num">&ndash;</td></tr>'
         for c in coaches
     )
+    early = any(int(c["years"][:4]) <= max(history.BURN_IN_SEASONS) for c in coaches)
+    note = (f'\n      <p class="hint">Mean added leaves out {min(history.BURN_IN_SEASONS)}&ndash;{max(history.BURN_IN_SEASONS)}, '
+            f'the first seasons rated, which have no preseason prior to measure against.</p>' if early else "")
     return f"""
     <section>
-      <h2>Coaches</h2>
+      <h2>Coaches</h2>{note}
       <div class="tablewrap"><table>
         <thead><tr><th>Coach</th><th>Years</th><th>Record</th><th class="num">Mean added</th></tr></thead>
         <tbody>{rows}</tbody>

@@ -91,6 +91,12 @@ def _index_rows(coach_season: pd.DataFrame, current_season: int, odds: dict) -> 
     return rows
 
 
+def _record(wins, losses, ties=0) -> str:
+    """W-L, or W-L-T when there were ties (they were still played before 1996)."""
+    ties = 0 if pd.isna(ties) else int(ties)
+    return f"{int(wins)}-{int(losses)}" + (f"-{ties}" if ties else "")
+
+
 def _by_team(coach_season: pd.DataFrame) -> dict[str, list[dict]]:
     """One row per (coach, school) stint - a coach who left and came back later
     (Alvarez at Wisconsin, Petrino at Louisville, ...) gets a separate row for
@@ -107,7 +113,7 @@ def _by_team(coach_season: pd.DataFrame) -> dict[str, list[dict]]:
         mean_added = group["added"].mean()
         by_team.setdefault(school, []).append({
             "coachId": coach_id, "name": group["coach_name"].iloc[0], "years": years,
-            "record": f"{int(group['wins'].sum())}-{int(group['losses'].sum())}",
+            "record": _record(group["wins"].sum(), group["losses"].sum(), group["ties"].sum() if "ties" in group else 0),
             "meanAdded": None if pd.isna(mean_added) else round(float(mean_added), 1),
         })
     for school in by_team:
@@ -120,7 +126,7 @@ def _career_table(group: pd.DataFrame) -> list[dict]:
     for row in group.sort_values("season").itertuples():
         rows.append({
             "season": int(row.season), "school": row.school, "interim": bool(row.interim),
-            "record": f"{int(row.wins)}-{int(row.losses)}",
+            "record": _record(row.wins, row.losses, getattr(row, "ties", 0)),
             "powerEnd": None if pd.isna(row.power_end) else round(float(row.power_end), 1),
             "prior": None if pd.isna(row.prior) else round(float(row.prior), 1),
             "added": None if pd.isna(row.added) else round(float(row.added), 1),

@@ -19,8 +19,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from mri.coaches import season  # noqa: E402
+from mri.ratings import history  # noqa: E402
 
-MIN_YEAR = 2003
+# As far back as the ratings go: CFBD's /coaches has ~105-125 FBS head coaches a year
+# from 1978. Coach ids anchor on the first season in the response when CFBD has no hire
+# date, so changing this renumbers those coaches - migrate everything keyed by coach_id.
+MIN_YEAR = history.BACKFILL_SEASONS.start
 MAX_YEAR = 2026
 
 

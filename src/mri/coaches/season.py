@@ -29,7 +29,7 @@ import pandas as pd
 from ..ingest import cfbd, registry
 from . import ids
 
-COLUMNS = ["coach_id", "coach_name", "school", "season", "conference", "games", "wins", "losses", "interim"]
+COLUMNS = ["coach_id", "coach_name", "school", "season", "conference", "games", "wins", "losses", "ties", "interim"]
 CORRECTIONS_PATH = Path(__file__).resolve().parents[3] / "data" / "coach_season_corrections.json"
 
 

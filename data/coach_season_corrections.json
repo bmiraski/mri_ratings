@@ -1,13 +1,4 @@
 {
-  "_note": "Hand-maintained overrides for known-bad CFBD /coaches records. Each correction rewrites one field of one raw coach-season row - identified by coach_name + season + the field's current (wrong) value - before coach_id assignment or split-season validation runs. Add an entry when scripts/build_coach_season.py's split-season validation flags a season that turns out to be a data error rather than a real ambiguity: the tell is that the flagged coaches' game counts sum to a real schedule length once you swap in the right school for one of them, the way Bobby Petrino's did.",
-  "corrections": [
-    {
-      "coach_name": "Bobby Petrino",
-      "season": 2018,
-      "field": "school",
-      "from": "Western Kentucky",
-      "to": "Louisville",
-      "reason": "CFBD mislabels his real final Louisville season as Western Kentucky. He was fired 2 games into 2018 (both losses); defensive coordinator Lorenzo Ward finished the year as interim. Confirmed: this row's 10 games + Ward's 2 games at Louisville = 12, Louisville's actual 2018 schedule length. Western Kentucky's real 2018 season (Mike Sanford Jr., 12 games on his own) is unrelated - it only looked connected because this row's school was wrong."
-    }
-  ]
+  "_note": "Hand-maintained overrides for known-bad CFBD /coaches records. Each correction rewrites one field of one raw coach-season row - identified by coach_name + season + the field's current (wrong) value - before coach_id assignment or split-season validation runs. Add an entry when scripts/build_coach_season.py's split-season validation flags a season that turns out to be a data error rather than a real ambiguity: the tell is that the flagged coaches' game counts sum to a real schedule length once you swap in the right school for one of them, the way Bobby Petrino's did. Retired: the Bobby Petrino 2018 school fix (Western Kentucky -> Louisville) - CFBD corrected that row upstream, which this file's own matching guard caught on the 1978 backfill.",
+  "corrections": []
 }

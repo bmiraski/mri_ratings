@@ -143,12 +143,15 @@ def test_extended_chain_gap_from_the_old_flat_start_is_small(
 
 
 @pytest.mark.skipif(not COACH_SEASON.exists(), reason="coach_season.parquet not built")
-def test_coach_training_does_not_yet_overlap_burn_in_seasons() -> None:
-    """Coach data doesn't extend before 2003 yet, so burn_in (1978-1980) has
-    nothing to be excluded from today - this guards that assumption rather
-    than asserting an exclusion mri.coaches.metrics doesn't implement. If
-    coach data ever grows back into the backfill, this starts failing and
-    that exclusion becomes a real, not aspirational, requirement."""
+def test_burn_in_seasons_are_kept_out_of_coach_metrics_and_training() -> None:
+    """coach_season now reaches back to 1978, so the burn_in seasons (1978-1980, no real
+    prior behind them) are in the table. They must not feed anything that compares a coach
+    to their prior: ``added`` is null there, and the hot-seat training set (which starts at
+    hotseat.FIRST_LABELED_SEASON) never reaches them."""
+    from mri.coaches import hotseat
+
     coach_season = pd.read_parquet(COACH_SEASON)
-    overlap = set(coach_season["season"].unique()) & set(history.BURN_IN_SEASONS)
-    assert not overlap, f"coach_season.parquet now has burn-in seasons {overlap} - exclude them from training"
+    burn_in = coach_season[coach_season["season"].isin(history.BURN_IN_SEASONS)]
+    assert not burn_in.empty
+    assert burn_in["added"].isna().all()
+    assert hotseat.FIRST_LABELED_SEASON > max(history.BURN_IN_SEASONS)
