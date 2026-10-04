@@ -1973,3 +1973,12 @@ def test_coaches_section_explains_the_missing_early_added_only_when_it_shows_ear
     assert "1978&ndash;1980" in site._coaches_section(team, early)
     assert "106-24-2" in site._coaches_section(team, early)
     assert "1978&ndash;1980" not in site._coaches_section(team, modern)
+
+
+def test_chaos_panel_icon_path_is_relative_to_the_page_depth(monkeypatch, tmp_path) -> None:
+    (tmp_path / "chaos-icon.png").write_bytes(b"x")
+    monkeypatch.setattr(site, "BRAND_WEB", tmp_path)
+    entry = {"final": True, "percentile": 50.0, "upsets": 1, "expectedUpsets": 1.0}
+    chaos = {"current": None, "archive": {"seasons": {"2026": {"weeks": {"4": entry}}}}}
+    assert 'src="assets/chaos-icon.png"' in site.chaos_panel(chaos, _chaos_slate())
+    assert 'src="../assets/chaos-icon.png"' in site.chaos_panel(chaos, _chaos_slate(), up="../")
