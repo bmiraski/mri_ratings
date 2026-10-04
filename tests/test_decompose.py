@@ -33,14 +33,18 @@ def season():
 
 
 def test_default_fit_outputs_are_unchanged(season) -> None:
-    """Exposing the internals is additive: every pre-existing output is bit-identical."""
+    """Exposing the internals is additive: every pre-existing output matches the golden file.
+
+    Compared to 1e-9, not bitwise: the golden file was written on one machine and CI's
+    LAPACK differs in the last digit. (Before/after on the same machine, the real fits
+    were bit-identical.)
+    """
     _, _, model = season
     golden = json.loads(GOLDEN.read_text())
-    assert model.power.to_dict() == golden["power"]
-    assert model.home_field == golden["home_field"]
-    assert model.sigma == golden["sigma"]
-    assert model.games_played.to_dict() == golden["games_played"]
-    assert model.resume.to_dict() == golden["resume"]
+    for name, got in (("power", model.power), ("games_played", model.games_played), ("resume", model.resume)):
+        assert got.to_dict() == pytest.approx(golden[name], rel=1e-9, abs=1e-9), name
+    assert model.home_field == pytest.approx(golden["home_field"], rel=1e-9)
+    assert model.sigma == pytest.approx(golden["sigma"], rel=1e-9)
 
 
 def test_identity_reconstructs_every_team(season) -> None:
