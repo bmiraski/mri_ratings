@@ -2,14 +2,8 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 5,
-    "missingPregame": 0,
-    "games": 5,
-    "upsets": null,
-    "expectedUpsets": 15.36,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "gamesPlayed": 0,
+    "expectedUpsets": 18.22
   },
   "archive": {
     "calibration": {
@@ -31121,6 +31115,79 @@
             ],
             "upsets": 15,
             "z": -0.9909129612403695
+          },
+          "5": {
+            "games": 59,
+            "upsets": 14,
+            "expectedUpsets": 15.41327970294467,
+            "z": -0.384758478068524,
+            "shocks": [
+              {
+                "gameId": 401866477,
+                "winner": "Bowling Green",
+                "loser": "Miami (OH)",
+                "pregameWinProb": 0.14567406248193704,
+                "winnerScore": 24,
+                "loserScore": 20,
+                "homeScore": 20,
+                "awayScore": 24
+              },
+              {
+                "gameId": 401862792,
+                "winner": "Temple",
+                "loser": "USF",
+                "pregameWinProb": 0.1698776480581099,
+                "winnerScore": 17,
+                "loserScore": 13,
+                "homeScore": 13,
+                "awayScore": 17
+              },
+              {
+                "gameId": 401858472,
+                "winner": "Purdue",
+                "loser": "Illinois",
+                "pregameWinProb": 0.21414807013659698,
+                "winnerScore": 24,
+                "loserScore": 17,
+                "homeScore": 17,
+                "awayScore": 24
+              }
+            ],
+            "missingPregame": 0,
+            "final": true,
+            "reconstructed": false,
+            "fallout": {
+              "moved": 1.3195,
+              "gained": [
+                {
+                  "team": "Miami (FL)",
+                  "change": 0.1394
+                },
+                {
+                  "team": "Indiana",
+                  "change": 0.1179
+                },
+                {
+                  "team": "Texas Tech",
+                  "change": 0.1025
+                }
+              ],
+              "lost": [
+                {
+                  "team": "Florida",
+                  "change": -0.3273
+                },
+                {
+                  "team": "LSU",
+                  "change": -0.1318
+                },
+                {
+                  "team": "USF",
+                  "change": -0.1271
+                }
+              ]
+            },
+            "percentile": 36.86
           }
         }
       }

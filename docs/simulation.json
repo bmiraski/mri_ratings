@@ -1,1168 +1,1338 @@
 {
   "season": 2026,
   "week": 5,
-  "slateWeek": 5,
+  "slateWeek": 6,
   "sims": 10000,
   "fieldSize": 12,
   "teams": {
+    "Alabama": {
+      "conferenceGame": 0.6067,
+      "conferenceTitle": 0.3391,
+      "playoff": 0.9675,
+      "bye": 0.7495,
+      "quarterfinal": 0.9225,
+      "semifinal": 0.6073,
+      "final": 0.3492,
+      "title": 0.1963,
+      "projectedWins": 10.62,
+      "projectedLosses": 1.38,
+      "unbeaten": 0.2246,
+      "top12": 0.9796,
+      "gamesLeft": 7,
+      "playoffChange": 0.1017,
+      "titleChange": 0.0708
+    },
     "Georgia": {
-      "conferenceGame": 0.6058,
-      "conferenceTitle": 0.3598,
-      "playoff": 0.8979,
-      "bye": 0.5879,
-      "quarterfinal": 0.8316,
-      "semifinal": 0.5363,
-      "final": 0.3177,
-      "title": 0.177,
-      "projectedWins": 10.57,
-      "projectedLosses": 1.43,
-      "unbeaten": 0.2148,
-      "top12": 0.9351,
-      "gamesLeft": 8,
-      "playoffChange": -0.0095,
-      "titleChange": -0.0172
+      "conferenceGame": 0.6135,
+      "conferenceTitle": 0.335,
+      "playoff": 0.9183,
+      "bye": 0.59,
+      "quarterfinal": 0.8437,
+      "semifinal": 0.5381,
+      "final": 0.3174,
+      "title": 0.1801,
+      "projectedWins": 10.64,
+      "projectedLosses": 1.36,
+      "unbeaten": 0.2126,
+      "top12": 0.9423,
+      "gamesLeft": 7,
+      "playoffChange": 0.0109,
+      "titleChange": -0.0141
+    },
+    "Ohio State": {
+      "conferenceGame": 0.6325,
+      "conferenceTitle": 0.4657,
+      "playoff": 0.843,
+      "bye": 0.4866,
+      "quarterfinal": 0.7557,
+      "semifinal": 0.4594,
+      "final": 0.2539,
+      "title": 0.1328,
+      "projectedWins": 9.65,
+      "projectedLosses": 2.35,
+      "unbeaten": 0.0,
+      "top12": 0.8823,
+      "gamesLeft": 7,
+      "playoffChange": 0.0448,
+      "titleChange": -0.0004
     },
     "Notre Dame": {
       "conferenceGame": 0.0,
       "conferenceTitle": 0.0,
-      "playoff": 0.9153,
-      "bye": 0.358,
-      "quarterfinal": 0.7912,
-      "semifinal": 0.4909,
-      "final": 0.2839,
-      "title": 0.1651,
-      "projectedWins": 11.32,
-      "projectedLosses": 0.68,
-      "unbeaten": 0.4887,
-      "top12": 0.9153,
-      "gamesLeft": 8,
-      "playoffChange": 0.0096,
-      "titleChange": -0.0012
-    },
-    "Ohio State": {
-      "conferenceGame": 0.5887,
-      "conferenceTitle": 0.4346,
-      "playoff": 0.7908,
-      "bye": 0.465,
-      "quarterfinal": 0.708,
-      "semifinal": 0.4417,
-      "final": 0.2487,
-      "title": 0.137,
-      "projectedWins": 9.43,
-      "projectedLosses": 2.57,
-      "unbeaten": 0.0,
-      "top12": 0.8448,
-      "gamesLeft": 8,
-      "playoffChange": -0.0074,
-      "titleChange": 0.0038
+      "playoff": 0.9209,
+      "bye": 0.3157,
+      "quarterfinal": 0.7804,
+      "semifinal": 0.455,
+      "final": 0.2518,
+      "title": 0.1377,
+      "projectedWins": 11.28,
+      "projectedLosses": 0.72,
+      "unbeaten": 0.4528,
+      "top12": 0.9209,
+      "gamesLeft": 7,
+      "playoffChange": 0.0152,
+      "titleChange": -0.0286
     },
     "Texas": {
-      "conferenceGame": 0.5149,
-      "conferenceTitle": 0.2676,
-      "playoff": 0.9558,
-      "bye": 0.7804,
-      "quarterfinal": 0.9106,
-      "semifinal": 0.5701,
-      "final": 0.3206,
-      "title": 0.1688,
-      "projectedWins": 10.27,
-      "projectedLosses": 1.73,
-      "unbeaten": 0.1729,
-      "top12": 0.9717,
-      "gamesLeft": 8,
-      "playoffChange": -0.0025,
-      "titleChange": 0.0053
-    },
-    "Alabama": {
-      "conferenceGame": 0.4078,
-      "conferenceTitle": 0.2078,
-      "playoff": 0.8694,
-      "bye": 0.537,
-      "quarterfinal": 0.7741,
-      "semifinal": 0.4548,
-      "final": 0.2472,
-      "title": 0.1283,
-      "projectedWins": 9.98,
-      "projectedLosses": 2.02,
-      "unbeaten": 0.1177,
-      "top12": 0.9096,
-      "gamesLeft": 8,
-      "playoffChange": 0.0036,
-      "titleChange": 0.0028
-    },
-    "LSU": {
-      "conferenceGame": 0.1157,
-      "conferenceTitle": 0.0498,
-      "playoff": 0.5992,
-      "bye": 0.1997,
-      "quarterfinal": 0.4587,
-      "semifinal": 0.2213,
-      "final": 0.0962,
-      "title": 0.043,
-      "projectedWins": 8.66,
-      "projectedLosses": 3.34,
-      "unbeaten": 0.0,
-      "top12": 0.6847,
-      "gamesLeft": 8,
-      "playoffChange": 0.0029,
-      "titleChange": 0.0001
-    },
-    "Miami (FL)": {
-      "conferenceGame": 0.8269,
-      "conferenceTitle": 0.6454,
-      "playoff": 0.7298,
-      "bye": 0.1494,
-      "quarterfinal": 0.4857,
-      "semifinal": 0.2166,
-      "final": 0.0975,
-      "title": 0.0401,
+      "conferenceGame": 0.5471,
+      "conferenceTitle": 0.2576,
+      "playoff": 0.9606,
+      "bye": 0.77,
+      "quarterfinal": 0.9137,
+      "semifinal": 0.5654,
+      "final": 0.3087,
+      "title": 0.1531,
       "projectedWins": 10.37,
       "projectedLosses": 1.63,
-      "unbeaten": 0.1273,
-      "top12": 0.677,
+      "unbeaten": 0.1918,
+      "top12": 0.9723,
       "gamesLeft": 8,
-      "playoffChange": -0.0117,
-      "titleChange": -0.0012
+      "playoffChange": 0.0023,
+      "titleChange": -0.0104
+    },
+    "Miami (FL)": {
+      "conferenceGame": 0.9424,
+      "conferenceTitle": 0.7809,
+      "playoff": 0.8809,
+      "bye": 0.2739,
+      "quarterfinal": 0.6801,
+      "semifinal": 0.3275,
+      "final": 0.1474,
+      "title": 0.0691,
+      "projectedWins": 10.84,
+      "projectedLosses": 1.16,
+      "unbeaten": 0.2213,
+      "top12": 0.858,
+      "gamesLeft": 7,
+      "playoffChange": 0.1394,
+      "titleChange": 0.0278
     },
     "Oregon": {
-      "conferenceGame": 0.4026,
-      "conferenceTitle": 0.2104,
-      "playoff": 0.5531,
-      "bye": 0.1811,
-      "quarterfinal": 0.4071,
-      "semifinal": 0.1854,
-      "final": 0.0767,
-      "title": 0.0306,
-      "projectedWins": 8.82,
-      "projectedLosses": 3.18,
+      "conferenceGame": 0.3892,
+      "conferenceTitle": 0.198,
+      "playoff": 0.5783,
+      "bye": 0.1742,
+      "quarterfinal": 0.4192,
+      "semifinal": 0.1808,
+      "final": 0.0725,
+      "title": 0.0311,
+      "projectedWins": 8.9,
+      "projectedLosses": 3.1,
       "unbeaten": 0.0,
-      "top12": 0.6304,
+      "top12": 0.6476,
       "gamesLeft": 8,
-      "playoffChange": -0.0005,
-      "titleChange": 0.0013
+      "playoffChange": 0.0247,
+      "titleChange": 0.0018
     },
-    "Florida": {
-      "conferenceGame": 0.2095,
-      "conferenceTitle": 0.0725,
-      "playoff": 0.5818,
-      "bye": 0.1952,
-      "quarterfinal": 0.4202,
-      "semifinal": 0.1736,
-      "final": 0.0668,
-      "title": 0.0276,
-      "projectedWins": 9.03,
-      "projectedLosses": 2.97,
-      "unbeaten": 0.027,
-      "top12": 0.6634,
-      "gamesLeft": 8,
-      "playoffChange": 0.0061,
-      "titleChange": 0.0019
-    },
-    "Utah": {
-      "conferenceGame": 0.6507,
-      "conferenceTitle": 0.42,
-      "playoff": 0.5778,
-      "bye": 0.1226,
-      "quarterfinal": 0.368,
-      "semifinal": 0.1495,
-      "final": 0.0576,
-      "title": 0.0208,
-      "projectedWins": 10.64,
-      "projectedLosses": 1.36,
-      "unbeaten": 0.2639,
-      "top12": 0.6061,
-      "gamesLeft": 8,
-      "playoffChange": -0.0047,
-      "titleChange": -0.0008
+    "LSU": {
+      "conferenceGame": 0.0704,
+      "conferenceTitle": 0.0258,
+      "playoff": 0.4645,
+      "bye": 0.099,
+      "quarterfinal": 0.3113,
+      "semifinal": 0.1256,
+      "final": 0.0509,
+      "title": 0.0202,
+      "projectedWins": 8.25,
+      "projectedLosses": 3.75,
+      "unbeaten": 0.0,
+      "top12": 0.5463,
+      "gamesLeft": 7,
+      "playoffChange": -0.1318,
+      "titleChange": -0.0227
     },
     "Indiana": {
-      "conferenceGame": 0.2843,
-      "conferenceTitle": 0.1225,
-      "playoff": 0.3661,
-      "bye": 0.09,
-      "quarterfinal": 0.2345,
-      "semifinal": 0.0876,
-      "final": 0.0322,
-      "title": 0.0112,
-      "projectedWins": 9.41,
-      "projectedLosses": 2.59,
-      "unbeaten": 0.0544,
-      "top12": 0.4455,
+      "conferenceGame": 0.3186,
+      "conferenceTitle": 0.1497,
+      "playoff": 0.4812,
+      "bye": 0.1219,
+      "quarterfinal": 0.32,
+      "semifinal": 0.1273,
+      "final": 0.048,
+      "title": 0.0161,
+      "projectedWins": 9.72,
+      "projectedLosses": 2.28,
+      "unbeaten": 0.073,
+      "top12": 0.5567,
+      "gamesLeft": 7,
+      "playoffChange": 0.1179,
+      "titleChange": 0.0039
+    },
+    "Utah": {
+      "conferenceGame": 0.5931,
+      "conferenceTitle": 0.3829,
+      "playoff": 0.5708,
+      "bye": 0.1163,
+      "quarterfinal": 0.3738,
+      "semifinal": 0.1455,
+      "final": 0.0542,
+      "title": 0.0197,
+      "projectedWins": 10.57,
+      "projectedLosses": 1.43,
+      "unbeaten": 0.2485,
+      "top12": 0.6055,
       "gamesLeft": 8,
-      "playoffChange": 0.0028,
-      "titleChange": -0.001
+      "playoffChange": -0.0117,
+      "titleChange": -0.0019
     },
     "Texas A&M": {
-      "conferenceGame": 0.0066,
-      "conferenceTitle": 0.0025,
-      "playoff": 0.1091,
-      "bye": 0.01,
-      "quarterfinal": 0.0667,
-      "semifinal": 0.025,
-      "final": 0.0107,
-      "title": 0.0049,
-      "projectedWins": 6.85,
-      "projectedLosses": 5.15,
+      "conferenceGame": 0.0056,
+      "conferenceTitle": 0.0022,
+      "playoff": 0.105,
+      "bye": 0.0069,
+      "quarterfinal": 0.0585,
+      "semifinal": 0.0218,
+      "final": 0.0103,
+      "title": 0.0033,
+      "projectedWins": 6.83,
+      "projectedLosses": 5.17,
       "unbeaten": 0.0,
-      "top12": 0.1613,
-      "gamesLeft": 8,
-      "playoffChange": -0.0045,
-      "titleChange": 0.0005
+      "top12": 0.148,
+      "gamesLeft": 7,
+      "playoffChange": -0.0086,
+      "titleChange": -0.0011
+    },
+    "Tennessee": {
+      "conferenceGame": 0.0436,
+      "conferenceTitle": 0.0125,
+      "playoff": 0.2497,
+      "bye": 0.0292,
+      "quarterfinal": 0.1365,
+      "semifinal": 0.0458,
+      "final": 0.0154,
+      "title": 0.0044,
+      "projectedWins": 8.01,
+      "projectedLosses": 3.99,
+      "unbeaten": 0.0,
+      "top12": 0.3188,
+      "gamesLeft": 7,
+      "playoffChange": 0.0576,
+      "titleChange": -0.0013
     },
     "USC": {
-      "conferenceGame": 0.0745,
-      "conferenceTitle": 0.0343,
-      "playoff": 0.224,
-      "bye": 0.0368,
-      "quarterfinal": 0.1318,
-      "semifinal": 0.0416,
-      "final": 0.015,
-      "title": 0.0051,
+      "conferenceGame": 0.0554,
+      "conferenceTitle": 0.0221,
+      "playoff": 0.2253,
+      "bye": 0.0268,
+      "quarterfinal": 0.118,
+      "semifinal": 0.0371,
+      "final": 0.0116,
+      "title": 0.0042,
       "projectedWins": 8.17,
       "projectedLosses": 3.83,
       "unbeaten": 0.0,
-      "top12": 0.3028,
-      "gamesLeft": 7,
-      "playoffChange": 0.0034,
-      "titleChange": 0.0011
+      "top12": 0.2934,
+      "gamesLeft": 6,
+      "playoffChange": 0.0047,
+      "titleChange": 0.0002
     },
-    "Tennessee": {
-      "conferenceGame": 0.0333,
-      "conferenceTitle": 0.0113,
-      "playoff": 0.1889,
-      "bye": 0.0274,
-      "quarterfinal": 0.1093,
-      "semifinal": 0.0417,
-      "final": 0.0151,
-      "title": 0.0056,
-      "projectedWins": 7.61,
-      "projectedLosses": 4.39,
+    "Florida": {
+      "conferenceGame": 0.0351,
+      "conferenceTitle": 0.0088,
+      "playoff": 0.2484,
+      "bye": 0.0294,
+      "quarterfinal": 0.1298,
+      "semifinal": 0.0393,
+      "final": 0.0126,
+      "title": 0.0043,
+      "projectedWins": 7.65,
+      "projectedLosses": 4.35,
       "unbeaten": 0.0,
-      "top12": 0.2554,
-      "gamesLeft": 8,
-      "playoffChange": -0.0032,
-      "titleChange": -0.0001
+      "top12": 0.3202,
+      "gamesLeft": 7,
+      "playoffChange": -0.3273,
+      "titleChange": -0.0214
+    },
+    "Texas Tech": {
+      "conferenceGame": 0.601,
+      "conferenceTitle": 0.2745,
+      "playoff": 0.4165,
+      "bye": 0.0364,
+      "quarterfinal": 0.2037,
+      "semifinal": 0.0577,
+      "final": 0.0177,
+      "title": 0.0049,
+      "projectedWins": 10.58,
+      "projectedLosses": 1.42,
+      "unbeaten": 0.2307,
+      "top12": 0.4251,
+      "gamesLeft": 7,
+      "playoffChange": 0.1025,
+      "titleChange": 0.0023
     },
     "Ole Miss": {
-      "conferenceGame": 0.0293,
-      "conferenceTitle": 0.0091,
-      "playoff": 0.2354,
-      "bye": 0.034,
-      "quarterfinal": 0.135,
-      "semifinal": 0.0476,
-      "final": 0.0172,
-      "title": 0.0058,
-      "projectedWins": 7.63,
-      "projectedLosses": 4.37,
+      "conferenceGame": 0.0247,
+      "conferenceTitle": 0.0066,
+      "playoff": 0.1929,
+      "bye": 0.0229,
+      "quarterfinal": 0.1019,
+      "semifinal": 0.0336,
+      "final": 0.0108,
+      "title": 0.0038,
+      "projectedWins": 7.42,
+      "projectedLosses": 4.58,
       "unbeaten": 0.0,
-      "top12": 0.3128,
+      "top12": 0.2521,
       "gamesLeft": 8,
-      "playoffChange": 0.0003,
-      "titleChange": 0.0009
+      "playoffChange": -0.0422,
+      "titleChange": -0.0011
     },
     "BYU": {
-      "conferenceGame": 0.3788,
-      "conferenceTitle": 0.1978,
-      "playoff": 0.3047,
-      "bye": 0.0464,
-      "quarterfinal": 0.1645,
-      "semifinal": 0.0567,
-      "final": 0.0198,
-      "title": 0.0061,
-      "projectedWins": 9.06,
-      "projectedLosses": 2.94,
-      "unbeaten": 0.0324,
-      "top12": 0.3174,
-      "gamesLeft": 9,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
+      "conferenceGame": 0.415,
+      "conferenceTitle": 0.1968,
+      "playoff": 0.3306,
+      "bye": 0.0428,
+      "quarterfinal": 0.1707,
+      "semifinal": 0.0489,
+      "final": 0.0163,
+      "title": 0.0053,
+      "projectedWins": 9.35,
+      "projectedLosses": 2.65,
+      "unbeaten": 0.0384,
+      "top12": 0.3529,
+      "gamesLeft": 8,
+      "playoffChange": 0.0259,
+      "titleChange": -0.0008
     },
     "Oklahoma": {
-      "conferenceGame": 0.0165,
-      "conferenceTitle": 0.0046,
-      "playoff": 0.1088,
-      "bye": 0.0118,
-      "quarterfinal": 0.0602,
-      "semifinal": 0.0186,
-      "final": 0.0077,
-      "title": 0.0028,
-      "projectedWins": 5.93,
-      "projectedLosses": 6.07,
+      "conferenceGame": 0.017,
+      "conferenceTitle": 0.0044,
+      "playoff": 0.1227,
+      "bye": 0.0123,
+      "quarterfinal": 0.0653,
+      "semifinal": 0.0203,
+      "final": 0.0081,
+      "title": 0.0032,
+      "projectedWins": 5.91,
+      "projectedLosses": 6.09,
       "unbeaten": 0.0,
-      "top12": 0.1532,
+      "top12": 0.1625,
       "gamesLeft": 8,
-      "playoffChange": 0.0054,
+      "playoffChange": 0.0193,
+      "titleChange": 0.0015
+    },
+    "UCLA": {
+      "conferenceGame": 0.2084,
+      "conferenceTitle": 0.0622,
+      "playoff": 0.2436,
+      "bye": 0.0349,
+      "quarterfinal": 0.1246,
+      "semifinal": 0.0384,
+      "final": 0.011,
+      "title": 0.0024,
+      "projectedWins": 9.22,
+      "projectedLosses": 2.78,
+      "unbeaten": 0.036,
+      "top12": 0.3024,
+      "gamesLeft": 8,
+      "playoffChange": 0.0077,
+      "titleChange": -0.0015
+    },
+    "Missouri": {
+      "conferenceGame": 0.0131,
+      "conferenceTitle": 0.0033,
+      "playoff": 0.1229,
+      "bye": 0.0107,
+      "quarterfinal": 0.0597,
+      "semifinal": 0.0176,
+      "final": 0.0056,
+      "title": 0.0013,
+      "projectedWins": 7.24,
+      "projectedLosses": 4.76,
+      "unbeaten": 0.0,
+      "top12": 0.1683,
+      "gamesLeft": 7,
+      "playoffChange": 0.0958,
+      "titleChange": 0.0013
+    },
+    "Nebraska": {
+      "conferenceGame": 0.1149,
+      "conferenceTitle": 0.0403,
+      "playoff": 0.1268,
+      "bye": 0.0147,
+      "quarterfinal": 0.0641,
+      "semifinal": 0.0183,
+      "final": 0.0061,
+      "title": 0.0016,
+      "projectedWins": 8.63,
+      "projectedLosses": 3.37,
+      "unbeaten": 0.012,
+      "top12": 0.1613,
+      "gamesLeft": 7,
+      "playoffChange": 0.0352,
+      "titleChange": 0.0007
+    },
+    "Northwestern": {
+      "conferenceGame": 0.0301,
+      "conferenceTitle": 0.0111,
+      "playoff": 0.0554,
+      "bye": 0.0032,
+      "quarterfinal": 0.0235,
+      "semifinal": 0.0071,
+      "final": 0.0025,
+      "title": 0.0011,
+      "projectedWins": 7.93,
+      "projectedLosses": 4.07,
+      "unbeaten": 0.0,
+      "top12": 0.0763,
+      "gamesLeft": 8,
+      "playoffChange": 0.0358,
       "titleChange": 0.0011
     },
     "Michigan": {
-      "conferenceGame": 0.0377,
-      "conferenceTitle": 0.0165,
-      "playoff": 0.1376,
-      "bye": 0.0178,
-      "quarterfinal": 0.0738,
-      "semifinal": 0.0233,
-      "final": 0.0072,
-      "title": 0.0024,
-      "projectedWins": 7.47,
-      "projectedLosses": 4.53,
+      "conferenceGame": 0.0041,
+      "conferenceTitle": 0.0012,
+      "playoff": 0.0331,
+      "bye": 0.0015,
+      "quarterfinal": 0.0147,
+      "semifinal": 0.0033,
+      "final": 0.001,
+      "title": 0.0001,
+      "projectedWins": 6.54,
+      "projectedLosses": 5.46,
       "unbeaten": 0.0,
-      "top12": 0.1904,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": -0.0004
-    },
-    "Texas Tech": {
-      "conferenceGame": 0.5355,
-      "conferenceTitle": 0.2311,
-      "playoff": 0.3199,
-      "bye": 0.0243,
-      "quarterfinal": 0.1432,
-      "semifinal": 0.0388,
-      "final": 0.0117,
-      "title": 0.0032,
-      "projectedWins": 10.25,
-      "projectedLosses": 1.75,
-      "unbeaten": 0.1876,
-      "top12": 0.3123,
-      "gamesLeft": 8,
-      "playoffChange": 0.0059,
-      "titleChange": 0.0006
+      "top12": 0.05,
+      "gamesLeft": 7,
+      "playoffChange": -0.1045,
+      "titleChange": -0.0027
     },
     "Mississippi State": {
-      "conferenceGame": 0.0466,
-      "conferenceTitle": 0.0121,
-      "playoff": 0.2113,
-      "bye": 0.0353,
-      "quarterfinal": 0.1135,
-      "semifinal": 0.0341,
-      "final": 0.0112,
-      "title": 0.0036,
-      "projectedWins": 7.94,
-      "projectedLosses": 4.06,
-      "unbeaten": 0.0041,
-      "top12": 0.2833,
-      "gamesLeft": 8,
-      "playoffChange": 0.0015,
-      "titleChange": 0.0006
-    },
-    "UCLA": {
-      "conferenceGame": 0.2232,
-      "conferenceTitle": 0.0718,
-      "playoff": 0.2299,
-      "bye": 0.0373,
-      "quarterfinal": 0.1246,
-      "semifinal": 0.0376,
-      "final": 0.0123,
-      "title": 0.0029,
-      "projectedWins": 9.15,
-      "projectedLosses": 2.85,
-      "unbeaten": 0.0338,
-      "top12": 0.2896,
-      "gamesLeft": 8,
-      "playoffChange": -0.006,
-      "titleChange": -0.001
-    },
-    "Northwestern": {
-      "conferenceGame": 0.0343,
-      "conferenceTitle": 0.0141,
-      "playoff": 0.0515,
-      "bye": 0.0036,
-      "quarterfinal": 0.0239,
-      "semifinal": 0.0072,
-      "final": 0.0023,
-      "title": 0.0008,
-      "projectedWins": 7.84,
-      "projectedLosses": 4.16,
+      "conferenceGame": 0.0134,
+      "conferenceTitle": 0.003,
+      "playoff": 0.1382,
+      "bye": 0.0095,
+      "quarterfinal": 0.0592,
+      "semifinal": 0.0142,
+      "final": 0.0036,
+      "title": 0.0011,
+      "projectedWins": 7.56,
+      "projectedLosses": 4.44,
       "unbeaten": 0.0,
-      "top12": 0.0775,
-      "gamesLeft": 8,
-      "playoffChange": 0.0319,
-      "titleChange": 0.0008
+      "top12": 0.1881,
+      "gamesLeft": 7,
+      "playoffChange": -0.0716,
+      "titleChange": -0.0019
     },
-    "Nebraska": {
-      "conferenceGame": 0.0936,
-      "conferenceTitle": 0.0337,
-      "playoff": 0.0979,
-      "bye": 0.0127,
-      "quarterfinal": 0.0482,
-      "semifinal": 0.0131,
-      "final": 0.0037,
-      "title": 0.0015,
-      "projectedWins": 8.22,
-      "projectedLosses": 3.78,
-      "unbeaten": 0.0085,
-      "top12": 0.1266,
-      "gamesLeft": 8,
-      "playoffChange": 0.0063,
-      "titleChange": 0.0006
+    "Penn State": {
+      "conferenceGame": 0.0078,
+      "conferenceTitle": 0.0016,
+      "playoff": 0.0133,
+      "bye": 0.0,
+      "quarterfinal": 0.0039,
+      "semifinal": 0.0009,
+      "final": 0.0003,
+      "title": 0.0001,
+      "projectedWins": 7.45,
+      "projectedLosses": 4.55,
+      "unbeaten": 0.0,
+      "top12": 0.0225,
+      "gamesLeft": 7,
+      "playoffChange": -0.0511,
+      "titleChange": -0.0007
+    },
+    "Houston": {
+      "conferenceGame": 0.0689,
+      "conferenceTitle": 0.0301,
+      "playoff": 0.0613,
+      "bye": 0.002,
+      "quarterfinal": 0.0187,
+      "semifinal": 0.0042,
+      "final": 0.001,
+      "title": 0.0001,
+      "projectedWins": 8.49,
+      "projectedLosses": 3.51,
+      "unbeaten": 0.0,
+      "top12": 0.0756,
+      "gamesLeft": 7,
+      "playoffChange": 0.0228,
+      "titleChange": -0.0001
     },
     "Auburn": {
-      "conferenceGame": 0.0038,
-      "conferenceTitle": 0.001,
-      "playoff": 0.0446,
-      "bye": 0.0031,
-      "quarterfinal": 0.0204,
-      "semifinal": 0.0051,
-      "final": 0.0012,
+      "conferenceGame": 0.0008,
+      "conferenceTitle": 0.0001,
+      "playoff": 0.017,
+      "bye": 0.0008,
+      "quarterfinal": 0.0058,
+      "semifinal": 0.0013,
+      "final": 0.0003,
       "title": 0.0001,
-      "projectedWins": 6.27,
-      "projectedLosses": 5.73,
+      "projectedWins": 6.01,
+      "projectedLosses": 5.99,
       "unbeaten": 0.0,
-      "top12": 0.0647,
-      "gamesLeft": 8,
-      "playoffChange": -0.0002,
+      "top12": 0.0273,
+      "gamesLeft": 7,
+      "playoffChange": -0.0278,
       "titleChange": 0.0
     },
     "Iowa": {
-      "conferenceGame": 0.1153,
-      "conferenceTitle": 0.0332,
-      "playoff": 0.1215,
-      "bye": 0.0161,
-      "quarterfinal": 0.0567,
-      "semifinal": 0.0162,
-      "final": 0.0048,
-      "title": 0.002,
-      "projectedWins": 8.4,
-      "projectedLosses": 3.6,
-      "unbeaten": 0.0165,
-      "top12": 0.1628,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0012
+      "conferenceGame": 0.0465,
+      "conferenceTitle": 0.0116,
+      "playoff": 0.0793,
+      "bye": 0.0034,
+      "quarterfinal": 0.0306,
+      "semifinal": 0.0064,
+      "final": 0.0016,
+      "title": 0.0003,
+      "projectedWins": 7.95,
+      "projectedLosses": 4.05,
+      "unbeaten": 0.0,
+      "top12": 0.1106,
+      "gamesLeft": 7,
+      "playoffChange": -0.0422,
+      "titleChange": -0.0005
     },
     "South Carolina": {
-      "conferenceGame": 0.0012,
-      "conferenceTitle": 0.0003,
-      "playoff": 0.0197,
-      "bye": 0.0004,
-      "quarterfinal": 0.0089,
-      "semifinal": 0.0024,
-      "final": 0.0005,
-      "title": 0.0002,
-      "projectedWins": 5.32,
-      "projectedLosses": 6.68,
-      "unbeaten": 0.0,
-      "top12": 0.0326,
-      "gamesLeft": 8,
-      "playoffChange": 0.0016,
-      "titleChange": 0.0001
-    },
-    "Penn State": {
-      "conferenceGame": 0.0087,
-      "conferenceTitle": 0.0029,
-      "playoff": 0.0089,
-      "bye": 0.0,
-      "quarterfinal": 0.0025,
-      "semifinal": 0.0006,
-      "final": 0.0003,
-      "title": 0.0,
-      "projectedWins": 7.32,
-      "projectedLosses": 4.68,
-      "unbeaten": 0.0,
-      "top12": 0.0142,
-      "gamesLeft": 7,
-      "playoffChange": -0.0555,
-      "titleChange": -0.0008
-    },
-    "Houston": {
-      "conferenceGame": 0.0642,
-      "conferenceTitle": 0.0296,
-      "playoff": 0.0439,
-      "bye": 0.0012,
-      "quarterfinal": 0.0149,
-      "semifinal": 0.0035,
-      "final": 0.0003,
-      "title": 0.0,
-      "projectedWins": 8.12,
-      "projectedLosses": 3.88,
-      "unbeaten": 0.0,
-      "top12": 0.0447,
-      "gamesLeft": 8,
-      "playoffChange": 0.0054,
-      "titleChange": -0.0002
-    },
-    "Missouri": {
-      "conferenceGame": 0.004,
-      "conferenceTitle": 0.0003,
-      "playoff": 0.0258,
-      "bye": 0.0012,
-      "quarterfinal": 0.0108,
-      "semifinal": 0.0023,
-      "final": 0.0005,
-      "title": 0.0,
-      "projectedWins": 5.88,
-      "projectedLosses": 6.12,
-      "unbeaten": 0.0,
-      "top12": 0.0414,
-      "gamesLeft": 8,
-      "playoffChange": -0.0013,
-      "titleChange": 0.0
-    },
-    "Clemson": {
-      "conferenceGame": 0.0982,
-      "conferenceTitle": 0.039,
-      "playoff": 0.061,
-      "bye": 0.0013,
-      "quarterfinal": 0.02,
-      "semifinal": 0.0046,
-      "final": 0.0012,
-      "title": 0.0002,
-      "projectedWins": 8.03,
-      "projectedLosses": 3.97,
-      "unbeaten": 0.0,
-      "top12": 0.064,
-      "gamesLeft": 8,
-      "playoffChange": 0.0023,
-      "titleChange": -0.0001
-    },
-    "Kansas State": {
-      "conferenceGame": 0.0831,
-      "conferenceTitle": 0.0343,
-      "playoff": 0.0461,
-      "bye": 0.0009,
-      "quarterfinal": 0.0131,
-      "semifinal": 0.003,
-      "final": 0.001,
-      "title": 0.0004,
-      "projectedWins": 8.29,
-      "projectedLosses": 3.71,
-      "unbeaten": 0.0,
-      "top12": 0.0413,
-      "gamesLeft": 8,
-      "playoffChange": -0.0006,
-      "titleChange": 0.0002
-    },
-    "Pittsburgh": {
-      "conferenceGame": 0.2722,
-      "conferenceTitle": 0.0871,
-      "playoff": 0.1107,
-      "bye": 0.0036,
-      "quarterfinal": 0.0291,
-      "semifinal": 0.0061,
-      "final": 0.0011,
+      "conferenceGame": 0.0,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0059,
+      "bye": 0.0001,
+      "quarterfinal": 0.0021,
+      "semifinal": 0.0003,
+      "final": 0.0001,
       "title": 0.0001,
-      "projectedWins": 9.35,
-      "projectedLosses": 2.65,
-      "unbeaten": 0.0292,
-      "top12": 0.0909,
+      "projectedWins": 4.75,
+      "projectedLosses": 7.25,
+      "unbeaten": 0.0,
+      "top12": 0.0095,
       "gamesLeft": 7,
-      "playoffChange": 0.0232,
-      "titleChange": -0.0002
-    },
-    "SMU": {
-      "conferenceGame": 0.238,
-      "conferenceTitle": 0.0643,
-      "playoff": 0.0682,
-      "bye": 0.0002,
-      "quarterfinal": 0.0132,
-      "semifinal": 0.003,
-      "final": 0.0009,
-      "title": 0.0002,
-      "projectedWins": 8.22,
-      "projectedLosses": 3.78,
-      "unbeaten": 0.0,
-      "top12": 0.0231,
-      "gamesLeft": 8,
-      "playoffChange": -0.0016,
-      "titleChange": 0.0001
-    },
-    "Louisville": {
-      "conferenceGame": 0.1415,
-      "conferenceTitle": 0.0458,
-      "playoff": 0.0496,
-      "bye": 0.0001,
-      "quarterfinal": 0.0099,
-      "semifinal": 0.0028,
-      "final": 0.0012,
-      "title": 0.0003,
-      "projectedWins": 7.05,
-      "projectedLosses": 4.95,
-      "unbeaten": 0.0,
-      "top12": 0.0213,
-      "gamesLeft": 8,
-      "playoffChange": 0.0057,
-      "titleChange": 0.0001
-    },
-    "Boise State": {
-      "conferenceGame": 0.6838,
-      "conferenceTitle": 0.4768,
-      "playoff": 0.2829,
-      "bye": 0.0001,
-      "quarterfinal": 0.043,
-      "semifinal": 0.0072,
-      "final": 0.0015,
-      "title": 0.0003,
-      "projectedWins": 8.31,
-      "projectedLosses": 2.69,
-      "unbeaten": 0.0,
-      "top12": 0.0207,
-      "gamesLeft": 7,
-      "playoffChange": -0.0003,
-      "titleChange": 0.0001
-    },
-    "Kentucky": {
-      "conferenceGame": 0.0037,
-      "conferenceTitle": 0.0011,
-      "playoff": 0.0309,
-      "bye": 0.0028,
-      "quarterfinal": 0.0134,
-      "semifinal": 0.0026,
-      "final": 0.0008,
-      "title": 0.0006,
-      "projectedWins": 5.85,
-      "projectedLosses": 6.15,
-      "unbeaten": 0.0,
-      "top12": 0.0499,
-      "gamesLeft": 8,
-      "playoffChange": -0.0031,
-      "titleChange": 0.0003
-    },
-    "Arizona": {
-      "conferenceGame": 0.0326,
-      "conferenceTitle": 0.0119,
-      "playoff": 0.0198,
-      "bye": 0.0006,
-      "quarterfinal": 0.0061,
-      "semifinal": 0.001,
-      "final": 0.0003,
-      "title": 0.0002,
-      "projectedWins": 7.34,
-      "projectedLosses": 4.66,
-      "unbeaten": 0.0,
-      "top12": 0.0226,
-      "gamesLeft": 8,
-      "playoffChange": 0.0025,
-      "titleChange": 0.0002
-    },
-    "Duke": {
-      "conferenceGame": 0.1271,
-      "conferenceTitle": 0.0397,
-      "playoff": 0.055,
-      "bye": 0.0015,
-      "quarterfinal": 0.0151,
-      "semifinal": 0.0027,
-      "final": 0.0005,
-      "title": 0.0,
-      "projectedWins": 8.44,
-      "projectedLosses": 3.56,
-      "unbeaten": 0.0106,
-      "top12": 0.0522,
-      "gamesLeft": 8,
-      "playoffChange": -0.0004,
+      "playoffChange": -0.0122,
       "titleChange": 0.0
-    },
-    "Washington": {
-      "conferenceGame": 0.0074,
-      "conferenceTitle": 0.002,
-      "playoff": 0.0098,
-      "bye": 0.0008,
-      "quarterfinal": 0.0037,
-      "semifinal": 0.0008,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.14,
-      "projectedLosses": 5.86,
-      "unbeaten": 0.0,
-      "top12": 0.0168,
-      "gamesLeft": 8,
-      "playoffChange": 0.0006,
-      "titleChange": -0.0001
-    },
-    "Vanderbilt": {
-      "conferenceGame": 0.001,
-      "conferenceTitle": 0.0002,
-      "playoff": 0.0089,
-      "bye": 0.0001,
-      "quarterfinal": 0.003,
-      "semifinal": 0.0008,
-      "final": 0.0004,
-      "title": 0.0002,
-      "projectedWins": 5.4,
-      "projectedLosses": 6.6,
-      "unbeaten": 0.0,
-      "top12": 0.015,
-      "gamesLeft": 8,
-      "playoffChange": -0.0022,
-      "titleChange": 0.0002
     },
     "Baylor": {
-      "conferenceGame": 0.0844,
-      "conferenceTitle": 0.0284,
-      "playoff": 0.0329,
-      "bye": 0.0004,
-      "quarterfinal": 0.0082,
-      "semifinal": 0.0015,
-      "final": 0.0006,
-      "title": 0.0001,
-      "projectedWins": 6.94,
-      "projectedLosses": 5.06,
+      "conferenceGame": 0.1487,
+      "conferenceTitle": 0.0522,
+      "playoff": 0.0747,
+      "bye": 0.0018,
+      "quarterfinal": 0.0235,
+      "semifinal": 0.0046,
+      "final": 0.0015,
+      "title": 0.0002,
+      "projectedWins": 7.84,
+      "projectedLosses": 4.16,
       "unbeaten": 0.0,
-      "top12": 0.0221,
-      "gamesLeft": 8,
-      "playoffChange": -0.0012,
-      "titleChange": 0.0
-    },
-    "Virginia": {
-      "conferenceGame": 0.1582,
-      "conferenceTitle": 0.0437,
-      "playoff": 0.0451,
-      "bye": 0.0001,
-      "quarterfinal": 0.0089,
-      "semifinal": 0.0025,
-      "final": 0.0005,
-      "title": 0.0001,
-      "projectedWins": 7.57,
-      "projectedLosses": 4.43,
-      "unbeaten": 0.0,
-      "top12": 0.0131,
-      "gamesLeft": 8,
-      "playoffChange": -0.0022,
+      "top12": 0.0702,
+      "gamesLeft": 7,
+      "playoffChange": 0.0406,
       "titleChange": 0.0001
     },
     "Florida State": {
-      "conferenceGame": 0.0054,
-      "conferenceTitle": 0.0023,
-      "playoff": 0.0042,
-      "bye": 0.0001,
-      "quarterfinal": 0.0014,
-      "semifinal": 0.0002,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.55,
-      "projectedLosses": 6.45,
+      "conferenceGame": 0.0152,
+      "conferenceTitle": 0.0052,
+      "playoff": 0.0136,
+      "bye": 0.0002,
+      "quarterfinal": 0.0043,
+      "semifinal": 0.0012,
+      "final": 0.0007,
+      "title": 0.0002,
+      "projectedWins": 6.62,
+      "projectedLosses": 5.38,
       "unbeaten": 0.0,
-      "top12": 0.0049,
-      "gamesLeft": 8,
-      "playoffChange": 0.0021,
-      "titleChange": 0.0
+      "top12": 0.0189,
+      "gamesLeft": 7,
+      "playoffChange": 0.0115,
+      "titleChange": 0.0002
+    },
+    "Arizona": {
+      "conferenceGame": 0.0466,
+      "conferenceTitle": 0.0203,
+      "playoff": 0.0354,
+      "bye": 0.0011,
+      "quarterfinal": 0.0104,
+      "semifinal": 0.0023,
+      "final": 0.0009,
+      "title": 0.0001,
+      "projectedWins": 7.98,
+      "projectedLosses": 4.02,
+      "unbeaten": 0.0,
+      "top12": 0.0417,
+      "gamesLeft": 7,
+      "playoffChange": 0.0181,
+      "titleChange": 0.0001
     },
     "Wisconsin": {
-      "conferenceGame": 0.0904,
-      "conferenceTitle": 0.0166,
-      "playoff": 0.0281,
-      "bye": 0.0011,
-      "quarterfinal": 0.0088,
-      "semifinal": 0.0018,
-      "final": 0.0004,
-      "title": 0.0002,
-      "projectedWins": 7.15,
-      "projectedLosses": 4.85,
+      "conferenceGame": 0.1532,
+      "conferenceTitle": 0.0303,
+      "playoff": 0.0594,
+      "bye": 0.0027,
+      "quarterfinal": 0.0203,
+      "semifinal": 0.0058,
+      "final": 0.0012,
+      "title": 0.0004,
+      "projectedWins": 7.95,
+      "projectedLosses": 4.05,
       "unbeaten": 0.0,
-      "top12": 0.0283,
-      "gamesLeft": 8,
-      "playoffChange": 0.0013,
-      "titleChange": 0.0001
+      "top12": 0.0706,
+      "gamesLeft": 7,
+      "playoffChange": 0.0326,
+      "titleChange": 0.0003
     },
-    "Illinois": {
-      "conferenceGame": 0.0085,
-      "conferenceTitle": 0.0015,
-      "playoff": 0.0045,
-      "bye": 0.0,
-      "quarterfinal": 0.0018,
-      "semifinal": 0.0005,
-      "final": 0.0001,
+    "Kansas State": {
+      "conferenceGame": 0.0625,
+      "conferenceTitle": 0.026,
+      "playoff": 0.034,
+      "bye": 0.0003,
+      "quarterfinal": 0.011,
+      "semifinal": 0.0021,
+      "final": 0.0005,
       "title": 0.0,
-      "projectedWins": 5.36,
-      "projectedLosses": 6.64,
+      "projectedWins": 8.17,
+      "projectedLosses": 3.83,
       "unbeaten": 0.0,
-      "top12": 0.0059,
+      "top12": 0.032,
       "gamesLeft": 8,
-      "playoffChange": 0.0011,
-      "titleChange": 0.0
+      "playoffChange": -0.0127,
+      "titleChange": -0.0002
     },
-    "USF": {
-      "conferenceGame": 0.4195,
-      "conferenceTitle": 0.2554,
-      "playoff": 0.1705,
-      "bye": 0.0,
-      "quarterfinal": 0.022,
-      "semifinal": 0.0032,
-      "final": 0.0007,
-      "title": 0.0001,
-      "projectedWins": 9.91,
-      "projectedLosses": 2.09,
-      "unbeaten": 0.1127,
-      "top12": 0.0087,
-      "gamesLeft": 8,
-      "playoffChange": -0.0025,
-      "titleChange": 0.0
-    },
-    "Minnesota": {
-      "conferenceGame": 0.0255,
-      "conferenceTitle": 0.0048,
-      "playoff": 0.012,
-      "bye": 0.0005,
-      "quarterfinal": 0.0035,
-      "semifinal": 0.001,
-      "final": 0.0002,
-      "title": 0.0,
-      "projectedWins": 5.95,
-      "projectedLosses": 6.05,
-      "unbeaten": 0.0,
-      "top12": 0.0148,
-      "gamesLeft": 8,
-      "playoffChange": 0.0009,
-      "titleChange": 0.0
-    },
-    "UTSA": {
-      "conferenceGame": 0.3869,
-      "conferenceTitle": 0.2261,
-      "playoff": 0.1673,
-      "bye": 0.0,
-      "quarterfinal": 0.0224,
-      "semifinal": 0.0038,
+    "Pittsburgh": {
+      "conferenceGame": 0.2526,
+      "conferenceTitle": 0.0601,
+      "playoff": 0.0838,
+      "bye": 0.0022,
+      "quarterfinal": 0.0242,
+      "semifinal": 0.0035,
       "final": 0.0006,
       "title": 0.0001,
-      "projectedWins": 8.78,
-      "projectedLosses": 3.22,
-      "unbeaten": 0.0,
-      "top12": 0.0085,
-      "gamesLeft": 8,
-      "playoffChange": -0.0049,
-      "titleChange": 0.0001
-    },
-    "Virginia Tech": {
-      "conferenceGame": 0.0253,
-      "conferenceTitle": 0.007,
-      "playoff": 0.0085,
-      "bye": 0.0,
-      "quarterfinal": 0.0014,
-      "semifinal": 0.0001,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 7.39,
-      "projectedLosses": 4.61,
-      "unbeaten": 0.0,
-      "top12": 0.005,
+      "projectedWins": 9.2,
+      "projectedLosses": 2.8,
+      "unbeaten": 0.0169,
+      "top12": 0.0734,
       "gamesLeft": 7,
-      "playoffChange": -0.018,
+      "playoffChange": -0.0037,
+      "titleChange": -0.0002
+    },
+    "Kentucky": {
+      "conferenceGame": 0.0087,
+      "conferenceTitle": 0.0016,
+      "playoff": 0.0756,
+      "bye": 0.0046,
+      "quarterfinal": 0.0273,
+      "semifinal": 0.0049,
+      "final": 0.001,
+      "title": 0.0002,
+      "projectedWins": 6.7,
+      "projectedLosses": 5.3,
+      "unbeaten": 0.0,
+      "top12": 0.1031,
+      "gamesLeft": 7,
+      "playoffChange": 0.0416,
       "titleChange": -0.0001
     },
-    "James Madison": {
-      "conferenceGame": 0.6996,
-      "conferenceTitle": 0.5022,
-      "playoff": 0.1386,
-      "bye": 0.0,
-      "quarterfinal": 0.018,
-      "semifinal": 0.0028,
-      "final": 0.0003,
+    "Boise State": {
+      "conferenceGame": 0.7112,
+      "conferenceTitle": 0.4871,
+      "playoff": 0.3571,
+      "bye": 0.0001,
+      "quarterfinal": 0.0519,
+      "semifinal": 0.0089,
+      "final": 0.001,
       "title": 0.0001,
-      "projectedWins": 10.43,
-      "projectedLosses": 1.57,
-      "unbeaten": 0.2208,
-      "top12": 0.0022,
-      "gamesLeft": 8,
-      "playoffChange": 0.0022,
-      "titleChange": 0.0001
-    },
-    "TCU": {
-      "conferenceGame": 0.0095,
-      "conferenceTitle": 0.0034,
-      "playoff": 0.0036,
-      "bye": 0.0,
-      "quarterfinal": 0.0009,
-      "semifinal": 0.0001,
-      "final": 0.0001,
-      "title": 0.0001,
-      "projectedWins": 5.28,
-      "projectedLosses": 6.72,
+      "projectedWins": 8.47,
+      "projectedLosses": 2.53,
       "unbeaten": 0.0,
-      "top12": 0.0009,
-      "gamesLeft": 8,
-      "playoffChange": 0.0004,
+      "top12": 0.0253,
+      "gamesLeft": 6,
+      "playoffChange": 0.0739,
+      "titleChange": -0.0001
+    },
+    "SMU": {
+      "conferenceGame": 0.2925,
+      "conferenceTitle": 0.0567,
+      "playoff": 0.0622,
+      "bye": 0.0,
+      "quarterfinal": 0.013,
+      "semifinal": 0.0032,
+      "final": 0.0003,
+      "title": 0.0002,
+      "projectedWins": 8.36,
+      "projectedLosses": 3.64,
+      "unbeaten": 0.0,
+      "top12": 0.0218,
+      "gamesLeft": 7,
+      "playoffChange": -0.0076,
       "titleChange": 0.0001
     },
-    "NC State": {
-      "conferenceGame": 0.0449,
-      "conferenceTitle": 0.0132,
-      "playoff": 0.0135,
+    "Louisville": {
+      "conferenceGame": 0.04,
+      "conferenceTitle": 0.01,
+      "playoff": 0.0117,
+      "bye": 0.0,
+      "quarterfinal": 0.0031,
+      "semifinal": 0.0005,
+      "final": 0.0002,
+      "title": 0.0001,
+      "projectedWins": 6.33,
+      "projectedLosses": 5.67,
+      "unbeaten": 0.0,
+      "top12": 0.0052,
+      "gamesLeft": 7,
+      "playoffChange": -0.0322,
+      "titleChange": -0.0001
+    },
+    "Washington": {
+      "conferenceGame": 0.0018,
+      "conferenceTitle": 0.0002,
+      "playoff": 0.0046,
       "bye": 0.0,
       "quarterfinal": 0.0016,
-      "semifinal": 0.0003,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.48,
-      "projectedLosses": 5.52,
-      "unbeaten": 0.0,
-      "top12": 0.0024,
-      "gamesLeft": 8,
-      "playoffChange": 0.0024,
-      "titleChange": 0.0
-    },
-    "Iowa State": {
-      "conferenceGame": 0.0155,
-      "conferenceTitle": 0.0049,
-      "playoff": 0.0049,
-      "bye": 0.0,
-      "quarterfinal": 0.001,
-      "semifinal": 0.0001,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.8,
-      "projectedLosses": 6.2,
-      "unbeaten": 0.0,
-      "top12": 0.0014,
-      "gamesLeft": 8,
-      "playoffChange": 0.0008,
-      "titleChange": 0.0
-    },
-    "New Mexico": {
-      "conferenceGame": 0.6626,
-      "conferenceTitle": 0.4657,
-      "playoff": 0.0307,
-      "bye": 0.0,
-      "quarterfinal": 0.0036,
-      "semifinal": 0.0003,
+      "semifinal": 0.0004,
       "final": 0.0001,
       "title": 0.0,
-      "projectedWins": 9.42,
-      "projectedLosses": 2.58,
+      "projectedWins": 5.98,
+      "projectedLosses": 6.02,
       "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0089,
+      "top12": 0.0077,
+      "gamesLeft": 7,
+      "playoffChange": -0.0046,
+      "titleChange": -0.0001
+    },
+    "Clemson": {
+      "conferenceGame": 0.0341,
+      "conferenceTitle": 0.0075,
+      "playoff": 0.0144,
+      "bye": 0.0001,
+      "quarterfinal": 0.0039,
+      "semifinal": 0.0011,
+      "final": 0.0002,
+      "title": 0.0001,
+      "projectedWins": 7.42,
+      "projectedLosses": 4.58,
+      "unbeaten": 0.0,
+      "top12": 0.0168,
+      "gamesLeft": 7,
+      "playoffChange": -0.0443,
+      "titleChange": -0.0002
+    },
+    "Vanderbilt": {
+      "conferenceGame": 0.0003,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0061,
+      "bye": 0.0001,
+      "quarterfinal": 0.0019,
+      "semifinal": 0.0002,
+      "final": 0.0001,
+      "title": 0.0,
+      "projectedWins": 5.41,
+      "projectedLosses": 6.59,
+      "unbeaten": 0.0,
+      "top12": 0.0103,
+      "gamesLeft": 7,
+      "playoffChange": -0.005,
       "titleChange": 0.0
     },
-    "Army": {
-      "conferenceGame": 0.4261,
-      "conferenceTitle": 0.2169,
-      "playoff": 0.055,
-      "bye": 0.0,
-      "quarterfinal": 0.0052,
-      "semifinal": 0.001,
-      "final": 0.0003,
-      "title": 0.0001,
+    "Duke": {
+      "conferenceGame": 0.1191,
+      "conferenceTitle": 0.0266,
+      "playoff": 0.0422,
+      "bye": 0.0011,
+      "quarterfinal": 0.0103,
+      "semifinal": 0.0014,
+      "final": 0.0002,
+      "title": 0.0002,
+      "projectedWins": 8.27,
+      "projectedLosses": 3.73,
+      "unbeaten": 0.0072,
+      "top12": 0.0391,
+      "gamesLeft": 8,
+      "playoffChange": -0.0132,
+      "titleChange": 0.0002
+    },
+    "Wake Forest": {
+      "conferenceGame": 0.1299,
+      "conferenceTitle": 0.0222,
+      "playoff": 0.0337,
+      "bye": 0.0002,
+      "quarterfinal": 0.0074,
+      "semifinal": 0.0015,
+      "final": 0.0002,
+      "title": 0.0,
       "projectedWins": 8.38,
       "projectedLosses": 3.62,
       "unbeaten": 0.0,
-      "top12": 0.0015,
-      "gamesLeft": 9,
-      "playoffChange": -0.0037,
+      "top12": 0.0299,
+      "gamesLeft": 7,
+      "playoffChange": 0.0221,
       "titleChange": 0.0
     },
-    "Wake Forest": {
-      "conferenceGame": 0.0444,
-      "conferenceTitle": 0.0097,
-      "playoff": 0.0123,
+    "Minnesota": {
+      "conferenceGame": 0.0349,
+      "conferenceTitle": 0.0058,
+      "playoff": 0.0222,
+      "bye": 0.0008,
+      "quarterfinal": 0.0077,
+      "semifinal": 0.0011,
+      "final": 0.0003,
+      "title": 0.0,
+      "projectedWins": 6.66,
+      "projectedLosses": 5.34,
+      "unbeaten": 0.0,
+      "top12": 0.0294,
+      "gamesLeft": 7,
+      "playoffChange": 0.0111,
+      "titleChange": 0.0
+    },
+    "James Madison": {
+      "conferenceGame": 0.7562,
+      "conferenceTitle": 0.5572,
+      "playoff": 0.1853,
       "bye": 0.0,
-      "quarterfinal": 0.0024,
-      "semifinal": 0.0003,
+      "quarterfinal": 0.0191,
+      "semifinal": 0.0024,
       "final": 0.0002,
-      "title": 0.0001,
-      "projectedWins": 7.5,
-      "projectedLosses": 4.5,
-      "unbeaten": 0.0,
-      "top12": 0.0091,
-      "gamesLeft": 8,
-      "playoffChange": 0.0007,
-      "titleChange": 0.0001
-    },
-    "Michigan State": {
-      "conferenceGame": 0.0026,
-      "conferenceTitle": 0.0004,
-      "playoff": 0.0016,
-      "bye": 0.0,
-      "quarterfinal": 0.0007,
-      "semifinal": 0.0001,
-      "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.68,
-      "projectedLosses": 7.32,
-      "unbeaten": 0.0,
-      "top12": 0.0028,
-      "gamesLeft": 8,
-      "playoffChange": -0.0004,
+      "projectedWins": 10.66,
+      "projectedLosses": 1.34,
+      "unbeaten": 0.267,
+      "top12": 0.0044,
+      "gamesLeft": 7,
+      "playoffChange": 0.0489,
       "titleChange": 0.0
     },
-    "Arizona State": {
-      "conferenceGame": 0.0399,
-      "conferenceTitle": 0.011,
-      "playoff": 0.0124,
+    "New Mexico": {
+      "conferenceGame": 0.7076,
+      "conferenceTitle": 0.5204,
+      "playoff": 0.059,
       "bye": 0.0,
-      "quarterfinal": 0.0025,
-      "semifinal": 0.0005,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.18,
-      "projectedLosses": 5.82,
-      "unbeaten": 0.0,
-      "top12": 0.0054,
-      "gamesLeft": 9,
-      "playoffChange": 0.0019,
-      "titleChange": 0.0
-    },
-    "UCF": {
-      "conferenceGame": 0.0649,
-      "conferenceTitle": 0.017,
-      "playoff": 0.0185,
-      "bye": 0.0001,
-      "quarterfinal": 0.0038,
-      "semifinal": 0.0004,
+      "quarterfinal": 0.0061,
+      "semifinal": 0.0012,
       "final": 0.0001,
       "title": 0.0,
-      "projectedWins": 6.78,
-      "projectedLosses": 5.22,
-      "unbeaten": 0.0,
-      "top12": 0.0064,
-      "gamesLeft": 8,
-      "playoffChange": 0.0029,
-      "titleChange": -0.0001
-    },
-    "Texas State": {
-      "conferenceGame": 0.3559,
-      "conferenceTitle": 0.1608,
-      "playoff": 0.0244,
-      "bye": 0.0,
-      "quarterfinal": 0.0024,
-      "semifinal": 0.0004,
-      "final": 0.0001,
-      "title": 0.0,
-      "projectedWins": 6.13,
-      "projectedLosses": 4.87,
+      "projectedWins": 9.72,
+      "projectedLosses": 2.28,
       "unbeaten": 0.0,
       "top12": 0.0002,
       "gamesLeft": 7,
-      "playoffChange": -0.0033,
+      "playoffChange": 0.0372,
       "titleChange": 0.0
     },
-    "Cincinnati": {
-      "conferenceGame": 0.0153,
-      "conferenceTitle": 0.0042,
-      "playoff": 0.0059,
+    "Virginia Tech": {
+      "conferenceGame": 0.032,
+      "conferenceTitle": 0.0083,
+      "playoff": 0.0089,
       "bye": 0.0,
-      "quarterfinal": 0.0009,
-      "semifinal": 0.0001,
+      "quarterfinal": 0.0014,
+      "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 6.67,
-      "projectedLosses": 5.33,
-      "unbeaten": 0.0004,
-      "top12": 0.0056,
-      "gamesLeft": 8,
-      "playoffChange": -0.0007,
+      "projectedWins": 7.54,
+      "projectedLosses": 4.46,
+      "unbeaten": 0.0,
+      "top12": 0.0036,
+      "gamesLeft": 7,
+      "playoffChange": -0.0176,
+      "titleChange": -0.0001
+    },
+    "TCU": {
+      "conferenceGame": 0.0015,
+      "conferenceTitle": 0.0005,
+      "playoff": 0.0005,
+      "bye": 0.0,
+      "quarterfinal": 0.0001,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.82,
+      "projectedLosses": 7.18,
+      "unbeaten": 0.0,
+      "top12": 0.0001,
+      "gamesLeft": 7,
+      "playoffChange": -0.0027,
       "titleChange": 0.0
     },
-    "Toledo": {
-      "conferenceGame": 0.5959,
-      "conferenceTitle": 0.3796,
-      "playoff": 0.0121,
+    "NC State": {
+      "conferenceGame": 0.0741,
+      "conferenceTitle": 0.0124,
+      "playoff": 0.0129,
+      "bye": 0.0,
+      "quarterfinal": 0.0018,
+      "semifinal": 0.0002,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.0,
+      "projectedLosses": 5.0,
+      "unbeaten": 0.0,
+      "top12": 0.0019,
+      "gamesLeft": 7,
+      "playoffChange": 0.0018,
+      "titleChange": 0.0
+    },
+    "USF": {
+      "conferenceGame": 0.1725,
+      "conferenceTitle": 0.1003,
+      "playoff": 0.0459,
+      "bye": 0.0,
+      "quarterfinal": 0.0053,
+      "semifinal": 0.0005,
+      "final": 0.0001,
+      "title": 0.0001,
+      "projectedWins": 8.85,
+      "projectedLosses": 3.15,
+      "unbeaten": 0.0,
+      "top12": 0.0003,
+      "gamesLeft": 7,
+      "playoffChange": -0.1271,
+      "titleChange": 0.0
+    },
+    "Illinois": {
+      "conferenceGame": 0.0009,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.29,
+      "projectedLosses": 7.71,
+      "unbeaten": 0.0,
+      "top12": 0.0003,
+      "gamesLeft": 7,
+      "playoffChange": -0.0034,
+      "titleChange": 0.0
+    },
+    "UTSA": {
+      "conferenceGame": 0.3968,
+      "conferenceTitle": 0.227,
+      "playoff": 0.1066,
+      "bye": 0.0,
+      "quarterfinal": 0.0099,
+      "semifinal": 0.0014,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 8.76,
+      "projectedLosses": 3.24,
+      "unbeaten": 0.0,
+      "top12": 0.0031,
+      "gamesLeft": 7,
+      "playoffChange": -0.0656,
+      "titleChange": 0.0
+    },
+    "Virginia": {
+      "conferenceGame": 0.0487,
+      "conferenceTitle": 0.008,
+      "playoff": 0.008,
+      "bye": 0.0,
+      "quarterfinal": 0.001,
+      "semifinal": 0.0002,
+      "final": 0.0002,
+      "title": 0.0001,
+      "projectedWins": 6.55,
+      "projectedLosses": 5.45,
+      "unbeaten": 0.0,
+      "top12": 0.0012,
+      "gamesLeft": 7,
+      "playoffChange": -0.0393,
+      "titleChange": 0.0001
+    },
+    "Iowa State": {
+      "conferenceGame": 0.0117,
+      "conferenceTitle": 0.0039,
+      "playoff": 0.0041,
+      "bye": 0.0001,
+      "quarterfinal": 0.0006,
+      "semifinal": 0.0002,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.96,
+      "projectedLosses": 6.04,
+      "unbeaten": 0.0,
+      "top12": 0.0019,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Fresno State": {
+      "conferenceGame": 0.4581,
+      "conferenceTitle": 0.207,
+      "playoff": 0.091,
+      "bye": 0.0,
+      "quarterfinal": 0.0081,
+      "semifinal": 0.0012,
+      "final": 0.0003,
+      "title": 0.0,
+      "projectedWins": 7.63,
+      "projectedLosses": 3.37,
+      "unbeaten": 0.0,
+      "top12": 0.0016,
+      "gamesLeft": 6,
+      "playoffChange": 0.0579,
+      "titleChange": 0.0
+    },
+    "UCF": {
+      "conferenceGame": 0.0269,
+      "conferenceTitle": 0.0073,
+      "playoff": 0.0075,
       "bye": 0.0,
       "quarterfinal": 0.0006,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 9.5,
-      "projectedLosses": 2.5,
+      "projectedWins": 6.46,
+      "projectedLosses": 5.54,
+      "unbeaten": 0.0,
+      "top12": 0.0023,
+      "gamesLeft": 7,
+      "playoffChange": -0.0081,
+      "titleChange": -0.0001
+    },
+    "Army": {
+      "conferenceGame": 0.3761,
+      "conferenceTitle": 0.2047,
+      "playoff": 0.0171,
+      "bye": 0.0,
+      "quarterfinal": 0.0018,
+      "semifinal": 0.0003,
+      "final": 0.0001,
+      "title": 0.0,
+      "projectedWins": 7.44,
+      "projectedLosses": 4.56,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
-      "playoffChange": -0.0004,
-      "titleChange": 0.0
+      "playoffChange": -0.0416,
+      "titleChange": -0.0001
     },
-    "Maryland": {
-      "conferenceGame": 0.0018,
-      "conferenceTitle": 0.0005,
-      "playoff": 0.0007,
+    "North Carolina": {
+      "conferenceGame": 0.0023,
+      "conferenceTitle": 0.0004,
+      "playoff": 0.0016,
       "bye": 0.0,
-      "quarterfinal": 0.0001,
-      "semifinal": 0.0,
+      "quarterfinal": 0.0006,
+      "semifinal": 0.0001,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.76,
-      "projectedLosses": 7.24,
+      "projectedWins": 5.29,
+      "projectedLosses": 6.71,
       "unbeaten": 0.0,
-      "top12": 0.0007,
+      "top12": 0.002,
       "gamesLeft": 8,
-      "playoffChange": 0.0006,
+      "playoffChange": 0.0003,
       "titleChange": 0.0
     },
-    "Arkansas": {
-      "conferenceGame": 0.0003,
-      "conferenceTitle": 0.0,
-      "playoff": 0.0007,
+    "Kansas": {
+      "conferenceGame": 0.0031,
+      "conferenceTitle": 0.0011,
+      "playoff": 0.0011,
       "bye": 0.0,
-      "quarterfinal": 0.0002,
+      "quarterfinal": 0.0004,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 3.58,
-      "projectedLosses": 8.42,
+      "projectedWins": 4.9,
+      "projectedLosses": 7.1,
       "unbeaten": 0.0,
-      "top12": 0.0011,
+      "top12": 0.0003,
       "gamesLeft": 8,
       "playoffChange": 0.0002,
       "titleChange": 0.0
     },
-    "North Carolina": {
-      "conferenceGame": 0.0015,
-      "conferenceTitle": 0.0006,
-      "playoff": 0.0012,
+    "Memphis": {
+      "conferenceGame": 0.274,
+      "conferenceTitle": 0.1437,
+      "playoff": 0.0416,
+      "bye": 0.0,
+      "quarterfinal": 0.0034,
+      "semifinal": 0.0004,
+      "final": 0.0001,
+      "title": 0.0,
+      "projectedWins": 8.29,
+      "projectedLosses": 3.71,
+      "unbeaten": 0.0,
+      "top12": 0.0009,
+      "gamesLeft": 7,
+      "playoffChange": 0.0273,
+      "titleChange": 0.0
+    },
+    "Oregon State": {
+      "conferenceGame": 0.3759,
+      "conferenceTitle": 0.1521,
+      "playoff": 0.0214,
+      "bye": 0.0,
+      "quarterfinal": 0.0011,
+      "semifinal": 0.0002,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.4,
+      "projectedLosses": 4.6,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 6,
+      "playoffChange": 0.0143,
+      "titleChange": 0.0
+    },
+    "Toledo": {
+      "conferenceGame": 0.6553,
+      "conferenceTitle": 0.4351,
+      "playoff": 0.0117,
+      "bye": 0.0,
+      "quarterfinal": 0.0011,
+      "semifinal": 0.0001,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 9.54,
+      "projectedLosses": 2.46,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0008,
+      "titleChange": 0.0
+    },
+    "Texas State": {
+      "conferenceGame": 0.1488,
+      "conferenceTitle": 0.0617,
+      "playoff": 0.0066,
+      "bye": 0.0,
+      "quarterfinal": 0.0003,
+      "semifinal": 0.0001,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.44,
+      "projectedLosses": 5.56,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 6,
+      "playoffChange": -0.0211,
+      "titleChange": 0.0
+    },
+    "Michigan State": {
+      "conferenceGame": 0.0001,
+      "conferenceTitle": 0.0001,
+      "playoff": 0.0003,
       "bye": 0.0,
       "quarterfinal": 0.0002,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 5.02,
-      "projectedLosses": 6.98,
-      "unbeaten": 0.0,
-      "top12": 0.0023,
-      "gamesLeft": 9,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "Fresno State": {
-      "conferenceGame": 0.266,
-      "conferenceTitle": 0.1171,
-      "playoff": 0.0357,
-      "bye": 0.0,
-      "quarterfinal": 0.0034,
-      "semifinal": 0.0005,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.74,
-      "projectedLosses": 4.26,
+      "projectedWins": 4.2,
+      "projectedLosses": 7.8,
       "unbeaten": 0.0,
       "top12": 0.0005,
       "gamesLeft": 7,
-      "playoffChange": 0.0026,
+      "playoffChange": -0.0017,
       "titleChange": 0.0
     },
-    "Western Michigan": {
-      "conferenceGame": 0.5135,
-      "conferenceTitle": 0.2928,
-      "playoff": 0.0025,
+    "Arkansas": {
+      "conferenceGame": 0.0,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0002,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.31,
+      "projectedLosses": 8.69,
+      "unbeaten": 0.0,
+      "top12": 0.0002,
+      "gamesLeft": 7,
+      "playoffChange": -0.0003,
+      "titleChange": 0.0
+    },
+    "Maryland": {
+      "conferenceGame": 0.0001,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.34,
+      "projectedLosses": 7.66,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0001,
+      "titleChange": 0.0
+    },
+    "North Texas": {
+      "conferenceGame": 0.3134,
+      "conferenceTitle": 0.1425,
+      "playoff": 0.0128,
+      "bye": 0.0,
+      "quarterfinal": 0.0009,
+      "semifinal": 0.0001,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.58,
+      "projectedLosses": 4.42,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0024,
+      "titleChange": 0.0
+    },
+    "Arizona State": {
+      "conferenceGame": 0.0046,
+      "conferenceTitle": 0.0008,
+      "playoff": 0.0009,
+      "bye": 0.0,
+      "quarterfinal": 0.0002,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.18,
+      "projectedLosses": 6.82,
+      "unbeaten": 0.0,
+      "top12": 0.0006,
+      "gamesLeft": 8,
+      "playoffChange": -0.0096,
+      "titleChange": 0.0
+    },
+    "Cincinnati": {
+      "conferenceGame": 0.002,
+      "conferenceTitle": 0.0004,
+      "playoff": 0.0006,
       "bye": 0.0,
       "quarterfinal": 0.0001,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 8.23,
-      "projectedLosses": 3.77,
+      "projectedWins": 6.03,
+      "projectedLosses": 5.97,
       "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0004,
+      "top12": 0.0009,
+      "gamesLeft": 7,
+      "playoffChange": -0.006,
       "titleChange": 0.0
     },
-    "North Texas": {
-      "conferenceGame": 0.2414,
-      "conferenceTitle": 0.0936,
-      "playoff": 0.0098,
+    "Purdue": {
+      "conferenceGame": 0.0013,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0003,
       "bye": 0.0,
-      "quarterfinal": 0.0005,
+      "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 7.42,
-      "projectedLosses": 4.58,
+      "projectedWins": 3.97,
+      "projectedLosses": 8.03,
       "unbeaten": 0.0,
-      "top12": 0.0,
+      "top12": 0.0004,
       "gamesLeft": 7,
-      "playoffChange": -0.0006,
+      "playoffChange": 0.0002,
       "titleChange": 0.0
     },
     "Georgia Tech": {
-      "conferenceGame": 0.0015,
+      "conferenceGame": 0.002,
+      "conferenceTitle": 0.0004,
+      "playoff": 0.0004,
+      "bye": 0.0,
+      "quarterfinal": 0.0001,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.52,
+      "projectedLosses": 8.48,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": 0.0001,
+      "titleChange": 0.0
+    },
+    "Oklahoma State": {
+      "conferenceGame": 0.0139,
+      "conferenceTitle": 0.003,
+      "playoff": 0.0035,
+      "bye": 0.0,
+      "quarterfinal": 0.0001,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.78,
+      "projectedLosses": 6.22,
+      "unbeaten": 0.0,
+      "top12": 0.0012,
+      "gamesLeft": 8,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Western Michigan": {
+      "conferenceGame": 0.5196,
+      "conferenceTitle": 0.2731,
+      "playoff": 0.0018,
+      "bye": 0.0,
+      "quarterfinal": 0.0002,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 8.1,
+      "projectedLosses": 3.9,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0003,
+      "titleChange": 0.0
+    },
+    "UNLV": {
+      "conferenceGame": 0.3262,
+      "conferenceTitle": 0.1445,
+      "playoff": 0.0017,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.57,
+      "projectedLosses": 4.43,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0009,
+      "titleChange": 0.0
+    },
+    "Tulane": {
+      "conferenceGame": 0.1207,
+      "conferenceTitle": 0.0532,
+      "playoff": 0.0069,
+      "bye": 0.0,
+      "quarterfinal": 0.0003,
+      "semifinal": 0.0001,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.25,
+      "projectedLosses": 5.75,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": -0.0034,
+      "titleChange": 0.0
+    },
+    "Syracuse": {
+      "conferenceGame": 0.0022,
+      "conferenceTitle": 0.0003,
+      "playoff": 0.0004,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.45,
+      "projectedLosses": 7.55,
+      "unbeaten": 0.0,
+      "top12": 0.0002,
+      "gamesLeft": 8,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "California": {
+      "conferenceGame": 0.0129,
+      "conferenceTitle": 0.001,
+      "playoff": 0.001,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.48,
+      "projectedLosses": 7.52,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0008,
+      "titleChange": 0.0
+    },
+    "West Virginia": {
+      "conferenceGame": 0.0002,
       "conferenceTitle": 0.0002,
       "playoff": 0.0002,
       "bye": 0.0,
@@ -1170,207 +1340,37 @@
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 3.56,
-      "projectedLosses": 8.44,
+      "projectedWins": 4.92,
+      "projectedLosses": 7.08,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0001,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "California": {
-      "conferenceGame": 0.0124,
-      "conferenceTitle": 0.0017,
-      "playoff": 0.0017,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.06,
-      "projectedLosses": 6.94,
-      "unbeaten": 0.0,
-      "top12": 0.0001,
-      "gamesLeft": 8,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "Memphis": {
-      "conferenceGame": 0.1369,
-      "conferenceTitle": 0.059,
-      "playoff": 0.0154,
-      "bye": 0.0,
-      "quarterfinal": 0.0014,
-      "semifinal": 0.0004,
-      "final": 0.0002,
-      "title": 0.0,
-      "projectedWins": 7.56,
-      "projectedLosses": 4.44,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0011,
-      "titleChange": 0.0
-    },
-    "Kansas": {
-      "conferenceGame": 0.0027,
-      "conferenceTitle": 0.0017,
-      "playoff": 0.0018,
+    "San Diego State": {
+      "conferenceGame": 0.2175,
+      "conferenceTitle": 0.0666,
+      "playoff": 0.0029,
       "bye": 0.0,
       "quarterfinal": 0.0001,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.29,
-      "projectedLosses": 7.71,
-      "unbeaten": 0.0,
-      "top12": 0.0004,
-      "gamesLeft": 9,
-      "playoffChange": 0.0009,
-      "titleChange": 0.0
-    },
-    "Oklahoma State": {
-      "conferenceGame": 0.0193,
-      "conferenceTitle": 0.0043,
-      "playoff": 0.0043,
-      "bye": 0.0,
-      "quarterfinal": 0.0005,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.82,
-      "projectedLosses": 6.18,
-      "unbeaten": 0.0,
-      "top12": 0.0007,
-      "gamesLeft": 8,
-      "playoffChange": 0.0008,
-      "titleChange": 0.0
-    },
-    "Oregon State": {
-      "conferenceGame": 0.213,
-      "conferenceTitle": 0.0825,
-      "playoff": 0.0061,
-      "bye": 0.0,
-      "quarterfinal": 0.0002,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.47,
-      "projectedLosses": 5.53,
+      "projectedWins": 4.81,
+      "projectedLosses": 6.19,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 7,
-      "playoffChange": -0.001,
-      "titleChange": 0.0
-    },
-    "Washington State": {
-      "conferenceGame": 0.1858,
-      "conferenceTitle": 0.073,
-      "playoff": 0.0046,
-      "bye": 0.0,
-      "quarterfinal": 0.0001,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.35,
-      "projectedLosses": 6.65,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 7,
-      "playoffChange": 0.0001,
-      "titleChange": 0.0
-    },
-    "Louisiana": {
-      "conferenceGame": 0.3644,
-      "conferenceTitle": 0.1582,
-      "playoff": 0.0071,
-      "bye": 0.0,
-      "quarterfinal": 0.0007,
-      "semifinal": 0.0001,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 8.63,
-      "projectedLosses": 3.37,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0011,
-      "titleChange": 0.0
-    },
-    "Syracuse": {
-      "conferenceGame": 0.0016,
-      "conferenceTitle": 0.0003,
-      "playoff": 0.0003,
-      "bye": 0.0,
-      "quarterfinal": 0.0002,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.9,
-      "projectedLosses": 8.1,
-      "unbeaten": 0.0,
-      "top12": 0.0001,
-      "gamesLeft": 9,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "Tulane": {
-      "conferenceGame": 0.1052,
-      "conferenceTitle": 0.0466,
-      "playoff": 0.0108,
-      "bye": 0.0,
-      "quarterfinal": 0.0011,
-      "semifinal": 0.0001,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.22,
-      "projectedLosses": 5.78,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0005,
-      "titleChange": 0.0
-    },
-    "West Virginia": {
-      "conferenceGame": 0.001,
-      "conferenceTitle": 0.0001,
-      "playoff": 0.0001,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.28,
-      "projectedLosses": 6.72,
-      "unbeaten": 0.0,
-      "top12": 0.0001,
-      "gamesLeft": 8,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "Rutgers": {
-      "conferenceGame": 0.0007,
-      "conferenceTitle": 0.0001,
-      "playoff": 0.0001,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 2.77,
-      "projectedLosses": 9.23,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0001,
+      "gamesLeft": 6,
+      "playoffChange": 0.002,
       "titleChange": 0.0
     },
     "Liberty": {
-      "conferenceGame": 0.6669,
-      "conferenceTitle": 0.4322,
-      "playoff": 0.0015,
+      "conferenceGame": 0.6617,
+      "conferenceTitle": 0.4384,
+      "playoff": 0.0021,
       "bye": 0.0,
-      "quarterfinal": 0.0,
+      "quarterfinal": 0.0001,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
@@ -1379,61 +1379,95 @@
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
-      "playoffChange": 0.0007,
+      "playoffChange": 0.0013,
       "titleChange": 0.0
     },
-    "UNLV": {
-      "conferenceGame": 0.3886,
-      "conferenceTitle": 0.1828,
-      "playoff": 0.0009,
+    "Louisiana": {
+      "conferenceGame": 0.3186,
+      "conferenceTitle": 0.1215,
+      "playoff": 0.0045,
       "bye": 0.0,
-      "quarterfinal": 0.0001,
+      "quarterfinal": 0.0004,
       "semifinal": 0.0001,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 7.05,
-      "projectedLosses": 4.95,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0001,
-      "titleChange": 0.0
-    },
-    "Colorado": {
-      "conferenceGame": 0.0026,
-      "conferenceTitle": 0.0003,
-      "playoff": 0.0003,
-      "bye": 0.0,
-      "quarterfinal": 0.0002,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.18,
-      "projectedLosses": 7.82,
-      "unbeaten": 0.0,
-      "top12": 0.0002,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "San Diego State": {
-      "conferenceGame": 0.1539,
-      "conferenceTitle": 0.0511,
-      "playoff": 0.0016,
-      "bye": 0.0,
-      "quarterfinal": 0.0001,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.14,
-      "projectedLosses": 6.86,
+      "projectedWins": 8.57,
+      "projectedLosses": 3.43,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
-      "playoffChange": 0.0007,
+      "playoffChange": -0.0015,
       "titleChange": 0.0
     },
-    "Purdue": {
+    "Colorado": {
+      "conferenceGame": 0.0003,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.05,
+      "projectedLosses": 7.95,
+      "unbeaten": 0.0,
+      "top12": 0.0001,
+      "gamesLeft": 7,
+      "playoffChange": -0.0003,
+      "titleChange": 0.0
+    },
+    "North Dakota State": {
+      "conferenceGame": 0.5629,
+      "conferenceTitle": 0.2086,
+      "playoff": 0.0089,
+      "bye": 0.0,
+      "quarterfinal": 0.0003,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 9.35,
+      "projectedLosses": 2.65,
+      "unbeaten": 0.032,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0052,
+      "titleChange": 0.0
+    },
+    "Washington State": {
+      "conferenceGame": 0.0475,
+      "conferenceTitle": 0.0163,
+      "playoff": 0.0006,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.5,
+      "projectedLosses": 7.5,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 6,
+      "playoffChange": -0.0039,
+      "titleChange": 0.0
+    },
+    "East Carolina": {
+      "conferenceGame": 0.1138,
+      "conferenceTitle": 0.0463,
+      "playoff": 0.0016,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.26,
+      "projectedLosses": 5.74,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": -0.0004,
+      "titleChange": 0.0
+    },
+    "Rutgers": {
       "conferenceGame": 0.0002,
       "conferenceTitle": 0.0001,
       "playoff": 0.0001,
@@ -1442,63 +1476,114 @@
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 2.94,
-      "projectedLosses": 9.06,
+      "projectedWins": 2.42,
+      "projectedLosses": 9.58,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0001,
+      "titleChange": 0.0
+    },
+    "Temple": {
+      "conferenceGame": 0.0721,
+      "conferenceTitle": 0.0252,
+      "playoff": 0.0005,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.05,
+      "projectedLosses": 5.95,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0004,
       "titleChange": 0.0
     },
     "Navy": {
-      "conferenceGame": 0.0428,
-      "conferenceTitle": 0.0173,
-      "playoff": 0.0004,
+      "conferenceGame": 0.0394,
+      "conferenceTitle": 0.0169,
+      "playoff": 0.0002,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 5.1,
-      "projectedLosses": 6.9,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 9,
-      "playoffChange": -0.0008,
-      "titleChange": 0.0
-    },
-    "East Carolina": {
-      "conferenceGame": 0.1024,
-      "conferenceTitle": 0.0371,
-      "playoff": 0.0013,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.27,
-      "projectedLosses": 5.73,
+      "projectedWins": 4.47,
+      "projectedLosses": 7.53,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
-      "playoffChange": -0.0007,
+      "playoffChange": -0.001,
       "titleChange": 0.0
     },
-    "Florida Atlantic": {
-      "conferenceGame": 0.0659,
-      "conferenceTitle": 0.0253,
-      "playoff": 0.0084,
+    "Air Force": {
+      "conferenceGame": 0.1302,
+      "conferenceTitle": 0.0518,
+      "playoff": 0.0009,
+      "bye": 0.0,
+      "quarterfinal": 0.0001,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.65,
+      "projectedLosses": 4.35,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": 0.0002,
+      "titleChange": 0.0
+    },
+    "Louisiana Tech": {
+      "conferenceGame": 0.2238,
+      "conferenceTitle": 0.0846,
+      "playoff": 0.0032,
+      "bye": 0.0,
+      "quarterfinal": 0.0001,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.05,
+      "projectedLosses": 4.95,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": 0.0017,
+      "titleChange": 0.0
+    },
+    "Georgia State": {
+      "conferenceGame": 0.1507,
+      "conferenceTitle": 0.0567,
+      "playoff": 0.0015,
       "bye": 0.0,
       "quarterfinal": 0.0002,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 6.87,
-      "projectedLosses": 5.13,
+      "projectedWins": 7.72,
+      "projectedLosses": 4.28,
       "unbeaten": 0.0,
-      "top12": 0.0002,
-      "gamesLeft": 8,
-      "playoffChange": 0.0017,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0012,
+      "titleChange": 0.0
+    },
+    "Florida Atlantic": {
+      "conferenceGame": 0.0667,
+      "conferenceTitle": 0.0254,
+      "playoff": 0.0038,
+      "bye": 0.0,
+      "quarterfinal": 0.0002,
+      "semifinal": 0.0001,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.83,
+      "projectedLosses": 5.17,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0029,
       "titleChange": 0.0
     },
     "UConn": {
@@ -1510,250 +1595,131 @@
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 6.29,
-      "projectedLosses": 5.71,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Stanford": {
-      "conferenceGame": 0.0009,
-      "conferenceTitle": 0.0,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.45,
-      "projectedLosses": 7.55,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0002,
-      "titleChange": 0.0
-    },
-    "Colorado State": {
-      "conferenceGame": 0.0902,
-      "conferenceTitle": 0.0255,
-      "playoff": 0.0013,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.6,
-      "projectedLosses": 6.4,
+      "projectedWins": 5.73,
+      "projectedLosses": 6.27,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
-      "playoffChange": -0.0005,
-      "titleChange": 0.0
-    },
-    "Air Force": {
-      "conferenceGame": 0.1719,
-      "conferenceTitle": 0.0746,
-      "playoff": 0.0007,
-      "bye": 0.0,
-      "quarterfinal": 0.0001,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 7.05,
-      "projectedLosses": 4.95,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 9,
       "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "North Dakota State": {
-      "conferenceGame": 0.5048,
-      "conferenceTitle": 0.1969,
-      "playoff": 0.0045,
-      "bye": 0.0,
-      "quarterfinal": 0.0002,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 8.98,
-      "projectedLosses": 3.02,
-      "unbeaten": 0.0295,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0008,
-      "titleChange": 0.0
-    },
-    "Louisiana Tech": {
-      "conferenceGame": 0.19,
-      "conferenceTitle": 0.0731,
-      "playoff": 0.0007,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.07,
-      "projectedLosses": 5.93,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 9,
-      "playoffChange": -0.0008,
       "titleChange": 0.0
     },
     "Ohio": {
-      "conferenceGame": 0.253,
-      "conferenceTitle": 0.1138,
-      "playoff": 0.0002,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 7.26,
-      "projectedLosses": 4.74,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0001,
-      "titleChange": 0.0
-    },
-    "Temple": {
-      "conferenceGame": 0.0181,
-      "conferenceTitle": 0.0064,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.92,
-      "projectedLosses": 7.08,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "Appalachian State": {
-      "conferenceGame": 0.1265,
-      "conferenceTitle": 0.0531,
-      "playoff": 0.0008,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 7.46,
-      "projectedLosses": 4.54,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0005,
-      "titleChange": 0.0
-    },
-    "Tulsa": {
-      "conferenceGame": 0.0152,
-      "conferenceTitle": 0.0056,
-      "playoff": 0.0006,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.12,
-      "projectedLosses": 5.88,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 7,
-      "playoffChange": -0.0009,
-      "titleChange": 0.0
-    },
-    "South Alabama": {
-      "conferenceGame": 0.1312,
-      "conferenceTitle": 0.0441,
-      "playoff": 0.0004,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.39,
-      "projectedLosses": 5.61,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0002,
-      "titleChange": 0.0
-    },
-    "Miami (OH)": {
-      "conferenceGame": 0.2053,
-      "conferenceTitle": 0.084,
+      "conferenceGame": 0.345,
+      "conferenceTitle": 0.1459,
       "playoff": 0.0001,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 7.03,
-      "projectedLosses": 4.97,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Utah State": {
-      "conferenceGame": 0.0514,
-      "conferenceTitle": 0.0132,
-      "playoff": 0.0003,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.25,
-      "projectedLosses": 7.75,
+      "projectedWins": 7.53,
+      "projectedLosses": 4.47,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "Georgia State": {
-      "conferenceGame": 0.0777,
-      "conferenceTitle": 0.0311,
+    "South Alabama": {
+      "conferenceGame": 0.1373,
+      "conferenceTitle": 0.0446,
+      "playoff": 0.0005,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.6,
+      "projectedLosses": 5.4,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0001,
+      "titleChange": 0.0
+    },
+    "Tulsa": {
+      "conferenceGame": 0.0206,
+      "conferenceTitle": 0.0052,
       "playoff": 0.0004,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 6.88,
-      "projectedLosses": 5.12,
+      "projectedWins": 6.23,
+      "projectedLosses": 5.77,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0011,
+      "titleChange": 0.0
+    },
+    "Appalachian State": {
+      "conferenceGame": 0.1174,
+      "conferenceTitle": 0.0427,
+      "playoff": 0.0014,
+      "bye": 0.0,
+      "quarterfinal": 0.0002,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.42,
+      "projectedLosses": 4.58,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
       "playoffChange": 0.0001,
       "titleChange": 0.0
     },
-    "Marshall": {
-      "conferenceGame": 0.1019,
-      "conferenceTitle": 0.0355,
-      "playoff": 0.0007,
+    "Utah State": {
+      "conferenceGame": 0.0276,
+      "conferenceTitle": 0.006,
+      "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 7.2,
-      "projectedLosses": 4.8,
+      "projectedWins": 3.11,
+      "projectedLosses": 7.89,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 6,
+      "playoffChange": -0.0003,
+      "titleChange": 0.0
+    },
+    "Troy": {
+      "conferenceGame": 0.0665,
+      "conferenceTitle": 0.0238,
+      "playoff": 0.0002,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.85,
+      "projectedLosses": 6.15,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
-      "playoffChange": -0.0006,
+      "playoffChange": -0.0001,
+      "titleChange": 0.0
+    },
+    "Georgia Southern": {
+      "conferenceGame": 0.0869,
+      "conferenceTitle": 0.0303,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.22,
+      "projectedLosses": 6.78,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0001,
       "titleChange": 0.0
     },
     "Boston College": {
@@ -1765,136 +1731,170 @@
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 3.25,
-      "projectedLosses": 8.75,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Troy": {
-      "conferenceGame": 0.0738,
-      "conferenceTitle": 0.0243,
-      "playoff": 0.0002,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.83,
-      "projectedLosses": 6.17,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": -0.0001,
-      "titleChange": 0.0
-    },
-    "UAB": {
-      "conferenceGame": 0.0312,
-      "conferenceTitle": 0.0082,
-      "playoff": 0.0005,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.47,
-      "projectedLosses": 6.53,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0005,
-      "titleChange": 0.0
-    },
-    "Jacksonville State": {
-      "conferenceGame": 0.3603,
-      "conferenceTitle": 0.1552,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.99,
-      "projectedLosses": 5.01,
+      "projectedWins": 3.17,
+      "projectedLosses": 8.83,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "Georgia Southern": {
-      "conferenceGame": 0.0679,
-      "conferenceTitle": 0.0244,
-      "playoff": 0.0001,
-      "bye": 0.0,
-      "quarterfinal": 0.0001,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.67,
-      "projectedLosses": 7.33,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "FIU": {
-      "conferenceGame": 0.2399,
-      "conferenceTitle": 0.1198,
+    "Stanford": {
+      "conferenceGame": 0.0,
+      "conferenceTitle": 0.0,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 6.38,
-      "projectedLosses": 5.62,
+      "projectedWins": 3.92,
+      "projectedLosses": 8.08,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0002,
+      "titleChange": 0.0
+    },
+    "Jacksonville State": {
+      "conferenceGame": 0.3386,
+      "conferenceTitle": 0.1474,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.93,
+      "projectedLosses": 5.07,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Colorado State": {
+      "conferenceGame": 0.0134,
+      "conferenceTitle": 0.0032,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.64,
+      "projectedLosses": 7.36,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 6,
+      "playoffChange": -0.0018,
+      "titleChange": 0.0
+    },
+    "FIU": {
+      "conferenceGame": 0.2464,
+      "conferenceTitle": 0.1111,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.45,
+      "projectedLosses": 5.55,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
       "playoffChange": -0.0001,
       "titleChange": 0.0
     },
-    "UMass": {
-      "conferenceGame": 0.2364,
-      "conferenceTitle": 0.0775,
-      "playoff": 0.0007,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 8.66,
-      "projectedLosses": 3.34,
-      "unbeaten": 0.0189,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0002,
-      "titleChange": 0.0
-    },
-    "Hawaii": {
-      "conferenceGame": 0.0192,
-      "conferenceTitle": 0.0062,
+    "Arkansas State": {
+      "conferenceGame": 0.0417,
+      "conferenceTitle": 0.0115,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.99,
-      "projectedLosses": 7.01,
+      "projectedWins": 5.69,
+      "projectedLosses": 6.31,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
+    "San Jose State": {
+      "conferenceGame": 0.239,
+      "conferenceTitle": 0.0676,
+      "playoff": 0.0001,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 7.12,
+      "projectedLosses": 5.88,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": 0.0001,
+      "titleChange": 0.0
+    },
+    "UAB": {
+      "conferenceGame": 0.0294,
+      "conferenceTitle": 0.0082,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.38,
+      "projectedLosses": 6.62,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Marshall": {
+      "conferenceGame": 0.0456,
+      "conferenceTitle": 0.0108,
+      "playoff": 0.0001,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 6.77,
+      "projectedLosses": 5.23,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0012,
+      "titleChange": 0.0
+    },
+    "Miami (OH)": {
+      "conferenceGame": 0.0615,
+      "conferenceTitle": 0.02,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 5.86,
+      "projectedLosses": 6.14,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": -0.0001,
+      "titleChange": 0.0
+    },
     "Southern Miss": {
-      "conferenceGame": 0.0533,
-      "conferenceTitle": 0.0198,
+      "conferenceGame": 0.0487,
+      "conferenceTitle": 0.015,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
@@ -1909,102 +1909,119 @@
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "Arkansas State": {
-      "conferenceGame": 0.0744,
-      "conferenceTitle": 0.0235,
+    "Eastern Michigan": {
+      "conferenceGame": 0.1377,
+      "conferenceTitle": 0.0439,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 5.85,
-      "projectedLosses": 6.15,
+      "projectedWins": 5.62,
+      "projectedLosses": 6.38,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 6,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
     "Missouri State": {
-      "conferenceGame": 0.1642,
-      "conferenceTitle": 0.0721,
+      "conferenceGame": 0.1607,
+      "conferenceTitle": 0.0687,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.91,
-      "projectedLosses": 7.09,
+      "projectedWins": 4.87,
+      "projectedLosses": 7.13,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "San Jose State": {
-      "conferenceGame": 0.1687,
-      "conferenceTitle": 0.0519,
-      "playoff": 0.0002,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 6.33,
-      "projectedLosses": 6.67,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 9,
-      "playoffChange": 0.0002,
-      "titleChange": 0.0
-    },
-    "Old Dominion": {
-      "conferenceGame": 0.0196,
-      "conferenceTitle": 0.0056,
+    "Hawaii": {
+      "conferenceGame": 0.0007,
+      "conferenceTitle": 0.0002,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.29,
-      "projectedLosses": 7.71,
+      "projectedWins": 4.18,
+      "projectedLosses": 7.82,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Rice": {
+      "conferenceGame": 0.0045,
+      "conferenceTitle": 0.0014,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.05,
+      "projectedLosses": 8.95,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Western Kentucky": {
+      "conferenceGame": 0.0884,
+      "conferenceTitle": 0.0385,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.51,
+      "projectedLosses": 7.49,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
     "Delaware": {
-      "conferenceGame": 0.0868,
-      "conferenceTitle": 0.0334,
+      "conferenceGame": 0.0819,
+      "conferenceTitle": 0.0307,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 5.43,
-      "projectedLosses": 6.57,
+      "projectedWins": 5.38,
+      "projectedLosses": 6.62,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
       "playoffChange": -0.0001,
       "titleChange": 0.0
     },
-    "Western Kentucky": {
-      "conferenceGame": 0.0761,
-      "conferenceTitle": 0.0342,
+    "Central Michigan": {
+      "conferenceGame": 0.1403,
+      "conferenceTitle": 0.0445,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.34,
-      "projectedLosses": 7.66,
+      "projectedWins": 6.52,
+      "projectedLosses": 5.48,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
@@ -2012,50 +2029,16 @@
       "titleChange": 0.0
     },
     "Sam Houston": {
-      "conferenceGame": 0.1259,
-      "conferenceTitle": 0.0493,
+      "conferenceGame": 0.1312,
+      "conferenceTitle": 0.0501,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.66,
-      "projectedLosses": 7.34,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Rice": {
-      "conferenceGame": 0.0079,
-      "conferenceTitle": 0.0025,
-      "playoff": 0.0001,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.02,
-      "projectedLosses": 8.98,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0001,
-      "titleChange": 0.0
-    },
-    "Nevada": {
-      "conferenceGame": 0.0242,
-      "conferenceTitle": 0.0089,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.94,
-      "projectedLosses": 8.06,
+      "projectedWins": 4.71,
+      "projectedLosses": 7.29,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
@@ -2063,16 +2046,33 @@
       "titleChange": 0.0
     },
     "Kennesaw State": {
-      "conferenceGame": 0.1104,
-      "conferenceTitle": 0.0417,
+      "conferenceGame": 0.1239,
+      "conferenceTitle": 0.0503,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.4,
-      "projectedLosses": 7.6,
+      "projectedWins": 4.58,
+      "projectedLosses": 7.42,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 8,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Nevada": {
+      "conferenceGame": 0.0143,
+      "conferenceTitle": 0.0038,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.83,
+      "projectedLosses": 8.17,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
@@ -2080,194 +2080,41 @@
       "titleChange": 0.0
     },
     "New Mexico State": {
-      "conferenceGame": 0.1178,
-      "conferenceTitle": 0.0424,
+      "conferenceGame": 0.1443,
+      "conferenceTitle": 0.0578,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.73,
-      "projectedLosses": 7.27,
+      "projectedWins": 4.94,
+      "projectedLosses": 7.06,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "Coastal Carolina": {
-      "conferenceGame": 0.0173,
-      "conferenceTitle": 0.0048,
+    "UMass": {
+      "conferenceGame": 0.0595,
+      "conferenceTitle": 0.0173,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 3.64,
-      "projectedLosses": 8.36,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Middle Tennessee": {
-      "conferenceGame": 0.0517,
-      "conferenceTitle": 0.0197,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.19,
-      "projectedLosses": 6.81,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Eastern Michigan": {
-      "conferenceGame": 0.0358,
-      "conferenceTitle": 0.0098,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.49,
-      "projectedLosses": 7.51,
+      "projectedWins": 7.47,
+      "projectedLosses": 4.53,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 7,
-      "playoffChange": 0.0,
+      "playoffChange": -0.0005,
       "titleChange": 0.0
     },
-    "Central Michigan": {
-      "conferenceGame": 0.0572,
-      "conferenceTitle": 0.0154,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 5.72,
-      "projectedLosses": 6.28,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Akron": {
-      "conferenceGame": 0.0375,
-      "conferenceTitle": 0.0102,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.21,
-      "projectedLosses": 7.79,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Kent State": {
-      "conferenceGame": 0.0476,
-      "conferenceTitle": 0.0125,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.79,
-      "projectedLosses": 7.21,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Sacramento State": {
-      "conferenceGame": 0.0033,
-      "conferenceTitle": 0.001,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.88,
-      "projectedLosses": 8.12,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 7,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Wyoming": {
-      "conferenceGame": 0.035,
-      "conferenceTitle": 0.0102,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 4.56,
-      "projectedLosses": 7.44,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "UTEP": {
-      "conferenceGame": 0.0111,
-      "conferenceTitle": 0.0016,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.35,
-      "projectedLosses": 8.65,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Northern Illinois": {
-      "conferenceGame": 0.0139,
-      "conferenceTitle": 0.0012,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 2.34,
-      "projectedLosses": 9.66,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Charlotte": {
-      "conferenceGame": 0.0005,
+    "Old Dominion": {
+      "conferenceGame": 0.0021,
       "conferenceTitle": 0.0,
       "playoff": 0.0,
       "bye": 0.0,
@@ -2275,59 +2122,144 @@
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 1.26,
-      "projectedLosses": 10.74,
+      "projectedWins": 3.5,
+      "projectedLosses": 8.5,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Coastal Carolina": {
+      "conferenceGame": 0.0037,
+      "conferenceTitle": 0.0012,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.15,
+      "projectedLosses": 8.85,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Sacramento State": {
+      "conferenceGame": 0.005,
+      "conferenceTitle": 0.0014,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.89,
+      "projectedLosses": 8.11,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Kent State": {
+      "conferenceGame": 0.0224,
+      "conferenceTitle": 0.0052,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.52,
+      "projectedLosses": 7.48,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Middle Tennessee": {
+      "conferenceGame": 0.0229,
+      "conferenceTitle": 0.007,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.51,
+      "projectedLosses": 7.49,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Akron": {
+      "conferenceGame": 0.0135,
+      "conferenceTitle": 0.0038,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.54,
+      "projectedLosses": 8.46,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Wyoming": {
+      "conferenceGame": 0.0052,
+      "conferenceTitle": 0.0009,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 4.06,
+      "projectedLosses": 7.94,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
     "Bowling Green": {
-      "conferenceGame": 0.0079,
-      "conferenceTitle": 0.002,
+      "conferenceGame": 0.0348,
+      "conferenceTitle": 0.0078,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 2.53,
-      "projectedLosses": 9.47,
+      "projectedWins": 3.68,
+      "projectedLosses": 8.32,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     },
-    "Louisiana-Monroe": {
-      "conferenceGame": 0.0024,
-      "conferenceTitle": 0.0003,
+    "Northern Illinois": {
+      "conferenceGame": 0.0103,
+      "conferenceTitle": 0.0021,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 1.48,
-      "projectedLosses": 10.52,
-      "unbeaten": 0.0,
-      "top12": 0.0,
-      "gamesLeft": 8,
-      "playoffChange": 0.0,
-      "titleChange": 0.0
-    },
-    "Ball State": {
-      "conferenceGame": 0.0024,
-      "conferenceTitle": 0.0004,
-      "playoff": 0.0,
-      "bye": 0.0,
-      "quarterfinal": 0.0,
-      "semifinal": 0.0,
-      "final": 0.0,
-      "title": 0.0,
-      "projectedWins": 3.18,
-      "projectedLosses": 8.82,
+      "projectedWins": 2.46,
+      "projectedLosses": 9.54,
       "unbeaten": 0.0,
       "top12": 0.0,
       "gamesLeft": 8,
@@ -2335,91 +2267,478 @@
       "titleChange": 0.0
     },
     "Buffalo": {
-      "conferenceGame": 0.0042,
-      "conferenceTitle": 0.001,
+      "conferenceGame": 0.0039,
+      "conferenceTitle": 0.0014,
       "playoff": 0.0,
       "bye": 0.0,
       "quarterfinal": 0.0,
       "semifinal": 0.0,
       "final": 0.0,
       "title": 0.0,
-      "projectedWins": 4.17,
-      "projectedLosses": 7.83,
+      "projectedWins": 4.33,
+      "projectedLosses": 7.67,
       "unbeaten": 0.0,
       "top12": 0.0,
-      "gamesLeft": 8,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "UTEP": {
+      "conferenceGame": 0.0036,
+      "conferenceTitle": 0.0001,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.07,
+      "projectedLosses": 8.93,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Ball State": {
+      "conferenceGame": 0.0015,
+      "conferenceTitle": 0.0006,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 3.07,
+      "projectedLosses": 8.93,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Louisiana-Monroe": {
+      "conferenceGame": 0.0008,
+      "conferenceTitle": 0.0001,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 1.27,
+      "projectedLosses": 10.73,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
+      "playoffChange": 0.0,
+      "titleChange": 0.0
+    },
+    "Charlotte": {
+      "conferenceGame": 0.0,
+      "conferenceTitle": 0.0,
+      "playoff": 0.0,
+      "bye": 0.0,
+      "quarterfinal": 0.0,
+      "semifinal": 0.0,
+      "final": 0.0,
+      "title": 0.0,
+      "projectedWins": 0.83,
+      "projectedLosses": 11.17,
+      "unbeaten": 0.0,
+      "top12": 0.0,
+      "gamesLeft": 7,
       "playoffChange": 0.0,
       "titleChange": 0.0
     }
   },
   "leverage": {
-    "401856705": {
+    "401856712": {
       "home": {
-        "ifWin": 0.9104,
-        "ifLose": 0.6772
+        "ifWin": 0.9916,
+        "ifLose": 0.9351
       },
       "away": {
-        "ifWin": 0.056,
-        "ifLose": 0.0062
+        "ifWin": 0.9829,
+        "ifLose": 0.8701
       },
-      "swing": 0.2332
+      "swing": 0.1128
     },
-    "401856707": {
+    "401856713": {
       "home": {
-        "ifWin": 0.4163,
-        "ifLose": 0.1418
+        "ifWin": 0.0011,
+        "ifLose": 0.0
       },
       "away": {
-        "ifWin": 0.9268,
-        "ifLose": 0.7002
+        "ifWin": 0.2878,
+        "ifLose": 0.0728
       },
-      "swing": 0.2745
+      "swing": 0.215
     },
-    "401856708": {
+    "401856714": {
       "home": {
-        "ifWin": 0.0687,
-        "ifLose": 0.0068
+        "ifWin": 0.3157,
+        "ifLose": 0.0904
       },
       "away": {
-        "ifWin": 0.6802,
-        "ifLose": 0.3596
+        "ifWin": 0.0177,
+        "ifLose": 0.0009
       },
-      "swing": 0.3206
+      "swing": 0.2253
     },
-    "401856709": {
+    "401856715": {
       "home": {
-        "ifWin": 0.0285,
-        "ifLose": 0.0034
+        "ifWin": 0.1744,
+        "ifLose": 0.0367
       },
       "away": {
-        "ifWin": 0.0686,
-        "ifLose": 0.0105
+        "ifWin": 0.5543,
+        "ifLose": 0.2366
       },
-      "swing": 0.0581
+      "swing": 0.3177
     },
-    "401856710": {
+    "401856716": {
       "home": {
-        "ifWin": 0.2417,
-        "ifLose": 0.0666
+        "ifWin": 0.2082,
+        "ifLose": 0.0508
       },
       "away": {
-        "ifWin": 0.1068,
-        "ifLose": 0.0178
+        "ifWin": 0.1663,
+        "ifLose": 0.0325
       },
-      "swing": 0.1751
+      "swing": 0.1574
     },
-    "401856711": {
+    "401856717": {
       "home": {
-        "ifWin": 0.119,
-        "ifLose": 0.0192
+        "ifWin": 0.3012,
+        "ifLose": 0.0795
       },
       "away": {
-        "ifWin": 0.0051,
+        "ifWin": 0.9788,
+        "ifLose": 0.8856
+      },
+      "swing": 0.2217
+    },
+    "401856718": {
+      "home": {
+        "ifWin": 0.0146,
+        "ifLose": 0.0013
+      },
+      "away": {
+        "ifWin": 0.2597,
+        "ifLose": 0.0758
+      },
+      "swing": 0.1839
+    },
+    "401856808": {
+      "home": {
+        "ifWin": 0.001,
+        "ifLose": 0.0005
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0005
+    },
+    "401856823": {
+      "home": {
+        "ifWin": 0.0007,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.047,
+        "ifLose": 0.0047
+      },
+      "swing": 0.0423
+    },
+    "401856824": {
+      "home": {
+        "ifWin": 0.0072,
+        "ifLose": 0.0004
+      },
+      "away": {
+        "ifWin": 0.0132,
+        "ifLose": 0.0009
+      },
+      "swing": 0.0123
+    },
+    "401856825": {
+      "home": {
+        "ifWin": 0.0594,
+        "ifLose": 0.0055
+      },
+      "away": {
+        "ifWin": 0.1159,
+        "ifLose": 0.0127
+      },
+      "swing": 0.1032
+    },
+    "401856826": {
+      "home": {
+        "ifWin": 0.3777,
+        "ifLose": 0.1073
+      },
+      "away": {
+        "ifWin": 0.0195,
+        "ifLose": 0.0008
+      },
+      "swing": 0.2704
+    },
+    "401856827": {
+      "home": {
+        "ifWin": 0.6018,
+        "ifLose": 0.2539
+      },
+      "away": {
+        "ifWin": 0.0112,
+        "ifLose": 0.0001
+      },
+      "swing": 0.3479
+    },
+    "401858254": {
+      "home": {
+        "ifWin": 0.0213,
+        "ifLose": 0.0006
+      },
+      "away": {
+        "ifWin": 0.0268,
+        "ifLose": 0.0021
+      },
+      "swing": 0.0247
+    },
+    "401858255": {
+      "home": {
+        "ifWin": 0.0011,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0615,
+        "ifLose": 0.0094
+      },
+      "swing": 0.0521
+    },
+    "401858256": {
+      "home": {
+        "ifWin": 0.1052,
+        "ifLose": 0.0228
+      },
+      "away": {
+        "ifWin": 0.0046,
+        "ifLose": 0.0005
+      },
+      "swing": 0.0824
+    },
+    "401858257": {
+      "home": {
+        "ifWin": 0.9222,
+        "ifLose": 0.6731
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.2491
+    },
+    "401858258": {
+      "home": {
+        "ifWin": 0.0107,
+        "ifLose": 0.0014
+      },
+      "away": {
+        "ifWin": 0.0014,
+        "ifLose": 0.0
+      },
+      "swing": 0.0093
+    },
+    "401858259": {
+      "home": {
+        "ifWin": 0.0023,
         "ifLose": 0.0002
       },
-      "swing": 0.0998
+      "away": {
+        "ifWin": 0.0135,
+        "ifLose": 0.0018
+      },
+      "swing": 0.0117
     },
-    "401856807": {
+    "401858260": {
+      "home": {
+        "ifWin": 0.0229,
+        "ifLose": 0.0025
+      },
+      "away": {
+        "ifWin": 0.0614,
+        "ifLose": 0.0072
+      },
+      "swing": 0.0542
+    },
+    "401858480": {
+      "home": {
+        "ifWin": 0.0006,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0006
+    },
+    "401858481": {
+      "home": {
+        "ifWin": 0.2402,
+        "ifLose": 0.0437
+      },
+      "away": {
+        "ifWin": 0.63,
+        "ifLose": 0.2783
+      },
+      "swing": 0.3517
+    },
+    "401858482": {
+      "home": {
+        "ifWin": 0.0559,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0559
+    },
+    "401858483": {
+      "home": {
+        "ifWin": 0.848,
+        "ifLose": 0.56
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.288
+    },
+    "401858484": {
+      "home": {
+        "ifWin": 0.6658,
+        "ifLose": 0.3188
+      },
+      "away": {
+        "ifWin": 0.4782,
+        "ifLose": 0.1645
+      },
+      "swing": 0.347
+    },
+    "401858485": {
+      "home": {
+        "ifWin": 0.0291,
+        "ifLose": 0.0012
+      },
+      "away": {
+        "ifWin": 0.3252,
+        "ifLose": 0.0946
+      },
+      "swing": 0.2306
+    },
+    "401858486": {
+      "home": {
+        "ifWin": 0.0008,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.033,
+        "ifLose": 0.0049
+      },
+      "swing": 0.0281
+    },
+    "401858487": {
+      "home": {
+        "ifWin": 0.0091,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.1354,
+        "ifLose": 0.0243
+      },
+      "swing": 0.1111
+    },
+    "401860901": {
+      "home": {
+        "ifWin": 0.1784,
+        "ifLose": 0.0263
+      },
+      "away": {
+        "ifWin": 0.4915,
+        "ifLose": 0.1756
+      },
+      "swing": 0.3159
+    },
+    "401860902": {
+      "home": {
+        "ifWin": 0.0305,
+        "ifLose": 0.0025
+      },
+      "away": {
+        "ifWin": 0.008,
+        "ifLose": 0.0004
+      },
+      "swing": 0.028
+    },
+    "401860922": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0011,
+        "ifLose": 0.0
+      },
+      "swing": 0.0011
+    },
+    "401861964": {
+      "home": {
+        "ifWin": 0.0007,
+        "ifLose": 0.0002
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0005
+    },
+    "401862794": {
+      "home": {
+        "ifWin": 0.1633,
+        "ifLose": 0.0334
+      },
+      "away": {
+        "ifWin": 0.0916,
+        "ifLose": 0.0105
+      },
+      "swing": 0.1299
+    },
+    "401862795": {
+      "home": {
+        "ifWin": 0.024,
+        "ifLose": 0.0022
+      },
+      "away": {
+        "ifWin": 0.0174,
+        "ifLose": 0.002
+      },
+      "swing": 0.0218
+    },
+    "401862796": {
+      "home": {
+        "ifWin": 0.0134,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0134
+    },
+    "401862797": {
       "home": {
         "ifWin": 0.0022,
         "ifLose": 0.0
@@ -2430,373 +2749,40 @@
       },
       "swing": 0.0022
     },
-    "401856817": {
+    "401862798": {
       "home": {
-        "ifWin": 0.0235,
-        "ifLose": 0.0028
-      },
-      "away": {
-        "ifWin": 0.0544,
-        "ifLose": 0.0082
-      },
-      "swing": 0.0462
-    },
-    "401856818": {
-      "home": {
-        "ifWin": 0.0118,
-        "ifLose": 0.0001
-      },
-      "away": {
-        "ifWin": 0.384,
-        "ifLose": 0.1164
-      },
-      "swing": 0.2676
-    },
-    "401856819": {
-      "home": {
-        "ifWin": 0.0577,
-        "ifLose": 0.0053
-      },
-      "away": {
-        "ifWin": 0.051,
-        "ifLose": 0.0069
-      },
-      "swing": 0.0524
-    },
-    "401856820": {
-      "home": {
-        "ifWin": 0.0272,
-        "ifLose": 0.0014
-      },
-      "away": {
-        "ifWin": 0.0164,
-        "ifLose": 0.0017
-      },
-      "swing": 0.0258
-    },
-    "401856821": {
-      "home": {
-        "ifWin": 0.0017,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.361,
-        "ifLose": 0.1229
-      },
-      "swing": 0.2381
-    },
-    "401856822": {
-      "home": {
-        "ifWin": 0.0067,
-        "ifLose": 0.0004
-      },
-      "away": {
-        "ifWin": 0.0004,
-        "ifLose": 0.0
-      },
-      "swing": 0.0063
-    },
-    "401858246": {
-      "home": {
-        "ifWin": 0.074,
-        "ifLose": 0.0144
+        "ifWin": 0.0492,
+        "ifLose": 0.0072
       },
       "away": {
         "ifWin": 0.0,
         "ifLose": 0.0
       },
-      "swing": 0.0596
+      "swing": 0.042
     },
-    "401858247": {
+    "401862799": {
       "home": {
-        "ifWin": 0.0017,
+        "ifWin": 0.0003,
         "ifLose": 0.0
       },
       "away": {
-        "ifWin": 0.0025,
-        "ifLose": 0.001
-      },
-      "swing": 0.0017
-    },
-    "401858248": {
-      "home": {
-        "ifWin": 0.0287,
-        "ifLose": 0.0014
-      },
-      "away": {
-        "ifWin": 0.0818,
-        "ifLose": 0.009
-      },
-      "swing": 0.0728
-    },
-    "401858249": {
-      "home": {
-        "ifWin": 0.1748,
-        "ifLose": 0.0202
-      },
-      "away": {
-        "ifWin": 0.8088,
-        "ifLose": 0.5093
-      },
-      "swing": 0.2995
-    },
-    "401858250": {
-      "home": {
-        "ifWin": 0.0104,
-        "ifLose": 0.0007
-      },
-      "away": {
-        "ifWin": 0.9277,
-        "ifLose": 0.6701
-      },
-      "swing": 0.2576
-    },
-    "401858251": {
-      "home": {
-        "ifWin": 0.016,
-        "ifLose": 0.0004
-      },
-      "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "swing": 0.0156
-    },
-    "401858252": {
-      "home": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0006,
-        "ifLose": 0.0
+        "ifWin": 0.0008,
+        "ifLose": 0.0002
       },
       "swing": 0.0006
     },
-    "401858253": {
-      "home": {
-        "ifWin": 0.0073,
-        "ifLose": 0.0002
-      },
-      "away": {
-        "ifWin": 0.0778,
-        "ifLose": 0.0197
-      },
-      "swing": 0.0581
-    },
-    "401858472": {
-      "home": {
-        "ifWin": 0.0058,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0001
-      },
-      "swing": 0.0058
-    },
-    "401858473": {
-      "home": {
-        "ifWin": 0.3127,
-        "ifLose": 0.0789
-      },
-      "away": {
-        "ifWin": 0.8435,
-        "ifLose": 0.5546
-      },
-      "swing": 0.2889
-    },
-    "401858474": {
-      "home": {
-        "ifWin": 0.0306,
-        "ifLose": 0.003
-      },
-      "away": {
-        "ifWin": 0.1837,
-        "ifLose": 0.0428
-      },
-      "swing": 0.1409
-    },
-    "401858475": {
-      "home": {
-        "ifWin": 0.1151,
-        "ifLose": 0.0222
-      },
-      "away": {
-        "ifWin": 0.0038,
-        "ifLose": 0.0
-      },
-      "swing": 0.0929
-    },
-    "401858477": {
-      "home": {
-        "ifWin": 0.0008,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.397,
-        "ifLose": 0.1361
-      },
-      "swing": 0.2609
-    },
-    "401858478": {
-      "home": {
-        "ifWin": 0.2645,
-        "ifLose": 0.0687
-      },
-      "away": {
-        "ifWin": 0.0372,
-        "ifLose": 0.0026
-      },
-      "swing": 0.1958
-    },
-    "401858479": {
-      "home": {
-        "ifWin": 0.0401,
-        "ifLose": 0.0052
-      },
-      "away": {
-        "ifWin": 0.0044,
-        "ifLose": 0.0002
-      },
-      "swing": 0.0349
-    },
-    "401860898": {
-      "home": {
-        "ifWin": 0.308,
-        "ifLose": 0.0891
-      },
-      "away": {
-        "ifWin": 0.0026,
-        "ifLose": 0.0
-      },
-      "swing": 0.2189
-    },
-    "401860899": {
-      "home": {
-        "ifWin": 0.0025,
-        "ifLose": 0.0002
-      },
-      "away": {
-        "ifWin": 0.0111,
-        "ifLose": 0.0006
-      },
-      "swing": 0.0105
-    },
-    "401860900": {
-      "home": {
-        "ifWin": 0.0037,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0382,
-        "ifLose": 0.006
-      },
-      "swing": 0.0322
-    },
-    "401860921": {
-      "home": {
-        "ifWin": 0.0081,
-        "ifLose": 0.0008
-      },
-      "away": {
-        "ifWin": 0.0639,
-        "ifLose": 0.0096
-      },
-      "swing": 0.0543
-    },
-    "401862787": {
+    "401864516": {
       "home": {
         "ifWin": 0.0,
         "ifLose": 0.0
       },
       "away": {
-        "ifWin": 0.0175,
-        "ifLose": 0.0033
+        "ifWin": 0.0012,
+        "ifLose": 0.0
       },
-      "swing": 0.0142
+      "swing": 0.0012
     },
-    "401862788": {
-      "home": {
-        "ifWin": 0.0006,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.1916,
-        "ifLose": 0.0452
-      },
-      "swing": 0.1464
-    },
-    "401862790": {
-      "home": {
-        "ifWin": 0.0087,
-        "ifLose": 0.0
-      },
-      "swing": 0.0087
-    },
-    "401862791": {
-      "home": {
-        "ifWin": 0.0013,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0009,
-        "ifLose": 0.0
-      },
-      "swing": 0.0013
-    },
-    "401862792": {
-      "home": {
-        "ifWin": 0.1963,
-        "ifLose": 0.0482
-      },
-      "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "swing": 0.1481
-    },
-    "401862793": {
-      "home": {
-        "ifWin": 0.0005,
-        "ifLose": 0.0
-      },
-      "swing": 0.0005
-    },
-    "401864513": {
-      "home": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0005,
-        "ifLose": 0.0
-      },
-      "swing": 0.0005
-    },
-    "401864514": {
-      "home": {
-        "ifWin": 0.0323,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "swing": 0.0323
-    },
-    "401864515": {
-      "home": {
-        "ifWin": 0.0056,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "swing": 0.0056
-    },
-    "401866430": {
+    "401864517": {
       "home": {
         "ifWin": 0.0,
         "ifLose": 0.0
@@ -2807,51 +2793,18 @@
       },
       "swing": 0.0
     },
-    "401866431": {
+    "401864518": {
       "home": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.013,
-        "ifLose": 0.0032
-      },
-      "swing": 0.0098
-    },
-    "401866432": {
-      "home": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
         "ifWin": 0.0028,
         "ifLose": 0.0
       },
-      "swing": 0.0028
-    },
-    "401866433": {
-      "home": {
-        "ifWin": 0.001,
-        "ifLose": 0.0
-      },
       "away": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
+        "ifWin": 0.0196,
+        "ifLose": 0.0023
       },
-      "swing": 0.001
+      "swing": 0.0173
     },
-    "401866434": {
-      "home": {
-        "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0003,
-        "ifLose": 0.0
-      },
-      "swing": 0.0003
-    },
-    "401866477": {
+    "401864519": {
       "home": {
         "ifWin": 0.0001,
         "ifLose": 0.0
@@ -2862,71 +2815,181 @@
       },
       "swing": 0.0001
     },
-    "401869842": {
+    "401866435": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0
+    },
+    "401866436": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0
+    },
+    "401866437": {
+      "home": {
+        "ifWin": 0.0123,
+        "ifLose": 0.0018
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0105
+    },
+    "401866438": {
+      "home": {
+        "ifWin": 0.0001,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0001
+    },
+    "401866439": {
       "home": {
         "ifWin": 0.0021,
         "ifLose": 0.0
       },
       "away": {
-        "ifWin": 0.0756,
-        "ifLose": 0.0131
-      },
-      "swing": 0.0625
-    },
-    "401869932": {
-      "home": {
-        "ifWin": 0.0092,
-        "ifLose": 0.0008
-      },
-      "away": {
         "ifWin": 0.0,
         "ifLose": 0.0
       },
-      "swing": 0.0084
+      "swing": 0.0021
     },
-    "401869942": {
+    "401866440": {
       "home": {
         "ifWin": 0.0,
-        "ifLose": 0.0
-      },
-      "away": {
-        "ifWin": 0.0002,
-        "ifLose": 0.0
-      },
-      "swing": 0.0002
-    },
-    "401869956": {
-      "home": {
-        "ifWin": 0.0006,
         "ifLose": 0.0
       },
       "away": {
         "ifWin": 0.0,
         "ifLose": 0.0
       },
-      "swing": 0.0006
+      "swing": 0.0
     },
-    "401869962": {
+    "401869843": {
       "home": {
-        "ifWin": 0.1577,
-        "ifLose": 0.0342
-      },
-      "away": {
-        "ifWin": 0.0039,
-        "ifLose": 0.0001
-      },
-      "swing": 0.1235
-    },
-    "401871089": {
-      "home": {
-        "ifWin": 0.0005,
+        "ifWin": 0.0019,
         "ifLose": 0.0
       },
       "away": {
         "ifWin": 0.0,
         "ifLose": 0.0
       },
-      "swing": 0.0005
+      "swing": 0.0019
+    },
+    "401869933": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.001,
+        "ifLose": 0.0
+      },
+      "swing": 0.001
+    },
+    "401869943": {
+      "home": {
+        "ifWin": 0.0001,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0001
+    },
+    "401869949": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.2241,
+        "ifLose": 0.0565
+      },
+      "swing": 0.1676
+    },
+    "401869965": {
+      "home": {
+        "ifWin": 0.0058,
+        "ifLose": 0.0002
+      },
+      "away": {
+        "ifWin": 0.0093,
+        "ifLose": 0.0004
+      },
+      "swing": 0.0089
+    },
+    "401870766": {
+      "home": {
+        "ifWin": 0.0025,
+        "ifLose": 0.0005
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.002
+    },
+    "401871051": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0
+    },
+    "401871052": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0
+    },
+    "401871066": {
+      "home": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0
+    },
+    "401871090": {
+      "home": {
+        "ifWin": 0.0003,
+        "ifLose": 0.0
+      },
+      "away": {
+        "ifWin": 0.0,
+        "ifLose": 0.0
+      },
+      "swing": 0.0003
     }
   },
   "hasHistory": true,
