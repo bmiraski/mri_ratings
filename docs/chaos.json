@@ -31117,77 +31117,77 @@
             "z": -0.9909129612403695
           },
           "5": {
-            "games": 59,
-            "upsets": 14,
             "expectedUpsets": 15.41327970294467,
-            "z": -0.384758478068524,
-            "shocks": [
-              {
-                "gameId": 401866477,
-                "winner": "Bowling Green",
-                "loser": "Miami (OH)",
-                "pregameWinProb": 0.14567406248193704,
-                "winnerScore": 24,
-                "loserScore": 20,
-                "homeScore": 20,
-                "awayScore": 24
-              },
-              {
-                "gameId": 401862792,
-                "winner": "Temple",
-                "loser": "USF",
-                "pregameWinProb": 0.1698776480581099,
-                "winnerScore": 17,
-                "loserScore": 13,
-                "homeScore": 13,
-                "awayScore": 17
-              },
-              {
-                "gameId": 401858472,
-                "winner": "Purdue",
-                "loser": "Illinois",
-                "pregameWinProb": 0.21414807013659698,
-                "winnerScore": 24,
-                "loserScore": 17,
-                "homeScore": 17,
-                "awayScore": 24
-              }
-            ],
-            "missingPregame": 0,
-            "final": true,
-            "reconstructed": false,
             "fallout": {
-              "moved": 1.3195,
               "gained": [
                 {
-                  "team": "Miami (FL)",
-                  "change": 0.1394
+                  "change": 0.1394,
+                  "team": "Miami (FL)"
                 },
                 {
-                  "team": "Indiana",
-                  "change": 0.1179
+                  "change": 0.1179,
+                  "team": "Indiana"
                 },
                 {
-                  "team": "Texas Tech",
-                  "change": 0.1025
+                  "change": 0.1025,
+                  "team": "Texas Tech"
                 }
               ],
               "lost": [
                 {
-                  "team": "Florida",
-                  "change": -0.3273
+                  "change": -0.3273,
+                  "team": "Florida"
                 },
                 {
-                  "team": "LSU",
-                  "change": -0.1318
+                  "change": -0.1318,
+                  "team": "LSU"
                 },
                 {
-                  "team": "USF",
-                  "change": -0.1271
+                  "change": -0.1271,
+                  "team": "USF"
                 }
-              ]
+              ],
+              "moved": 1.3195
             },
-            "percentile": 36.86
+            "final": true,
+            "games": 59,
+            "missingPregame": 0,
+            "percentile": 36.86,
+            "reconstructed": false,
+            "shocks": [
+              {
+                "awayScore": 24,
+                "gameId": 401866477,
+                "homeScore": 20,
+                "loser": "Miami (OH)",
+                "loserScore": 20,
+                "pregameWinProb": 0.14567406248193704,
+                "winner": "Bowling Green",
+                "winnerScore": 24
+              },
+              {
+                "awayScore": 17,
+                "gameId": 401862792,
+                "homeScore": 13,
+                "loser": "USF",
+                "loserScore": 13,
+                "pregameWinProb": 0.1698776480581099,
+                "winner": "Temple",
+                "winnerScore": 17
+              },
+              {
+                "awayScore": 24,
+                "gameId": 401858472,
+                "homeScore": 17,
+                "loser": "Illinois",
+                "loserScore": 17,
+                "pregameWinProb": 0.21414807013659698,
+                "winner": "Purdue",
+                "winnerScore": 24
+              }
+            ],
+            "upsets": 14,
+            "z": -0.384758478068524
           }
         }
       }
