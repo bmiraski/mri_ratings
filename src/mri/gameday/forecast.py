@@ -6,11 +6,13 @@ thousands of times, works out each run's committee-style ranking and each team's
 record as of every target week, and asks the choice model who it would pick in each
 run. Averaging those answers gives each game's chance of being the one.
 
-Because the model that survived testing has no memory - whether GameDay has
-already been to a place turned out not to help predict where it goes next - the
-weeks are independent given a simulated season, and "chance a team hosts at least
-once between now and the end" is exact arithmetic on the weekly chances, not a
-noisy count.
+The one thing the model remembers is whether a host has already hosted this season,
+and only for hosts that are already announced: that is a fact, the same in every
+simulated season, so the weeks stay independent given a simulated season and
+"chance a team hosts at least once between now and the end" is exact arithmetic on
+the weekly chances, not a noisy count. What it does not do is discount a school for
+hosting in a week that has not been announced yet; that would need the weeks played
+in order, and the discount is small.
 
 The conference championship week is treated as what it is: a choice among the ten
 title games, which are only known once standings settle, so each run picks its own
@@ -62,7 +64,9 @@ def forecast(
     ``conference_game``. ``teams`` are FBS teams with ``team``, ``power`` and
     ``conference``. ``context`` carries what is known about each team before the
     season: ``lastRank`` (its rank at the end of last season) and ``brand`` (how
-    often GameDay has wanted it lately), each a dict by team name.
+    often GameDay has wanted it lately), each a dict by team name, and
+    ``hostedBefore``, a dict by week of the hosts already announced for an earlier week
+    (team name to number of times); a week with no entry has none.
     """
     names = [t["team"] for t in teams]
     T = len(names)
@@ -74,6 +78,7 @@ def forecast(
     context = context or {}
     last_rank = np.array([float(context.get("lastRank", {}).get(n, features.RANK_CAP)) for n in names] + [features.RANK_CAP])
     brand = np.array([float(context.get("brand", {}).get(n, 0.0)) for n in names] + [0.0])
+    hosted_by_week = {int(w): d for w, d in context.get("hostedBefore", {}).items()}
     beta = np.asarray(model["coefficients"], dtype=float)
     cols = columns(model)
     p_other = float(model.get("otherRate", 0.05))
@@ -212,9 +217,10 @@ def forecast(
             if not len(idx):
                 continue
             h, a = home[idx], away[idx]
+            hosted = np.array([float(hosted_by_week.get(w, {}).get(names[i], 0)) if i < T else 0.0 for i in h])
             X = features.matrix(rank_home=rank[:, h], rank_away=rank[:, a], losses_home=losses[:, h],
                                 losses_away=losses[:, a], last_rank_home=last_rank[h], last_rank_away=last_rank[a],
-                                brand_home=brand[h], brand_away=brand[a])[..., cols]
+                                brand_home=brand[h], brand_away=brand[a], hosted_before=hosted)[..., cols]
             p = _softmax(X @ beta) * (1.0 - p_other)
             games_p[w] += p.sum(axis=0)
             rh, ra = rank[:, h], rank[:, a]

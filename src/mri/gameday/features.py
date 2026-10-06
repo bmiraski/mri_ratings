@@ -19,10 +19,12 @@ the country will care about, and the country cares about the top of the rankings
 team is better than the host (a top team going on the road is the classic GameDay
 setup, and a top host is a better one).
 
-*Wear.* GameDay does not like to return to the same place. How many times it has
-already been to either team this season, and how often the host has hosted in
-the last three seasons, which is where fatigue and brand pull in opposite
-directions and the data decides which wins.
+*Wear.* GameDay does not like to return to the same place. Whether the host has
+already hosted this season is the part that holds up: it is not a rule (it has
+gone back to a host in about one stop in twelve), but it cuts a game's chances by
+about a third. Merely having visited a team, as a guest, does not count, and nor
+does how often the host has hosted in the last three seasons, which is where
+fatigue and brand pull in opposite directions and the data decides which wins.
 """
 
 from __future__ import annotations
@@ -47,6 +49,7 @@ NAMES = (
     "last_rank_best",   # log of the better team's rank at the end of last season
     "last_rank_worst",
     "brand",            # how often the two teams have been GameDay stops lately
+    "hosted_before",    # the host has already hosted GameDay this season (0 or 1)
 )
 
 RANK_CAP = 60
@@ -61,7 +64,8 @@ def elite_conference(home_conf, away_conf, neutral) -> np.ndarray:
 
 def matrix(*, rank_home, rank_away, losses_home, losses_away, spread=0.0, neutral=0.0, elite=0.0,
            repeat_home=0.0, repeat_away=0.0, host_recent=0.0, rivalry=0.0,
-           last_rank_home=None, last_rank_away=None, brand_home=0.0, brand_away=0.0) -> np.ndarray:
+           last_rank_home=None, last_rank_away=None, brand_home=0.0, brand_away=0.0,
+           hosted_before=0.0) -> np.ndarray:
     """Feature rows for any number of games. Every argument broadcasts."""
     lh_rank = np.minimum(np.asarray(RANK_CAP if last_rank_home is None else last_rank_home, dtype=float), RANK_CAP)
     la_rank = np.minimum(np.asarray(RANK_CAP if last_rank_away is None else last_rank_away, dtype=float), RANK_CAP)
@@ -87,6 +91,7 @@ def matrix(*, rank_home, rank_away, losses_home, losses_away, spread=0.0, neutra
         np.log(np.minimum(lh_rank, la_rank)),
         np.log(np.maximum(lh_rank, la_rank)),
         np.log1p(np.asarray(brand_home, dtype=float)) + np.log1p(np.asarray(brand_away, dtype=float)),
+        np.minimum(np.asarray(hosted_before, dtype=float), 1.0),
     )
     shape = np.broadcast(*columns).shape
     return np.stack([np.broadcast_to(c, shape) for c in columns], axis=-1)

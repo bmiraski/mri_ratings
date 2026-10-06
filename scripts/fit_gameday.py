@@ -5,9 +5,10 @@ the model is asked to pick that game out of every FBS game that week, using only
 ratings from before the week. It is scored by leaving each season out in turn.
 
 The features and their fate are reported, including the ones that did not survive:
-whether GameDay has already been to a place this season, and how often it has
-hosted lately, are the rules of thumb everyone repeats, and neither improves the
-prediction once the rankings are known.
+whether GameDay has already visited a team this season (as host or guest), and how
+often it has hosted lately, do not improve the prediction once the rankings are known.
+Whether the *host* has already hosted this season does, a little: the show goes back
+to a host about one stop in twelve, so the feature is a discount, not a ban.
 
 Run:  PYTHONPATH=src python3 scripts/fit_gameday.py
 Writes data/gameday_model.json and site/data/gameday_backtest.json.
@@ -27,14 +28,16 @@ sys.path.insert(0, str(ROOT / "src"))
 from mri.gameday import features, history, model  # noqa: E402
 
 STAKES = ("best_rank", "worst_rank", "both_top10", "both_top25", "both_unbeaten", "losses")
-USED = STAKES + ("last_rank_best", "last_rank_worst", "brand")
+BASE = STAKES + ("last_rank_best", "last_rank_worst", "brand")
+USED = BASE + ("hosted_before",)
 PENALTY = 3.0
 CANDIDATE_SETS = {
     "rankings and records only": STAKES,
-    "+ how the teams ranked last season and how often GameDay has wanted them (chosen)": USED,
+    "+ how the teams ranked last season and how often GameDay has wanted them": BASE,
+    "+ the host has already hosted this season (chosen)": USED,
     "+ closeness of the game": USED + ("closeness",),
     "+ SEC / Big Ten host": USED + ("elite_conference",),
-    "+ already visited this season": USED + ("repeat_home", "repeat_away"),
+    "+ either team already visited this season, as host or guest": USED + ("repeat_home", "repeat_away"),
     "+ hosted lately": USED + ("host_recent",),
     "+ played each other at this point in the last two years": USED + ("rivalry",),
 }
@@ -112,7 +115,17 @@ def main() -> None:
     }
     (ROOT / "data" / "gameday_model.json").write_text(json.dumps(out, indent=2) + "\n")
 
+    # How often the show went back to a host that had already hosted that season: the discount is not a ban.
+    host_stops = repeat_hosts = 0
+    for y in seasons:
+        hosted: set[str] = set()
+        for stop in sorted((x for x in data["seasons"][y] if x["kind"] == "reg" and x.get("host")), key=lambda x: x["date"]):
+            host_stops += 1
+            repeat_hosts += stop["host"] in hosted
+            hosted.add(stop["host"])
+
     summary = {
+        "repeatHost": {"stops": host_stops, "repeats": repeat_hosts},
         "weeks": n, "seasons": [history.YEARS[0], history.YEARS[-1]], "meanCandidates": round(float(np.mean([len(w.games) for w in weeks])), 1),
         "baseline": {k: round(v, 3) for k, v in baseline.items()},
         "candidateSets": comparison, "chosen": next(k for k in CANDIDATE_SETS if k.endswith("(chosen)")),

@@ -3534,9 +3534,19 @@ def gameday_page(payload: dict) -> str:
     for a in g["announced"]:
         for t in a["teams"]:
             visits[t] = visits.get(t, 0) + 1
-    repeats = [t for t, n in visits.items() if n > 1]
-    repeat_text = (f" &mdash; it has already been back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} this year"
-                   if repeats else "")
+    hosts: dict[str, int] = {}
+    for a in g["announced"]:
+        if a.get("host"):
+            hosts[a["host"]] = hosts.get(a["host"], 0) + 1
+    repeats = [t for t, n in hosts.items() if n > 1]
+    repeat_text = (f" This year it has already gone back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} as host."
+                   if repeats else " This year it has not yet gone back to a host.")
+    seen_twice = [t for t, n in visits.items() if n > 1 and t not in repeats]
+    seen_text = (f" It has featured {', '.join(esc(t) for t in seen_twice[:-1])}{' and ' if len(seen_twice) > 1 else ''}{esc(seen_twice[-1])} more than once, but never as the host twice."
+                 if seen_twice else "")
+    rh = (choice or {}).get("repeatHost")
+    rate_text = (f"GameDay has gone back to a host that had already hosted that season at {rh['repeats']} of {rh['stops']} regular-season stops since 2014"
+                 if rh else "GameDay does sometimes go back to a host") + ", so this is a discount, not a rule."
     open_weeks = [w["week"] for w in g["weeks"]]
     if not open_weeks:
         span = "the rest of the season"
@@ -3561,6 +3571,7 @@ def gameday_page(payload: dict) -> str:
     halving = math.exp(coef["worst_rank"] * math.log(2))
     both25 = math.exp(coef["both_top25"])
     loss_cut = 1.0 - math.exp(coef["losses"])
+    repeat_factor = math.exp(coef.get("hosted_before", 0.0))
     grade = ""
     if choice and ahead:
         grade = f"""
@@ -3609,9 +3620,11 @@ def gameday_page(payload: dict) -> str:
   {'halves' if 0.4 < halving < 0.6 else 'cuts'} a game's chances (to {halving:.0%} of what they were); whether both teams are in the top 25, which makes a game about
   {both25:.1f} times as likely; and losses, each of which, between the two teams, cuts its chances by about {loss_cut:.0%}. Smaller: how the teams ranked last season, and
   how often GameDay has wanted them lately, which is a fair definition of a brand.</p>
-  <p>What did not help, once the rankings were known: whether GameDay had already been to the host this season, how recently the host had hosted, how
-  close the game is expected to be, and whether the host is in the SEC or Big Ten. The rule of thumb that the show does not come back to the same place is not visible
-  in the picks{repeat_text}.</p>{grade}
+  <p>The show does not like to return to the same campus: a host that has already hosted this season has its game's chances cut to
+  {repeat_factor:.0%} of what they were. {rate_text} The discount is applied only to hosts already announced, so a school that might host twice
+  before the season ends is not marked down for a stop that has not happened yet.{repeat_text}{seen_text}</p>
+  <p>What did not help, once the rankings were known: whether GameDay had already visited either team this season, as host or guest, how recently the host had hosted, how
+  close the game is expected to be, and whether the host is in the SEC or Big Ten.</p>{grade}
 {wrong}
   <p class="muted">Past locations from NCAA.com's history of the show; announcements from ESPN.</p>
   </article>"""

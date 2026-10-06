@@ -100,6 +100,7 @@ def build(year: int, payload: dict, *, sims: int = forecast.DEFAULT_SIMS) -> dic
     checked = [w for w in sorted(done) if w >= first_open]
     home_field = float(payload["homeField"])
     context = _context(year, data, names)
+    context["hostedBefore"] = history.hosts_by_week(announced, range(1, last + 1))
     forecast_ahead = forecast.forecast(teams, schedule, home_field=home_field, model=model, weeks=ahead, sims=sims, context=context)
     forecast_check = (forecast.forecast(teams, schedule, home_field=home_field, model=model, weeks=checked, sims=sims, context=context)
                       if checked else {"weeks": {}})

@@ -41,6 +41,22 @@ def load(path: Path = DATA) -> dict:
     return json.loads(path.read_text())
 
 
+def hosts_by_week(stops: list[dict], weeks) -> dict[int, dict[str, int]]:
+    """For each week, how many times each school has already hosted in an earlier week's stop.
+
+    ``stops`` carry ``week`` and ``host`` (None for a neutral site). Only schools that
+    have hosted appear, and a week before the first stop maps to an empty dict.
+    """
+    return {int(w): _count(s["host"] for s in stops if s.get("host") and s["week"] < w) for w in weeks}
+
+
+def _count(names) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for n in names:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
 def stop_weeks(stops: list[dict], games: pd.DataFrame) -> list[int | None]:
     """The week of each stop: from the game it went to, or from its date when it went elsewhere."""
     starts = pd.to_datetime(games["start_date"], utc=True)
@@ -135,6 +151,11 @@ def build(years=YEARS, data: dict | None = None) -> list[Week]:
                     for t in s["teams"]:
                         seen[t] = seen.get(t, 0) + 1
 
+            hosted: dict[str, int] = {}
+            for s, w in zip(stops, s_weeks):
+                if w is not None and w < week and s.get("host"):
+                    hosted[s["host"]] = hosted.get(s["host"], 0) + 1
+
             home, away = cand["team2"], cand["team1"]
             spread = (home.map(power) - away.map(power)).to_numpy() + np.where(cand["neutral"], 0.0, model.home_field)
             rival = np.array([
@@ -155,6 +176,7 @@ def build(years=YEARS, data: dict | None = None) -> list[Week]:
                 last_rank_away=away.map(last_rank).fillna(features.RANK_CAP).to_numpy(),
                 brand_home=home.map(brand).fillna(0).to_numpy(),
                 brand_away=away.map(brand).fillna(0).to_numpy(),
+                hosted_before=home.map(hosted).fillna(0).to_numpy(),
             )
             a, b = pick["teams"]
             hit = cand.index[((cand["team1"] == a) & (cand["team2"] == b)) | ((cand["team1"] == b) & (cand["team2"] == a))]
