@@ -34,7 +34,11 @@
       "teamRecord": "5\u20130",
       "teamTop4": 0.802,
       "winIfTop4": 0.27608681064377094,
-      "winIfNot": 0.06638851203097415
+      "winIfNot": 0.06638851203097414,
+      "market": {
+        "odds": 750,
+        "implied": 0.1176
+      }
     },
     {
       "player": "Jeremiah Smith",
@@ -58,7 +62,11 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.521,
       "winIfTop4": 0.26657000028452266,
-      "winIfNot": 0.08190678082438778
+      "winIfNot": 0.08190678082438779,
+      "market": {
+        "odds": 115,
+        "implied": 0.4651
+      }
     },
     {
       "player": "Julian Sayin",
@@ -82,7 +90,8 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.521,
       "winIfTop4": 0.17432328352809145,
-      "winIfNot": 0.05774108905919047
+      "winIfNot": 0.05774108905919047,
+      "market": null
     },
     {
       "player": "Darian Mensah",
@@ -105,8 +114,12 @@
       "teamRank": 6,
       "teamRecord": "5\u20130",
       "teamTop4": 0.258,
-      "winIfTop4": 0.1714355919836163,
-      "winIfNot": 0.08858094663655927
+      "winIfTop4": 0.17143559198361633,
+      "winIfNot": 0.08858094663655927,
+      "market": {
+        "odds": 460,
+        "implied": 0.1786
+      }
     },
     {
       "player": "Trinidad Chambliss",
@@ -130,7 +143,11 @@
       "teamRecord": "3\u20131",
       "teamTop4": 0.015,
       "winIfTop4": 0.23438856018021328,
-      "winIfNot": 0.033020376623080015
+      "winIfNot": 0.033020376623080015,
+      "market": {
+        "odds": 1600,
+        "implied": 0.0588
+      }
     },
     {
       "player": "Malachi Toney",
@@ -154,7 +171,8 @@
       "teamRecord": "5\u20130",
       "teamTop4": 0.258,
       "winIfTop4": 0.06572043373098407,
-      "winIfNot": 0.023094672037676293
+      "winIfNot": 0.023094672037676293,
+      "market": null
     },
     {
       "player": "Kamario Taylor",
@@ -178,7 +196,8 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.004,
       "winIfTop4": 0.20324715605617857,
-      "winIfNot": 0.029537141518570256
+      "winIfNot": 0.029537141518570256,
+      "market": null
     },
     {
       "player": "Sam Leavitt",
@@ -202,7 +221,8 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.079,
       "winIfTop4": 0.10785465828339313,
-      "winIfNot": 0.01752926102534926
+      "winIfNot": 0.01752926102534926,
+      "market": null
     },
     {
       "player": "Kevin Jennings",
@@ -226,7 +246,8 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.02325739817380374
+      "winIfNot": 0.02325739817380374,
+      "market": null
     },
     {
       "player": "Wayshawn Parker",
@@ -249,8 +270,9 @@
       "teamRank": 10,
       "teamRecord": "4\u20130",
       "teamTop4": 0.093,
-      "winIfTop4": 0.058369876643158916,
-      "winIfNot": 0.012695583823219182
+      "winIfTop4": 0.05836987664315892,
+      "winIfNot": 0.01269558382321918,
+      "market": null
     },
     {
       "player": "C.J. Carr",
@@ -273,8 +295,12 @@
       "teamRank": 4,
       "teamRecord": "5\u20130",
       "teamTop4": 0.349,
-      "winIfTop4": 0.023940764793414764,
-      "winIfNot": 0.010807414922609298
+      "winIfTop4": 0.02394076479341476,
+      "winIfNot": 0.010807414922609298,
+      "market": {
+        "odds": 800,
+        "implied": 0.1111
+      }
     },
     {
       "player": "Jayden Maiava",
@@ -298,7 +324,8 @@
       "teamRecord": "5\u20131",
       "teamTop4": 0.016,
       "winIfTop4": 0.12806563596275009,
-      "winIfNot": 0.011991530840578447
+      "winIfNot": 0.01199153084057845,
+      "market": null
     },
     {
       "player": "Giovanni Lopez",
@@ -322,7 +349,8 @@
       "teamRecord": "4\u20131",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.013120500152266129
+      "winIfNot": 0.013120500152266129,
+      "market": null
     },
     {
       "player": "Anthony Colandrea",
@@ -346,7 +374,8 @@
       "teamRecord": "5\u20130",
       "teamTop4": 0.009,
       "winIfTop4": 0.1411465146056623,
-      "winIfNot": 0.010577789075101224
+      "winIfNot": 0.010577789075101224,
+      "market": null
     },
     {
       "player": "Wayne Knight",
@@ -369,8 +398,9 @@
       "teamRank": 19,
       "teamRecord": "4\u20130",
       "teamTop4": 0.025,
-      "winIfTop4": 0.08754839579841313,
-      "winIfNot": 0.009286879025816248
+      "winIfTop4": 0.0875483957984131,
+      "winIfNot": 0.009286879025816248,
+      "market": null
     }
   ],
   "rest": 0.1285,
@@ -570,5 +600,9 @@
       }
     ]
   },
-  "market": null
+  "market": {
+    "asOf": "2026-10-04",
+    "source": "DraftKings Sportsbook, as reported by Sports Illustrated going into Week 6",
+    "note": "Only the players the article quotes. American odds; the implied chance includes the sportsbook's margin, so it runs high."
+  }
 }
