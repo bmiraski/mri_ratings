@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ..betting.board import MIN_EDGE_TO_SHOW as MIN_EDGE
+from ..ratings import history
 from ..sim import season as sim_season
 from . import common
 
@@ -1053,7 +1054,7 @@ def _hidden_team_section(team: dict, payload: dict) -> str:
 
 
 def _coaches_section(team: dict, payload: dict) -> str:
-    """Every coach this team has had since 2003, mean performance only - no hot-seat
+    """Every coach this team has had since 1978, mean performance only - no hot-seat
     number here. Names are plain text, not links: the per-coach pages exist but are
     unlisted for now (see build_site.py), and this is a page real visitors reach."""
     coaches = (payload.get("coaches") or {}).get(team["team"])
@@ -1067,9 +1068,12 @@ def _coaches_section(team: dict, payload: dict) -> str:
         f'<td class="res">{esc(c["record"])}</td><td class="num">&ndash;</td></tr>'
         for c in coaches
     )
+    early = any(int(c["years"][:4]) <= max(history.BURN_IN_SEASONS) for c in coaches)
+    note = (f'\n      <p class="hint">Mean added leaves out {min(history.BURN_IN_SEASONS)}&ndash;{max(history.BURN_IN_SEASONS)}, '
+            f'the first seasons rated, which have no preseason prior to measure against.</p>' if early else "")
     return f"""
     <section>
-      <h2>Coaches</h2>
+      <h2>Coaches</h2>{note}
       <div class="tablewrap"><table>
         <thead><tr><th>Coach</th><th>Years</th><th>Record</th><th class="num">Mean added</th></tr></thead>
         <tbody>{rows}</tbody>
@@ -2587,17 +2591,17 @@ def _chaos_fallout(fallout: dict) -> str:
     </div>""" if chips else ""
 
 
-def _chaos_final_panel(entry: dict) -> str:
+def _chaos_final_panel(entry: dict, up: str = "") -> str:
     """Once the week is final: the percentile bar and rank, upsets against expected, the biggest
     shocks, and fallout."""
     percentile = entry.get("percentile")
     if percentile is not None:
-        header = (f'<p class="ptitle">{_chaos_icon()}Chaos {percentile:.0f}</p>'
+        header = (f'<p class="ptitle">{_chaos_icon(up)}Chaos {percentile:.0f}</p>'
                    f'<p class="note">Wilder than {percentile:.0f}% of weeks in the archive.</p>{_chaos_bar(percentile)}')
     elif entry.get("note") == "not_enough_games":
-        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not enough games to rate.</p>'
+        header = f'<p class="ptitle">{_chaos_icon(up)}Chaos</p><p class="note">Not enough games to rate.</p>'
     else:
-        header = f'<p class="ptitle">{_chaos_icon()}Chaos</p><p class="note">Not yet ranked against the archive.</p>'
+        header = f'<p class="ptitle">{_chaos_icon(up)}Chaos</p><p class="note">Not yet ranked against the archive.</p>'
 
     upsets, expected = entry.get("upsets"), entry.get("expectedUpsets")
     stats = (f'<p class="chaosstats">{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> '
@@ -2623,7 +2627,7 @@ def _chaos_toss_ups(slate: dict, n: int = 3) -> list[dict]:
     return games[:n]
 
 
-def _chaos_before_panel(current: dict, slate: dict) -> str:
+def _chaos_before_panel(current: dict, slate: dict, up: str = "") -> str:
     """Before the week's games: expected upsets, and the games the model is least sure about."""
     lines = "".join(
         f'<li><span class="who">{esc(g["away"])} <span class="muted">at</span> {esc(g["home"])}</span>'
@@ -2632,25 +2636,25 @@ def _chaos_before_panel(current: dict, slate: dict) -> str:
     )
     return f"""
   <section class="chaosmeter">
-    <p class="ptitle">{_chaos_icon()}Expected upsets this week: {current["expectedUpsets"]:.1f}</p>
+    <p class="ptitle">{_chaos_icon(up)}Expected upsets this week: {current["expectedUpsets"]:.1f}</p>
     <p class="note">The three games the model is least sure about:</p>
     <ul class="chaostossups">{lines}</ul>
   </section>"""
 
 
-def _chaos_partial_panel(current: dict) -> str:
+def _chaos_partial_panel(current: dict, up: str = "") -> str:
     """During the week: a "so far" reading, clearly labelled partial."""
     upsets, expected = current.get("upsets"), current.get("expectedUpsets")
     body = (f'{upsets} upset{"s" if upsets != 1 else ""} <span class="muted">against</span> {expected:.1f} expected so far'
             if upsets is not None else f'Expected upsets this week: {expected:.1f}')
     return f"""
   <section class="chaosmeter partial">
-    <p class="ptitle">{_chaos_icon()}Chaos so far <span class="chaospartial">Partial</span></p>
+    <p class="ptitle">{_chaos_icon(up)}Chaos so far <span class="chaospartial">Partial</span></p>
     <p class="note">{body}</p>
   </section>"""
 
 
-def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None) -> str:
+def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None, up: str = "") -> str:
     """The Chaos meter panel atop the Slate page (live or a frozen archive page), in whichever of
     three states the week has reached: not started, partway through, or final.
 
@@ -2662,14 +2666,14 @@ def chaos_panel(chaos: dict | None, slate: dict, season: int | None = None) -> s
     season_entry = chaos.get("archive", {}).get("seasons", {}).get(str(season), {})
     week_entry = (season_entry.get("weeks") or {}).get(str(week))
     if week_entry and week_entry.get("final"):
-        return _chaos_final_panel(week_entry)
+        return _chaos_final_panel(week_entry, up)
 
     current = chaos.get("current")
     if not current:
         return ""
     if current.get("gamesPlayed", 0) == 0:
-        return _chaos_before_panel(current, slate)
-    return _chaos_partial_panel(current)
+        return _chaos_before_panel(current, slate, up)
+    return _chaos_partial_panel(current, up)
 
 
 def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dict] | None = None,
@@ -2971,13 +2975,18 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
   <div class="tablewrap"><table class="slate"><thead><tr><th>When</th><th>Game</th>
     <th class="num">Model</th><th class="num">Win</th></tr></thead><tbody>{rows}</tbody></table></div>"""
 
-    past = [e for e in (archives or []) if e["id"] != archive_id][:ARCHIVE_LINKS]
+    # Only the page's own season: the other seasons are reachable from the Seasons page and the nav, and a
+    # full-history list buries the weeks a reader came for. A football season is short enough to list whole;
+    # basketball's daily slates are capped to the most recent.
+    past = [e for e in (archives or []) if e["id"] != archive_id and e["season"] == season]
+    if bb:
+        past = past[:ARCHIVE_LINKS]
     current_word = "Today" if bb else "This week"
     current = f'<a href="{up}slate.html">{current_word}</a>' if archive and payload.get("slate") else ""
     past_links = ""
     if past or current:
         links = [current] if current else []
-        links += [f'<a href="{up}{e["href"]}">{"" if e["season"] == season else str(e["season"]) + " "}{esc(e["label"])}</a>'
+        links += [f'<a href="{up}{e["href"]}">{esc(e["label"])}</a>'
                   for e in past]
         past_links = f'\n  <p class="slpast"><span class="muted">Slates:</span> {" &middot; ".join(links)}</p>'
     day_nav = ""
@@ -3033,7 +3042,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                  else f"{week_name(slate)} slate — MRI {season_text(payload)}")
         description = "Every game this week: model line, market line, live scores, and what rides on it."
 
-    chaos_html = "" if bb else chaos_panel(payload.get("chaos"), slate, season)
+    chaos_html = "" if bb else chaos_panel(payload.get("chaos"), slate, season, up)
 
     body = f"""
   <article class="prose wide" id="slate" data-key="{esc(live.slate_key({**slate, 'season': season}))}">{day_nav}
@@ -3525,9 +3534,19 @@ def gameday_page(payload: dict) -> str:
     for a in g["announced"]:
         for t in a["teams"]:
             visits[t] = visits.get(t, 0) + 1
-    repeats = [t for t, n in visits.items() if n > 1]
-    repeat_text = (f" &mdash; it has already been back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} this year"
-                   if repeats else "")
+    hosts: dict[str, int] = {}
+    for a in g["announced"]:
+        if a.get("host"):
+            hosts[a["host"]] = hosts.get(a["host"], 0) + 1
+    repeats = [t for t, n in hosts.items() if n > 1]
+    repeat_text = (f" This year it has already gone back to {', '.join(esc(t) for t in repeats[:-1])}{' and ' if len(repeats) > 1 else ''}{esc(repeats[-1])} as host."
+                   if repeats else " This year it has not yet gone back to a host.")
+    seen_twice = [t for t, n in visits.items() if n > 1 and t not in repeats]
+    seen_text = (f" It has featured {', '.join(esc(t) for t in seen_twice[:-1])}{' and ' if len(seen_twice) > 1 else ''}{esc(seen_twice[-1])} more than once, but never as the host twice."
+                 if seen_twice else "")
+    rh = (choice or {}).get("repeatHost")
+    rate_text = (f"GameDay has gone back to a host that had already hosted that season at {rh['repeats']} of {rh['stops']} regular-season stops since 2014"
+                 if rh else "GameDay does sometimes go back to a host") + ", so this is a discount, not a rule."
     open_weeks = [w["week"] for w in g["weeks"]]
     if not open_weeks:
         span = "the rest of the season"
@@ -3552,6 +3571,7 @@ def gameday_page(payload: dict) -> str:
     halving = math.exp(coef["worst_rank"] * math.log(2))
     both25 = math.exp(coef["both_top25"])
     loss_cut = 1.0 - math.exp(coef["losses"])
+    repeat_factor = math.exp(coef.get("hosted_before", 0.0))
     grade = ""
     if choice and ahead:
         grade = f"""
@@ -3600,9 +3620,11 @@ def gameday_page(payload: dict) -> str:
   {'halves' if 0.4 < halving < 0.6 else 'cuts'} a game's chances (to {halving:.0%} of what they were); whether both teams are in the top 25, which makes a game about
   {both25:.1f} times as likely; and losses, each of which, between the two teams, cuts its chances by about {loss_cut:.0%}. Smaller: how the teams ranked last season, and
   how often GameDay has wanted them lately, which is a fair definition of a brand.</p>
-  <p>What did not help, once the rankings were known: whether GameDay had already been to the host this season, how recently the host had hosted, how
-  close the game is expected to be, and whether the host is in the SEC or Big Ten. The rule of thumb that the show does not come back to the same place is not visible
-  in the picks{repeat_text}.</p>{grade}
+  <p>The show does not like to return to the same campus: a host that has already hosted this season has its game's chances cut to
+  {repeat_factor:.0%} of what they were. {rate_text} The discount is applied only to hosts already announced, so a school that might host twice
+  before the season ends is not marked down for a stop that has not happened yet.{repeat_text}{seen_text}</p>
+  <p>What did not help, once the rankings were known: whether GameDay had already visited either team this season, as host or guest, how recently the host had hosted, how
+  close the game is expected to be, and whether the host is in the SEC or Big Ten.</p>{grade}
 {wrong}
   <p class="muted">Past locations from NCAA.com's history of the show; announcements from ESPN.</p>
   </article>"""

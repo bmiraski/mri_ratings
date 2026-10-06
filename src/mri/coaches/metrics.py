@@ -165,6 +165,11 @@ def coach_season_metrics(
 
     out["power_end"] = out.apply(power_end, axis=1)
     out["prior"] = out.apply(lambda r: ratings["prior"].get((r.school, int(r.season))), axis=1)
+    # The cold-start seasons have no real prior behind them (history.BURN_IN_SEASONS), so
+    # "added" against it says nothing about the coach - null, not a guess. Power itself is
+    # still a real measurement and stays.
+    burn_in = out["season"].isin(history.BURN_IN_SEASONS)
+    out.loc[burn_in, "prior"] = None
     out["added"] = out["power_end"] - out["prior"]
     out["inherited"] = out.apply(lambda r: ratings["power"].get((r.school, int(r.stint_start) - 1)), axis=1)
     out["vs_inherited"] = out["power_end"] - out["inherited"]

@@ -1886,8 +1886,10 @@ def test_chaos_panel_final_but_not_enough_games() -> None:
 
 def test_slate_page_embeds_the_chaos_panel_and_nav_link_when_chaos_data_is_present(extended) -> None:
     entry = {"final": True, "percentile": 60.0, "z": 0.4, "upsets": 3, "expectedUpsets": 4.0, "shocks": []}
+    # Keyed by the slate's own week: the payload is the live one, and the week rolls over.
+    week = str(extended["slate"]["week"])
     p = dict(extended, chaos={"current": None,
-                              "archive": {"seasons": {str(extended["season"]): {"weeks": {"4": entry}}}}})
+                              "archive": {"seasons": {str(extended["season"]): {"weeks": {week: entry}}}}})
     text = site.slate_page(p)
     assert 'class="chaosmeter final"' in text
     assert 'href="chaos.html">Chaos</a>' in text
@@ -1958,3 +1960,25 @@ def test_chaos_page_links_a_week_with_an_archive_and_leaves_one_without_it_plain
     assert f'href="slate/{p["season"]}-week-4.html#g1">' in text  # the shock links to the exact game
     assert ">Week 5</td>" in text  # the un-archived week stays plain text, not a broken link
     assert not _broken_links(tmp_path)
+
+
+def test_coaches_section_explains_the_missing_early_added_only_when_it_shows_early_years(payload) -> None:
+    team = payload["teams"][0]
+    early = {**payload, "coaches": {team["team"]: [
+        {"name": "Old Coach", "years": "1978–1988", "record": "106-24-2", "meanAdded": 5.9},
+    ]}}
+    modern = {**payload, "coaches": {team["team"]: [
+        {"name": "New Coach", "years": "2012–2016", "record": "30-20", "meanAdded": 2.5},
+    ]}}
+    assert "1978&ndash;1980" in site._coaches_section(team, early)
+    assert "106-24-2" in site._coaches_section(team, early)
+    assert "1978&ndash;1980" not in site._coaches_section(team, modern)
+
+
+def test_chaos_panel_icon_path_is_relative_to_the_page_depth(monkeypatch, tmp_path) -> None:
+    (tmp_path / "chaos-icon.png").write_bytes(b"x")
+    monkeypatch.setattr(site, "BRAND_WEB", tmp_path)
+    entry = {"final": True, "percentile": 50.0, "upsets": 1, "expectedUpsets": 1.0}
+    chaos = {"current": None, "archive": {"seasons": {"2026": {"weeks": {"4": entry}}}}}
+    assert 'src="assets/chaos-icon.png"' in site.chaos_panel(chaos, _chaos_slate())
+    assert 'src="../assets/chaos-icon.png"' in site.chaos_panel(chaos, _chaos_slate(), up="../")

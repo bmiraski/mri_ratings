@@ -221,3 +221,27 @@ def test_ship_bar_passes_with_signal_and_fails_without_it() -> None:
     without_signal = _synthetic_seasons(12, signal=False, seed=3)
     result_no_signal = hotseat.evaluate(without_signal, full_cols=["vs_par"])
     assert result_no_signal["aucFull"] == pytest.approx(0.5, abs=0.07)
+
+
+def test_power_conference_is_judged_by_era() -> None:
+    assert hotseat.is_power_conference("Pac-10", 1999) and hotseat.is_power_conference("Big East", 2005)
+    assert hotseat.is_power_conference("Pac-12", 2019) and not hotseat.is_power_conference("Pac-12", 2026)
+    assert not hotseat.is_power_conference("Mid-American", 2010)
+
+
+def test_an_ambiguous_departure_is_left_out_of_training_not_counted_as_a_zero() -> None:
+    coach_season = _coach_season(
+        _row("unknown-coach", "School A", 2010),
+        _row("kept-coach", "School B", 2010),
+        _row("anchor", "School C", MAX_SEASON),
+    )
+    departures = _departures(("unknown-coach", "School A", 2010, "ambiguous"))
+    data = hotseat.dataset(coach_season, departures)
+    assert set(data["coach_id"]) == {"kept-coach"}
+
+
+def test_first_season_widens_the_training_window() -> None:
+    coach_season = _coach_season(_row("old", "School A", 1990), _row("new", "School B", 2010),
+                                 _row("anchor", "School C", MAX_SEASON))
+    assert set(hotseat.dataset(coach_season, EMPTY_DEPARTURES, first_season=2004)["coach_id"]) == {"new"}
+    assert set(hotseat.dataset(coach_season, EMPTY_DEPARTURES, first_season=1984)["coach_id"]) == {"old", "new"}

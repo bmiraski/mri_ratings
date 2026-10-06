@@ -53,7 +53,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-FIRST_LABELED_SEASON = 2004  # the plan's own cutoff - see the module docstring
+FIRST_LABELED_SEASON = 1984  # 1978-80 are burn-in and early seasons lack program_par; 1984 on is labeled
+                             # (the plan's own cutoff was 2004 - widening beat it out of sample)
 MOVED_UP_TOLERANCE = 3.0     # points of program_par slack that still counts as "comparable"
 
 FIRED = "fired_or_pushed_out"
@@ -189,3 +190,18 @@ def build(coach_season: pd.DataFrame) -> pd.DataFrame:
             "next": result["next"],
         })
     return pd.DataFrame(rows)
+
+
+def keep_manual_labels(records: list[dict], existing: list[dict]) -> tuple[list[dict], list[dict]]:
+    """``records`` (a fresh build) with every hand-reviewed row from ``existing`` carried over.
+
+    ``build`` only knows how to guess; a ``source: manual`` row is a person's decision and
+    must survive a rebuild. Returns the merged records and any manual rows whose
+    (coach_id, school, season) no longer appears in the fresh build - kept out of the
+    result and reported, since the underlying coach data moved under them.
+    """
+    key = lambda r: (r["coach_id"], r["school"], r["season"])  # noqa: E731
+    manual = {key(r): r for r in existing if r.get("source") == "manual"}
+    merged = [manual.get(key(r), r) for r in records]
+    seen = {key(r) for r in records}
+    return merged, [r for k, r in manual.items() if k not in seen]

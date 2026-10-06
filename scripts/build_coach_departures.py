@@ -2,7 +2,8 @@
 
 Ambiguous cases are printed in full for hand review - edit their "label" to
 fired_or_pushed_out / moved_up / retired_or_other and "source" to "manual"
-directly in data/coach_departures.json once reviewed.
+directly in data/coach_departures.json once reviewed. Rows already marked
+"manual" are carried over unchanged on every rebuild.
 
 Run:  PYTHONPATH=src python3 scripts/build_coach_departures.py
 """
@@ -58,11 +59,15 @@ def main() -> None:
     for row in ambiguous.itertuples():
         print(f"  {row.season} {row.school:24} {row.coach_name:22} {row.reason}")
 
-    out = {
-        "generated": dt.date.today().isoformat(),
-        "departures": _no_nan(table.to_dict(orient="records")),
-    }
     out_path = ROOT / "data" / "coach_departures.json"
+    existing = json.loads(out_path.read_text())["departures"] if out_path.exists() else []
+    records, orphans = departures.keep_manual_labels(_no_nan(table.to_dict(orient="records")), existing)
+    kept = sum(1 for r in records if r.get("source") == "manual")
+    print(f"\nkept {kept} hand-reviewed label(s) from the existing file")
+    for r in orphans:
+        print(f"  WARNING: manual label no longer matches a departure, dropped: "
+              f"{r['season']} {r['school']} {r['coach_name']} ({r['label']})")
+    out = {"generated": dt.date.today().isoformat(), "departures": records}
     out_path.write_text(json.dumps(out, indent=2, default=str, allow_nan=False) + "\n")
     print(f"\nwrote {len(table)} departures to {out_path.relative_to(ROOT)}")
 

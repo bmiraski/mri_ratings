@@ -63,7 +63,11 @@ def main() -> None:
         schedule.loc[~schedule["played"], ["pts1", "pts2"]] = np.nan
         target = [w for w in sorted(set(weeks)) if FIRST <= w <= cg_week]
         context = {"lastRank": {t: float(r) for t, r in power_np[year - 1].rank(ascending=False).items()},
-                   "brand": history.appearance_rates(data, year)}
+                   "brand": history.appearance_rates(data, year),
+                   # only the stops through AS_OF are known when the forecast is made
+                   "hostedBefore": history.hosts_by_week(
+                       [{"week": w, "host": s.get("host")} for s, w in zip(stops, weeks) if w is not None and w <= AS_OF],
+                       target)}
         result = forecast.forecast(field, schedule, home_field=fitted.home_field, model=model, weeks=target,
                                    championship_week=cg_week, sims=SIMS, context=context)
 

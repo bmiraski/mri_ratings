@@ -58,16 +58,27 @@
     </div>
 
 
-    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Illinois State (88&ndash;80)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">Indiana State (63&ndash;84)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">+0.9 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">+2.2 avg opponent</span></div><div class="hl" title="The share of last season's win shares produced by players still on the roster."><span class="hll">Returning production</span><span class="hlv">29% of last season's win shares &middot; #155 of 364 &middot; counted against its preseason rating</span></div><div class="hl" title="What this roster's newcomers produced last season at other schools: the transfer portal."><span class="hll">Incoming production</span><span class="hlv">2.9 win shares from other schools' players</span></div><div class="hl" title="How highly the incoming recruits were rated, summed over the class."><span class="hll">Recruiting class</span><span class="hlv">#203 in the country</span></div></div>
+    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Illinois State (88&ndash;80)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">Indiana State (63&ndash;84)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">+1.2 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">+2.2 avg opponent</span></div><div class="hl" title="The share of last season's win shares produced by players still on the roster."><span class="hll">Returning production</span><span class="hlv">29% of last season's win shares &middot; #155 of 364 &middot; counted against its preseason rating</span></div><div class="hl" title="What this roster's newcomers produced last season at other schools: the transfer portal."><span class="hll">Incoming production</span><span class="hlv">2.9 win shares from other schools' players</span></div><div class="hl" title="How highly the incoming recruits were rated, summed over the class."><span class="hll">Recruiting class</span><span class="hlv">#203 in the country</span></div></div>
+
+
+    <section class="build">
+      <h2>How this rating is built</h2>
+      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 8). After 32 games, <em>w</em> is 80%, so the preseason prior is <strong>20%</strong> of this rating. Every game played shrinks that share.</p>
+      <div class="tablewrap"><table class="buildtable">
+        <thead><tr><th>Part</th><th class="num">Value</th><th class="num">Weight</th><th class="num">Adds</th></tr></thead>
+        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">-12.7 avg</td><td class="num">&times; 80%</td><td class="num">-10.1</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">+1.2 avg</td><td class="num">&times; 80%</td><td class="num">+0.9</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-8.6</td><td class="num">&times; 20%</td><td class="num">-1.7</td></tr></tbody>
+        <tfoot><tr><td colspan="3">Power</td><td class="num">-10.9</td></tr></tfoot>
+      </table></div>
+      <p class="note">This explains how the model reached the number. The opponent ratings come out of
+      the same fitted model, so it is not independent proof that the rating is right.</p>
+    </section>
 
     <section>
       <h2>Results</h2>
-      <p class="hint"><strong>Expected</strong> is the margin the model's ratings imply for that
-      matchup and site. <strong>Perf</strong> is how far the actual margin beat it &mdash; the
-      number that moves a rating, rather than the win or loss alone.</p>
-      <div class="tablewrap"><table>
+      <p class="hint"><strong>Expected</strong> is the margin the model's ratings imply for that matchup and site. <strong>Perf</strong> is how far the actual margin beat it &mdash; the result against expectation. <strong>Adds</strong> is a different question: how many points of Power the game contributes, counting its margin and the strength of the opponent together. A game can beat expectation and still add little, or the reverse. Adds, plus the preseason prior, sum to Power (figures are rounded so the column adds up). Hover an Adds figure for its arithmetic.</p>
+      <div class="tablewrap"><table class="results">
         <thead><tr><th>Wk</th><th></th><th>Opponent</th><th>Result</th>
-        <th class="num">Expected</th><th class="num">Perf</th></tr></thead>
+        <th class="num">Expected</th><th class="num">Perf</th><th class="num">Adds</th></tr></thead>
         <tbody>
       <tr>
         <td class="wk">1</td>
@@ -76,6 +87,7 @@
         <td class="res"><span class="l">L</span> 51&ndash;82</td>
         <td class="num">-40.4</td>
         <td class="num perf over">+9.4</td>
+        <td class="num adds" title="Margin −31 counts as −32.5. Opponent rated +26.8. (−32.5 +26.8) ÷ (32 + 8) ≈ −0.14">-0.1</td>
       </tr>
       <tr>
         <td class="wk">1</td>
@@ -84,6 +96,7 @@
         <td class="res"><span class="w">W</span> 92&ndash;50</td>
         <td class="num">+28.4</td>
         <td class="num perf over">+13.6</td>
+        <td class="num adds" title="Margin +42 counts as +38.9. Opponent rated −36.1. (+38.9 −36.1) ÷ (32 + 8) ≈ +0.07">+0.1</td>
       </tr>
       <tr>
         <td class="wk">1</td>
@@ -92,6 +105,7 @@
         <td class="res"><span class="w">W</span> 76&ndash;47</td>
         <td class="num">+28.4</td>
         <td class="num perf over">+0.6</td>
+        <td class="num adds" title="Margin +29 counts as +31.0. Opponent rated −28.9. (+31.0 −28.9) ÷ (32 + 8) ≈ +0.05">+0.1</td>
       </tr>
       <tr>
         <td class="wk">2</td>
@@ -100,6 +114,7 @@
         <td class="res"><span class="l">L</span> 72&ndash;77</td>
         <td class="num">-8.5</td>
         <td class="num perf over">+3.5</td>
+        <td class="num adds" title="Margin −5 counts as −12.5. Opponent rated +0.2. (−12.5 +0.2) ÷ (32 + 8) ≈ −0.31">-0.3</td>
       </tr>
       <tr>
         <td class="wk">3</td>
@@ -108,6 +123,7 @@
         <td class="res"><span class="l">L</span> 76&ndash;84</td>
         <td class="num">-6.9</td>
         <td class="num perf under">-1.1</td>
+        <td class="num adds" title="Margin −8 counts as −16.9. Opponent rated −1.5. (−16.9 −1.5) ÷ (32 + 8) ≈ −0.46">-0.5</td>
       </tr>
       <tr>
         <td class="wk">3</td>
@@ -116,6 +132,7 @@
         <td class="res"><span class="w">W</span> 73&ndash;69</td>
         <td class="num">-12.4</td>
         <td class="num perf over">+16.4</td>
+        <td class="num adds" title="Margin +4 counts as +11.0. Opponent rated −1.1. (+11.0 −1.1) ÷ (32 + 8) ≈ +0.25">+0.3</td>
       </tr>
       <tr>
         <td class="wk">4</td>
@@ -124,6 +141,7 @@
         <td class="res"><span class="l">L</span> 59&ndash;97</td>
         <td class="num">-21.9</td>
         <td class="num perf under">-16.1</td>
+        <td class="num adds" title="Margin −38 counts as −41.8. Opponent rated +11.0. (−41.8 +11.0) ÷ (32 + 8) ≈ −0.77">-0.8</td>
       </tr>
       <tr>
         <td class="wk">4</td>
@@ -132,6 +150,7 @@
         <td class="res"><span class="l">L</span> 59&ndash;78</td>
         <td class="num">-10.9</td>
         <td class="num perf under">-8.1</td>
+        <td class="num adds" title="Margin −19 counts as −26.3. Opponent rated −0.0. (−26.3 −0.0) ÷ (32 + 8) ≈ −0.66">-0.7</td>
       </tr>
       <tr>
         <td class="wk">5</td>
@@ -140,6 +159,7 @@
         <td class="res"><span class="w">W</span> 64&ndash;52</td>
         <td class="num">+1.0</td>
         <td class="num perf over">+11.0</td>
+        <td class="num adds" title="Margin +12 counts as +12.7. Opponent rated −9.4. (+12.7 −9.4) ÷ (32 + 8) ≈ +0.08">+0.1</td>
       </tr>
       <tr>
         <td class="wk">5</td>
@@ -148,6 +168,7 @@
         <td class="res"><span class="l">L</span> 79&ndash;80</td>
         <td class="num">-13.9</td>
         <td class="num perf over">+12.9</td>
+        <td class="num adds" title="Margin −1 counts as +3.4. Opponent rated +0.4. (+3.4 +0.4) ÷ (32 + 8) ≈ +0.09">+0.1</td>
       </tr>
       <tr>
         <td class="wk">6</td>
@@ -156,6 +177,7 @@
         <td class="res"><span class="l">L</span> 58&ndash;82</td>
         <td class="num">-20.7</td>
         <td class="num perf under">-3.3</td>
+        <td class="num adds" title="Margin −24 counts as −26.6. Opponent rated +7.2. (−26.6 +7.2) ÷ (32 + 8) ≈ −0.49">-0.5</td>
       </tr>
       <tr>
         <td class="wk">7</td>
@@ -164,6 +186,7 @@
         <td class="res"><span class="l">L</span> 78&ndash;83</td>
         <td class="num">-17.7</td>
         <td class="num perf over">+12.7</td>
+        <td class="num adds" title="Margin −5 counts as −12.5. Opponent rated +9.3. (−12.5 +9.3) ÷ (32 + 8) ≈ −0.08">-0.1</td>
       </tr>
       <tr>
         <td class="wk">7</td>
@@ -172,6 +195,7 @@
         <td class="res"><span class="l">L</span> 65&ndash;66</td>
         <td class="num">-7.4</td>
         <td class="num perf over">+6.4</td>
+        <td class="num adds" title="Margin −1 counts as −6.4. Opponent rated −1.0. (−6.4 −1.0) ÷ (32 + 8) ≈ −0.19">-0.2</td>
       </tr>
       <tr>
         <td class="wk">9</td>
@@ -180,6 +204,7 @@
         <td class="res"><span class="l">L</span> 68&ndash;76</td>
         <td class="num">-17.4</td>
         <td class="num perf over">+9.4</td>
+        <td class="num adds" title="Margin −8 counts as −7.1. Opponent rated +3.9. (−7.1 +3.9) ÷ (32 + 8) ≈ −0.08">-0.1</td>
       </tr>
       <tr>
         <td class="wk">9</td>
@@ -188,6 +213,7 @@
         <td class="res"><span class="l">L</span> 47&ndash;73</td>
         <td class="num">-20.0</td>
         <td class="num perf under">-6.0</td>
+        <td class="num adds" title="Margin −26 counts as −28.5. Opponent rated +6.5. (−28.5 +6.5) ÷ (32 + 8) ≈ −0.55">-0.5</td>
       </tr>
       <tr>
         <td class="wk">9</td>
@@ -196,6 +222,7 @@
         <td class="res"><span class="l">L</span> 48&ndash;62</td>
         <td class="num">-16.8</td>
         <td class="num perf over">+2.8</td>
+        <td class="num adds" title="Margin −14 counts as −25.1. Opponent rated +8.5. (−25.1 +8.5) ÷ (32 + 8) ≈ −0.42">-0.4</td>
       </tr>
       <tr>
         <td class="wk">10</td>
@@ -204,6 +231,7 @@
         <td class="res"><span class="l">L</span> 69&ndash;79</td>
         <td class="num">-10.9</td>
         <td class="num perf over">+0.9</td>
+        <td class="num adds" title="Margin −10 counts as −19.7. Opponent rated +2.6. (−19.7 +2.6) ÷ (32 + 8) ≈ −0.43">-0.4</td>
       </tr>
       <tr>
         <td class="wk">10</td>
@@ -212,6 +240,7 @@
         <td class="res"><span class="w">W</span> 72&ndash;69</td>
         <td class="num">-10.2</td>
         <td class="num perf over">+13.2</td>
+        <td class="num adds" title="Margin +3 counts as +9.5. Opponent rated −3.3. (+9.5 −3.3) ÷ (32 + 8) ≈ +0.15">+0.2</td>
       </tr>
       <tr>
         <td class="wk">11</td>
@@ -220,6 +249,7 @@
         <td class="res"><span class="l">L</span> 90&ndash;94</td>
         <td class="num">-12.3</td>
         <td class="num perf over">+8.3</td>
+        <td class="num adds" title="Margin −4 counts as −11.0. Opponent rated +3.9. (−11.0 +3.9) ÷ (32 + 8) ≈ −0.18">-0.2</td>
       </tr>
       <tr>
         <td class="wk">12</td>
@@ -228,6 +258,7 @@
         <td class="res"><span class="l">L</span> 49&ndash;76</td>
         <td class="num">-16.9</td>
         <td class="num perf under">-10.1</td>
+        <td class="num adds" title="Margin −27 counts as −29.4. Opponent rated +3.4. (−29.4 +3.4) ÷ (32 + 8) ≈ −0.65">-0.7</td>
       </tr>
       <tr>
         <td class="wk">13</td>
@@ -236,6 +267,7 @@
         <td class="res"><span class="l">L</span> 78&ndash;82</td>
         <td class="num">-12.5</td>
         <td class="num perf over">+8.5</td>
+        <td class="num adds" title="Margin −4 counts as −1.2. Opponent rated −1.0. (−1.2 −1.0) ÷ (32 + 8) ≈ −0.05">-0.1</td>
       </tr>
       <tr>
         <td class="wk">13</td>
@@ -244,6 +276,7 @@
         <td class="res"><span class="l">L</span> 55&ndash;71</td>
         <td class="num">-22.0</td>
         <td class="num perf over">+6.0</td>
+        <td class="num adds" title="Margin −16 counts as −17.8. Opponent rated +8.5. (−17.8 +8.5) ÷ (32 + 8) ≈ −0.23">-0.2</td>
       </tr>
       <tr>
         <td class="wk">14</td>
@@ -252,6 +285,7 @@
         <td class="res"><span class="l">L</span> 63&ndash;84</td>
         <td class="num">-5.0</td>
         <td class="num perf under">-16.0</td>
+        <td class="num adds" title="Margin −21 counts as −33.4. Opponent rated −3.3. (−33.4 −3.3) ÷ (32 + 8) ≈ −0.92">-0.9</td>
       </tr>
       <tr>
         <td class="wk">14</td>
@@ -260,6 +294,7 @@
         <td class="res"><span class="l">L</span> 63&ndash;70</td>
         <td class="num">-11.7</td>
         <td class="num perf over">+4.7</td>
+        <td class="num adds" title="Margin −7 counts as −5.6. Opponent rated −1.8. (−5.6 −1.8) ÷ (32 + 8) ≈ −0.18">-0.2</td>
       </tr>
       <tr>
         <td class="wk">15</td>
@@ -268,6 +303,7 @@
         <td class="res"><span class="w">W</span> 88&ndash;80</td>
         <td class="num">-14.9</td>
         <td class="num perf over">+22.9</td>
+        <td class="num adds" title="Margin +8 counts as +7.1. Opponent rated +6.5. (+7.1 +6.5) ÷ (32 + 8) ≈ +0.34">+0.3</td>
       </tr>
       <tr>
         <td class="wk">15</td>
@@ -276,6 +312,7 @@
         <td class="res"><span class="l">L</span> 60&ndash;86</td>
         <td class="num">-15.7</td>
         <td class="num perf under">-10.3</td>
+        <td class="num adds" title="Margin −26 counts as −28.5. Opponent rated +2.2. (−28.5 +2.2) ÷ (32 + 8) ≈ −0.66">-0.7</td>
       </tr>
       <tr>
         <td class="wk">16</td>
@@ -284,6 +321,7 @@
         <td class="res"><span class="l">L</span> 46&ndash;84</td>
         <td class="num">-11.8</td>
         <td class="num perf under">-26.2</td>
+        <td class="num adds" title="Margin −38 counts as −46.8. Opponent rated +3.4. (−46.8 +3.4) ÷ (32 + 8) ≈ −1.08">-1.1</td>
       </tr>
       <tr>
         <td class="wk">16</td>
@@ -292,6 +330,7 @@
         <td class="res"><span class="l">L</span> 75&ndash;88</td>
         <td class="num">-16.1</td>
         <td class="num perf over">+3.1</td>
+        <td class="num adds" title="Margin −13 counts as −14.0. Opponent rated +2.6. (−14.0 +2.6) ÷ (32 + 8) ≈ −0.29">-0.3</td>
       </tr>
       <tr>
         <td class="wk">17</td>
@@ -300,6 +339,7 @@
         <td class="res"><span class="l">L</span> 64&ndash;98</td>
         <td class="num">-22.8</td>
         <td class="num perf under">-11.2</td>
+        <td class="num adds" title="Margin −34 counts as −34.6. Opponent rated +9.3. (−34.6 +9.3) ÷ (32 + 8) ≈ −0.63">-0.6</td>
       </tr>
       <tr>
         <td class="wk">17</td>
@@ -308,6 +348,7 @@
         <td class="res"><span class="w">W</span> 80&ndash;79</td>
         <td class="num">-6.6</td>
         <td class="num perf over">+7.6</td>
+        <td class="num adds" title="Margin +1 counts as −3.4. Opponent rated −1.8. (−3.4 −1.8) ÷ (32 + 8) ≈ −0.13">-0.1</td>
       </tr>
       <tr>
         <td class="wk">17</td>
@@ -316,6 +357,7 @@
         <td class="res"><span class="l">L</span> 67&ndash;81</td>
         <td class="num">-10.6</td>
         <td class="num perf under">-3.4</td>
+        <td class="num adds" title="Margin −14 counts as −25.1. Opponent rated +2.2. (−25.1 +2.2) ÷ (32 + 8) ≈ −0.57">-0.6</td>
       </tr>
       <tr>
         <td class="wk">18</td>
@@ -324,7 +366,8 @@
         <td class="res"><span class="l">L</span> 59&ndash;68</td>
         <td class="num">-19.4</td>
         <td class="num perf over">+10.4</td>
-      </tr></tbody>
+        <td class="num adds" title="Margin −9 counts as −13.4. Opponent rated +8.5. (−13.4 +8.5) ÷ (32 + 8) ≈ −0.12">-0.1</td>
+      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (20% of the rating)</td><td class="num">-1.7</td></tr><tr><td colspan="6">Power</td><td class="num">-10.9</td></tr></tfoot>
       </table></div>
     </section>
 

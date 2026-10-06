@@ -39,7 +39,7 @@
       <a href="archive.html">Archive</a>
       <a href="seasons.html">Seasons</a>
     </nav>
-    <div class="stamp">2026 &middot; Week 4</div>
+    <div class="stamp">2026 &middot; Week 5</div>
   </div>
 </header>
 <main class="wrap">
@@ -82,7 +82,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     <li><strong>Ratings are pulled toward a prior</strong> carried from last season, so the
     first month is signal rather than noise. The pull fades on its own as games accumulate.</li>
     <li><strong>Home field is estimated</strong> from the games themselves rather than assumed,
-    and neutral sites are excluded. It currently sits at 2.8 points.</li>
+    and neutral sites are excluded. It currently sits at 3.2 points.</li>
     <li><strong>FCS opponents are rated individually.</strong> Classic pooled every non-FBS
     team into a single 7&ndash;105 entity, so beating North Dakota State and beating Mercer
     scored identically.</li>
@@ -172,7 +172,7 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   for the few teams that lose nearly everyone.</p>
 
   <h2>Home field by stadium</h2>
-  <p>The model gives every home team the same 2.8 points. Tested in
+  <p>The model gives every home team the same 3.2 points. Tested in
   September 2026: should that number move with the stadium, or
   with the trip? Every FBS game from 2013 was predicted from ratings that had
   only seen earlier weeks, and what the scoreboard said beyond that prediction was split two
@@ -251,14 +251,14 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
   <table class="compare">
     <thead><tr><th></th><th>Model</th><th>Baseline</th></tr></thead>
     <tbody>
-      <tr><td>AUC</td><td><strong>0.837</strong></td><td>0.794</td></tr>
-      <tr><td>Brier score</td><td><strong>0.0882</strong></td><td>0.1007</td></tr>
+      <tr><td>AUC</td><td><strong>0.854</strong></td><td>0.810</td></tr>
+      <tr><td>Brier score</td><td><strong>0.0798</strong></td><td>0.0905</td></tr>
     </tbody>
   </table>
   <p>The model cleared its own bar: beating the baseline on Brier score in
-  14 of 14 held-out seasons
-  (2006&ndash;2025, 1964 coach-seasons,
-  239 of them a firing).</p>
+  34 of 36 held-out seasons
+  (1984&ndash;2025, 4525 coach-seasons,
+  527 of them a firing).</p>
   <p><strong>What it can't see:</strong> buyouts, the biggest confounder, aren't in any data
   source here - a program that can't afford to fire a coach keeps one this model would
   otherwise flag. Athletic-director turnover and scandals aren't either. And a coach
@@ -306,8 +306,8 @@ loss  →  max(−35, margin) × OppLoss% × OppOppLoss%</pre>
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-09-27 15:19 UTC
-    &middot; 331 games rated &middot; <a href="homefield.html">home field</a> 2.8 pts</p>
+    <p class="muted">Ratings last changed 2026-10-04 15:30 UTC
+    &middot; 390 games rated &middot; <a href="homefield.html">home field</a> 3.2 pts</p>
   </div>
 </footer>
 </body>

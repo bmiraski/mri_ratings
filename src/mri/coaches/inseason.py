@@ -112,7 +112,7 @@ def run_features(coach_season: pd.DataFrame, current_season: int, runs: dict, sc
             "year1": np.full_like(power_end, float(tenure_year == 1)),
             "year2": np.full_like(power_end, float(tenure_year == 2)),
             "year3": np.full_like(power_end, float(tenure_year == 3)),
-            "power_conference": np.full_like(power_end, float(row.conference in season.POWER_FOUR)),
+            "power_conference": np.full_like(power_end, float(hotseat.is_power_conference(row.conference, row.season))),
             "vs_talent": np.full_like(power_end, 0.0 if pd.isna(row.vs_talent) else float(row.vs_talent)),
         })
     return out
