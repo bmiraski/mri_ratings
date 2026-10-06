@@ -1,4 +1,8 @@
 {
+  "repeatHost": {
+    "stops": 129,
+    "repeats": 11
+  },
   "weeks": 107,
   "seasons": [
     2014,
@@ -9,93 +13,99 @@
     "uniformTop1": 0.024,
     "uniformLogLoss": 3.883,
     "biggestRanksTop1": 0.598,
-    "biggestRanksTop3": 0.85
+    "biggestRanksTop3": 0.841
   },
   "candidateSets": {
     "rankings and records only": {
       "top1": 0.654,
-      "top3": 0.879,
-      "logLoss": 1.209
+      "top3": 0.869,
+      "logLoss": 1.201
     },
-    "+ how the teams ranked last season and how often GameDay has wanted them (chosen)": {
+    "+ how the teams ranked last season and how often GameDay has wanted them": {
       "top1": 0.645,
+      "top3": 0.897,
+      "logLoss": 1.171
+    },
+    "+ the host has already hosted this season (chosen)": {
+      "top1": 0.654,
       "top3": 0.888,
-      "logLoss": 1.178
+      "logLoss": 1.156
     },
     "+ closeness of the game": {
-      "top1": 0.645,
+      "top1": 0.654,
       "top3": 0.888,
-      "logLoss": 1.184
+      "logLoss": 1.163
     },
     "+ SEC / Big Ten host": {
       "top1": 0.645,
       "top3": 0.888,
-      "logLoss": 1.18
+      "logLoss": 1.158
     },
-    "+ already visited this season": {
-      "top1": 0.645,
+    "+ either team already visited this season, as host or guest": {
+      "top1": 0.654,
       "top3": 0.879,
-      "logLoss": 1.182
+      "logLoss": 1.163
     },
     "+ hosted lately": {
-      "top1": 0.654,
+      "top1": 0.664,
       "top3": 0.888,
-      "logLoss": 1.182
+      "logLoss": 1.161
     },
     "+ played each other at this point in the last two years": {
-      "top1": 0.645,
+      "top1": 0.654,
       "top3": 0.888,
-      "logLoss": 1.179
+      "logLoss": 1.156
     }
   },
-  "chosen": "+ how the teams ranked last season and how often GameDay has wanted them (chosen)",
+  "chosen": "+ the host has already hosted this season (chosen)",
   "calibration": [
     {
       "range": "0%-2%",
-      "games": 5098,
+      "games": 5105,
       "predicted": 0.002,
       "observed": 0.001
     },
     {
       "range": "2%-5%",
-      "games": 171,
-      "predicted": 0.032,
-      "observed": 0.035
+      "games": 162,
+      "predicted": 0.031,
+      "observed": 0.043
     },
     {
       "range": "5%-15%",
-      "games": 139,
-      "predicted": 0.089,
-      "observed": 0.058
+      "games": 132,
+      "predicted": 0.084,
+      "observed": 0.053
     },
     {
       "range": "15%-30%",
-      "games": 51,
-      "predicted": 0.215,
-      "observed": 0.255
+      "games": 62,
+      "predicted": 0.214,
+      "observed": 0.194
     },
     {
       "range": "30%-50%",
-      "games": 46,
-      "predicted": 0.387,
-      "observed": 0.522
+      "games": 44,
+      "predicted": 0.386,
+      "observed": 0.5
     },
     {
       "range": "50%-100%",
       "games": 70,
-      "predicted": 0.739,
-      "observed": 0.714
+      "predicted": 0.741,
+      "observed": 0.757
     }
   ],
   "coefficients": {
-    "best_rank": -0.0222,
-    "worst_rank": -0.9785,
-    "both_top10": 0.1426,
-    "both_top25": 0.9405,
-    "both_unbeaten": 0.0409,
-    "losses": -0.9741,
-    "last_rank_best": 0.2279,
-    "last_rank_worst": -0.2577,
-    "brand": 0.536
+    "best_rank": -0.0397,
+    "worst_rank": -0.986,
+    "both_top10": 0.2073,
+    "both_top25": 0.9771,
+    "both_unbeaten": 0.0413,
+    "losses": -0.965,
+    "last_rank_best": 0.2213,
+    "last_rank_worst": -0.2488,
+    "brand": 0.5391,
+    "hosted_before": -0.4648
   }
 }

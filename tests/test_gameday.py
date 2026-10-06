@@ -128,6 +128,18 @@ def test_the_announced_weeks_are_consecutive_and_have_hosts_in_the_game() -> Non
         assert a["host"] in a["teams"]
 
 
+def test_hosts_by_week_counts_only_earlier_announced_hosts() -> None:
+    stops = [{"week": 1, "host": "A"}, {"week": 2, "host": None}, {"week": 3, "host": "A"}, {"week": 4, "host": "B"}]
+    counts = history.hosts_by_week(stops, range(1, 6))
+    assert counts[1] == {} and counts[2] == {"A": 1} and counts[4] == {"A": 2} and counts[5] == {"A": 2, "B": 1}
+
+
+def test_the_committed_model_discounts_a_repeat_host() -> None:
+    m = forecast.load_model()
+    assert "hosted_before" in m["features"]
+    assert m["coefficients"][m["features"].index("hosted_before")] < 0
+
+
 def test_recent_hosting_and_brand_are_counted_from_the_right_seasons() -> None:
     data = {"seasons": {"2013": [{"teams": ["A", "B"], "host": "A"}], "2014": [{"teams": ["A", "C"], "host": "C"}],
                         "2015": [{"teams": ["A", "D"], "host": "A"}]},
@@ -201,6 +213,26 @@ def test_hosting_is_no_likelier_than_appearing_and_all_are_probabilities(result)
     _, _, out = result
     for name, t in out["teams"].items():
         assert 0.0 <= t["hostsAtLeastOnce"] <= t["appearsAtLeastOnce"] + 1e-9 <= 1.0 + 1e-9, name
+
+
+def test_a_host_that_has_already_hosted_is_discounted_not_banned() -> None:
+    teams, schedule = league()
+    model = {**MODEL, "features": [*USED, "hosted_before"], "coefficients": [*MODEL["coefficients"], -0.5]}
+    plain = forecast.forecast(teams, schedule, home_field=3.0, model=model, weeks=[6], sims=800)
+    host = next(e["home"] for e in plain["weeks"][6]["games"])
+    marked = forecast.forecast(teams, schedule, home_field=3.0, model=model, weeks=[6], sims=800,
+                               context={"hostedBefore": {6: {host: 1}}})
+
+    def chance(out):
+        return sum(e["probability"] for e in out["weeks"][6]["games"] if e["home"] == host)
+
+    assert 0.0 < chance(marked) < chance(plain)
+    # What it takes from the host it gives to the rest of the week: still a distribution.
+    assert sum(e["probability"] for e in marked["weeks"][6]["games"]) == pytest.approx(1.0 - model["otherRate"], abs=5e-3)
+    # An announcement for another week changes nothing about this one.
+    other = forecast.forecast(teams, schedule, home_field=3.0, model=model, weeks=[6], sims=800,
+                              context={"hostedBefore": {7: {host: 1}}})
+    assert other == plain
 
 
 def test_the_same_inputs_give_the_same_forecast() -> None:
