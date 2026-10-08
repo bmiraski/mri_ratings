@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 272,
-      "accuracy": 0.7941,
-      "mae": 12.95,
-      "priced": 272,
-      "modelMaePriced": 12.95,
-      "marketMae": 11.48,
-      "marketAccuracy": 0.8162,
-      "modelAccuracyPriced": 0.7941,
-      "maeGap": 1.47,
+      "games": 274,
+      "accuracy": 0.7956,
+      "mae": 12.9,
+      "priced": 274,
+      "modelMaePriced": 12.9,
+      "marketMae": 11.45,
+      "marketAccuracy": 0.8175,
+      "modelAccuracyPriced": 0.7956,
+      "maeGap": 1.45,
       "maeGapError": 0.62,
-      "slope": 0.9,
+      "slope": 0.91,
       "marketSlope": 1.02,
       "bets": {
-        "count": 153,
-        "wins": 77,
+        "count": 154,
+        "wins": 78,
         "losses": 73,
         "pushes": 3,
-        "ats": 0.5133,
-        "units": -3.01,
-        "clv": 0.62
+        "ats": 0.5166,
+        "units": -2.1,
+        "clv": 0.64
       }
     },
     "weeks": [
@@ -81,13 +81,13 @@
       },
       {
         "week": 6,
-        "games": 1,
+        "games": 3,
         "accuracy": 1.0,
-        "mae": 15.17,
-        "marketMae": 11.5,
-        "bets": 0,
-        "record": "0-0",
-        "units": 0
+        "mae": 8.79,
+        "marketMae": 8.5,
+        "bets": 1,
+        "record": "1-0",
+        "units": 0.91
       }
     ],
     "bets": [
@@ -2385,6 +2385,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 3.0
+      },
+      {
+        "week": 6,
+        "home": "FIU",
+        "away": "New Mexico State",
+        "side": "home",
+        "team": "FIU",
+        "predicted": 7.9,
+        "open": 3.5,
+        "close": 7.0,
+        "edge": 4.4,
+        "actual": 19,
+        "result": "win",
+        "units": 0.909,
+        "clv": 3.5
       }
     ]
   },
@@ -4999,7 +5014,10 @@
         "week": 6
       },
       {
+        "actual": 19,
         "away": "New Mexico State",
+        "close": 7.0,
+        "clv": 3.5,
         "edge": 4.4,
         "game_id": 401871066,
         "home": "FIU",
@@ -5009,8 +5027,10 @@
         "neutral": false,
         "open": 3.5,
         "predicted": 7.9,
+        "result": "win",
         "side": "home",
         "taken": 3.5,
+        "units": 0.909,
         "week": 6
       },
       {
@@ -5136,12 +5156,12 @@
     ],
     "logged": 148,
     "earlier": 48,
-    "graded": 114,
-    "wins": 57,
+    "graded": 115,
+    "wins": 58,
     "losses": 56,
     "pushes": 1,
-    "ats": 0.5044,
-    "units": -4.19,
-    "clv": 0.17
+    "ats": 0.5088,
+    "units": -3.28,
+    "clv": 0.2
   }
 }
