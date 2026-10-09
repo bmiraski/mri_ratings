@@ -3,120 +3,6 @@
   "week": 6,
   "days": [
     {
-      "date": "2026-10-08",
-      "label": "Thu, Oct 8",
-      "games": [
-        {
-          "id": 401870766,
-          "week": 6,
-          "date": "2026-10-08",
-          "dateLabel": "Thu, Oct 8",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Liberty",
-          "away": "Sam Houston",
-          "neutral": false,
-          "predicted": 13.6,
-          "homeWinProbability": 0.794,
-          "played": false,
-          "market": 13.5,
-          "open": 13.5,
-          "total": 52.5,
-          "edge": 0.1,
-          "flagged": false,
-          "stake": {
-            "side": "home",
-            "ifWin": 0.002,
-            "ifLose": 0.0,
-            "swing": 0.002,
-            "team": "Liberty",
-            "now": 0.0016
-          }
-        },
-        {
-          "id": 401871052,
-          "week": 6,
-          "date": "2026-10-08",
-          "dateLabel": "Thu, Oct 8",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Western Kentucky",
-          "away": "Missouri State",
-          "neutral": false,
-          "predicted": 2.6,
-          "homeWinProbability": 0.562,
-          "played": false,
-          "market": -1.5,
-          "open": 2.5,
-          "total": 56.5,
-          "edge": 0.1,
-          "flagged": false,
-          "stake": {
-            "side": "home",
-            "ifWin": 0.0,
-            "ifLose": 0.0,
-            "swing": 0.0,
-            "team": "Western Kentucky",
-            "now": 0.0
-          }
-        },
-        {
-          "id": 401862794,
-          "week": 6,
-          "date": "2026-10-08",
-          "dateLabel": "Thu, Oct 8",
-          "time": "7:30\u202fPM ET",
-          "sort": "1930",
-          "home": "UTSA",
-          "away": "USF",
-          "neutral": false,
-          "predicted": 2.8,
-          "homeWinProbability": 0.567,
-          "played": false,
-          "market": 6.5,
-          "open": 7.0,
-          "total": 49.5,
-          "edge": -4.2,
-          "flagged": true,
-          "stake": {
-            "side": "home",
-            "ifWin": 0.1748,
-            "ifLose": 0.0313,
-            "swing": 0.1435,
-            "team": "UTSA",
-            "now": 0.1124
-          }
-        },
-        {
-          "id": 401869933,
-          "week": 6,
-          "date": "2026-10-08",
-          "dateLabel": "Thu, Oct 8",
-          "time": "7:30\u202fPM ET",
-          "sort": "1930",
-          "home": "Arkansas State",
-          "away": "South Alabama",
-          "neutral": false,
-          "predicted": 0.4,
-          "homeWinProbability": 0.51,
-          "played": false,
-          "market": 3.0,
-          "open": 1.5,
-          "total": 60.5,
-          "edge": -1.1,
-          "flagged": false,
-          "stake": {
-            "side": "away",
-            "ifWin": 0.0008,
-            "ifLose": 0.0,
-            "swing": 0.0008,
-            "team": "South Alabama",
-            "now": 0.0004
-          }
-        }
-      ]
-    },
-    {
       "date": "2026-10-09",
       "label": "Fri, Oct 9",
       "games": [
@@ -130,21 +16,21 @@
           "home": "Louisville",
           "away": "Florida State",
           "neutral": false,
-          "predicted": 1.7,
-          "homeWinProbability": 0.54,
+          "predicted": 1.8,
+          "homeWinProbability": 0.542,
           "played": false,
-          "market": 3.5,
+          "market": 4.0,
           "open": 3.5,
           "total": 59.5,
-          "edge": -1.8,
+          "edge": -1.7,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0211,
-            "ifLose": 0.0006,
-            "swing": 0.0205,
+            "ifWin": 0.018,
+            "ifLose": 0.0009,
+            "swing": 0.0171,
             "team": "Louisville",
-            "now": 0.0116
+            "now": 0.0102
           }
         },
         {
@@ -157,21 +43,21 @@
           "home": "Washington",
           "away": "Iowa",
           "neutral": false,
-          "predicted": 0.3,
-          "homeWinProbability": 0.507,
+          "predicted": 0.4,
+          "homeWinProbability": 0.51,
           "played": false,
-          "market": 3.0,
+          "market": 2.5,
           "open": 1.5,
-          "total": 41.5,
-          "edge": -1.2,
+          "total": 40.5,
+          "edge": -1.1,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.1382,
-            "ifLose": 0.0209,
-            "swing": 0.1173,
+            "ifWin": 0.1334,
+            "ifLose": 0.0225,
+            "swing": 0.1109,
             "team": "Iowa",
-            "now": 0.0792
+            "now": 0.0763
           }
         },
         {
@@ -184,21 +70,21 @@
           "home": "Utah State",
           "away": "Washington State",
           "neutral": false,
-          "predicted": -0.9,
-          "homeWinProbability": 0.478,
+          "predicted": -0.8,
+          "homeWinProbability": 0.481,
           "played": false,
           "market": 5.5,
           "open": 5.5,
-          "total": 44.5,
-          "edge": -6.4,
+          "total": 43.5,
+          "edge": -6.3,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0009,
+            "ifWin": 0.0006,
             "ifLose": 0.0,
-            "swing": 0.0009,
+            "swing": 0.0006,
             "team": "Washington State",
-            "now": 0.0005
+            "now": 0.0003
           }
         },
         {
@@ -211,21 +97,21 @@
           "home": "San Jose State",
           "away": "Wyoming",
           "neutral": false,
-          "predicted": 12.8,
-          "homeWinProbability": 0.782,
+          "predicted": 12.9,
+          "homeWinProbability": 0.783,
           "played": false,
           "market": 4.5,
           "open": 6.0,
           "total": 42.5,
-          "edge": 6.8,
+          "edge": 6.9,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0005,
+            "ifWin": 0.0003,
             "ifLose": 0.0,
-            "swing": 0.0005,
+            "swing": 0.0003,
             "team": "San Jose State",
-            "now": 0.0004
+            "now": 0.0002
           }
         },
         {
@@ -238,21 +124,21 @@
           "home": "BYU",
           "away": "Iowa State",
           "neutral": false,
-          "predicted": 16.5,
-          "homeWinProbability": 0.841,
+          "predicted": 16.6,
+          "homeWinProbability": 0.843,
           "played": false,
-          "market": 10.0,
+          "market": 10.5,
           "open": 14.5,
-          "total": 45.5,
-          "edge": 2.0,
+          "total": 46.5,
+          "edge": 2.1,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.3784,
-            "ifLose": 0.1209,
-            "swing": 0.2575,
+            "ifWin": 0.3831,
+            "ifLose": 0.1232,
+            "swing": 0.2599,
             "team": "BYU",
-            "now": 0.3343
+            "now": 0.3386
           }
         }
       ]
@@ -271,21 +157,21 @@
           "home": "Nebraska",
           "away": "Indiana",
           "neutral": false,
-          "predicted": -3.3,
-          "homeWinProbability": 0.421,
+          "predicted": -3.5,
+          "homeWinProbability": 0.417,
           "played": false,
           "market": -7.5,
           "open": -9.5,
-          "total": 48.5,
-          "edge": 6.2,
+          "total": 47.5,
+          "edge": 6.0,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.6302,
-            "ifLose": 0.2743,
-            "swing": 0.3559,
+            "ifWin": 0.6435,
+            "ifLose": 0.3112,
+            "swing": 0.3323,
             "team": "Indiana",
-            "now": 0.4822
+            "now": 0.507
           }
         },
         {
@@ -298,21 +184,21 @@
           "home": "Missouri",
           "away": "Texas A&M",
           "neutral": false,
-          "predicted": -1.7,
-          "homeWinProbability": 0.46,
+          "predicted": -1.3,
+          "homeWinProbability": 0.469,
           "played": false,
           "market": 3.5,
           "open": 1.5,
           "total": 48.5,
-          "edge": -3.2,
-          "flagged": true,
+          "edge": -2.8,
+          "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.2365,
-            "ifLose": 0.0579,
-            "swing": 0.1786,
+            "ifWin": 0.2226,
+            "ifLose": 0.0536,
+            "swing": 0.169,
             "team": "Missouri",
-            "now": 0.1425
+            "now": 0.1327
           }
         },
         {
@@ -325,21 +211,21 @@
           "home": "West Virginia",
           "away": "Arizona",
           "neutral": false,
-          "predicted": -10.1,
-          "homeWinProbability": 0.27,
+          "predicted": -10.0,
+          "homeWinProbability": 0.273,
           "played": false,
           "market": -3.0,
           "open": -3.0,
           "total": 61.5,
-          "edge": -7.1,
+          "edge": -6.9,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0428,
-            "ifLose": 0.0047,
-            "swing": 0.0381,
+            "ifWin": 0.0474,
+            "ifLose": 0.0049,
+            "swing": 0.0425,
             "team": "Arizona",
-            "now": 0.0322
+            "now": 0.0353
           }
         },
         {
@@ -352,21 +238,21 @@
           "home": "Pittsburgh",
           "away": "North Carolina",
           "neutral": false,
-          "predicted": 11.1,
-          "homeWinProbability": 0.75,
+          "predicted": 11.2,
+          "homeWinProbability": 0.751,
           "played": false,
           "market": 3.5,
           "open": 3.5,
-          "total": 46.5,
-          "edge": 7.6,
+          "total": 47.5,
+          "edge": 7.7,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.1051,
-            "ifLose": 0.0222,
-            "swing": 0.0829,
+            "ifWin": 0.1078,
+            "ifLose": 0.0214,
+            "swing": 0.0864,
             "team": "Pittsburgh",
-            "now": 0.0841
+            "now": 0.086
           }
         },
         {
@@ -379,21 +265,21 @@
           "home": "NC State",
           "away": "Wake Forest",
           "neutral": false,
-          "predicted": 0.5,
-          "homeWinProbability": 0.513,
+          "predicted": 0.7,
+          "homeWinProbability": 0.516,
           "played": false,
           "market": -3.5,
           "open": -4.0,
-          "total": 59.5,
-          "edge": 4.5,
+          "total": 58.5,
+          "edge": 4.7,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0582,
-            "ifLose": 0.0087,
-            "swing": 0.0495,
+            "ifWin": 0.0581,
+            "ifLose": 0.0076,
+            "swing": 0.0505,
             "team": "Wake Forest",
-            "now": 0.0326
+            "now": 0.0323
           }
         },
         {
@@ -406,21 +292,21 @@
           "home": "Oklahoma State",
           "away": "UCF",
           "neutral": false,
-          "predicted": -1.7,
-          "homeWinProbability": 0.46,
+          "predicted": -1.6,
+          "homeWinProbability": 0.463,
           "played": false,
           "market": 10.5,
           "open": 9.5,
           "total": 53.5,
-          "edge": -11.2,
+          "edge": -11.0,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0128,
-            "ifLose": 0.0011,
-            "swing": 0.0117,
+            "ifWin": 0.0101,
+            "ifLose": 0.0013,
+            "swing": 0.0088,
             "team": "UCF",
-            "now": 0.0073
+            "now": 0.0061
           }
         },
         {
@@ -433,21 +319,21 @@
           "home": "Army",
           "away": "Tulane",
           "neutral": false,
-          "predicted": 8.8,
-          "homeWinProbability": 0.702,
+          "predicted": 8.7,
+          "homeWinProbability": 0.7,
           "played": false,
-          "market": 3.0,
+          "market": 3.5,
           "open": 3.0,
           "total": 48.5,
-          "edge": 5.8,
+          "edge": 5.7,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0234,
-            "ifLose": 0.0024,
-            "swing": 0.021,
+            "ifWin": 0.0179,
+            "ifLose": 0.0013,
+            "swing": 0.0166,
             "team": "Army",
-            "now": 0.0172
+            "now": 0.0128
           }
         },
         {
@@ -461,9 +347,9 @@
           "away": "Sacramento State",
           "neutral": false,
           "predicted": -0.3,
-          "homeWinProbability": 0.493,
+          "homeWinProbability": 0.494,
           "played": false,
-          "market": 7.5,
+          "market": 8.5,
           "open": 7.5,
           "total": 43.5,
           "edge": -7.8,
@@ -487,21 +373,21 @@
           "home": "Northwestern",
           "away": "Ball State",
           "neutral": false,
-          "predicted": 41.2,
-          "homeWinProbability": 0.994,
+          "predicted": 40.9,
+          "homeWinProbability": 0.993,
           "played": false,
-          "market": 37.5,
+          "market": 35.5,
           "open": 36.5,
           "total": 52.5,
-          "edge": 4.7,
+          "edge": 4.4,
           "flagged": true,
           "stake": {
             "side": "home",
             "ifWin": 0.0535,
-            "ifLose": 0.013,
-            "swing": 0.0405,
+            "ifLose": 0.0,
+            "swing": 0.0535,
             "team": "Northwestern",
-            "now": 0.0532
+            "now": 0.053
           }
         },
         {
@@ -514,21 +400,21 @@
           "home": "Florida",
           "away": "South Carolina",
           "neutral": false,
-          "predicted": 9.7,
-          "homeWinProbability": 0.721,
+          "predicted": 9.8,
+          "homeWinProbability": 0.724,
           "played": false,
           "market": 11.5,
           "open": 14.5,
-          "total": 59.5,
-          "edge": -4.8,
+          "total": 58.5,
+          "edge": -4.7,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.3136,
-            "ifLose": 0.0933,
-            "swing": 0.2203,
+            "ifWin": 0.3138,
+            "ifLose": 0.0939,
+            "swing": 0.2199,
             "team": "Florida",
-            "now": 0.2505
+            "now": 0.2506
           }
         },
         {
@@ -541,21 +427,21 @@
           "home": "Appalachian State",
           "away": "Old Dominion",
           "neutral": false,
-          "predicted": 11.3,
-          "homeWinProbability": 0.753,
+          "predicted": 11.4,
+          "homeWinProbability": 0.755,
           "played": false,
           "market": 9.5,
           "open": 9.5,
-          "total": 48.5,
-          "edge": 1.8,
+          "total": 47.5,
+          "edge": 1.9,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0019,
-            "ifLose": 0.0,
-            "swing": 0.0019,
+            "ifWin": 0.002,
+            "ifLose": 0.0004,
+            "swing": 0.0016,
             "team": "Appalachian State",
-            "now": 0.0014
+            "now": 0.0016
           }
         },
         {
@@ -568,13 +454,13 @@
           "home": "UMass",
           "away": "Miami (OH)",
           "neutral": false,
-          "predicted": -0.3,
-          "homeWinProbability": 0.492,
+          "predicted": -0.2,
+          "homeWinProbability": 0.495,
           "played": false,
-          "market": -2.5,
+          "market": -3.5,
           "open": -2.5,
-          "total": 47.5,
-          "edge": 2.2,
+          "total": 46.5,
+          "edge": 2.3,
           "flagged": false,
           "stake": {
             "side": "home",
@@ -595,7 +481,7 @@
           "home": "Notre Dame",
           "away": "Stanford",
           "neutral": false,
-          "predicted": 44.2,
+          "predicted": 44.3,
           "homeWinProbability": 0.996,
           "played": false,
           "market": 38.5,
@@ -605,11 +491,11 @@
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.9193,
-            "ifLose": 0.6889,
-            "swing": 0.2304,
+            "ifWin": 0.9147,
+            "ifLose": 0.5088,
+            "swing": 0.4059,
             "team": "Notre Dame",
-            "now": 0.9183
+            "now": 0.9124
           }
         },
         {
@@ -623,7 +509,7 @@
           "away": "Texas",
           "neutral": true,
           "predicted": -14.7,
-          "homeWinProbability": 0.187,
+          "homeWinProbability": 0.186,
           "played": false,
           "market": -7.5,
           "open": -6.0,
@@ -632,11 +518,11 @@
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.2614,
-            "ifLose": 0.0737,
-            "swing": 0.1877,
+            "ifWin": 0.2916,
+            "ifLose": 0.0825,
+            "swing": 0.2091,
             "team": "Oklahoma",
-            "now": 0.1118
+            "now": 0.1256
           }
         },
         {
@@ -649,21 +535,21 @@
           "home": "Oregon",
           "away": "UCLA",
           "neutral": false,
-          "predicted": 11.6,
-          "homeWinProbability": 0.76,
+          "predicted": 11.7,
+          "homeWinProbability": 0.762,
           "played": false,
           "market": 11.5,
           "open": 12.5,
-          "total": 58.5,
+          "total": 59.5,
           "edge": -0.8,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.6666,
-            "ifLose": 0.304,
-            "swing": 0.3626,
+            "ifWin": 0.6744,
+            "ifLose": 0.3034,
+            "swing": 0.371,
             "team": "Oregon",
-            "now": 0.5768
+            "now": 0.5805
           }
         },
         {
@@ -676,21 +562,21 @@
           "home": "Vanderbilt",
           "away": "Ole Miss",
           "neutral": false,
-          "predicted": -6.1,
-          "homeWinProbability": 0.356,
+          "predicted": -5.9,
+          "homeWinProbability": 0.361,
           "played": false,
           "market": -9.5,
           "open": -10.0,
-          "total": 55.5,
-          "edge": 3.9,
+          "total": 54.5,
+          "edge": 4.1,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.2615,
-            "ifLose": 0.0719,
-            "swing": 0.1896,
+            "ifWin": 0.2529,
+            "ifLose": 0.0742,
+            "swing": 0.1787,
             "team": "Ole Miss",
-            "now": 0.1911
+            "now": 0.1886
           }
         },
         {
@@ -703,8 +589,8 @@
           "home": "Kansas State",
           "away": "Houston",
           "neutral": false,
-          "predicted": 1.1,
-          "homeWinProbability": 0.528,
+          "predicted": 1.2,
+          "homeWinProbability": 0.53,
           "played": false,
           "market": 2.5,
           "open": 2.5,
@@ -713,11 +599,11 @@
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.1126,
-            "ifLose": 0.0152,
-            "swing": 0.0974,
+            "ifWin": 0.1209,
+            "ifLose": 0.0159,
+            "swing": 0.105,
             "team": "Houston",
-            "now": 0.0621
+            "now": 0.0659
           }
         },
         {
@@ -730,21 +616,21 @@
           "home": "Georgia Tech",
           "away": "Duke",
           "neutral": false,
-          "predicted": -5.8,
-          "homeWinProbability": 0.362,
+          "predicted": -5.7,
+          "homeWinProbability": 0.364,
           "played": false,
           "market": -6.5,
           "open": -7.0,
           "total": 43.5,
-          "edge": 1.2,
+          "edge": 1.3,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.0629,
-            "ifLose": 0.0103,
-            "swing": 0.0526,
+            "ifWin": 0.0597,
+            "ifLose": 0.0108,
+            "swing": 0.0489,
             "team": "Duke",
-            "now": 0.0435
+            "now": 0.0416
           }
         },
         {
@@ -757,21 +643,21 @@
           "home": "California",
           "away": "Virginia Tech",
           "neutral": false,
-          "predicted": -4.5,
-          "homeWinProbability": 0.392,
+          "predicted": -4.4,
+          "homeWinProbability": 0.395,
           "played": false,
           "market": -10.0,
           "open": -9.5,
           "total": 53.5,
-          "edge": 5.0,
+          "edge": 5.1,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.012,
-            "ifLose": 0.0007,
-            "swing": 0.0113,
+            "ifWin": 0.0125,
+            "ifLose": 0.001,
+            "swing": 0.0115,
             "team": "Virginia Tech",
-            "now": 0.0075
+            "now": 0.0079
           }
         },
         {
@@ -784,21 +670,21 @@
           "home": "Michigan State",
           "away": "Illinois",
           "neutral": false,
-          "predicted": 0.3,
-          "homeWinProbability": 0.508,
+          "predicted": 0.5,
+          "homeWinProbability": 0.511,
           "played": false,
           "market": -2.5,
           "open": -2.5,
           "total": 47.5,
-          "edge": 2.8,
-          "flagged": false,
+          "edge": 3.0,
+          "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0006,
+            "ifWin": 0.0002,
             "ifLose": 0.0,
-            "swing": 0.0006,
+            "swing": 0.0002,
             "team": "Michigan State",
-            "now": 0.0003
+            "now": 0.0001
           }
         },
         {
@@ -811,21 +697,21 @@
           "home": "Toledo",
           "away": "Buffalo",
           "neutral": false,
-          "predicted": 27.1,
-          "homeWinProbability": 0.949,
+          "predicted": 27.2,
+          "homeWinProbability": 0.95,
           "played": false,
-          "market": 21.0,
+          "market": 20.5,
           "open": 20.5,
-          "total": 54.5,
-          "edge": 6.6,
+          "total": 55.5,
+          "edge": 6.7,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0118,
+            "ifWin": 0.0108,
             "ifLose": 0.0,
-            "swing": 0.0118,
+            "swing": 0.0108,
             "team": "Toledo",
-            "now": 0.0111
+            "now": 0.0102
           }
         },
         {
@@ -838,21 +724,21 @@
           "home": "North Texas",
           "away": "Charlotte",
           "neutral": false,
-          "predicted": 28.4,
-          "homeWinProbability": 0.957,
+          "predicted": 28.5,
+          "homeWinProbability": 0.958,
           "played": false,
           "market": 28.5,
           "open": 28.5,
           "total": 57.5,
-          "edge": -0.1,
+          "edge": 0.0,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0125,
-            "ifLose": 0.002,
-            "swing": 0.0105,
+            "ifWin": 0.012,
+            "ifLose": 0.0,
+            "swing": 0.012,
             "team": "North Texas",
-            "now": 0.012
+            "now": 0.0114
           }
         },
         {
@@ -865,21 +751,21 @@
           "home": "Western Michigan",
           "away": "Kent State",
           "neutral": false,
-          "predicted": 18.3,
-          "homeWinProbability": 0.867,
+          "predicted": 18.4,
+          "homeWinProbability": 0.868,
           "played": false,
-          "market": 13.5,
+          "market": 14.0,
           "open": 13.5,
           "total": 43.5,
-          "edge": 4.8,
+          "edge": 4.9,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0019,
+            "ifWin": 0.0016,
             "ifLose": 0.0,
-            "swing": 0.0019,
+            "swing": 0.0016,
             "team": "Western Michigan",
-            "now": 0.0016
+            "now": 0.0014
           }
         },
         {
@@ -892,21 +778,21 @@
           "home": "Navy",
           "away": "Tulsa",
           "neutral": false,
-          "predicted": 5.5,
-          "homeWinProbability": 0.631,
+          "predicted": 6.0,
+          "homeWinProbability": 0.641,
           "played": false,
-          "market": 2.5,
+          "market": 1.5,
           "open": 2.5,
           "total": 48.5,
-          "edge": 3.0,
+          "edge": 3.5,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0003,
-            "ifLose": 0.0,
-            "swing": 0.0003,
+            "ifWin": 0.0014,
+            "ifLose": 0.0005,
+            "swing": 0.0009,
             "team": "Tulsa",
-            "now": 0.0001
+            "now": 0.0008
           }
         },
         {
@@ -919,21 +805,21 @@
           "home": "Ohio",
           "away": "Central Michigan",
           "neutral": false,
-          "predicted": 9.7,
-          "homeWinProbability": 0.721,
+          "predicted": 9.9,
+          "homeWinProbability": 0.725,
           "played": false,
           "market": 3.0,
           "open": 3.0,
           "total": 46.5,
-          "edge": 6.7,
+          "edge": 6.9,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0004,
+            "ifWin": 0.0003,
             "ifLose": 0.0,
-            "swing": 0.0004,
+            "swing": 0.0003,
             "team": "Ohio",
-            "now": 0.0003
+            "now": 0.0002
           }
         },
         {
@@ -946,13 +832,13 @@
           "home": "Akron",
           "away": "Eastern Michigan",
           "neutral": false,
-          "predicted": -3.7,
-          "homeWinProbability": 0.411,
+          "predicted": -3.6,
+          "homeWinProbability": 0.415,
           "played": false,
           "market": -6.5,
           "open": -7.0,
           "total": 51.5,
-          "edge": 3.3,
+          "edge": 3.4,
           "flagged": true,
           "stake": {
             "side": "home",
@@ -973,7 +859,7 @@
           "home": "Temple",
           "away": "UConn",
           "neutral": false,
-          "predicted": 4.5,
+          "predicted": 4.6,
           "homeWinProbability": 0.609,
           "played": false,
           "market": 3.5,
@@ -983,11 +869,11 @@
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0013,
+            "ifWin": 0.0003,
             "ifLose": 0.0,
-            "swing": 0.0013,
+            "swing": 0.0003,
             "team": "Temple",
-            "now": 0.0008
+            "now": 0.0002
           }
         },
         {
@@ -1001,20 +887,20 @@
           "away": "Rice",
           "neutral": false,
           "predicted": 11.2,
-          "homeWinProbability": 0.751,
+          "homeWinProbability": 0.752,
           "played": false,
           "market": 10.0,
           "open": 10.0,
-          "total": 47.5,
+          "total": 46.5,
           "edge": 1.2,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0023,
+            "ifWin": 0.0028,
             "ifLose": 0.0,
-            "swing": 0.0023,
+            "swing": 0.0028,
             "team": "East Carolina",
-            "now": 0.0017
+            "now": 0.0021
           }
         },
         {
@@ -1027,21 +913,21 @@
           "home": "Ohio State",
           "away": "Maryland",
           "neutral": false,
-          "predicted": 35.6,
-          "homeWinProbability": 0.984,
+          "predicted": 35.7,
+          "homeWinProbability": 0.985,
           "played": false,
-          "market": 34.5,
+          "market": 32.5,
           "open": 34.5,
           "total": 56.5,
-          "edge": 1.1,
+          "edge": 1.2,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.8449,
-            "ifLose": 0.5446,
-            "swing": 0.3003,
+            "ifWin": 0.8501,
+            "ifLose": 0.5581,
+            "swing": 0.292,
             "team": "Ohio State",
-            "now": 0.8388
+            "now": 0.8451
           }
         },
         {
@@ -1054,21 +940,21 @@
           "home": "Arkansas",
           "away": "Tennessee",
           "neutral": false,
-          "predicted": -15.8,
-          "homeWinProbability": 0.169,
+          "predicted": -15.7,
+          "homeWinProbability": 0.171,
           "played": false,
           "market": -13.5,
           "open": -13.5,
           "total": 51.5,
-          "edge": -2.3,
+          "edge": -2.2,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.274,
-            "ifLose": 0.0777,
-            "swing": 0.1963,
+            "ifWin": 0.2787,
+            "ifLose": 0.0872,
+            "swing": 0.1915,
             "team": "Tennessee",
-            "now": 0.2386
+            "now": 0.2431
           }
         },
         {
@@ -1081,21 +967,21 @@
           "home": "Oregon State",
           "away": "San Diego State",
           "neutral": false,
-          "predicted": 8.0,
-          "homeWinProbability": 0.686,
+          "predicted": 8.1,
+          "homeWinProbability": 0.687,
           "played": false,
           "market": 15.5,
           "open": 14.5,
           "total": 53.5,
-          "edge": -6.5,
+          "edge": -6.4,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0287,
-            "ifLose": 0.0025,
-            "swing": 0.0262,
+            "ifWin": 0.0279,
+            "ifLose": 0.0031,
+            "swing": 0.0248,
             "team": "Oregon State",
-            "now": 0.0203
+            "now": 0.0199
           }
         },
         {
@@ -1108,21 +994,21 @@
           "home": "Kentucky",
           "away": "LSU",
           "neutral": false,
-          "predicted": -9.7,
-          "homeWinProbability": 0.279,
+          "predicted": -9.4,
+          "homeWinProbability": 0.284,
           "played": false,
-          "market": -8.5,
+          "market": -9.5,
           "open": -10.5,
-          "total": 51.5,
-          "edge": 0.8,
+          "total": 50.5,
+          "edge": 1.1,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.5718,
-            "ifLose": 0.2444,
-            "swing": 0.3274,
+            "ifWin": 0.5627,
+            "ifLose": 0.2448,
+            "swing": 0.3179,
             "team": "LSU",
-            "now": 0.4798
+            "now": 0.4714
           }
         },
         {
@@ -1136,20 +1022,20 @@
           "away": "UAB",
           "neutral": false,
           "predicted": 15.7,
-          "homeWinProbability": 0.829,
+          "homeWinProbability": 0.83,
           "played": false,
           "market": 14.0,
           "open": 14.0,
-          "total": 52.5,
+          "total": 53.5,
           "edge": 1.7,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0449,
-            "ifLose": 0.0034,
-            "swing": 0.0415,
+            "ifWin": 0.0439,
+            "ifLose": 0.0075,
+            "swing": 0.0364,
             "team": "Memphis",
-            "now": 0.0375
+            "now": 0.0371
           }
         },
         {
@@ -1162,21 +1048,21 @@
           "home": "UNLV",
           "away": "North Dakota State",
           "neutral": false,
-          "predicted": 5.1,
-          "homeWinProbability": 0.622,
+          "predicted": 5.2,
+          "homeWinProbability": 0.625,
           "played": false,
           "market": -3.0,
           "open": -3.0,
           "total": 47.5,
-          "edge": 8.1,
+          "edge": 8.3,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0185,
-            "ifLose": 0.0024,
+            "ifWin": 0.0179,
+            "ifLose": 0.0018,
             "swing": 0.0161,
             "team": "North Dakota State",
-            "now": 0.0086
+            "now": 0.008
           }
         },
         {
@@ -1189,21 +1075,21 @@
           "home": "Marshall",
           "away": "Coastal Carolina",
           "neutral": false,
-          "predicted": 8.3,
-          "homeWinProbability": 0.693,
+          "predicted": 7.9,
+          "homeWinProbability": 0.685,
           "played": false,
           "market": 4.0,
           "open": 3.0,
           "total": 58.5,
-          "edge": 5.3,
+          "edge": 4.9,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.0001,
+            "ifWin": 0.0,
             "ifLose": 0.0,
-            "swing": 0.0001,
+            "swing": 0.0,
             "team": "Marshall",
-            "now": 0.0001
+            "now": 0.0
           }
         },
         {
@@ -1216,13 +1102,13 @@
           "home": "UTEP",
           "away": "Nevada",
           "neutral": false,
-          "predicted": -5.6,
-          "homeWinProbability": 0.368,
+          "predicted": -5.7,
+          "homeWinProbability": 0.365,
           "played": false,
           "market": -10.0,
           "open": -9.5,
           "total": 49.5,
-          "edge": 3.9,
+          "edge": 3.8,
           "flagged": true,
           "stake": {
             "side": "home",
@@ -1243,21 +1129,21 @@
           "home": "Alabama",
           "away": "Georgia",
           "neutral": false,
-          "predicted": 3.6,
-          "homeWinProbability": 0.587,
+          "predicted": 3.5,
+          "homeWinProbability": 0.584,
           "played": false,
           "market": 1.5,
           "open": -3.0,
           "total": 51.5,
-          "edge": 6.6,
+          "edge": 6.5,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.9791,
-            "ifLose": 0.871,
-            "swing": 0.1081,
+            "ifWin": 0.9795,
+            "ifLose": 0.8867,
+            "swing": 0.0928,
             "team": "Georgia",
-            "now": 0.9154
+            "now": 0.9257
           }
         },
         {
@@ -1270,21 +1156,21 @@
           "home": "Penn State",
           "away": "USC",
           "neutral": false,
-          "predicted": -2.5,
-          "homeWinProbability": 0.44,
+          "predicted": -2.4,
+          "homeWinProbability": 0.443,
           "played": false,
           "market": 1.5,
           "open": 1.5,
           "total": 54.5,
-          "edge": -4.0,
+          "edge": -3.9,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.3165,
-            "ifLose": 0.1042,
-            "swing": 0.2123,
+            "ifWin": 0.3179,
+            "ifLose": 0.0999,
+            "swing": 0.218,
             "team": "USC",
-            "now": 0.2219
+            "now": 0.2203
           }
         },
         {
@@ -1297,21 +1183,21 @@
           "home": "Georgia Southern",
           "away": "James Madison",
           "neutral": false,
-          "predicted": -12.7,
-          "homeWinProbability": 0.22,
+          "predicted": -12.8,
+          "homeWinProbability": 0.219,
           "played": false,
           "market": -7.5,
           "open": -7.5,
           "total": 51.5,
-          "edge": -5.2,
+          "edge": -5.3,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.2305,
-            "ifLose": 0.0583,
-            "swing": 0.1722,
+            "ifWin": 0.245,
+            "ifLose": 0.0622,
+            "swing": 0.1828,
             "team": "James Madison",
-            "now": 0.19
+            "now": 0.2039
           }
         },
         {
@@ -1324,21 +1210,21 @@
           "home": "Virginia",
           "away": "Syracuse",
           "neutral": false,
-          "predicted": 9.6,
-          "homeWinProbability": 0.72,
+          "predicted": 9.7,
+          "homeWinProbability": 0.722,
           "played": false,
-          "market": 9.5,
+          "market": 10.0,
           "open": 9.5,
           "total": 50.5,
-          "edge": 0.1,
+          "edge": 0.2,
           "flagged": false,
           "stake": {
             "side": "home",
-            "ifWin": 0.0096,
-            "ifLose": 0.0007,
-            "swing": 0.0089,
+            "ifWin": 0.0132,
+            "ifLose": 0.0014,
+            "swing": 0.0118,
             "team": "Virginia",
-            "now": 0.0071
+            "now": 0.0098
           }
         },
         {
@@ -1351,21 +1237,21 @@
           "home": "Louisiana Tech",
           "away": "Louisiana",
           "neutral": false,
-          "predicted": 1.5,
-          "homeWinProbability": 0.537,
+          "predicted": 1.7,
+          "homeWinProbability": 0.542,
           "played": false,
           "market": 3.0,
           "open": 3.0,
-          "total": 47.5,
-          "edge": -1.5,
+          "total": 48.5,
+          "edge": -1.2,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.0106,
-            "ifLose": 0.0005,
-            "swing": 0.0101,
+            "ifWin": 0.0057,
+            "ifLose": 0.0011,
+            "swing": 0.0046,
             "team": "Louisiana",
-            "now": 0.0051
+            "now": 0.0032
           }
         },
         {
@@ -1378,21 +1264,21 @@
           "home": "Northern Illinois",
           "away": "Air Force",
           "neutral": false,
-          "predicted": -12.6,
-          "homeWinProbability": 0.222,
+          "predicted": -12.5,
+          "homeWinProbability": 0.225,
           "played": false,
-          "market": -7.5,
+          "market": -7.0,
           "open": -7.5,
           "total": 46.5,
-          "edge": -5.1,
+          "edge": -5.0,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.0023,
+            "ifWin": 0.0022,
             "ifLose": 0.0,
-            "swing": 0.0023,
+            "swing": 0.0022,
             "team": "Air Force",
-            "now": 0.0018
+            "now": 0.0017
           }
         },
         {
@@ -1405,48 +1291,21 @@
           "home": "Purdue",
           "away": "Minnesota",
           "neutral": false,
-          "predicted": -5.1,
-          "homeWinProbability": 0.378,
+          "predicted": -5.0,
+          "homeWinProbability": 0.382,
           "played": false,
           "market": -2.5,
           "open": -2.5,
-          "total": 50.5,
-          "edge": -2.6,
+          "total": 49.5,
+          "edge": -2.5,
           "flagged": false,
           "stake": {
             "side": "away",
-            "ifWin": 0.0341,
-            "ifLose": 0.0053,
-            "swing": 0.0288,
+            "ifWin": 0.0313,
+            "ifLose": 0.0052,
+            "swing": 0.0261,
             "team": "Minnesota",
-            "now": 0.0232
-          }
-        },
-        {
-          "id": 401856808,
-          "week": 6,
-          "date": "2026-10-10",
-          "dateLabel": "Sat, Oct 10",
-          "time": "9:30\u202fPM ET",
-          "sort": "2130",
-          "home": "Arizona State",
-          "away": "Hawaii",
-          "neutral": false,
-          "predicted": 15.3,
-          "homeWinProbability": 0.824,
-          "played": false,
-          "market": 20.5,
-          "open": 20.5,
-          "total": 50.5,
-          "edge": -5.2,
-          "flagged": true,
-          "stake": {
-            "side": "away",
-            "ifWin": 0.0,
-            "ifLose": 0.0,
-            "swing": 0.0,
-            "team": "Hawaii",
-            "now": 0.0
+            "now": 0.0212
           }
         },
         {
@@ -1459,21 +1318,21 @@
           "home": "Utah",
           "away": "Kansas",
           "neutral": false,
-          "predicted": 23.2,
-          "homeWinProbability": 0.92,
+          "predicted": 23.3,
+          "homeWinProbability": 0.921,
           "played": false,
           "market": 15.5,
           "open": null,
           "total": 51.5,
-          "edge": 7.7,
+          "edge": 7.8,
           "flagged": true,
           "stake": {
             "side": "home",
-            "ifWin": 0.6037,
-            "ifLose": 0.2548,
-            "swing": 0.3489,
+            "ifWin": 0.5907,
+            "ifLose": 0.2265,
+            "swing": 0.3642,
             "team": "Utah",
-            "now": 0.5713
+            "now": 0.5605
           }
         },
         {
@@ -1486,21 +1345,48 @@
           "home": "Fresno State",
           "away": "Boise State",
           "neutral": false,
-          "predicted": -3.2,
-          "homeWinProbability": 0.424,
+          "predicted": -3.0,
+          "homeWinProbability": 0.427,
           "played": false,
           "market": -6.5,
           "open": -6.5,
           "total": 48.5,
-          "edge": 3.3,
+          "edge": 3.5,
           "flagged": true,
           "stake": {
             "side": "away",
-            "ifWin": 0.4798,
-            "ifLose": 0.1757,
-            "swing": 0.3041,
+            "ifWin": 0.4644,
+            "ifLose": 0.155,
+            "swing": 0.3094,
             "team": "Boise State",
-            "now": 0.3483
+            "now": 0.3312
+          }
+        },
+        {
+          "id": 401856808,
+          "week": 6,
+          "date": "2026-10-10",
+          "dateLabel": "Sat, Oct 10",
+          "time": "10:30\u202fPM ET",
+          "sort": "2230",
+          "home": "Arizona State",
+          "away": "Hawaii",
+          "neutral": false,
+          "predicted": 15.3,
+          "homeWinProbability": 0.824,
+          "played": false,
+          "market": 20.5,
+          "open": 20.5,
+          "total": 50.5,
+          "edge": -5.2,
+          "flagged": true,
+          "stake": {
+            "side": "home",
+            "ifWin": 0.0009,
+            "ifLose": 0.0005,
+            "swing": 0.0004,
+            "team": "Arizona State",
+            "now": 0.0008
           }
         }
       ]
@@ -1578,21 +1464,117 @@
         "modelError": 11.1,
         "marketError": 12.0
       }
+    },
+    {
+      "id": 401870766,
+      "week": 6,
+      "date": "2026-10-08",
+      "dateLabel": "Thu, Oct 8",
+      "time": "7:00\u202fPM ET",
+      "sort": "1900",
+      "home": "Liberty",
+      "away": "Sam Houston",
+      "neutral": false,
+      "predicted": 13.8,
+      "homeWinProbability": 0.798,
+      "played": true,
+      "market": 13.5,
+      "open": 13.5,
+      "total": 52.5,
+      "result": {
+        "homeScore": 35,
+        "awayScore": 3,
+        "modelCorrect": true,
+        "modelError": 18.2,
+        "marketError": 18.5
+      }
+    },
+    {
+      "id": 401871052,
+      "week": 6,
+      "date": "2026-10-08",
+      "dateLabel": "Thu, Oct 8",
+      "time": "7:00\u202fPM ET",
+      "sort": "1900",
+      "home": "Western Kentucky",
+      "away": "Missouri State",
+      "neutral": false,
+      "predicted": 2.7,
+      "homeWinProbability": 0.564,
+      "played": true,
+      "market": -1.5,
+      "open": 2.5,
+      "total": 56.5,
+      "result": {
+        "homeScore": 34,
+        "awayScore": 13,
+        "modelCorrect": true,
+        "modelError": 18.3,
+        "marketError": 22.5
+      }
+    },
+    {
+      "id": 401862794,
+      "week": 6,
+      "date": "2026-10-08",
+      "dateLabel": "Thu, Oct 8",
+      "time": "7:30\u202fPM ET",
+      "sort": "1930",
+      "home": "UTSA",
+      "away": "USF",
+      "neutral": false,
+      "predicted": 2.9,
+      "homeWinProbability": 0.57,
+      "played": true,
+      "market": 5.5,
+      "open": 7.0,
+      "total": 49.5,
+      "result": {
+        "homeScore": 31,
+        "awayScore": 24,
+        "modelCorrect": true,
+        "modelError": 4.1,
+        "marketError": 1.5
+      }
+    },
+    {
+      "id": 401869933,
+      "week": 6,
+      "date": "2026-10-08",
+      "dateLabel": "Thu, Oct 8",
+      "time": "7:30\u202fPM ET",
+      "sort": "1930",
+      "home": "Arkansas State",
+      "away": "South Alabama",
+      "neutral": false,
+      "predicted": 0.3,
+      "homeWinProbability": 0.507,
+      "played": true,
+      "market": 3.0,
+      "open": 1.5,
+      "total": 60.5,
+      "result": {
+        "homeScore": 49,
+        "awayScore": 56,
+        "modelCorrect": false,
+        "modelError": 7.3,
+        "marketError": 10.0
+      }
     }
   ],
   "fcs": [],
   "watch": [
+    401858257,
     401858484,
-    401858481,
     401856827,
+    401858481,
     401856715,
     401860901,
     401858483,
     401856826,
-    401858257,
     401856714,
     401858485
   ],
-  "flagged": 33,
+  "flagged": 32,
   "games": 58
 }

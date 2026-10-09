@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 274,
-      "accuracy": 0.7956,
-      "mae": 12.9,
-      "priced": 274,
-      "modelMaePriced": 12.9,
-      "marketMae": 11.45,
-      "marketAccuracy": 0.8175,
-      "modelAccuracyPriced": 0.7956,
-      "maeGap": 1.45,
-      "maeGapError": 0.62,
+      "games": 278,
+      "accuracy": 0.795,
+      "mae": 12.88,
+      "priced": 278,
+      "modelMaePriced": 12.88,
+      "marketMae": 11.47,
+      "marketAccuracy": 0.8129,
+      "modelAccuracyPriced": 0.795,
+      "maeGap": 1.41,
+      "maeGapError": 0.61,
       "slope": 0.91,
       "marketSlope": 1.02,
       "bets": {
-        "count": 154,
+        "count": 155,
         "wins": 78,
         "losses": 73,
-        "pushes": 3,
+        "pushes": 4,
         "ats": 0.5166,
         "units": -2.1,
-        "clv": 0.64
+        "clv": 0.65
       }
     },
     "weeks": [
@@ -81,12 +81,12 @@
       },
       {
         "week": 6,
-        "games": 3,
-        "accuracy": 1.0,
-        "mae": 8.79,
-        "marketMae": 8.5,
-        "bets": 1,
-        "record": "1-0",
+        "games": 7,
+        "accuracy": 0.8571,
+        "mae": 10.62,
+        "marketMae": 11.14,
+        "bets": 2,
+        "record": "1-0-1",
         "units": 0.91
       }
     ],
@@ -2400,6 +2400,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 3.5
+      },
+      {
+        "week": 6,
+        "home": "UTSA",
+        "away": "USF",
+        "side": "away",
+        "team": "USF",
+        "predicted": 2.9,
+        "open": 7.0,
+        "close": 5.5,
+        "edge": -4.1,
+        "actual": 7,
+        "result": "push",
+        "units": 0.0,
+        "clv": 1.5
       }
     ]
   },
@@ -5049,7 +5064,10 @@
         "week": 6
       },
       {
+        "actual": 7,
         "away": "USF",
+        "close": 5.5,
+        "clv": 1.5,
         "edge": -4.0,
         "game_id": 401862794,
         "home": "UTSA",
@@ -5059,8 +5077,10 @@
         "neutral": false,
         "open": 7.0,
         "predicted": 3.0,
+        "result": "push",
         "side": "away",
         "taken": 7.0,
+        "units": 0.0,
         "week": 6
       },
       {
@@ -5139,6 +5159,21 @@
         "week": 6
       },
       {
+        "away": "Illinois",
+        "edge": 3.0,
+        "game_id": 401858480,
+        "home": "Michigan State",
+        "kickoff": "2026-10-10T19:30:00.000Z",
+        "loggedAt": "2026-10-09T17:13Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": -2.5,
+        "predicted": 0.5,
+        "side": "home",
+        "taken": -2.5,
+        "week": 6
+      },
+      {
         "away": "Tulsa",
         "edge": 3.0,
         "game_id": 401862799,
@@ -5154,14 +5189,14 @@
         "week": 6
       }
     ],
-    "logged": 148,
+    "logged": 149,
     "earlier": 48,
-    "graded": 115,
+    "graded": 116,
     "wins": 58,
     "losses": 56,
-    "pushes": 1,
+    "pushes": 2,
     "ats": 0.5088,
     "units": -3.28,
-    "clv": 0.2
+    "clv": 0.21
   }
 }

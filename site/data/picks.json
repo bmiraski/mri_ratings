@@ -2658,7 +2658,10 @@
    "week": 6
   },
   {
+   "actual": 7,
    "away": "USF",
+   "close": 5.5,
+   "clv": 1.5,
    "edge": -4.0,
    "game_id": 401862794,
    "home": "UTSA",
@@ -2668,8 +2671,10 @@
    "neutral": false,
    "open": 7.0,
    "predicted": 3.0,
+   "result": "push",
    "side": "away",
    "taken": 7.0,
+   "units": 0.0,
    "week": 6
   },
   {
@@ -2745,6 +2750,21 @@
    "predicted": 5.5,
    "side": "home",
    "taken": 2.5,
+   "week": 6
+  },
+  {
+   "away": "Illinois",
+   "edge": 3.0,
+   "game_id": 401858480,
+   "home": "Michigan State",
+   "kickoff": "2026-10-10T19:30:00.000Z",
+   "loggedAt": "2026-10-09T17:13Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -2.5,
+   "predicted": 0.5,
+   "side": "home",
+   "taken": -2.5,
    "week": 6
   }
  ],
