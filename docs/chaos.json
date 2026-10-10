@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 7,
+    "gamesPlayed": 12,
     "missingPregame": 0,
-    "games": 7,
-    "upsets": null,
-    "expectedUpsets": 18.22,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 12,
+    "upsets": 4,
+    "expectedUpsets": 4.528,
+    "z": -0.23485102829213206,
+    "shocks": [
+      {
+        "gameId": 401864519,
+        "winner": "Wyoming",
+        "loser": "San Jose State",
+        "pregameWinProb": 0.21999999999999997,
+        "winnerScore": 16,
+        "loserScore": 13,
+        "homeScore": 13,
+        "awayScore": 16
+      },
+      {
+        "gameId": 401860922,
+        "winner": "Utah State",
+        "loser": "Washington State",
+        "pregameWinProb": 0.47,
+        "winnerScore": 17,
+        "loserScore": 16,
+        "homeScore": 17,
+        "awayScore": 16
+      },
+      {
+        "gameId": 401869933,
+        "winner": "South Alabama",
+        "loser": "Arkansas State",
+        "pregameWinProb": 0.493,
+        "winnerScore": 56,
+        "loserScore": 49,
+        "homeScore": 49,
+        "awayScore": 56
+      }
+    ]
   },
   "archive": {
     "calibration": {
