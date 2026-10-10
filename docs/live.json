@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 6,
  "date": null,
- "updated": "2026-10-10T04:43:25Z",
- "updatedLabel": "12:43 AM ET",
+ "updated": "2026-10-10T04:48:27Z",
+ "updatedLabel": "12:48 AM ET",
  "games": {
   "401871090": {
    "status": "completed",
@@ -118,24 +118,24 @@
   },
   "401860922": {
    "status": "in_progress",
-   "label": "Q4 01:33",
+   "label": "Q4 00:00",
    "period": 4,
-   "clock": "01:33",
+   "clock": "00:00",
    "home": 17,
    "away": 16,
-   "possession": null,
-   "homeWinProbability": 0.644,
+   "possession": "home",
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "401856826": {
    "status": "in_progress",
-   "label": "Q3 03:22",
+   "label": "Q3 01:09",
    "period": 3,
-   "clock": "03:22",
-   "home": 14,
+   "clock": "01:09",
+   "home": 21,
    "away": 3,
-   "possession": "away",
-   "homeWinProbability": 0.961,
+   "possession": null,
+   "homeWinProbability": 0.996,
    "upset": null
   }
  }
