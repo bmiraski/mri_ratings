@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 6,
  "date": null,
- "updated": "2026-10-11T03:43:35Z",
- "updatedLabel": "11:43 PM ET",
+ "updated": "2026-10-11T03:48:37Z",
+ "updatedLabel": "11:48 PM ET",
  "games": {
   "401871090": {
    "status": "completed",
@@ -591,12 +591,12 @@
   },
   "401856827": {
    "status": "in_progress",
-   "label": "Q4 02:00",
+   "label": "Q4 00:00",
    "period": 4,
-   "clock": "02:00",
+   "clock": "00:00",
    "home": 41,
    "away": 24,
-   "possession": null,
+   "possession": "home",
    "homeWinProbability": 1.0,
    "upset": null
   },
@@ -612,36 +612,36 @@
    "upset": null
   },
   "401869949": {
-   "status": "in_progress",
-   "label": "Q4 00:53",
-   "period": 4,
-   "clock": "00:53",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 24,
    "away": 27,
-   "possession": "home",
-   "homeWinProbability": 0.056,
+   "possession": null,
+   "homeWinProbability": 0.0,
    "upset": null
   },
   "401856808": {
    "status": "in_progress",
-   "label": "Q2 06:02",
+   "label": "Q2 03:54",
    "period": 2,
-   "clock": "06:02",
+   "clock": "03:54",
    "home": 14,
    "away": 3,
    "possession": "away",
-   "homeWinProbability": 0.943,
+   "homeWinProbability": 0.944,
    "upset": null
   },
   "401860901": {
    "status": "in_progress",
-   "label": "Q2 15:00",
+   "label": "Q2 10:26",
    "period": 2,
-   "clock": "15:00",
+   "clock": "10:26",
    "home": 13,
    "away": 15,
-   "possession": "away",
-   "homeWinProbability": 0.377,
+   "possession": null,
+   "homeWinProbability": 0.378,
    "upset": null
   }
  }
