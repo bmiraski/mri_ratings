@@ -213,6 +213,20 @@ def add_football_extras(payload: dict, data_dir: Path) -> dict | None:
     except Exception as exc:  # noqa: BLE001
         print(f"  heisman skipped: {exc}")
 
+    if not payload.get("heisman"):
+        # A failed or empty build (a 503 from the stats API, say) must not take the page out of the header on
+        # every other page. Keep the last published page and its nav link; its own "updated" date says how old it is.
+        kept = ROOT / "docs" / "heisman.json"
+        if kept.exists():
+            saved = json.loads(kept.read_text())
+            if saved.get("season") == SEASON:
+                payload["heisman"] = saved
+                payload["heismanBacktest"] = {
+                    key: json.loads((data_dir / name).read_text())
+                    for key, name in (("final", "heisman_backtest.json"), ("forecast", "heisman_forecast_backtest.json"))
+                    if (data_dir / name).exists()}
+                print(f"  heisman: kept the published page from {saved.get('updated')}")
+
     # After the odds, which it needs: anyone the model gives more than 5% is not hidden.
     try:
         from mri.export import hidden_heisman
