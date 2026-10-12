@@ -31190,77 +31190,77 @@
             "z": -0.384758478068524
           },
           "6": {
-            "games": 58,
-            "upsets": 23,
             "expectedUpsets": 18.28249233598619,
-            "z": 1.6620754573728127,
-            "shocks": [
-              {
-                "gameId": 401866437,
-                "winner": "Buffalo",
-                "loser": "Toledo",
-                "pregameWinProb": 0.050356705729460605,
-                "winnerScore": 23,
-                "loserScore": 8,
-                "homeScore": 8,
-                "awayScore": 23
-              },
-              {
-                "gameId": 401856717,
-                "winner": "Oklahoma",
-                "loser": "Texas",
-                "pregameWinProb": 0.18570489292950265,
-                "winnerScore": 27,
-                "loserScore": 24,
-                "homeScore": 27,
-                "awayScore": 24
-              },
-              {
-                "gameId": 401864519,
-                "winner": "Wyoming",
-                "loser": "San Jose State",
-                "pregameWinProb": 0.2231886793026978,
-                "winnerScore": 16,
-                "loserScore": 13,
-                "homeScore": 13,
-                "awayScore": 16
-              }
-            ],
-            "missingPregame": 0,
-            "final": true,
-            "reconstructed": false,
             "fallout": {
-              "moved": 1.3661,
               "gained": [
                 {
-                  "team": "UCLA",
-                  "change": 0.2204
+                  "change": 0.2204,
+                  "team": "UCLA"
                 },
                 {
-                  "team": "Oklahoma",
-                  "change": 0.1324
+                  "change": 0.1324,
+                  "team": "Oklahoma"
                 },
                 {
-                  "team": "Ole Miss",
-                  "change": 0.1283
+                  "change": 0.1283,
+                  "team": "Ole Miss"
                 }
               ],
               "lost": [
                 {
-                  "team": "Oregon",
-                  "change": -0.239
+                  "change": -0.239,
+                  "team": "Oregon"
                 },
                 {
-                  "team": "LSU",
-                  "change": -0.1973
+                  "change": -0.1973,
+                  "team": "LSU"
                 },
                 {
-                  "team": "Florida",
-                  "change": -0.1761
+                  "change": -0.1761,
+                  "team": "Florida"
                 }
-              ]
+              ],
+              "moved": 1.3661
             },
-            "percentile": 93.28
+            "final": true,
+            "games": 58,
+            "missingPregame": 0,
+            "percentile": 93.28,
+            "reconstructed": false,
+            "shocks": [
+              {
+                "awayScore": 23,
+                "gameId": 401866437,
+                "homeScore": 8,
+                "loser": "Toledo",
+                "loserScore": 8,
+                "pregameWinProb": 0.050356705729460605,
+                "winner": "Buffalo",
+                "winnerScore": 23
+              },
+              {
+                "awayScore": 24,
+                "gameId": 401856717,
+                "homeScore": 27,
+                "loser": "Texas",
+                "loserScore": 24,
+                "pregameWinProb": 0.18570489292950265,
+                "winner": "Oklahoma",
+                "winnerScore": 27
+              },
+              {
+                "awayScore": 16,
+                "gameId": 401864519,
+                "homeScore": 13,
+                "loser": "San Jose State",
+                "loserScore": 13,
+                "pregameWinProb": 0.2231886793026978,
+                "winner": "Wyoming",
+                "winnerScore": 16
+              }
+            ],
+            "upsets": 23,
+            "z": 1.6620754573728127
           }
         }
       }
