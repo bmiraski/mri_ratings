@@ -61,6 +61,9 @@ MODEL_PATH = ROOT / "data" / "bb_prior_model.json"
 PARQUET = ROOT / "data" / "parquet"
 MIN_ROSTER = 8               # a posted roster this long is a roster; shorter is a list still being filled
 VETERAN_SEASONS = 4          # a fourth Division I season, counting last year's, is likely a last one
+REGULAR_MINUTES = 500        # a veteran who played this much was a regular, whose absence from a roster means something
+MIN_VETERANS = 30            # fewer regulars than this and the carryover test has nothing to judge by
+MAX_VETERAN_CARRYOVER = 0.40  # past this, graduated seniors are still listed: in a finished roster only ~17% return
 TEAM_MINUTES = 8000.0        # about what a team's players play in a season, to put incoming minutes on a scale
 
 
@@ -167,6 +170,25 @@ def preseason_prior(previous: pd.Series | None, teams: list[str], d1: list[str],
     return out
 
 
+def looks_final(posted: dict[str, set], season: int, played: pd.DataFrame) -> bool:
+    """Whether posted rosters have been cleaned up for the coming season.
+
+    Schools post rosters before they remove last year's graduates, so an early list
+    is mostly last season's team. The model was fitted on finished rosters, and a
+    list that still carries its seniors reads as near-total retention for every
+    team. A finished roster has about 17% of last year's fourth-year-and-later
+    regulars on it (a fifth year, a medical waiver); an unscrubbed one has most of
+    them. With too few regulars to judge by, the list is taken at its word.
+    """
+    prev = played[(played["season"] == season - 1) & (played["minutes"] >= REGULAR_MINUTES)]
+    first = played.groupby("athlete_id")["season"].min()
+    veterans = prev[(season - 1 - prev["athlete_id"].map(first)) >= VETERAN_SEASONS - 1]
+    if len(veterans) < MIN_VETERANS:
+        return True
+    listed = set().union(*posted.values()) if posted else set()
+    return float(veterans["athlete_id"].isin(listed).mean()) <= MAX_VETERAN_CARRYOVER
+
+
 def rosters_for(season: int, d1: list[str]) -> dict[str, set] | None:
     """Rosters for a season, or None if none are to be had.
 
@@ -191,7 +213,12 @@ def rosters_for(season: int, d1: list[str]) -> dict[str, set] | None:
         return None
     frame["team_c"] = [registry.resolve(t, t, season=season) for t in frame["team"]]
     posted = {t: set(g["athlete_id"].dropna()) for t, g in frame.groupby("team_c") if t}
-    return posted if sum(len(v) >= MIN_ROSTER for v in posted.values()) else None
+    if sum(len(v) >= MIN_ROSTER for v in posted.values()) == 0:
+        return None
+    # Still last year's list: use the before-rosters prior until the schools clean it up.
+    if tables is not None and not looks_final(posted, season, tables[0]):
+        return None
+    return posted
 
 
 def for_season(season: int, previous: pd.Series | None, teams: list[str], d1: list[str]) -> pd.Series:

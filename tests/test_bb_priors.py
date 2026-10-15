@@ -142,6 +142,36 @@ def test_a_played_season_takes_its_roster_from_the_stats_and_a_coming_one_from_t
     assert calls == [] and len(bb_priors.rosters_for(2027, D1)["Duke"]) == 9 and calls == [2027]
 
 
+def seniors(n: int = 40) -> pd.DataFrame:
+    """Last season (2024): n fourth-year regulars on one team."""
+    rows = [(100 + i, "Duke", 800, 3.0, season) for i in range(n) for season in (2021, 2022, 2023, 2024)]
+    return bb_priors._played(pd.DataFrame([{"season": s, "athlete_id": a, "team": t, "minutes": m, "win_shares": w, "name": "x"}
+                                          for a, t, m, w, s in rows]))
+
+
+def test_a_roster_that_still_lists_last_years_seniors_is_not_final() -> None:
+    played = seniors()
+    stale = {"Duke": set(range(100, 135))}                    # 35 of 40 seniors still on the list
+    scrubbed = {"Duke": set(range(100, 107)) | {900, 901}}    # 7 of 40 (17%) have a year left
+    assert not bb_priors.looks_final(stale, 2025, played)
+    assert bb_priors.looks_final(scrubbed, 2025, played)
+
+
+def test_with_too_few_regulars_to_judge_a_roster_is_taken_at_its_word() -> None:
+    assert bb_priors.looks_final({"Duke": set(range(100, 110))}, 2025, seniors(5))
+
+
+def test_a_stale_feed_roster_falls_back_to_before_rosters(monkeypatch) -> None:
+    played = seniors()
+    monkeypatch.setattr(bb_priors, "_tables", lambda: (played, tables()[1], tables()[2]))
+    feed = lambda ids: (lambda season, refresh=False: pd.DataFrame(
+        {"season": season, "team": "Duke", "conference": "ACC", "athlete_id": ids, "name": "x"}))
+    monkeypatch.setattr("mri.ingest.cbbd.rosters", feed(list(range(100, 135))))
+    assert bb_priors.rosters_for(2025, D1) is None
+    monkeypatch.setattr("mri.ingest.cbbd.rosters", feed(list(range(100, 107)) + [900, 901]))
+    assert len(bb_priors.rosters_for(2025, D1)["Duke"]) == 9
+
+
 def test_rosters_not_posted_yet_mean_no_rosters_and_never_an_error(monkeypatch) -> None:
     played, recruits, draft = tables()
     monkeypatch.setattr(bb_priors, "_tables", lambda: (played, recruits, draft))
