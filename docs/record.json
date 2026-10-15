@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 331,
-      "accuracy": 0.7583,
-      "mae": 12.77,
-      "priced": 331,
-      "modelMaePriced": 12.77,
-      "marketMae": 11.42,
-      "marketAccuracy": 0.7885,
-      "modelAccuracyPriced": 0.7583,
-      "maeGap": 1.35,
+      "games": 333,
+      "accuracy": 0.7598,
+      "mae": 12.73,
+      "priced": 333,
+      "modelMaePriced": 12.73,
+      "marketMae": 11.4,
+      "marketAccuracy": 0.7868,
+      "modelAccuracyPriced": 0.7598,
+      "maeGap": 1.33,
       "maeGapError": 0.55,
       "slope": 0.89,
       "marketSlope": 1.02,
       "bets": {
-        "count": 185,
-        "wins": 91,
+        "count": 186,
+        "wins": 92,
         "losses": 88,
         "pushes": 6,
-        "ats": 0.5084,
-        "units": -5.28,
+        "ats": 0.5111,
+        "units": -4.37,
         "clv": 0.58
       }
     },
@@ -91,13 +91,13 @@
       },
       {
         "week": 7,
-        "games": 2,
-        "accuracy": 0.5,
-        "mae": 3.1,
-        "marketMae": 2.25,
-        "bets": 0,
-        "record": "0-0",
-        "units": 0
+        "games": 4,
+        "accuracy": 0.75,
+        "mae": 4.47,
+        "marketMae": 5.38,
+        "bets": 1,
+        "record": "1-0",
+        "units": 0.91
       }
     ],
     "bets": [
@@ -2875,6 +2875,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 2.5
+      },
+      {
+        "week": 7,
+        "home": "Missouri State",
+        "away": "Kennesaw State",
+        "side": "home",
+        "team": "Missouri State",
+        "predicted": 2.4,
+        "open": -3.0,
+        "close": -2.5,
+        "edge": 5.4,
+        "actual": 3,
+        "result": "win",
+        "units": 0.909,
+        "clv": 0.5
       }
     ]
   },
@@ -6009,7 +6024,10 @@
         "week": 7
       },
       {
+        "actual": 3,
         "away": "Kennesaw State",
+        "close": -2.5,
+        "clv": 0.5,
         "edge": 5.4,
         "game_id": 401871054,
         "home": "Missouri State",
@@ -6019,8 +6037,10 @@
         "neutral": false,
         "open": -3.0,
         "predicted": 2.4,
+        "result": "win",
         "side": "home",
         "taken": -3.0,
+        "units": 0.909,
         "week": 7
       },
       {
@@ -6191,12 +6211,12 @@
     ],
     "logged": 174,
     "earlier": 48,
-    "graded": 149,
-    "wins": 74,
+    "graded": 150,
+    "wins": 75,
     "losses": 72,
     "pushes": 3,
-    "ats": 0.5068,
-    "units": -4.73,
+    "ats": 0.5102,
+    "units": -3.83,
     "clv": 0.19
   }
 }
