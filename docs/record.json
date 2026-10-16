@@ -6,15 +6,15 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 333,
-      "accuracy": 0.7598,
-      "mae": 12.73,
-      "priced": 333,
-      "modelMaePriced": 12.73,
-      "marketMae": 11.4,
-      "marketAccuracy": 0.7868,
-      "modelAccuracyPriced": 0.7598,
-      "maeGap": 1.33,
+      "games": 336,
+      "accuracy": 0.7589,
+      "mae": 12.76,
+      "priced": 336,
+      "modelMaePriced": 12.76,
+      "marketMae": 11.44,
+      "marketAccuracy": 0.7857,
+      "modelAccuracyPriced": 0.7589,
+      "maeGap": 1.32,
       "maeGapError": 0.55,
       "slope": 0.89,
       "marketSlope": 1.02,
@@ -91,10 +91,10 @@
       },
       {
         "week": 7,
-        "games": 4,
-        "accuracy": 0.75,
-        "mae": 4.47,
-        "marketMae": 5.38,
+        "games": 7,
+        "accuracy": 0.7143,
+        "mae": 9.51,
+        "marketMae": 9.79,
         "bets": 1,
         "record": "1-0",
         "units": 0.91
@@ -6194,6 +6194,21 @@
         "week": 7
       },
       {
+        "away": "Troy",
+        "edge": 3.2,
+        "game_id": 401869966,
+        "home": "Louisiana",
+        "kickoff": "2026-10-17T21:00:00.000Z",
+        "loggedAt": "2026-10-16T15:03Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": 3.5,
+        "predicted": 6.7,
+        "side": "home",
+        "taken": 3.0,
+        "week": 7
+      },
+      {
         "away": "UMass",
         "edge": -3.0,
         "game_id": 401866442,
@@ -6209,7 +6224,7 @@
         "week": 7
       }
     ],
-    "logged": 174,
+    "logged": 175,
     "earlier": 48,
     "graded": 150,
     "wins": 75,
