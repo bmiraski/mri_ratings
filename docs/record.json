@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 336,
-      "accuracy": 0.7589,
-      "mae": 12.76,
-      "priced": 336,
-      "modelMaePriced": 12.76,
-      "marketMae": 11.44,
-      "marketAccuracy": 0.7857,
-      "modelAccuracyPriced": 0.7589,
-      "maeGap": 1.32,
-      "maeGapError": 0.55,
+      "games": 339,
+      "accuracy": 0.7581,
+      "mae": 12.74,
+      "priced": 339,
+      "modelMaePriced": 12.74,
+      "marketMae": 11.45,
+      "marketAccuracy": 0.7817,
+      "modelAccuracyPriced": 0.7581,
+      "maeGap": 1.29,
+      "maeGapError": 0.54,
       "slope": 0.89,
       "marketSlope": 1.02,
       "bets": {
-        "count": 186,
-        "wins": 92,
+        "count": 187,
+        "wins": 93,
         "losses": 88,
         "pushes": 6,
-        "ats": 0.5111,
-        "units": -4.37,
+        "ats": 0.5138,
+        "units": -3.46,
         "clv": 0.58
       }
     },
@@ -91,13 +91,13 @@
       },
       {
         "week": 7,
-        "games": 7,
-        "accuracy": 0.7143,
-        "mae": 9.51,
-        "marketMae": 9.79,
-        "bets": 1,
-        "record": "1-0",
-        "units": 0.91
+        "games": 10,
+        "accuracy": 0.7,
+        "mae": 9.69,
+        "marketMae": 10.55,
+        "bets": 2,
+        "record": "2-0",
+        "units": 1.82
       }
     ],
     "bets": [
@@ -2887,6 +2887,21 @@
         "close": -2.5,
         "edge": 5.4,
         "actual": 3,
+        "result": "win",
+        "units": 0.909,
+        "clv": 0.5
+      },
+      {
+        "week": 7,
+        "home": "Tulane",
+        "away": "Memphis",
+        "side": "home",
+        "team": "Tulane",
+        "predicted": -2.4,
+        "open": -7.0,
+        "close": -6.5,
+        "edge": 4.6,
+        "actual": 14,
         "result": "win",
         "units": 0.909,
         "clv": 0.5
@@ -6059,7 +6074,10 @@
         "week": 7
       },
       {
+        "actual": 14,
         "away": "Memphis",
+        "close": -6.5,
+        "clv": 0.5,
         "edge": 4.6,
         "game_id": 401862801,
         "home": "Tulane",
@@ -6069,8 +6087,10 @@
         "neutral": false,
         "open": -7.0,
         "predicted": -2.4,
+        "result": "win",
         "side": "home",
         "taken": -7.0,
+        "units": 0.909,
         "week": 7
       },
       {
@@ -6226,12 +6246,12 @@
     ],
     "logged": 175,
     "earlier": 48,
-    "graded": 150,
-    "wins": 75,
+    "graded": 151,
+    "wins": 76,
     "losses": 72,
     "pushes": 3,
-    "ats": 0.5102,
-    "units": -3.83,
+    "ats": 0.5135,
+    "units": -2.92,
     "clv": 0.19
   }
 }
