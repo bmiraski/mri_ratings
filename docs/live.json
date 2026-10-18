@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 7,
  "date": null,
- "updated": "2026-10-18T04:34:25Z",
- "updatedLabel": "12:34 AM ET",
+ "updated": "2026-10-18T04:39:27Z",
+ "updatedLabel": "12:39 AM ET",
  "games": {
   "401871067": {
    "status": "completed",
@@ -591,24 +591,24 @@
   },
   "401866445": {
    "status": "in_progress",
-   "label": "Q3 00:45",
+   "label": "Q3 00:00",
    "period": 3,
-   "clock": "00:45",
+   "clock": "00:00",
    "home": 0,
    "away": 41,
-   "possession": null,
+   "possession": "home",
    "homeWinProbability": 0.0,
    "upset": null
   },
   "401856833": {
    "status": "in_progress",
-   "label": "Q3 13:20",
+   "label": "Q3 13:06",
    "period": 3,
-   "clock": "13:20",
+   "clock": "13:06",
    "home": 7,
    "away": 13,
    "possession": null,
-   "homeWinProbability": 0.072,
+   "homeWinProbability": 0.073,
    "upset": null
   },
   "401858269": {
@@ -624,35 +624,35 @@
   },
   "401864521": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 10:42",
+   "period": 3,
+   "clock": "10:42",
    "home": 10,
    "away": 0,
-   "possession": null,
-   "homeWinProbability": 0.566,
-   "upset": null
+   "possession": "away",
+   "homeWinProbability": 0.613,
+   "upset": "Hawaii leads; the model gave them 16% before kickoff"
   },
   "401860904": {
    "status": "in_progress",
-   "label": "Q3 10:13",
+   "label": "Q3 08:31",
    "period": 3,
-   "clock": "10:13",
+   "clock": "08:31",
    "home": 16,
    "away": 10,
-   "possession": "home",
-   "homeWinProbability": 0.633,
+   "possession": "away",
+   "homeWinProbability": 0.644,
    "upset": null
   },
   "401858492": {
    "status": "in_progress",
-   "label": "Q2 01:33",
+   "label": "Q2 00:41",
    "period": 2,
-   "clock": "01:33",
+   "clock": "00:41",
    "home": 0,
    "away": 0,
    "possession": "away",
-   "homeWinProbability": 0.681,
+   "homeWinProbability": 0.679,
    "upset": null
   }
  }
