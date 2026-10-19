@@ -31263,77 +31263,77 @@
             "z": 1.6620754573728127
           },
           "7": {
-            "games": 62,
-            "upsets": 17,
             "expectedUpsets": 17.507747626440903,
-            "z": 1.41219091575011,
-            "shocks": [
-              {
-                "gameId": 401856719,
-                "winner": "Auburn",
-                "loser": "Georgia",
-                "pregameWinProb": 0.05953010776361911,
-                "winnerScore": 27,
-                "loserScore": 24,
-                "homeScore": 24,
-                "awayScore": 27
-              },
-              {
-                "gameId": 401862803,
-                "winner": "Charlotte",
-                "loser": "Temple",
-                "pregameWinProb": 0.0920524305810152,
-                "winnerScore": 38,
-                "loserScore": 31,
-                "homeScore": 31,
-                "awayScore": 38
-              },
-              {
-                "gameId": 401856724,
-                "winner": "Florida",
-                "loser": "Texas",
-                "pregameWinProb": 0.1547554711727387,
-                "winnerScore": 27,
-                "loserScore": 24,
-                "homeScore": 24,
-                "awayScore": 27
-              }
-            ],
-            "missingPregame": 0,
-            "final": true,
-            "reconstructed": false,
             "fallout": {
-              "moved": 1.5031,
               "gained": [
                 {
-                  "team": "Tennessee",
-                  "change": 0.2763
+                  "change": 0.2763,
+                  "team": "Tennessee"
                 },
                 {
-                  "team": "Ole Miss",
-                  "change": 0.2202
+                  "change": 0.2202,
+                  "team": "Ole Miss"
                 },
                 {
-                  "team": "BYU",
-                  "change": 0.1903
+                  "change": 0.1903,
+                  "team": "BYU"
                 }
               ],
               "lost": [
                 {
-                  "team": "Oklahoma",
-                  "change": -0.191
+                  "change": -0.191,
+                  "team": "Oklahoma"
                 },
                 {
-                  "team": "Alabama",
-                  "change": -0.1694
+                  "change": -0.1694,
+                  "team": "Alabama"
                 },
                 {
-                  "team": "Missouri",
-                  "change": -0.1559
+                  "change": -0.1559,
+                  "team": "Missouri"
                 }
-              ]
+              ],
+              "moved": 1.5031
             },
-            "percentile": 90.26
+            "final": true,
+            "games": 62,
+            "missingPregame": 0,
+            "percentile": 90.26,
+            "reconstructed": false,
+            "shocks": [
+              {
+                "awayScore": 27,
+                "gameId": 401856719,
+                "homeScore": 24,
+                "loser": "Georgia",
+                "loserScore": 24,
+                "pregameWinProb": 0.05953010776361911,
+                "winner": "Auburn",
+                "winnerScore": 27
+              },
+              {
+                "awayScore": 38,
+                "gameId": 401862803,
+                "homeScore": 31,
+                "loser": "Temple",
+                "loserScore": 31,
+                "pregameWinProb": 0.0920524305810152,
+                "winner": "Charlotte",
+                "winnerScore": 38
+              },
+              {
+                "awayScore": 27,
+                "gameId": 401856724,
+                "homeScore": 24,
+                "loser": "Texas",
+                "loserScore": 24,
+                "pregameWinProb": 0.1547554711727387,
+                "winner": "Florida",
+                "winnerScore": 27
+              }
+            ],
+            "upsets": 17,
+            "z": 1.41219091575011
           }
         }
       }
