@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 388,
-      "accuracy": 0.7526,
-      "mae": 12.67,
-      "priced": 388,
-      "modelMaePriced": 12.67,
-      "marketMae": 11.35,
-      "marketAccuracy": 0.7758,
-      "modelAccuracyPriced": 0.7526,
+      "games": 391,
+      "accuracy": 0.7494,
+      "mae": 12.69,
+      "priced": 391,
+      "modelMaePriced": 12.69,
+      "marketMae": 11.37,
+      "marketAccuracy": 0.7724,
+      "modelAccuracyPriced": 0.7494,
       "maeGap": 1.32,
       "maeGapError": 0.5,
-      "slope": 0.88,
-      "marketSlope": 1.02,
+      "slope": 0.87,
+      "marketSlope": 1.01,
       "bets": {
-        "count": 209,
+        "count": 210,
         "wins": 101,
-        "losses": 101,
+        "losses": 102,
         "pushes": 7,
-        "ats": 0.5,
-        "units": -9.19,
+        "ats": 0.4975,
+        "units": -10.19,
         "clv": 0.71
       }
     },
@@ -98,6 +98,16 @@
         "bets": 24,
         "record": "10-13-1",
         "units": -3.91
+      },
+      {
+        "week": 8,
+        "games": 3,
+        "accuracy": 0.3333,
+        "mae": 15.39,
+        "marketMae": 14.0,
+        "bets": 1,
+        "record": "0-1",
+        "units": -1.0
       }
     ],
     "bets": [
@@ -3235,6 +3245,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": -3.0
+      },
+      {
+        "week": 8,
+        "home": "FIU",
+        "away": "Middle Tennessee",
+        "side": "home",
+        "team": "FIU",
+        "predicted": 13.4,
+        "open": 10.0,
+        "close": 10.5,
+        "edge": 3.4,
+        "actual": -3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.5
       }
     ]
   },
@@ -7009,7 +7034,10 @@
         "week": 8
       },
       {
+        "actual": -3,
         "away": "Middle Tennessee",
+        "close": 10.5,
+        "clv": 0.0,
         "edge": 3.4,
         "game_id": 401871055,
         "home": "FIU",
@@ -7019,8 +7047,10 @@
         "neutral": false,
         "open": 10.0,
         "predicted": 13.4,
+        "result": "loss",
         "side": "home",
         "taken": 10.5,
+        "units": -1.0,
         "week": 8
       },
       {
@@ -7101,12 +7131,12 @@
     ],
     "logged": 202,
     "earlier": 48,
-    "graded": 175,
+    "graded": 176,
     "wins": 84,
-    "losses": 86,
+    "losses": 87,
     "pushes": 5,
-    "ats": 0.4941,
-    "units": -9.64,
+    "ats": 0.4912,
+    "units": -10.64,
     "clv": 0.19
   }
 }
