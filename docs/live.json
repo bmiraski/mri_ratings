@@ -3,40 +3,40 @@
  "season": 2026,
  "week": 8,
  "date": null,
- "updated": "2026-10-21T01:01:49Z",
- "updatedLabel": "9:01 PM ET",
+ "updated": "2026-10-21T01:06:53Z",
+ "updatedLabel": "9:06 PM ET",
  "games": {
   "401871055": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 14:51",
+   "period": 3,
+   "clock": "14:51",
    "home": 8,
    "away": 13,
-   "possession": null,
-   "homeWinProbability": 0.558,
-   "upset": null
+   "possession": "away",
+   "homeWinProbability": 0.557,
+   "upset": "Middle Tennessee leads; the model gave them 21% before kickoff"
   },
   "401871069": {
    "status": "in_progress",
-   "label": "Q3 13:55",
+   "label": "Q3 12:53",
    "period": 3,
-   "clock": "13:55",
-   "home": 24,
+   "clock": "12:53",
+   "home": 31,
    "away": 28,
-   "possession": "home",
-   "homeWinProbability": 0.427,
+   "possession": null,
+   "homeWinProbability": 0.666,
    "upset": null
   },
   "401871092": {
    "status": "in_progress",
-   "label": "Q2 00:41",
+   "label": "Q2 00:10",
    "period": 2,
-   "clock": "00:41",
+   "clock": "00:10",
    "home": 6,
    "away": 3,
    "possession": "away",
-   "homeWinProbability": 0.537,
+   "homeWinProbability": 0.539,
    "upset": null
   }
  }
