@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 392,
-      "accuracy": 0.7474,
+      "games": 395,
+      "accuracy": 0.7468,
       "mae": 12.68,
-      "priced": 392,
+      "priced": 395,
       "modelMaePriced": 12.68,
-      "marketMae": 11.35,
-      "marketAccuracy": 0.773,
-      "modelAccuracyPriced": 0.7474,
-      "maeGap": 1.33,
+      "marketMae": 11.36,
+      "marketAccuracy": 0.7722,
+      "modelAccuracyPriced": 0.7468,
+      "maeGap": 1.32,
       "maeGapError": 0.49,
       "slope": 0.88,
       "marketSlope": 1.01,
       "bets": {
-        "count": 211,
+        "count": 212,
         "wins": 101,
-        "losses": 103,
+        "losses": 104,
         "pushes": 7,
-        "ats": 0.4951,
-        "units": -11.19,
-        "clv": 0.7
+        "ats": 0.4927,
+        "units": -12.19,
+        "clv": 0.71
       }
     },
     "weeks": [
@@ -101,13 +101,13 @@
       },
       {
         "week": 8,
-        "games": 4,
-        "accuracy": 0.25,
-        "mae": 13.66,
-        "marketMae": 11.25,
-        "bets": 2,
-        "record": "0-2",
-        "units": -2.0
+        "games": 7,
+        "accuracy": 0.4286,
+        "mae": 13.5,
+        "marketMae": 11.93,
+        "bets": 3,
+        "record": "0-3",
+        "units": -3.0
       }
     ],
     "bets": [
@@ -3275,6 +3275,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 0.5
+      },
+      {
+        "week": 8,
+        "home": "Appalachian State",
+        "away": "James Madison",
+        "side": "away",
+        "team": "James Madison",
+        "predicted": -13.8,
+        "open": -10.5,
+        "close": -12.5,
+        "edge": -3.3,
+        "actual": 3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 2.0
       }
     ]
   },
@@ -7089,7 +7104,10 @@
         "week": 8
       },
       {
+        "actual": 3,
         "away": "James Madison",
+        "close": -12.5,
+        "clv": 2.0,
         "edge": -3.3,
         "game_id": 401869845,
         "home": "Appalachian State",
@@ -7099,8 +7117,10 @@
         "neutral": false,
         "open": -10.5,
         "predicted": -13.8,
+        "result": "loss",
         "side": "away",
         "taken": -10.5,
+        "units": -1.0,
         "week": 8
       },
       {
@@ -7151,12 +7171,12 @@
     ],
     "logged": 202,
     "earlier": 48,
-    "graded": 177,
+    "graded": 178,
     "wins": 84,
-    "losses": 88,
+    "losses": 89,
     "pushes": 5,
-    "ats": 0.4884,
-    "units": -11.64,
-    "clv": 0.19
+    "ats": 0.4855,
+    "units": -12.64,
+    "clv": 0.2
   }
 }
