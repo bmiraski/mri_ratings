@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 8,
  "date": null,
- "updated": "2026-10-23T03:02:07Z",
- "updatedLabel": "11:02 PM ET",
+ "updated": "2026-10-23T03:07:09Z",
+ "updatedLabel": "11:07 PM ET",
  "games": {
   "401871055": {
    "status": "completed",
@@ -51,15 +51,15 @@
    "upset": null
   },
   "401869845": {
-   "status": "in_progress",
-   "label": "OT",
-   "period": 5,
-   "clock": "00:00",
-   "home": 31,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 34,
    "away": 31,
-   "possession": "home",
-   "homeWinProbability": 0.426,
-   "upset": null
+   "possession": null,
+   "homeWinProbability": 1.0,
+   "upset": "Appalachian State won; the model gave them 20% before kickoff"
   },
   "401871056": {
    "status": "completed",
@@ -74,13 +74,13 @@
   },
   "401862807": {
    "status": "in_progress",
-   "label": "Q4 07:00",
+   "label": "Q4 06:29",
    "period": 4,
-   "clock": "07:00",
+   "clock": "06:29",
    "home": 27,
    "away": 27,
    "possession": "home",
-   "homeWinProbability": 0.596,
+   "homeWinProbability": 0.592,
    "upset": null
   }
  }
