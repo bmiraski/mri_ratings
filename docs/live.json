@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 8,
  "date": null,
- "updated": "2026-10-23T02:16:49Z",
- "updatedLabel": "10:16 PM ET",
+ "updated": "2026-10-23T02:21:51Z",
+ "updatedLabel": "10:21 PM ET",
  "games": {
   "401871055": {
    "status": "completed",
@@ -52,14 +52,14 @@
   },
   "401869845": {
    "status": "in_progress",
-   "label": "Q4 05:52",
+   "label": "Q4 04:42",
    "period": 4,
-   "clock": "05:52",
-   "home": 24,
+   "clock": "04:42",
+   "home": 31,
    "away": 24,
-   "possession": "home",
-   "homeWinProbability": 0.397,
-   "upset": null
+   "possession": "away",
+   "homeWinProbability": 0.9,
+   "upset": "Appalachian State leads; the model gave them 20% before kickoff"
   },
   "401871056": {
    "status": "completed",
@@ -74,13 +74,13 @@
   },
   "401862807": {
    "status": "in_progress",
-   "label": "Q3 06:31",
+   "label": "Q3 05:01",
    "period": 3,
-   "clock": "06:31",
+   "clock": "05:01",
    "home": 17,
    "away": 24,
-   "possession": null,
-   "homeWinProbability": 0.388,
+   "possession": "home",
+   "homeWinProbability": 0.373,
    "upset": "East Carolina leads; the model gave them 24% before kickoff"
   }
  }
