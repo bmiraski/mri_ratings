@@ -3498,7 +3498,10 @@
    "week": 8
   },
   {
+   "actual": -3,
    "away": "Army",
+   "close": -1.5,
+   "clv": 3.0,
    "edge": -8.0,
    "game_id": 401862808,
    "home": "Tulsa",
@@ -3508,12 +3511,17 @@
    "neutral": false,
    "open": 1.5,
    "predicted": -6.5,
+   "result": "win",
    "side": "away",
    "taken": 1.5,
+   "units": 0.909,
    "week": 8
   },
   {
+   "actual": -3,
    "away": "Duke",
+   "close": 2.5,
+   "clv": -0.0,
    "edge": -6.5,
    "game_id": 401858271,
    "home": "Virginia",
@@ -3523,8 +3531,10 @@
    "neutral": false,
    "open": 6.5,
    "predicted": 0.0,
+   "result": "win",
    "side": "away",
    "taken": 2.5,
+   "units": 0.909,
    "week": 8
   },
   {
@@ -3578,7 +3588,10 @@
    "week": 8
   },
   {
+   "actual": 14,
    "away": "Air Force",
+   "close": -7.0,
+   "clv": -0.0,
    "edge": -4.7,
    "game_id": 401864525,
    "home": "Wyoming",
@@ -3588,8 +3601,10 @@
    "neutral": false,
    "open": -6.5,
    "predicted": -11.2,
+   "result": "loss",
    "side": "away",
    "taken": -7.0,
+   "units": -1.0,
    "week": 8
   },
   {
@@ -3870,6 +3885,21 @@
    "predicted": 1.6,
    "side": "home",
    "taken": -2.5,
+   "week": 8
+  },
+  {
+   "away": "Houston",
+   "edge": 3.0,
+   "game_id": 401856837,
+   "home": "Utah",
+   "kickoff": "2026-10-25T02:15:00.000Z",
+   "loggedAt": "2026-10-24T14:10Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": 6.5,
+   "predicted": 9.5,
+   "side": "home",
+   "taken": 6.5,
    "week": 8
   }
  ],

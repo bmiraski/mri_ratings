@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 7,
+    "gamesPlayed": 12,
     "missingPregame": 0,
-    "games": 7,
-    "upsets": null,
-    "expectedUpsets": 16.78,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 12,
+    "upsets": 7,
+    "expectedUpsets": 3.789,
+    "z": 1.9336419896727868,
+    "shocks": [
+      {
+        "gameId": 401869845,
+        "winner": "Appalachian State",
+        "loser": "James Madison",
+        "pregameWinProb": 0.202,
+        "winnerScore": 34,
+        "loserScore": 31,
+        "homeScore": 34,
+        "awayScore": 31
+      },
+      {
+        "gameId": 401871055,
+        "winner": "Middle Tennessee",
+        "loser": "FIU",
+        "pregameWinProb": 0.20799999999999996,
+        "winnerScore": 26,
+        "loserScore": 23,
+        "homeScore": 23,
+        "awayScore": 26
+      },
+      {
+        "gameId": 401864525,
+        "winner": "Wyoming",
+        "loser": "Air Force",
+        "pregameWinProb": 0.249,
+        "winnerScore": 28,
+        "loserScore": 14,
+        "homeScore": 28,
+        "awayScore": 14
+      }
+    ]
   },
   "archive": {
     "calibration": {

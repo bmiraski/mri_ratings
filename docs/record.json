@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 395,
-      "accuracy": 0.7468,
-      "mae": 12.68,
-      "priced": 395,
-      "modelMaePriced": 12.68,
-      "marketMae": 11.36,
-      "marketAccuracy": 0.7722,
-      "modelAccuracyPriced": 0.7468,
-      "maeGap": 1.32,
+      "games": 400,
+      "accuracy": 0.7425,
+      "mae": 12.64,
+      "priced": 400,
+      "modelMaePriced": 12.64,
+      "marketMae": 11.33,
+      "marketAccuracy": 0.7675,
+      "modelAccuracyPriced": 0.7425,
+      "maeGap": 1.31,
       "maeGapError": 0.49,
-      "slope": 0.88,
+      "slope": 0.87,
       "marketSlope": 1.01,
       "bets": {
-        "count": 212,
-        "wins": 101,
-        "losses": 104,
+        "count": 215,
+        "wins": 103,
+        "losses": 105,
         "pushes": 7,
-        "ats": 0.4927,
-        "units": -12.19,
-        "clv": 0.71
+        "ats": 0.4952,
+        "units": -11.37,
+        "clv": 0.73
       }
     },
     "weeks": [
@@ -101,13 +101,13 @@
       },
       {
         "week": 8,
-        "games": 7,
-        "accuracy": 0.4286,
-        "mae": 13.5,
-        "marketMae": 11.93,
-        "bets": 3,
-        "record": "0-3",
-        "units": -3.0
+        "games": 12,
+        "accuracy": 0.4167,
+        "mae": 11.75,
+        "marketMae": 10.71,
+        "bets": 6,
+        "record": "2-4",
+        "units": -2.18
       }
     ],
     "bets": [
@@ -3248,6 +3248,36 @@
       },
       {
         "week": 8,
+        "home": "Tulsa",
+        "away": "Army",
+        "side": "away",
+        "team": "Army",
+        "predicted": -6.5,
+        "open": 1.5,
+        "close": -1.5,
+        "edge": -8.0,
+        "actual": -3,
+        "result": "win",
+        "units": 0.909,
+        "clv": 3.0
+      },
+      {
+        "week": 8,
+        "home": "Virginia",
+        "away": "Duke",
+        "side": "away",
+        "team": "Duke",
+        "predicted": 0.0,
+        "open": 6.5,
+        "close": 2.5,
+        "edge": -6.5,
+        "actual": -3,
+        "result": "win",
+        "units": 0.909,
+        "clv": 4.0
+      },
+      {
+        "week": 8,
         "home": "Sam Houston",
         "away": "New Mexico State",
         "side": "home",
@@ -3260,6 +3290,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": -0.5
+      },
+      {
+        "week": 8,
+        "home": "Wyoming",
+        "away": "Air Force",
+        "side": "away",
+        "team": "Air Force",
+        "predicted": -11.2,
+        "open": -6.5,
+        "close": -7.0,
+        "edge": -4.7,
+        "actual": 14,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.5
       },
       {
         "week": 8,
@@ -6794,7 +6839,10 @@
         "week": 8
       },
       {
+        "actual": -3,
         "away": "Army",
+        "close": -1.5,
+        "clv": 3.0,
         "edge": -8.0,
         "game_id": 401862808,
         "home": "Tulsa",
@@ -6804,8 +6852,10 @@
         "neutral": false,
         "open": 1.5,
         "predicted": -6.5,
+        "result": "win",
         "side": "away",
         "taken": 1.5,
+        "units": 0.909,
         "week": 8
       },
       {
@@ -6839,7 +6889,10 @@
         "week": 8
       },
       {
+        "actual": -3,
         "away": "Duke",
+        "close": 2.5,
+        "clv": -0.0,
         "edge": -6.5,
         "game_id": 401858271,
         "home": "Virginia",
@@ -6849,8 +6902,10 @@
         "neutral": false,
         "open": 6.5,
         "predicted": 0.0,
+        "result": "win",
         "side": "away",
         "taken": 2.5,
+        "units": 0.909,
         "week": 8
       },
       {
@@ -6979,7 +7034,10 @@
         "week": 8
       },
       {
+        "actual": 14,
         "away": "Air Force",
+        "close": -7.0,
+        "clv": -0.0,
         "edge": -4.7,
         "game_id": 401864525,
         "home": "Wyoming",
@@ -6989,8 +7047,10 @@
         "neutral": false,
         "open": -6.5,
         "predicted": -11.2,
+        "result": "loss",
         "side": "away",
         "taken": -7.0,
+        "units": -1.0,
         "week": 8
       },
       {
@@ -7167,16 +7227,31 @@
         "side": "home",
         "taken": -2.5,
         "week": 8
+      },
+      {
+        "away": "Houston",
+        "edge": 3.0,
+        "game_id": 401856837,
+        "home": "Utah",
+        "kickoff": "2026-10-25T02:15:00.000Z",
+        "loggedAt": "2026-10-24T14:10Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": 6.5,
+        "predicted": 9.5,
+        "side": "home",
+        "taken": 6.5,
+        "week": 8
       }
     ],
-    "logged": 202,
+    "logged": 203,
     "earlier": 48,
-    "graded": 178,
-    "wins": 84,
-    "losses": 89,
+    "graded": 181,
+    "wins": 86,
+    "losses": 90,
     "pushes": 5,
-    "ats": 0.4855,
-    "units": -12.64,
-    "clv": 0.2
+    "ats": 0.4886,
+    "units": -11.83,
+    "clv": 0.21
   }
 }
