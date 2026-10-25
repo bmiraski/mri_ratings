@@ -31327,6 +31327,79 @@
      ],
      "upsets": 17,
      "z": 1.41219091575011
+    },
+    "8": {
+     "expectedUpsets": 16.44416985689015,
+     "fallout": {
+      "gained": [
+       {
+        "change": 0.1872,
+        "team": "LSU"
+       },
+       {
+        "change": 0.1835,
+        "team": "Indiana"
+       },
+       {
+        "change": 0.1338,
+        "team": "Utah"
+       }
+      ],
+      "lost": [
+       {
+        "change": -0.2588,
+        "team": "Texas Tech"
+       },
+       {
+        "change": -0.2341,
+        "team": "BYU"
+       },
+       {
+        "change": -0.2297,
+        "team": "Oregon"
+       }
+      ],
+      "moved": 1.5916
+     },
+     "final": true,
+     "games": 56,
+     "missingPregame": 0,
+     "percentile": 98.56,
+     "reconstructed": false,
+     "shocks": [
+      {
+       "awayScore": 21,
+       "gameId": 401871094,
+       "homeScore": 14,
+       "loser": "Troy",
+       "loserScore": 14,
+       "pregameWinProb": 0.10588886404243336,
+       "winner": "Louisiana-Monroe",
+       "winnerScore": 21
+      },
+      {
+       "awayScore": 24,
+       "gameId": 401856840,
+       "homeScore": 37,
+       "loser": "Texas Tech",
+       "loserScore": 24,
+       "pregameWinProb": 0.15035937467541272,
+       "winner": "Cincinnati",
+       "winnerScore": 37
+      },
+      {
+       "awayScore": 24,
+       "gameId": 401856841,
+       "homeScore": 20,
+       "loser": "TCU",
+       "loserScore": 20,
+       "pregameWinProb": 0.17387467649653887,
+       "winner": "West Virginia",
+       "winnerScore": 24
+      }
+     ],
+     "upsets": 22,
+     "z": 2.675214226838331
     }
    }
   }
