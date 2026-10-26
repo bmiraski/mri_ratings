@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout -- .)",
+      "Bash(git clean -fd docs site data)",
+      "Bash(git clean -fdq docs site data)"
+    ]
+  }
+}
