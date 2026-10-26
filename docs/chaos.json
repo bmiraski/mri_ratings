@@ -31336,77 +31336,77 @@
             "z": 1.41219091575011
           },
           "8": {
-            "games": 56,
-            "upsets": 22,
             "expectedUpsets": 16.44416985689015,
-            "z": 2.675214226838331,
-            "shocks": [
-              {
-                "gameId": 401871094,
-                "winner": "Louisiana-Monroe",
-                "loser": "Troy",
-                "pregameWinProb": 0.10588886404243336,
-                "winnerScore": 21,
-                "loserScore": 14,
-                "homeScore": 14,
-                "awayScore": 21
-              },
-              {
-                "gameId": 401856840,
-                "winner": "Cincinnati",
-                "loser": "Texas Tech",
-                "pregameWinProb": 0.15035937467541272,
-                "winnerScore": 37,
-                "loserScore": 24,
-                "homeScore": 37,
-                "awayScore": 24
-              },
-              {
-                "gameId": 401856841,
-                "winner": "West Virginia",
-                "loser": "TCU",
-                "pregameWinProb": 0.17387467649653887,
-                "winnerScore": 24,
-                "loserScore": 20,
-                "homeScore": 20,
-                "awayScore": 24
-              }
-            ],
-            "missingPregame": 0,
-            "final": true,
-            "reconstructed": false,
             "fallout": {
-              "moved": 1.5916,
               "gained": [
                 {
-                  "team": "LSU",
-                  "change": 0.1872
+                  "change": 0.1872,
+                  "team": "LSU"
                 },
                 {
-                  "team": "Indiana",
-                  "change": 0.1835
+                  "change": 0.1835,
+                  "team": "Indiana"
                 },
                 {
-                  "team": "Utah",
-                  "change": 0.1338
+                  "change": 0.1338,
+                  "team": "Utah"
                 }
               ],
               "lost": [
                 {
-                  "team": "Texas Tech",
-                  "change": -0.2588
+                  "change": -0.2588,
+                  "team": "Texas Tech"
                 },
                 {
-                  "team": "BYU",
-                  "change": -0.2341
+                  "change": -0.2341,
+                  "team": "BYU"
                 },
                 {
-                  "team": "Oregon",
-                  "change": -0.2297
+                  "change": -0.2297,
+                  "team": "Oregon"
                 }
-              ]
+              ],
+              "moved": 1.5916
             },
-            "percentile": 98.56
+            "final": true,
+            "games": 56,
+            "missingPregame": 0,
+            "percentile": 98.56,
+            "reconstructed": false,
+            "shocks": [
+              {
+                "awayScore": 21,
+                "gameId": 401871094,
+                "homeScore": 14,
+                "loser": "Troy",
+                "loserScore": 14,
+                "pregameWinProb": 0.10588886404243336,
+                "winner": "Louisiana-Monroe",
+                "winnerScore": 21
+              },
+              {
+                "awayScore": 24,
+                "gameId": 401856840,
+                "homeScore": 37,
+                "loser": "Texas Tech",
+                "loserScore": 24,
+                "pregameWinProb": 0.15035937467541272,
+                "winner": "Cincinnati",
+                "winnerScore": 37
+              },
+              {
+                "awayScore": 24,
+                "gameId": 401856841,
+                "homeScore": 20,
+                "loser": "TCU",
+                "loserScore": 20,
+                "pregameWinProb": 0.17387467649653887,
+                "winner": "West Virginia",
+                "winnerScore": 24
+              }
+            ],
+            "upsets": 22,
+            "z": 2.675214226838331
           }
         }
       }
