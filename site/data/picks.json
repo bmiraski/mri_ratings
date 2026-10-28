@@ -4013,7 +4013,10 @@
    "week": 8
   },
   {
+   "actual": -14,
    "away": "Delaware",
+   "close": 2.5,
+   "clv": 5.0,
    "edge": 8.6,
    "game_id": 401871071,
    "home": "Western Kentucky",
@@ -4023,8 +4026,10 @@
    "neutral": false,
    "open": -2.5,
    "predicted": 6.1,
+   "result": "loss",
    "side": "home",
    "taken": -2.5,
+   "units": -1.0,
    "week": 9
   },
   {
@@ -4370,6 +4375,21 @@
    "predicted": 7.5,
    "side": "home",
    "taken": 6.0,
+   "week": 9
+  },
+  {
+   "away": "Southern Miss",
+   "edge": -3.0,
+   "game_id": 401871095,
+   "home": "Louisiana-Monroe",
+   "kickoff": "2026-10-31T19:30:00.000Z",
+   "loggedAt": "2026-10-28T16:52Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -3.0,
+   "predicted": -6.0,
+   "side": "away",
+   "taken": -3.5,
    "week": 9
   }
  ],

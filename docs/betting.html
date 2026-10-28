@@ -39,7 +39,7 @@
       <a href="archive.html">Archive</a>
       <a href="seasons.html">Seasons</a>
     </nav>
-    <div class="stamp">2026 &middot; Week 8</div>
+    <div class="stamp">2026 &middot; Week 9</div>
   </div>
 </header>
 <main class="wrap">
@@ -187,11 +187,11 @@
   week. Nothing from the week it is predicting leaks in, but it was computed afterwards, and a record computed
   afterwards is a backtest however carefully it is done.</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>444 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
+    <thead><tr><th>446 games</th><th class="num">MRI 2.0</th><th class="num">Market</th></tr></thead>
     <tbody>
-      <tr><td>Picked the winner</td><td class="num">73.4%</td><td class="num">75.9%</td></tr>
-      <tr><td>Average miss, points</td><td class="num">12.63</td><td class="num">11.29</td></tr><tr><td>Size of the lines</td><td class="num">0.85</td>
-          <td class="num">1.00</td></tr>
+      <tr><td>Picked the winner</td><td class="num">73.3%</td><td class="num">75.8%</td></tr>
+      <tr><td>Average miss, points</td><td class="num">12.65</td><td class="num">11.31</td></tr><tr><td>Size of the lines</td><td class="num">0.85</td>
+          <td class="num">1.01</td></tr>
     </tbody>
   </table></div>
   <p>That is 1.3 points worse than the market (&plusmn;0.5). Over the seventeen archived seasons the model averaged 13.0 points and
@@ -200,10 +200,10 @@
   size; below it, they are too extreme &mdash; a favourite laying more points than it wins by.</p>
 
   <p>Where the model disagreed with the opening number by 3 points or more, the board's own rule:
-  <strong>110&ndash;119&ndash;7</strong> against the number
-  (48.0%; break-even is 52.4%), -19.0 units,
+  <strong>110&ndash;120&ndash;7</strong> against the number
+  (47.8%; break-even is 52.4%), -20.0 units,
   mean closing line value +0.8.
-  That is 236 bets, far too few to say whether the disagreements mean anything.</p>
+  That is 237 bets, far too few to say whether the disagreements mean anything.</p>
 
   <div class="tablewrap"><table>
     <thead><tr><th>Week</th><th class="num">Games</th><th class="num">Winners</th><th class="num">Miss</th>
@@ -240,17 +240,21 @@
         <td class="num">61%</td><td class="num">12.3</td>
         <td class="num">10.8</td>
         <td class="num">9-18</td>
-        <td class="num under">-9.8</td></tr></tbody>
+        <td class="num under">-9.8</td></tr><tr><td>9</td><td class="num">2</td>
+        <td class="num">50%</td><td class="num">18.0</td>
+        <td class="num">16.0</td>
+        <td class="num">0-1</td>
+        <td class="num under">-1.0</td></tr></tbody>
   </table></div>
 
   <h3>The forward log</h3>
   <p>Started 2026-09-19. Each flagged game is written down before kickoff &mdash; model line,
   the market's number at that moment, the side &mdash; and never edited afterwards. Games are flagged on the gap between the model and the
   <em>opening</em> line, but a pick is graded against the number the market was showing when it was written down, at &minus;110,
-  because that is the price a bettor could actually have had. Every line is the home team's expected margin, and Edge is the model's minus the logged one. In 119 of the 227 picks the line had already moved by the time the pick was logged; the edge shown is against the line as it then stood. 48 of the picks were logged before the preseason prior began to use roster talent and returning production, so they were made by the earlier model; they stay as written.</p>
-  <p><strong>93&ndash;105&ndash;5</strong>
-  on 203 graded of 227 logged
-  (-20.5 units, mean closing line value +0.2).</p>
+  because that is the price a bettor could actually have had. Every line is the home team's expected margin, and Edge is the model's minus the logged one. In 120 of the 228 picks the line had already moved by the time the pick was logged; the edge shown is against the line as it then stood. 48 of the picks were logged before the preseason prior began to use roster talent and returning production, so they were made by the earlier model; they stay as written.</p>
+  <p><strong>93&ndash;106&ndash;5</strong>
+  on 204 graded of 228 logged
+  (-21.5 units, mean closing line value +0.2).</p>
   <div class="tablewrap"><table>
     <thead><tr><th>Wk</th><th>Game</th><th>Side</th><th class="num" title="Model's expected margin for the home team">Model</th><th class="num muted" title="Where the market opened: its expected home margin. Games are flagged on the gap between this and the model">Open</th><th class="num" title="Market's expected home margin at the moment the pick was written down, which is what it is graded against">Logged</th>
     <th class="num" title="Model minus the logged line">Edge</th><th class="num">Result</th><th class="num" title="Points the line moved toward the pick between logging and kickoff">CLV</th></tr></thead>
@@ -574,7 +578,7 @@
           <td class="num">-13.5</td>
           <td class="num" title="Model minus the logged line. Flagged on +6.9 against the opening line.">+6.9</td>
           <td class="num">win</td>
-          <td class="num">+2.0</td></tr></tbody></table></div><p class="muted">Showing 40 of 227.</p>
+          <td class="num">+2.0</td></tr></tbody></table></div><p class="muted">Showing 40 of 228.</p>
   <h2>This week</h2>
   <p class="note"><strong>Tracked, not recommended.</strong> These are the largest
   disagreements with the opening number. They are published so the record accumulates in
@@ -591,16 +595,10 @@
         <td class="num perf over">+10.0</td>
         <td>Iowa State</td></tr><tr>
         <td class="wk">9</td>
-        <td class="opp">Delaware at Western Kentucky</td>
-        <td class="num">+6.1</td>
-        <td class="num">-2.5</td>
-        <td class="num perf over">+8.6</td>
-        <td>Western Kentucky</td></tr><tr>
-        <td class="wk">9</td>
         <td class="opp">Nevada at UCLA</td>
-        <td class="num">+31.9</td>
+        <td class="num">+32.1</td>
         <td class="num">+23.5</td>
-        <td class="num perf over">+8.4</td>
+        <td class="num perf over">+8.6</td>
         <td>UCLA</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">UAB at USF</td>
@@ -616,16 +614,10 @@
         <td>Florida State</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">Georgia Tech at Pittsburgh</td>
-        <td class="num">+14.0</td>
+        <td class="num">+13.9</td>
         <td class="num">+7.0</td>
-        <td class="num perf over">+7.0</td>
+        <td class="num perf over">+6.9</td>
         <td>Pittsburgh</td></tr><tr>
-        <td class="wk">9</td>
-        <td class="opp">Bowling Green at Western Michigan</td>
-        <td class="num">+21.9</td>
-        <td class="num">+15.5</td>
-        <td class="num perf over">+6.4</td>
-        <td>Western Michigan</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">Notre Dame vs Navy</td>
         <td class="num">-34.8</td>
@@ -633,10 +625,16 @@
         <td class="num perf under">-6.3</td>
         <td>Notre Dame</td></tr><tr>
         <td class="wk">9</td>
+        <td class="opp">Bowling Green at Western Michigan</td>
+        <td class="num">+21.8</td>
+        <td class="num">+15.5</td>
+        <td class="num perf over">+6.3</td>
+        <td>Western Michigan</td></tr><tr>
+        <td class="wk">9</td>
         <td class="opp">Miami (FL) at North Carolina</td>
-        <td class="num">-20.4</td>
+        <td class="num">-20.5</td>
         <td class="num">-14.5</td>
-        <td class="num perf under">-5.9</td>
+        <td class="num perf under">-6.0</td>
         <td>Miami (FL)</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">Boston College at Duke</td>
@@ -652,9 +650,9 @@
         <td>Sacramento State</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">Oregon State at Fresno State</td>
-        <td class="num">-1.7</td>
+        <td class="num">-1.8</td>
         <td class="num">-7.0</td>
-        <td class="num perf over">+5.3</td>
+        <td class="num perf over">+5.2</td>
         <td>Fresno State</td></tr><tr>
         <td class="wk">9</td>
         <td class="opp">Purdue at Penn State</td>
@@ -673,7 +671,13 @@
         <td class="num">-12.1</td>
         <td class="num">-7.5</td>
         <td class="num perf under">-4.6</td>
-        <td>Ohio State</td></tr></tbody>
+        <td>Ohio State</td></tr><tr>
+        <td class="wk">9</td>
+        <td class="opp">Troy at James Madison</td>
+        <td class="num">+21.9</td>
+        <td class="num">+17.5</td>
+        <td class="num perf over">+4.4</td>
+        <td>James Madison</td></tr></tbody>
   </table></div>
   </article></main>
 <footer class="site">
@@ -682,8 +686,8 @@
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-10-25 14:34 UTC
-    &middot; 566 games rated &middot; <a href="homefield.html">home field</a> 3.6 pts</p>
+    <p class="muted">Ratings last changed 2026-10-28 16:50 UTC
+    &middot; 568 games rated &middot; <a href="homefield.html">home field</a> 3.6 pts</p>
   </div>
 </footer>
 </body>

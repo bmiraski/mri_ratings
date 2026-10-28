@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 444,
-      "accuracy": 0.7342,
-      "mae": 12.63,
-      "priced": 444,
-      "modelMaePriced": 12.63,
-      "marketMae": 11.29,
-      "marketAccuracy": 0.759,
-      "modelAccuracyPriced": 0.7342,
+      "games": 446,
+      "accuracy": 0.7332,
+      "mae": 12.65,
+      "priced": 446,
+      "modelMaePriced": 12.65,
+      "marketMae": 11.31,
+      "marketAccuracy": 0.7578,
+      "modelAccuracyPriced": 0.7332,
       "maeGap": 1.34,
       "maeGapError": 0.45,
       "slope": 0.85,
-      "marketSlope": 1.0,
+      "marketSlope": 1.01,
       "bets": {
-        "count": 236,
+        "count": 237,
         "wins": 110,
-        "losses": 119,
+        "losses": 120,
         "pushes": 7,
-        "ats": 0.4803,
-        "units": -19.01,
-        "clv": 0.77
+        "ats": 0.4783,
+        "units": -20.01,
+        "clv": 0.79
       }
     },
     "weeks": [
@@ -108,6 +108,16 @@
         "bets": 27,
         "record": "9-18",
         "units": -9.82
+      },
+      {
+        "week": 9,
+        "games": 2,
+        "accuracy": 0.5,
+        "mae": 18.0,
+        "marketMae": 16.0,
+        "bets": 1,
+        "record": "0-1",
+        "units": -1.0
       }
     ],
     "bets": [
@@ -3650,6 +3660,21 @@
         "result": "win",
         "units": 0.909,
         "clv": -1.0
+      },
+      {
+        "week": 9,
+        "home": "Western Kentucky",
+        "away": "Delaware",
+        "side": "home",
+        "team": "Western Kentucky",
+        "predicted": 6.1,
+        "open": -2.5,
+        "close": 2.5,
+        "edge": 8.6,
+        "actual": -14,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 5.0
       }
     ]
   },
@@ -7684,7 +7709,10 @@
         "week": 9
       },
       {
+        "actual": -14,
         "away": "Delaware",
+        "close": 2.5,
+        "clv": 5.0,
         "edge": 8.6,
         "game_id": 401871071,
         "home": "Western Kentucky",
@@ -7694,8 +7722,10 @@
         "neutral": false,
         "open": -2.5,
         "predicted": 6.1,
+        "result": "loss",
         "side": "home",
         "taken": -2.5,
+        "units": -1.0,
         "week": 9
       },
       {
@@ -8027,16 +8057,31 @@
         "side": "home",
         "taken": 9.5,
         "week": 9
+      },
+      {
+        "away": "Southern Miss",
+        "edge": -3.0,
+        "game_id": 401871095,
+        "home": "Louisiana-Monroe",
+        "kickoff": "2026-10-31T19:30:00.000Z",
+        "loggedAt": "2026-10-28T16:52Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": -3.0,
+        "predicted": -6.0,
+        "side": "away",
+        "taken": -3.5,
+        "week": 9
       }
     ],
-    "logged": 227,
+    "logged": 228,
     "earlier": 48,
-    "graded": 203,
+    "graded": 204,
     "wins": 93,
-    "losses": 105,
+    "losses": 106,
     "pushes": 5,
-    "ats": 0.4697,
-    "units": -20.46,
-    "clv": 0.19
+    "ats": 0.4673,
+    "units": -21.46,
+    "clv": 0.22
   }
 }
