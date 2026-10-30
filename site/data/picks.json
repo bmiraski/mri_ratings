@@ -4153,7 +4153,10 @@
    "week": 9
   },
   {
+   "actual": -3,
    "away": "Troy",
+   "close": 17.5,
+   "clv": 0.0,
    "edge": 4.2,
    "game_id": 401869963,
    "home": "James Madison",
@@ -4163,8 +4166,10 @@
    "neutral": false,
    "open": 17.5,
    "predicted": 21.7,
+   "result": "loss",
    "side": "home",
    "taken": 17.5,
+   "units": -1.0,
    "week": 9
   },
   {
@@ -4405,6 +4410,21 @@
    "predicted": 14.6,
    "side": "home",
    "taken": 14.0,
+   "week": 9
+  },
+  {
+   "away": "Tulane",
+   "edge": -3.0,
+   "game_id": 401862813,
+   "home": "Charlotte",
+   "kickoff": "2026-10-30T23:00:00.000Z",
+   "loggedAt": "2026-10-30T16:51Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -13.5,
+   "predicted": -16.5,
+   "side": "away",
+   "taken": -8.5,
    "week": 9
   }
  ],

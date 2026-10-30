@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 448,
-      "accuracy": 0.7321,
-      "mae": 12.69,
-      "priced": 448,
-      "modelMaePriced": 12.69,
-      "marketMae": 11.34,
-      "marketAccuracy": 0.7589,
-      "modelAccuracyPriced": 0.7321,
+      "games": 450,
+      "accuracy": 0.7311,
+      "mae": 12.7,
+      "priced": 450,
+      "modelMaePriced": 12.7,
+      "marketMae": 11.35,
+      "marketAccuracy": 0.7578,
+      "modelAccuracyPriced": 0.7311,
       "maeGap": 1.35,
-      "maeGapError": 0.45,
-      "slope": 0.86,
+      "maeGapError": 0.44,
+      "slope": 0.85,
       "marketSlope": 1.01,
       "bets": {
-        "count": 237,
+        "count": 238,
         "wins": 110,
-        "losses": 120,
+        "losses": 121,
         "pushes": 7,
-        "ats": 0.4783,
-        "units": -20.01,
+        "ats": 0.4762,
+        "units": -21.01,
         "clv": 0.79
       }
     },
@@ -111,13 +111,13 @@
       },
       {
         "week": 9,
-        "games": 4,
+        "games": 6,
         "accuracy": 0.5,
-        "mae": 19.38,
-        "marketMae": 16.88,
-        "bets": 1,
-        "record": "0-1",
-        "units": -1.0
+        "mae": 18.35,
+        "marketMae": 16.08,
+        "bets": 2,
+        "record": "0-2",
+        "units": -2.0
       }
     ],
     "bets": [
@@ -3675,6 +3675,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 5.0
+      },
+      {
+        "week": 9,
+        "home": "James Madison",
+        "away": "Troy",
+        "side": "home",
+        "team": "James Madison",
+        "predicted": 21.7,
+        "open": 17.5,
+        "close": 17.5,
+        "edge": 4.2,
+        "actual": -3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.0
       }
     ]
   },
@@ -7954,7 +7969,10 @@
         "week": 9
       },
       {
+        "actual": -3,
         "away": "Troy",
+        "close": 17.5,
+        "clv": 0.0,
         "edge": 4.2,
         "game_id": 401869963,
         "home": "James Madison",
@@ -7964,8 +7982,10 @@
         "neutral": false,
         "open": 17.5,
         "predicted": 21.7,
+        "result": "loss",
         "side": "home",
         "taken": 17.5,
+        "units": -1.0,
         "week": 9
       },
       {
@@ -8074,6 +8094,21 @@
         "week": 9
       },
       {
+        "away": "Tulane",
+        "edge": -3.0,
+        "game_id": 401862813,
+        "home": "Charlotte",
+        "kickoff": "2026-10-30T23:00:00.000Z",
+        "loggedAt": "2026-10-30T16:51Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": -13.5,
+        "predicted": -16.5,
+        "side": "away",
+        "taken": -8.5,
+        "week": 9
+      },
+      {
         "away": "Southern Miss",
         "edge": -3.0,
         "game_id": 401871095,
@@ -8089,14 +8124,14 @@
         "week": 9
       }
     ],
-    "logged": 229,
+    "logged": 230,
     "earlier": 48,
-    "graded": 204,
+    "graded": 205,
     "wins": 93,
-    "losses": 106,
+    "losses": 107,
     "pushes": 5,
-    "ats": 0.4673,
-    "units": -21.46,
-    "clv": 0.22
+    "ats": 0.465,
+    "units": -22.46,
+    "clv": 0.21
   }
 }
