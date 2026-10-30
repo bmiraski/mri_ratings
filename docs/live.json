@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 9,
  "date": null,
- "updated": "2026-10-30T03:27:47Z",
- "updatedLabel": "11:27 PM ET",
+ "updated": "2026-10-30T03:32:49Z",
+ "updatedLabel": "11:32 PM ET",
  "games": {
   "401871071": {
    "status": "completed",
@@ -51,26 +51,26 @@
    "upset": null
   },
   "401862812": {
-   "status": "in_progress",
-   "label": "Q4 01:45",
-   "period": 4,
-   "clock": "01:45",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 48,
    "away": 41,
-   "possession": "home",
-   "homeWinProbability": 0.996,
+   "possession": null,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "401869963": {
-   "status": "in_progress",
-   "label": "OT",
-   "period": 5,
-   "clock": "00:00",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 21,
    "away": 24,
-   "possession": "home",
-   "homeWinProbability": 0.303,
-   "upset": "Troy leads; the model gave them 9% before kickoff"
+   "possession": null,
+   "homeWinProbability": 0.0,
+   "upset": "Troy won; the model gave them 9% before kickoff"
   }
  }
 }
