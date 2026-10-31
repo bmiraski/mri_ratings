@@ -225,6 +225,10 @@ def test_only_the_current_window_is_refetched() -> None:
     preseason = dt.date(2026, 9, 13)
     assert not any(cbbd._is_live(*w, preseason) for w in (november, december, march))
 
+    # The last week before the season, when games are still being added to the first window.
+    assert cbbd._is_live(*november, dt.date(2026, 10, 31)) and not cbbd._is_live(*december, dt.date(2026, 10, 31))
+    assert not cbbd._is_live(*november, dt.date(2026, 10, 24))
+
     # A window stays live briefly past its end, for late finals.
     assert cbbd._is_live(*november, dt.date(2026, 12, 2))
     assert not cbbd._is_live(*november, dt.date(2026, 12, 10))
