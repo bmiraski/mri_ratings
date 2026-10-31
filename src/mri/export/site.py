@@ -3004,7 +3004,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
                     "the model&rsquo;s line and win chance for each were set before tip-off.")
         else:
             heading = f"{when.strftime('%A')}&rsquo;s slate"
-            lead = (f"{slate['games']} Division I games today. The model&rsquo;s line and win chance for each, the market&rsquo;s number "
+            lead = (f"{slate['games'] or 'No'} Division I games today. The model&rsquo;s line and win chance for each, the market&rsquo;s number "
                     "beside it (DraftKings), and scores with live win chances while games are on.")
         hint = (f"""<strong>Pre</strong> is the model&rsquo;s win chance before tip-off; <strong>Live</strong> is its chance now,
   from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>

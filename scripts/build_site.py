@@ -100,6 +100,13 @@ def main() -> None:
             from mri.betting import bb_board
             basketball["betting"] = json.loads(bb_betting.read_text())
             basketball["board"] = bb_board.build_board(basketball["season"])
+            # While last season is still the latest with games played, its board is empty. The coming season's
+            # first games are on the schedule, and the slate should show them before one has been played.
+            from mri.ingest import bb_registry
+            if basketball.get("finished") and bb_registry.CURRENT_SEASON > basketball["season"]:
+                coming = bb_board.build_board(bb_registry.CURRENT_SEASON)
+                if coming["games"]:
+                    basketball["board"] = coming
             print(f"  board: {basketball['board']['priced']} priced, "
                   f"{len(basketball['board']['disagreements'])} disagreements")
         print(f"building basketball {basketball['seasonLabel']} "

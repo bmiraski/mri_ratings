@@ -227,3 +227,31 @@ def test_at_large_games_get_spots_past_the_ten_when_finals_fill_them() -> None:
     assert slate["watch"][:10] == list(range(10))                     # the ten biggest swings, as before
     assert slate["watch"][10:] == [17, 16, 15, 14]                    # then the four biggest at-large games
     assert len(slate["watch"]) == 10 + bb_slate.AT_LARGE_EXTRA
+
+
+def test_a_game_with_no_tipoff_set_reads_tbd_and_sorts_last() -> None:
+    board = {"games": [game(1, start="2026-11-02T05:00:00Z"), game(2, "Other", "Rival", 1.0, 1.5, "2026-11-02T23:00:00Z")]}
+    now = dt.datetime(2026, 11, 2, 11, tzinfo=dt.timezone.utc)
+    slate = bb_slate.build(2026, payload(), board, None, now=now)
+    first, second = slate["days"][0]["games"][1], slate["days"][0]["games"][0]
+    assert (first["time"], first["sort"]) == ("TBD", "9999") and second["time"] == "6:00\u202fPM ET"
+    assert live.kickoff(first).hour == 12                                    # polled from noon, like football's TBD games
+
+
+def test_the_board_prices_a_season_nobody_has_played_yet_from_the_prior(monkeypatch) -> None:
+    import datetime as dt
+
+    from mri.betting import bb_board, bb_lines
+    from mri.ingest import bb_registry, cbbd
+    from mri.ratings import bb_priors
+
+    schedule = pd.DataFrame([{"game_id": 1, "start_date": "2026-11-02T05:00:00.000Z", "team1": "Visitors", "team2": "Hosts",
+                              "neutral": False, "played": False}])
+    monkeypatch.setattr(cbbd, "games", lambda season, **kw: schedule)
+    monkeypatch.setattr(bb_lines, "book_lines", lambda season: pd.DataFrame())
+    monkeypatch.setattr(bb_board.bb_sitedata, "_prior_for", lambda season: pd.Series({"Hosts": 10.0, "Visitors": 2.0}))
+    monkeypatch.setattr(bb_priors, "for_season", lambda season, previous, teams, d1: pd.Series({"Hosts": 10.0, "Visitors": 2.0}))
+    monkeypatch.setattr(bb_registry, "is_d1", lambda team, season=None: True)
+    board = bb_board.build_board(2027, today=dt.date(2026, 11, 1))
+    assert len(board["games"]) == 1 and board["season"] == 2027
+    assert board["games"][0]["predicted"] == round(8.0 + bb_board.mri2.BASKETBALL_PROFILE.home_field_prior, 1)
