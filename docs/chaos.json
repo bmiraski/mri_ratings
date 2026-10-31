@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 9,
+    "gamesPlayed": 19,
     "missingPregame": 0,
-    "games": 9,
-    "upsets": null,
-    "expectedUpsets": 15.13,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 19,
+    "upsets": 5,
+    "expectedUpsets": 5.303000000000001,
+    "z": 0.41105096209526865,
+    "shocks": [
+      {
+        "gameId": 401869963,
+        "winner": "Troy",
+        "loser": "James Madison",
+        "pregameWinProb": 0.09399999999999997,
+        "winnerScore": 24,
+        "loserScore": 21,
+        "homeScore": 21,
+        "awayScore": 24
+      },
+      {
+        "gameId": 401858278,
+        "winner": "Syracuse",
+        "loser": "SMU",
+        "pregameWinProb": 0.283,
+        "winnerScore": 30,
+        "loserScore": 27,
+        "homeScore": 30,
+        "awayScore": 27
+      },
+      {
+        "gameId": 401871071,
+        "winner": "Delaware",
+        "loser": "Western Kentucky",
+        "pregameWinProb": 0.356,
+        "winnerScore": 35,
+        "loserScore": 21,
+        "homeScore": 21,
+        "awayScore": 35
+      }
+    ]
   },
   "archive": {
     "calibration": {

@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 453,
-      "accuracy": 0.7307,
-      "mae": 12.76,
-      "priced": 453,
-      "modelMaePriced": 12.76,
-      "marketMae": 11.41,
-      "marketAccuracy": 0.7572,
-      "modelAccuracyPriced": 0.7307,
-      "maeGap": 1.36,
+      "games": 463,
+      "accuracy": 0.7343,
+      "mae": 12.74,
+      "priced": 463,
+      "modelMaePriced": 12.74,
+      "marketMae": 11.43,
+      "marketAccuracy": 0.7603,
+      "modelAccuracyPriced": 0.7343,
+      "maeGap": 1.31,
       "maeGapError": 0.44,
       "slope": 0.85,
       "marketSlope": 1.0,
       "bets": {
-        "count": 240,
-        "wins": 112,
-        "losses": 121,
+        "count": 245,
+        "wins": 115,
+        "losses": 123,
         "pushes": 7,
-        "ats": 0.4807,
-        "units": -19.19,
+        "ats": 0.4832,
+        "units": -18.47,
         "clv": 0.8
       }
     },
@@ -111,13 +111,13 @@
       },
       {
         "week": 9,
-        "games": 9,
-        "accuracy": 0.5556,
-        "mae": 19.41,
-        "marketMae": 17.33,
-        "bets": 4,
-        "record": "2-2",
-        "units": -0.18
+        "games": 19,
+        "accuracy": 0.7368,
+        "mae": 15.34,
+        "marketMae": 14.74,
+        "bets": 9,
+        "record": "5-4",
+        "units": 0.54
       }
     ],
     "bets": [
@@ -3678,6 +3678,66 @@
       },
       {
         "week": 9,
+        "home": "USF",
+        "away": "UAB",
+        "side": "home",
+        "team": "USF",
+        "predicted": 17.5,
+        "open": 9.5,
+        "close": 7.5,
+        "edge": 8.0,
+        "actual": 20,
+        "result": "win",
+        "units": 0.909,
+        "clv": -2.0
+      },
+      {
+        "week": 9,
+        "home": "Western Michigan",
+        "away": "Bowling Green",
+        "side": "home",
+        "team": "Western Michigan",
+        "predicted": 21.9,
+        "open": 15.5,
+        "close": 14.0,
+        "edge": 6.4,
+        "actual": 13,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -1.5
+      },
+      {
+        "week": 9,
+        "home": "Navy",
+        "away": "Notre Dame",
+        "side": "away",
+        "team": "Notre Dame",
+        "predicted": -34.8,
+        "open": -28.5,
+        "close": -30.5,
+        "edge": -6.3,
+        "actual": -22,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 2.0
+      },
+      {
+        "week": 9,
+        "home": "Duke",
+        "away": "Boston College",
+        "side": "home",
+        "team": "Duke",
+        "predicted": 12.6,
+        "open": 7.0,
+        "close": 7.0,
+        "edge": 5.6,
+        "actual": 45,
+        "result": "win",
+        "units": 0.909,
+        "clv": 0.0
+      },
+      {
+        "week": 9,
         "home": "Sacramento State",
         "away": "Kent State",
         "side": "home",
@@ -3717,6 +3777,21 @@
         "close": -2.5,
         "edge": -3.1,
         "actual": -32,
+        "result": "win",
+        "units": 0.909,
+        "clv": 4.0
+      },
+      {
+        "week": 9,
+        "home": "Syracuse",
+        "away": "SMU",
+        "side": "home",
+        "team": "Syracuse",
+        "predicted": -9.5,
+        "open": -12.5,
+        "close": -8.5,
+        "edge": 3.0,
+        "actual": 3,
         "result": "win",
         "units": 0.909,
         "clv": 4.0
@@ -7789,7 +7864,10 @@
         "week": 9
       },
       {
+        "actual": 20,
         "away": "UAB",
+        "close": 7.5,
+        "clv": 0.0,
         "edge": 8.0,
         "game_id": 401862816,
         "home": "USF",
@@ -7799,8 +7877,10 @@
         "neutral": false,
         "open": 9.5,
         "predicted": 17.5,
+        "result": "win",
         "side": "home",
         "taken": 7.5,
+        "units": 0.909,
         "week": 9
       },
       {
@@ -7834,7 +7914,10 @@
         "week": 9
       },
       {
+        "actual": 13,
         "away": "Bowling Green",
+        "close": 14.0,
+        "clv": 0.5,
         "edge": 6.4,
         "game_id": 401866452,
         "home": "Western Michigan",
@@ -7844,12 +7927,17 @@
         "neutral": false,
         "open": 15.5,
         "predicted": 21.9,
+        "result": "loss",
         "side": "home",
         "taken": 13.5,
+        "units": -1.0,
         "week": 9
       },
       {
+        "actual": -22,
         "away": "Notre Dame",
+        "close": -30.5,
+        "clv": -0.0,
         "edge": -6.3,
         "game_id": 401859185,
         "home": "Navy",
@@ -7859,8 +7947,10 @@
         "neutral": true,
         "open": -28.5,
         "predicted": -34.8,
+        "result": "loss",
         "side": "away",
         "taken": -30.5,
+        "units": -1.0,
         "week": 9
       },
       {
@@ -7879,7 +7969,10 @@
         "week": 9
       },
       {
+        "actual": 45,
         "away": "Boston College",
+        "close": 7.0,
+        "clv": 0.0,
         "edge": 5.6,
         "game_id": 401858279,
         "home": "Duke",
@@ -7889,8 +7982,10 @@
         "neutral": false,
         "open": 7.0,
         "predicted": 12.6,
+        "result": "win",
         "side": "home",
         "taken": 7.0,
+        "units": 0.909,
         "week": 9
       },
       {
@@ -8104,7 +8199,10 @@
         "week": 9
       },
       {
+        "actual": 3,
         "away": "SMU",
+        "close": -8.5,
+        "clv": 1.0,
         "edge": 3.0,
         "game_id": 401858278,
         "home": "Syracuse",
@@ -8114,8 +8212,10 @@
         "neutral": false,
         "open": -12.5,
         "predicted": -9.5,
+        "result": "win",
         "side": "home",
         "taken": -9.5,
+        "units": 0.909,
         "week": 9
       },
       {
@@ -8171,12 +8271,12 @@
     ],
     "logged": 230,
     "earlier": 48,
-    "graded": 208,
-    "wins": 95,
-    "losses": 108,
+    "graded": 213,
+    "wins": 98,
+    "losses": 110,
     "pushes": 5,
-    "ats": 0.468,
-    "units": -21.65,
+    "ats": 0.4712,
+    "units": -20.92,
     "clv": 0.25
   }
 }
