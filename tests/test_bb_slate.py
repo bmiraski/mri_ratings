@@ -255,3 +255,25 @@ def test_the_board_prices_a_season_nobody_has_played_yet_from_the_prior(monkeypa
     board = bb_board.build_board(2027, today=dt.date(2026, 11, 1))
     assert len(board["games"]) == 1 and board["season"] == 2027
     assert board["games"][0]["predicted"] == round(8.0 + bb_board.mri2.BASKETBALL_PROFILE.home_field_prior, 1)
+
+
+def test_a_preseason_slate_ranks_and_rates_by_the_prior_not_last_seasons_ratings() -> None:
+    board = {"games": [game(1, start="2026-11-02T23:00:00Z"), game(2, "Other", "Rival", 1.0, 1.5, "2026-11-02T20:00:00Z")]}
+    now = dt.datetime(2026, 11, 2, 11, tzinfo=dt.timezone.utc)
+    prior = pd.Series({"Hosts": 1.0, "Visitors": 2.0, "Other": 20.0, "Rival": 15.0})   # last season's order, reversed
+    slate = bb_slate.build(2026, payload(), board, None, now=now, preseason=prior)
+    assert slate["ranks"] == {"Other": 1, "Rival": 2, "Visitors": 3, "Hosts": 4}
+    assert slate["watch"][0] == 2                                  # Other-Rival is now the better game
+    assert "ranks" not in bb_slate.build(2026, payload(), board, None, now=now)
+
+
+def test_the_slate_page_shows_preseason_ranks_and_the_live_job_uses_them() -> None:
+    from mri.export import site
+    p = {**payload(), "seasonLabel": "2025-26", "periodLabel": "Final", "sports": ["football", "basketball"],
+         "generated": "2026-02-28T11:00:00Z", "gamesRated": 100, "homeField": 3.0, "week": 17, "conferences": []}
+    prior = pd.Series({"Hosts": 1.0, "Visitors": 2.0, "Other": 0.0, "Rival": -1.0})
+    p["slate"] = bb_slate.build(2026, p, {"games": [game(1)]}, None, preseason=prior,
+                                now=dt.datetime(2026, 2, 28, 11, tzinfo=dt.timezone.utc))
+    html = site.slate_page(p)
+    assert '<span class="rkchip">#2</span>' in html and '<span class="rkchip">#12</span>' not in html   # Hosts was 12th last year
+    assert p["slate"]["ranks"]["Visitors"] == 1

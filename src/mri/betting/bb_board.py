@@ -218,6 +218,11 @@ def _preseason(season: int, schedule: pd.DataFrame) -> mri2.Ratings:
                         games_played=pd.Series(0, index=prior.index))
 
 
+def preseason_power(season: int) -> pd.Series:
+    """Every team's preseason rating for a season: what the slate ranks by until a game of it has been played."""
+    return _preseason(season, _canonical(cbbd.games(season, completed_only=False), season)).power
+
+
 def _canonical(frame: pd.DataFrame, season: int) -> pd.DataFrame:
     frame = frame.copy()
     for column in ("team1", "team2"):
