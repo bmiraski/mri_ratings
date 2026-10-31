@@ -94,6 +94,10 @@ def _windows(season: int) -> list[tuple[str, str]]:
 # Days after a window closes during which its results can still change: a game
 # that tipped near midnight, or one finalized late.
 GRACE = dt.timedelta(days=2)
+# Days before a window opens during which it is already re-read. A schedule is not final until tip-off: games are
+# added, moved and cancelled in the weeks before a month starts, and a window cached in September had missed an
+# early-November game in Rome by the last week of October, when the slate needed it.
+LEAD = dt.timedelta(days=7)
 
 
 def _is_live(start: str, end: str, today: dt.date) -> bool:
@@ -105,6 +109,9 @@ def _is_live(start: str, end: str, today: dt.date) -> bool:
     a day re-reading a schedule that had not changed. A window that has not begun
     cannot have results, so only one window is ever live: the one we are in.
 
+    A window is also live for ``LEAD`` days before it begins, so the first slate of a season sees the schedule as it
+    stands and not as it stood when the window was first cached.
+
     A window with no cache at all is fetched regardless - that check lives in the
     request layer, not here - so a month is always read once before it starts and
     re-read while it is running.
@@ -113,7 +120,7 @@ def _is_live(start: str, end: str, today: dt.date) -> bool:
     earlier, already-closed one is not picked up until something forces a
     refresh. Rare, and the alternative is re-fetching the whole season daily.
     """
-    return dt.date.fromisoformat(start) <= today <= dt.date.fromisoformat(end) + GRACE
+    return dt.date.fromisoformat(start) - LEAD <= today <= dt.date.fromisoformat(end) + GRACE
 
 
 def games(season: int, *, refresh_last: bool = True, completed_only: bool = True) -> pd.DataFrame:
