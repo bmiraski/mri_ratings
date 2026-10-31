@@ -74,11 +74,12 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
         & (schedule["day"] >= today)
         & (schedule["day"] <= today + dt.timedelta(days=HORIZON_DAYS))
     ]
-    if slate.empty or played.empty:
+    if slate.empty:
         return _empty(season)
 
     if ratings is None:
-        ratings = _rate(season, played)
+        # Before the first game of a season is final there is nothing to fit: the preseason prior is the rating.
+        ratings = _rate(season, played) if not played.empty else _preseason(season, schedule)
 
     book = bb_lines.book_lines(season)
     book = book.drop_duplicates(subset="game_id").set_index("game_id") if not book.empty else pd.DataFrame()
@@ -205,6 +206,16 @@ def _rate(season: int, played: pd.DataFrame) -> mri2.Ratings:
         with_resume=False,
         with_efficiency=False,
     )
+
+
+def _preseason(season: int, schedule: pd.DataFrame) -> mri2.Ratings:
+    """Ratings for a season with no games played: the prior the first fit will start from, at the profile's home field."""
+    profile = mri2.BASKETBALL_PROFILE
+    teams = sorted(set(schedule["team1"]) | set(schedule["team2"]))
+    d1 = [t for t in teams if registry.is_d1(t, season=season)]
+    prior = bb_priors.for_season(season, bb_sitedata._prior_for(season), teams, d1)
+    return mri2.Ratings(power=prior, home_field=profile.home_field_prior, sigma=SIGMA,
+                        games_played=pd.Series(0, index=prior.index))
 
 
 def _canonical(frame: pd.DataFrame, season: int) -> pd.DataFrame:

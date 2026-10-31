@@ -131,9 +131,12 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
         when = _eastern(g["start"])
         if when.date() not in (today, today + dt.timedelta(days=1)):
             continue
+        # The feed dates a game with no tip-off set at midnight Eastern; nothing really tips off then.
+        tbd = when.hour == 0 and when.minute == 0
         entry = {
             "id": g["id"], "date": when.date().isoformat(), "dateLabel": when.strftime("%a, %b %-d"),
-            "time": when.strftime("%-I:%M %p").replace(" ", " ") + " ET", "sort": when.strftime("%H%M"),
+            "time": "TBD" if tbd else when.strftime("%-I:%M %p").replace(" ", " ") + " ET",
+            "sort": "9999" if tbd else when.strftime("%H%M"),
             "home": g["home"], "away": g["away"], "neutral": g["neutral"],
             "conferences": sorted({teams.get(g["home"], {}).get("conference"), teams.get(g["away"], {}).get("conference")} - {None}),
             "predicted": g["predicted"], "homeWinProbability": g["winProbability"],
