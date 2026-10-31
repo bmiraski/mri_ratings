@@ -114,11 +114,18 @@ def _quality(game: dict, power: dict) -> float:
 
 
 def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
-          now: dt.datetime | None = None) -> dict | None:
+          now: dt.datetime | None = None, preseason: pd.Series | None = None) -> dict | None:
+    """``preseason`` rates and ranks the teams by the coming season's prior, for a slate built before a game of the
+    season has been played, when the payload's own ratings are still last season's."""
     now = now or dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(EASTERN).date()
     teams = {t["team"]: t for t in payload["teams"]}
     power = {n: float(t["power"]) for n, t in teams.items()}
+    ranks = None
+    if preseason is not None:
+        power.update({n: float(v) for n, v in preseason.items() if n in teams})
+        ordered = sorted((n for n in teams if n in preseason.index), key=lambda n: -power[n])
+        ranks = {n: i for i, n in enumerate(ordered, 1)}
     bracket = payload.get("bracketology")
     live_bracket = bracket if bracket and not bracket.get("frozen") else None
     leverage = (live_bracket or {}).get("leverage") or {}
@@ -155,7 +162,7 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
     if not days.get(today) and not days.get(today + dt.timedelta(days=1)):
         return None
 
-    rank = lambda t: teams.get(t, {}).get("rank", 999)                         # noqa: E731
+    rank = (lambda t: ranks.get(t, 999)) if ranks else (lambda t: teams.get(t, {}).get("rank", 999))   # noqa: E731
     for games in days.values():
         games.sort(key=lambda g: (g["sort"], min(rank(g["home"]), rank(g["away"]))))
     todays = days.get(today, [])
@@ -188,6 +195,7 @@ def build(season: int, payload: dict, board: dict, tracker: dict | None, *,
         "fcs": [],
         "games": len(todays),
         "fades": fades,
+        **({"ranks": ranks} if ranks else {}),
     }
 
 

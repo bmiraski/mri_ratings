@@ -314,7 +314,7 @@ def add_basketball_slate(basketball: dict, data_dir: Path, root: Path) -> None:
     After bracketology, whose leverage is the slate's bid stakes from Christmas on. Isolated like the
     rest: a failure here leaves the slate and the tracker off rather than the basketball site.
     """
-    from mri.betting import bb_tracker
+    from mri.betting import bb_board, bb_tracker
     from mri.export import bb_slate
 
     board = basketball.get("board") or {}
@@ -333,7 +333,9 @@ def add_basketball_slate(basketball: dict, data_dir: Path, root: Path) -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"  tracker skipped: {exc}")
     try:
-        slate_data = bb_slate.build(season, basketball, board, basketball.get("bbTracker"))
+        # Before the first game of the coming season is final the site's ratings are last season's; rate by the prior.
+        preseason = bb_board.preseason_power(season) if season != basketball["season"] else None
+        slate_data = bb_slate.build(season, basketball, board, basketball.get("bbTracker"), preseason=preseason)
         saved = bb_slate.snapshot(root, slate_data, lambda day: _bb_finals(season, day))
         if saved:
             print(f"  slate archive: saved {saved.relative_to(ROOT)}")

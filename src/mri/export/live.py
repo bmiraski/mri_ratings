@@ -286,6 +286,7 @@ def run(root: Path, *, now: dt.datetime | None = None, key: str | None = None, f
     if not key:
         return "no API key"
     ranks = {t["team"]: t["rank"] for t in site.get("teams", [])}
+    ranks.update(slate.get("ranks") or {})
     board = (fetch or (lambda k: fetch_scoreboard(k, sport)))(key)
     live = merge(slate, board, previous, ranks, now, sport=sport)
     live_path.write_text(json.dumps(live, indent=1))

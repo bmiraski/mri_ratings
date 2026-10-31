@@ -2689,6 +2689,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
     up = "../" * depth
     teams = archive["teams"] if archive else {t["team"]: t for t in payload["teams"]}
     ranks = {n: t["rank"] for n, t in teams.items()}
+    ranks.update(slate.get("ranks") or {})       # a slate built before the season's first game ranks by the preseason prior
     finals = (archive or {}).get("finals") or {}
     by_id = {g["id"]: g for d in slate["days"] for g in d["games"]}
     key = [i for i in slate["watch"] if i in by_id]
@@ -2716,7 +2717,7 @@ def slate_page(payload: dict, *, archive: dict | None = None, archives: list[dic
 
     def side(name, size=16, seed=None):
         team = teams.get(name)
-        rank = f'<span class="rkchip">#{team["rank"]}</span>' if ranked(name) else ""
+        rank = f'<span class="rkchip">#{ranks[name]}</span>' if ranked(name) else ""
         mark = identity_mark(team, size, depth) if team else ""
         label = f'<a href="{up}team/{slug(name)}.html">{esc(name)}</a>' if team else esc(name)
         seeded = f'<span class="slseed" title="Seed">{int(seed)}</span>' if seed else ""
