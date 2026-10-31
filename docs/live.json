@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 9,
  "date": null,
- "updated": "2026-10-31T01:06:58Z",
- "updatedLabel": "9:06 PM ET",
+ "updated": "2026-10-31T01:12:00Z",
+ "updatedLabel": "9:12 PM ET",
  "games": {
   "401871071": {
    "status": "completed",
@@ -74,24 +74,24 @@
   },
   "401862813": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 13:24",
+   "period": 3,
+   "clock": "13:24",
    "home": 24,
    "away": 14,
-   "possession": null,
-   "homeWinProbability": 0.56,
-   "upset": null
+   "possession": "home",
+   "homeWinProbability": 0.576,
+   "upset": "Charlotte leads; the model gave them 16% before kickoff"
   },
   "401856844": {
    "status": "in_progress",
-   "label": "Q2 00:38",
+   "label": "Q2 00:09",
    "period": 2,
-   "clock": "00:38",
+   "clock": "00:09",
    "home": 3,
-   "away": 17,
-   "possession": "away",
-   "homeWinProbability": 0.104,
+   "away": 20,
+   "possession": "home",
+   "homeWinProbability": 0.063,
    "upset": null
   }
  }
