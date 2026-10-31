@@ -254,6 +254,8 @@ def page(title: str, body: str, payload: dict, *, depth: int = 0, description: s
         sim_link += f'\n      <a href="{up}gameday.html">GameDay</a>'
     if payload.get("heisman"):
         sim_link += f'\n      <a href="{up}heisman.html">Heisman</a>'
+    if payload.get("preseason"):
+        sim_link += f'\n      <a href="{up}preseason.html">Preseason</a>'
     # Basketball, Christmas to the following July: the data exists only inside that window.
     if payload.get("bracketology"):
         sim_link += f'\n      <a href="{up}bracketology.html">Bracketology</a>'
@@ -406,6 +408,12 @@ def rankings_page(payload: dict) -> str:
         for c in payload["conferences"]
     )
 
+    coming = payload.get("preseason") or {}
+    preseason_note = (
+        f'''<p class="hint"><strong>{esc(coming["seasonLabel"])} starts soon.</strong> These are the final {esc(season_text(payload))}
+      ratings. <a href="preseason.html">See the {esc(coming["seasonLabel"])} preseason rankings &rarr;</a></p>
+      ''' if coming and coming.get("season", 0) > payload["season"] else "")
+
     body = f"""
   <div class="grid">
     <section class="panel">
@@ -419,7 +427,7 @@ def rankings_page(payload: dict) -> str:
           </select></label>
         </div>
       </div>
-      <p class="hint">Points against an average {chrome.field} team &mdash; the gap between two
+      {preseason_note}<p class="hint">Points against an average {chrome.field} team &mdash; the gap between two
       rows is a predicted spread. <strong>R&eacute;sum&eacute;</strong> is wins above what an
       average team would manage against the same schedule.</p>
       <ul id="list">{''.join(rows)}</ul>
@@ -4430,6 +4438,8 @@ def _bb_prior_section(payload: dict) -> str:
         else:
             now = (f"Rosters for {season_label} have not been posted yet, so the preseason ratings use the version "
                    "that does not need them. The site switches to the roster version by itself as the schools post their rosters, one team at a time.")
+    ranked = (' The <a href="preseason.html">preseason rankings</a> show where each team starts.'
+              if payload.get("preseason") else "")
     return f"""
   <h2 id="priors">Preseason priors</h2>
   <p>A season starts from a prior, and basketball's was last season's rating pulled 35% of the way to average for everyone. Rosters turn over faster in college
@@ -4437,7 +4447,7 @@ def _bb_prior_section(payload: dict) -> str:
   and what is known about the roster: <strong>returning production</strong> (the share of last season's win shares still on the roster), <strong>incoming
   production</strong> (what the newcomers did last season somewhere else, which is the transfer portal) and the <strong>freshman class</strong>.</p>
   <p>Rosters for a coming season are posted late. Before they are, the prior uses only what last season and the draft already imply: how many of last year's
-  minutes belong to players in their fourth year or later or headed to the NBA draft, and the freshman class. {now}</p>
+  minutes belong to players in their fourth year or later or headed to the NBA draft, and the freshman class. {now}{ranked}</p>
   <p>Scored on how good teams turned out to be, leaving each season out in turn, a season's final rating is missed by {rmse.get('old', {}).get('all', 0):.1f} points
   under the old rule, {rmse.get('before rosters', {}).get('all', 0):.1f} with the before-rosters version and {rmse.get('with a roster', {}).get('all', 0):.1f} with a roster. Part of the gap
   to the old rule is only its weight on last season being tuned for something else; the fair comparison is a last-season-only refit at
@@ -4650,6 +4660,11 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
         write(out_dir / "homefield.html", homefield_page(payload))
     if payload.get("record"):
         write(out_dir / "record.json", json.dumps(payload["record"], indent=2))
+    if payload.get("preseason") and chrome.sport == "basketball":
+        from . import bb_preseason
+
+        write(out_dir / "preseason.html", bb_preseason.preseason_page(payload))
+        write(out_dir / "preseason.json", json.dumps(payload["preseason"], indent=1))
     if payload.get("bracketology"):
         write(out_dir / "bracketology.html", bracketpages.list_page(payload))
         write(out_dir / "bracket.html", bracketpages.bracket_page(payload))
@@ -4666,7 +4681,7 @@ def build(payload: dict, site_root: Path, *, publish_details: bool = True) -> li
     drop = {"seasons", "history", "gamelogs", "sim", "slate", "record", "simBacktest",
             "priorModel", "priorBacktest", "priorState", "gameday", "gamedayBacktest",
             "heisman", "heismanBacktest", "bracketology", "bracketologyBacktest", "bbTracker", "bbStrategies",
-            "hiddenHeisman", "rooting", "homefield"} \
+            "hiddenHeisman", "rooting", "homefield", "preseason"} \
         | (set() if publish_details else {"details"})
     published = {k: v for k, v in payload.items() if k not in drop}
     write(out_dir / json_name, json.dumps(published, indent=2))

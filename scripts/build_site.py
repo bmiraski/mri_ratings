@@ -418,6 +418,20 @@ def basketball_payload(data_dir):
                   f"({payload['priorState']['teamsWithRosters']} of {payload['priorState']['teams']} rosters)")
     except Exception as exc:  # noqa: BLE001
         print(f"  basketball prior note skipped: {exc}")
+
+    # The coming season's preseason rankings: computed while it has not started, then kept as the saved snapshot.
+    try:
+        from mri.export import bb_preseason
+        from mri.ingest import bb_registry
+
+        coming = bb_registry.CURRENT_SEASON
+        if payload.get("finished") and coming > payload["season"]:
+            payload["preseason"] = bb_preseason.build(coming, payload)
+            print(f"  preseason: {len(payload['preseason']['teams'])} teams, {payload['preseason']['mode']}")
+        else:
+            payload["preseason"] = bb_preseason.saved(ROOT / "docs" / "basketball", payload["season"])
+    except Exception as exc:  # noqa: BLE001 - the page is extra; the basketball site goes on without it
+        print(f"  preseason skipped: {exc}")
     return payload
 
 
