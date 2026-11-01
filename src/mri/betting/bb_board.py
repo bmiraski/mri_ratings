@@ -44,9 +44,21 @@ from ..ingest import bb_registry as registry, cbbd
 from ..ratings import bb_priors, mri2
 from . import bb_lines
 
+try:
+    from zoneinfo import ZoneInfo
+    EASTERN = ZoneInfo("America/New_York")
+except Exception:  # noqa: BLE001 - a runner without tz data still gets a board
+    EASTERN = dt.timezone(dt.timedelta(hours=-5))
+
 # Below this the disagreement is inside the noise of a 9.4-point model and not
 # worth a reader's attention either way.
 MIN_EDGE_TO_SHOW = 3.0
+# On a neutral court the feed's "home" team is arbitrary and its spread is sometimes quoted from the other side
+# (UCLA-Arizona, 2026-11-02, listed Arizona +4.5 when DraftKings and ESPN had Arizona -4.5). Nothing in the record says
+# which games are reversed, so a neutral line is held back when it sits SUSPECT_GAP or more from the model and
+# its mirror image sits within SUSPECT_MIRROR of it. A gap that large against a spread is far likelier a reversed line.
+SUSPECT_GAP = 9.0
+SUSPECT_MIRROR = 4.0
 SIGMA = 11.0
 
 # How far ahead to look. Basketball schedules thinly beyond a couple of days and
@@ -60,13 +72,14 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
     from scipy.stats import norm
 
     season = season or bb_sitedata.latest_playing_season()
-    today = today or dt.date.today()
+    today = today or dt.datetime.now(EASTERN).date()
 
     schedule = _canonical(cbbd.games(season, completed_only=False), season)
     if schedule.empty:
         return _empty(season)
 
-    dates = pd.to_datetime(schedule["start_date"], format="ISO8601", utc=True).dt.date
+    # The calendar day a game is played on in the US, not in UTC: a 10 pm Eastern tip-off is already tomorrow there.
+    dates = pd.to_datetime(schedule["start_date"], format="ISO8601", utc=True).dt.tz_convert(EASTERN).dt.date
     schedule = schedule.assign(day=dates)
     played = schedule[schedule["played"]]
     slate = schedule[
@@ -106,6 +119,11 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
         reference = market_open if market_open is not None else market
         edge = (predicted - reference) if reference is not None else None
 
+        suspect = None
+        if row.neutral and edge is not None and abs(edge) >= SUSPECT_GAP and abs(predicted + reference) <= SUSPECT_MIRROR:
+            suspect = round(market, 1) if market is not None else None
+            market = market_open = edge = None
+
         # A team with no prior and almost no games is a guess wearing a rating,
         # and the largest disagreements in November are exactly those teams.
         thin = [
@@ -134,6 +152,8 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
                 "market": round(market, 1) if market is not None else None,
                 "marketOpen": round(market_open, 1) if market_open is not None else None,
                 "edge": round(edge, 1) if edge is not None else None,
+                # The feed's number for a neutral game held back as probably quoted from the wrong side.
+                **({"suspectMarket": suspect} if suspect is not None else {}),
                 "side": (row.team2 if edge and edge > 0 else row.team1) if edge else None,
                 "winProbability": round(float(norm.cdf(predicted / SIGMA)), 3),
                 "confident": not thin,
