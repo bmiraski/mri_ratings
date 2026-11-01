@@ -4202,6 +4202,15 @@ def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
     )
 
     games = board.get("disagreements") or []
+    held = [g for g in board.get("games") or [] if g.get("suspectMarket") is not None]
+    suspect_block = ""
+    if held:
+        items = "; ".join(
+            f"{esc(g['away'])} vs {esc(g['home'])} ({g['suspectMarket']:+.1f} for {esc(g['home'])} in the feed)" for g in held)
+        suspect_block = f"""
+  <p class="note">Held back as probably reversed: {items}. On a neutral court the data feed
+  sometimes quotes the spread from the other team, and a gap this large against the model
+  is more likely that than a real disagreement. These games are not scored or tracked.</p>"""
     if games:
         card = "".join(f"""
       <tr>
@@ -4220,7 +4229,7 @@ def bb_betting_page(payload: dict, betting: dict, board: dict) -> str:
   </table></div>
   <p class="note">{board['priced']} of the next {len(board['games'])} games carry a DraftKings
   number. Games involving a team the model has barely seen are left out entirely, because
-  the largest gaps in November are the model's ignorance rather than its opinion.</p>"""
+  the largest gaps in November are the model's ignorance rather than its opinion.</p>{suspect_block}"""
     else:
         card_block = """
   <p class="empty">No games in the next few days. This fills in during the season.</p>"""
