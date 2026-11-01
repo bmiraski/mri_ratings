@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slate, Oct 31, 2026 — MRI Basketball</title>
+<meta name="description" content="Every Division I game today: model line, market line, live scores, and what rides on it.">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../../assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="theme-color" content="#AB011B">
+<meta property="og:title" content="Slate, Oct 31, 2026 — MRI Basketball">
+<meta property="og:description" content="Every Division I game today: model line, market line, live scores, and what rides on it.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://mri.mira.ski/assets/mri-card.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="mark" href="../index.html" aria-label="The MRI, home">
+      <picture>
+        <source media="(prefers-color-scheme: light)" srcset="../../assets/mri-lockup-ink.png">
+        <img src="../../assets/mri-lockup.png" alt="The MRI" width="129" height="38">
+      </picture>
+    </a>
+    <div class="sports"><a href="../../index.html">Football</a><a href="../../basketball/index.html" aria-current="page" class="on">Basketball</a></div>
+    <nav>
+      <a href="../index.html">Rankings</a>
+      <a href="../conferences.html">Conferences</a>
+      <a href="../slate.html">Slate</a>
+      <a href="../preseason.html">Preseason</a>
+
+      <a href="../betting.html">Betting</a>
+      <a href="../archive.html">Archive</a>
+      <a href="../seasons.html">Seasons</a>
+    </nav>
+    <div class="stamp">2025–26 &middot; Final</div>
+  </div>
+</header>
+<main class="wrap">
+  <article class="prose wide" id="slate" data-key="2026-10-31">
+  <h1>Slate for Saturday, October 31, 2026</h1>
+  <p class="lead">The day&rsquo;s games as the page stood that morning, with final scores. 0 Division I games; the model&rsquo;s line and win chance for each were set before tip-off.</p>
+  <p class="hint"><strong>Pre</strong> is the model&rsquo;s win chance before tip-off; <strong>Live</strong> is its chance now,
+  from the score and the time left. <strong>Model</strong> is the favourite and the margin the ratings predict; <strong>Market</strong>
+  is the current line, with the opener beneath it when it has moved. <strong>Tracked</strong> marks the games two betting habits
+  would take: a <em>dog pick</em>, where the model has the market underdog winning outright, and a <em>fade</em>, against a team
+  that keeps failing to cover. They come from a fixed rule, not a person: each one is a starting point for human judgement
+  before any bet, never a bet on its own. The <a href="../betting.html">betting page</a> keeps the rule&rsquo;s record; these are tracked, not recommended.</p>
+  <p class="slpast"><span class="muted">Slates:</span> <a href="../slate.html">Today</a></p>
+
+  <section class="slalerts" id="slalerts" hidden>
+    <p class="ptitle">Upsets</p><ul id="slalertlist"></ul>
+  </section>
+  <div class="slfilter">
+    <div class="slseg"><button type="button" data-f="all" class=on>All games</button><button type="button" data-f="top25">Top 25</button><button type="button" data-f="close">Close games</button><button type="button" data-f="dog">Dog picks</button><button type="button" data-f="fade">Fade list</button></div>
+    <select id="slconf" class="slconf" data-field="conf" aria-label="Conference"><option value="">All conferences</option></select><span id="slcount" class="muted small"></span>
+  </div>
+  <p id="slstamp" class="slstamp" hidden></p>
+  <p id="slnone" class="empty" hidden>No games match.</p>
+  </article>
+<script>
+(function () {
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.slrow'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.slfilter button'));
+  var selects = Array.prototype.slice.call(document.querySelectorAll('.slfilter select[data-field]'));
+  var count = document.getElementById('slcount'), none = document.getElementById('slnone');
+  var want = 'all';
+  function apply() {
+    var shown = 0;
+    rows.forEach(function (row) {
+      var ok = (want === 'all' || row.dataset[want] === '1') && selects.every(function (sel) {
+        return !sel.value || ('|' + (row.dataset[sel.dataset.field] || '') + '|').indexOf('|' + sel.value + '|') >= 0;
+      });
+      row.hidden = !ok;
+      if (ok) shown++;
+    });
+    document.querySelectorAll('.slslot, .slday').forEach(function (group) {
+      group.hidden = !group.querySelector('.slrow:not([hidden])');
+    });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.f === want); });
+    count.textContent = shown + (shown === 1 ? ' game' : ' games');
+    none.hidden = shown > 0;
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { want = b.dataset.f; apply(); }); });
+  selects.forEach(function (sel) { sel.addEventListener('change', apply); });
+  apply();
+})();
+</script></main>
+<footer class="site">
+  <div class="wrap">
+    <p>MRI &mdash; a computer rating system for college basketball,
+    run through 2019&ndash;20 and rebuilt from 2020&ndash;21. Game data from
+    <a href="https://collegebasketballdata.com">CollegeBasketballData</a>.
+    <a href="../method.html">Method: how the ratings work</a>.</p>
+    <p class="muted">Ratings last changed 2026-09-20 21:41 UTC
+    &middot; 6300 games rated &middot; home court 2.6 pts</p>
+  </div>
+</footer>
+</body>
+</html>
