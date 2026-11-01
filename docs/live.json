@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 9,
  "date": null,
- "updated": "2026-11-01T05:49:58Z",
- "updatedLabel": "1:49 AM ET",
+ "updated": "2026-11-01T05:54:59Z",
+ "updatedLabel": "1:54 AM ET",
  "games": {
   "401871071": {
    "status": "completed",
@@ -591,35 +591,35 @@
   },
   "401860908": {
    "status": "in_progress",
-   "label": "Q4 03:47",
+   "label": "Q4 02:46",
    "period": 4,
-   "clock": "03:47",
+   "clock": "02:46",
    "home": 40,
    "away": 45,
-   "possession": null,
-   "homeWinProbability": 0.153,
+   "possession": "home",
+   "homeWinProbability": 0.105,
    "upset": "Texas State leads; the model gave them 23% before kickoff"
   },
   "401864530": {
    "status": "in_progress",
-   "label": "Q4 01:49",
+   "label": "Q4 00:00",
    "period": 4,
-   "clock": "01:49",
+   "clock": "00:00",
    "home": 31,
    "away": 24,
    "possession": "home",
-   "homeWinProbability": 0.997,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "401860924": {
    "status": "in_progress",
-   "label": "Q4 12:26",
+   "label": "Q4 10:01",
    "period": 4,
-   "clock": "12:26",
+   "clock": "10:01",
    "home": 38,
    "away": 16,
    "possession": "away",
-   "homeWinProbability": 0.998,
+   "homeWinProbability": 0.999,
    "upset": null
   }
  }
