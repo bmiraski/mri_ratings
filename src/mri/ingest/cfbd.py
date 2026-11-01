@@ -158,6 +158,16 @@ def request(endpoint: str, *, refresh: bool = False, **params):
             delay = float(wait) if wait and wait.isdigit() else min(2 ** attempt, MAX_BACKOFF)
             time.sleep(delay)
             continue
+        if response.status_code >= 500:
+            # A gateway error (Cloudflare's 502 in front of the API) is the server having a bad minute, not a
+            # verdict on the request: wait it out, and if it lasts, a cached copy beats failing the whole build.
+            if attempt == RETRIES - 1:
+                if stale is not None:
+                    print(f"  {endpoint} -> {response.status_code}; serving cached copy")
+                    return stale
+                raise CfbdError(f"{endpoint} {params} -> {response.status_code}: {response.text[:200]}")
+            time.sleep(min(2 ** attempt, MAX_BACKOFF))
+            continue
         if not response.ok:
             raise CfbdError(f"{endpoint} {params} -> {response.status_code}: {response.text[:200]}")
         payload = response.json()
