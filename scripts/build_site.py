@@ -336,9 +336,12 @@ def add_basketball_slate(basketball: dict, data_dir: Path, root: Path) -> None:
         # Before the first game of the coming season is final the site's ratings are last season's; rate by the prior.
         preseason = bb_board.preseason_power(season) if season != basketball["season"] else None
         slate_data = bb_slate.build(season, basketball, board, basketball.get("bbTracker"), preseason=preseason)
-        saved = bb_slate.snapshot(root, slate_data, lambda day: _bb_finals(season, day))
-        if saved:
-            print(f"  slate archive: saved {saved.relative_to(ROOT)}")
+        try:
+            saved = bb_slate.snapshot(root, slate_data, lambda day: _bb_finals(season, day))
+            if saved:
+                print(f"  slate archive: saved {saved.relative_to(ROOT)}")
+        except Exception as exc:  # noqa: BLE001 - a failed archive must not take today's slate with it
+            print(f"  slate archive skipped: {exc}")
         basketball["slate"] = slate_data
         if slate_data:
             print(f"  slate: {slate_data['date']}, {slate_data['games']} games, key games by {slate_data['watchKind']}")
@@ -354,6 +357,8 @@ def _bb_finals(season: int, day: str) -> dict[int, tuple[int, int]]:
     from mri.ingest import cbbd
 
     played = cbbd.games(season)
+    if played.empty:                  # before the first final of a season the frame has no columns at all
+        return {}
     when = pd.to_datetime(played["start_date"], utc=True).dt.tz_convert(EASTERN).dt.date.astype(str)
     played = played[when == day]
     return {int(g.game_id): (int(g.pts2), int(g.pts1)) for g in played.itertuples()}

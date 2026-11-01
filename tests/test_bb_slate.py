@@ -277,3 +277,17 @@ def test_the_slate_page_shows_preseason_ranks_and_the_live_job_uses_them() -> No
     html = site.slate_page(p)
     assert '<span class="rkchip">#2</span>' in html and '<span class="rkchip">#12</span>' not in html   # Hosts was 12th last year
     assert p["slate"]["ranks"]["Visitors"] == 1
+
+
+def test_finals_before_any_game_is_final_is_empty(monkeypatch):
+    """The first build after a new season's slate exists has no finals yet: the archive step gets {}, not a crash."""
+    import importlib.util
+    from pathlib import Path
+
+    from mri.ingest import cbbd
+
+    spec = importlib.util.spec_from_file_location("build_site", Path(__file__).resolve().parents[1] / "scripts" / "build_site.py")
+    build_site = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(build_site)
+    monkeypatch.setattr(cbbd, "games", lambda season, **kw: pd.DataFrame())
+    assert build_site._bb_finals(2027, "2026-10-31") == {}
