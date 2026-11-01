@@ -2,44 +2,8 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 19,
-    "missingPregame": 0,
-    "games": 19,
-    "upsets": 5,
-    "expectedUpsets": 5.303000000000001,
-    "z": 0.41105096209526865,
-    "shocks": [
-      {
-        "gameId": 401869963,
-        "winner": "Troy",
-        "loser": "James Madison",
-        "pregameWinProb": 0.09399999999999997,
-        "winnerScore": 24,
-        "loserScore": 21,
-        "homeScore": 21,
-        "awayScore": 24
-      },
-      {
-        "gameId": 401858278,
-        "winner": "Syracuse",
-        "loser": "SMU",
-        "pregameWinProb": 0.283,
-        "winnerScore": 30,
-        "loserScore": 27,
-        "homeScore": 30,
-        "awayScore": 27
-      },
-      {
-        "gameId": 401871071,
-        "winner": "Delaware",
-        "loser": "Western Kentucky",
-        "pregameWinProb": 0.356,
-        "winnerScore": 35,
-        "loserScore": 21,
-        "homeScore": 21,
-        "awayScore": 35
-      }
-    ]
+    "gamesPlayed": 0,
+    "expectedUpsets": 18.13
   },
   "archive": {
     "calibration": {
@@ -31443,6 +31407,79 @@
             ],
             "upsets": 22,
             "z": 2.675214226838331
+          },
+          "9": {
+            "games": 56,
+            "upsets": 12,
+            "expectedUpsets": 14.68732116563453,
+            "z": -0.2851514352063617,
+            "shocks": [
+              {
+                "gameId": 401869963,
+                "winner": "Troy",
+                "loser": "James Madison",
+                "pregameWinProb": 0.08341258861262091,
+                "winnerScore": 24,
+                "loserScore": 21,
+                "homeScore": 21,
+                "awayScore": 24
+              },
+              {
+                "gameId": 401858504,
+                "winner": "Washington",
+                "loser": "Nebraska",
+                "pregameWinProb": 0.2080584495845723,
+                "winnerScore": 17,
+                "loserScore": 10,
+                "homeScore": 10,
+                "awayScore": 17
+              },
+              {
+                "gameId": 401858509,
+                "winner": "USC",
+                "loser": "Ohio State",
+                "pregameWinProb": 0.23308216180604424,
+                "winnerScore": 30,
+                "loserScore": 18,
+                "homeScore": 30,
+                "awayScore": 18
+              }
+            ],
+            "missingPregame": 0,
+            "final": true,
+            "reconstructed": false,
+            "fallout": {
+              "moved": 1.0181,
+              "gained": [
+                {
+                  "team": "USC",
+                  "change": 0.1637
+                },
+                {
+                  "team": "Ole Miss",
+                  "change": 0.1623
+                },
+                {
+                  "team": "Boise State",
+                  "change": 0.1166
+                }
+              ],
+              "lost": [
+                {
+                  "team": "Ohio State",
+                  "change": -0.12
+                },
+                {
+                  "team": "Oklahoma",
+                  "change": -0.1072
+                },
+                {
+                  "team": "Arizona",
+                  "change": -0.0878
+                }
+              ]
+            },
+            "percentile": 40.92
           }
         }
       }
