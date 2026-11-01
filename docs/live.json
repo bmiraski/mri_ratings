@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 9,
  "date": null,
- "updated": "2026-11-01T03:24:07Z",
- "updatedLabel": "11:24 PM ET",
+ "updated": "2026-11-01T03:29:09Z",
+ "updatedLabel": "11:29 PM ET",
  "games": {
   "401871071": {
    "status": "completed",
@@ -536,12 +536,12 @@
   },
   "401858281": {
    "status": "in_progress",
-   "label": "Q4 01:23",
+   "label": "Q4 00:43",
    "period": 4,
-   "clock": "01:23",
+   "clock": "00:43",
    "home": 34,
    "away": 11,
-   "possession": "away",
+   "possession": "home",
    "homeWinProbability": 1.0,
    "upset": null
   },
@@ -569,12 +569,12 @@
   },
   "401858504": {
    "status": "in_progress",
-   "label": "Q4 01:15",
+   "label": "Q4 00:31",
    "period": 4,
-   "clock": "01:15",
-   "home": 7,
+   "clock": "00:31",
+   "home": 10,
    "away": 17,
-   "possession": "home",
+   "possession": null,
    "homeWinProbability": 0.0,
    "upset": "Washington leads; the model gave them 23% before kickoff"
   },
@@ -591,35 +591,35 @@
   },
   "401860908": {
    "status": "in_progress",
-   "label": "Q2 04:13",
+   "label": "Q2 02:58",
    "period": 2,
-   "clock": "04:13",
+   "clock": "02:58",
    "home": 21,
    "away": 3,
-   "possession": null,
-   "homeWinProbability": 0.977,
+   "possession": "home",
+   "homeWinProbability": 0.978,
    "upset": null
   },
   "401864530": {
    "status": "in_progress",
-   "label": "Q2 09:07",
+   "label": "Q2 07:04",
    "period": 2,
-   "clock": "09:07",
-   "home": 10,
+   "clock": "07:04",
+   "home": 17,
    "away": 17,
-   "possession": "home",
-   "homeWinProbability": 0.777,
+   "possession": null,
+   "homeWinProbability": 0.895,
    "upset": null
   },
   "401860924": {
    "status": "in_progress",
-   "label": "Q1 09:29",
+   "label": "Q1 08:11",
    "period": 1,
-   "clock": "09:29",
+   "clock": "08:11",
    "home": 0,
    "away": 0,
    "possession": "away",
-   "homeWinProbability": 0.465,
+   "homeWinProbability": 0.466,
    "upset": null
   }
  }
