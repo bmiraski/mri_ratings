@@ -291,3 +291,20 @@ def test_finals_before_any_game_is_final_is_empty(monkeypatch):
     spec.loader.exec_module(build_site)
     monkeypatch.setattr(cbbd, "games", lambda season, **kw: pd.DataFrame())
     assert build_site._bb_finals(2027, "2026-10-31") == {}
+
+
+def test_the_board_dates_a_late_tip_by_its_eastern_day_not_its_utc_day(monkeypatch) -> None:
+    from mri.betting import bb_board, bb_lines
+    from mri.ingest import bb_registry, cbbd
+    from mri.ratings import bb_priors
+
+    # 10 pm Eastern on Monday Nov 2 is 03:00 UTC on Nov 3.
+    schedule = pd.DataFrame([{"game_id": 1, "start_date": "2026-11-03T03:00:00.000Z", "team1": "Visitors", "team2": "Hosts",
+                              "neutral": False, "played": False}])
+    monkeypatch.setattr(cbbd, "games", lambda season, **kw: schedule)
+    monkeypatch.setattr(bb_lines, "book_lines", lambda season: pd.DataFrame())
+    monkeypatch.setattr(bb_board.bb_sitedata, "_prior_for", lambda season: pd.Series({"Hosts": 10.0, "Visitors": 2.0}))
+    monkeypatch.setattr(bb_priors, "for_season", lambda season, previous, teams, d1: pd.Series({"Hosts": 10.0, "Visitors": 2.0}))
+    monkeypatch.setattr(bb_registry, "is_d1", lambda team, season=None: True)
+    board = bb_board.build_board(2027, today=dt.date(2026, 11, 1))
+    assert board["games"][0]["day"] == "2026-11-02"

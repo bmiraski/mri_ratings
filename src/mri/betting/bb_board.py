@@ -44,6 +44,12 @@ from ..ingest import bb_registry as registry, cbbd
 from ..ratings import bb_priors, mri2
 from . import bb_lines
 
+try:
+    from zoneinfo import ZoneInfo
+    EASTERN = ZoneInfo("America/New_York")
+except Exception:  # noqa: BLE001 - a runner without tz data still gets a board
+    EASTERN = dt.timezone(dt.timedelta(hours=-5))
+
 # Below this the disagreement is inside the noise of a 9.4-point model and not
 # worth a reader's attention either way.
 MIN_EDGE_TO_SHOW = 3.0
@@ -60,13 +66,14 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
     from scipy.stats import norm
 
     season = season or bb_sitedata.latest_playing_season()
-    today = today or dt.date.today()
+    today = today or dt.datetime.now(EASTERN).date()
 
     schedule = _canonical(cbbd.games(season, completed_only=False), season)
     if schedule.empty:
         return _empty(season)
 
-    dates = pd.to_datetime(schedule["start_date"], format="ISO8601", utc=True).dt.date
+    # The calendar day a game is played on in the US, not in UTC: a 10 pm Eastern tip-off is already tomorrow there.
+    dates = pd.to_datetime(schedule["start_date"], format="ISO8601", utc=True).dt.tz_convert(EASTERN).dt.date
     schedule = schedule.assign(day=dates)
     played = schedule[schedule["played"]]
     slate = schedule[
