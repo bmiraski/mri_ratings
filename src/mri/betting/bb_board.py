@@ -82,17 +82,19 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
     dates = pd.to_datetime(schedule["start_date"], format="ISO8601", utc=True).dt.tz_convert(EASTERN).dt.date
     schedule = schedule.assign(day=dates)
     played = schedule[schedule["played"]]
+    # Today's finished games stay on the board, marked played: the slate page is rebuilt through the day, and a game
+    # must not vanish from it the moment it goes final.
     slate = schedule[
-        (~schedule["played"])
-        & (schedule["day"] >= today)
+        (schedule["day"] >= today)
         & (schedule["day"] <= today + dt.timedelta(days=HORIZON_DAYS))
+        & (~schedule["played"] | (schedule["day"] == today))
     ]
     if slate.empty:
         return _empty(season)
 
     if ratings is None:
-        # Before the first game of a season is final there is nothing to fit: the preseason prior is the rating.
-        ratings = _rate(season, played) if not played.empty else _preseason(season, schedule)
+        # Until a season has enough finals to rate from (the site's own threshold), the preseason prior is the rating.
+        ratings = _rate(season, played) if len(played) >= bb_sitedata.MIN_GAMES else _preseason(season, schedule)
 
     book = bb_lines.book_lines(season)
     book = book.drop_duplicates(subset="game_id").set_index("game_id") if not book.empty else pd.DataFrame()
@@ -145,6 +147,7 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
                 "homeSeed": _seed(getattr(row, "seed2", None)),
                 "awaySeed": _seed(getattr(row, "seed1", None)),
                 "day": row.day.isoformat(),
+                "played": bool(row.played),
                 "home": row.team2,
                 "away": row.team1,
                 "neutral": bool(row.neutral),
@@ -164,7 +167,7 @@ def build_board(season: int | None = None, ratings: mri2.Ratings | None = None,
     rows.sort(key=lambda r: -abs(r["edge"] or 0))
     disagreements = [
         r for r in rows
-        if r["edge"] is not None and abs(r["edge"]) >= MIN_EDGE_TO_SHOW and r["confident"]
+        if r["edge"] is not None and abs(r["edge"]) >= MIN_EDGE_TO_SHOW and r["confident"] and not r["played"]
     ]
     return {
         "season": season,

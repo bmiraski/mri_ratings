@@ -330,3 +330,25 @@ def test_a_neutral_line_that_looks_reversed_is_held_back(monkeypatch) -> None:
     assert held["market"] is None and held["edge"] is None and held["suspectMarket"] == -4.5
     assert run(False, -4.5)["edge"] is not None     # a home-court game is never second-guessed
     assert run(True, 5.0)["edge"] is not None       # a modest gap on a neutral court is left alone
+
+
+def test_a_season_with_a_few_finals_is_still_priced_by_the_prior_and_keeps_todays_final(monkeypatch) -> None:
+    from mri.betting import bb_board, bb_lines
+    from mri.ingest import bb_registry, cbbd
+    from mri.ratings import bb_priors
+
+    schedule = pd.DataFrame([
+        {"game_id": 1, "start_date": "2026-11-01T14:30:00.000Z", "team1": "Visitors", "team2": "Hosts", "neutral": True, "played": True},
+        {"game_id": 2, "start_date": "2026-11-02T23:00:00.000Z", "team1": "Rival", "team2": "Other", "neutral": False, "played": False},
+    ])
+    prior = pd.Series({"Hosts": 10.0, "Visitors": 2.0, "Other": 5.0, "Rival": 4.0})
+    monkeypatch.setattr(cbbd, "games", lambda season, **kw: schedule)
+    monkeypatch.setattr(bb_lines, "book_lines", lambda season: pd.DataFrame())
+    monkeypatch.setattr(bb_board.bb_sitedata, "_prior_for", lambda season: prior)
+    monkeypatch.setattr(bb_priors, "for_season", lambda season, previous, teams, d1: prior)
+    monkeypatch.setattr(bb_board, "_rate", lambda *a, **k: (_ for _ in ()).throw(AssertionError("one final is not enough to fit")))
+    monkeypatch.setattr(bb_registry, "is_d1", lambda team, season=None: True)
+    board = bb_board.build_board(2027, today=dt.date(2026, 11, 1))
+    by_id = {g["id"]: g for g in board["games"]}
+    assert by_id[1]["played"] and by_id[1]["predicted"] == 8.0         # the final stays on today's page, priced by the prior
+    assert not by_id[2]["played"] and 2 in by_id and 1 not in {g["id"] for g in board["disagreements"]}
