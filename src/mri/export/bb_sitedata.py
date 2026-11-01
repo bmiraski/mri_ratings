@@ -47,9 +47,14 @@ def season_label(season: int) -> str:
     return f"{season - 1}–{str(season)[2:]}"
 
 
+# Under about a hundred games the solve is describing noise: no ratings are published, and the season
+# is not yet the one the site shows. (A single opening-day final must not flip the site to an empty season.)
+MIN_GAMES = 100
+
+
 @lru_cache(maxsize=1)
 def latest_playing_season(limit: int = 3) -> int:
-    """The most recent season with completed games in it.
+    """The most recent season with enough completed games to publish ratings from.
 
     In September nothing has been played yet, so this returns last season and
     the site marks it final. In December it returns the live one.
@@ -61,7 +66,7 @@ def latest_playing_season(limit: int = 3) -> int:
     from ..ingest.bb_registry import CURRENT_SEASON
 
     for season in range(CURRENT_SEASON, CURRENT_SEASON - limit, -1):
-        if not cbbd.games(season).empty:
+        if len(cbbd.games(season)) >= MIN_GAMES:
             return season
     raise ValueError("no season with completed games")
 
@@ -151,7 +156,7 @@ def weekly_ratings(season: int, *, sink: dict | None = None) -> pd.DataFrame:
         # Under about a hundred games the solve is describing noise, and a
         # published week-one ranking of 350 teams off three days of play is
         # worse than no ranking at all.
-        if len(so_far) < 100 or not d1:
+        if len(so_far) < MIN_GAMES or not d1:
             continue
 
         model = mri2.fit(

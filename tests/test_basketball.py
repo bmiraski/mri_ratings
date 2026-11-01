@@ -434,3 +434,21 @@ def test_the_game_log_keeps_games_whose_box_score_never_arrived() -> None:
         + kentucky.loc[kentucky["team2"] == "Kentucky", "win2"].sum()
     )
     assert (wins, len(kentucky) - wins) == (38.0, 2.0)
+
+
+def test_one_opening_day_final_does_not_flip_the_site_to_the_new_season(monkeypatch) -> None:
+    """The first final of a season has no ratings behind it; the site keeps showing last season until there are enough games."""
+    import pandas as pd
+
+    from mri.export import bb_sitedata
+    from mri.ingest import bb_registry, cbbd
+
+    bb_sitedata.latest_playing_season.cache_clear()
+    monkeypatch.setattr(bb_registry, "CURRENT_SEASON", 2027)
+    sizes = {2027: 1, 2026: 5000, 2025: 5000}
+    monkeypatch.setattr(cbbd, "games", lambda season, **kw: pd.DataFrame({"x": range(sizes[season])}))
+    assert bb_sitedata.latest_playing_season() == 2026
+    bb_sitedata.latest_playing_season.cache_clear()
+    sizes[2027] = bb_sitedata.MIN_GAMES
+    assert bb_sitedata.latest_playing_season() == 2027
+    bb_sitedata.latest_playing_season.cache_clear()
