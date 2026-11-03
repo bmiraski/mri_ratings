@@ -19,6 +19,7 @@ def test_unplayed_teams_are_rated_at_their_prior() -> None:
     assert rated.power["C"] == 4.5 and rated.power["D"] == -7.0
     assert rated.power["A"] == 10.0                      # a team with games keeps its fitted rating
     assert rated.games_played["C"] == 0
+    assert rated.resume["C"] == 0.0                      # pages format it with :+.2f; a gap would crash them
     table = rated.table()
     assert set(table["team"]) == {"A", "B", "C", "D"}
     assert rated.predict("C", "D", neutral=True) == 11.5   # not priced at a replacement-level floor
