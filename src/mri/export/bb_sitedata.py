@@ -110,7 +110,8 @@ def with_unplayed(model: mri2.Ratings, prior: pd.Series, field: list[str]) -> mr
     for name in ("resume", "adj_offense", "adj_defense"):
         value = getattr(model, name)
         if value is not None:
-            extra[name] = value.reindex(index)
+            # No games means no wins above average: a resume of zero, which the pages can format, not a gap.
+            extra[name] = value.reindex(index).fillna(0.0) if name == "resume" else value.reindex(index)
     return dataclasses.replace(model, **extra)
 
 
