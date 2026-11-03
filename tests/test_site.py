@@ -270,7 +270,10 @@ def test_each_sport_switch_points_at_the_other(both) -> None:
         assert 'class="sports"' in html, page
         assert html.count('aria-current="page"') == 1, page
         seen += 1
-    assert seen > 500
+    # Early in a season only teams that have played are rated (304 of 365 in
+    # the first week), and every team is a page, so the floor is a sanity check
+    # rather than a count of the full field.
+    assert seen > 400
 
 
 def test_a_solo_build_shows_no_switch(payload, tmp_path) -> None:
@@ -471,7 +474,10 @@ def test_basketball_logos_are_cached_not_hotlinked() -> None:
     remote = [t for t in teams if (t.get("logo") or "").startswith("http")]
     assert not remote, f"{len(remote)} logos still point at a remote host"
     have = [t for t in teams if t.get("logo")]
-    assert len(have) > 350, f"only {len(have)} of {len(teams)} teams have a logo"
+    # Relative, not absolute: the field is smaller early in the season, when
+    # only teams that have played are rated.
+    assert len(teams) > 250, f"only {len(teams)} teams published"
+    assert len(have) >= 0.95 * len(teams), f"only {len(have)} of {len(teams)} teams have a logo"
 
 
 def test_cached_logos_are_small_enough_to_commit() -> None:
