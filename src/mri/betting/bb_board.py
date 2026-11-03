@@ -218,9 +218,11 @@ def _rate(season: int, played: pd.DataFrame) -> mri2.Ratings:
     profile = mri2.BASKETBALL_PROFILE
     teams = sorted(set(played["team1"]) | set(played["team2"]))
     d1 = [t for t in teams if registry.is_d1(t, season=season)]
-    return mri2.fit(
+    field = bb_sitedata.d1_field(season, d1)
+    prior = bb_priors.for_season(season, bb_sitedata._prior_for(season), sorted(set(teams) | set(field)), field)
+    model = mri2.fit(
         played,
-        prior=bb_priors.for_season(season, bb_sitedata._prior_for(season), teams, d1),
+        prior=prior,
         neutral=played["neutral"],
         anchor_teams=d1 or None,
         compression=profile.compression,
@@ -229,6 +231,8 @@ def _rate(season: int, played: pd.DataFrame) -> mri2.Ratings:
         with_resume=False,
         with_efficiency=False,
     )
+    # Teams with no game yet are rated at their prior, not left to the replacement-level default below.
+    return bb_sitedata.with_unplayed(model, prior, field)
 
 
 def _preseason(season: int, schedule: pd.DataFrame) -> mri2.Ratings:

@@ -25,6 +25,7 @@ recent one with games in it.
 
 from __future__ import annotations
 
+import dataclasses
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -84,6 +85,33 @@ def _weeks(frame: pd.DataFrame) -> pd.Series:
     first = dates.min().normalize()
     start = first - pd.Timedelta(days=int(first.dayofweek))
     return ((dates - start).dt.days // 7 + 1).astype(int)
+
+
+def d1_field(season: int, teams=()) -> list[str]:
+    """Every Division I team of a season, whether or not it has played: the registry's roster plus any team a game names."""
+    field = set(registry.teams(season)) | {t for t in teams if registry.is_d1(t, season=season)}
+    return sorted(field)
+
+
+def with_unplayed(model: mri2.Ratings, prior: pd.Series, field: list[str]) -> mri2.Ratings:
+    """``model`` with every team of ``field`` that has no game yet rated at its preseason prior.
+
+    A fit only knows the teams in its games. Early in a season that drops a fifth of the field from the rankings
+    and leaves anything that touches those teams - a slate, a team page, a logo - without a rating to read, which
+    the slate then priced at the bottom of the board. Their prior is the best number there is until they play."""
+    missing = [t for t in field if t not in model.power.index and t in prior.index]
+    if not missing:
+        return model
+    index = model.power.index.append(pd.Index(missing))
+    extra = {
+        "power": pd.concat([model.power, prior.reindex(missing).astype(float)]),
+        "games_played": model.games_played.reindex(index).fillna(0).astype(int),
+    }
+    for name in ("resume", "adj_offense", "adj_defense"):
+        value = getattr(model, name)
+        if value is not None:
+            extra[name] = value.reindex(index)
+    return dataclasses.replace(model, **extra)
 
 
 def _prior_for(season: int, depth: int = 6) -> pd.Series | None:
@@ -153,15 +181,17 @@ def weekly_ratings(season: int, *, sink: dict | None = None) -> pd.DataFrame:
         so_far = games[games["week"] <= week]
         teams = sorted(set(so_far["team1"]) | set(so_far["team2"]))
         d1 = [t for t in teams if registry.is_d1(t, season=season)]
+        field = d1_field(season, d1)
         # Under about a hundred games the solve is describing noise, and a
         # published week-one ranking of 350 teams off three days of play is
         # worse than no ranking at all.
         if len(so_far) < MIN_GAMES or not d1:
             continue
 
+        week_prior = bb_priors.for_season(season, prior, sorted(set(teams) | set(field)), field)
         model = mri2.fit(
             so_far,
-            prior=bb_priors.for_season(season, prior, teams, d1),
+            prior=week_prior,
             neutral=so_far["neutral"],
             anchor_teams=d1,
             compression=profile.compression,
@@ -169,7 +199,7 @@ def weekly_ratings(season: int, *, sink: dict | None = None) -> pd.DataFrame:
             home_field_prior=profile.home_field_prior,
             with_efficiency=False,
         )
-        table = model.table()
+        table = with_unplayed(model, week_prior, field).table()
         table = table[table["team"].map(lambda t: registry.is_d1(t, season=season))].copy()
         table["rank"] = range(1, len(table) + 1)
         if sink is not None:
