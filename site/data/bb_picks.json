@@ -10,7 +10,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Cornell"
+   "team": "Cornell",
+   "actual": 1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 374503,
@@ -22,7 +27,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Indiana State"
+   "team": "Indiana State",
+   "actual": -8.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -5.5,
+   "clv": -1.0
   },
   {
    "game_id": 372643,
@@ -34,7 +44,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Bowling Green"
+   "team": "Bowling Green",
+   "actual": -3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 3.5,
+   "clv": 0.0
   },
   {
    "game_id": 372633,
@@ -46,7 +61,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Georgia Southern"
+   "team": "Georgia Southern",
+   "actual": 12.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 1.0
   },
   {
    "game_id": 374534,
@@ -58,7 +78,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Southeast Missouri State"
+   "team": "Southeast Missouri State",
+   "actual": 7.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 1.0
   },
   {
    "game_id": 372635,
@@ -70,7 +95,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Miami (OH)"
+   "team": "Miami (OH)",
+   "actual": -9.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374575,
@@ -82,7 +112,12 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Iona"
+   "team": "Iona",
+   "actual": 1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 372640,
@@ -94,7 +129,36 @@
    "loggedAt": "2026-11-02T17:57:56Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Old Dominion"
+   "team": "Old Dominion",
+   "actual": 12.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 374604,
+   "day": "2026-11-03",
+   "home": "Iowa",
+   "away": "Lipscomb",
+   "predicted": -49.3,
+   "taken": 20.5,
+   "loggedAt": "2026-11-03T13:21:48Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Lipscomb"
+  },
+  {
+   "game_id": 374599,
+   "day": "2026-11-03",
+   "home": "South Carolina",
+   "away": "Stetson",
+   "predicted": -42.4,
+   "taken": 17.5,
+   "loggedAt": "2026-11-03T13:21:48Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Stetson"
   }
  ]
 }
