@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 500,
-      "accuracy": 0.74,
-      "mae": 12.68,
-      "priced": 500,
-      "modelMaePriced": 12.68,
-      "marketMae": 11.43,
-      "marketAccuracy": 0.764,
-      "modelAccuracyPriced": 0.74,
-      "maeGap": 1.25,
+      "games": 502,
+      "accuracy": 0.739,
+      "mae": 12.67,
+      "priced": 502,
+      "modelMaePriced": 12.67,
+      "marketMae": 11.41,
+      "marketAccuracy": 0.7629,
+      "modelAccuracyPriced": 0.739,
+      "maeGap": 1.26,
       "maeGapError": 0.42,
       "slope": 0.84,
       "marketSlope": 1.0,
       "bets": {
-        "count": 260,
+        "count": 261,
         "wins": 124,
-        "losses": 129,
+        "losses": 130,
         "pushes": 7,
-        "ats": 0.4901,
-        "units": -16.28,
+        "ats": 0.4882,
+        "units": -17.28,
         "clv": 0.75
       }
     },
@@ -118,6 +118,16 @@
         "bets": 24,
         "record": "14-10",
         "units": 2.73
+      },
+      {
+        "week": 10,
+        "games": 2,
+        "accuracy": 0.5,
+        "mae": 9.45,
+        "marketMae": 7.0,
+        "bets": 1,
+        "record": "0-1",
+        "units": -1.0
       }
     ],
     "bets": [
@@ -4020,6 +4030,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": -2.0
+      },
+      {
+        "week": 10,
+        "home": "Miami (OH)",
+        "away": "Buffalo",
+        "side": "home",
+        "team": "Miami (OH)",
+        "predicted": 10.9,
+        "open": 6.5,
+        "close": 6.5,
+        "edge": 4.4,
+        "actual": -3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.0
       }
     ]
   },
@@ -8789,7 +8814,10 @@
         "week": 10
       },
       {
+        "actual": -3,
         "away": "Buffalo",
+        "close": 6.5,
+        "clv": 0.0,
         "edge": 4.4,
         "game_id": 401866454,
         "home": "Miami (OH)",
@@ -8799,8 +8827,10 @@
         "neutral": false,
         "open": 6.5,
         "predicted": 10.9,
+        "result": "loss",
         "side": "home",
         "taken": 6.5,
+        "units": -1.0,
         "week": 10
       },
       {
@@ -9016,12 +9046,12 @@
     ],
     "logged": 259,
     "earlier": 48,
-    "graded": 230,
+    "graded": 231,
     "wins": 108,
-    "losses": 116,
+    "losses": 117,
     "pushes": 6,
-    "ats": 0.4821,
-    "units": -17.83,
+    "ats": 0.48,
+    "units": -18.83,
     "clv": 0.19
   }
 }
