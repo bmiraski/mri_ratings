@@ -3,28 +3,28 @@
  "season": 2026,
  "week": 10,
  "date": null,
- "updated": "2026-11-04T02:42:35Z",
- "updatedLabel": "9:42 PM ET",
+ "updated": "2026-11-04T02:47:37Z",
+ "updatedLabel": "9:47 PM ET",
  "games": {
   "401866453": {
    "status": "in_progress",
-   "label": "Q4 11:33",
+   "label": "Q4 09:33",
    "period": 4,
-   "clock": "11:33",
-   "home": 9,
+   "clock": "09:33",
+   "home": 15,
    "away": 14,
    "possession": "home",
-   "homeWinProbability": 0.149,
-   "upset": null
+   "homeWinProbability": 0.435,
+   "upset": "Akron leads; the model gave them 21% before kickoff"
   },
   "401866454": {
    "status": "in_progress",
-   "label": "Q3 15:00",
-   "period": 3,
-   "clock": "15:00",
+   "label": "Half",
+   "period": 2,
+   "clock": "00:00",
    "home": 17,
    "away": 10,
-   "possession": "away",
+   "possession": null,
    "homeWinProbability": 0.857,
    "upset": null
   }
