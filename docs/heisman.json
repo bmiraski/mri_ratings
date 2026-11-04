@@ -81,8 +81,8 @@
       "teamRank": 3,
       "teamRecord": "6\u20132",
       "teamTop4": 0.46,
-      "winIfTop4": 0.2164063142695221,
-      "winIfNot": 0.035348255057717944
+      "winIfTop4": 0.21640631426952206,
+      "winIfNot": 0.03534825505771795
     },
     {
       "player": "Sam Leavitt",
@@ -130,7 +130,7 @@
       "teamRecord": "6\u20132",
       "teamTop4": 0.209,
       "winIfTop4": 0.1880472987551317,
-      "winIfNot": 0.030220669026438794
+      "winIfNot": 0.030220669026438798
     },
     {
       "player": "Keelon Russell",
@@ -154,7 +154,7 @@
       "teamRecord": "6\u20132",
       "teamTop4": 0.415,
       "winIfTop4": 0.1283342567029385,
-      "winIfNot": 0.015422276436267278
+      "winIfNot": 0.015422276436267276
     },
     {
       "player": "Devon Dampier",
@@ -249,8 +249,8 @@
       "teamRank": 10,
       "teamRecord": "8\u20130",
       "teamTop4": 0.236,
-      "winIfTop4": 0.0583999298905674,
-      "winIfNot": 0.010440566699474973
+      "winIfTop4": 0.058399929890567415,
+      "winIfNot": 0.010440566699474975
     },
     {
       "player": "Noah Fifita",
@@ -274,7 +274,7 @@
       "teamRecord": "6\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.013398050671810035
+      "winIfNot": 0.013398050671810031
     },
     {
       "player": "Kevin Jennings",
@@ -322,7 +322,7 @@
       "teamRecord": "5\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.009164615075472119
+      "winIfNot": 0.00916461507547212
     },
     {
       "player": "Conner Weigman",
@@ -369,7 +369,7 @@
       "teamRank": 9,
       "teamRecord": "8\u20131",
       "teamTop4": 0.204,
-      "winIfTop4": 0.029164706557245245,
+      "winIfTop4": 0.029164706557245252,
       "winIfNot": 0.003012284013102241
     }
   ],
@@ -538,7 +538,32 @@
       "Chase Young",
       "Aidan Hutchinson"
     ],
-    "watch": []
+    "watch": [
+      {
+        "player": "Rasheem Biles",
+        "team": "Texas",
+        "position": "LB",
+        "tackles": 61,
+        "sacks": 4.0,
+        "interceptions": 3
+      },
+      {
+        "player": "Braydon Brus",
+        "team": "Northwestern",
+        "position": "LB",
+        "tackles": 68,
+        "sacks": 4.0,
+        "interceptions": 1
+      },
+      {
+        "player": "Elijah Melendez",
+        "team": "Auburn",
+        "position": "LB",
+        "tackles": 63,
+        "sacks": 4.0,
+        "interceptions": 1
+      }
+    ]
   },
   "market": null
 }
