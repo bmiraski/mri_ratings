@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 10,
  "date": null,
- "updated": "2026-11-05T01:51:56Z",
- "updatedLabel": "8:51 PM ET",
+ "updated": "2026-11-05T01:56:58Z",
+ "updatedLabel": "8:56 PM ET",
  "games": {
   "401866453": {
    "status": "completed",
@@ -41,24 +41,24 @@
   },
   "401866457": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 11:18",
+   "period": 3,
+   "clock": "11:18",
    "home": 10,
    "away": 7,
-   "possession": null,
-   "homeWinProbability": 0.316,
-   "upset": null
+   "possession": "home",
+   "homeWinProbability": 0.339,
+   "upset": "Sacramento State leads; the model gave them 15% before kickoff"
   },
   "401866456": {
    "status": "in_progress",
-   "label": "Q2 01:48",
+   "label": "Q2 00:32",
    "period": 2,
-   "clock": "01:48",
+   "clock": "00:32",
    "home": 0,
    "away": 21,
-   "possession": null,
-   "homeWinProbability": 0.042,
+   "possession": "home",
+   "homeWinProbability": 0.039,
    "upset": null
   }
  }
