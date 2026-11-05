@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-04",
- "updated": "2026-11-05T01:01:34Z",
- "updatedLabel": "8:01 PM ET",
+ "updated": "2026-11-05T01:06:37Z",
+ "updatedLabel": "8:06 PM ET",
  "games": {
   "374628": {
    "status": "in_progress",
@@ -30,10 +30,10 @@
   },
   "374627": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 31,
+   "label": "2nd 19:09",
+   "period": 2,
+   "clock": "19:09",
+   "home": 33,
    "away": 19,
    "possession": null,
    "homeWinProbability": 1.0,
@@ -41,13 +41,35 @@
   },
   "374633": {
    "status": "in_progress",
-   "label": "1st 6:47",
+   "label": "1st 5:34",
    "period": 1,
-   "clock": "6:47",
-   "home": 28,
-   "away": 23,
+   "clock": "5:34",
+   "home": 33,
+   "away": 27,
    "possession": null,
-   "homeWinProbability": 0.927,
+   "homeWinProbability": 0.941,
+   "upset": null
+  },
+  "377944": {
+   "status": "in_progress",
+   "label": "1st 19:39",
+   "period": 1,
+   "clock": "19:39",
+   "home": 0,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.432,
+   "upset": null
+  },
+  "374619": {
+   "status": "in_progress",
+   "label": "1st 17:32",
+   "period": 1,
+   "clock": "17:32",
+   "home": 5,
+   "away": 4,
+   "possession": null,
+   "homeWinProbability": 0.984,
    "upset": null
   }
  }
