@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 505,
-      "accuracy": 0.7386,
-      "mae": 12.69,
-      "priced": 505,
-      "modelMaePriced": 12.69,
-      "marketMae": 11.44,
-      "marketAccuracy": 0.7644,
-      "modelAccuracyPriced": 0.7386,
+      "games": 507,
+      "accuracy": 0.7377,
+      "mae": 12.76,
+      "priced": 507,
+      "modelMaePriced": 12.76,
+      "marketMae": 11.51,
+      "marketAccuracy": 0.7633,
+      "modelAccuracyPriced": 0.7377,
       "maeGap": 1.25,
-      "maeGapError": 0.42,
+      "maeGapError": 0.41,
       "slope": 0.84,
       "marketSlope": 0.99,
       "bets": {
-        "count": 262,
+        "count": 263,
         "wins": 125,
-        "losses": 130,
+        "losses": 131,
         "pushes": 7,
-        "ats": 0.4902,
-        "units": -16.37,
+        "ats": 0.4883,
+        "units": -17.37,
         "clv": 0.75
       }
     },
@@ -121,13 +121,13 @@
       },
       {
         "week": 10,
-        "games": 5,
-        "accuracy": 0.6,
-        "mae": 13.56,
-        "marketMae": 12.7,
-        "bets": 2,
-        "record": "1-1",
-        "units": -0.09
+        "games": 7,
+        "accuracy": 0.5714,
+        "mae": 18.19,
+        "marketMae": 17.0,
+        "bets": 3,
+        "record": "1-2",
+        "units": -1.09
       }
     ],
     "bets": [
@@ -4060,6 +4060,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 0.0
+      },
+      {
+        "week": 10,
+        "home": "Florida Atlantic",
+        "away": "UTSA",
+        "side": "away",
+        "team": "UTSA",
+        "predicted": -10.6,
+        "open": -6.5,
+        "close": -7.0,
+        "edge": -4.1,
+        "actual": 31,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.5
       }
     ]
   },
@@ -8899,7 +8914,10 @@
         "week": 10
       },
       {
+        "actual": 31,
         "away": "UTSA",
+        "close": -7.0,
+        "clv": 0.5,
         "edge": -4.1,
         "game_id": 401862817,
         "home": "Florida Atlantic",
@@ -8909,8 +8927,10 @@
         "neutral": false,
         "open": -6.5,
         "predicted": -10.6,
+        "result": "loss",
         "side": "away",
         "taken": -6.5,
+        "units": -1.0,
         "week": 10
       },
       {
@@ -9066,12 +9086,12 @@
     ],
     "logged": 259,
     "earlier": 48,
-    "graded": 232,
+    "graded": 233,
     "wins": 109,
-    "losses": 117,
+    "losses": 118,
     "pushes": 6,
-    "ats": 0.4823,
-    "units": -17.92,
+    "ats": 0.4802,
+    "units": -18.92,
     "clv": 0.2
   }
 }

@@ -180,7 +180,12 @@
    "loggedAt": "2026-11-05T16:56:07Z",
    "strategy": "dog",
    "side": "away",
-   "team": "South Florida"
+   "team": "South Florida",
+   "actual": 2.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 6.5,
+   "clv": 0.0
   },
   {
    "game_id": 377899,
@@ -192,7 +197,12 @@
    "loggedAt": "2026-11-05T16:56:07Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Jacksonville State"
+   "team": "Jacksonville State",
+   "actual": 3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 4.5,
+   "clv": 1.0
   },
   {
    "game_id": 374666,
@@ -204,7 +214,12 @@
    "loggedAt": "2026-11-05T16:56:07Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Fairfield"
+   "team": "Fairfield",
+   "actual": -12.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374659,
@@ -216,7 +231,48 @@
    "loggedAt": "2026-11-05T16:56:07Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Cornell"
+   "team": "Cornell",
+   "actual": 7.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 3.0
+  },
+  {
+   "game_id": 374690,
+   "day": "2026-11-06",
+   "home": "Kansas City",
+   "away": "Southern Illinois",
+   "predicted": -13.9,
+   "taken": 1.5,
+   "loggedAt": "2026-11-06T16:23:12Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Southern Illinois"
+  },
+  {
+   "game_id": 374714,
+   "day": "2026-11-06",
+   "home": "Louisiana",
+   "away": "Texas A&M-Corpus Christi",
+   "predicted": -3.9,
+   "taken": 3.5,
+   "loggedAt": "2026-11-06T16:23:12Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Texas A&M-Corpus Christi"
+  },
+  {
+   "game_id": 377966,
+   "day": "2026-11-06",
+   "home": "UT Arlington",
+   "away": "Portland",
+   "predicted": 0.3,
+   "taken": -1.5,
+   "loggedAt": "2026-11-06T16:23:12Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "UT Arlington"
   }
  ]
 }
