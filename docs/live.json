@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 10,
  "date": null,
- "updated": "2026-11-07T05:26:38Z",
- "updatedLabel": "12:26 AM ET",
+ "updated": "2026-11-07T05:31:40Z",
+ "updatedLabel": "12:31 AM ET",
  "games": {
   "401866453": {
    "status": "completed",
@@ -129,14 +129,14 @@
   },
   "401856855": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 15:00",
+   "period": 3,
+   "clock": "15:00",
    "home": 10,
    "away": 14,
-   "possession": null,
+   "possession": "away",
    "homeWinProbability": 0.558,
-   "upset": null
+   "upset": "TCU leads; the model gave them 24% before kickoff"
   }
  }
 }
