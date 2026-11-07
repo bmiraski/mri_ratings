@@ -248,7 +248,12 @@
    "loggedAt": "2026-11-06T16:23:12Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Southern Illinois"
+   "team": "Southern Illinois",
+   "actual": 7.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 374714,
@@ -260,7 +265,12 @@
    "loggedAt": "2026-11-06T16:23:12Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Texas A&M-Corpus Christi"
+   "team": "Texas A&M-Corpus Christi",
+   "actual": -7.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 3.5,
+   "clv": 0.0
   },
   {
    "game_id": 377966,
@@ -272,7 +282,48 @@
    "loggedAt": "2026-11-06T16:23:12Z",
    "strategy": "dog",
    "side": "home",
-   "team": "UT Arlington"
+   "team": "UT Arlington",
+   "actual": 4.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -2.5,
+   "clv": -1.0
+  },
+  {
+   "game_id": 374717,
+   "day": "2026-11-07",
+   "home": "Furman",
+   "away": "Northern Iowa",
+   "predicted": -2.2,
+   "taken": 5.5,
+   "loggedAt": "2026-11-07T15:15:34Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Northern Iowa"
+  },
+  {
+   "game_id": 374756,
+   "day": "2026-11-07",
+   "home": "UC Riverside",
+   "away": "Denver",
+   "predicted": -0.6,
+   "taken": 1.5,
+   "loggedAt": "2026-11-07T15:15:34Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Denver"
+  },
+  {
+   "game_id": 374745,
+   "day": "2026-11-07",
+   "home": "South Dakota",
+   "away": "Cal State Fullerton",
+   "predicted": 2.0,
+   "taken": -1.5,
+   "loggedAt": "2026-11-07T15:15:34Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "South Dakota"
   }
  ]
 }

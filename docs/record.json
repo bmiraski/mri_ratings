@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 507,
-      "accuracy": 0.7377,
+      "games": 512,
+      "accuracy": 0.7363,
       "mae": 12.76,
-      "priced": 507,
+      "priced": 512,
       "modelMaePriced": 12.76,
-      "marketMae": 11.51,
-      "marketAccuracy": 0.7633,
-      "modelAccuracyPriced": 0.7377,
+      "marketMae": 11.5,
+      "marketAccuracy": 0.7637,
+      "modelAccuracyPriced": 0.7363,
       "maeGap": 1.25,
       "maeGapError": 0.41,
       "slope": 0.84,
       "marketSlope": 0.99,
       "bets": {
-        "count": 263,
+        "count": 264,
         "wins": 125,
-        "losses": 131,
+        "losses": 132,
         "pushes": 7,
-        "ats": 0.4883,
-        "units": -17.37,
-        "clv": 0.75
+        "ats": 0.4864,
+        "units": -18.37,
+        "clv": 0.73
       }
     },
     "weeks": [
@@ -121,13 +121,13 @@
       },
       {
         "week": 10,
-        "games": 7,
-        "accuracy": 0.5714,
-        "mae": 18.19,
-        "marketMae": 17.0,
-        "bets": 3,
-        "record": "1-2",
-        "units": -1.09
+        "games": 12,
+        "accuracy": 0.5833,
+        "mae": 15.96,
+        "marketMae": 14.62,
+        "bets": 4,
+        "record": "1-3",
+        "units": -2.09
       }
     ],
     "bets": [
@@ -4045,6 +4045,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 1.0
+      },
+      {
+        "week": 10,
+        "home": "East Carolina",
+        "away": "USF",
+        "side": "away",
+        "team": "USF",
+        "predicted": -6.4,
+        "open": -1.5,
+        "close": 1.5,
+        "edge": -4.9,
+        "actual": 3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -3.0
       },
       {
         "week": 10,
@@ -8819,7 +8834,10 @@
         "week": 10
       },
       {
+        "actual": 3,
         "away": "USF",
+        "close": 1.5,
+        "clv": -3.0,
         "edge": -4.9,
         "game_id": 401862818,
         "home": "East Carolina",
@@ -8829,8 +8847,10 @@
         "neutral": false,
         "open": -1.5,
         "predicted": -6.4,
+        "result": "loss",
         "side": "away",
         "taken": -1.5,
+        "units": -1.0,
         "week": 10
       },
       {
@@ -9086,12 +9106,12 @@
     ],
     "logged": 259,
     "earlier": 48,
-    "graded": 233,
+    "graded": 234,
     "wins": 109,
-    "losses": 118,
+    "losses": 119,
     "pushes": 6,
-    "ats": 0.4802,
-    "units": -18.92,
-    "clv": 0.2
+    "ats": 0.4781,
+    "units": -19.92,
+    "clv": 0.18
   }
 }

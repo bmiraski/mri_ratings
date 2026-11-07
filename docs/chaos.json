@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 7,
+    "gamesPlayed": 12,
     "missingPregame": 0,
-    "games": 7,
-    "upsets": null,
-    "expectedUpsets": 18.13,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 12,
+    "upsets": 5,
+    "expectedUpsets": 3.433,
+    "z": 0.23054435611777857,
+    "shocks": [
+      {
+        "gameId": 401866454,
+        "winner": "Buffalo",
+        "loser": "Miami (OH)",
+        "pregameWinProb": 0.255,
+        "winnerScore": 34,
+        "loserScore": 31,
+        "homeScore": 31,
+        "awayScore": 34
+      },
+      {
+        "gameId": 401862817,
+        "winner": "Florida Atlantic",
+        "loser": "UTSA",
+        "pregameWinProb": 0.26,
+        "winnerScore": 60,
+        "loserScore": 29,
+        "homeScore": 60,
+        "awayScore": 29
+      },
+      {
+        "gameId": 401862818,
+        "winner": "East Carolina",
+        "loser": "USF",
+        "pregameWinProb": 0.349,
+        "winnerScore": 20,
+        "loserScore": 17,
+        "homeScore": 20,
+        "awayScore": 17
+      }
+    ]
   },
   "archive": {
     "calibration": {
