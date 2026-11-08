@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 10,
  "date": null,
- "updated": "2026-11-08T04:14:19Z",
- "updatedLabel": "11:14 PM ET",
+ "updated": "2026-11-08T04:19:22Z",
+ "updatedLabel": "11:19 PM ET",
  "games": {
   "401866453": {
    "status": "completed",
@@ -601,15 +601,15 @@
    "upset": null
   },
   "401858511": {
-   "status": "in_progress",
-   "label": "Q4 00:47",
-   "period": 4,
-   "clock": "00:47",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 6,
    "away": 15,
-   "possession": "away",
+   "possession": null,
    "homeWinProbability": 0.0,
-   "upset": "Michigan State leads; the model gave them 17% before kickoff"
+   "upset": "Michigan State won; the model gave them 17% before kickoff"
   },
   "401856739": {
    "status": "completed",
@@ -624,13 +624,13 @@
   },
   "401870795": {
    "status": "in_progress",
-   "label": "Q4 02:15",
+   "label": "Q4 01:05",
    "period": 4,
-   "clock": "02:15",
+   "clock": "01:05",
    "home": 14,
    "away": 23,
    "possession": "away",
-   "homeWinProbability": 0.001,
+   "homeWinProbability": 0.0,
    "upset": null
   },
   "401864532": {
@@ -646,12 +646,12 @@
   },
   "401856856": {
    "status": "in_progress",
-   "label": "Q2 01:12",
+   "label": "Q2 00:03",
    "period": 2,
-   "clock": "01:12",
+   "clock": "00:03",
    "home": 41,
    "away": 27,
-   "possession": null,
+   "possession": "home",
    "homeWinProbability": 0.982,
    "upset": null
   },
@@ -668,24 +668,24 @@
   },
   "401864535": {
    "status": "in_progress",
-   "label": "Q1 04:58",
+   "label": "Q1 00:56",
    "period": 1,
-   "clock": "04:58",
+   "clock": "00:56",
    "home": 7,
    "away": 10,
-   "possession": null,
-   "homeWinProbability": 0.716,
+   "possession": "away",
+   "homeWinProbability": 0.702,
    "upset": null
   },
   "401860912": {
    "status": "in_progress",
-   "label": "Q1 04:31",
+   "label": "Q1 02:14",
    "period": 1,
-   "clock": "04:31",
+   "clock": "02:14",
    "home": 0,
-   "away": 7,
-   "possession": "away",
-   "homeWinProbability": 0.413,
+   "away": 14,
+   "possession": "home",
+   "homeWinProbability": 0.238,
    "upset": null
   }
  }
