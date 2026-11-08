@@ -299,7 +299,12 @@
    "loggedAt": "2026-11-07T15:15:34Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Northern Iowa"
+   "team": "Northern Iowa",
+   "actual": 15.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 5.5,
+   "clv": 0.0
   },
   {
    "game_id": 374756,
@@ -311,7 +316,12 @@
    "loggedAt": "2026-11-07T15:15:34Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Denver"
+   "team": "Denver",
+   "actual": 4.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374745,
@@ -323,7 +333,12 @@
    "loggedAt": "2026-11-07T15:15:34Z",
    "strategy": "dog",
    "side": "home",
-   "team": "South Dakota"
+   "team": "South Dakota",
+   "actual": -2.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 3.0
   },
   {
    "game_id": 374729,
@@ -335,7 +350,36 @@
    "loggedAt": "2026-11-07T19:05:10Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Drexel"
+   "team": "Drexel",
+   "actual": 3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 374773,
+   "day": "2026-11-08",
+   "home": "Virginia",
+   "away": "Arkansas",
+   "predicted": -5.0,
+   "taken": 2.5,
+   "loggedAt": "2026-11-08T15:39:41Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Arkansas"
+  },
+  {
+   "game_id": 372722,
+   "day": "2026-11-08",
+   "home": "Nevada",
+   "away": "Saint Mary's",
+   "predicted": -3.5,
+   "taken": 1.5,
+   "loggedAt": "2026-11-08T15:39:41Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Saint Mary's"
   }
  ]
 }

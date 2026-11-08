@@ -49,17 +49,17 @@
       <img class="logo" src="../logos/2d3cf9e451ce.png" alt="" width="46" height="46" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#091f3f&#x27;}))">
       <div>
         <h1>FIU</h1>
-        <p class="teamsub">Conference USA &middot; 3&ndash;5
-        &middot; 1&ndash;3 in conference
-        &middot; MRI Classic #71</p>
+        <p class="teamsub">Conference USA &middot; 4&ndash;5
+        &middot; 2&ndash;3 in conference
+        &middot; MRI Classic #65</p>
       </div>
     </div>
 
     <div class="stats">
-      <div class="stat"><span class="statl">Power</span><span class="statv">-11.7</span><span class="statn">#112 of 138</span></div>
-      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">-2.62</span><span class="statn">#216 &middot; wins above average</span></div>
+      <div class="stat"><span class="statl">Power</span><span class="statv">-11.9</span><span class="statn">#109 of 138</span></div>
+      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">-2.56</span><span class="statn">#213 &middot; wins above average</span></div>
       <div class="stat" title="Chance to make the 12-team College Football Playoff, from the season simulation."><span class="statl">Playoff chance</span><span class="statv"><a href="../simulation.html">&lt;0.1%</a></span><span class="statn">out of the picture</span></div>
-      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,5.6 L10.0,3.0 L20.0,9.9 L30.0,22.0 L40.0,21.8 L50.0,7.3 L60.0,8.8 L70.0,17.0 L80.0,31.0 L90.0,28.8" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="28.8" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
+      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,5.6 L10.0,3.0 L20.0,9.9 L30.0,22.0 L40.0,21.8 L50.0,7.3 L60.0,8.8 L70.0,17.0 L80.0,31.0 L90.0,30.3" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="30.3" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
     </div>
 
 
@@ -68,16 +68,16 @@
       <p class="rtone">Nothing this weekend moves the needle.</p>
     </details>
 
-    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Buffalo (33&ndash;20)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">Middle Tennessee (23&ndash;26)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">-12.1 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">-14.8 avg opponent</span></div></div>
+    <div class="highlights"><div class="hl"><span class="hll">Best win</span><span class="hlv">Missouri State (23&ndash;20)</span></div><div class="hl"><span class="hll">Worst loss</span><span class="hlv">Middle Tennessee (23&ndash;26)</span></div><div class="hl"><span class="hll">Schedule faced</span><span class="hlv">-12.4 avg opponent</span></div><div class="hl"><span class="hll">Schedule ahead</span><span class="hlv">-15.4 avg opponent</span></div></div>
 
 
     <section class="build">
       <h2>How this rating is built</h2>
-      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 4). After 8 games, <em>w</em> is 67%, so the preseason prior is <strong>33%</strong> of this rating. Every game played shrinks that share.</p>
+      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 4). After 9 games, <em>w</em> is 69%, so the preseason prior is <strong>31%</strong> of this rating. Every game played shrinks that share.</p>
       <div class="tablewrap"><table class="buildtable">
         <thead><tr><th>Part</th><th class="num">Value</th><th class="num">Weight</th><th class="num">Adds</th></tr></thead>
-        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">-0.9 avg</td><td class="num">&times; 67%</td><td class="num">-0.6</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">-12.1 avg</td><td class="num">&times; 67%</td><td class="num">-8.1</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-9.1</td><td class="num">&times; 33%</td><td class="num">-3.0</td></tr></tbody>
-        <tfoot><tr><td colspan="3">Power</td><td class="num">-11.7</td></tr></tfoot>
+        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">-0.7 avg</td><td class="num">&times; 69%</td><td class="num">-0.5</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">-12.4 avg</td><td class="num">&times; 69%</td><td class="num">-8.6</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-9.3</td><td class="num">&times; 31%</td><td class="num">-2.8</td></tr></tbody>
+        <tfoot><tr><td colspan="3">Power</td><td class="num">-11.9</td></tr></tfoot>
       </table></div>
       <p class="note">This explains how the model reached the number. The opponent ratings come out of
       the same fitted model, so it is not independent proof that the rating is right.</p>
@@ -95,73 +95,82 @@
         <td class="site">at</td>
         <td class="opp"><a href="usf.html">USF</a></td>
         <td class="res"><span class="l">L</span> 9&ndash;19</td>
-        <td class="num">-18.2</td>
-        <td class="num perf over">+8.2</td>
-        <td class="num adds" title="Margin −10 counts as −9.7. Opponent rated +2.7. (−9.7 +2.7) ÷ (8 + 4) ≈ −0.58">-0.6</td>
+        <td class="num">-17.6</td>
+        <td class="num perf over">+7.6</td>
+        <td class="num adds" title="Margin −10 counts as −10.4. Opponent rated +2.6. (−10.4 +2.6) ÷ (9 + 4) ≈ −0.60">-0.6</td>
       </tr>
       <tr>
         <td class="wk">2</td>
         <td class="site">vs</td>
         <td class="opp"><a href="buffalo.html">Buffalo</a></td>
         <td class="res"><span class="w">W</span> 33&ndash;20</td>
-        <td class="num">+8.3</td>
-        <td class="num perf over">+4.7</td>
-        <td class="num adds" title="Margin +13 counts as +13.4. Opponent rated −16.3. (+13.4 −16.3) ÷ (8 + 4) ≈ −0.25">-0.2</td>
+        <td class="num">+7.7</td>
+        <td class="num perf over">+5.3</td>
+        <td class="num adds" title="Margin +13 counts as +14.1. Opponent rated −16.6. (+14.1 −16.6) ÷ (9 + 4) ≈ −0.19">-0.2</td>
       </tr>
       <tr>
         <td class="wk">3</td>
         <td class="site">at</td>
         <td class="opp"><a href="florida-atlantic.html">Florida Atlantic</a></td>
         <td class="res"><span class="l">L</span> 10&ndash;16</td>
-        <td class="num">-9.7</td>
-        <td class="num perf over">+3.7</td>
-        <td class="num adds" title="Margin −6 counts as −4.5. Opponent rated −5.8. (−4.5 −5.8) ÷ (8 + 4) ≈ −0.86">-0.9</td>
+        <td class="num">-9.1</td>
+        <td class="num perf over">+3.1</td>
+        <td class="num adds" title="Margin −6 counts as −5.2. Opponent rated −6.0. (−5.2 −6.0) ÷ (9 + 4) ≈ −0.86">-0.9</td>
       </tr>
       <tr>
         <td class="wk">4</td>
         <td class="site">vs</td>
         <td class="opp">Long Island University <span class="fcs">FCS</span></td>
         <td class="res"><span class="w">W</span> 20&ndash;3</td>
-        <td class="num">+25.8</td>
-        <td class="num perf under">-8.8</td>
-        <td class="num adds" title="Margin +17 counts as +18.0. Opponent rated −37.5. (+18.0 −37.5) ÷ (8 + 4) ≈ −1.62">-1.6</td>
+        <td class="num">+24.8</td>
+        <td class="num perf under">-7.8</td>
+        <td class="num adds" title="Margin +17 counts as +18.8. Opponent rated −38.3. (+18.8 −38.3) ÷ (9 + 4) ≈ −1.50">-1.5</td>
       </tr>
       <tr>
         <td class="wk">6</td>
         <td class="site">vs</td>
         <td class="opp"><a href="new-mexico-state.html">New Mexico State</a></td>
         <td class="res"><span class="w">W</span> 22&ndash;3</td>
-        <td class="num">+10.0</td>
-        <td class="num perf over">+9.0</td>
-        <td class="num adds" title="Margin +19 counts as +20.2. Opponent rated −17.9. (+20.2 −17.9) ÷ (8 + 4) ≈ +0.19">+0.2</td>
+        <td class="num">+9.6</td>
+        <td class="num perf over">+9.4</td>
+        <td class="num adds" title="Margin +19 counts as +21.1. Opponent rated −18.5. (+21.1 −18.5) ÷ (9 + 4) ≈ +0.20">+0.2</td>
       </tr>
       <tr>
         <td class="wk">7</td>
         <td class="site">at</td>
         <td class="opp"><a href="jacksonville-state.html">Jacksonville State</a></td>
         <td class="res"><span class="l">L</span> 24&ndash;27</td>
-        <td class="num">-8.1</td>
-        <td class="num perf over">+5.1</td>
-        <td class="num adds" title="Margin −3 counts as −0.6. Opponent rated −7.4. (−0.6 −7.4) ÷ (8 + 4) ≈ −0.66">-0.7</td>
+        <td class="num">-9.3</td>
+        <td class="num perf over">+6.3</td>
+        <td class="num adds" title="Margin −3 counts as −1.2. Opponent rated −5.7. (−1.2 −5.7) ÷ (9 + 4) ≈ −0.53">-0.5</td>
       </tr>
       <tr>
         <td class="wk">8</td>
         <td class="site">vs</td>
         <td class="opp"><a href="middle-tennessee.html">Middle Tennessee</a></td>
         <td class="res"><span class="l">L</span> 23&ndash;26</td>
-        <td class="num">+10.0</td>
-        <td class="num perf under">-13.0</td>
-        <td class="num adds" title="Margin −3 counts as −7.5. Opponent rated −17.9. (−7.5 −17.9) ÷ (8 + 4) ≈ −2.12">-2.1</td>
+        <td class="num">+8.2</td>
+        <td class="num perf under">-11.2</td>
+        <td class="num adds" title="Margin −3 counts as −6.9. Opponent rated −17.1. (−6.9 −17.1) ÷ (9 + 4) ≈ −1.85">-1.8</td>
       </tr>
       <tr>
         <td class="wk">9</td>
         <td class="site">at</td>
         <td class="opp"><a href="liberty.html">Liberty</a></td>
         <td class="res"><span class="l">L</span> 10&ndash;49</td>
-        <td class="num">-18.8</td>
-        <td class="num perf under">-20.2</td>
-        <td class="num adds" title="Margin −39 counts as −36.7. Opponent rated +3.3. (−36.7 +3.3) ÷ (8 + 4) ≈ −2.78">-2.8</td>
-      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (33% of the rating)</td><td class="num">-3.0</td></tr><tr><td colspan="6">Power</td><td class="num">-11.7</td></tr></tfoot>
+        <td class="num">-18.1</td>
+        <td class="num perf under">-20.9</td>
+        <td class="num adds" title="Margin −39 counts as −37.8. Opponent rated +3.1. (−37.8 +3.1) ÷ (9 + 4) ≈ −2.67">-2.7</td>
+      </tr>
+      <tr>
+        <td class="wk">10</td>
+        <td class="site">vs</td>
+        <td class="opp"><a href="missouri-state.html">Missouri State</a></td>
+        <td class="res"><span class="w">W</span> 23&ndash;20</td>
+        <td class="num">+6.6</td>
+        <td class="num perf under">-3.6</td>
+        <td class="num adds" title="Margin +3 counts as +1.2. Opponent rated −15.5. (+1.2 −15.5) ÷ (9 + 4) ≈ −1.10">-1.1</td>
+      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (31% of the rating)</td><td class="num">-2.8</td></tr><tr><td colspan="6">Power</td><td class="num">-11.9</td></tr></tfoot>
       </table></div>
     </section>
 
@@ -172,32 +181,25 @@
         <th class="num">Projected</th><th class="num">Win prob</th></tr></thead>
         <tbody>
       <tr>
-        <td class="wk">10</td>
-        <td class="site">vs</td>
-        <td class="opp"><a href="missouri-state.html">Missouri State</a></td>
-        <td class="num">+7.0</td>
-        <td class="num">66%</td>
-      </tr>
-      <tr>
         <td class="wk">11</td>
         <td class="site">at</td>
         <td class="opp"><a href="delaware.html">Delaware</a></td>
-        <td class="num">-5.6</td>
-        <td class="num">37%</td>
+        <td class="num">-4.6</td>
+        <td class="num">39%</td>
       </tr>
       <tr>
         <td class="wk">12</td>
         <td class="site">at</td>
         <td class="opp"><a href="kennesaw-state.html">Kennesaw State</a></td>
-        <td class="num">-1.3</td>
+        <td class="num">-1.2</td>
         <td class="num">47%</td>
       </tr>
       <tr>
         <td class="wk">13</td>
         <td class="site">vs</td>
         <td class="opp"><a href="sam-houston.html">Sam Houston</a></td>
-        <td class="num">+12.1</td>
-        <td class="num">77%</td>
+        <td class="num">+13.1</td>
+        <td class="num">79%</td>
       </tr></tbody>
       </table></div>
     </section>
@@ -206,7 +208,7 @@
       <h2>Coaches</h2>
       <div class="tablewrap"><table>
         <thead><tr><th>Coach</th><th>Years</th><th>Record</th><th class="num">Mean added</th></tr></thead>
-        <tbody><tr><td class="opp">Don Strock</td><td class="wk">2004–2006</td><td class="res">8-25</td><td class="num">-7.3</td></tr><tr><td class="opp">Mario Cristobal</td><td class="wk">2007–2012</td><td class="res">27-47</td><td class="num">-2.9</td></tr><tr><td class="opp">Ron Turner</td><td class="wk">2013–2016</td><td class="res">10-30</td><td class="num">-7.1</td></tr><tr><td class="opp">Butch Davis</td><td class="wk">2017–2021</td><td class="res">24-32</td><td class="num">-6.1</td></tr><tr><td class="opp">Mike MacIntyre</td><td class="wk">2022–2024</td><td class="res">12-24</td><td class="num">-3.4</td></tr><tr><td class="opp">Willie Simmons</td><td class="wk">2025–2026</td><td class="res">10-11</td><td class="num">-0.9</td></tr></tbody>
+        <tbody><tr><td class="opp">Don Strock</td><td class="wk">2004–2006</td><td class="res">8-25</td><td class="num">-7.3</td></tr><tr><td class="opp">Mario Cristobal</td><td class="wk">2007–2012</td><td class="res">27-47</td><td class="num">-2.9</td></tr><tr><td class="opp">Ron Turner</td><td class="wk">2013–2016</td><td class="res">10-30</td><td class="num">-7.1</td></tr><tr><td class="opp">Butch Davis</td><td class="wk">2017–2021</td><td class="res">24-32</td><td class="num">-6.1</td></tr><tr><td class="opp">Mike MacIntyre</td><td class="wk">2022–2024</td><td class="res">12-24</td><td class="num">-3.4</td></tr><tr><td class="opp">Willie Simmons</td><td class="wk">2025–2026</td><td class="res">11-11</td><td class="num">-0.9</td></tr></tbody>
       </table></div>
     </section>
 
@@ -373,8 +375,8 @@
     run 2000&ndash;2019 and rebuilt for 2026. Game data from
     <a href="https://collegefootballdata.com">CollegeFootballData</a>.
     <a href="../method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-11-07 15:13 UTC
-    &middot; 634 games rated &middot; <a href="../homefield.html">home field</a> 3.8 pts</p>
+    <p class="muted">Ratings last changed 2026-11-08 15:37 UTC
+    &middot; 685 games rated &middot; <a href="../homefield.html">home field</a> 3.1 pts</p>
   </div>
 </footer>
 </body>

@@ -30890,6 +30890,79 @@
      "upsets": 14,
      "z": 0.05478623127668027
     },
+    "10": {
+     "expectedUpsets": 17.624774892160406,
+     "fallout": {
+      "gained": [
+       {
+        "change": 0.3368,
+        "team": "Oregon"
+       },
+       {
+        "change": 0.1666,
+        "team": "Boise State"
+       },
+       {
+        "change": 0.1577,
+        "team": "UCLA"
+       }
+      ],
+      "lost": [
+       {
+        "change": -0.2717,
+        "team": "Ole Miss"
+       },
+       {
+        "change": -0.2425,
+        "team": "Ohio State"
+       },
+       {
+        "change": -0.2391,
+        "team": "LSU"
+       }
+      ],
+      "moved": 1.6088
+     },
+     "final": true,
+     "games": 63,
+     "missingPregame": 0,
+     "percentile": 89.51,
+     "reconstructed": false,
+     "shocks": [
+      {
+       "awayScore": 19,
+       "gameId": 401869936,
+       "homeScore": 17,
+       "loser": "Arkansas State",
+       "loserScore": 17,
+       "pregameWinProb": 0.11533762758826116,
+       "winner": "Louisiana-Monroe",
+       "winnerScore": 19
+      },
+      {
+       "awayScore": 15,
+       "gameId": 401858511,
+       "homeScore": 6,
+       "loser": "Michigan",
+       "loserScore": 6,
+       "pregameWinProb": 0.15645375500909486,
+       "winner": "Michigan State",
+       "winnerScore": 15
+      },
+      {
+       "awayScore": 41,
+       "gameId": 401864535,
+       "homeScore": 35,
+       "loser": "UNLV",
+       "loserScore": 35,
+       "pregameWinProb": 0.1836012143599638,
+       "winner": "Wyoming",
+       "winnerScore": 41
+      }
+     ],
+     "upsets": 25,
+     "z": 1.3859612305673201
+    },
     "2": {
      "expectedUpsets": 12.937631957203852,
      "fallout": {
