@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 10,
  "date": null,
- "updated": "2026-11-08T06:10:37Z",
- "updatedLabel": "1:10 AM ET",
+ "updated": "2026-11-08T06:15:39Z",
+ "updatedLabel": "1:15 AM ET",
  "games": {
   "401866453": {
    "status": "completed",
@@ -646,13 +646,13 @@
   },
   "401856856": {
    "status": "in_progress",
-   "label": "Q4 01:33",
+   "label": "Q4 01:30",
    "period": 4,
-   "clock": "01:33",
+   "clock": "01:30",
    "home": 51,
    "away": 48,
-   "possession": "home",
-   "homeWinProbability": 0.91,
+   "possession": "away",
+   "homeWinProbability": 0.912,
    "upset": null
   },
   "401860913": {
@@ -668,24 +668,24 @@
   },
   "401864535": {
    "status": "in_progress",
-   "label": "Q3 04:14",
+   "label": "Q3 02:45",
    "period": 3,
-   "clock": "04:14",
+   "clock": "02:45",
    "home": 21,
    "away": 41,
-   "possession": "home",
-   "homeWinProbability": 0.048,
+   "possession": "away",
+   "homeWinProbability": 0.038,
    "upset": "Wyoming leads; the model gave them 20% before kickoff"
   },
   "401860912": {
    "status": "in_progress",
-   "label": "Q3 03:13",
+   "label": "Q3 01:12",
    "period": 3,
-   "clock": "03:13",
+   "clock": "01:12",
    "home": 7,
    "away": 28,
-   "possession": null,
-   "homeWinProbability": 0.015,
+   "possession": "home",
+   "homeWinProbability": 0.011,
    "upset": null
   }
  }
