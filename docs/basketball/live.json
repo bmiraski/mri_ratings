@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-08",
- "updated": "2026-11-08T21:12:00Z",
- "updatedLabel": "4:12 PM ET",
+ "updated": "2026-11-08T21:17:01Z",
+ "updatedLabel": "4:17 PM ET",
  "games": {
   "374760": {
    "status": "completed",
@@ -106,15 +106,15 @@
    "upset": null
   },
   "374780": {
-   "status": "in_progress",
-   "label": "OT",
+   "status": "completed",
+   "label": "Final/OT",
    "period": 3,
-   "clock": "0:12",
+   "clock": "0:00",
    "home": 71,
-   "away": 76,
+   "away": 78,
    "possession": null,
-   "homeWinProbability": 0.174,
-   "upset": "Central Connecticut leads; the model gave them 16% before tip-off"
+   "homeWinProbability": 0.0,
+   "upset": "Central Connecticut won; the model gave them 16% before tip-off"
   },
   "374767": {
    "status": "completed",
@@ -195,35 +195,35 @@
   },
   "377977": {
    "status": "in_progress",
-   "label": "1st 1:26",
-   "period": 1,
-   "clock": "1:26",
+   "label": "2nd 19:01",
+   "period": 2,
+   "clock": "19:01",
    "home": 33,
    "away": 27,
    "possession": null,
-   "homeWinProbability": 0.963,
+   "homeWinProbability": 0.962,
    "upset": null
   },
   "374766": {
    "status": "in_progress",
-   "label": "1st 15:56",
+   "label": "1st 15:00",
    "period": 1,
-   "clock": "15:56",
-   "home": 5,
+   "clock": "15:00",
+   "home": 6,
    "away": 2,
    "possession": null,
-   "homeWinProbability": 0.539,
+   "homeWinProbability": 0.58,
    "upset": null
   },
   "372728": {
    "status": "in_progress",
-   "label": "1st 15:26",
+   "label": "1st 13:57",
    "period": 1,
-   "clock": "15:26",
-   "home": 10,
+   "clock": "13:57",
+   "home": 15,
    "away": 7,
    "possession": null,
-   "homeWinProbability": 0.881,
+   "homeWinProbability": 0.952,
    "upset": null
   }
  }
