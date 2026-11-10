@@ -23,7 +23,7 @@ MARKET_STALE_DAYS = 10
 FINALIST_ROWS = 8
 
 SHOWN = 15
-KEPT = 30                 # players whose odds are saved each week, for movement
+KEPT = 100                # players whose odds are saved each week, for movement (the whole scored field)
 POSITIONS = {"QB": "QB", "RB": "RB", "REC": "WR/TE"}
 
 
@@ -113,13 +113,13 @@ def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None
     before = history["weeks"][str(max(earlier))]["odds"] if earlier else {}
     before_rank = {k: i + 1 for i, k in enumerate(sorted(before, key=lambda k: -before[k][0]))}
 
-    rows = []
-    for i, r in odds.head(SHOWN).iterrows():
+    def row_for(i: int, r) -> dict:
         key = _key(r["player"], r["team"])
         yards = float(r["pass_yds"] + r["rush_yds"] + r["rec_yds"])
         score = yards + 20 * float(r["pass_td"] + r["rush_td"] + r["rec_td"])
         prior = before.get(key)
-        rows.append({
+        return {
+            "rank": i + 1,
             "player": r["player"], "team": r["team"], "position": POSITIONS[r["group"]], "group": r["group"],
             "win": round(float(r["win"]), 4), "finalist": round(float(r["finalist"]), 4),
             "change": round(float(r["win"]) - prior[0], 4) if prior else None,
@@ -131,7 +131,10 @@ def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None
             "teamRecord": f"{teams[r['team']]['wins']}\u2013{teams[r['team']]['losses']}" if r["team"] in teams else None,
             "teamTop4": round(float(r["team_top4"]), 3),
             "winIfTop4": _num(r["win_if_top4"]), "winIfNot": _num(r["win_if_not"]),
-        })
+        }
+
+    everyone = [row_for(i, r) for i, (_, r) in enumerate(odds.iterrows())]
+    rows, field = everyone[:SHOWN], everyone[SHOWN:]
     shown_win = sum(r["win"] for r in rows)
     by_position = {POSITIONS[g]: round(float(v), 3) for g, v in odds.groupby("group")["win"].sum().items()}
     by_team: dict[str, dict] = {}
@@ -148,7 +151,7 @@ def build(year: int, payload: dict, history_path: Path, *, today: dt.date | None
     voted = {int(y): next(f["player"] for f in s["finalists"] if f["finish"] == 1) for y, s in voting["seasons"].items()}
     page = {
         "season": year, "week": week, "sims": result["sims"], "candidates": result["candidates"], "updated": today.isoformat(),
-        "closed": False, "dates": dates, "players": rows, "rest": round(max(0.0, 1.0 - shown_win), 4),
+        "closed": False, "dates": dates, "players": rows, "field": field, "rest": round(max(0.0, 1.0 - shown_win), 4),
         "byPosition": by_position, "byTeam": by_team, "winners": {str(y): n for y, n in voted.items()},
         "reach": reach, "expectedFinalists": round(float(odds["finalist"].sum()), 2), "defenders": {**defender_rate(voting), "watch": watch},
         "market": market,

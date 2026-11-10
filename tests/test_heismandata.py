@@ -41,6 +41,17 @@ def test_the_page_data_is_the_odds_made_readable(tmp_path) -> None:
     assert page["winners"]["2019"] == "Joe Burrow" and page["closed"] is False
 
 
+def test_every_scored_candidate_is_kept_after_the_shown_top_and_ranked(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(heismandata, "SHOWN", 2)
+    page = heismandata.build(2026, PAYLOAD, tmp_path / "h.json", today=dt.date(2026, 9, 27), odds_fn=lambda p, sims: odds())
+    assert [r["player"] for r in page["players"]] == ["Ann Alpha", "Bob Beta"]
+    assert [(r["rank"], r["player"]) for r in page["field"]] == [(3, "Cy Gamma"), (4, "Ann Alpha II")]
+    assert page["field"][1]["team"] == "Alpha" and page["field"][1]["line"]["passYds"] == 900
+    assert page["rest"] == pytest.approx(1 - 0.40, abs=1e-4)           # "everyone else" still means everyone below the shown table
+    saved = json.loads((tmp_path / "h.json").read_text())
+    assert len(saved["weeks"]["4"]["odds"]) == 4                      # movement is tracked for the whole field, not just the top
+
+
 def test_movement_is_measured_against_the_last_week_it_was_saved(tmp_path) -> None:
     path = tmp_path / "h.json"
     heismandata.build(2026, PAYLOAD, path, today=dt.date(2026, 9, 20), odds_fn=lambda p, sims: odds(0.0))

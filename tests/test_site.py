@@ -1463,6 +1463,15 @@ def test_the_heisman_page_shows_the_odds_the_movement_and_the_track_record(with_
     assert "QB 66%" in text                                                              # where the chance sits by position
 
 
+def test_the_heisman_page_lists_the_rest_of_the_field_below_the_top(with_heisman) -> None:
+    extra = json.loads(json.dumps(with_heisman))
+    extra["heisman"]["field"] = [{**extra["heisman"]["players"][0], "player": "Deep Reserve", "rank": 3, "win": 0.006, "finalist": 0.02}]
+    text = site.heisman_page(extra)
+    assert "The rest of the field" in text and "Deep Reserve" in text and "0.6%" in text
+    assert text.index("Everyone else") < text.index("The rest of the field")
+    assert "The rest of the field" not in site.heisman_page(with_heisman)      # older pages without a field still render
+
+
 def test_a_candidate_whose_team_rarely_finishes_in_the_top_four_gets_no_conditional_line(with_heisman) -> None:
     text = site.heisman_page(with_heisman)
     row = text[text.index("Test Catcher"):]
