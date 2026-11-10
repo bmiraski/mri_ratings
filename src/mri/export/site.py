@@ -3824,6 +3824,27 @@ def heisman_page(payload: dict) -> str:
       <td class="small">{path(r)}</td></tr>""" for i, r in enumerate(h["players"], 1))
     position_text = ", ".join(f"{name} {_pct(v)}" for name, v in sorted(h["byPosition"].items(), key=lambda kv: -kv[1]))
 
+    field_section = ""
+    if h.get("field"):
+        first = len(h["players"]) + 1
+        field_rows = "".join(f"""<tr>
+      <td class="wk">{r.get('rank', first + i)}</td>
+      <td class="opp"><span class="nmcell">{mark(r['team'], 18)}<strong>{esc(r['player'])}</strong></span>
+        <div class="muted small">{esc(r['position'])} &middot; {team_link(r['team'])}{f' &middot; <span style="white-space:nowrap">#{r["teamRank"]}, {r["teamRecord"]}</span>' if r.get('teamRank') else ""}</div></td>
+      <td class="num prob"><span class="pbar" style="width:{min(r['win'] * 240, 130):.0f}px"></span>{_pct(r['win'])}</td>
+      <td>{move(r)}</td>
+      <td class="num">{_pct(r['finalist'])}</td>
+      <td class="muted small">{line(r)}</td>
+      <td class="num">{f"{r['pace']:,}" if r.get('pace') else '&ndash;'}</td></tr>""" for i, r in enumerate(h["field"]))
+        field_section = f"""
+  <details class="field"><summary><h2 style="display:inline">The rest of the field</h2> <span class="muted small">&middot; ranks {first}&ndash;{first + len(h['field']) - 1}</span></summary>
+    <p>Every other candidate the model scored, {len(h['field'])} more: the players on teams in the top 45 of our ratings who rank among the leading quarterbacks,
+    running backs and receivers in yards and touchdowns. Their chances are small but not zero, and they are what the &ldquo;everyone else&rdquo; line above is made of.</p>
+    <div class="tablewrap"><table class="slate heisman"><thead><tr><th>#</th><th>Player</th><th class="num">Win</th><th title="Change since last week">Wk</th><th class="num" title="Chance of finishing in the top four of the voting, the ceremony's finalists">Finalist</th>
+      <th>So far</th><th class="num" title="Projected total yards at the end of the regular season">Proj. yds</th></tr></thead>
+      <tbody>{field_rows}</tbody></table></div>
+  </details>"""
+
     if h.get("closed") and dates:
         status = (f'<p class="hint"><strong>Voting closed {esc(dt_label(dates["votingDeadline"]))}.</strong> These are the last odds before the ballots '
                   f'were in, as of Week {h["week"]}; they are not updated after the voters have decided. Finalists were announced '
@@ -3929,6 +3950,7 @@ def heisman_page(payload: dict) -> str:
     <tbody>{body_rows}</tbody>
     <tbody><tr class="rest"><td></td><td class="opp muted">Everyone else</td><td class="num">{_pct(h['rest'])}</td><td colspan="{6 if market else 5}"></td></tr></tbody></table></div>
   <p class="hint">Where the chance sits, by position: {position_text}. {h['candidates']} candidates were scored across {h['sims']:,} simulated seasons.</p>
+{field_section}
 {hidden_card}
 
 {market_note}
