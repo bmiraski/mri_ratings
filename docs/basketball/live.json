@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-10",
- "updated": "2026-11-11T04:29:49Z",
- "updatedLabel": "11:29 PM ET",
+ "updated": "2026-11-11T04:34:51Z",
+ "updatedLabel": "11:34 PM ET",
  "games": {
   "372762": {
    "status": "completed",
@@ -580,14 +580,14 @@
   },
   "374842": {
    "status": "in_progress",
-   "label": "OT",
-   "period": 3,
-   "clock": "0:00",
-   "home": 87,
-   "away": 87,
+   "label": "2OT",
+   "period": 4,
+   "clock": "3:38",
+   "home": 88,
+   "away": 89,
    "possession": null,
-   "homeWinProbability": 0.896,
-   "upset": null
+   "homeWinProbability": 0.842,
+   "upset": "UL Monroe leads; the model gave them under 1% before tip-off"
   },
   "374834": {
    "status": "completed",
@@ -613,24 +613,24 @@
   },
   "372750": {
    "status": "in_progress",
-   "label": "2nd 12:17",
+   "label": "2nd 11:13",
    "period": 2,
-   "clock": "12:17",
-   "home": 65,
-   "away": 47,
+   "clock": "11:13",
+   "home": 68,
+   "away": 49,
    "possession": null,
    "homeWinProbability": 1.0,
    "upset": null
   },
   "374830": {
    "status": "in_progress",
-   "label": "2nd 12:31",
+   "label": "2nd 11:13",
    "period": 2,
-   "clock": "12:31",
-   "home": 34,
-   "away": 36,
+   "clock": "11:13",
+   "home": 36,
+   "away": 39,
    "possession": null,
-   "homeWinProbability": 0.527,
+   "homeWinProbability": 0.443,
    "upset": "Montana leads; the model gave them 24% before tip-off"
   }
  }
