@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 562,
-      "accuracy": 0.7242,
-      "mae": 12.83,
-      "priced": 562,
-      "modelMaePriced": 12.83,
-      "marketMae": 11.55,
-      "marketAccuracy": 0.7562,
-      "modelAccuracyPriced": 0.7242,
+      "games": 565,
+      "accuracy": 0.7239,
+      "mae": 12.82,
+      "priced": 565,
+      "modelMaePriced": 12.82,
+      "marketMae": 11.54,
+      "marketAccuracy": 0.7558,
+      "modelAccuracyPriced": 0.7239,
       "maeGap": 1.28,
       "maeGapError": 0.39,
       "slope": 0.85,
       "marketSlope": 1.02,
       "bets": {
-        "count": 289,
-        "wins": 136,
-        "losses": 146,
+        "count": 291,
+        "wins": 137,
+        "losses": 147,
         "pushes": 7,
-        "ats": 0.4823,
-        "units": -22.38,
-        "clv": 0.66
+        "ats": 0.4824,
+        "units": -22.47,
+        "clv": 0.67
       }
     },
     "weeks": [
@@ -128,6 +128,16 @@
         "bets": 29,
         "record": "12-17",
         "units": -6.09
+      },
+      {
+        "week": 11,
+        "games": 3,
+        "accuracy": 0.6667,
+        "mae": 10.9,
+        "marketMae": 10.83,
+        "bets": 2,
+        "record": "1-1",
+        "units": -0.09
       }
     ],
     "bets": [
@@ -4465,6 +4475,36 @@
         "result": "win",
         "units": 0.909,
         "clv": -2.5
+      },
+      {
+        "week": 11,
+        "home": "Miami (OH)",
+        "away": "Ohio",
+        "side": "away",
+        "team": "Ohio",
+        "predicted": -3.4,
+        "open": 1.5,
+        "close": -1.5,
+        "edge": -4.9,
+        "actual": 17,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 3.0
+      },
+      {
+        "week": 11,
+        "home": "Akron",
+        "away": "Western Michigan",
+        "side": "away",
+        "team": "Western Michigan",
+        "predicted": -16.8,
+        "open": -13.5,
+        "close": -15.5,
+        "edge": -3.3,
+        "actual": -28,
+        "result": "win",
+        "units": 0.909,
+        "clv": 2.0
       }
     ]
   },
@@ -9784,7 +9824,10 @@
         "week": 11
       },
       {
+        "actual": 17,
         "away": "Ohio",
+        "close": -1.5,
+        "clv": 3.0,
         "edge": -4.9,
         "game_id": 401866460,
         "home": "Miami (OH)",
@@ -9794,8 +9837,10 @@
         "neutral": false,
         "open": 1.5,
         "predicted": -3.4,
+        "result": "loss",
         "side": "away",
         "taken": 1.5,
+        "units": -1.0,
         "week": 11
       },
       {
@@ -10009,7 +10054,10 @@
         "week": 11
       },
       {
+        "actual": -28,
         "away": "Western Michigan",
+        "close": -15.5,
+        "clv": 2.0,
         "edge": -3.3,
         "game_id": 401866458,
         "home": "Akron",
@@ -10019,8 +10067,10 @@
         "neutral": false,
         "open": -13.5,
         "predicted": -16.8,
+        "result": "win",
         "side": "away",
         "taken": -13.5,
+        "units": 0.909,
         "week": 11
       },
       {
@@ -10056,12 +10106,12 @@
     ],
     "logged": 289,
     "earlier": 48,
-    "graded": 259,
-    "wins": 121,
-    "losses": 132,
+    "graded": 261,
+    "wins": 122,
+    "losses": 133,
     "pushes": 6,
-    "ats": 0.4783,
-    "units": -22.01,
-    "clv": 0.14
+    "ats": 0.4784,
+    "units": -22.1,
+    "clv": 0.16
   }
 }

@@ -401,7 +401,12 @@
    "loggedAt": "2026-11-10T15:10:18Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Youngstown State"
+   "team": "Youngstown State",
+   "actual": 13.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 3.5,
+   "clv": 0.0
   },
   {
    "game_id": 374844,
@@ -413,7 +418,12 @@
    "loggedAt": "2026-11-10T15:10:18Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Troy"
+   "team": "Troy",
+   "actual": 5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374847,
@@ -425,7 +435,60 @@
    "loggedAt": "2026-11-10T15:10:18Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Mercer"
+   "team": "Mercer",
+   "actual": -6.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 378003,
+   "day": "2026-11-11",
+   "home": "Sam Houston",
+   "away": "Pepperdine",
+   "predicted": 8.7,
+   "taken": -3.5,
+   "loggedAt": "2026-11-11T16:41:10Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Sam Houston"
+  },
+  {
+   "game_id": 372763,
+   "day": "2026-11-11",
+   "home": "Drexel",
+   "away": "American University",
+   "predicted": -3.0,
+   "taken": 1.5,
+   "loggedAt": "2026-11-11T16:41:10Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "American University"
+  },
+  {
+   "game_id": 374875,
+   "day": "2026-11-11",
+   "home": "UAlbany",
+   "away": "Dartmouth",
+   "predicted": -4.2,
+   "taken": 1.5,
+   "loggedAt": "2026-11-11T16:41:10Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Dartmouth"
+  },
+  {
+   "game_id": 374897,
+   "day": "2026-11-11",
+   "home": "West Georgia",
+   "away": "UNC Asheville",
+   "predicted": -0.8,
+   "taken": 1.5,
+   "loggedAt": "2026-11-11T16:41:10Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "UNC Asheville"
   }
  ]
 }
