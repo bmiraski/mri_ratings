@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-10",
- "updated": "2026-11-11T04:14:42Z",
- "updatedLabel": "11:14 PM ET",
+ "updated": "2026-11-11T04:19:44Z",
+ "updatedLabel": "11:19 PM ET",
  "games": {
   "372762": {
    "status": "completed",
@@ -494,11 +494,11 @@
    "status": "in_progress",
    "label": "OT",
    "period": 3,
-   "clock": "1:33",
-   "home": 88,
-   "away": 87,
+   "clock": "0:35",
+   "home": 92,
+   "away": 89,
    "possession": null,
-   "homeWinProbability": 0.635,
+   "homeWinProbability": 0.805,
    "upset": null
   },
   "372754": {
@@ -546,10 +546,10 @@
    "upset": null
   },
   "374824": {
-   "status": "in_progress",
-   "label": "2nd 0:33",
-   "period": 2,
-   "clock": "0:33",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 94,
    "away": 69,
    "possession": null,
@@ -580,13 +580,13 @@
   },
   "374842": {
    "status": "in_progress",
-   "label": "2nd 0:08",
+   "label": "2nd 0:00",
    "period": 2,
-   "clock": "0:08",
+   "clock": "0:00",
    "home": 83,
    "away": 83,
    "possession": null,
-   "homeWinProbability": 0.582,
+   "homeWinProbability": 0.5,
    "upset": null
   },
   "374834": {
@@ -602,36 +602,36 @@
   },
   "372761": {
    "status": "in_progress",
-   "label": "2nd 2:26",
+   "label": "2nd 0:56",
    "period": 2,
-   "clock": "2:26",
-   "home": 81,
+   "clock": "0:56",
+   "home": 86,
    "away": 77,
    "possession": null,
-   "homeWinProbability": 0.911,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "372750": {
    "status": "in_progress",
-   "label": "2nd 17:26",
+   "label": "2nd 16:24",
    "period": 2,
-   "clock": "17:26",
-   "home": 53,
+   "clock": "16:24",
+   "home": 58,
    "away": 41,
    "possession": null,
-   "homeWinProbability": 0.985,
+   "homeWinProbability": 0.998,
    "upset": null
   },
   "374830": {
    "status": "in_progress",
-   "label": "2nd 18:11",
+   "label": "2nd 17:29",
    "period": 2,
-   "clock": "18:11",
-   "home": 26,
+   "clock": "17:29",
+   "home": 30,
    "away": 30,
    "possession": null,
-   "homeWinProbability": 0.473,
-   "upset": "Montana leads; the model gave them 24% before tip-off"
+   "homeWinProbability": 0.678,
+   "upset": null
   }
  }
 }
