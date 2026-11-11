@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-11",
- "updated": "2026-11-11T21:59:20Z",
- "updatedLabel": "4:59 PM ET",
+ "updated": "2026-11-11T22:04:22Z",
+ "updatedLabel": "5:04 PM ET",
  "games": {
   "374876": {
    "status": "completed",
@@ -52,35 +52,46 @@
   },
   "372771": {
    "status": "in_progress",
-   "label": "2nd 4:39",
+   "label": "2nd 2:59",
    "period": 2,
-   "clock": "4:39",
-   "home": 96,
-   "away": 81,
+   "clock": "2:59",
+   "home": 97,
+   "away": 88,
    "possession": null,
-   "homeWinProbability": 1.0,
+   "homeWinProbability": 0.998,
    "upset": null
   },
   "374882": {
    "status": "in_progress",
-   "label": "2nd 7:10",
+   "label": "2nd 5:09",
    "period": 2,
-   "clock": "7:10",
-   "home": 64,
-   "away": 68,
+   "clock": "5:09",
+   "home": 72,
+   "away": 74,
    "possession": null,
-   "homeWinProbability": 0.376,
+   "homeWinProbability": 0.481,
    "upset": "Saint Joseph's leads; the model gave them 10% before tip-off"
   },
   "374883": {
    "status": "in_progress",
-   "label": "1st 0:39",
+   "label": "Half",
    "period": 1,
-   "clock": "0:39",
-   "home": 34,
-   "away": 27,
+   "clock": "0:00",
+   "home": 35,
+   "away": 28,
    "possession": null,
    "homeWinProbability": 0.918,
+   "upset": null
+  },
+  "374861": {
+   "status": "in_progress",
+   "label": "1st 19:59",
+   "period": 1,
+   "clock": "19:59",
+   "home": 0,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.963,
    "upset": null
   }
  }
