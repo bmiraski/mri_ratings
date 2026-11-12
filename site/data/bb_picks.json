@@ -452,7 +452,12 @@
    "loggedAt": "2026-11-11T16:41:10Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Sam Houston"
+   "team": "Sam Houston",
+   "actual": 8.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 372763,
@@ -464,7 +469,12 @@
    "loggedAt": "2026-11-11T16:41:10Z",
    "strategy": "dog",
    "side": "away",
-   "team": "American University"
+   "team": "American University",
+   "actual": -2.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374875,
@@ -476,7 +486,12 @@
    "loggedAt": "2026-11-11T16:41:10Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Dartmouth"
+   "team": "Dartmouth",
+   "actual": -9.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374897,
@@ -488,7 +503,48 @@
    "loggedAt": "2026-11-11T16:41:10Z",
    "strategy": "dog",
    "side": "away",
-   "team": "UNC Asheville"
+   "team": "UNC Asheville",
+   "actual": -3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 372775,
+   "day": "2026-11-12",
+   "home": "UTEP",
+   "away": "New Mexico State",
+   "predicted": -0.8,
+   "taken": 5.5,
+   "loggedAt": "2026-11-12T17:10:39Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "New Mexico State"
+  },
+  {
+   "game_id": 374909,
+   "day": "2026-11-12",
+   "home": "South Alabama",
+   "away": "Loyola Marymount",
+   "predicted": -4.4,
+   "taken": 1.5,
+   "loggedAt": "2026-11-12T17:10:39Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Loyola Marymount"
+  },
+  {
+   "game_id": 378007,
+   "day": "2026-11-12",
+   "home": "Purdue Fort Wayne",
+   "away": "Western Michigan",
+   "predicted": 1.0,
+   "taken": -3.5,
+   "loggedAt": "2026-11-12T17:10:39Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Purdue Fort Wayne"
   }
  ]
 }

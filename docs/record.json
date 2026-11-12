@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 565,
-      "accuracy": 0.7239,
-      "mae": 12.82,
-      "priced": 565,
-      "modelMaePriced": 12.82,
+      "games": 568,
+      "accuracy": 0.7254,
+      "mae": 12.81,
+      "priced": 568,
+      "modelMaePriced": 12.81,
       "marketMae": 11.54,
-      "marketAccuracy": 0.7558,
-      "modelAccuracyPriced": 0.7239,
-      "maeGap": 1.28,
-      "maeGapError": 0.39,
+      "marketAccuracy": 0.757,
+      "modelAccuracyPriced": 0.7254,
+      "maeGap": 1.27,
+      "maeGapError": 0.38,
       "slope": 0.85,
       "marketSlope": 1.02,
       "bets": {
-        "count": 291,
-        "wins": 137,
+        "count": 292,
+        "wins": 138,
         "losses": 147,
         "pushes": 7,
-        "ats": 0.4824,
-        "units": -22.47,
+        "ats": 0.4842,
+        "units": -21.56,
         "clv": 0.67
       }
     },
@@ -131,13 +131,13 @@
       },
       {
         "week": 11,
-        "games": 3,
-        "accuracy": 0.6667,
-        "mae": 10.9,
-        "marketMae": 10.83,
-        "bets": 2,
-        "record": "1-1",
-        "units": -0.09
+        "games": 6,
+        "accuracy": 0.8333,
+        "mae": 11.0,
+        "marketMae": 10.92,
+        "bets": 3,
+        "record": "2-1",
+        "units": 0.82
       }
     ],
     "bets": [
@@ -4490,6 +4490,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 3.0
+      },
+      {
+        "week": 11,
+        "home": "Toledo",
+        "away": "UMass",
+        "side": "home",
+        "team": "Toledo",
+        "predicted": 18.2,
+        "open": 14.0,
+        "close": 14.0,
+        "edge": 4.2,
+        "actual": 24,
+        "result": "win",
+        "units": 0.909,
+        "clv": 0.0
       },
       {
         "week": 11,
@@ -9934,7 +9949,10 @@
         "week": 11
       },
       {
+        "actual": 24,
         "away": "UMass",
+        "close": 14.0,
+        "clv": 0.0,
         "edge": 4.2,
         "game_id": 401866463,
         "home": "Toledo",
@@ -9944,8 +9962,10 @@
         "neutral": false,
         "open": 14.0,
         "predicted": 18.2,
+        "result": "win",
         "side": "home",
         "taken": 14.0,
+        "units": 0.909,
         "week": 11
       },
       {
@@ -10106,12 +10126,12 @@
     ],
     "logged": 289,
     "earlier": 48,
-    "graded": 261,
-    "wins": 122,
+    "graded": 262,
+    "wins": 123,
     "losses": 133,
     "pushes": 6,
-    "ats": 0.4784,
-    "units": -22.1,
+    "ats": 0.4805,
+    "units": -21.19,
     "clv": 0.16
   }
 }
