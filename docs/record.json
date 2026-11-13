@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 568,
-      "accuracy": 0.7254,
-      "mae": 12.81,
-      "priced": 568,
-      "modelMaePriced": 12.81,
-      "marketMae": 11.54,
-      "marketAccuracy": 0.757,
-      "modelAccuracyPriced": 0.7254,
+      "games": 570,
+      "accuracy": 0.7246,
+      "mae": 12.8,
+      "priced": 570,
+      "modelMaePriced": 12.8,
+      "marketMae": 11.53,
+      "marketAccuracy": 0.7579,
+      "modelAccuracyPriced": 0.7246,
       "maeGap": 1.27,
-      "maeGapError": 0.38,
+      "maeGapError": 0.39,
       "slope": 0.85,
       "marketSlope": 1.02,
       "bets": {
-        "count": 292,
-        "wins": 138,
-        "losses": 147,
+        "count": 294,
+        "wins": 139,
+        "losses": 148,
         "pushes": 7,
-        "ats": 0.4842,
-        "units": -21.56,
+        "ats": 0.4843,
+        "units": -21.65,
         "clv": 0.67
       }
     },
@@ -131,13 +131,13 @@
       },
       {
         "week": 11,
-        "games": 6,
-        "accuracy": 0.8333,
-        "mae": 11.0,
-        "marketMae": 10.92,
-        "bets": 3,
-        "record": "2-1",
-        "units": 0.82
+        "games": 8,
+        "accuracy": 0.75,
+        "mae": 10.49,
+        "marketMae": 10.38,
+        "bets": 5,
+        "record": "3-2",
+        "units": 0.73
       }
     ],
     "bets": [
@@ -4475,6 +4475,36 @@
         "result": "win",
         "units": 0.909,
         "clv": -2.5
+      },
+      {
+        "week": 11,
+        "home": "USF",
+        "away": "Memphis",
+        "side": "home",
+        "team": "USF",
+        "predicted": 2.9,
+        "open": -6.0,
+        "close": -4.5,
+        "edge": 8.9,
+        "actual": -11,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 1.5
+      },
+      {
+        "week": 11,
+        "home": "Louisiana-Monroe",
+        "away": "Louisiana",
+        "side": "away",
+        "team": "Louisiana",
+        "predicted": -17.0,
+        "open": -10.5,
+        "close": -10.0,
+        "edge": -6.5,
+        "actual": -21,
+        "result": "win",
+        "units": 0.909,
+        "clv": -0.5
       },
       {
         "week": 11,
@@ -9704,7 +9734,10 @@
         "week": 11
       },
       {
+        "actual": -11,
         "away": "Memphis",
+        "close": -4.5,
+        "clv": 2.0,
         "edge": 8.9,
         "game_id": 401862824,
         "home": "USF",
@@ -9714,8 +9747,10 @@
         "neutral": false,
         "open": -6.0,
         "predicted": 2.9,
+        "result": "loss",
         "side": "home",
         "taken": -6.5,
+        "units": -1.0,
         "week": 11
       },
       {
@@ -9794,7 +9829,10 @@
         "week": 11
       },
       {
+        "actual": -21,
         "away": "Louisiana",
+        "close": -10.0,
+        "clv": -1.5,
         "edge": -6.5,
         "game_id": 401869969,
         "home": "Louisiana-Monroe",
@@ -9804,8 +9842,10 @@
         "neutral": false,
         "open": -10.5,
         "predicted": -17.0,
+        "result": "win",
         "side": "away",
         "taken": -11.5,
+        "units": 0.909,
         "week": 11
       },
       {
@@ -10126,12 +10166,12 @@
     ],
     "logged": 289,
     "earlier": 48,
-    "graded": 262,
-    "wins": 123,
-    "losses": 133,
+    "graded": 264,
+    "wins": 124,
+    "losses": 134,
     "pushes": 6,
-    "ats": 0.4805,
-    "units": -21.19,
+    "ats": 0.4806,
+    "units": -21.28,
     "clv": 0.16
   }
 }

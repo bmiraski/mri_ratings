@@ -520,7 +520,12 @@
    "loggedAt": "2026-11-12T17:10:39Z",
    "strategy": "dog",
    "side": "away",
-   "team": "New Mexico State"
+   "team": "New Mexico State",
+   "actual": 2.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 4.5,
+   "clv": 1.0
   },
   {
    "game_id": 374909,
@@ -532,7 +537,12 @@
    "loggedAt": "2026-11-12T17:10:39Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Loyola Marymount"
+   "team": "Loyola Marymount",
+   "actual": 7.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 378007,
@@ -544,7 +554,36 @@
    "loggedAt": "2026-11-12T17:10:39Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Purdue Fort Wayne"
+   "team": "Purdue Fort Wayne",
+   "actual": -22.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 2.0
+  },
+  {
+   "game_id": 378016,
+   "day": "2026-11-13",
+   "home": "Omaha",
+   "away": "Lindenwood",
+   "predicted": -0.2,
+   "taken": 4.5,
+   "loggedAt": "2026-11-13T16:48:58Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Lindenwood"
+  },
+  {
+   "game_id": 374929,
+   "day": "2026-11-13",
+   "home": "Lehigh",
+   "away": "Marist",
+   "predicted": -0.2,
+   "taken": 1.5,
+   "loggedAt": "2026-11-13T16:48:58Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Marist"
   }
  ]
 }
