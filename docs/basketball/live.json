@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-14",
- "updated": "2026-11-14T22:01:18Z",
- "updatedLabel": "5:01 PM ET",
+ "updated": "2026-11-14T22:06:20Z",
+ "updatedLabel": "5:06 PM ET",
  "games": {
   "374977": {
    "status": "completed",
@@ -161,15 +161,15 @@
    "upset": null
   },
   "374991": {
-   "status": "in_progress",
-   "label": "2nd 0:00",
-   "period": 2,
-   "clock": "0:00",
-   "home": 71,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 72,
    "away": 76,
    "possession": null,
    "homeWinProbability": 0.0,
-   "upset": "Jackson State leads; the model gave them 19% before tip-off"
+   "upset": "Jackson State won; the model gave them 19% before tip-off"
   },
   "374961": {
    "status": "completed",
@@ -184,24 +184,24 @@
   },
   "372806": {
    "status": "in_progress",
-   "label": "2nd 8:55",
+   "label": "2nd 7:28",
    "period": 2,
-   "clock": "8:55",
-   "home": 38,
-   "away": 42,
+   "clock": "7:28",
+   "home": 44,
+   "away": 44,
    "possession": null,
-   "homeWinProbability": 0.272,
+   "homeWinProbability": 0.559,
    "upset": null
   },
   "374968": {
    "status": "in_progress",
-   "label": "2nd 12:35",
+   "label": "2nd 11:21",
    "period": 2,
-   "clock": "12:35",
-   "home": 54,
-   "away": 51,
+   "clock": "11:21",
+   "home": 59,
+   "away": 54,
    "possession": null,
-   "homeWinProbability": 0.887,
+   "homeWinProbability": 0.938,
    "upset": null
   },
   "372808": {
@@ -217,46 +217,46 @@
   },
   "374974": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
+   "label": "2nd 19:49",
+   "period": 2,
+   "clock": "19:49",
    "home": 25,
    "away": 32,
    "possession": null,
-   "homeWinProbability": 0.546,
-   "upset": null
+   "homeWinProbability": 0.543,
+   "upset": "UNC Asheville leads; the model gave them 7% before tip-off"
   },
   "372803": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 35,
-   "away": 29,
+   "label": "2nd 18:18",
+   "period": 2,
+   "clock": "18:18",
+   "home": 37,
+   "away": 31,
    "possession": null,
    "homeWinProbability": 0.958,
    "upset": null
   },
   "374993": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "0:00",
-   "home": 33,
-   "away": 21,
+   "label": "2nd 18:00",
+   "period": 2,
+   "clock": "18:00",
+   "home": 39,
+   "away": 23,
    "possession": null,
-   "homeWinProbability": 0.981,
+   "homeWinProbability": 0.996,
    "upset": null
   },
   "374992": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 28,
-   "away": 28,
+   "label": "2nd 17:46",
+   "period": 2,
+   "clock": "17:46",
+   "home": 30,
+   "away": 30,
    "possession": null,
-   "homeWinProbability": 0.667,
+   "homeWinProbability": 0.658,
    "upset": null
   },
   "374964": {
@@ -272,13 +272,13 @@
   },
   "378021": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 40,
-   "away": 42,
+   "label": "2nd 18:57",
+   "period": 2,
+   "clock": "18:57",
+   "home": 43,
+   "away": 44,
    "possession": null,
-   "homeWinProbability": 0.207,
+   "homeWinProbability": 0.249,
    "upset": null
   },
   "374956": {
@@ -294,13 +294,46 @@
   },
   "374972": {
    "status": "in_progress",
-   "label": "1st 12:20",
+   "label": "1st 7:56",
    "period": 1,
-   "clock": "12:20",
-   "home": 20,
-   "away": 10,
+   "clock": "7:56",
+   "home": 25,
+   "away": 18,
    "possession": null,
-   "homeWinProbability": 0.961,
+   "homeWinProbability": 0.928,
+   "upset": null
+  },
+  "378673": {
+   "status": "in_progress",
+   "label": "1st 18:03",
+   "period": 1,
+   "clock": "18:03",
+   "home": 4,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.193,
+   "upset": null
+  },
+  "374979": {
+   "status": "in_progress",
+   "label": "1st 17:18",
+   "period": 1,
+   "clock": "17:18",
+   "home": 3,
+   "away": 2,
+   "possession": null,
+   "homeWinProbability": 0.916,
+   "upset": null
+  },
+  "378022": {
+   "status": "in_progress",
+   "label": "1st 17:28",
+   "period": 1,
+   "clock": "17:28",
+   "home": 7,
+   "away": 3,
+   "possession": null,
+   "homeWinProbability": 0.402,
    "upset": null
   }
  }
