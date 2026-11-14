@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 11,
  "date": null,
- "updated": "2026-11-14T06:48:39Z",
- "updatedLabel": "1:48 AM ET",
+ "updated": "2026-11-14T06:53:41Z",
+ "updatedLabel": "1:53 AM ET",
  "games": {
   "401866458": {
    "status": "completed",
@@ -117,15 +117,15 @@
    "upset": null
   },
   "401856860": {
-   "status": "in_progress",
-   "label": "Q4 01:05",
-   "period": 4,
-   "clock": "01:05",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 42,
    "away": 32,
-   "possession": "home",
+   "possession": null,
    "homeWinProbability": 1.0,
-   "upset": "Colorado leads; the model gave them 18% before kickoff"
+   "upset": "Colorado won; the model gave them 18% before kickoff"
   }
  }
 }
