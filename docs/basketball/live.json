@@ -3,19 +3,19 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-14",
- "updated": "2026-11-14T18:57:44Z",
- "updatedLabel": "1:57 PM ET",
+ "updated": "2026-11-14T19:02:47Z",
+ "updatedLabel": "2:02 PM ET",
  "games": {
   "374977": {
    "status": "in_progress",
-   "label": "2nd 1:45",
+   "label": "2nd 0:52",
    "period": 2,
-   "clock": "1:45",
-   "home": 62,
+   "clock": "0:52",
+   "home": 65,
    "away": 63,
    "possession": null,
-   "homeWinProbability": 0.474,
-   "upset": "Tulane leads; the model gave them 4% before tip-off"
+   "homeWinProbability": 0.933,
+   "upset": null
   },
   "374971": {
    "status": "in_progress",
@@ -63,13 +63,24 @@
   },
   "372804": {
    "status": "in_progress",
-   "label": "1st 8:43",
+   "label": "1st 7:55",
    "period": 1,
-   "clock": "8:43",
-   "home": 14,
-   "away": 23,
+   "clock": "7:55",
+   "home": 15,
+   "away": 25,
    "possession": null,
-   "homeWinProbability": 0.596,
+   "homeWinProbability": 0.541,
+   "upset": null
+  },
+  "372800": {
+   "status": "in_progress",
+   "label": "1st 19:36",
+   "period": 1,
+   "clock": "19:36",
+   "home": 0,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.996,
    "upset": null
   }
  }
