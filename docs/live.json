@@ -3,8 +3,8 @@
  "season": 2026,
  "week": 11,
  "date": null,
- "updated": "2026-11-14T05:16:59Z",
- "updatedLabel": "12:16 AM ET",
+ "updated": "2026-11-14T05:22:02Z",
+ "updatedLabel": "12:22 AM ET",
  "games": {
   "401866458": {
    "status": "completed",
@@ -107,25 +107,25 @@
   },
   "401858526": {
    "status": "in_progress",
-   "label": "Q4 03:34",
+   "label": "Q4 02:36",
    "period": 4,
-   "clock": "03:34",
+   "clock": "02:36",
    "home": 19,
    "away": 14,
-   "possession": "away",
-   "homeWinProbability": 0.923,
+   "possession": "home",
+   "homeWinProbability": 0.947,
    "upset": null
   },
   "401856860": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 2,
-   "clock": "00:00",
+   "label": "Q3 14:49",
+   "period": 3,
+   "clock": "14:49",
    "home": 21,
    "away": 20,
-   "possession": null,
+   "possession": "home",
    "homeWinProbability": 0.292,
-   "upset": null
+   "upset": "Colorado leads; the model gave them 18% before kickoff"
   }
  }
 }
