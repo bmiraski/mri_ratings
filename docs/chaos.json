@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 8,
+    "gamesPlayed": 11,
     "missingPregame": 0,
-    "games": 8,
-    "upsets": null,
-    "expectedUpsets": 20.87,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 11,
+    "upsets": 4,
+    "expectedUpsets": 3.2210000000000005,
+    "z": 0.10514460404389937,
+    "shocks": [
+      {
+        "gameId": 401856860,
+        "winner": "Colorado",
+        "loser": "Houston",
+        "pregameWinProb": 0.186,
+        "winnerScore": 42,
+        "loserScore": 32,
+        "homeScore": 42,
+        "awayScore": 32
+      },
+      {
+        "gameId": 401866460,
+        "winner": "Miami (OH)",
+        "loser": "Ohio",
+        "pregameWinProb": 0.419,
+        "winnerScore": 34,
+        "loserScore": 17,
+        "homeScore": 34,
+        "awayScore": 17
+      },
+      {
+        "gameId": 401862824,
+        "winner": "Memphis",
+        "loser": "USF",
+        "pregameWinProb": 0.43000000000000005,
+        "winnerScore": 52,
+        "loserScore": 41,
+        "homeScore": 41,
+        "awayScore": 52
+      }
+    ]
   },
   "archive": {
     "calibration": {

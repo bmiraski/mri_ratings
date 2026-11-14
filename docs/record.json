@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 570,
-      "accuracy": 0.7246,
+      "games": 573,
+      "accuracy": 0.7225,
       "mae": 12.8,
-      "priced": 570,
+      "priced": 573,
       "modelMaePriced": 12.8,
-      "marketMae": 11.53,
-      "marketAccuracy": 0.7579,
-      "modelAccuracyPriced": 0.7246,
-      "maeGap": 1.27,
-      "maeGapError": 0.39,
+      "marketMae": 11.52,
+      "marketAccuracy": 0.7557,
+      "modelAccuracyPriced": 0.7225,
+      "maeGap": 1.28,
+      "maeGapError": 0.38,
       "slope": 0.85,
       "marketSlope": 1.02,
       "bets": {
-        "count": 294,
+        "count": 295,
         "wins": 139,
-        "losses": 148,
+        "losses": 149,
         "pushes": 7,
-        "ats": 0.4843,
-        "units": -21.65,
-        "clv": 0.67
+        "ats": 0.4826,
+        "units": -22.65,
+        "clv": 0.66
       }
     },
     "weeks": [
@@ -131,13 +131,13 @@
       },
       {
         "week": 11,
-        "games": 8,
-        "accuracy": 0.75,
-        "mae": 10.49,
-        "marketMae": 10.38,
-        "bets": 5,
-        "record": "3-2",
-        "units": 0.73
+        "games": 11,
+        "accuracy": 0.6364,
+        "mae": 11.09,
+        "marketMae": 10.18,
+        "bets": 6,
+        "record": "3-3",
+        "units": -0.27
       }
     ],
     "bets": [
@@ -4520,6 +4520,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 3.0
+      },
+      {
+        "week": 11,
+        "home": "Colorado",
+        "away": "Houston",
+        "side": "away",
+        "team": "Houston",
+        "predicted": -14.7,
+        "open": -10.5,
+        "close": -7.5,
+        "edge": -4.2,
+        "actual": 10,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -3.0
       },
       {
         "week": 11,
@@ -9959,7 +9974,10 @@
         "week": 11
       },
       {
+        "actual": 10,
         "away": "Houston",
+        "close": -7.5,
+        "clv": -3.0,
         "edge": -4.2,
         "game_id": 401856860,
         "home": "Colorado",
@@ -9969,8 +9987,10 @@
         "neutral": false,
         "open": -10.5,
         "predicted": -14.7,
+        "result": "loss",
         "side": "away",
         "taken": -10.5,
+        "units": -1.0,
         "week": 11
       },
       {
@@ -10166,12 +10186,12 @@
     ],
     "logged": 289,
     "earlier": 48,
-    "graded": 264,
+    "graded": 265,
     "wins": 124,
-    "losses": 134,
+    "losses": 135,
     "pushes": 6,
-    "ats": 0.4806,
-    "units": -21.28,
-    "clv": 0.16
+    "ats": 0.4788,
+    "units": -22.28,
+    "clv": 0.15
   }
 }
