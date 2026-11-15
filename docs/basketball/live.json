@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-14",
- "updated": "2026-11-15T03:05:40Z",
- "updatedLabel": "10:05 PM ET",
+ "updated": "2026-11-15T03:10:43Z",
+ "updatedLabel": "10:10 PM ET",
  "games": {
   "374977": {
    "status": "completed",
@@ -546,14 +546,14 @@
    "upset": null
   },
   "374959": {
-   "status": "in_progress",
-   "label": "2nd 0:30",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
-   "clock": "0:30",
-   "home": 68,
-   "away": 66,
+   "clock": "0:00",
+   "home": 70,
+   "away": 68,
    "possession": null,
-   "homeWinProbability": 0.947,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "372812": {
@@ -569,35 +569,35 @@
   },
   "375000": {
    "status": "in_progress",
-   "label": "2nd 0:25",
+   "label": "2nd 0:11",
    "period": 2,
-   "clock": "0:25",
+   "clock": "0:11",
    "home": 70,
-   "away": 64,
+   "away": 66,
    "possession": null,
    "homeWinProbability": 1.0,
    "upset": null
   },
   "372798": {
    "status": "in_progress",
-   "label": "2nd 3:13",
+   "label": "2nd 1:09",
    "period": 2,
-   "clock": "3:13",
-   "home": 49,
-   "away": 73,
+   "clock": "1:09",
+   "home": 50,
+   "away": 74,
    "possession": null,
    "homeWinProbability": 0.0,
    "upset": null
   },
   "375001": {
    "status": "in_progress",
-   "label": "2nd 15:18",
+   "label": "2nd 12:55",
    "period": 2,
-   "clock": "15:18",
-   "home": 37,
-   "away": 41,
+   "clock": "12:55",
+   "home": 44,
+   "away": 44,
    "possession": null,
-   "homeWinProbability": 0.323,
+   "homeWinProbability": 0.547,
    "upset": null
   },
   "374965": {
@@ -613,13 +613,24 @@
   },
   "374981": {
    "status": "in_progress",
-   "label": "1st 18:42",
+   "label": "1st 15:31",
    "period": 1,
-   "clock": "18:42",
-   "home": 3,
-   "away": 2,
+   "clock": "15:31",
+   "home": 8,
+   "away": 6,
    "possession": null,
-   "homeWinProbability": 0.526,
+   "homeWinProbability": 0.566,
+   "upset": null
+  },
+  "372799": {
+   "status": "in_progress",
+   "label": "1st 18:27",
+   "period": 1,
+   "clock": "18:27",
+   "home": 0,
+   "away": 5,
+   "possession": null,
+   "homeWinProbability": 0.669,
    "upset": null
   }
  }
