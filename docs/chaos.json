@@ -2,42 +2,42 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 11,
+    "gamesPlayed": 66,
     "missingPregame": 0,
-    "games": 11,
-    "upsets": 4,
-    "expectedUpsets": 3.2210000000000005,
-    "z": 0.10514460404389937,
+    "games": 66,
+    "upsets": 19,
+    "expectedUpsets": 20.435,
+    "z": -0.16599001975665612,
     "shocks": [
       {
-        "gameId": 401856860,
-        "winner": "Colorado",
-        "loser": "Houston",
-        "pregameWinProb": 0.186,
-        "winnerScore": 42,
-        "loserScore": 32,
-        "homeScore": 42,
-        "awayScore": 32
+        "gameId": 401858297,
+        "winner": "Georgia Tech",
+        "loser": "Clemson",
+        "pregameWinProb": 0.136,
+        "winnerScore": 20,
+        "loserScore": 6,
+        "homeScore": 6,
+        "awayScore": 20
       },
       {
-        "gameId": 401866460,
-        "winner": "Miami (OH)",
-        "loser": "Ohio",
-        "pregameWinProb": 0.419,
-        "winnerScore": 34,
+        "gameId": 401858299,
+        "winner": "Stanford",
+        "loser": "Virginia Tech",
+        "pregameWinProb": 0.18100000000000005,
+        "winnerScore": 40,
+        "loserScore": 22,
+        "homeScore": 22,
+        "awayScore": 40
+      },
+      {
+        "gameId": 401864539,
+        "winner": "UNLV",
+        "loser": "New Mexico",
+        "pregameWinProb": 0.18400000000000005,
+        "winnerScore": 21,
         "loserScore": 17,
-        "homeScore": 34,
-        "awayScore": 17
-      },
-      {
-        "gameId": 401862824,
-        "winner": "Memphis",
-        "loser": "USF",
-        "pregameWinProb": 0.43000000000000005,
-        "winnerScore": 52,
-        "loserScore": 41,
-        "homeScore": 41,
-        "awayScore": 52
+        "homeScore": 17,
+        "awayScore": 21
       }
     ]
   },

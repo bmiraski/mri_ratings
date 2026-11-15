@@ -605,7 +605,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Northern Iowa"
+   "team": "Northern Iowa",
+   "actual": 4.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374956,
@@ -617,7 +622,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Northern Colorado"
+   "team": "Northern Colorado",
+   "actual": -25.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -2.5,
+   "clv": 1.0
   },
   {
    "game_id": 374999,
@@ -629,7 +639,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Morehead State"
+   "team": "Morehead State",
+   "actual": 4.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 1.0
   },
   {
    "game_id": 374965,
@@ -641,7 +656,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Montana"
+   "team": "Montana",
+   "actual": -9.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 374959,
@@ -653,7 +673,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Louisiana Tech"
+   "team": "Louisiana Tech",
+   "actual": 3.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 374970,
@@ -665,7 +690,12 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Bellarmine"
+   "team": "Bellarmine",
+   "actual": -8.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 374971,
@@ -677,7 +707,60 @@
    "loggedAt": "2026-11-14T15:24:52Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Marshall"
+   "team": "Marshall",
+   "actual": 3.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 3.0
+  },
+  {
+   "game_id": 374967,
+   "day": "2026-11-15",
+   "home": "Utah",
+   "away": "Washington",
+   "predicted": -3.3,
+   "taken": 3.5,
+   "loggedAt": "2026-11-15T15:55:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Washington"
+  },
+  {
+   "game_id": 375020,
+   "day": "2026-11-15",
+   "home": "Delaware",
+   "away": "Colgate",
+   "predicted": -1.3,
+   "taken": 1.5,
+   "loggedAt": "2026-11-15T15:55:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Colgate"
+  },
+  {
+   "game_id": 375010,
+   "day": "2026-11-15",
+   "home": "Holy Cross",
+   "away": "UAlbany",
+   "predicted": 0.3,
+   "taken": -3.5,
+   "loggedAt": "2026-11-15T15:55:25Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Holy Cross"
+  },
+  {
+   "game_id": 372819,
+   "day": "2026-11-15",
+   "home": "Marquette",
+   "away": "Missouri",
+   "predicted": -1.4,
+   "taken": 1.5,
+   "loggedAt": "2026-11-15T15:55:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Missouri"
   }
  ]
 }
