@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-14",
- "updated": "2026-11-15T04:11:58Z",
- "updatedLabel": "11:11 PM ET",
+ "updated": "2026-11-15T04:17:01Z",
+ "updatedLabel": "11:17 PM ET",
  "games": {
   "374977": {
    "status": "completed",
@@ -601,12 +601,12 @@
    "upset": null
   },
   "374965": {
-   "status": "in_progress",
-   "label": "2nd 0:28",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
-   "clock": "0:28",
-   "home": 67,
-   "away": 72,
+   "clock": "0:01",
+   "home": 71,
+   "away": 80,
    "possession": null,
    "homeWinProbability": 0.0,
    "upset": null
@@ -624,14 +624,14 @@
   },
   "372799": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "0:00",
-   "home": 28,
-   "away": 34,
+   "label": "2nd 18:45",
+   "period": 2,
+   "clock": "18:45",
+   "home": 31,
+   "away": 37,
    "possession": null,
-   "homeWinProbability": 0.451,
-   "upset": null
+   "homeWinProbability": 0.433,
+   "upset": "Utah Valley leads; the model gave them 18% before tip-off"
   }
  }
 }
