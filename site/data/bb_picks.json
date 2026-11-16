@@ -736,7 +736,12 @@
    "loggedAt": "2026-11-15T15:55:25Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Colgate"
+   "team": "Colgate",
+   "actual": 6.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375010,
@@ -748,7 +753,12 @@
    "loggedAt": "2026-11-15T15:55:25Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Holy Cross"
+   "team": "Holy Cross",
+   "actual": -2.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -2.5,
+   "clv": 1.0
   },
   {
    "game_id": 372819,
@@ -760,7 +770,24 @@
    "loggedAt": "2026-11-15T15:55:25Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Missouri"
+   "team": "Missouri",
+   "actual": -5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 2.5,
+   "clv": -1.0
+  },
+  {
+   "game_id": 375041,
+   "day": "2026-11-16",
+   "home": "UMBC",
+   "away": "Iona",
+   "predicted": 4.9,
+   "taken": -2.5,
+   "loggedAt": "2026-11-16T20:20:43Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "UMBC"
   }
  ]
 }
