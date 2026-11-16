@@ -2,44 +2,8 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 66,
-    "missingPregame": 0,
-    "games": 66,
-    "upsets": 19,
-    "expectedUpsets": 20.435,
-    "z": -0.16599001975665612,
-    "shocks": [
-      {
-        "gameId": 401858297,
-        "winner": "Georgia Tech",
-        "loser": "Clemson",
-        "pregameWinProb": 0.136,
-        "winnerScore": 20,
-        "loserScore": 6,
-        "homeScore": 6,
-        "awayScore": 20
-      },
-      {
-        "gameId": 401858299,
-        "winner": "Stanford",
-        "loser": "Virginia Tech",
-        "pregameWinProb": 0.18100000000000005,
-        "winnerScore": 40,
-        "loserScore": 22,
-        "homeScore": 22,
-        "awayScore": 40
-      },
-      {
-        "gameId": 401864539,
-        "winner": "UNLV",
-        "loser": "New Mexico",
-        "pregameWinProb": 0.18400000000000005,
-        "winnerScore": 21,
-        "loserScore": 17,
-        "homeScore": 17,
-        "awayScore": 21
-      }
-    ]
+    "gamesPlayed": 0,
+    "expectedUpsets": 18.13
   },
   "archive": {
     "calibration": {
@@ -31589,6 +31553,79 @@
             ],
             "upsets": 12,
             "z": -0.2851514352063617
+          },
+          "11": {
+            "games": 67,
+            "upsets": 20,
+            "expectedUpsets": 20.402814091447468,
+            "z": 0.0635712381491776,
+            "shocks": [
+              {
+                "gameId": 401858297,
+                "winner": "Georgia Tech",
+                "loser": "Clemson",
+                "pregameWinProb": 0.12292922159742037,
+                "winnerScore": 20,
+                "loserScore": 6,
+                "homeScore": 6,
+                "awayScore": 20
+              },
+              {
+                "gameId": 401858299,
+                "winner": "Stanford",
+                "loser": "Virginia Tech",
+                "pregameWinProb": 0.16611792728058117,
+                "winnerScore": 40,
+                "loserScore": 22,
+                "homeScore": 22,
+                "awayScore": 40
+              },
+              {
+                "gameId": 401864539,
+                "winner": "UNLV",
+                "loser": "New Mexico",
+                "pregameWinProb": 0.16902410755685116,
+                "winnerScore": 21,
+                "loserScore": 17,
+                "homeScore": 17,
+                "awayScore": 21
+              }
+            ],
+            "missingPregame": 0,
+            "final": true,
+            "reconstructed": false,
+            "fallout": {
+              "moved": 1.2249,
+              "gained": [
+                {
+                  "team": "Tennessee",
+                  "change": 0.2357
+                },
+                {
+                  "team": "Wake Forest",
+                  "change": 0.195
+                },
+                {
+                  "team": "Texas Tech",
+                  "change": 0.1417
+                }
+              ],
+              "lost": [
+                {
+                  "team": "Ole Miss",
+                  "change": -0.2354
+                },
+                {
+                  "team": "LSU",
+                  "change": -0.1979
+                },
+                {
+                  "team": "Kentucky",
+                  "change": -0.1523
+                }
+              ]
+            },
+            "percentile": 56.35
           }
         }
       }
