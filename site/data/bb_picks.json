@@ -804,7 +804,12 @@
    "loggedAt": "2026-11-17T17:58:28Z",
    "strategy": "dog",
    "side": "away",
-   "team": "SIU Edwardsville"
+   "team": "SIU Edwardsville",
+   "actual": 5.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 1.0
   },
   {
    "game_id": 375061,
@@ -816,7 +821,12 @@
    "loggedAt": "2026-11-17T17:58:28Z",
    "strategy": "dog",
    "side": "away",
-   "team": "East Tennessee State"
+   "team": "East Tennessee State",
+   "actual": 12.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375081,
@@ -828,7 +838,12 @@
    "loggedAt": "2026-11-17T17:58:28Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Liberty"
+   "team": "Liberty",
+   "actual": -9.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 2.5,
+   "clv": -1.0
   },
   {
    "game_id": 372830,
@@ -840,7 +855,12 @@
    "loggedAt": "2026-11-17T17:58:28Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Arkansas"
+   "team": "Arkansas",
+   "actual": 5.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 372848,
@@ -852,7 +872,36 @@
    "loggedAt": "2026-11-17T17:58:28Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Marist"
+   "team": "Marist",
+   "actual": -5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 375090,
+   "day": "2026-11-18",
+   "home": "Duquesne",
+   "away": "Howard",
+   "predicted": -1.8,
+   "taken": 4.5,
+   "loggedAt": "2026-11-18T17:39:59Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Howard"
+  },
+  {
+   "game_id": 378060,
+   "day": "2026-11-18",
+   "home": "Presbyterian",
+   "away": "Mercer",
+   "predicted": -1.9,
+   "taken": 1.5,
+   "loggedAt": "2026-11-18T17:39:59Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Mercer"
   }
  ]
 }

@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 629,
-      "accuracy": 0.7218,
+      "games": 632,
+      "accuracy": 0.7231,
       "mae": 12.9,
-      "priced": 629,
+      "priced": 632,
       "modelMaePriced": 12.9,
-      "marketMae": 11.76,
-      "marketAccuracy": 0.7472,
-      "modelAccuracyPriced": 0.7218,
-      "maeGap": 1.15,
+      "marketMae": 11.73,
+      "marketAccuracy": 0.7484,
+      "modelAccuracyPriced": 0.7231,
+      "maeGap": 1.16,
       "maeGapError": 0.36,
       "slope": 0.85,
       "marketSlope": 1.01,
       "bets": {
-        "count": 319,
+        "count": 321,
         "wins": 149,
-        "losses": 163,
+        "losses": 165,
         "pushes": 7,
-        "ats": 0.4776,
-        "units": -27.56,
-        "clv": 0.8
+        "ats": 0.4745,
+        "units": -29.56,
+        "clv": 0.81
       }
     },
     "weeks": [
@@ -138,6 +138,16 @@
         "bets": 30,
         "record": "13-17",
         "units": -5.18
+      },
+      {
+        "week": 12,
+        "games": 3,
+        "accuracy": 1.0,
+        "mae": 11.01,
+        "marketMae": 7.33,
+        "bets": 2,
+        "record": "0-2",
+        "units": -2.0
       }
     ],
     "bets": [
@@ -4925,6 +4935,36 @@
         "result": "win",
         "units": 0.909,
         "clv": -5.5
+      },
+      {
+        "week": 12,
+        "home": "Ohio",
+        "away": "Ball State",
+        "side": "home",
+        "team": "Ohio",
+        "predicted": 19.2,
+        "open": 9.5,
+        "close": 10.0,
+        "edge": 9.7,
+        "actual": 7,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.5
+      },
+      {
+        "week": 12,
+        "home": "Western Michigan",
+        "away": "Eastern Michigan",
+        "side": "home",
+        "team": "Western Michigan",
+        "predicted": 19.3,
+        "open": 14.5,
+        "close": 18.5,
+        "edge": 4.8,
+        "actual": 7,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 4.0
       }
     ]
   },
@@ -10679,7 +10719,10 @@
         "week": 12
       },
       {
+        "actual": 7,
         "away": "Ball State",
+        "close": 10.0,
+        "clv": -1.5,
         "edge": 9.7,
         "game_id": 401866464,
         "home": "Ohio",
@@ -10689,8 +10732,10 @@
         "neutral": false,
         "open": 9.5,
         "predicted": 19.2,
+        "result": "loss",
         "side": "home",
         "taken": 11.5,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -10859,7 +10904,10 @@
         "week": 12
       },
       {
+        "actual": 7,
         "away": "Eastern Michigan",
+        "close": 18.5,
+        "clv": 4.0,
         "edge": 4.8,
         "game_id": 401866465,
         "home": "Western Michigan",
@@ -10869,8 +10917,10 @@
         "neutral": false,
         "open": 14.5,
         "predicted": 19.3,
+        "result": "loss",
         "side": "home",
         "taken": 14.5,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -11007,16 +11057,31 @@
         "side": "away",
         "taken": 1.5,
         "week": 12
+      },
+      {
+        "away": "Houston",
+        "edge": -3.0,
+        "game_id": 401856868,
+        "home": "West Virginia",
+        "kickoff": "2026-11-21T18:00:00.000Z",
+        "loggedAt": "2026-11-18T17:39Z",
+        "model": "roster-prior",
+        "neutral": false,
+        "open": -7.0,
+        "predicted": -10.0,
+        "side": "away",
+        "taken": -8.5,
+        "week": 12
       }
     ],
-    "logged": 312,
+    "logged": 313,
     "earlier": 48,
-    "graded": 289,
+    "graded": 291,
     "wins": 133,
-    "losses": 149,
+    "losses": 151,
     "pushes": 7,
-    "ats": 0.4716,
-    "units": -28.1,
-    "clv": 0.21
+    "ats": 0.4683,
+    "units": -30.1,
+    "clv": 0.22
   }
 }

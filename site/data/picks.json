@@ -5748,7 +5748,10 @@
    "week": 12
   },
   {
+   "actual": 7,
    "away": "Ball State",
+   "close": 10.0,
+   "clv": -1.5,
    "edge": 9.7,
    "game_id": 401866464,
    "home": "Ohio",
@@ -5758,8 +5761,10 @@
    "neutral": false,
    "open": 9.5,
    "predicted": 19.2,
+   "result": "loss",
    "side": "home",
    "taken": 11.5,
+   "units": -1.0,
    "week": 12
   },
   {
@@ -5928,7 +5933,10 @@
    "week": 12
   },
   {
+   "actual": 7,
    "away": "Eastern Michigan",
+   "close": 18.5,
+   "clv": 4.0,
    "edge": 4.8,
    "game_id": 401866465,
    "home": "Western Michigan",
@@ -5938,8 +5946,10 @@
    "neutral": false,
    "open": 14.5,
    "predicted": 19.3,
+   "result": "loss",
    "side": "home",
    "taken": 14.5,
+   "units": -1.0,
    "week": 12
   },
   {
@@ -6075,6 +6085,21 @@
    "predicted": -1.6,
    "side": "away",
    "taken": 1.5,
+   "week": 12
+  },
+  {
+   "away": "Houston",
+   "edge": -3.0,
+   "game_id": 401856868,
+   "home": "West Virginia",
+   "kickoff": "2026-11-21T18:00:00.000Z",
+   "loggedAt": "2026-11-18T17:39Z",
+   "model": "roster-prior",
+   "neutral": false,
+   "open": -7.0,
+   "predicted": -10.0,
+   "side": "away",
+   "taken": -8.5,
    "week": 12
   }
  ],
