@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-17",
- "updated": "2026-11-18T04:20:46Z",
- "updatedLabel": "11:20 PM ET",
+ "updated": "2026-11-18T04:25:50Z",
+ "updatedLabel": "11:25 PM ET",
  "games": {
   "378046": {
    "status": "completed",
@@ -524,15 +524,15 @@
    "upset": null
   },
   "372831": {
-   "status": "in_progress",
-   "label": "2nd 0:17",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
    "clock": "0:17",
    "home": 68,
    "away": 75,
    "possession": null,
    "homeWinProbability": 0.0,
-   "upset": "Alabama State leads; the model gave them 9% before tip-off"
+   "upset": "Alabama State won; the model gave them 9% before tip-off"
   },
   "375065": {
    "status": "completed",
@@ -546,11 +546,11 @@
    "upset": null
   },
   "372844": {
-   "status": "in_progress",
-   "label": "2nd 1:16",
-   "period": 2,
-   "clock": "1:16",
-   "home": 59,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 61,
    "away": 46,
    "possession": null,
    "homeWinProbability": 1.0,
@@ -558,21 +558,21 @@
   },
   "372836": {
    "status": "in_progress",
-   "label": "2nd 13:23",
+   "label": "2nd 11:39",
    "period": 2,
-   "clock": "13:23",
-   "home": 75,
-   "away": 49,
+   "clock": "11:39",
+   "home": 82,
+   "away": 53,
    "possession": null,
    "homeWinProbability": 1.0,
    "upset": null
   },
   "375086": {
    "status": "in_progress",
-   "label": "2nd 13:02",
+   "label": "2nd 11:44",
    "period": 2,
-   "clock": "13:02",
-   "home": 32,
+   "clock": "11:44",
+   "home": 38,
    "away": 60,
    "possession": null,
    "homeWinProbability": 0.0,
@@ -580,24 +580,24 @@
   },
   "375057": {
    "status": "in_progress",
-   "label": "2nd 14:43",
+   "label": "2nd 11:52",
    "period": 2,
-   "clock": "14:43",
+   "clock": "11:52",
    "home": 39,
-   "away": 45,
+   "away": 49,
    "possession": null,
-   "homeWinProbability": 0.383,
+   "homeWinProbability": 0.129,
    "upset": "UC Irvine leads; the model gave them 16% before tip-off"
   },
   "375048": {
    "status": "in_progress",
-   "label": "1st 12:19",
+   "label": "1st 9:49",
    "period": 1,
-   "clock": "12:19",
-   "home": 13,
-   "away": 16,
+   "clock": "9:49",
+   "home": 20,
+   "away": 18,
    "possession": null,
-   "homeWinProbability": 0.95,
+   "homeWinProbability": 0.982,
    "upset": null
   }
  }
