@@ -889,7 +889,12 @@
    "loggedAt": "2026-11-18T17:39:59Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Howard"
+   "team": "Howard",
+   "actual": 6.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 5.5,
+   "clv": -1.0
   },
   {
    "game_id": 378060,
@@ -901,7 +906,60 @@
    "loggedAt": "2026-11-18T17:39:59Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Mercer"
+   "team": "Mercer",
+   "actual": 4.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 375132,
+   "day": "2026-11-19",
+   "home": "TCU",
+   "away": "Texas A&M",
+   "predicted": -6.3,
+   "taken": 1.5,
+   "loggedAt": "2026-11-19T17:44:44Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Texas A&M"
+  },
+  {
+   "game_id": 375136,
+   "day": "2026-11-19",
+   "home": "Santa Clara",
+   "away": "VCU",
+   "predicted": -1.9,
+   "taken": 2.5,
+   "loggedAt": "2026-11-19T17:44:44Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "VCU"
+  },
+  {
+   "game_id": 378689,
+   "day": "2026-11-19",
+   "home": "Kansas",
+   "away": "Houston",
+   "predicted": 0.2,
+   "taken": -3.5,
+   "loggedAt": "2026-11-19T17:44:44Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Kansas"
+  },
+  {
+   "game_id": 378065,
+   "day": "2026-11-19",
+   "home": "Drake",
+   "away": "Charleston",
+   "predicted": -3.3,
+   "taken": 1.5,
+   "loggedAt": "2026-11-19T17:44:44Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Charleston"
   }
  ]
 }

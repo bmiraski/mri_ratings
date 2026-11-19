@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 632,
-      "accuracy": 0.7231,
+      "games": 634,
+      "accuracy": 0.7208,
       "mae": 12.9,
-      "priced": 632,
+      "priced": 634,
       "modelMaePriced": 12.9,
       "marketMae": 11.73,
-      "marketAccuracy": 0.7484,
-      "modelAccuracyPriced": 0.7231,
-      "maeGap": 1.16,
+      "marketAccuracy": 0.7476,
+      "modelAccuracyPriced": 0.7208,
+      "maeGap": 1.17,
       "maeGapError": 0.36,
-      "slope": 0.85,
+      "slope": 0.84,
       "marketSlope": 1.01,
       "bets": {
-        "count": 321,
+        "count": 322,
         "wins": 149,
-        "losses": 165,
+        "losses": 166,
         "pushes": 7,
-        "ats": 0.4745,
-        "units": -29.56,
+        "ats": 0.473,
+        "units": -30.56,
         "clv": 0.81
       }
     },
@@ -141,13 +141,13 @@
       },
       {
         "week": 12,
-        "games": 3,
-        "accuracy": 1.0,
-        "mae": 11.01,
-        "marketMae": 7.33,
-        "bets": 2,
-        "record": "0-2",
-        "units": -2.0
+        "games": 5,
+        "accuracy": 0.6,
+        "mae": 12.04,
+        "marketMae": 8.5,
+        "bets": 3,
+        "record": "0-3",
+        "units": -3.0
       }
     ],
     "bets": [
@@ -4965,6 +4965,21 @@
         "result": "loss",
         "units": -1.0,
         "clv": 4.0
+      },
+      {
+        "week": 12,
+        "home": "UMass",
+        "away": "Akron",
+        "side": "home",
+        "team": "UMass",
+        "predicted": 7.0,
+        "open": 3.5,
+        "close": 3.0,
+        "edge": 3.5,
+        "actual": -1,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -0.5
       }
     ]
   },
@@ -11029,7 +11044,10 @@
         "week": 12
       },
       {
+        "actual": -1,
         "away": "Akron",
+        "close": 3.0,
+        "clv": 0.0,
         "edge": 3.5,
         "game_id": 401866467,
         "home": "UMass",
@@ -11039,8 +11057,10 @@
         "neutral": false,
         "open": 3.5,
         "predicted": 7.0,
+        "result": "loss",
         "side": "home",
         "taken": 3.0,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -11076,12 +11096,12 @@
     ],
     "logged": 313,
     "earlier": 48,
-    "graded": 291,
+    "graded": 292,
     "wins": 133,
-    "losses": 151,
+    "losses": 152,
     "pushes": 7,
-    "ats": 0.4683,
-    "units": -30.1,
+    "ats": 0.4667,
+    "units": -31.1,
     "clv": 0.22
   }
 }
