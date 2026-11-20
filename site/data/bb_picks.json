@@ -923,7 +923,12 @@
    "loggedAt": "2026-11-19T17:44:44Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Texas A&M"
+   "team": "Texas A&M",
+   "actual": -5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 375136,
@@ -935,7 +940,12 @@
    "loggedAt": "2026-11-19T17:44:44Z",
    "strategy": "dog",
    "side": "away",
-   "team": "VCU"
+   "team": "VCU",
+   "actual": -6.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 1.0
   },
   {
    "game_id": 378689,
@@ -947,7 +957,12 @@
    "loggedAt": "2026-11-19T17:44:44Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Kansas"
+   "team": "Kansas",
+   "actual": -9.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 378065,
@@ -959,7 +974,60 @@
    "loggedAt": "2026-11-19T17:44:44Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Charleston"
+   "team": "Charleston",
+   "actual": 16.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 372881,
+   "day": "2026-11-20",
+   "home": "Middle Tennessee",
+   "away": "Temple",
+   "predicted": 0.5,
+   "taken": -3.5,
+   "loggedAt": "2026-11-20T17:23:16Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Middle Tennessee"
+  },
+  {
+   "game_id": 375169,
+   "day": "2026-11-20",
+   "home": "Utah",
+   "away": "Dayton",
+   "predicted": -2.5,
+   "taken": 1.5,
+   "loggedAt": "2026-11-20T17:23:16Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Dayton"
+  },
+  {
+   "game_id": 375164,
+   "day": "2026-11-20",
+   "home": "Minnesota",
+   "away": "Oklahoma State",
+   "predicted": -3.7,
+   "taken": 1.5,
+   "loggedAt": "2026-11-20T17:23:16Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Oklahoma State"
+  },
+  {
+   "game_id": 375168,
+   "day": "2026-11-20",
+   "home": "Rhode Island",
+   "away": "Liberty",
+   "predicted": 2.1,
+   "taken": -1.5,
+   "loggedAt": "2026-11-20T17:23:16Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Rhode Island"
   }
  ]
 }
