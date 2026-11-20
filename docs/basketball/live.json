@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-20",
- "updated": "2026-11-20T20:07:17Z",
- "updatedLabel": "3:07 PM ET",
+ "updated": "2026-11-20T20:12:19Z",
+ "updatedLabel": "3:12 PM ET",
  "games": {
   "372877": {
    "status": "completed",
@@ -41,35 +41,46 @@
   },
   "375165": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 43,
-   "away": 36,
+   "label": "2nd 16:52",
+   "period": 2,
+   "clock": "16:52",
+   "home": 50,
+   "away": 40,
    "possession": null,
-   "homeWinProbability": 0.576,
-   "upset": null
+   "homeWinProbability": 0.774,
+   "upset": "UAB leads; the model gave them 16% before tip-off"
   },
   "375160": {
    "status": "in_progress",
-   "label": "1st 17:26",
+   "label": "1st 15:55",
    "period": 1,
-   "clock": "17:26",
-   "home": 2,
-   "away": 2,
+   "clock": "15:55",
+   "home": 7,
+   "away": 5,
    "possession": null,
-   "homeWinProbability": 0.745,
+   "homeWinProbability": 0.799,
    "upset": null
   },
   "375166": {
    "status": "in_progress",
-   "label": "1st 19:58",
+   "label": "1st 15:32",
    "period": 1,
-   "clock": "19:58",
-   "home": 0,
-   "away": 0,
+   "clock": "15:32",
+   "home": 11,
+   "away": 2,
    "possession": null,
-   "homeWinProbability": 0.811,
+   "homeWinProbability": 0.955,
+   "upset": null
+  },
+  "372882": {
+   "status": "in_progress",
+   "label": "1st 18:38",
+   "period": 1,
+   "clock": "18:38",
+   "home": 0,
+   "away": 3,
+   "possession": null,
+   "homeWinProbability": 0.646,
    "upset": null
   }
  }
