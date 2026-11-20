@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-20",
- "updated": "2026-11-20T22:29:30Z",
- "updatedLabel": "5:29 PM ET",
+ "updated": "2026-11-20T22:34:33Z",
+ "updatedLabel": "5:34 PM ET",
  "games": {
   "372877": {
    "status": "completed",
@@ -85,13 +85,13 @@
   },
   "375167": {
    "status": "in_progress",
-   "label": "2nd 13:15",
+   "label": "2nd 11:25",
    "period": 2,
-   "clock": "13:15",
-   "home": 57,
-   "away": 40,
+   "clock": "11:25",
+   "home": 60,
+   "away": 43,
    "possession": null,
-   "homeWinProbability": 0.975,
+   "homeWinProbability": 0.987,
    "upset": "Idaho State leads; the model gave them 10% before tip-off"
   },
   "375168": {
@@ -107,13 +107,24 @@
   },
   "375153": {
    "status": "in_progress",
-   "label": "1st 11:50",
+   "label": "1st 10:32",
    "period": 1,
-   "clock": "11:50",
-   "home": 15,
+   "clock": "10:32",
+   "home": 16,
    "away": 12,
    "possession": null,
    "homeWinProbability": 1.0,
+   "upset": null
+  },
+  "375169": {
+   "status": "in_progress",
+   "label": "1st 18:19",
+   "period": 1,
+   "clock": "18:19",
+   "home": 0,
+   "away": 3,
+   "possession": null,
+   "homeWinProbability": 0.308,
    "upset": null
   }
  }
