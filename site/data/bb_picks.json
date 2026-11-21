@@ -991,7 +991,12 @@
    "loggedAt": "2026-11-20T17:23:16Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Middle Tennessee"
+   "team": "Middle Tennessee",
+   "actual": -9.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 375169,
@@ -1003,7 +1008,12 @@
    "loggedAt": "2026-11-20T17:23:16Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Dayton"
+   "team": "Dayton",
+   "actual": -17.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375164,
@@ -1015,7 +1025,12 @@
    "loggedAt": "2026-11-20T17:23:16Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Oklahoma State"
+   "team": "Oklahoma State",
+   "actual": 15.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375168,
@@ -1027,7 +1042,60 @@
    "loggedAt": "2026-11-20T17:23:16Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Rhode Island"
+   "team": "Rhode Island",
+   "actual": -3.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 3.0
+  },
+  {
+   "game_id": 375200,
+   "day": "2026-11-21",
+   "home": "George Mason",
+   "away": "South Florida",
+   "predicted": -3.1,
+   "taken": 3.5,
+   "loggedAt": "2026-11-21T16:28:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "South Florida"
+  },
+  {
+   "game_id": 375193,
+   "day": "2026-11-21",
+   "home": "La Salle",
+   "away": "Pennsylvania",
+   "predicted": -3.1,
+   "taken": 2.5,
+   "loggedAt": "2026-11-21T16:28:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Pennsylvania"
+  },
+  {
+   "game_id": 375183,
+   "day": "2026-11-21",
+   "home": "Texas Southern",
+   "away": "New Orleans",
+   "predicted": -2.1,
+   "taken": 1.5,
+   "loggedAt": "2026-11-21T16:28:25Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "New Orleans"
+  },
+  {
+   "game_id": 375199,
+   "day": "2026-11-21",
+   "home": "Wichita State",
+   "away": "New Mexico",
+   "predicted": 0.3,
+   "taken": -2.5,
+   "loggedAt": "2026-11-21T16:28:25Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Wichita State"
   }
  ]
 }

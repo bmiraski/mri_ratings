@@ -2,14 +2,44 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 6,
+    "gamesPlayed": 12,
     "missingPregame": 0,
-    "games": 6,
-    "upsets": null,
-    "expectedUpsets": 18.13,
-    "z": null,
-    "shocks": [],
-    "note": "not_enough_games"
+    "games": 12,
+    "upsets": 5,
+    "expectedUpsets": 3.0229999999999997,
+    "z": -0.12743852011454537,
+    "shocks": [
+      {
+        "gameId": 401858303,
+        "winner": "Clemson",
+        "loser": "Duke",
+        "pregameWinProb": 0.30700000000000005,
+        "winnerScore": 20,
+        "loserScore": 10,
+        "homeScore": 10,
+        "awayScore": 20
+      },
+      {
+        "gameId": 401866467,
+        "winner": "Akron",
+        "loser": "UMass",
+        "pregameWinProb": 0.33599999999999997,
+        "winnerScore": 34,
+        "loserScore": 33,
+        "homeScore": 33,
+        "awayScore": 34
+      },
+      {
+        "gameId": 401862830,
+        "winner": "Rice",
+        "loser": "Temple",
+        "pregameWinProb": 0.361,
+        "winnerScore": 31,
+        "loserScore": 27,
+        "homeScore": 27,
+        "awayScore": 31
+      }
+    ]
   },
   "archive": {
     "calibration": {

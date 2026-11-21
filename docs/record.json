@@ -6,26 +6,26 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 635,
-      "accuracy": 0.7197,
-      "mae": 12.89,
-      "priced": 635,
-      "modelMaePriced": 12.89,
-      "marketMae": 11.72,
-      "marketAccuracy": 0.7465,
-      "modelAccuracyPriced": 0.7197,
-      "maeGap": 1.17,
+      "games": 641,
+      "accuracy": 0.7192,
+      "mae": 12.93,
+      "priced": 641,
+      "modelMaePriced": 12.93,
+      "marketMae": 11.77,
+      "marketAccuracy": 0.7457,
+      "modelAccuracyPriced": 0.7192,
+      "maeGap": 1.15,
       "maeGapError": 0.36,
-      "slope": 0.84,
+      "slope": 0.85,
       "marketSlope": 1.01,
       "bets": {
-        "count": 322,
-        "wins": 149,
-        "losses": 166,
+        "count": 326,
+        "wins": 152,
+        "losses": 167,
         "pushes": 7,
-        "ats": 0.473,
-        "units": -30.56,
-        "clv": 0.81
+        "ats": 0.4765,
+        "units": -28.83,
+        "clv": 0.83
       }
     },
     "weeks": [
@@ -141,13 +141,13 @@
       },
       {
         "week": 12,
-        "games": 6,
-        "accuracy": 0.5,
-        "mae": 11.67,
-        "marketMae": 8.17,
-        "bets": 3,
-        "record": "0-3",
-        "units": -3.0
+        "games": 12,
+        "accuracy": 0.5833,
+        "mae": 14.19,
+        "marketMae": 12.75,
+        "bets": 7,
+        "record": "3-4",
+        "units": -1.27
       }
     ],
     "bets": [
@@ -4953,6 +4953,36 @@
       },
       {
         "week": 12,
+        "home": "Michigan State",
+        "away": "Oregon",
+        "side": "away",
+        "team": "Oregon",
+        "predicted": -18.4,
+        "open": -12.5,
+        "close": -19.5,
+        "edge": -5.9,
+        "actual": -38,
+        "result": "win",
+        "units": 0.909,
+        "clv": 7.0
+      },
+      {
+        "week": 12,
+        "home": "Air Force",
+        "away": "UTEP",
+        "side": "home",
+        "team": "Air Force",
+        "predicted": 26.5,
+        "open": 21.5,
+        "close": 23.5,
+        "edge": 5.0,
+        "actual": 49,
+        "result": "win",
+        "units": 0.909,
+        "clv": 2.0
+      },
+      {
+        "week": 12,
         "home": "Western Michigan",
         "away": "Eastern Michigan",
         "side": "home",
@@ -4965,6 +4995,36 @@
         "result": "loss",
         "units": -1.0,
         "clv": 4.0
+      },
+      {
+        "week": 12,
+        "home": "Toledo",
+        "away": "Bowling Green",
+        "side": "home",
+        "team": "Toledo",
+        "predicted": 19.7,
+        "open": 15.5,
+        "close": 16.5,
+        "edge": 4.2,
+        "actual": 19,
+        "result": "win",
+        "units": 0.909,
+        "clv": 1.0
+      },
+      {
+        "week": 12,
+        "home": "Wyoming",
+        "away": "New Mexico",
+        "side": "away",
+        "team": "New Mexico",
+        "predicted": -14.3,
+        "open": -10.5,
+        "close": -10.5,
+        "edge": -3.8,
+        "actual": -7,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -0.0
       },
       {
         "week": 12,
@@ -10829,7 +10889,10 @@
         "week": 12
       },
       {
+        "actual": -38,
         "away": "Oregon",
+        "close": -19.5,
+        "clv": 3.0,
         "edge": -5.9,
         "game_id": 401858529,
         "home": "Michigan State",
@@ -10839,8 +10902,10 @@
         "neutral": false,
         "open": -12.5,
         "predicted": -18.4,
+        "result": "win",
         "side": "away",
         "taken": -16.5,
+        "units": 0.909,
         "week": 12
       },
       {
@@ -10904,7 +10969,10 @@
         "week": 12
       },
       {
+        "actual": 49,
         "away": "UTEP",
+        "close": 23.5,
+        "clv": 1.0,
         "edge": 5.0,
         "game_id": 401864545,
         "home": "Air Force",
@@ -10914,8 +10982,10 @@
         "neutral": false,
         "open": 21.5,
         "predicted": 26.5,
+        "result": "win",
         "side": "home",
         "taken": 22.5,
+        "units": 0.909,
         "week": 12
       },
       {
@@ -10969,7 +11039,10 @@
         "week": 12
       },
       {
+        "actual": 19,
         "away": "Bowling Green",
+        "close": 16.5,
+        "clv": 0.0,
         "edge": 4.2,
         "game_id": 401866468,
         "home": "Toledo",
@@ -10979,8 +11052,10 @@
         "neutral": false,
         "open": 15.5,
         "predicted": 19.7,
+        "result": "win",
         "side": "home",
         "taken": 16.5,
+        "units": 0.909,
         "week": 12
       },
       {
@@ -11029,7 +11104,10 @@
         "week": 12
       },
       {
+        "actual": -7,
         "away": "New Mexico",
+        "close": -10.5,
+        "clv": 3.0,
         "edge": -3.8,
         "game_id": 401864542,
         "home": "Wyoming",
@@ -11039,8 +11117,10 @@
         "neutral": false,
         "open": -10.5,
         "predicted": -14.3,
+        "result": "loss",
         "side": "away",
         "taken": -7.5,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -11096,12 +11176,12 @@
     ],
     "logged": 313,
     "earlier": 48,
-    "graded": 292,
-    "wins": 133,
-    "losses": 152,
+    "graded": 296,
+    "wins": 136,
+    "losses": 153,
     "pushes": 7,
-    "ats": 0.4667,
-    "units": -31.1,
-    "clv": 0.22
+    "ats": 0.4706,
+    "units": -29.38,
+    "clv": 0.24
   }
 }
