@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-20",
- "updated": "2026-11-21T03:58:22Z",
- "updatedLabel": "10:58 PM ET",
+ "updated": "2026-11-21T04:03:24Z",
+ "updatedLabel": "11:03 PM ET",
  "games": {
   "372877": {
    "status": "completed",
@@ -491,33 +491,33 @@
    "upset": "Alabama A&M won; the model gave them 18% before tip-off"
   },
   "375177": {
-   "status": "in_progress",
-   "label": "2nd 0:23",
-   "period": 2,
-   "clock": "0:23",
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
    "home": 84,
    "away": 81,
    "possession": null,
-   "homeWinProbability": 0.998,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "378073": {
    "status": "in_progress",
-   "label": "2nd 4:54",
+   "label": "2nd 3:38",
    "period": 2,
-   "clock": "4:54",
+   "clock": "3:38",
    "home": 57,
-   "away": 69,
+   "away": 73,
    "possession": null,
-   "homeWinProbability": 0.003,
+   "homeWinProbability": 0.0,
    "upset": "Sam Houston leads; the model gave them 14% before tip-off"
   },
   "372873": {
-   "status": "in_progress",
-   "label": "2nd 0:34",
-   "period": 2,
-   "clock": "0:34",
-   "home": 85,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 88,
    "away": 72,
    "possession": null,
    "homeWinProbability": 1.0,
@@ -536,13 +536,13 @@
   },
   "378692": {
    "status": "in_progress",
-   "label": "2nd 15:25",
+   "label": "2nd 13:08",
    "period": 2,
-   "clock": "15:25",
-   "home": 40,
-   "away": 43,
+   "clock": "13:08",
+   "home": 44,
+   "away": 48,
    "possession": null,
-   "homeWinProbability": 0.498,
+   "homeWinProbability": 0.408,
    "upset": "Seton Hall leads; the model gave them 24% before tip-off"
   },
   "375149": {
@@ -554,6 +554,17 @@
    "away": 29,
    "possession": null,
    "homeWinProbability": 0.994,
+   "upset": null
+  },
+  "372874": {
+   "status": "in_progress",
+   "label": "1st 19:41",
+   "period": 1,
+   "clock": "19:41",
+   "home": 0,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.525,
    "upset": null
   }
  }
