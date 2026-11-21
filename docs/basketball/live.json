@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-21",
- "updated": "2026-11-21T20:03:41Z",
- "updatedLabel": "3:03 PM ET",
+ "updated": "2026-11-21T20:08:44Z",
+ "updatedLabel": "3:08 PM ET",
  "games": {
   "375188": {
    "status": "completed",
@@ -52,11 +52,11 @@
   },
   "375203": {
    "status": "in_progress",
-   "label": "2nd 1:25",
+   "label": "2nd 0:15",
    "period": 2,
-   "clock": "1:25",
-   "home": 58,
-   "away": 66,
+   "clock": "0:15",
+   "home": 60,
+   "away": 69,
    "possession": null,
    "homeWinProbability": 0.0,
    "upset": null
@@ -84,25 +84,25 @@
    "upset": null
   },
   "375195": {
-   "status": "in_progress",
-   "label": "2nd 0:05",
-   "period": 2,
-   "clock": "0:05",
-   "home": 69,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 70,
    "away": 68,
    "possession": null,
-   "homeWinProbability": 0.978,
+   "homeWinProbability": 1.0,
    "upset": null
   },
   "375224": {
    "status": "in_progress",
-   "label": "2nd 8:44",
+   "label": "2nd 7:31",
    "period": 2,
-   "clock": "8:44",
-   "home": 49,
+   "clock": "7:31",
+   "home": 50,
    "away": 45,
    "possession": null,
-   "homeWinProbability": 0.617,
+   "homeWinProbability": 0.727,
    "upset": "Western Illinois leads; the model gave them 15% before tip-off"
   },
   "372895": {
@@ -151,24 +151,24 @@
   },
   "375205": {
    "status": "in_progress",
-   "label": "2nd 19:20",
+   "label": "2nd 15:55",
    "period": 2,
-   "clock": "19:20",
-   "home": 35,
-   "away": 31,
+   "clock": "15:55",
+   "home": 39,
+   "away": 40,
    "possession": null,
-   "homeWinProbability": 0.439,
-   "upset": "Rider leads; the model gave them 16% before tip-off"
+   "homeWinProbability": 0.224,
+   "upset": null
   },
   "375189": {
    "status": "in_progress",
-   "label": "1st 3:08",
+   "label": "1st 0:34",
    "period": 1,
-   "clock": "3:08",
-   "home": 48,
-   "away": 33,
+   "clock": "0:34",
+   "home": 53,
+   "away": 39,
    "possession": null,
-   "homeWinProbability": 0.955,
+   "homeWinProbability": 0.954,
    "upset": null
   },
   "372892": {
@@ -184,24 +184,68 @@
   },
   "372890": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 28,
-   "away": 35,
+   "label": "2nd 17:28",
+   "period": 2,
+   "clock": "17:28",
+   "home": 32,
+   "away": 38,
    "possession": null,
-   "homeWinProbability": 0.374,
-   "upset": null
+   "homeWinProbability": 0.388,
+   "upset": "Northern Illinois leads; the model gave them 21% before tip-off"
   },
   "375212": {
    "status": "in_progress",
-   "label": "2nd 18:34",
+   "label": "2nd 16:30",
    "period": 2,
-   "clock": "18:34",
-   "home": 29,
+   "clock": "16:30",
+   "home": 30,
    "away": 47,
    "possession": null,
    "homeWinProbability": 0.001,
+   "upset": null
+  },
+  "378082": {
+   "status": "in_progress",
+   "label": "1st 17:01",
+   "period": 1,
+   "clock": "17:01",
+   "home": 7,
+   "away": 4,
+   "possession": null,
+   "homeWinProbability": 0.481,
+   "upset": null
+  },
+  "375196": {
+   "status": "in_progress",
+   "label": "1st 17:04",
+   "period": 1,
+   "clock": "17:04",
+   "home": 3,
+   "away": 4,
+   "possession": null,
+   "homeWinProbability": 0.3,
+   "upset": null
+  },
+  "378693": {
+   "status": "in_progress",
+   "label": "1st 17:31",
+   "period": 1,
+   "clock": "17:31",
+   "home": 5,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.807,
+   "upset": null
+  },
+  "375201": {
+   "status": "in_progress",
+   "label": "1st 18:09",
+   "period": 1,
+   "clock": "18:09",
+   "home": 6,
+   "away": 2,
+   "possession": null,
+   "homeWinProbability": 0.842,
    "upset": null
   }
  }
