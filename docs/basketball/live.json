@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-20",
- "updated": "2026-11-21T05:13:52Z",
- "updatedLabel": "12:13 AM ET",
+ "updated": "2026-11-21T05:18:54Z",
+ "updatedLabel": "12:18 AM ET",
  "games": {
   "372877": {
    "status": "completed",
@@ -535,22 +535,22 @@
    "upset": null
   },
   "378692": {
-   "status": "in_progress",
-   "label": "OT",
+   "status": "completed",
+   "label": "Final/OT",
    "period": 3,
    "clock": "0:02",
    "home": 81,
    "away": 87,
    "possession": null,
-   "homeWinProbability": 0.098,
-   "upset": "Seton Hall leads; the model gave them 24% before tip-off"
+   "homeWinProbability": 0.0,
+   "upset": "Seton Hall won; the model gave them 24% before tip-off"
   },
   "375149": {
-   "status": "in_progress",
-   "label": "2nd 1:19",
-   "period": 2,
-   "clock": "1:19",
-   "home": 78,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 80,
    "away": 68,
    "possession": null,
    "homeWinProbability": 1.0,
@@ -558,13 +558,13 @@
   },
   "372874": {
    "status": "in_progress",
-   "label": "2nd 18:10",
+   "label": "2nd 17:15",
    "period": 2,
-   "clock": "18:10",
-   "home": 45,
+   "clock": "17:15",
+   "home": 52,
    "away": 39,
    "possession": null,
-   "homeWinProbability": 0.803,
+   "homeWinProbability": 0.967,
    "upset": null
   }
  }
