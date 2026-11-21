@@ -6,25 +6,25 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 641,
-      "accuracy": 0.7192,
-      "mae": 12.93,
-      "priced": 641,
-      "modelMaePriced": 12.93,
-      "marketMae": 11.77,
-      "marketAccuracy": 0.7457,
-      "modelAccuracyPriced": 0.7192,
-      "maeGap": 1.15,
-      "maeGapError": 0.36,
+      "games": 650,
+      "accuracy": 0.7154,
+      "mae": 12.9,
+      "priced": 650,
+      "modelMaePriced": 12.9,
+      "marketMae": 11.73,
+      "marketAccuracy": 0.7415,
+      "modelAccuracyPriced": 0.7154,
+      "maeGap": 1.17,
+      "maeGapError": 0.35,
       "slope": 0.85,
       "marketSlope": 1.01,
       "bets": {
-        "count": 326,
-        "wins": 152,
-        "losses": 167,
+        "count": 330,
+        "wins": 153,
+        "losses": 170,
         "pushes": 7,
-        "ats": 0.4765,
-        "units": -28.83,
+        "ats": 0.4737,
+        "units": -30.92,
         "clv": 0.83
       }
     },
@@ -141,13 +141,13 @@
       },
       {
         "week": 12,
-        "games": 12,
-        "accuracy": 0.5833,
-        "mae": 14.19,
-        "marketMae": 12.75,
-        "bets": 7,
-        "record": "3-4",
-        "units": -1.27
+        "games": 21,
+        "accuracy": 0.5238,
+        "mae": 12.69,
+        "marketMae": 10.98,
+        "bets": 11,
+        "record": "4-7",
+        "units": -3.36
       }
     ],
     "bets": [
@@ -4953,6 +4953,21 @@
       },
       {
         "week": 12,
+        "home": "Tulane",
+        "away": "North Texas",
+        "side": "home",
+        "team": "Tulane",
+        "predicted": -6.6,
+        "open": -13.5,
+        "close": -7.5,
+        "edge": 6.9,
+        "actual": 4,
+        "result": "win",
+        "units": 0.909,
+        "clv": 6.0
+      },
+      {
+        "week": 12,
         "home": "Michigan State",
         "away": "Oregon",
         "side": "away",
@@ -4965,6 +4980,36 @@
         "result": "win",
         "units": 0.909,
         "clv": 7.0
+      },
+      {
+        "week": 12,
+        "home": "Army",
+        "away": "East Carolina",
+        "side": "home",
+        "team": "Army",
+        "predicted": 9.9,
+        "open": 4.5,
+        "close": 4.5,
+        "edge": 5.4,
+        "actual": -4,
+        "result": "loss",
+        "units": -1.0,
+        "clv": 0.0
+      },
+      {
+        "week": 12,
+        "home": "Minnesota",
+        "away": "Northwestern",
+        "side": "away",
+        "team": "Northwestern",
+        "predicted": -8.0,
+        "open": -3.0,
+        "close": -3.0,
+        "edge": -5.0,
+        "actual": 3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -0.0
       },
       {
         "week": 12,
@@ -5010,6 +5055,21 @@
         "result": "win",
         "units": 0.909,
         "clv": 1.0
+      },
+      {
+        "week": 12,
+        "home": "Nebraska",
+        "away": "Ohio State",
+        "side": "away",
+        "team": "Ohio State",
+        "predicted": -9.4,
+        "open": -5.5,
+        "close": -3.5,
+        "edge": -3.9,
+        "actual": 3,
+        "result": "loss",
+        "units": -1.0,
+        "clv": -2.0
       },
       {
         "week": 12,
@@ -10859,7 +10919,10 @@
         "week": 12
       },
       {
+        "actual": 4,
         "away": "North Texas",
+        "close": -7.5,
+        "clv": -1.0,
         "edge": 6.9,
         "game_id": 401862835,
         "home": "Tulane",
@@ -10869,8 +10932,10 @@
         "neutral": false,
         "open": -13.5,
         "predicted": -6.6,
+        "result": "win",
         "side": "home",
         "taken": -6.5,
+        "units": 0.909,
         "week": 12
       },
       {
@@ -10924,7 +10989,10 @@
         "week": 12
       },
       {
+        "actual": -4,
         "away": "East Carolina",
+        "close": 4.5,
+        "clv": -1.0,
         "edge": 5.4,
         "game_id": 401862831,
         "home": "Army",
@@ -10934,8 +11002,10 @@
         "neutral": false,
         "open": 4.5,
         "predicted": 9.9,
+        "result": "loss",
         "side": "home",
         "taken": 5.5,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -10954,7 +11024,10 @@
         "week": 12
       },
       {
+        "actual": 3,
         "away": "Northwestern",
+        "close": -3.0,
+        "clv": -0.0,
         "edge": -5.0,
         "game_id": 401858530,
         "home": "Minnesota",
@@ -10964,8 +11037,10 @@
         "neutral": false,
         "open": -3.0,
         "predicted": -8.0,
+        "result": "loss",
         "side": "away",
         "taken": -3.0,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -11059,7 +11134,10 @@
         "week": 12
       },
       {
+        "actual": 3,
         "away": "Ohio State",
+        "close": -3.5,
+        "clv": 0.5,
         "edge": -3.9,
         "game_id": 401858531,
         "home": "Nebraska",
@@ -11069,8 +11147,10 @@
         "neutral": false,
         "open": -5.5,
         "predicted": -9.4,
+        "result": "loss",
         "side": "away",
         "taken": -3.0,
+        "units": -1.0,
         "week": 12
       },
       {
@@ -11176,12 +11256,12 @@
     ],
     "logged": 313,
     "earlier": 48,
-    "graded": 296,
-    "wins": 136,
-    "losses": 153,
+    "graded": 300,
+    "wins": 137,
+    "losses": 156,
     "pushes": 7,
-    "ats": 0.4706,
-    "units": -29.38,
-    "clv": 0.24
+    "ats": 0.4676,
+    "units": -31.47,
+    "clv": 0.23
   }
 }

@@ -2,13 +2,33 @@
   "season": 2026,
   "current": {
     "partial": true,
-    "gamesPlayed": 12,
+    "gamesPlayed": 22,
     "missingPregame": 0,
-    "games": 12,
-    "upsets": 5,
-    "expectedUpsets": 3.0229999999999997,
-    "z": -0.12743852011454537,
+    "games": 22,
+    "upsets": 10,
+    "expectedUpsets": 5.702,
+    "z": 0.7229864347682144,
     "shocks": [
+      {
+        "gameId": 401862831,
+        "winner": "East Carolina",
+        "loser": "Army",
+        "pregameWinProb": 0.274,
+        "winnerScore": 10,
+        "loserScore": 6,
+        "homeScore": 6,
+        "awayScore": 10
+      },
+      {
+        "gameId": 401858531,
+        "winner": "Nebraska",
+        "loser": "Ohio State",
+        "pregameWinProb": 0.284,
+        "winnerScore": 31,
+        "loserScore": 28,
+        "homeScore": 31,
+        "awayScore": 28
+      },
       {
         "gameId": 401858303,
         "winner": "Clemson",
@@ -18,26 +38,6 @@
         "loserScore": 10,
         "homeScore": 10,
         "awayScore": 20
-      },
-      {
-        "gameId": 401866467,
-        "winner": "Akron",
-        "loser": "UMass",
-        "pregameWinProb": 0.33599999999999997,
-        "winnerScore": 34,
-        "loserScore": 33,
-        "homeScore": 33,
-        "awayScore": 34
-      },
-      {
-        "gameId": 401862830,
-        "winner": "Rice",
-        "loser": "Temple",
-        "pregameWinProb": 0.361,
-        "winnerScore": 31,
-        "loserScore": 27,
-        "homeScore": 27,
-        "awayScore": 31
       }
     ]
   },
