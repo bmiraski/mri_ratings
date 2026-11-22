@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-21",
- "updated": "2026-11-22T01:08:29Z",
- "updatedLabel": "8:08 PM ET",
+ "updated": "2026-11-22T01:13:32Z",
+ "updatedLabel": "8:13 PM ET",
  "games": {
   "375188": {
    "status": "completed",
@@ -403,47 +403,47 @@
    "upset": null
   },
   "375211": {
-   "status": "in_progress",
-   "label": "2nd 0:08",
-   "period": 2,
-   "clock": "0:08",
-   "home": 77,
-   "away": 85,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 80,
+   "away": 89,
    "possession": null,
    "homeWinProbability": 0.0,
    "upset": null
   },
   "375213": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 39,
+   "label": "2nd 18:05",
+   "period": 2,
+   "clock": "18:05",
+   "home": 44,
    "away": 49,
    "possession": null,
-   "homeWinProbability": 0.211,
-   "upset": null
+   "homeWinProbability": 0.414,
+   "upset": "Radford leads; the model gave them 25% before tip-off"
   },
   "375194": {
    "status": "in_progress",
-   "label": "2nd 18:52",
+   "label": "2nd 16:26",
    "period": 2,
-   "clock": "18:52",
-   "home": 41,
-   "away": 31,
+   "clock": "16:26",
+   "home": 51,
+   "away": 35,
    "possession": null,
-   "homeWinProbability": 0.975,
+   "homeWinProbability": 0.998,
    "upset": null
   },
   "375198": {
    "status": "in_progress",
-   "label": "2nd 19:19",
+   "label": "2nd 16:04",
    "period": 2,
-   "clock": "19:19",
-   "home": 48,
-   "away": 41,
+   "clock": "16:04",
+   "home": 59,
+   "away": 52,
    "possession": null,
-   "homeWinProbability": 0.921,
+   "homeWinProbability": 0.928,
    "upset": null
   },
   "372885": {
@@ -470,25 +470,25 @@
   },
   "375192": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 34,
-   "away": 29,
+   "label": "2nd 16:56",
+   "period": 2,
+   "clock": "16:56",
+   "home": 41,
+   "away": 33,
    "possession": null,
-   "homeWinProbability": 0.396,
-   "upset": null
+   "homeWinProbability": 0.612,
+   "upset": "Villanova leads; the model gave them 10% before tip-off"
   },
   "372888": {
    "status": "in_progress",
-   "label": "2nd 18:47",
+   "label": "2nd 15:44",
    "period": 2,
-   "clock": "18:47",
-   "home": 35,
-   "away": 42,
+   "clock": "15:44",
+   "home": 46,
+   "away": 44,
    "possession": null,
-   "homeWinProbability": 0.327,
-   "upset": "Brown leads; the model gave them 24% before tip-off"
+   "homeWinProbability": 0.767,
+   "upset": null
   },
   "375214": {
    "status": "in_progress",
@@ -503,13 +503,35 @@
   },
   "375215": {
    "status": "in_progress",
-   "label": "1st 6:00",
+   "label": "1st 4:01",
    "period": 1,
-   "clock": "6:00",
-   "home": 34,
-   "away": 21,
+   "clock": "4:01",
+   "home": 40,
+   "away": 27,
    "possession": null,
-   "homeWinProbability": 0.97,
+   "homeWinProbability": 0.973,
+   "upset": null
+  },
+  "375181": {
+   "status": "in_progress",
+   "label": "1st 18:37",
+   "period": 1,
+   "clock": "18:37",
+   "home": 2,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.618,
+   "upset": null
+  },
+  "378084": {
+   "status": "in_progress",
+   "label": "1st 13:37",
+   "period": 1,
+   "clock": "13:37",
+   "home": 6,
+   "away": 15,
+   "possession": null,
+   "homeWinProbability": 0.268,
    "upset": null
   }
  }
