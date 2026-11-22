@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-21",
- "updated": "2026-11-22T01:03:25Z",
- "updatedLabel": "8:03 PM ET",
+ "updated": "2026-11-22T01:08:29Z",
+ "updatedLabel": "8:08 PM ET",
  "games": {
   "375188": {
    "status": "completed",
@@ -370,8 +370,8 @@
    "upset": "Stonehill won; the model gave them 22% before tip-off"
   },
   "378694": {
-   "status": "in_progress",
-   "label": "2nd 0:00",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
    "clock": "0:00",
    "home": 69,
@@ -392,22 +392,22 @@
    "upset": null
   },
   "372894": {
-   "status": "in_progress",
-   "label": "2nd 0:44",
-   "period": 2,
-   "clock": "0:44",
-   "home": 82,
-   "away": 59,
+   "status": "completed",
+   "label": "Final",
+   "period": null,
+   "clock": null,
+   "home": 84,
+   "away": 60,
    "possession": null,
    "homeWinProbability": 1.0,
    "upset": null
   },
   "375211": {
    "status": "in_progress",
-   "label": "2nd 0:52",
+   "label": "2nd 0:08",
    "period": 2,
-   "clock": "0:52",
-   "home": 75,
+   "clock": "0:08",
+   "home": 77,
    "away": 85,
    "possession": null,
    "homeWinProbability": 0.0,
@@ -426,24 +426,24 @@
   },
   "375194": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
+   "label": "2nd 18:52",
+   "period": 2,
+   "clock": "18:52",
    "home": 41,
    "away": 31,
    "possession": null,
-   "homeWinProbability": 0.974,
+   "homeWinProbability": 0.975,
    "upset": null
   },
   "375198": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "00:00",
-   "home": 46,
-   "away": 38,
+   "label": "2nd 19:19",
+   "period": 2,
+   "clock": "19:19",
+   "home": 48,
+   "away": 41,
    "possession": null,
-   "homeWinProbability": 0.938,
+   "homeWinProbability": 0.921,
    "upset": null
   },
   "372885": {
@@ -481,14 +481,14 @@
   },
   "372888": {
    "status": "in_progress",
-   "label": "Half",
-   "period": 1,
-   "clock": "0:00",
+   "label": "2nd 18:47",
+   "period": 2,
+   "clock": "18:47",
    "home": 35,
-   "away": 40,
+   "away": 42,
    "possession": null,
-   "homeWinProbability": 0.441,
-   "upset": null
+   "homeWinProbability": 0.327,
+   "upset": "Brown leads; the model gave them 24% before tip-off"
   },
   "375214": {
    "status": "in_progress",
@@ -503,13 +503,13 @@
   },
   "375215": {
    "status": "in_progress",
-   "label": "1st 8:02",
+   "label": "1st 6:00",
    "period": 1,
-   "clock": "8:02",
-   "home": 32,
+   "clock": "6:00",
+   "home": 34,
    "away": 21,
    "possession": null,
-   "homeWinProbability": 0.948,
+   "homeWinProbability": 0.97,
    "upset": null
   }
  }
