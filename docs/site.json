@@ -40925,7 +40925,7 @@
       }
     }
   },
-  "digest": "a0500523d6d54d0e",
+  "digest": "505acad8197ed087",
   "betting": {
     "seasons": [
       2014,
@@ -73721,6 +73721,79 @@
               "upsets": 20,
               "z": 0.0635712381491776
             },
+            "12": {
+              "expectedUpsets": 17.80144358223284,
+              "fallout": {
+                "gained": [
+                  {
+                    "change": 0.165,
+                    "team": "Wake Forest"
+                  },
+                  {
+                    "change": 0.1604,
+                    "team": "Tennessee"
+                  },
+                  {
+                    "change": 0.1568,
+                    "team": "Iowa"
+                  }
+                ],
+                "lost": [
+                  {
+                    "change": -0.3162,
+                    "team": "Ohio State"
+                  },
+                  {
+                    "change": -0.2242,
+                    "team": "Indiana"
+                  },
+                  {
+                    "change": -0.1579,
+                    "team": "Boise State"
+                  }
+                ],
+                "moved": 1.1274
+              },
+              "final": true,
+              "games": 70,
+              "missingPregame": 0,
+              "percentile": 64.82,
+              "reconstructed": false,
+              "shocks": [
+                {
+                  "awayScore": 25,
+                  "gameId": 401858532,
+                  "homeScore": 24,
+                  "loser": "Penn State",
+                  "loserScore": 24,
+                  "pregameWinProb": 0.0741397486310742,
+                  "winner": "Rutgers",
+                  "winnerScore": 25
+                },
+                {
+                  "awayScore": 22,
+                  "gameId": 401860925,
+                  "homeScore": 20,
+                  "loser": "Boise State",
+                  "loserScore": 20,
+                  "pregameWinProb": 0.10212256674993525,
+                  "winner": "San Diego State",
+                  "winnerScore": 22
+                },
+                {
+                  "awayScore": 28,
+                  "gameId": 401858304,
+                  "homeScore": 10,
+                  "loser": "Florida State",
+                  "loserScore": 10,
+                  "pregameWinProb": 0.23468211144686257,
+                  "winner": "NC State",
+                  "winnerScore": 28
+                }
+              ],
+              "upsets": 19,
+              "z": 0.28015342638063484
+            },
             "2": {
               "expectedUpsets": 12.937631957203852,
               "fallout": {
@@ -74304,79 +74377,6 @@
               ],
               "upsets": 12,
               "z": -0.2851514352063617
-            },
-            "12": {
-              "games": 70,
-              "upsets": 19,
-              "expectedUpsets": 17.80144358223284,
-              "z": 0.28015342638063484,
-              "shocks": [
-                {
-                  "gameId": 401858532,
-                  "winner": "Rutgers",
-                  "loser": "Penn State",
-                  "pregameWinProb": 0.0741397486310742,
-                  "winnerScore": 25,
-                  "loserScore": 24,
-                  "homeScore": 24,
-                  "awayScore": 25
-                },
-                {
-                  "gameId": 401860925,
-                  "winner": "San Diego State",
-                  "loser": "Boise State",
-                  "pregameWinProb": 0.10212256674993525,
-                  "winnerScore": 22,
-                  "loserScore": 20,
-                  "homeScore": 20,
-                  "awayScore": 22
-                },
-                {
-                  "gameId": 401858304,
-                  "winner": "NC State",
-                  "loser": "Florida State",
-                  "pregameWinProb": 0.23468211144686257,
-                  "winnerScore": 28,
-                  "loserScore": 10,
-                  "homeScore": 10,
-                  "awayScore": 28
-                }
-              ],
-              "missingPregame": 0,
-              "final": true,
-              "reconstructed": false,
-              "fallout": {
-                "moved": 1.1274,
-                "gained": [
-                  {
-                    "team": "Wake Forest",
-                    "change": 0.165
-                  },
-                  {
-                    "team": "Tennessee",
-                    "change": 0.1604
-                  },
-                  {
-                    "team": "Iowa",
-                    "change": 0.1568
-                  }
-                ],
-                "lost": [
-                  {
-                    "team": "Ohio State",
-                    "change": -0.3162
-                  },
-                  {
-                    "team": "Indiana",
-                    "change": -0.2242
-                  },
-                  {
-                    "team": "Boise State",
-                    "change": -0.1579
-                  }
-                ]
-              },
-              "percentile": 64.82
             }
           }
         }
