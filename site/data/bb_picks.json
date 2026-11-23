@@ -1282,7 +1282,12 @@
    "loggedAt": "2026-11-23T18:23:53Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Indiana State"
+   "team": "Indiana State",
+   "actual": -1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378096,
@@ -1294,7 +1299,12 @@
    "loggedAt": "2026-11-23T18:23:53Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Akron"
+   "team": "Akron",
+   "actual": 2.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   }
  ]
 }
