@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-22",
- "updated": "2026-11-23T01:03:23Z",
- "updatedLabel": "8:03 PM ET",
+ "updated": "2026-11-23T01:08:26Z",
+ "updatedLabel": "8:08 PM ET",
  "games": {
   "372897": {
    "status": "completed",
@@ -338,13 +338,13 @@
   },
   "378091": {
    "status": "in_progress",
-   "label": "2nd 1:43",
+   "label": "2nd 0:54",
    "period": 2,
-   "clock": "1:43",
-   "home": 83,
-   "away": 89,
+   "clock": "0:54",
+   "home": 87,
+   "away": 93,
    "possession": null,
-   "homeWinProbability": 0.006,
+   "homeWinProbability": 0.0,
    "upset": "Southern Miss leads; the model gave them 25% before tip-off"
   },
   "375223": {
@@ -371,13 +371,24 @@
   },
   "375238": {
    "status": "in_progress",
-   "label": "1st 8:54",
+   "label": "1st 4:52",
    "period": 1,
-   "clock": "8:54",
-   "home": 23,
-   "away": 18,
+   "clock": "4:52",
+   "home": 25,
+   "away": 28,
    "possession": null,
-   "homeWinProbability": 0.701,
+   "homeWinProbability": 0.362,
+   "upset": null
+  },
+  "378085": {
+   "status": "in_progress",
+   "label": "1st 17:09",
+   "period": 1,
+   "clock": "17:09",
+   "home": 8,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 1.0,
    "upset": null
   }
  }
