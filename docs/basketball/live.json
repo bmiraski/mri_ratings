@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-23",
- "updated": "2026-11-23T23:31:42Z",
- "updatedLabel": "6:31 PM ET",
+ "updated": "2026-11-23T23:36:43Z",
+ "updatedLabel": "6:36 PM ET",
  "games": {
   "378095": {
    "status": "completed",
@@ -151,25 +151,36 @@
   },
   "372910": {
    "status": "in_progress",
-   "label": "2nd 3:06",
+   "label": "2nd 1:34",
    "period": 2,
-   "clock": "3:06",
+   "clock": "1:34",
    "home": 71,
-   "away": 55,
+   "away": 60,
    "possession": null,
    "homeWinProbability": 1.0,
    "upset": null
   },
   "375258": {
    "status": "in_progress",
-   "label": "2nd 15:07",
+   "label": "2nd 12:54",
    "period": 2,
-   "clock": "15:07",
-   "home": 43,
-   "away": 45,
+   "clock": "12:54",
+   "home": 46,
+   "away": 48,
    "possession": null,
-   "homeWinProbability": 0.654,
+   "homeWinProbability": 0.626,
    "upset": "Washington leads; the model gave them 13% before tip-off"
+  },
+  "375247": {
+   "status": "in_progress",
+   "label": "1st 18:04",
+   "period": 1,
+   "clock": "18:04",
+   "home": 5,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.957,
+   "upset": null
   }
  }
 }
