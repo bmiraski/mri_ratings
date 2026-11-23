@@ -1127,7 +1127,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Utah Tech"
+   "team": "Utah Tech",
+   "actual": -1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 3.0
   },
   {
    "game_id": 378088,
@@ -1139,7 +1144,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Robert Morris"
+   "team": "Robert Morris",
+   "actual": -5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378695,
@@ -1151,7 +1161,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Stephen F. Austin"
+   "team": "Stephen F. Austin",
+   "actual": 2.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 1.0
   },
   {
    "game_id": 378090,
@@ -1163,7 +1178,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Richmond"
+   "team": "Richmond",
+   "actual": -4.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 3.0
   },
   {
    "game_id": 375240,
@@ -1175,7 +1195,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "home",
-   "team": "UC San Diego"
+   "team": "UC San Diego",
+   "actual": -26.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 3.0
   },
   {
    "game_id": 372897,
@@ -1187,7 +1212,12 @@
    "loggedAt": "2026-11-22T16:44:43Z",
    "strategy": "dog",
    "side": "home",
-   "team": "UIC"
+   "team": "UIC",
+   "actual": -11.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378086,
@@ -1199,7 +1229,72 @@
    "loggedAt": "2026-11-22T21:41:36Z",
    "strategy": "dog",
    "side": "away",
-   "team": "McNeese"
+   "team": "McNeese",
+   "actual": 26.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 2.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 375255,
+   "day": "2026-11-23",
+   "home": "Oregon State",
+   "away": "Tulsa",
+   "predicted": -0.9,
+   "taken": 5.5,
+   "loggedAt": "2026-11-23T18:23:53Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Tulsa"
+  },
+  {
+   "game_id": 372911,
+   "day": "2026-11-23",
+   "home": "Providence",
+   "away": "VCU",
+   "predicted": -3.6,
+   "taken": 1.5,
+   "loggedAt": "2026-11-23T18:23:53Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "VCU"
+  },
+  {
+   "game_id": 375257,
+   "day": "2026-11-23",
+   "home": "Georgia State",
+   "away": "Tulane",
+   "predicted": -1.3,
+   "taken": 1.5,
+   "loggedAt": "2026-11-23T18:23:53Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Tulane"
+  },
+  {
+   "game_id": 378698,
+   "day": "2026-11-23",
+   "home": "East Carolina",
+   "away": "Indiana State",
+   "predicted": -0.2,
+   "taken": 1.5,
+   "loggedAt": "2026-11-23T18:23:53Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Indiana State"
+  },
+  {
+   "game_id": 378096,
+   "day": "2026-11-23",
+   "home": "Wright State",
+   "away": "Akron",
+   "predicted": -0.2,
+   "taken": 1.5,
+   "loggedAt": "2026-11-23T18:23:53Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Akron"
   }
  ]
 }
