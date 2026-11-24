@@ -1246,7 +1246,12 @@
    "loggedAt": "2026-11-23T18:23:53Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Tulsa"
+   "team": "Tulsa",
+   "actual": 3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 5.5,
+   "clv": 0.0
   },
   {
    "game_id": 372911,
@@ -1258,7 +1263,12 @@
    "loggedAt": "2026-11-23T18:23:53Z",
    "strategy": "dog",
    "side": "away",
-   "team": "VCU"
+   "team": "VCU",
+   "actual": 6.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375257,
@@ -1270,7 +1280,12 @@
    "loggedAt": "2026-11-23T18:23:53Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Tulane"
+   "team": "Tulane",
+   "actual": 10.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 2.5,
+   "clv": -1.0
   },
   {
    "game_id": 378698,
@@ -1305,6 +1320,126 @@
    "units": -1.0,
    "close": 1.5,
    "clv": 0.0
+  },
+  {
+   "game_id": 375304,
+   "day": "2026-11-24",
+   "home": "Weber State",
+   "away": "Tarleton State",
+   "predicted": -4.7,
+   "taken": 1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Tarleton State"
+  },
+  {
+   "game_id": 378101,
+   "day": "2026-11-24",
+   "home": "Washington State",
+   "away": "Sam Houston",
+   "predicted": -1.1,
+   "taken": 4.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Sam Houston"
+  },
+  {
+   "game_id": 375278,
+   "day": "2026-11-24",
+   "home": "Kansas City",
+   "away": "Green Bay",
+   "predicted": -7.0,
+   "taken": 1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Green Bay"
+  },
+  {
+   "game_id": 375303,
+   "day": "2026-11-24",
+   "home": "Lamar",
+   "away": "Robert Morris",
+   "predicted": -0.2,
+   "taken": 3.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Robert Morris"
+  },
+  {
+   "game_id": 372917,
+   "day": "2026-11-24",
+   "home": "Army",
+   "away": "Air Force",
+   "predicted": 0.2,
+   "taken": -3.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Army"
+  },
+  {
+   "game_id": 378103,
+   "day": "2026-11-24",
+   "home": "St. Bonaventure",
+   "away": "Wright State",
+   "predicted": -4.8,
+   "taken": 1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Wright State"
+  },
+  {
+   "game_id": 378108,
+   "day": "2026-11-24",
+   "home": "Yale",
+   "away": "App State",
+   "predicted": 1.5,
+   "taken": -1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Yale"
+  },
+  {
+   "game_id": 375281,
+   "day": "2026-11-24",
+   "home": "Coastal Carolina",
+   "away": "Campbell",
+   "predicted": -1.4,
+   "taken": 1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Campbell"
+  },
+  {
+   "game_id": 372929,
+   "day": "2026-11-24",
+   "home": "Nevada",
+   "away": "Santa Clara",
+   "predicted": -0.4,
+   "taken": 1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Santa Clara"
+  },
+  {
+   "game_id": 378703,
+   "day": "2026-11-24",
+   "home": "BYU",
+   "away": "Ole Miss",
+   "predicted": 1.5,
+   "taken": -1.5,
+   "loggedAt": "2026-11-24T14:42:33Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "BYU"
   }
  ]
 }
