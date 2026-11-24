@@ -1391,7 +1391,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Wright State"
+   "team": "Wright State",
+   "actual": 2.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378108,
@@ -1440,6 +1445,18 @@
    "strategy": "dog",
    "side": "home",
    "team": "BYU"
+  },
+  {
+   "game_id": 375271,
+   "day": "2026-11-24",
+   "home": "Wofford",
+   "away": "Queens University",
+   "predicted": 0.9,
+   "taken": -1.5,
+   "loggedAt": "2026-11-24T19:46:50Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Wofford"
   }
  ]
 }
