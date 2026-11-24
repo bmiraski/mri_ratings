@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-24",
- "updated": "2026-11-24T21:00:13Z",
- "updatedLabel": "4:00 PM ET",
+ "updated": "2026-11-24T21:05:18Z",
+ "updatedLabel": "4:05 PM ET",
  "games": {
   "378103": {
    "status": "completed",
@@ -84,8 +84,8 @@
    "upset": "Rice won; the model gave them 24% before tip-off"
   },
   "375291": {
-   "status": "in_progress",
-   "label": "2nd 0:39",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
    "clock": "0:39",
    "home": 76,
@@ -96,24 +96,24 @@
   },
   "378703": {
    "status": "in_progress",
-   "label": "2nd 16:00",
+   "label": "2nd 15:14",
    "period": 2,
-   "clock": "16:00",
+   "clock": "15:14",
    "home": 40,
-   "away": 40,
+   "away": 43,
    "possession": null,
-   "homeWinProbability": 0.53,
-   "upset": null
+   "homeWinProbability": 0.356,
+   "upset": "#21 BYU trails unranked Ole Miss"
   },
   "378108": {
    "status": "in_progress",
-   "label": "1st 0:41",
-   "period": 1,
-   "clock": "0:41",
+   "label": "2nd 19:16",
+   "period": 2,
+   "clock": "19:16",
    "home": 21,
-   "away": 21,
+   "away": 24,
    "possession": null,
-   "homeWinProbability": 0.534,
+   "homeWinProbability": 0.378,
    "upset": null
   },
   "372926": {
@@ -151,13 +151,24 @@
   },
   "375293": {
    "status": "in_progress",
-   "label": "1st 15:37",
+   "label": "1st 14:24",
    "period": 1,
-   "clock": "15:37",
+   "clock": "14:24",
    "home": 14,
-   "away": 11,
+   "away": 14,
    "possession": null,
-   "homeWinProbability": 0.827,
+   "homeWinProbability": 0.739,
+   "upset": null
+  },
+  "378106": {
+   "status": "in_progress",
+   "label": "1st 16:49",
+   "period": 1,
+   "clock": "16:49",
+   "home": 0,
+   "away": 4,
+   "possession": null,
+   "homeWinProbability": 0.231,
    "upset": null
   }
  }
