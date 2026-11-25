@@ -1331,7 +1331,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Tarleton State"
+   "team": "Tarleton State",
+   "actual": 2.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378101,
@@ -1343,7 +1348,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Sam Houston"
+   "team": "Sam Houston",
+   "actual": 7.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 4.5,
+   "clv": 0.0
   },
   {
    "game_id": 375278,
@@ -1355,7 +1365,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Green Bay"
+   "team": "Green Bay",
+   "actual": -5.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375303,
@@ -1367,7 +1382,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Robert Morris"
+   "team": "Robert Morris",
+   "actual": 25.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 2.5,
+   "clv": 1.0
   },
   {
    "game_id": 372917,
@@ -1379,7 +1399,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Army"
+   "team": "Army",
+   "actual": -9.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 378103,
@@ -1408,7 +1433,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Yale"
+   "team": "Yale",
+   "actual": 7.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375281,
@@ -1420,7 +1450,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Campbell"
+   "team": "Campbell",
+   "actual": -4.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 372929,
@@ -1432,7 +1467,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Santa Clara"
+   "team": "Santa Clara",
+   "actual": 19.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378703,
@@ -1444,7 +1484,12 @@
    "loggedAt": "2026-11-24T14:42:33Z",
    "strategy": "dog",
    "side": "home",
-   "team": "BYU"
+   "team": "BYU",
+   "actual": -10.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375271,
@@ -1456,7 +1501,84 @@
    "loggedAt": "2026-11-24T19:46:50Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Wofford"
+   "team": "Wofford",
+   "actual": 9.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 375323,
+   "day": "2026-11-25",
+   "home": "SIU Edwardsville",
+   "away": "Northern Illinois",
+   "predicted": 1.7,
+   "taken": -3.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "SIU Edwardsville"
+  },
+  {
+   "game_id": 375336,
+   "day": "2026-11-25",
+   "home": "Southern Utah",
+   "away": "Long Beach State",
+   "predicted": 2.9,
+   "taken": -1.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Southern Utah"
+  },
+  {
+   "game_id": 375313,
+   "day": "2026-11-25",
+   "home": "UC Riverside",
+   "away": "Portland State",
+   "predicted": -0.3,
+   "taken": 2.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Portland State"
+  },
+  {
+   "game_id": 378716,
+   "day": "2026-11-25",
+   "home": "UTEP",
+   "away": "Eastern Michigan",
+   "predicted": -0.8,
+   "taken": 1.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Eastern Michigan"
+  },
+  {
+   "game_id": 378708,
+   "day": "2026-11-25",
+   "home": "North Dakota",
+   "away": "SE Louisiana",
+   "predicted": 1.3,
+   "taken": -1.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "North Dakota"
+  },
+  {
+   "game_id": 378715,
+   "day": "2026-11-25",
+   "home": "Charleston",
+   "away": "Kennesaw State",
+   "predicted": -1.0,
+   "taken": 1.5,
+   "loggedAt": "2026-11-25T14:48:20Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Kennesaw State"
   }
  ]
 }

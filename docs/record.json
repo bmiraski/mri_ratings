@@ -6,15 +6,15 @@
   },
   "reconstructed": {
     "summary": {
-      "games": 695,
-      "accuracy": 0.7223,
-      "mae": 12.82,
-      "priced": 695,
-      "modelMaePriced": 12.82,
-      "marketMae": 11.7,
-      "marketAccuracy": 0.7453,
-      "modelAccuracyPriced": 0.7223,
-      "maeGap": 1.12,
+      "games": 697,
+      "accuracy": 0.7217,
+      "mae": 12.81,
+      "priced": 697,
+      "modelMaePriced": 12.81,
+      "marketMae": 11.68,
+      "marketAccuracy": 0.7446,
+      "modelAccuracyPriced": 0.7217,
+      "maeGap": 1.13,
       "maeGapError": 0.33,
       "slope": 0.85,
       "marketSlope": 1.0,
@@ -148,6 +148,16 @@
         "bets": 23,
         "record": "12-11",
         "units": -0.09
+      },
+      {
+        "week": 13,
+        "games": 2,
+        "accuracy": 0.5,
+        "mae": 8.97,
+        "marketMae": 5.0,
+        "bets": 0,
+        "record": "0-0",
+        "units": 0
       }
     ],
     "bets": [

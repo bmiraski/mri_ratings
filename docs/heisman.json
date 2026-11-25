@@ -1,9 +1,9 @@
 {
   "season": 2026,
-  "week": 12,
+  "week": 13,
   "sims": 10000,
   "candidates": 65,
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "closed": false,
   "dates": {
     "ballotsDistributed": "2026-12-05",
@@ -18,9 +18,9 @@
       "team": "Miami (FL)",
       "position": "QB",
       "group": "QB",
-      "win": 0.492,
-      "finalist": 0.8703,
-      "change": 0.0279,
+      "win": 0.4511,
+      "finalist": 0.8439,
+      "change": -0.0409,
       "rankChange": 0,
       "line": {
         "passYds": 3324,
@@ -33,9 +33,9 @@
       "pace": 4030,
       "teamRank": 6,
       "teamRecord": "10\u20131",
-      "teamTop4": 0.575,
-      "winIfTop4": 0.5797610212497716,
-      "winIfNot": 0.3733920023010787
+      "teamTop4": 0.57,
+      "winIfTop4": 0.5326862222794853,
+      "winIfNot": 0.34309025259115083
     },
     {
       "rank": 2,
@@ -43,9 +43,9 @@
       "team": "Utah",
       "position": "QB",
       "group": "QB",
-      "win": 0.2122,
-      "finalist": 0.7075,
-      "change": 0.0471,
+      "win": 0.2228,
+      "finalist": 0.6887,
+      "change": 0.0106,
       "rankChange": 0,
       "line": {
         "passYds": 2535,
@@ -58,9 +58,9 @@
       "pace": 3710,
       "teamRank": 10,
       "teamRecord": "11\u20130",
-      "teamTop4": 0.564,
-      "winIfTop4": 0.26686472286174356,
-      "winIfNot": 0.14145731810915732
+      "teamTop4": 0.567,
+      "winIfTop4": 0.27028016926939014,
+      "winIfNot": 0.16067072827023307
     },
     {
       "rank": 3,
@@ -68,10 +68,10 @@
       "team": "Ohio State",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.0465,
-      "finalist": 0.4471,
-      "change": 0.0001,
-      "rankChange": 1,
+      "win": 0.0478,
+      "finalist": 0.4481,
+      "change": 0.0013,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -85,18 +85,43 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.046496141065170374
+      "winIfNot": 0.047797399666999515
     },
     {
       "rank": 4,
+      "player": "Giovanni Lopez",
+      "team": "Wake Forest",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.0462,
+      "finalist": 0.1412,
+      "change": 0.0128,
+      "rankChange": 2,
+      "line": {
+        "passYds": 2701,
+        "passTd": 21,
+        "rushYds": 370,
+        "rushTd": 10,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 3530,
+      "teamRank": 13,
+      "teamRecord": "10\u20131",
+      "teamTop4": 0.086,
+      "winIfTop4": 0.14541888659707125,
+      "winIfNot": 0.036949667293055266
+    },
+    {
+      "rank": 5,
       "player": "Drew Mestemaker",
       "team": "Oklahoma State",
       "position": "QB",
       "group": "QB",
-      "win": 0.041,
-      "finalist": 0.1998,
-      "change": null,
-      "rankChange": null,
+      "win": 0.04,
+      "finalist": 0.1701,
+      "change": -0.001,
+      "rankChange": -1,
       "line": {
         "passYds": 3533,
         "passTd": 30,
@@ -110,18 +135,18 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.041009457061819
+      "winIfNot": 0.03996633976983672
     },
     {
-      "rank": 5,
+      "rank": 6,
       "player": "Malachi Toney",
       "team": "Miami (FL)",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.038,
-      "finalist": 0.3392,
-      "change": -0.0029,
-      "rankChange": 0,
+      "win": 0.0383,
+      "finalist": 0.3051,
+      "change": 0.0003,
+      "rankChange": -1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -133,34 +158,9 @@
       "pace": 1250,
       "teamRank": 6,
       "teamRecord": "10\u20131",
-      "teamTop4": 0.575,
-      "winIfTop4": 0.049080711994752245,
-      "winIfNot": 0.022945832292024473
-    },
-    {
-      "rank": 6,
-      "player": "Giovanni Lopez",
-      "team": "Wake Forest",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.0334,
-      "finalist": 0.1334,
-      "change": 0.0112,
-      "rankChange": 3,
-      "line": {
-        "passYds": 2701,
-        "passTd": 21,
-        "rushYds": 370,
-        "rushTd": 10,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 3530,
-      "teamRank": 13,
-      "teamRecord": "10\u20131",
-      "teamTop4": 0.084,
-      "winIfTop4": 0.11997995981055012,
-      "winIfNot": 0.025396667853723486
+      "teamTop4": 0.57,
+      "winIfTop4": 0.04981406845879581,
+      "winIfNot": 0.02310323808500856
     },
     {
       "rank": 7,
@@ -168,10 +168,10 @@
       "team": "Arizona",
       "position": "QB",
       "group": "QB",
-      "win": 0.0246,
-      "finalist": 0.1288,
-      "change": 0.0016,
-      "rankChange": 1,
+      "win": 0.0288,
+      "finalist": 0.1325,
+      "change": 0.0042,
+      "rankChange": 0,
       "line": {
         "passYds": 3456,
         "passTd": 26,
@@ -185,7 +185,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.024614253478344977
+      "winIfNot": 0.028837744917705754
     },
     {
       "rank": 8,
@@ -193,10 +193,10 @@
       "team": "Duke",
       "position": "RB",
       "group": "RB",
-      "win": 0.0147,
-      "finalist": 0.1201,
-      "change": 0.0006,
-      "rankChange": 2,
+      "win": 0.0148,
+      "finalist": 0.1172,
+      "change": 0.0001,
+      "rankChange": 0,
       "line": {
         "passYds": 44,
         "passTd": 1,
@@ -210,43 +210,18 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.014718153267190254
+      "winIfNot": 0.014825698919645055
     },
     {
       "rank": 9,
-      "player": "Carlos Hernandez",
-      "team": "Wake Forest",
-      "position": "WR/TE",
-      "group": "REC",
-      "win": 0.013,
-      "finalist": 0.0801,
-      "change": 0.009,
-      "rankChange": 10,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 0,
-        "rushTd": 0,
-        "recYds": 1184,
-        "recTd": 8
-      },
-      "pace": 1350,
-      "teamRank": 13,
-      "teamRecord": "10\u20131",
-      "teamTop4": 0.084,
-      "winIfTop4": 0.058974453964820914,
-      "winIfNot": 0.008778191337488446
-    },
-    {
-      "rank": 10,
       "player": "Keelon Russell",
       "team": "Alabama",
       "position": "QB",
       "group": "QB",
-      "win": 0.0113,
-      "finalist": 0.0609,
-      "change": -0.0676,
-      "rankChange": -7,
+      "win": 0.0138,
+      "finalist": 0.0663,
+      "change": 0.0025,
+      "rankChange": 1,
       "line": {
         "passYds": 2480,
         "passTd": 21,
@@ -258,9 +233,34 @@
       "pace": 3050,
       "teamRank": 4,
       "teamRecord": "9\u20132",
-      "teamTop4": 0.555,
-      "winIfTop4": 0.017338866849248704,
-      "winIfNot": 0.0036612991315749023
+      "teamTop4": 0.559,
+      "winIfTop4": 0.021095466992015074,
+      "winIfNot": 0.004554436640377898
+    },
+    {
+      "rank": 10,
+      "player": "Carlos Hernandez",
+      "team": "Wake Forest",
+      "position": "WR/TE",
+      "group": "REC",
+      "win": 0.0134,
+      "finalist": 0.0823,
+      "change": 0.0004,
+      "rankChange": -1,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 0,
+        "rushTd": 0,
+        "recYds": 1184,
+        "recTd": 8
+      },
+      "pace": 1350,
+      "teamRank": 13,
+      "teamRecord": "10\u20131",
+      "teamTop4": 0.086,
+      "winIfTop4": 0.058210386258317835,
+      "winIfNot": 0.009254055192876488
     },
     {
       "rank": 11,
@@ -268,10 +268,10 @@
       "team": "Texas State",
       "position": "QB",
       "group": "QB",
-      "win": 0.011,
-      "finalist": 0.0379,
-      "change": null,
-      "rankChange": null,
+      "win": 0.0127,
+      "finalist": 0.0469,
+      "change": 0.0017,
+      "rankChange": 0,
       "line": {
         "passYds": 2624,
         "passTd": 23,
@@ -280,12 +280,12 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3720,
+      "pace": 3710,
       "teamRank": 41,
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.011002410210556248
+      "winIfNot": 0.012669933933278876
     },
     {
       "rank": 12,
@@ -293,10 +293,10 @@
       "team": "Indiana",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.0065,
-      "finalist": 0.0323,
-      "change": -0.0011,
-      "rankChange": -1,
+      "win": 0.0068,
+      "finalist": 0.0342,
+      "change": 0.0003,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -310,7 +310,7 @@
       "teamRecord": "9\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00652058351777877
+      "winIfNot": 0.0067693749737885115
     },
     {
       "rank": 13,
@@ -318,10 +318,10 @@
       "team": "Boise State",
       "position": "RB",
       "group": "RB",
-      "win": 0.0057,
-      "finalist": 0.0291,
-      "change": 0.0007,
-      "rankChange": 3,
+      "win": 0.0063,
+      "finalist": 0.0302,
+      "change": 0.0006,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -335,43 +335,18 @@
       "teamRecord": "9\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0057168559622977465
+      "winIfNot": 0.006349170421537536
     },
     {
       "rank": 14,
-      "player": "DeSean Bishop",
-      "team": "Tennessee",
-      "position": "RB",
-      "group": "RB",
-      "win": 0.005,
-      "finalist": 0.024,
-      "change": -0.0017,
-      "rankChange": -1,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 1215,
-        "rushTd": 13,
-        "recYds": 74,
-        "recTd": 0
-      },
-      "pace": 1420,
-      "teamRank": 8,
-      "teamRecord": "9\u20132",
-      "teamTop4": 0.07,
-      "winIfTop4": 0.01948718564877686,
-      "winIfNot": 0.00393396051193039
-    },
-    {
-      "rank": 15,
       "player": "Sam Leavitt",
       "team": "LSU",
       "position": "QB",
       "group": "QB",
-      "win": 0.0048,
-      "finalist": 0.022,
-      "change": -0.019,
-      "rankChange": -8,
+      "win": 0.0061,
+      "finalist": 0.0265,
+      "change": 0.0013,
+      "rankChange": 1,
       "line": {
         "passYds": 3017,
         "passTd": 20,
@@ -385,20 +360,18 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.004804721242796953
-    }
-  ],
-  "field": [
+      "winIfNot": 0.006096283046212552
+    },
     {
-      "rank": 16,
+      "rank": 15,
       "player": "Lincoln Kienholz",
       "team": "Louisville",
       "position": "QB",
       "group": "QB",
-      "win": 0.0041,
-      "finalist": 0.0146,
-      "change": -0.0014,
-      "rankChange": -1,
+      "win": 0.0055,
+      "finalist": 0.0181,
+      "change": 0.0014,
+      "rankChange": 1,
       "line": {
         "passYds": 2739,
         "passTd": 20,
@@ -412,7 +385,34 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.004066411332023748
+      "winIfNot": 0.00548792249185619
+    }
+  ],
+  "field": [
+    {
+      "rank": 16,
+      "player": "DeSean Bishop",
+      "team": "Tennessee",
+      "position": "RB",
+      "group": "RB",
+      "win": 0.0054,
+      "finalist": 0.0254,
+      "change": 0.0004,
+      "rankChange": -2,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 1215,
+        "rushTd": 13,
+        "recYds": 74,
+        "recTd": 0
+      },
+      "pace": 1420,
+      "teamRank": 8,
+      "teamRecord": "9\u20132",
+      "teamTop4": 0.072,
+      "winIfTop4": 0.021433321457571847,
+      "winIfNot": 0.004162762774244201
     },
     {
       "rank": 17,
@@ -420,10 +420,10 @@
       "team": "Utah",
       "position": "RB",
       "group": "RB",
-      "win": 0.004,
-      "finalist": 0.0194,
-      "change": -0.0026,
-      "rankChange": -3,
+      "win": 0.0043,
+      "finalist": 0.0217,
+      "change": 0.0003,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -435,9 +435,9 @@
       "pace": 1200,
       "teamRank": 10,
       "teamRecord": "11\u20130",
-      "teamTop4": 0.564,
-      "winIfTop4": 0.00535178786062908,
-      "winIfNot": 0.0022178118126095956
+      "teamTop4": 0.567,
+      "winIfTop4": 0.005794940264989687,
+      "winIfNot": 0.0023548091067775146
     },
     {
       "rank": 18,
@@ -445,10 +445,10 @@
       "team": "Notre Dame",
       "position": "QB",
       "group": "QB",
-      "win": 0.0039,
-      "finalist": 0.0175,
-      "change": 0.001,
-      "rankChange": 4,
+      "win": 0.0043,
+      "finalist": 0.0194,
+      "change": 0.0004,
+      "rankChange": 0,
       "line": {
         "passYds": 2697,
         "passTd": 24,
@@ -460,9 +460,9 @@
       "pace": 3000,
       "teamRank": 2,
       "teamRecord": "10\u20131",
-      "teamTop4": 0.169,
-      "winIfTop4": 0.006723074606069614,
-      "winIfNot": 0.0033059466024797438
+      "teamTop4": 0.168,
+      "winIfTop4": 0.007531099602621371,
+      "winIfNot": 0.0036088802706112327
     },
     {
       "rank": 19,
@@ -470,10 +470,10 @@
       "team": "Texas Tech",
       "position": "RB",
       "group": "RB",
-      "win": 0.0036,
-      "finalist": 0.0161,
-      "change": 0.0007,
-      "rankChange": 4,
+      "win": 0.0038,
+      "finalist": 0.0158,
+      "change": 0.0002,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -482,12 +482,12 @@
         "recYds": 212,
         "recTd": 0
       },
-      "pace": 1620,
+      "pace": 1610,
       "teamRank": 18,
       "teamRecord": "10\u20131",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0036300848821308428
+      "winIfNot": 0.003835305059299829
     },
     {
       "rank": 20,
@@ -495,10 +495,10 @@
       "team": "Ole Miss",
       "position": "QB",
       "group": "QB",
-      "win": 0.003,
-      "finalist": 0.0143,
-      "change": 0.0002,
-      "rankChange": 4,
+      "win": 0.0035,
+      "finalist": 0.0153,
+      "change": 0.0005,
+      "rankChange": 0,
       "line": {
         "passYds": 2853,
         "passTd": 24,
@@ -512,7 +512,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.003038451439628445
+      "winIfNot": 0.003490851805280916
     },
     {
       "rank": 21,
@@ -520,10 +520,10 @@
       "team": "Oklahoma State",
       "position": "RB",
       "group": "RB",
-      "win": 0.0026,
-      "finalist": 0.012,
-      "change": null,
-      "rankChange": null,
+      "win": 0.0027,
+      "finalist": 0.0123,
+      "change": 0.0001,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -537,7 +537,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.002585885619145081
+      "winIfNot": 0.0027251158201105534
     },
     {
       "rank": 22,
@@ -545,10 +545,10 @@
       "team": "SMU",
       "position": "QB",
       "group": "QB",
-      "win": 0.0017,
-      "finalist": 0.0076,
-      "change": -0.0056,
-      "rankChange": -10,
+      "win": 0.0022,
+      "finalist": 0.0091,
+      "change": 0.0005,
+      "rankChange": 0,
       "line": {
         "passYds": 3208,
         "passTd": 26,
@@ -562,7 +562,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0016849867044766097
+      "winIfNot": 0.002179835915974682
     },
     {
       "rank": 23,
@@ -570,10 +570,10 @@
       "team": "UCLA",
       "position": "RB",
       "group": "RB",
-      "win": 0.0016,
-      "finalist": 0.0071,
-      "change": -0.0027,
-      "rankChange": -5,
+      "win": 0.0018,
+      "finalist": 0.0077,
+      "change": 0.0002,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -582,73 +582,23 @@
         "recYds": 195,
         "recTd": 2
       },
-      "pace": 1220,
+      "pace": 1230,
       "teamRank": 15,
       "teamRecord": "10\u20131",
       "teamTop4": 0.006,
-      "winIfTop4": 0.007638321716367481,
-      "winIfNot": 0.0015912872291716557
+      "winIfTop4": 0.008846972619137949,
+      "winIfNot": 0.001715368670944022
     },
     {
       "rank": 24,
-      "player": "Jayden Maiava",
-      "team": "USC",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.0014,
-      "finalist": 0.0061,
-      "change": -0.0004,
-      "rankChange": 1,
-      "line": {
-        "passYds": 3073,
-        "passTd": 23,
-        "rushYds": -59,
-        "rushTd": 2,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 3250,
-      "teamRank": 17,
-      "teamRecord": "8\u20133",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.0013667379577515743
-    },
-    {
-      "rank": 25,
-      "player": "Braden Pegan",
-      "team": "Utah",
-      "position": "WR/TE",
-      "group": "REC",
-      "win": 0.0013,
-      "finalist": 0.0061,
-      "change": 0.0004,
-      "rankChange": 3,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 23,
-        "rushTd": 1,
-        "recYds": 718,
-        "recTd": 9
-      },
-      "pace": 860,
-      "teamRank": 10,
-      "teamRecord": "11\u20130",
-      "teamTop4": 0.564,
-      "winIfTop4": 0.0018021067688527698,
-      "winIfNot": 0.0007310566354821734
-    },
-    {
-      "rank": 26,
       "player": "Bear Bachmeier",
       "team": "BYU",
       "position": "QB",
       "group": "QB",
-      "win": 0.0012,
-      "finalist": 0.006,
-      "change": -0.0017,
-      "rankChange": -5,
+      "win": 0.0017,
+      "finalist": 0.0062,
+      "change": 0.0005,
+      "rankChange": 2,
       "line": {
         "passYds": 2299,
         "passTd": 14,
@@ -662,7 +612,57 @@
       "teamRecord": "9\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0012426877896380803
+      "winIfNot": 0.0017238626221062138
+    },
+    {
+      "rank": 25,
+      "player": "Jayden Maiava",
+      "team": "USC",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.0015,
+      "finalist": 0.0069,
+      "change": 0.0001,
+      "rankChange": -1,
+      "line": {
+        "passYds": 3073,
+        "passTd": 23,
+        "rushYds": -59,
+        "rushTd": 2,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 3250,
+      "teamRank": 17,
+      "teamRecord": "8\u20133",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.001505755275729183
+    },
+    {
+      "rank": 26,
+      "player": "Braden Pegan",
+      "team": "Utah",
+      "position": "WR/TE",
+      "group": "REC",
+      "win": 0.0015,
+      "finalist": 0.0064,
+      "change": 0.0002,
+      "rankChange": -1,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 23,
+        "rushTd": 1,
+        "recYds": 718,
+        "recTd": 9
+      },
+      "pace": 860,
+      "teamRank": 10,
+      "teamRecord": "11\u20130",
+      "teamTop4": 0.567,
+      "winIfTop4": 0.002024981426727724,
+      "winIfNot": 0.0007996231930577603
     },
     {
       "rank": 27,
@@ -670,10 +670,10 @@
       "team": "Miami (FL)",
       "position": "RB",
       "group": "RB",
-      "win": 0.0011,
-      "finalist": 0.005,
-      "change": null,
-      "rankChange": null,
+      "win": 0.0012,
+      "finalist": 0.0058,
+      "change": 0.0001,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -685,9 +685,9 @@
       "pace": 850,
       "teamRank": 6,
       "teamRecord": "10\u20131",
-      "teamTop4": 0.575,
-      "winIfTop4": 0.0013834982706727725,
-      "winIfNot": 0.0006243891573989113
+      "teamTop4": 0.57,
+      "winIfTop4": 0.0015096753560102994,
+      "winIfNot": 0.0006769996254203783
     },
     {
       "rank": 28,
@@ -695,10 +695,10 @@
       "team": "Notre Dame",
       "position": "RB",
       "group": "RB",
-      "win": 0.001,
-      "finalist": 0.0046,
-      "change": 0.0004,
-      "rankChange": 8,
+      "win": 0.0011,
+      "finalist": 0.0049,
+      "change": 0.0001,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -710,9 +710,9 @@
       "pace": 990,
       "teamRank": 2,
       "teamRecord": "10\u20131",
-      "teamTop4": 0.169,
-      "winIfTop4": 0.0017877379146056882,
-      "winIfNot": 0.0008827975246458395
+      "teamTop4": 0.168,
+      "winIfTop4": 0.001945754307314074,
+      "winIfNot": 0.000922629645323442
     },
     {
       "rank": 29,
@@ -720,10 +720,10 @@
       "team": "Illinois",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.0007,
-      "finalist": 0.0033,
+      "win": 0.0008,
+      "finalist": 0.0034,
       "change": 0.0001,
-      "rankChange": 6,
+      "rankChange": 1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -737,7 +737,7 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0007100220192340969
+      "winIfNot": 0.0007693619064024764
     },
     {
       "rank": 30,
@@ -745,10 +745,10 @@
       "team": "Houston",
       "position": "QB",
       "group": "QB",
-      "win": 0.0007,
-      "finalist": 0.0029,
-      "change": -0.0038,
-      "rankChange": -13,
+      "win": 0.0008,
+      "finalist": 0.0033,
+      "change": 0.0001,
+      "rankChange": 1,
       "line": {
         "passYds": 2551,
         "passTd": 25,
@@ -757,12 +757,12 @@
         "recYds": 0,
         "recTd": 0
       },
-      "pace": 3080,
+      "pace": 3090,
       "teamRank": 31,
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0006857966871275705
+      "winIfNot": 0.0007569951348533091
     },
     {
       "rank": 31,
@@ -771,9 +771,9 @@
       "position": "QB",
       "group": "QB",
       "win": 0.0007,
-      "finalist": 0.0029,
-      "change": 0.0001,
-      "rankChange": 2,
+      "finalist": 0.003,
+      "change": 0.0,
+      "rankChange": -2,
       "line": {
         "passYds": 2496,
         "passTd": 21,
@@ -787,43 +787,18 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0006749072566371033
+      "winIfNot": 0.0007457153994380531
     },
     {
       "rank": 32,
-      "player": "Jamal Roberts",
-      "team": "Missouri",
-      "position": "RB",
-      "group": "RB",
-      "win": 0.0006,
-      "finalist": 0.0029,
-      "change": -0.0002,
-      "rankChange": -3,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 1200,
-        "rushTd": 9,
-        "recYds": 126,
-        "recTd": 1
-      },
-      "pace": 1430,
-      "teamRank": 22,
-      "teamRecord": "7\u20134",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.0006359426805858843
-    },
-    {
-      "rank": 33,
       "player": "Rasean Jones",
       "team": "Boise State",
       "position": "WR/TE",
       "group": "REC",
-      "win": 0.0006,
-      "finalist": 0.0025,
+      "win": 0.0007,
+      "finalist": 0.0028,
       "change": 0.0001,
-      "rankChange": 5,
+      "rankChange": 1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -837,7 +812,32 @@
       "teamRecord": "9\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0005859811693223169
+      "winIfNot": 0.0006841712393049648
+    },
+    {
+      "rank": 33,
+      "player": "Jamal Roberts",
+      "team": "Missouri",
+      "position": "RB",
+      "group": "RB",
+      "win": 0.0007,
+      "finalist": 0.0026,
+      "change": 0.0001,
+      "rankChange": -1,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 1200,
+        "rushTd": 9,
+        "recYds": 126,
+        "recTd": 1
+      },
+      "pace": 1430,
+      "teamRank": 22,
+      "teamRecord": "7\u20134",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.0006703979059383651
     },
     {
       "rank": 34,
@@ -846,9 +846,9 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0006,
-      "finalist": 0.0021,
-      "change": null,
-      "rankChange": null,
+      "finalist": 0.0022,
+      "change": -0.0,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -862,18 +862,43 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0005507557860558039
+      "winIfNot": 0.0005856285680505924
     },
     {
       "rank": 35,
+      "player": "Dakorien Moore",
+      "team": "Oregon",
+      "position": "WR/TE",
+      "group": "REC",
+      "win": 0.0004,
+      "finalist": 0.0018,
+      "change": 0.0,
+      "rankChange": 2,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 5,
+        "rushTd": 0,
+        "recYds": 757,
+        "recTd": 9
+      },
+      "pace": 850,
+      "teamRank": 7,
+      "teamRecord": "8\u20133",
+      "teamTop4": 0.016,
+      "winIfTop4": 0.002106805625275454,
+      "winIfNot": 0.00039503831275537944
+    },
+    {
+      "rank": 36,
       "player": "Jadan Baugh",
       "team": "Florida",
       "position": "RB",
       "group": "RB",
       "win": 0.0004,
       "finalist": 0.0016,
-      "change": 0.0001,
-      "rankChange": 7,
+      "change": 0.0,
+      "rankChange": 3,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -887,68 +912,18 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00039647728074507124
-    },
-    {
-      "rank": 36,
-      "player": "Isaiah Mizell",
-      "team": "Arizona",
-      "position": "WR/TE",
-      "group": "REC",
-      "win": 0.0004,
-      "finalist": 0.0013,
-      "change": 0.0002,
-      "rankChange": 10,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 9,
-        "rushTd": 0,
-        "recYds": 990,
-        "recTd": 10
-      },
-      "pace": 1080,
-      "teamRank": 25,
-      "teamRecord": "8\u20133",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.0003803639639687278
+      "winIfNot": 0.00040770780620645597
     },
     {
       "rank": 37,
-      "player": "Dakorien Moore",
-      "team": "Oregon",
-      "position": "WR/TE",
-      "group": "REC",
-      "win": 0.0004,
-      "finalist": 0.0015,
-      "change": 0.0002,
-      "rankChange": 7,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 5,
-        "rushTd": 0,
-        "recYds": 757,
-        "recTd": 9
-      },
-      "pace": 850,
-      "teamRank": 7,
-      "teamRecord": "8\u20133",
-      "teamTop4": 0.017,
-      "winIfTop4": 0.0014275963774993692,
-      "winIfNot": 0.00035786264056975617
-    },
-    {
-      "rank": 38,
       "player": "Austin Simmons",
       "team": "Missouri",
       "position": "QB",
       "group": "QB",
       "win": 0.0004,
-      "finalist": 0.0013,
-      "change": 0.0001,
-      "rankChange": 3,
+      "finalist": 0.0017,
+      "change": 0.0,
+      "rankChange": -2,
       "line": {
         "passYds": 2676,
         "passTd": 25,
@@ -962,18 +937,68 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00036586416424755016
+      "winIfNot": 0.0004009096039924006
+    },
+    {
+      "rank": 38,
+      "player": "Isaiah Mizell",
+      "team": "Arizona",
+      "position": "WR/TE",
+      "group": "REC",
+      "win": 0.0004,
+      "finalist": 0.0014,
+      "change": -0.0,
+      "rankChange": 0,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 9,
+        "rushTd": 0,
+        "recYds": 990,
+        "recTd": 10
+      },
+      "pace": 1080,
+      "teamRank": 25,
+      "teamRecord": "8\u20133",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.00039548872880995357
     },
     {
       "rank": 39,
+      "player": "Nick Marsh",
+      "team": "Indiana",
+      "position": "WR/TE",
+      "group": "REC",
+      "win": 0.0004,
+      "finalist": 0.0015,
+      "change": -0.0,
+      "rankChange": 1,
+      "line": {
+        "passYds": 0,
+        "passTd": 0,
+        "rushYds": 0,
+        "rushTd": 0,
+        "recYds": 791,
+        "recTd": 9
+      },
+      "pace": 890,
+      "teamRank": 11,
+      "teamRecord": "9\u20132",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.0003915912342921349
+    },
+    {
+      "rank": 40,
       "player": "Tre Richardson",
       "team": "Louisville",
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0004,
-      "finalist": 0.0014,
-      "change": 0.0002,
-      "rankChange": 9,
+      "finalist": 0.0015,
+      "change": -0.0,
+      "rankChange": 1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -987,32 +1012,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00036219724381865144
-    },
-    {
-      "rank": 40,
-      "player": "Nick Marsh",
-      "team": "Indiana",
-      "position": "WR/TE",
-      "group": "REC",
-      "win": 0.0004,
-      "finalist": 0.0014,
-      "change": -0.0006,
-      "rankChange": -13,
-      "line": {
-        "passYds": 0,
-        "passTd": 0,
-        "rushYds": 0,
-        "rushTd": 0,
-        "recYds": 791,
-        "recTd": 9
-      },
-      "pace": 880,
-      "teamRank": 11,
-      "teamRecord": "9\u20132",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.0003521347018959508
+      "winIfNot": 0.0003842608938409162
     },
     {
       "rank": 41,
@@ -1022,8 +1022,8 @@
       "group": "RB",
       "win": 0.0004,
       "finalist": 0.0014,
-      "change": -0.0001,
-      "rankChange": -4,
+      "change": -0.0,
+      "rankChange": -5,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1037,18 +1037,43 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0003514897750238755
+      "winIfNot": 0.0003716998142870042
     },
     {
       "rank": 42,
+      "player": "Lanorris Sellers",
+      "team": "South Carolina",
+      "position": "QB",
+      "group": "QB",
+      "win": 0.0004,
+      "finalist": 0.0011,
+      "change": 0.0001,
+      "rankChange": 4,
+      "line": {
+        "passYds": 2187,
+        "passTd": 17,
+        "rushYds": 661,
+        "rushTd": 7,
+        "recYds": 0,
+        "recTd": 0
+      },
+      "pace": 3080,
+      "teamRank": 26,
+      "teamRecord": "6\u20135",
+      "teamTop4": 0.0,
+      "winIfTop4": null,
+      "winIfNot": 0.00035587269369149587
+    },
+    {
+      "rank": 43,
       "player": "Dierre Hill Jr.",
       "team": "Oregon",
       "position": "RB",
       "group": "RB",
-      "win": 0.0003,
-      "finalist": 0.0012,
+      "win": 0.0004,
+      "finalist": 0.0011,
       "change": 0.0001,
-      "rankChange": 3,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1060,34 +1085,9 @@
       "pace": 980,
       "teamRank": 7,
       "teamRecord": "8\u20133",
-      "teamTop4": 0.017,
-      "winIfTop4": 0.0011350905382818846,
-      "winIfNot": 0.0003162285873369043
-    },
-    {
-      "rank": 43,
-      "player": "Lanorris Sellers",
-      "team": "South Carolina",
-      "position": "QB",
-      "group": "QB",
-      "win": 0.0003,
-      "finalist": 0.0014,
-      "change": -0.0007,
-      "rankChange": -17,
-      "line": {
-        "passYds": 2187,
-        "passTd": 17,
-        "rushYds": 661,
-        "rushTd": 7,
-        "recYds": 0,
-        "recTd": 0
-      },
-      "pace": 3070,
-      "teamRank": 26,
-      "teamRecord": "6\u20135",
-      "teamTop4": 0.0,
-      "winIfTop4": null,
-      "winIfNot": 0.0003264183871088076
+      "teamTop4": 0.016,
+      "winIfTop4": 0.001358706318446308,
+      "winIfNot": 0.00033457742964384087
     },
     {
       "rank": 44,
@@ -1096,9 +1096,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0003,
-      "finalist": 0.0012,
-      "change": -0.0004,
-      "rankChange": -13,
+      "finalist": 0.0011,
+      "change": 0.0,
+      "rankChange": 1,
       "line": {
         "passYds": 41,
         "passTd": 1,
@@ -1112,7 +1112,7 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0003073211466333407
+      "winIfNot": 0.00032011515376937174
     },
     {
       "rank": 45,
@@ -1121,9 +1121,9 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0003,
-      "finalist": 0.0012,
-      "change": -0.0001,
-      "rankChange": -5,
+      "finalist": 0.0013,
+      "change": 0.0,
+      "rankChange": -1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1137,7 +1137,7 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0002956516731517496
+      "winIfNot": 0.00031358030621902436
     },
     {
       "rank": 46,
@@ -1147,8 +1147,8 @@
       "group": "QB",
       "win": 0.0003,
       "finalist": 0.0012,
-      "change": -0.0003,
-      "rankChange": -12,
+      "change": -0.0,
+      "rankChange": -4,
       "line": {
         "passYds": 2032,
         "passTd": 15,
@@ -1162,7 +1162,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0002662215097538848
+      "winIfNot": 0.00029265682060839436
     },
     {
       "rank": 47,
@@ -1172,8 +1172,8 @@
       "group": "QB",
       "win": 0.0002,
       "finalist": 0.001,
-      "change": -0.0005,
-      "rankChange": -17,
+      "change": 0.0,
+      "rankChange": 0,
       "line": {
         "passYds": 2515,
         "passTd": 14,
@@ -1187,7 +1187,7 @@
       "teamRecord": "5\u20136",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0002207462378293624
+      "winIfNot": 0.00024516007084659017
     },
     {
       "rank": 48,
@@ -1196,9 +1196,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0002,
-      "finalist": 0.0006,
-      "change": null,
-      "rankChange": null,
+      "finalist": 0.0009,
+      "change": 0.0,
+      "rankChange": 1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1212,7 +1212,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00019305911850734834
+      "winIfNot": 0.00020055827863439202
     },
     {
       "rank": 49,
@@ -1221,9 +1221,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0002,
-      "finalist": 0.0007,
-      "change": -0.0001,
-      "rankChange": -6,
+      "finalist": 0.0008,
+      "change": -0.0,
+      "rankChange": 1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1232,12 +1232,12 @@
         "recYds": 735,
         "recTd": 5
       },
-      "pace": 920,
+      "pace": 930,
       "teamRank": 19,
       "teamRecord": "9\u20132",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00017309916478024857
+      "winIfNot": 0.00018991654255047326
     },
     {
       "rank": 50,
@@ -1246,9 +1246,9 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0002,
-      "finalist": 0.0006,
-      "change": 0.0001,
-      "rankChange": 6,
+      "finalist": 0.0007,
+      "change": -0.0,
+      "rankChange": -2,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1262,7 +1262,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00016186665054597919
+      "winIfNot": 0.00016768805028257686
     },
     {
       "rank": 51,
@@ -1271,9 +1271,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0001,
-      "finalist": 0.0005,
+      "finalist": 0.0004,
       "change": 0.0,
-      "rankChange": -2,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1287,7 +1287,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00012704896027064826
+      "winIfNot": 0.00013175719852994054
     },
     {
       "rank": 52,
@@ -1296,9 +1296,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0001,
-      "finalist": 0.0004,
+      "finalist": 0.0006,
       "change": 0.0,
-      "rankChange": 0,
+      "rankChange": 2,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1312,7 +1312,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.0001195185486116066
+      "winIfNot": 0.00012953011403044675
     },
     {
       "rank": 53,
@@ -1323,7 +1323,7 @@
       "win": 0.0001,
       "finalist": 0.0004,
       "change": 0.0,
-      "rankChange": -3,
+      "rankChange": -1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1337,7 +1337,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00010962264325079502
+      "winIfNot": 0.000113108959335742
     },
     {
       "rank": 54,
@@ -1346,9 +1346,9 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0001,
-      "finalist": 0.0003,
-      "change": null,
-      "rankChange": null,
+      "finalist": 0.0005,
+      "change": 0.0,
+      "rankChange": 4,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1362,7 +1362,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 0.00010509988315033148
+      "winIfNot": 0.00011026861706765352
     },
     {
       "rank": 55,
@@ -1371,9 +1371,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0001,
-      "finalist": 0.0005,
-      "change": -0.0,
-      "rankChange": -2,
+      "finalist": 0.0004,
+      "change": 0.0,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1387,7 +1387,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 9.977945499935932e-05
+      "winIfNot": 0.00010612757669780077
     },
     {
       "rank": 56,
@@ -1396,8 +1396,8 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0001,
-      "finalist": 0.0004,
-      "change": -0.0,
+      "finalist": 0.0003,
+      "change": 0.0,
       "rankChange": 1,
       "line": {
         "passYds": 0,
@@ -1412,7 +1412,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 9.790547536165945e-05
+      "winIfNot": 0.00010452394202607656
     },
     {
       "rank": 57,
@@ -1421,9 +1421,9 @@
       "position": "RB",
       "group": "RB",
       "win": 0.0001,
-      "finalist": 0.0004,
-      "change": 0.0001,
-      "rankChange": 7,
+      "finalist": 0.0003,
+      "change": -0.0,
+      "rankChange": 2,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1437,7 +1437,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 8.630665190503509e-05
+      "winIfNot": 8.975578772867906e-05
     },
     {
       "rank": 58,
@@ -1447,8 +1447,8 @@
       "group": "REC",
       "win": 0.0001,
       "finalist": 0.0004,
-      "change": null,
-      "rankChange": null,
+      "change": -0.0,
+      "rankChange": 2,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1462,7 +1462,7 @@
       "teamRecord": "8\u20133",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 7.217029914035616e-05
+      "winIfNot": 7.78903823404846e-05
     },
     {
       "rank": 59,
@@ -1473,7 +1473,7 @@
       "win": 0.0001,
       "finalist": 0.0002,
       "change": -0.0,
-      "rankChange": -4,
+      "rankChange": -3,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1487,7 +1487,7 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 6.850661338212799e-05
+      "winIfNot": 7.085808395618572e-05
     },
     {
       "rank": 60,
@@ -1496,9 +1496,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0001,
-      "finalist": 0.0001,
-      "change": null,
-      "rankChange": null,
+      "finalist": 0.0002,
+      "change": -0.0,
+      "rankChange": 1,
       "line": {
         "passYds": 5,
         "passTd": 1,
@@ -1512,7 +1512,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 6.839522283707319e-05
+      "winIfNot": 7.071481048301166e-05
     },
     {
       "rank": 61,
@@ -1521,9 +1521,9 @@
       "position": "WR/TE",
       "group": "REC",
       "win": 0.0001,
-      "finalist": 0.0002,
+      "finalist": 0.0003,
       "change": -0.0,
-      "rankChange": -10,
+      "rankChange": -8,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1537,7 +1537,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 6.232111092236702e-05
+      "winIfNot": 6.630814433259887e-05
     },
     {
       "rank": 62,
@@ -1548,7 +1548,7 @@
       "win": 0.0,
       "finalist": 0.0003,
       "change": 0.0,
-      "rankChange": -2,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1562,7 +1562,7 @@
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 4.3723783804848006e-05
+      "winIfNot": 4.589611176534323e-05
     },
     {
       "rank": 63,
@@ -1572,8 +1572,8 @@
       "group": "REC",
       "win": 0.0,
       "finalist": 0.0001,
-      "change": -0.0001,
-      "rankChange": -9,
+      "change": 0.0,
+      "rankChange": 0,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1583,11 +1583,11 @@
         "recTd": 3
       },
       "pace": 970,
-      "teamRank": 33,
+      "teamRank": 32,
       "teamRecord": "6\u20135",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 2.7652803299894497e-05
+      "winIfNot": 3.0435361913784785e-05
     },
     {
       "rank": 64,
@@ -1612,7 +1612,7 @@
       "teamRecord": "7\u20134",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 2.182191585409843e-05
+      "winIfNot": 2.3751226089234005e-05
     },
     {
       "rank": 65,
@@ -1622,8 +1622,8 @@
       "group": "REC",
       "win": 0.0,
       "finalist": 0.0001,
-      "change": null,
-      "rankChange": null,
+      "change": 0.0,
+      "rankChange": -1,
       "line": {
         "passYds": 0,
         "passTd": 0,
@@ -1637,79 +1637,79 @@
       "teamRecord": "5\u20136",
       "teamTop4": 0.0,
       "winIfTop4": null,
-      "winIfNot": 1.7002931874629353e-05
+      "winIfNot": 1.849416722739148e-05
     }
   ],
-  "rest": 0.0403,
+  "rest": 0.0456,
   "byPosition": {
-    "QB": 0.848,
-    "RB": 0.042,
-    "WR/TE": 0.11
+    "QB": 0.843,
+    "RB": 0.045,
+    "WR/TE": 0.112
   },
   "byTeam": {
     "Miami (FL)": {
       "player": "Darian Mensah",
-      "win": 0.492,
+      "win": 0.4511,
       "position": "QB"
     },
     "Utah": {
       "player": "Devon Dampier",
-      "win": 0.2122,
+      "win": 0.2228,
       "position": "QB"
     },
     "Ohio State": {
       "player": "Jeremiah Smith",
-      "win": 0.0465,
+      "win": 0.0478,
       "position": "WR/TE"
-    },
-    "Oklahoma State": {
-      "player": "Drew Mestemaker",
-      "win": 0.041,
-      "position": "QB"
     },
     "Wake Forest": {
       "player": "Giovanni Lopez",
-      "win": 0.0334,
+      "win": 0.0462,
+      "position": "QB"
+    },
+    "Oklahoma State": {
+      "player": "Drew Mestemaker",
+      "win": 0.04,
       "position": "QB"
     },
     "Arizona": {
       "player": "Noah Fifita",
-      "win": 0.0246,
+      "win": 0.0288,
       "position": "QB"
     },
     "Duke": {
       "player": "Nate Sheppard",
-      "win": 0.0147,
+      "win": 0.0148,
       "position": "RB"
     },
     "Alabama": {
       "player": "Keelon Russell",
-      "win": 0.0113,
+      "win": 0.0138,
       "position": "QB"
     },
     "Texas State": {
       "player": "Brad Jackson",
-      "win": 0.011,
+      "win": 0.0127,
       "position": "QB"
     },
     "Indiana": {
       "player": "Charlie Becker",
-      "win": 0.0065,
+      "win": 0.0068,
       "position": "WR/TE"
     },
     "Boise State": {
       "player": "Dylan Riley",
-      "win": 0.0057,
-      "position": "RB"
-    },
-    "Tennessee": {
-      "player": "DeSean Bishop",
-      "win": 0.005,
+      "win": 0.0063,
       "position": "RB"
     },
     "LSU": {
       "player": "Sam Leavitt",
-      "win": 0.0048,
+      "win": 0.0061,
+      "position": "QB"
+    },
+    "Louisville": {
+      "player": "Lincoln Kienholz",
+      "win": 0.0055,
       "position": "QB"
     }
   },
@@ -1741,60 +1741,60 @@
       "player": "Darian Mensah",
       "team": "Miami (FL)",
       "position": "QB",
-      "finalist": 0.8703,
-      "win": 0.492
+      "finalist": 0.8439,
+      "win": 0.4511
     },
     {
       "player": "Devon Dampier",
       "team": "Utah",
       "position": "QB",
-      "finalist": 0.7075,
-      "win": 0.2122
+      "finalist": 0.6887,
+      "win": 0.2228
     },
     {
       "player": "Jeremiah Smith",
       "team": "Ohio State",
       "position": "WR/TE",
-      "finalist": 0.4471,
-      "win": 0.0465
+      "finalist": 0.4481,
+      "win": 0.0478
     },
     {
       "player": "Malachi Toney",
       "team": "Miami (FL)",
       "position": "WR/TE",
-      "finalist": 0.3392,
-      "win": 0.038
+      "finalist": 0.3051,
+      "win": 0.0383
     },
     {
       "player": "Drew Mestemaker",
       "team": "Oklahoma State",
       "position": "QB",
-      "finalist": 0.1998,
-      "win": 0.041
+      "finalist": 0.1701,
+      "win": 0.04
     },
     {
       "player": "Giovanni Lopez",
       "team": "Wake Forest",
       "position": "QB",
-      "finalist": 0.1334,
-      "win": 0.0334
+      "finalist": 0.1412,
+      "win": 0.0462
     },
     {
       "player": "Noah Fifita",
       "team": "Arizona",
       "position": "QB",
-      "finalist": 0.1288,
-      "win": 0.0246
+      "finalist": 0.1325,
+      "win": 0.0288
     },
     {
       "player": "Nate Sheppard",
       "team": "Duke",
       "position": "RB",
-      "finalist": 0.1201,
-      "win": 0.0147
+      "finalist": 0.1172,
+      "win": 0.0148
     }
   ],
-  "expectedFinalists": 3.41,
+  "expectedFinalists": 3.35,
   "defenders": {
     "seasons": 14,
     "count": 4,

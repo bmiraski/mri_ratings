@@ -46,17 +46,17 @@
       <img class="logo" src="../logos/b677f1644b5f.png" alt="" width="46" height="46" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(&#x27;span&#x27;),{className:&#x27;chip&#x27;,style:&#x27;background:#037961&#x27;}))">
       <div>
         <h1>Siena</h1>
-        <p class="teamsub">Metro &middot; 4&ndash;2
+        <p class="teamsub">Metro &middot; 5&ndash;2
         
         </p>
       </div>
     </div>
 
     <div class="stats">
-      <div class="stat"><span class="statl">Power</span><span class="statv">-2.9</span><span class="statn">#187 of 365</span></div>
-      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">+0.64</span><span class="statn">#112 &middot; wins above average</span></div>
+      <div class="stat"><span class="statl">Power</span><span class="statv">-2.3</span><span class="statn">#179 of 365</span></div>
+      <div class="stat"><span class="statl">R&eacute;sum&eacute;</span><span class="statv">+1.02</span><span class="statn">#87 &middot; wins above average</span></div>
       
-      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,31.0 L30.0,3.0 L60.0,9.7 L90.0,10.1" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="10.1" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
+      <div class="stat"><span class="statl">Trend</span><span class="statv sparkbig"><svg class="spark" width="90" height="34" viewBox="0 0 90 34" aria-hidden="true"><path d="M0.0,31.0 L30.0,4.0 L60.0,10.5 L90.0,3.0" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90.0" cy="3.0" r="3" fill="var(--primary)" stroke="var(--surface)" stroke-width="2"/></svg></span><span class="statn">rating by week</span></div>
     </div>
 
 
@@ -65,11 +65,11 @@
 
     <section class="build">
       <h2>How this rating is built</h2>
-      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 8). After 6 games, <em>w</em> is 43%, so the preseason prior is <strong>57%</strong> of this rating &mdash; mostly preseason, for now. Every game played shrinks that share.</p>
+      <p class="hint"><strong>Power</strong> = <em>w</em> &times; (average margin counted + average opponent rating) + (1 &minus; <em>w</em>) &times; preseason prior, where <em>w</em> = games &divide; (games + 8). After 7 games, <em>w</em> is 47%, so the preseason prior is <strong>53%</strong> of this rating &mdash; mostly preseason, for now. Every game played shrinks that share.</p>
       <div class="tablewrap"><table class="buildtable">
         <thead><tr><th>Part</th><th class="num">Value</th><th class="num">Weight</th><th class="num">Adds</th></tr></thead>
-        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">+2.1 avg</td><td class="num">&times; 43%</td><td class="num">+0.9</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">-1.6 avg</td><td class="num">&times; 43%</td><td class="num">-0.7</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-5.5</td><td class="num">&times; 57%</td><td class="num">-3.1</td></tr></tbody>
-        <tfoot><tr><td colspan="3">Power</td><td class="num">-2.9</td></tr></tfoot>
+        <tbody><tr><td title="A margin is counted after three adjustments: blowouts are compressed (a 56-point win is not worth 56), the result is put on the rating scale, and the home-field edge the model fitted is taken out. Hover a game's Adds below to see its numbers.">Margin counted</td><td class="num">+3.0 avg</td><td class="num">&times; 47%</td><td class="num">+1.4</td></tr><tr><td title="The plain average of the ratings of the opponents played &mdash; the same figure as Schedule faced above, including opponents outside the rated field.">Opponents faced</td><td class="num">-1.6 avg</td><td class="num">&times; 47%</td><td class="num">-0.7</td></tr><tr><td title="What the model expected before a game was played, put on the same scale as the ratings. It counts for less with every game.">Preseason prior</td><td class="num">-5.5</td><td class="num">&times; 53%</td><td class="num">-3.0</td></tr></tbody>
+        <tfoot><tr><td colspan="3">Power</td><td class="num">-2.3</td></tr></tfoot>
       </table></div>
       <p class="note">This explains how the model reached the number. The opponent ratings come out of
       the same fitted model, so it is not independent proof that the rating is right.</p>
@@ -87,55 +87,64 @@
         <td class="site">at</td>
         <td class="opp"><a href="bryant.html">Bryant</a></td>
         <td class="res"><span class="l">L</span> 75&ndash;80</td>
-        <td class="num">+7.1</td>
-        <td class="num perf under">-12.1</td>
-        <td class="num adds" title="Margin −5 counts as −0.5. Opponent rated −12.5. (−0.5 −12.5) ÷ (6 + 8) ≈ −0.93">-0.9</td>
+        <td class="num">+6.8</td>
+        <td class="num perf under">-11.8</td>
+        <td class="num adds" title="Margin −5 counts as −0.4. Opponent rated −11.7. (−0.4 −11.7) ÷ (7 + 8) ≈ −0.81">-0.8</td>
       </tr>
       <tr>
         <td class="wk">2</td>
         <td class="site">vs</td>
         <td class="opp"><a href="princeton.html">Princeton</a></td>
         <td class="res"><span class="w">W</span> 82&ndash;68</td>
-        <td class="num">+0.5</td>
-        <td class="num perf over">+13.5</td>
-        <td class="num adds" title="Margin +14 counts as +13.4. Opponent rated −1.0. (+13.4 −1.0) ÷ (6 + 8) ≈ +0.89">+0.9</td>
+        <td class="num">+1.2</td>
+        <td class="num perf over">+12.8</td>
+        <td class="num adds" title="Margin +14 counts as +13.3. Opponent rated −0.9. (+13.3 −0.9) ÷ (7 + 8) ≈ +0.83">+0.8</td>
       </tr>
       <tr>
         <td class="wk">3</td>
         <td class="site">at</td>
         <td class="opp"><a href="dayton.html">Dayton</a></td>
         <td class="res"><span class="w">W</span> 99&ndash;89</td>
-        <td class="num">-8.9</td>
-        <td class="num perf over">+18.9</td>
-        <td class="num adds" title="Margin +10 counts as +22.3. Opponent rated +3.5. (+22.3 +3.5) ÷ (6 + 8) ≈ +1.85">+1.8</td>
+        <td class="num">-8.4</td>
+        <td class="num perf over">+18.4</td>
+        <td class="num adds" title="Margin +10 counts as +22.4. Opponent rated +3.5. (+22.4 +3.5) ÷ (7 + 8) ≈ +1.72">+1.7</td>
       </tr>
       <tr>
         <td class="wk">3</td>
         <td class="site">vs</td>
         <td class="opp"><a href="brown.html">Brown</a></td>
         <td class="res"><span class="w">W</span> 79&ndash;74</td>
-        <td class="num">+7.2</td>
-        <td class="num perf under">-2.2</td>
-        <td class="num adds" title="Margin +5 counts as +0.5. Opponent rated −7.6. (+0.5 −7.6) ÷ (6 + 8) ≈ −0.51">-0.5</td>
+        <td class="num">+8.0</td>
+        <td class="num perf under">-3.0</td>
+        <td class="num adds" title="Margin +5 counts as +0.4. Opponent rated −7.7. (+0.4 −7.7) ÷ (7 + 8) ≈ −0.49">-0.5</td>
       </tr>
       <tr>
         <td class="wk">4</td>
         <td class="site">at</td>
         <td class="opp"><a href="st-john-s.html">St. John&#x27;s</a></td>
         <td class="res"><span class="l">L</span> 72&ndash;119</td>
-        <td class="num">-30.0</td>
-        <td class="num perf under">-17.0</td>
-        <td class="num adds" title="Margin −47 counts as −39.4. Opponent rated +24.6. (−39.4 +24.6) ÷ (6 + 8) ≈ −1.06">-1.1</td>
+        <td class="num">-29.6</td>
+        <td class="num perf under">-17.4</td>
+        <td class="num adds" title="Margin −47 counts as −39.3. Opponent rated +24.7. (−39.3 +24.7) ÷ (7 + 8) ≈ −0.97">-0.9</td>
       </tr>
       <tr>
         <td class="wk">4</td>
         <td class="site">at</td>
         <td class="opp"><a href="bucknell.html">Bucknell</a></td>
         <td class="res"><span class="w">W</span> 93&ndash;87</td>
-        <td class="num">+11.1</td>
-        <td class="num perf under">-5.1</td>
-        <td class="num adds" title="Margin +6 counts as +16.5. Opponent rated −16.5. (+16.5 −16.5) ÷ (6 + 8) ≈ −0.00">+0.0</td>
-      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (57% of the rating)</td><td class="num">-3.1</td></tr><tr><td colspan="6">Power</td><td class="num">-2.9</td></tr></tfoot>
+        <td class="num">+11.9</td>
+        <td class="num perf under">-5.9</td>
+        <td class="num adds" title="Margin +6 counts as +16.5. Opponent rated −16.8. (+16.5 −16.8) ÷ (7 + 8) ≈ −0.02">+0.0</td>
+      </tr>
+      <tr>
+        <td class="wk">5</td>
+        <td class="site">vs</td>
+        <td class="opp"><a href="vermont.html">Vermont</a></td>
+        <td class="res"><span class="w">W</span> 98&ndash;88</td>
+        <td class="num">+2.4</td>
+        <td class="num perf over">+7.6</td>
+        <td class="num adds" title="Margin +10 counts as +7.8. Opponent rated −2.1. (+7.8 −2.1) ÷ (7 + 8) ≈ +0.38">+0.4</td>
+      </tr></tbody><tfoot><tr><td colspan="6">Preseason prior (53% of the rating)</td><td class="num">-3.0</td></tr><tr><td colspan="6">Power</td><td class="num">-2.3</td></tr></tfoot>
       </table></div>
     </section>
 
@@ -147,59 +156,59 @@
         <tbody>
       <tr>
         <td class="wk">5</td>
-        <td class="site">vs</td>
-        <td class="opp"><a href="vermont.html">Vermont</a></td>
-        <td class="num">+1.1</td>
-        <td class="num">54%</td>
-      </tr>
-      <tr>
-        <td class="wk">5</td>
         <td class="site">at</td>
         <td class="opp"><a href="seton-hall.html">Seton Hall</a></td>
-        <td class="num">-18.5</td>
-        <td class="num">5%</td>
+        <td class="num">-19.1</td>
+        <td class="num">4%</td>
       </tr>
       <tr>
         <td class="wk">6</td>
         <td class="site">vs</td>
         <td class="opp"><a href="merrimack.html">Merrimack</a></td>
-        <td class="num">+6.5</td>
-        <td class="num">72%</td>
+        <td class="num">+7.2</td>
+        <td class="num">74%</td>
       </tr>
       <tr>
         <td class="wk">6</td>
         <td class="site">at</td>
         <td class="opp"><a href="quinnipiac.html">Quinnipiac</a></td>
-        <td class="num">+1.5</td>
-        <td class="num">55%</td>
+        <td class="num">+1.8</td>
+        <td class="num">57%</td>
       </tr>
       <tr>
         <td class="wk">7</td>
         <td class="site">vs</td>
         <td class="opp"><a href="st-bonaventure.html">St. Bonaventure</a></td>
-        <td class="num">-3.8</td>
-        <td class="num">37%</td>
+        <td class="num">-3.0</td>
+        <td class="num">39%</td>
       </tr>
       <tr>
         <td class="wk">7</td>
         <td class="site">at</td>
         <td class="opp"><a href="ualbany.html">UAlbany</a></td>
-        <td class="num">+9.8</td>
-        <td class="num">81%</td>
+        <td class="num">+10.2</td>
+        <td class="num">82%</td>
       </tr>
       <tr>
         <td class="wk">8</td>
         <td class="site">at</td>
         <td class="opp"><a href="monmouth.html">Monmouth</a></td>
-        <td class="num">-2.4</td>
-        <td class="num">41%</td>
+        <td class="num">-1.9</td>
+        <td class="num">43%</td>
       </tr>
       <tr>
         <td class="wk">8</td>
         <td class="site">at</td>
         <td class="opp"><a href="colgate.html">Colgate</a></td>
-        <td class="num">-2.5</td>
-        <td class="num">41%</td>
+        <td class="num">-1.9</td>
+        <td class="num">43%</td>
+      </tr>
+      <tr>
+        <td class="wk">10</td>
+        <td class="site">at</td>
+        <td class="opp"><a href="fairfield.html">Fairfield</a></td>
+        <td class="num">+3.0</td>
+        <td class="num">61%</td>
       </tr></tbody>
       </table></div>
     </section>
@@ -373,8 +382,8 @@
     run through 2019&ndash;20 and rebuilt from 2020&ndash;21. Game data from
     <a href="https://collegebasketballdata.com">CollegeBasketballData</a>.
     <a href="../method.html">Method: how the ratings work</a>.</p>
-    <p class="muted">Ratings last changed 2026-11-24 19:46 UTC
-    &middot; 1273 games rated &middot; home court 2.5 pts</p>
+    <p class="muted">Ratings last changed 2026-11-25 14:48 UTC
+    &middot; 1356 games rated &middot; home court 2.6 pts</p>
   </div>
 </footer>
 </body>

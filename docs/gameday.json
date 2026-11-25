@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "week": 12,
+  "week": 13,
   "sims": 4000,
   "announced": [
     {
@@ -148,34 +148,34 @@
           "probability": 0.5623,
           "rankHome": 1.4,
           "rankAway": 3.5,
-          "bothTop10": 1.0,
+          "bothTop10": 0.999,
           "bothUnbeaten": 0.0
         },
         {
           "kind": "championship",
           "conference": "Big 12",
-          "probability": 0.2819,
+          "probability": 0.2818,
           "rankHome": 4.7,
-          "rankAway": 12.1,
-          "bothTop10": 0.158,
+          "rankAway": 12.2,
+          "bothTop10": 0.165,
           "bothUnbeaten": 0.0
         },
         {
           "kind": "championship",
           "conference": "ACC",
-          "probability": 0.0759,
+          "probability": 0.0756,
           "rankHome": 6.7,
-          "rankAway": 12.3,
-          "bothTop10": 0.527,
+          "rankAway": 12.4,
+          "bothTop10": 0.511,
           "bothUnbeaten": 0.0
         },
         {
           "kind": "championship",
           "conference": "Big Ten",
-          "probability": 0.0249,
+          "probability": 0.0253,
           "rankHome": 9.6,
           "rankAway": 10.1,
-          "bothTop10": 0.493,
+          "bothTop10": 0.483,
           "bothUnbeaten": 0.0
         },
         {
@@ -183,7 +183,7 @@
           "conference": "Conference USA",
           "probability": 0.0006,
           "rankHome": 47.0,
-          "rankAway": 87.1,
+          "rankAway": 87.5,
           "bothTop10": 0.0,
           "bothUnbeaten": 0.0
         },
@@ -191,8 +191,8 @@
           "kind": "championship",
           "conference": "Mountain West",
           "probability": 0.0004,
-          "rankHome": 51.8,
-          "rankAway": 76.6,
+          "rankHome": 51.9,
+          "rankAway": 77.0,
           "bothTop10": 0.0,
           "bothUnbeaten": 0.0
         }
@@ -210,12 +210,12 @@
         "Wake Forest"
       ],
       "host": "Wake Forest",
-      "probability": 0.0244,
+      "probability": 0.0247,
       "rank": 6,
       "favourite": {
         "home": "UCLA",
         "away": "USC",
-        "probability": 0.3453
+        "probability": 0.3493
       }
     }
   ],
