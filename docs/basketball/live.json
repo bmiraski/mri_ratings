@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-26",
- "updated": "2026-11-26T19:03:17Z",
- "updatedLabel": "2:03 PM ET",
+ "updated": "2026-11-26T19:08:19Z",
+ "updatedLabel": "2:08 PM ET",
  "games": {
   "378718": {
    "status": "completed",
@@ -51,36 +51,47 @@
    "upset": null
   },
   "372949": {
-   "status": "in_progress",
-   "label": "2nd 0:18",
+   "status": "completed",
+   "label": "Final",
    "period": 2,
-   "clock": "0:18",
-   "home": 68,
+   "clock": "0:14",
+   "home": 70,
    "away": 63,
    "possession": null,
    "homeWinProbability": 1.0,
-   "upset": "Oklahoma leads; the model gave them 19% before tip-off"
+   "upset": "Oklahoma won; the model gave them 19% before tip-off"
   },
   "378710": {
    "status": "in_progress",
-   "label": "1st 1:49",
+   "label": "Half",
    "period": 1,
-   "clock": "1:49",
-   "home": 29,
-   "away": 32,
+   "clock": "00:00",
+   "home": 31,
+   "away": 34,
    "possession": null,
-   "homeWinProbability": 0.307,
+   "homeWinProbability": 0.304,
    "upset": null
   },
   "377906": {
    "status": "in_progress",
-   "label": "1st 15:03",
+   "label": "1st 12:17",
    "period": 1,
-   "clock": "15:03",
-   "home": 3,
-   "away": 3,
+   "clock": "12:17",
+   "home": 5,
+   "away": 8,
    "possession": null,
-   "homeWinProbability": 0.607,
+   "homeWinProbability": 0.483,
+   "upset": null
+  },
+  "375354": {
+   "status": "in_progress",
+   "label": "1st 19:53",
+   "period": 1,
+   "clock": "19:53",
+   "home": 0,
+   "away": 0,
+   "possession": null,
+   "homeWinProbability": 0.648,
    "upset": null
   }
  }
