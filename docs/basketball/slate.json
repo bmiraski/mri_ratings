@@ -1,1503 +1,9 @@
 {
   "bidStakes": true,
   "season": 2027,
-  "date": "2026-11-25",
-  "dateLabel": "Wednesday, November 25",
+  "date": "2026-11-26",
+  "dateLabel": "Thursday, November 26",
   "days": [
-    {
-      "date": "2026-11-25",
-      "label": "Wed, Nov 25",
-      "games": [
-        {
-          "id": 372936,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "12:49\u202fAM ET",
-          "sort": "0049",
-          "home": "Kansas State",
-          "away": "Gonzaga",
-          "neutral": true,
-          "conferences": [
-            "Big 12",
-            "Pac-12"
-          ],
-          "predicted": -20.8,
-          "homeWinProbability": 0.029,
-          "market": -15.5,
-          "open": -12.5,
-          "edge": -8.3,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Players Era Festival",
-            "region": null,
-            "round": null,
-            "label": "Players Era Festival",
-            "detail": null
-          }
-        },
-        {
-          "id": 372935,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "1:00\u202fAM ET",
-          "sort": "0100",
-          "home": "Colorado",
-          "away": "Stanford",
-          "neutral": true,
-          "conferences": [
-            "ACC",
-            "Big 12"
-          ],
-          "predicted": -2.4,
-          "homeWinProbability": 0.413,
-          "market": 3.5,
-          "open": -2.5,
-          "edge": 0.1,
-          "played": false,
-          "tracked": {
-            "dog": "Stanford"
-          },
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": null,
-            "label": "Acrisure Series",
-            "detail": null
-          }
-        },
-        {
-          "id": 378118,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "10:00\u202fAM ET",
-          "sort": "1000",
-          "home": "Belmont",
-          "away": "St. Bonaventure",
-          "neutral": true,
-          "conferences": [
-            "A-10",
-            "MVC"
-          ],
-          "predicted": -0.8,
-          "homeWinProbability": 0.47,
-          "market": -4.5,
-          "open": -3.5,
-          "edge": 2.7,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "ESPN Events Invitational",
-            "region": null,
-            "round": "Adventure Bracket",
-            "label": "ESPN Events Invitational \u00b7 Adventure Bracket",
-            "detail": "Adventure Bracket"
-          }
-        },
-        {
-          "id": 375334,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "11:00\u202fAM ET",
-          "sort": "1100",
-          "home": "Charlotte",
-          "away": "Northern Iowa",
-          "neutral": true,
-          "conferences": [
-            "American",
-            "MVC"
-          ],
-          "predicted": 3.7,
-          "homeWinProbability": 0.632,
-          "market": 8.5,
-          "open": 7.5,
-          "edge": -3.8,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Fort Myers Tip-Off",
-            "region": null,
-            "round": "Palms Division",
-            "label": "Fort Myers Tip-Off \u00b7 Palms Division",
-            "detail": "Palms Division"
-          }
-        },
-        {
-          "id": 378119,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "11:00\u202fAM ET",
-          "sort": "1100",
-          "home": "Ohio",
-          "away": "Rice",
-          "neutral": true,
-          "conferences": [
-            "American",
-            "MAC"
-          ],
-          "predicted": 1.8,
-          "homeWinProbability": 0.567,
-          "market": 3.5,
-          "open": 5.5,
-          "edge": -3.7,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Jacksonville Classic",
-            "region": null,
-            "round": null,
-            "label": "Jacksonville Classic",
-            "detail": null
-          }
-        },
-        {
-          "id": 375335,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "12:00\u202fPM ET",
-          "sort": "1200",
-          "home": "Virginia",
-          "away": "Marquette",
-          "neutral": true,
-          "conferences": [
-            "ACC",
-            "Big East"
-          ],
-          "predicted": 5.7,
-          "homeWinProbability": 0.698,
-          "market": 5.5,
-          "open": 4.5,
-          "edge": 1.2,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Battle 4 Atlantis",
-            "region": null,
-            "round": null,
-            "label": "Battle 4 Atlantis",
-            "detail": null
-          }
-        },
-        {
-          "id": 378707,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "12:30\u202fPM ET",
-          "sort": "1230",
-          "home": "Detroit Mercy",
-          "away": "Northern Colorado",
-          "neutral": true,
-          "conferences": [
-            "Big Sky",
-            "Horizon"
-          ],
-          "predicted": -7.0,
-          "homeWinProbability": 0.263,
-          "market": -4.5,
-          "open": -5.5,
-          "edge": -1.5,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Cancun Challenge",
-            "region": null,
-            "round": "Consolation",
-            "label": "Cancun Challenge \u00b7 Consolation",
-            "detail": "Consolation"
-          }
-        },
-        {
-          "id": 378120,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "12:31\u202fPM ET",
-          "sort": "1231",
-          "home": "Wright State",
-          "away": "Yale",
-          "neutral": true,
-          "conferences": [
-            "Horizon",
-            "Ivy"
-          ],
-          "predicted": 6.0,
-          "homeWinProbability": 0.709,
-          "market": 3.5,
-          "open": 7.5,
-          "edge": -1.5,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "ESPN Events Invitational",
-            "region": null,
-            "round": "Adventure Bracket",
-            "label": "ESPN Events Invitational \u00b7 Adventure Bracket",
-            "detail": "Adventure Bracket"
-          }
-        },
-        {
-          "id": 372941,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "1:00\u202fPM ET",
-          "sort": "1300",
-          "home": "Miami (OH)",
-          "away": "Eastern Kentucky",
-          "neutral": false,
-          "conferences": [
-            "MAC",
-            "UAC"
-          ],
-          "predicted": 15.7,
-          "homeWinProbability": 0.923,
-          "market": 14.5,
-          "open": 15.5,
-          "edge": 0.2,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378121,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "1:00\u202fPM ET",
-          "sort": "1300",
-          "home": "Stony Brook",
-          "away": "Lindenwood",
-          "neutral": false,
-          "conferences": [
-            "CAA",
-            "OVC"
-          ],
-          "predicted": 9.3,
-          "homeWinProbability": 0.801,
-          "market": 12.5,
-          "open": 10.5,
-          "edge": -1.2,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375336,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "1:00\u202fPM ET",
-          "sort": "1300",
-          "home": "Southern Utah",
-          "away": "Long Beach State",
-          "neutral": true,
-          "conferences": [
-            "Big Sky",
-            "Big West"
-          ],
-          "predicted": 2.9,
-          "homeWinProbability": 0.603,
-          "market": 1.5,
-          "open": -1.5,
-          "edge": 4.4,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375337,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "1:30\u202fPM ET",
-          "sort": "1330",
-          "home": "Davidson",
-          "away": "Tulane",
-          "neutral": true,
-          "conferences": [
-            "A-10",
-            "American"
-          ],
-          "predicted": 10.1,
-          "homeWinProbability": 0.82,
-          "market": 9.5,
-          "open": 8.5,
-          "edge": 1.6,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Fort Myers Tip-Off",
-            "region": null,
-            "round": "Palms Division",
-            "label": "Fort Myers Tip-Off \u00b7 Palms Division",
-            "detail": "Palms Division"
-          }
-        },
-        {
-          "id": 375340,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:00\u202fPM ET",
-          "sort": "1400",
-          "home": "LSU",
-          "away": "Arizona State",
-          "neutral": true,
-          "conferences": [
-            "Big 12",
-            "SEC"
-          ],
-          "predicted": 3.7,
-          "homeWinProbability": 0.633,
-          "market": 3.5,
-          "open": 4.5,
-          "edge": -0.8,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": null,
-            "label": "Acrisure Series",
-            "detail": null
-          }
-        },
-        {
-          "id": 375339,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:00\u202fPM ET",
-          "sort": "1400",
-          "home": "Columbia",
-          "away": "Saint Peter's",
-          "neutral": false,
-          "conferences": [
-            "Ivy",
-            "Metro"
-          ],
-          "predicted": 20.1,
-          "homeWinProbability": 0.966,
-          "market": 12.5,
-          "open": 15.5,
-          "edge": 4.6,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375332,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:00\u202fPM ET",
-          "sort": "1400",
-          "home": "South Dakota State",
-          "away": "Abilene Christian",
-          "neutral": false,
-          "conferences": [
-            "Summit",
-            "UAC"
-          ],
-          "predicted": 13.5,
-          "homeWinProbability": 0.89,
-          "market": 7.5,
-          "open": 7.5,
-          "edge": 6.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378116,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:00\u202fPM ET",
-          "sort": "1400",
-          "home": "South Dakota",
-          "away": "Arkansas-Pine Bluff",
-          "neutral": false,
-          "conferences": [
-            "SWAC",
-            "Summit"
-          ],
-          "predicted": 13.4,
-          "homeWinProbability": 0.888,
-          "market": 21.5,
-          "open": 19.5,
-          "edge": -6.1,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375324,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:00\u202fPM ET",
-          "sort": "1400",
-          "home": "NJIT",
-          "away": "Manhattan",
-          "neutral": false,
-          "conferences": [
-            "Am. East",
-            "Metro"
-          ],
-          "predicted": 2.9,
-          "homeWinProbability": 0.605,
-          "market": 1.5,
-          "open": 1.5,
-          "edge": 1.4,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378709,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:30\u202fPM ET",
-          "sort": "1430",
-          "home": "Arizona",
-          "away": "Ole Miss",
-          "neutral": true,
-          "conferences": [
-            "Big 12",
-            "SEC"
-          ],
-          "predicted": 6.5,
-          "homeWinProbability": 0.722,
-          "market": 5.5,
-          "open": 5.5,
-          "edge": 1.0,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Southwest Maui Invitational",
-            "region": null,
-            "round": "Championship",
-            "label": "Southwest Maui Invitational \u00b7 Championship",
-            "detail": "Championship"
-          }
-        },
-        {
-          "id": 375341,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "2:30\u202fPM ET",
-          "sort": "1430",
-          "home": "Texas A&M",
-          "away": "Xavier",
-          "neutral": true,
-          "conferences": [
-            "Big East",
-            "SEC"
-          ],
-          "predicted": 7.9,
-          "homeWinProbability": 0.764,
-          "market": 3.5,
-          "open": 5.5,
-          "edge": 2.4,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Battle 4 Atlantis",
-            "region": null,
-            "round": null,
-            "label": "Battle 4 Atlantis",
-            "detail": null
-          }
-        },
-        {
-          "id": 375330,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "3:00\u202fPM ET",
-          "sort": "1500",
-          "home": "Oklahoma State",
-          "away": "Jackson State",
-          "neutral": false,
-          "conferences": [
-            "Big 12",
-            "SWAC"
-          ],
-          "predicted": 31.5,
-          "homeWinProbability": 0.998,
-          "market": 35.5,
-          "open": 35.5,
-          "edge": -4.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378123,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "3:00\u202fPM ET",
-          "sort": "1500",
-          "home": "App State",
-          "away": "Akron",
-          "neutral": true,
-          "conferences": [
-            "MAC",
-            "Sun Belt"
-          ],
-          "predicted": -10.1,
-          "homeWinProbability": 0.178,
-          "market": -5.5,
-          "open": -5.5,
-          "edge": -4.6,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "ESPN Events Invitational",
-            "region": null,
-            "round": "Adventure Bracket",
-            "label": "ESPN Events Invitational \u00b7 Adventure Bracket",
-            "detail": "Adventure Bracket"
-          }
-        },
-        {
-          "id": 378708,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "3:00\u202fPM ET",
-          "sort": "1500",
-          "home": "North Dakota",
-          "away": "SE Louisiana",
-          "neutral": true,
-          "conferences": [
-            "Southland",
-            "Summit"
-          ],
-          "predicted": 1.3,
-          "homeWinProbability": 0.548,
-          "market": -1.5,
-          "open": -1.5,
-          "edge": 2.8,
-          "played": false,
-          "tracked": {
-            "dog": "North Dakota"
-          },
-          "event": {
-            "kind": "event",
-            "name": "Cancun Challenge",
-            "region": null,
-            "round": "Championship",
-            "label": "Cancun Challenge \u00b7 Championship",
-            "detail": "Championship"
-          }
-        },
-        {
-          "id": 378117,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "3:30\u202fPM ET",
-          "sort": "1530",
-          "home": "Florida International",
-          "away": "Arkansas State",
-          "neutral": false,
-          "conferences": [
-            "CUSA",
-            "Sun Belt"
-          ],
-          "predicted": 0.9,
-          "homeWinProbability": 0.532,
-          "market": 1.5,
-          "open": -1.5,
-          "edge": 2.4,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Florida International MTE",
-            "region": null,
-            "round": null,
-            "label": "Florida International MTE",
-            "detail": null
-          }
-        },
-        {
-          "id": 375318,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "4:00\u202fPM ET",
-          "sort": "1600",
-          "home": "Princeton",
-          "away": "Liberty",
-          "neutral": true,
-          "conferences": [
-            "CUSA",
-            "Ivy"
-          ],
-          "predicted": -2.9,
-          "homeWinProbability": 0.395,
-          "market": -3.5,
-          "open": -2.5,
-          "edge": -0.4,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Seahawk Classic",
-            "region": null,
-            "round": null,
-            "label": "Seahawk Classic",
-            "detail": null
-          }
-        },
-        {
-          "id": 375325,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "4:00\u202fPM ET",
-          "sort": "1600",
-          "home": "Marshall",
-          "away": "Prairie View A&M",
-          "neutral": false,
-          "conferences": [
-            "SWAC",
-            "Sun Belt"
-          ],
-          "predicted": 14.9,
-          "homeWinProbability": 0.912,
-          "market": 14.5,
-          "open": 17.5,
-          "edge": -2.6,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375342,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "4:00\u202fPM ET",
-          "sort": "1600",
-          "home": "Florida Gulf Coast",
-          "away": "Georgia State",
-          "neutral": true,
-          "conferences": [
-            "ASUN",
-            "Sun Belt"
-          ],
-          "predicted": -1.3,
-          "homeWinProbability": 0.454,
-          "market": -1.5,
-          "open": -2.5,
-          "edge": 1.2,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Fort Myers Tip-Off",
-            "region": null,
-            "round": "Palms Division",
-            "label": "Fort Myers Tip-Off \u00b7 Palms Division",
-            "detail": "Palms Division"
-          }
-        },
-        {
-          "id": 375316,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "4:00\u202fPM ET",
-          "sort": "1600",
-          "home": "New Orleans",
-          "away": "Grambling",
-          "neutral": false,
-          "conferences": [
-            "SWAC",
-            "Southland"
-          ],
-          "predicted": 5.1,
-          "homeWinProbability": 0.68,
-          "market": 3.5,
-          "open": 4.5,
-          "edge": 0.6,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375344,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "4:30\u202fPM ET",
-          "sort": "1630",
-          "home": "South Carolina",
-          "away": "USC",
-          "neutral": true,
-          "conferences": [
-            "Big Ten",
-            "SEC"
-          ],
-          "predicted": -14.4,
-          "homeWinProbability": 0.095,
-          "market": -10.5,
-          "open": -10.5,
-          "edge": -3.9,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": null,
-            "label": "Acrisure Series",
-            "detail": null
-          }
-        },
-        {
-          "id": 375311,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "5:00\u202fPM ET",
-          "sort": "1700",
-          "home": "Nebraska",
-          "away": "Southern",
-          "neutral": false,
-          "conferences": [
-            "Big Ten",
-            "SWAC"
-          ],
-          "predicted": 36.2,
-          "homeWinProbability": 1.0,
-          "market": 34.5,
-          "open": 35.5,
-          "edge": 0.7,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375346,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "5:00\u202fPM ET",
-          "sort": "1700",
-          "home": "Penn State",
-          "away": "Memphis",
-          "neutral": true,
-          "conferences": [
-            "American",
-            "Big Ten"
-          ],
-          "predicted": -6.8,
-          "homeWinProbability": 0.268,
-          "market": -4.5,
-          "open": -4.5,
-          "edge": -2.3,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Battle 4 Atlantis",
-            "region": null,
-            "round": null,
-            "label": "Battle 4 Atlantis",
-            "detail": null
-          }
-        },
-        {
-          "id": 375313,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "5:00\u202fPM ET",
-          "sort": "1700",
-          "home": "UC Riverside",
-          "away": "Portland State",
-          "neutral": false,
-          "conferences": [
-            "Big Sky",
-            "Big West"
-          ],
-          "predicted": -0.3,
-          "homeWinProbability": 0.488,
-          "market": 2.5,
-          "open": 3.5,
-          "edge": -3.8,
-          "played": false,
-          "tracked": {
-            "dog": "Portland State"
-          }
-        },
-        {
-          "id": 375345,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "5:00\u202fPM ET",
-          "sort": "1700",
-          "home": "Dartmouth",
-          "away": "Holy Cross",
-          "neutral": false,
-          "conferences": [
-            "Ivy",
-            "Patriot"
-          ],
-          "predicted": 16.5,
-          "homeWinProbability": 0.933,
-          "market": 11.5,
-          "open": 11.5,
-          "edge": 5.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378711,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "5:30\u202fPM ET",
-          "sort": "1730",
-          "home": "Providence",
-          "away": "BYU",
-          "neutral": true,
-          "conferences": [
-            "Big 12",
-            "Big East"
-          ],
-          "predicted": -7.2,
-          "homeWinProbability": 0.257,
-          "market": -1.5,
-          "open": -4.5,
-          "edge": -2.7,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Southwest Maui Invitational",
-            "region": null,
-            "round": "Third Place Game",
-            "label": "Southwest Maui Invitational \u00b7 Third Place Game",
-            "detail": "Third Place Game"
-          }
-        },
-        {
-          "id": 378715,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "6:00\u202fPM ET",
-          "sort": "1800",
-          "home": "Charleston",
-          "away": "Kennesaw State",
-          "neutral": true,
-          "conferences": [
-            "CAA",
-            "CUSA"
-          ],
-          "predicted": -1.0,
-          "homeWinProbability": 0.463,
-          "market": 1.5,
-          "open": 1.5,
-          "edge": -2.5,
-          "played": false,
-          "tracked": {
-            "dog": "Kennesaw State"
-          },
-          "event": {
-            "kind": "event",
-            "name": "Cancun Challenge",
-            "region": null,
-            "round": "Consolation",
-            "label": "Cancun Challenge \u00b7 Consolation",
-            "detail": "Consolation"
-          }
-        },
-        {
-          "id": 375347,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "6:00\u202fPM ET",
-          "sort": "1800",
-          "home": "Weber State",
-          "away": "Cal State Northridge",
-          "neutral": false,
-          "conferences": [
-            "Big Sky",
-            "Big West"
-          ],
-          "predicted": -4.1,
-          "homeWinProbability": 0.354,
-          "market": -1.5,
-          "open": -2.5,
-          "edge": -1.6,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 372944,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Duke",
-          "away": "UConn",
-          "neutral": true,
-          "conferences": [
-            "ACC",
-            "Big East"
-          ],
-          "predicted": -0.6,
-          "homeWinProbability": 0.48,
-          "market": -1.5,
-          "open": -1.5,
-          "edge": 0.9,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375349,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Utah State",
-          "away": "SMU",
-          "neutral": true,
-          "conferences": [
-            "ACC",
-            "Pac-12"
-          ],
-          "predicted": 5.1,
-          "homeWinProbability": 0.679,
-          "market": 4.5,
-          "open": 4.5,
-          "edge": 0.6,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": null,
-            "label": "Acrisure Series",
-            "detail": null
-          }
-        },
-        {
-          "id": 372942,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Wisconsin",
-          "away": "Northeastern",
-          "neutral": false,
-          "conferences": [
-            "Big Ten",
-            "CAA"
-          ],
-          "predicted": 22.5,
-          "homeWinProbability": 0.979,
-          "market": 19.5,
-          "open": 21.5,
-          "edge": 1.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375322,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "7:00\u202fPM ET",
-          "sort": "1900",
-          "home": "Northern Kentucky",
-          "away": "Bellarmine",
-          "neutral": false,
-          "conferences": [
-            "ASUN",
-            "Horizon"
-          ],
-          "predicted": 3.8,
-          "homeWinProbability": 0.636,
-          "market": 7.5,
-          "open": 6.5,
-          "edge": -2.7,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378124,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "7:30\u202fPM ET",
-          "sort": "1930",
-          "home": "Mississippi State",
-          "away": "Wake Forest",
-          "neutral": true,
-          "conferences": [
-            "ACC",
-            "SEC"
-          ],
-          "predicted": 3.8,
-          "homeWinProbability": 0.637,
-          "market": 3.5,
-          "open": 4.5,
-          "edge": -0.7,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Battle 4 Atlantis",
-            "region": null,
-            "round": "Championship Bracket",
-            "label": "Battle 4 Atlantis \u00b7 Championship Bracket",
-            "detail": "Championship Bracket"
-          }
-        },
-        {
-          "id": 375350,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "8:00\u202fPM ET",
-          "sort": "2000",
-          "home": "Pepperdine",
-          "away": "Cal State Bakersfield",
-          "neutral": false,
-          "conferences": [
-            "Big West",
-            "WCC"
-          ],
-          "predicted": 7.6,
-          "homeWinProbability": 0.755,
-          "market": 9.5,
-          "open": 11.5,
-          "edge": -3.9,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378716,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "8:30\u202fPM ET",
-          "sort": "2030",
-          "home": "UTEP",
-          "away": "Eastern Michigan",
-          "neutral": true,
-          "conferences": [
-            "MAC",
-            "Mountain West"
-          ],
-          "predicted": -0.9,
-          "homeWinProbability": 0.469,
-          "market": 1.5,
-          "open": 2.5,
-          "edge": -3.4,
-          "played": false,
-          "tracked": {
-            "dog": "Eastern Michigan"
-          },
-          "event": {
-            "kind": "event",
-            "name": "Cancun Challenge",
-            "region": null,
-            "round": "Championship",
-            "label": "Cancun Challenge \u00b7 Championship",
-            "detail": "Championship"
-          }
-        },
-        {
-          "id": 375317,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "9:00\u202fPM ET",
-          "sort": "2100",
-          "home": "New Mexico",
-          "away": "Mississippi Valley State",
-          "neutral": false,
-          "conferences": [
-            "Mountain West",
-            "SWAC"
-          ],
-          "predicted": 38.6,
-          "homeWinProbability": 1.0,
-          "market": 35.5,
-          "open": 35.5,
-          "edge": 3.1,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375351,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "9:00\u202fPM ET",
-          "sort": "2100",
-          "home": "Loyola Marymount",
-          "away": "Eastern Washington",
-          "neutral": false,
-          "conferences": [
-            "Big Sky",
-            "WCC"
-          ],
-          "predicted": 6.7,
-          "homeWinProbability": 0.729,
-          "market": 7.5,
-          "open": 6.5,
-          "edge": 0.2,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 378723,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "9:30\u202fPM ET",
-          "sort": "2130",
-          "home": "Grand Canyon",
-          "away": "Colorado",
-          "neutral": true,
-          "conferences": [
-            "Big 12",
-            "Mountain West"
-          ],
-          "predicted": 9.0,
-          "homeWinProbability": 0.794,
-          "market": 9.5,
-          "open": 9.5,
-          "edge": -0.5,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": "Championship Game",
-            "label": "Acrisure Series \u00b7 Championship Game",
-            "detail": "Championship Game"
-          }
-        },
-        {
-          "id": 378717,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "10:00\u202fPM ET",
-          "sort": "2200",
-          "home": "VCU",
-          "away": "Washington",
-          "neutral": true,
-          "conferences": [
-            "A-10",
-            "Big Ten"
-          ],
-          "predicted": 5.6,
-          "homeWinProbability": 0.696,
-          "market": 3.5,
-          "open": 3.5,
-          "edge": 2.1,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Southwest Maui Invitational",
-            "region": null,
-            "round": "Fifth Place Game",
-            "label": "Southwest Maui Invitational \u00b7 Fifth Place Game",
-            "detail": "Fifth Place Game"
-          }
-        },
-        {
-          "id": 378724,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "11:59\u202fPM ET",
-          "sort": "2359",
-          "home": "Saint Louis",
-          "away": "Stanford",
-          "neutral": true,
-          "conferences": [
-            "A-10",
-            "ACC"
-          ],
-          "predicted": 5.6,
-          "homeWinProbability": 0.696,
-          "market": 3.5,
-          "open": 4.5,
-          "edge": 1.1,
-          "played": false,
-          "tracked": {},
-          "event": {
-            "kind": "event",
-            "name": "Acrisure Series",
-            "region": null,
-            "round": "Third Place Game",
-            "label": "Acrisure Series \u00b7 Third Place Game",
-            "detail": "Third Place Game"
-          }
-        },
-        {
-          "id": 378125,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "11:59\u202fPM ET",
-          "sort": "2359",
-          "home": "Hawai'i",
-          "away": "Incarnate Word",
-          "neutral": false,
-          "conferences": [
-            "Mountain West",
-            "Southland"
-          ],
-          "predicted": 12.6,
-          "homeWinProbability": 0.875,
-          "market": 16.5,
-          "open": 16.5,
-          "edge": -3.9,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375331,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "NC State",
-          "away": "Norfolk State",
-          "neutral": false,
-          "conferences": [
-            "ACC",
-            "MEAC"
-          ],
-          "predicted": 38.0,
-          "homeWinProbability": 1.0,
-          "market": 28.5,
-          "open": 27.5,
-          "edge": 10.5,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 372938,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Saint Louis",
-          "away": "Colorado",
-          "neutral": true,
-          "conferences": [
-            "A-10",
-            "Big 12"
-          ],
-          "predicted": 8.1,
-          "homeWinProbability": 0.768,
-          "market": null,
-          "open": null,
-          "edge": null,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 372943,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Syracuse",
-          "away": "UAlbany",
-          "neutral": false,
-          "conferences": [
-            "ACC",
-            "Am. East"
-          ],
-          "predicted": 29.2,
-          "homeWinProbability": 0.996,
-          "market": 26.5,
-          "open": 27.5,
-          "edge": 1.7,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375327,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "George Mason",
-          "away": "Longwood",
-          "neutral": false,
-          "conferences": [
-            "A-10",
-            "Big South"
-          ],
-          "predicted": 15.7,
-          "homeWinProbability": 0.923,
-          "market": 15.5,
-          "open": 14.5,
-          "edge": 1.2,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375315,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Texas State",
-          "away": "Alcorn State",
-          "neutral": false,
-          "conferences": [
-            "Pac-12",
-            "SWAC"
-          ],
-          "predicted": 32.5,
-          "homeWinProbability": 0.998,
-          "market": 23.5,
-          "open": 23.5,
-          "edge": 9.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375326,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "UNC Wilmington",
-          "away": "St. Thomas-Minnesota",
-          "neutral": false,
-          "conferences": [
-            "CAA",
-            "Summit"
-          ],
-          "predicted": 2.1,
-          "homeWinProbability": 0.577,
-          "market": 6.5,
-          "open": 6.5,
-          "edge": -4.4,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 372939,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Richmond",
-          "away": "Bethune-Cookman",
-          "neutral": false,
-          "conferences": [
-            "A-10",
-            "SWAC"
-          ],
-          "predicted": 9.3,
-          "homeWinProbability": 0.802,
-          "market": 11.5,
-          "open": 12.5,
-          "edge": -3.2,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375333,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Jacksonville State",
-          "away": "Pacific",
-          "neutral": true,
-          "conferences": [
-            "CUSA",
-            "WCC"
-          ],
-          "predicted": -4.5,
-          "homeWinProbability": 0.343,
-          "market": -5.5,
-          "open": -5.5,
-          "edge": 1.0,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375323,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "SIU Edwardsville",
-          "away": "Northern Illinois",
-          "neutral": false,
-          "conferences": [
-            "Horizon",
-            "OVC"
-          ],
-          "predicted": 1.7,
-          "homeWinProbability": 0.562,
-          "market": -3.5,
-          "open": -4.5,
-          "edge": 6.2,
-          "played": false,
-          "tracked": {
-            "dog": "SIU Edwardsville"
-          }
-        },
-        {
-          "id": 372937,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "UC Davis",
-          "away": "Omaha",
-          "neutral": true,
-          "conferences": [
-            "Mountain West",
-            "Summit"
-          ],
-          "predicted": 6.8,
-          "homeWinProbability": 0.732,
-          "market": 6.5,
-          "open": 7.5,
-          "edge": -0.7,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375320,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "Northwestern State",
-          "away": "West Florida",
-          "neutral": false,
-          "conferences": [
-            "ASUN",
-            "Southland"
-          ],
-          "predicted": 4.4,
-          "homeWinProbability": 0.655,
-          "market": 1.5,
-          "open": 1.5,
-          "edge": 2.9,
-          "played": false,
-          "tracked": {}
-        },
-        {
-          "id": 375319,
-          "date": "2026-11-25",
-          "dateLabel": "Wed, Nov 25",
-          "time": "TBD",
-          "sort": "9999",
-          "home": "The Citadel",
-          "away": "South Carolina Upstate",
-          "neutral": false,
-          "conferences": [
-            "Big South",
-            "SoCon"
-          ],
-          "predicted": 5.0,
-          "homeWinProbability": 0.676,
-          "market": 3.5,
-          "open": 4.5,
-          "edge": 0.5,
-          "played": false,
-          "tracked": {}
-        }
-      ]
-    },
     {
       "date": "2026-11-26",
       "label": "Thu, Nov 26",
@@ -1515,11 +21,11 @@
             "ACC",
             "Pac-12"
           ],
-          "predicted": -5.7,
-          "homeWinProbability": 0.302,
+          "predicted": -4.6,
+          "homeWinProbability": 0.338,
           "market": -3.5,
           "open": -2.5,
-          "edge": -3.2,
+          "edge": -2.1,
           "played": false,
           "tracked": {},
           "event": {
@@ -1529,6 +35,35 @@
             "round": "Seventh Place Game",
             "label": "Southwest Maui Invitational \u00b7 Seventh Place Game",
             "detail": "Seventh Place Game"
+          }
+        },
+        {
+          "id": 378724,
+          "date": "2026-11-26",
+          "dateLabel": "Thu, Nov 26",
+          "time": "1:08\u202fAM ET",
+          "sort": "0108",
+          "home": "Saint Louis",
+          "away": "Stanford",
+          "neutral": true,
+          "conferences": [
+            "A-10",
+            "ACC"
+          ],
+          "predicted": 5.2,
+          "homeWinProbability": 0.683,
+          "market": 4.5,
+          "open": 4.5,
+          "edge": 0.7,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Acrisure Series",
+            "region": null,
+            "round": "Third Place Game",
+            "label": "Acrisure Series \u00b7 Third Place Game",
+            "detail": "Third Place Game"
           }
         },
         {
@@ -1545,10 +80,10 @@
             "SEC"
           ],
           "predicted": 5.9,
-          "homeWinProbability": 0.705,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "homeWinProbability": 0.704,
+          "market": 2.5,
+          "open": 1.5,
+          "edge": 4.4,
           "played": false,
           "tracked": {},
           "event": {
@@ -1575,9 +110,9 @@
           ],
           "predicted": -9.7,
           "homeWinProbability": 0.189,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "market": -5.5,
+          "open": -4.5,
+          "edge": -5.2,
           "played": false,
           "tracked": {}
         },
@@ -1594,11 +129,11 @@
             "American",
             "Patriot"
           ],
-          "predicted": 7.3,
-          "homeWinProbability": 0.746,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": 7.1,
+          "homeWinProbability": 0.742,
+          "market": 10.5,
+          "open": 14.5,
+          "edge": -7.4,
           "played": false,
           "tracked": {}
         },
@@ -1616,14 +151,12 @@
             "Pac-12"
           ],
           "predicted": -2.0,
-          "homeWinProbability": 0.428,
-          "market": 4.5,
+          "homeWinProbability": 0.426,
+          "market": -5.5,
           "open": 1.5,
           "edge": -3.5,
           "played": false,
-          "tracked": {
-            "dog": "San Diego State"
-          },
+          "tracked": {},
           "event": {
             "kind": "event",
             "name": "Players Era 16",
@@ -1646,11 +179,11 @@
             "ACC",
             "Big 12"
           ],
-          "predicted": 3.1,
-          "homeWinProbability": 0.61,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": 3.2,
+          "homeWinProbability": 0.615,
+          "market": 2.5,
+          "open": 2.5,
+          "edge": 0.7,
           "played": false,
           "tracked": {},
           "event": {
@@ -1675,11 +208,11 @@
             "Big 12",
             "SEC"
           ],
-          "predicted": 4.8,
-          "homeWinProbability": 0.67,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": 4.2,
+          "homeWinProbability": 0.648,
+          "market": 4.5,
+          "open": 3.5,
+          "edge": 0.7,
           "played": false,
           "tracked": {},
           "event": {
@@ -1705,10 +238,10 @@
             "SEC"
           ],
           "predicted": 11.4,
-          "homeWinProbability": 0.849,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "homeWinProbability": 0.851,
+          "market": 8.5,
+          "open": 8.5,
+          "edge": 2.9,
           "played": false,
           "tracked": {},
           "event": {
@@ -1733,11 +266,11 @@
             "Big 12",
             "SEC"
           ],
-          "predicted": 0.2,
-          "homeWinProbability": 0.509,
-          "market": 2.5,
+          "predicted": 0.3,
+          "homeWinProbability": 0.511,
+          "market": 4.5,
           "open": -1.5,
-          "edge": 1.7,
+          "edge": 1.8,
           "played": false,
           "tracked": {},
           "event": {
@@ -1762,11 +295,11 @@
             "ACC",
             "Big Ten"
           ],
-          "predicted": 7.2,
-          "homeWinProbability": 0.744,
-          "market": -2.5,
+          "predicted": 6.9,
+          "homeWinProbability": 0.735,
+          "market": -1.5,
           "open": -2.5,
-          "edge": 9.7,
+          "edge": 9.4,
           "played": false,
           "tracked": {
             "dog": "Michigan"
@@ -1793,11 +326,11 @@
             "Big Ten",
             "SEC"
           ],
-          "predicted": 5.6,
-          "homeWinProbability": 0.696,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": 5.7,
+          "homeWinProbability": 0.698,
+          "market": 5.5,
+          "open": 5.5,
+          "edge": 0.2,
           "played": false,
           "tracked": {}
         },
@@ -1814,13 +347,15 @@
             "Big Ten",
             "Pac-12"
           ],
-          "predicted": 0.9,
-          "homeWinProbability": 0.534,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": -2.2,
+          "homeWinProbability": 0.42,
+          "market": 1.5,
+          "open": 3.5,
+          "edge": -5.7,
           "played": false,
-          "tracked": {},
+          "tracked": {
+            "dog": "Utah State"
+          },
           "event": {
             "kind": "event",
             "name": "Acrisure Series",
@@ -1845,9 +380,9 @@
           ],
           "predicted": 6.0,
           "homeWinProbability": 0.706,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "market": 7.5,
+          "open": 7.5,
+          "edge": -1.5,
           "played": false,
           "tracked": {},
           "event": {
@@ -1873,14 +408,12 @@
             "Big East"
           ],
           "predicted": 3.2,
-          "homeWinProbability": 0.613,
-          "market": -1.5,
+          "homeWinProbability": 0.615,
+          "market": 1.5,
           "open": -1.5,
           "edge": 4.7,
           "played": false,
-          "tracked": {
-            "dog": "Creighton"
-          },
+          "tracked": {},
           "event": {
             "kind": "event",
             "name": "Players Era 16",
@@ -1903,11 +436,11 @@
             "ACC",
             "SEC"
           ],
-          "predicted": 0.2,
-          "homeWinProbability": 0.509,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": 2.3,
+          "homeWinProbability": 0.584,
+          "market": 6.5,
+          "open": 6.5,
+          "edge": -4.2,
           "played": false,
           "tracked": {},
           "event": {
@@ -1932,13 +465,15 @@
             "ACC",
             "Big East"
           ],
-          "predicted": -0.7,
-          "homeWinProbability": 0.475,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": -0.6,
+          "homeWinProbability": 0.477,
+          "market": 1.5,
+          "open": -1.5,
+          "edge": 0.9,
           "played": false,
-          "tracked": {},
+          "tracked": {
+            "dog": "Pittsburgh"
+          },
           "event": {
             "kind": "event",
             "name": "Fort Myers Tip-Off",
@@ -1961,11 +496,11 @@
             "ACC",
             "Big East"
           ],
-          "predicted": 3.6,
-          "homeWinProbability": 0.628,
-          "market": 3.5,
+          "predicted": 3.5,
+          "homeWinProbability": 0.626,
+          "market": 1.5,
           "open": 4.5,
-          "edge": -0.9,
+          "edge": -1.0,
           "played": false,
           "tracked": {},
           "event": {
@@ -1991,8 +526,8 @@
             "SEC"
           ],
           "predicted": 19.2,
-          "homeWinProbability": 0.96,
-          "market": 14.5,
+          "homeWinProbability": 0.959,
+          "market": 13.5,
           "open": 13.5,
           "edge": 5.7,
           "played": false,
@@ -2019,11 +554,11 @@
             "Summit",
             "WCC"
           ],
-          "predicted": -13.3,
-          "homeWinProbability": 0.113,
-          "market": null,
-          "open": null,
-          "edge": null,
+          "predicted": -12.0,
+          "homeWinProbability": 0.138,
+          "market": -7.5,
+          "open": -8.5,
+          "edge": -3.5,
           "played": false,
           "tracked": {}
         },
@@ -2040,11 +575,11 @@
             "Big 12",
             "Pac-12"
           ],
-          "predicted": -5.4,
-          "homeWinProbability": 0.311,
+          "predicted": -5.5,
+          "homeWinProbability": 0.309,
           "market": -3.5,
           "open": -4.5,
-          "edge": -0.9,
+          "edge": -1.0,
           "played": false,
           "tracked": {},
           "event": {
@@ -2070,8 +605,8 @@
             "Big Ten"
           ],
           "predicted": -14.4,
-          "homeWinProbability": 0.095,
-          "market": -9.5,
+          "homeWinProbability": 0.096,
+          "market": -10.5,
           "open": -8.5,
           "edge": -5.9,
           "played": false,
@@ -2098,8 +633,1017 @@
             "CUSA",
             "Mountain West"
           ],
-          "predicted": -2.1,
-          "homeWinProbability": 0.425,
+          "predicted": -3.1,
+          "homeWinProbability": 0.388,
+          "market": -1.5,
+          "open": -1.5,
+          "edge": -1.6,
+          "played": false,
+          "tracked": {}
+        }
+      ]
+    },
+    {
+      "date": "2026-11-27",
+      "label": "Fri, Nov 27",
+      "games": [
+        {
+          "id": 375374,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "11:00\u202fAM ET",
+          "sort": "1100",
+          "home": "Virginia",
+          "away": "Xavier",
+          "neutral": true,
+          "conferences": [
+            "ACC",
+            "Big East"
+          ],
+          "predicted": 7.5,
+          "homeWinProbability": 0.751,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Battle 4 Atlantis",
+            "region": null,
+            "round": null,
+            "label": "Battle 4 Atlantis",
+            "detail": null
+          }
+        },
+        {
+          "id": 375367,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "12:00\u202fPM ET",
+          "sort": "1200",
+          "home": "St. Thomas-Minnesota",
+          "away": "Liberty",
+          "neutral": true,
+          "conferences": [
+            "CUSA",
+            "Summit"
+          ],
+          "predicted": 3.0,
+          "homeWinProbability": 0.606,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375362,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "1:00\u202fPM ET",
+          "sort": "1300",
+          "home": "Merrimack",
+          "away": "Vermont",
+          "neutral": true,
+          "conferences": [
+            "Am. East",
+            "Metro"
+          ],
+          "predicted": -4.8,
+          "homeWinProbability": 0.33,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "The Island Invitational",
+            "region": null,
+            "round": null,
+            "label": "The Island Invitational",
+            "detail": null
+          }
+        },
+        {
+          "id": 375376,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "1:00\u202fPM ET",
+          "sort": "1300",
+          "home": "UMass Lowell",
+          "away": "Hampton",
+          "neutral": true,
+          "conferences": [
+            "Am. East",
+            "CAA"
+          ],
+          "predicted": 4.4,
+          "homeWinProbability": 0.654,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Capital Thanksgiving Classic",
+            "region": null,
+            "round": null,
+            "label": "Capital Thanksgiving Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 378725,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "1:30\u202fPM ET",
+          "sort": "1330",
+          "home": "Memphis",
+          "away": "Wake Forest",
+          "neutral": true,
+          "conferences": [
+            "ACC",
+            "American"
+          ],
+          "predicted": 1.7,
+          "homeWinProbability": 0.562,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Battle 4 Atlantis",
+            "region": null,
+            "round": "Championship Bracket",
+            "label": "Battle 4 Atlantis \u00b7 Championship Bracket",
+            "detail": "Championship Bracket"
+          }
+        },
+        {
+          "id": 375365,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "2:00\u202fPM ET",
+          "sort": "1400",
+          "home": "Vanderbilt",
+          "away": "Southern",
+          "neutral": false,
+          "conferences": [
+            "SEC",
+            "SWAC"
+          ],
+          "predicted": 38.0,
+          "homeWinProbability": 1.0,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378129,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "2:00\u202fPM ET",
+          "sort": "1400",
+          "home": "Fresno State",
+          "away": "South Alabama",
+          "neutral": true,
+          "conferences": [
+            "Pac-12",
+            "Sun Belt"
+          ],
+          "predicted": -3.7,
+          "homeWinProbability": 0.367,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Second Line Showcase",
+            "region": null,
+            "round": null,
+            "label": "Second Line Showcase",
+            "detail": null
+          }
+        },
+        {
+          "id": 375377,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "2:00\u202fPM ET",
+          "sort": "1400",
+          "home": "Fairfield",
+          "away": "Navy",
+          "neutral": false,
+          "conferences": [
+            "Metro",
+            "Patriot"
+          ],
+          "predicted": 2.0,
+          "homeWinProbability": 0.571,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Mahoney Classic",
+            "region": null,
+            "round": null,
+            "label": "Mahoney Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 375378,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "2:00\u202fPM ET",
+          "sort": "1400",
+          "home": "Le Moyne",
+          "away": "Maine",
+          "neutral": true,
+          "conferences": [
+            "Am. East",
+            "NEC"
+          ],
+          "predicted": 2.4,
+          "homeWinProbability": 0.586,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Lafayette Classic",
+            "region": null,
+            "round": null,
+            "label": "Lafayette Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 372958,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "3:00\u202fPM ET",
+          "sort": "1500",
+          "home": "Butler",
+          "away": "Bellarmine",
+          "neutral": false,
+          "conferences": [
+            "ASUN",
+            "Big East"
+          ],
+          "predicted": 16.6,
+          "homeWinProbability": 0.934,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378130,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "3:00\u202fPM ET",
+          "sort": "1500",
+          "home": "Louisiana Tech",
+          "away": "Texas State",
+          "neutral": false,
+          "conferences": [
+            "Pac-12",
+            "Sun Belt"
+          ],
+          "predicted": -8.7,
+          "homeWinProbability": 0.214,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375363,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "3:00\u202fPM ET",
+          "sort": "1500",
+          "home": "UNC Wilmington",
+          "away": "Princeton",
+          "neutral": false,
+          "conferences": [
+            "CAA",
+            "Ivy"
+          ],
+          "predicted": 6.9,
+          "homeWinProbability": 0.734,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Seahawk Classic",
+            "region": null,
+            "round": null,
+            "label": "Seahawk Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 375380,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "3:30\u202fPM ET",
+          "sort": "1530",
+          "home": "Hofstra",
+          "away": "Colgate",
+          "neutral": false,
+          "conferences": [
+            "CAA",
+            "Patriot"
+          ],
+          "predicted": 4.1,
+          "homeWinProbability": 0.647,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "The Island Invitational",
+            "region": null,
+            "round": null,
+            "label": "The Island Invitational",
+            "detail": null
+          }
+        },
+        {
+          "id": 375379,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "3:30\u202fPM ET",
+          "sort": "1530",
+          "home": "Bucknell",
+          "away": "La Salle",
+          "neutral": true,
+          "conferences": [
+            "A-10",
+            "Patriot"
+          ],
+          "predicted": -11.3,
+          "homeWinProbability": 0.152,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Cathedral Classic",
+            "region": null,
+            "round": null,
+            "label": "Cathedral Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 375366,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "4:00\u202fPM ET",
+          "sort": "1600",
+          "home": "Missouri",
+          "away": "Arkansas-Pine Bluff",
+          "neutral": false,
+          "conferences": [
+            "SEC",
+            "SWAC"
+          ],
+          "predicted": 42.7,
+          "homeWinProbability": 1.0,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 372955,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "4:00\u202fPM ET",
+          "sort": "1600",
+          "home": "George Washington",
+          "away": "UMBC",
+          "neutral": false,
+          "conferences": [
+            "A-10",
+            "Am. East"
+          ],
+          "predicted": 18.7,
+          "homeWinProbability": 0.956,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 372959,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "4:00\u202fPM ET",
+          "sort": "1600",
+          "home": "American University",
+          "away": "Radford",
+          "neutral": false,
+          "conferences": [
+            "Big South",
+            "Patriot"
+          ],
+          "predicted": 5.7,
+          "homeWinProbability": 0.699,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Capital Thanksgiving Classic",
+            "region": null,
+            "round": null,
+            "label": "Capital Thanksgiving Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 377907,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "4:30\u202fPM ET",
+          "sort": "1630",
+          "home": "Boston College",
+          "away": "Cincinnati",
+          "neutral": true,
+          "conferences": [
+            "ACC",
+            "Big 12"
+          ],
+          "predicted": -16.2,
+          "homeWinProbability": 0.07,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "ESPN Events Invitational",
+            "region": null,
+            "round": null,
+            "label": "ESPN Events Invitational",
+            "detail": null
+          }
+        },
+        {
+          "id": 375361,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "4:30\u202fPM ET",
+          "sort": "1630",
+          "home": "Lafayette",
+          "away": "Niagara",
+          "neutral": false,
+          "conferences": [
+            "Metro",
+            "Patriot"
+          ],
+          "predicted": 9.1,
+          "homeWinProbability": 0.797,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Lafayette Classic",
+            "region": null,
+            "round": null,
+            "label": "Lafayette Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 372957,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "5:00\u202fPM ET",
+          "sort": "1700",
+          "home": "Kansas",
+          "away": "Villanova",
+          "neutral": false,
+          "conferences": [
+            "Big 12",
+            "Big East"
+          ],
+          "predicted": 16.7,
+          "homeWinProbability": 0.936,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375381,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "5:00\u202fPM ET",
+          "sort": "1700",
+          "home": "Texas A&M",
+          "away": "Marquette",
+          "neutral": true,
+          "conferences": [
+            "Big East",
+            "SEC"
+          ],
+          "predicted": 4.6,
+          "homeWinProbability": 0.662,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Battle 4 Atlantis",
+            "region": null,
+            "round": null,
+            "label": "Battle 4 Atlantis",
+            "detail": null
+          }
+        },
+        {
+          "id": 375370,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "5:00\u202fPM ET",
+          "sort": "1700",
+          "home": "Virginia Tech",
+          "away": "Old Dominion",
+          "neutral": false,
+          "conferences": [
+            "ACC",
+            "Sun Belt"
+          ],
+          "predicted": 19.1,
+          "homeWinProbability": 0.958,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378128,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "5:30\u202fPM ET",
+          "sort": "1730",
+          "home": "Boise State",
+          "away": "Drake",
+          "neutral": true,
+          "conferences": [
+            "MVC",
+            "Pac-12"
+          ],
+          "predicted": 6.4,
+          "homeWinProbability": 0.72,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Snake River Invitational",
+            "region": null,
+            "round": null,
+            "label": "Snake River Invitational",
+            "detail": null
+          }
+        },
+        {
+          "id": 372951,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "6:00\u202fPM ET",
+          "sort": "1800",
+          "home": "Illinois",
+          "away": "Western Kentucky",
+          "neutral": false,
+          "conferences": [
+            "Big Ten",
+            "CUSA"
+          ],
+          "predicted": 28.5,
+          "homeWinProbability": 0.995,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 372956,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "6:00\u202fPM ET",
+          "sort": "1800",
+          "home": "Indiana",
+          "away": "Bowling Green",
+          "neutral": false,
+          "conferences": [
+            "Big Ten",
+            "MAC"
+          ],
+          "predicted": 24.7,
+          "homeWinProbability": 0.988,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375382,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "6:00\u202fPM ET",
+          "sort": "1800",
+          "home": "Pennsylvania",
+          "away": "Towson",
+          "neutral": false,
+          "conferences": [
+            "CAA",
+            "Ivy"
+          ],
+          "predicted": 6.7,
+          "homeWinProbability": 0.728,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Cathedral Classic",
+            "region": null,
+            "round": null,
+            "label": "Cathedral Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 372952,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:00\u202fPM ET",
+          "sort": "1900",
+          "home": "North Carolina",
+          "away": "West Virginia",
+          "neutral": true,
+          "conferences": [
+            "ACC",
+            "Big 12"
+          ],
+          "predicted": 0.8,
+          "homeWinProbability": 0.528,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Dick Vitale Invitational presented by Belk",
+            "region": null,
+            "round": null,
+            "label": "Dick Vitale Invitational presented by Belk",
+            "detail": null
+          }
+        },
+        {
+          "id": 378131,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:00\u202fPM ET",
+          "sort": "1900",
+          "home": "UCF",
+          "away": "Georgia",
+          "neutral": true,
+          "conferences": [
+            "Big 12",
+            "SEC"
+          ],
+          "predicted": -7.1,
+          "homeWinProbability": 0.26,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "ESPN Events Invitational",
+            "region": null,
+            "round": "Magic Bracket",
+            "label": "ESPN Events Invitational \u00b7 Magic Bracket",
+            "detail": "Magic Bracket"
+          }
+        },
+        {
+          "id": 378132,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:00\u202fPM ET",
+          "sort": "1900",
+          "home": "UC Santa Barbara",
+          "away": "Lehigh",
+          "neutral": true,
+          "conferences": [
+            "Big West",
+            "Patriot"
+          ],
+          "predicted": 13.3,
+          "homeWinProbability": 0.886,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Gratitude Thanksgiving Classic",
+            "region": null,
+            "round": null,
+            "label": "Gratitude Thanksgiving Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 372954,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:00\u202fPM ET",
+          "sort": "1900",
+          "home": "East Tennessee State",
+          "away": "Charleston Southern",
+          "neutral": false,
+          "conferences": [
+            "Big South",
+            "SoCon"
+          ],
+          "predicted": 12.8,
+          "homeWinProbability": 0.878,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "ETSU MTE",
+            "region": null,
+            "round": null,
+            "label": "ETSU MTE",
+            "detail": null
+          }
+        },
+        {
+          "id": 375360,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:30\u202fPM ET",
+          "sort": "1930",
+          "home": "Houston",
+          "away": "Oakland",
+          "neutral": false,
+          "conferences": [
+            "Big 12",
+            "Horizon"
+          ],
+          "predicted": 40.5,
+          "homeWinProbability": 1.0,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378726,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "7:30\u202fPM ET",
+          "sort": "1930",
+          "home": "Penn State",
+          "away": "Mississippi State",
+          "neutral": true,
+          "conferences": [
+            "Big Ten",
+            "SEC"
+          ],
+          "predicted": -8.7,
+          "homeWinProbability": 0.214,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Battle 4 Atlantis",
+            "region": null,
+            "round": "Championship Bracket",
+            "label": "Battle 4 Atlantis \u00b7 Championship Bracket",
+            "detail": "Championship Bracket"
+          }
+        },
+        {
+          "id": 375369,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "8:00\u202fPM ET",
+          "sort": "2000",
+          "home": "Northwestern",
+          "away": "Northeastern",
+          "neutral": false,
+          "conferences": [
+            "Big Ten",
+            "CAA"
+          ],
+          "predicted": 18.3,
+          "homeWinProbability": 0.952,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375359,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "8:00\u202fPM ET",
+          "sort": "2000",
+          "home": "North Texas",
+          "away": "North Dakota State",
+          "neutral": true,
+          "conferences": [
+            "American",
+            "Summit"
+          ],
+          "predicted": 5.4,
+          "homeWinProbability": 0.688,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Snake River Invitational",
+            "region": null,
+            "round": null,
+            "label": "Snake River Invitational",
+            "detail": null
+          }
+        },
+        {
+          "id": 375364,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "8:00\u202fPM ET",
+          "sort": "2000",
+          "home": "Washington State",
+          "away": "Idaho",
+          "neutral": false,
+          "conferences": [
+            "Big Sky",
+            "Pac-12"
+          ],
+          "predicted": 7.8,
+          "homeWinProbability": 0.762,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378134,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "8:00\u202fPM ET",
+          "sort": "2000",
+          "home": "Oral Roberts",
+          "away": "Missouri State",
+          "neutral": false,
+          "conferences": [
+            "CUSA",
+            "Summit"
+          ],
+          "predicted": 2.6,
+          "homeWinProbability": 0.595,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 375371,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "9:00\u202fPM ET",
+          "sort": "2100",
+          "home": "Kentucky",
+          "away": "Wichita State",
+          "neutral": false,
+          "conferences": [
+            "American",
+            "SEC"
+          ],
+          "predicted": 2.7,
+          "homeWinProbability": 0.595,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {}
+        },
+        {
+          "id": 378135,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "10:30\u202fPM ET",
+          "sort": "2230",
+          "home": "Omaha",
+          "away": "Jacksonville State",
+          "neutral": true,
+          "conferences": [
+            "CUSA",
+            "Summit"
+          ],
+          "predicted": -9.4,
+          "homeWinProbability": 0.197,
+          "market": null,
+          "open": null,
+          "edge": null,
+          "played": false,
+          "tracked": {},
+          "event": {
+            "kind": "event",
+            "name": "Resorts World Classic",
+            "region": null,
+            "round": null,
+            "label": "Resorts World Classic",
+            "detail": null
+          }
+        },
+        {
+          "id": 372953,
+          "date": "2026-11-27",
+          "dateLabel": "Fri, Nov 27",
+          "time": "TBD",
+          "sort": "9999",
+          "home": "UC Davis",
+          "away": "Pacific",
+          "neutral": true,
+          "conferences": [
+            "Mountain West",
+            "WCC"
+          ],
+          "predicted": -5.7,
+          "homeWinProbability": 0.301,
           "market": null,
           "open": null,
           "edge": null,
@@ -2110,18 +1654,18 @@
     }
   ],
   "watch": [
-    372944,
-    378709,
-    375335,
-    375349,
-    375341,
-    375340,
-    378711,
-    378124
+    378712,
+    378719,
+    375355,
+    378721,
+    375352,
+    378713,
+    372948,
+    378126
   ],
   "watchKind": "best",
   "results": [],
   "fcs": [],
-  "games": 60,
+  "games": 23,
   "fades": {}
 }

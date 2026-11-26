@@ -1518,7 +1518,12 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "home",
-   "team": "SIU Edwardsville"
+   "team": "SIU Edwardsville",
+   "actual": -3.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -3.5,
+   "clv": 0.0
   },
   {
    "game_id": 375336,
@@ -1530,7 +1535,12 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Southern Utah"
+   "team": "Southern Utah",
+   "actual": -1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 3.0
   },
   {
    "game_id": 375313,
@@ -1542,7 +1552,12 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Portland State"
+   "team": "Portland State",
+   "actual": -7.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 3.5,
+   "clv": -1.0
   },
   {
    "game_id": 378716,
@@ -1554,7 +1569,12 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Eastern Michigan"
+   "team": "Eastern Michigan",
+   "actual": 18.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378708,
@@ -1566,7 +1586,12 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "home",
-   "team": "North Dakota"
+   "team": "North Dakota",
+   "actual": -1.0,
+   "result": "win",
+   "units": 0.909,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 378715,
@@ -1578,7 +1603,48 @@
    "loggedAt": "2026-11-25T14:48:20Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Kennesaw State"
+   "team": "Kennesaw State",
+   "actual": 14.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 378713,
+   "day": "2026-11-26",
+   "home": "Michigan",
+   "away": "Miami",
+   "predicted": 6.9,
+   "taken": -1.5,
+   "loggedAt": "2026-11-26T18:04:35Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Michigan"
+  },
+  {
+   "game_id": 375355,
+   "day": "2026-11-26",
+   "home": "USC",
+   "away": "Utah State",
+   "predicted": -2.2,
+   "taken": 1.5,
+   "loggedAt": "2026-11-26T18:04:35Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Utah State"
+  },
+  {
+   "game_id": 372948,
+   "day": "2026-11-26",
+   "home": "DePaul",
+   "away": "Pittsburgh",
+   "predicted": -0.6,
+   "taken": 1.5,
+   "loggedAt": "2026-11-26T18:04:35Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Pittsburgh"
   }
  ]
 }
