@@ -1620,7 +1620,12 @@
    "loggedAt": "2026-11-26T18:04:35Z",
    "strategy": "dog",
    "side": "home",
-   "team": "Michigan"
+   "team": "Michigan",
+   "actual": -27.0,
+   "result": "loss",
+   "units": -1.0,
+   "close": -1.5,
+   "clv": 0.0
   },
   {
    "game_id": 375355,
@@ -1632,7 +1637,12 @@
    "loggedAt": "2026-11-26T18:04:35Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Utah State"
+   "team": "Utah State",
+   "actual": -4.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
   },
   {
    "game_id": 372948,
@@ -1644,7 +1654,72 @@
    "loggedAt": "2026-11-26T18:04:35Z",
    "strategy": "dog",
    "side": "away",
-   "team": "Pittsburgh"
+   "team": "Pittsburgh",
+   "actual": -7.0,
+   "result": "win",
+   "units": 0.909,
+   "close": 1.5,
+   "clv": 0.0
+  },
+  {
+   "game_id": 378733,
+   "day": "2026-11-27",
+   "home": "St. John's",
+   "away": "Iowa State",
+   "predicted": -1.0,
+   "taken": 1.5,
+   "loggedAt": "2026-11-27T18:33:05Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Iowa State"
+  },
+  {
+   "game_id": 378732,
+   "day": "2026-11-27",
+   "home": "Louisville",
+   "away": "Tennessee",
+   "predicted": -5.5,
+   "taken": 3.5,
+   "loggedAt": "2026-11-27T18:33:05Z",
+   "strategy": "dog",
+   "side": "away",
+   "team": "Tennessee"
+  },
+  {
+   "game_id": 378734,
+   "day": "2026-11-27",
+   "home": "Alabama",
+   "away": "Miami",
+   "predicted": 1.6,
+   "taken": -2.5,
+   "loggedAt": "2026-11-27T18:33:05Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Alabama"
+  },
+  {
+   "game_id": 372952,
+   "day": "2026-11-27",
+   "home": "North Carolina",
+   "away": "West Virginia",
+   "predicted": 0.8,
+   "taken": -3.5,
+   "loggedAt": "2026-11-27T18:33:05Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "North Carolina"
+  },
+  {
+   "game_id": 375381,
+   "day": "2026-11-27",
+   "home": "Texas A&M",
+   "away": "Marquette",
+   "predicted": 4.7,
+   "taken": -1.5,
+   "loggedAt": "2026-11-27T18:33:05Z",
+   "strategy": "dog",
+   "side": "home",
+   "team": "Texas A&M"
   }
  ]
 }
