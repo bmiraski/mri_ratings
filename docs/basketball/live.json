@@ -3,8 +3,8 @@
  "season": 2027,
  "week": null,
  "date": "2026-11-27",
- "updated": "2026-11-28T04:50:35Z",
- "updatedLabel": "11:50 PM ET",
+ "updated": "2026-11-28T04:55:37Z",
+ "updatedLabel": "11:55 PM ET",
  "games": {
   "375374": {
    "status": "completed",
@@ -492,24 +492,35 @@
   },
   "378135": {
    "status": "in_progress",
-   "label": "2nd 10:56",
+   "label": "2nd 7:56",
    "period": 2,
-   "clock": "10:56",
-   "home": 52,
-   "away": 46,
+   "clock": "7:56",
+   "home": 60,
+   "away": 52,
    "possession": null,
-   "homeWinProbability": 0.734,
+   "homeWinProbability": 0.899,
    "upset": "Omaha leads; the model gave them 21% before tip-off"
   },
   "378735": {
    "status": "in_progress",
-   "label": "1st 6:23",
+   "label": "1st 3:57",
    "period": 1,
-   "clock": "6:23",
-   "home": 20,
-   "away": 20,
+   "clock": "3:57",
+   "home": 27,
+   "away": 22,
    "possession": null,
-   "homeWinProbability": 0.72,
+   "homeWinProbability": 0.874,
+   "upset": null
+  },
+  "378736": {
+   "status": "in_progress",
+   "label": "1st 16:46",
+   "period": 1,
+   "clock": "16:46",
+   "home": 9,
+   "away": 9,
+   "possession": null,
+   "homeWinProbability": 0.178,
    "upset": null
   }
  }
